@@ -1,0 +1,50 @@
+<div class="login-comp" style="z-index: -10;">
+</div>
+<p-card class="login-card" styleClass="p-card-shadow shadow-5 border-round-2xl p-2">
+    <div class="flex align-items-center justify-content-center">
+        <img src="/assets/startup.png" alt="logo" height="auto" class="cursor-pointer" style="width: 180px !important;">
+    </div>
+    <h1 class="text-center m-0">Ingresa</h1>
+    <p class="text-center font-medium text-sm">Si necesitas ayuda haz <a href="https://www.ejemplo.com/" class="link-style">click aquí</a>.</p>
+    <form class="formgrid grid mt-6 gap-3" [formGroup]="loginForm">
+        <span class="w-full">
+            <input (keyup)="onKeyUp($event)" type="text" pInputText formControlName="login" class="inputfield w-full p-4 border-round-2xl" placeholder="Correo Electrónico">
+
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="loginForm.controls['login'].valid || !loginForm.controls['login'].dirty" class="alert alert-danger">
+                    <small class="p-error">Escriba un email válido</small>
+                </div>
+            </div>
+        </span>
+
+        <span class="w-full">
+            <p-password inputStyleClass="p-4 border-round-2xl" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Contraseña" class="w-full-psw"></p-password>
+
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="loginForm.controls['password'].valid || !loginForm.controls['password'].dirty" class="alert alert-danger">
+                    <small class="p-error">Debe ingresarse una contraseña</small>
+                </div>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="loginForm.controls['password'].valid || !loginForm.controls['password'].dirty" class="alert alert-danger">
+                    <small *ngIf="loginForm.controls['password'].errors?.['required']" class="error-message">La
+                        contraseña es obligatoria</small>
+                    <small *ngIf="loginForm.controls['password'].errors?.['minlength']" class="error-message">La
+                        contraseña debe tener al menos 6 caracteres</small>
+                </div>
+            </div>
+        </span>
+    </form>
+    <div class="flex flex-row justify-content-end ">
+        <p class="link-style cursor-pointer">Olvidé mi contraseña</p>
+    </div>
+    <p-button type="submit" label="Entrar" (onClick)="onSubmit()" [disabled]="!loginForm.valid" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    <p-divider align="center">
+        <p class="font-medium">O ingresa con tu cuenta:</p>
+    </p-divider>
+    <div class="flex flex-row align-items-center justify-content-around py-2">
+        <!-- <img src="/assets/microsoft.png" alt="inMicrosoft" height="auto" class="cursor-pointer" (click)="logInWithMicrosoft()" style="width: 120px !important;"> -->
+        <img src="/assets/google.png" alt="inGoogle" height="auto" class="cursor-pointer" style="width: 80px !important;">
+    </div>
+    <p class="text-center font-medium text-base">¿No eres miembro? <a class="link-style cursor-pointer text-purple-800">Regístrate</a>.</p>
+</p-card>

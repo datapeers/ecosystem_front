@@ -2,31 +2,36 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { PrimengModule } from './primeng/primeng/primeng.module';
+import { PrimengModule } from './primeng/primeng.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+// ?---------- Components & Services ---------------------
+import { AppComponent } from './app.component';
 import { TopNavComponent } from './navbar/top-nav/top-nav.component';
 import { SideNavComponent } from './navbar/side-nav/side-nav.component';
-import { LoginComponent } from './authentication/login/login.component';
-import { RegisterComponent } from './authentication/register/register.component';
-
-// ?---------- Components ---------------------
+import { SignInComponent } from './authentication/sign-in/sign-in.component';
+import { SignUpComponent } from './authentication/sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { AuthService } from './authentication/auth.service';
+import { appReducers } from '@appStore/app.reducer';
+import { ToastService } from '@shared/services/toast.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopNavComponent,
     SideNavComponent,
-    LoginComponent,
-    RegisterComponent,
+    SignInComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,14 +39,15 @@ import { RegisterComponent } from './authentication/register/register.component'
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth()),
     PrimengModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(appReducers, {}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
-  providers: [],
+  providers: [AuthService, ToastService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
