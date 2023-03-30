@@ -24,7 +24,6 @@ export class AuthService {
   authStatusListener() {
     console.log('a>');
     this.fireAuth.authState.subscribe(async (credential) => {
-      console.log(credential);
       if (credential) {
         this.store.dispatch(new SetUserAction(cloneDeep(credential)));
         this.authStatusSub.next(true);

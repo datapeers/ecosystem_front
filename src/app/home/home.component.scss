@@ -1,0 +1,122 @@
+.container-home {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: url(../../assets/bg2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.router-body {
+  position: relative;
+  height: 100vh; //- (54px + 48px)
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+
+  &.expand-menu {
+    .router-content {
+      width: calc(100% - 240px);
+    }
+  }
+
+  &.hide-menu {
+    .router-content {
+      width: calc(100% - 96px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    &.expand-menu {
+      .router-content {
+        width: 100%;
+      }
+      app-side-nav {
+        width: 100%;
+        position: absolute;
+        z-index: 500;
+        transition: all 0.2s ease;
+      }
+    }
+    &.hide-menu {
+      .router-content {
+        width: 100%;
+      }
+      app-side-nav {
+        width: 0%;
+        position: absolute;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}
+
+app-side-nav {
+  display: flex;
+  width: min-content;
+  height: 100% !important;
+  // z-index: 500;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+}
+.container-home {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: url(../../assets/bg2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.router-body {
+  position: relative;
+  height: 100vh; //- (54px + 48px)
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+
+  &.expand-menu {
+    .router-content {
+      width: calc(100% - 240px);
+    }
+  }
+
+  &.hide-menu {
+    .router-content {
+      width: calc(100% - 96px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    &.expand-menu {
+      .router-content {
+        width: 100%;
+      }
+      app-side-nav {
+        width: 100%;
+        position: absolute;
+        z-index: 500;
+        transition: all 0.2s ease;
+      }
+    }
+    &.hide-menu {
+      .router-content {
+        width: 100%;
+      }
+      app-side-nav {
+        width: 0%;
+        position: absolute;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}
+
+app-side-nav {
+  display: flex;
+  width: min-content;
+  height: 100% !important;
+  // z-index: 500;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+}

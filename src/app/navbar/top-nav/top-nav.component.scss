@@ -1,0 +1,127 @@
+.center-bar {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.options {
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.right-items {
+  display: flex;
+  align-items: center;
+}
+
+.left-items {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.top-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--secondary-color) !important;
+  background-color: white;
+  height: 54px;
+}
+
+.institute-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .p-overlaypanel .p-overlaypanel-content {
+  padding: 10px !important;
+  margin: 0 !important;
+}
+
+::ng-deep .p-divider.p-divider-horizontal {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.notify-s {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 320px;
+  gap: 5px;
+  margin: 0 !important;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  span {
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+::ng-deep .p-menubar {
+  background-color: transparent;
+  border: none;
+  font-family: "Eina01-SemiBold", "Segoe UI", Tahoma, Geneva, Verdana,
+    sans-serif;
+  padding: auto 0;
+  margin: 0;
+}
+
+::ng-deep .p-submenu-list {
+  z-index: 501 !important;
+}
+
+::ng-deep .p-submenu-text {
+  color: #344563;
+  font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+::ng-deep .p-menuitem {
+  height: 100%;
+  padding: auto 0;
+  margin: auto 10px;
+}
+
+::ng-deep .p-menuitem-text {
+  font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+::ng-deep .p-menuitem .p-menuitem-link {
+  padding: 0.5em 0.5em !important;
+}
+
+::ng-deep .p-menubar-root-list {
+  white-space: nowrap;
+  width: auto !important;
+}
+
+::ng-deep .p-ripple .p-element .p-menuitem-link {
+  margin: 4px auto;
+  color: blue;
+}
+
+.hamburger-button {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .hamburger-button {
+    display: flex;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+}

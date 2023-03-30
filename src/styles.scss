@@ -1,8 +1,47 @@
+$background-color: #fff;
+$border-radius: 10px;
+$divider-color: #d9dfe6;
+$black-color: #232323;
+$grey-color: #495057;
+$primary-color: #18e4e6;
+
+// $purple-color: #5100ba;
+$--border-radius: 10px;
+$side-nav-font-size: 16px;
+$side-nav-font-height: 40px;
+$side-nav-icon-size: 24px;
+$side-nav-font-weight: 600;
+
+$side-nav-text-color: #0f2133;
+$side-nav-active-color: var(--side-nav-active-color);
+$side-nav-hover-color: var(--text-color);
+//$text-color: var(--text-color);
 /* You can add global styles to this file, and also import other style files */
+
+$text-color: #172b4d;
+$font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+$font-family-secondary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+body {
+  background-color: rgba($color: #e1e1e2, $alpha: 0.1);
+  font-family: var(--font-family);
+  margin: 0;
+}
 
 ::ng-deep .w-full-psw .p-password {
   width: 100%;
   .p-inputtext {
     width: 100%;
   }
+}
+
+.color-custom {
+  color: $text-color;
+}
+
+@mixin font($font, $weight, $size, $line) {
+  font-family: $font;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $line;
 }

@@ -26,7 +26,8 @@ import { DataViewModule } from 'primeng/dataview';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
 import { TabViewModule } from 'primeng/tabview';
-
+import { MenuModule } from 'primeng/menu';
+import { AvatarModule } from 'primeng/avatar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
@@ -34,6 +35,7 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { TooltipModule } from 'primeng/tooltip';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -73,8 +75,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     OverlayPanelModule,
     SidebarModule,
     TooltipModule,
+    ScrollPanelModule,
     MessagesModule,
     ToastModule,
+    MenuModule,
+    AvatarModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],
