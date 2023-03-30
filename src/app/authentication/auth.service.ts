@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
@@ -23,17 +22,27 @@ export class AuthService {
   }
 
   authStatusListener() {
-    this.fireAuth.onAuthStateChanged((credential) => {
+    console.log('a>');
+    this.fireAuth.authState.subscribe(async (credential) => {
+      console.log(credential);
       if (credential) {
-        console.log(credential);
         this.store.dispatch(new SetUserAction(cloneDeep(credential)));
-        console.log('b');
         this.authStatusSub.next(true);
-        console.log('c');
       } else {
         this.authStatusSub.next(null);
       }
     });
+    // this.fireAuth.onAuthStateChanged((credential) => {
+    //   if (credential) {
+    //     console.log(credential);
+    //     this.store.dispatch(new SetUserAction(cloneDeep(credential)));
+    //     console.log('b');
+    //     this.authStatusSub.next(true);
+    //     console.log('c');
+    //   } else {
+    //     this.authStatusSub.next(null);
+    //   }
+    // });
   }
 
   signIn(email: string, password: string) {

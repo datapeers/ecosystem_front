@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.storeSubscription.unsubscribe();
+    this.storeSubscription?.unsubscribe();
   }
 
   initComponent() {
@@ -76,6 +76,7 @@ export class SignInComponent implements OnInit {
       .signIn(this.loginForm.value.login, this.loginForm.value.password)
       .then(() => {
         this.toast.clear();
+        return;
       })
       .catch((err) => {
         this.authService.fireAuthError(
@@ -83,6 +84,7 @@ export class SignInComponent implements OnInit {
           err.message,
           this.loginForm.value.login
         );
+        return;
       });
   }
 }
