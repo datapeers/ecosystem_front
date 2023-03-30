@@ -23,6 +23,7 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
 import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ToastService } from '@shared/services/toast.service';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

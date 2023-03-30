@@ -40,7 +40,7 @@ export class SignInComponent implements OnInit {
       .select('auth')
       .subscribe(async (auth) => {
         if (auth.logged) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         }
       });
   }
@@ -64,25 +64,25 @@ export class SignInComponent implements OnInit {
     }
   }
 
-  async onSubmit() {
-    if (this.loginForm.valid) {
-      try {
-        this.toast.info({
-          summary: 'Iniciando sesión',
-          detail: 'Validando sus datos, un momento por favor...',
-          life: 12000,
-        });
-        await this.authService.signIn(
-          this.loginForm.value.login,
-          this.loginForm.value.password
-        );
+  onSubmit() {
+    if (!this.loginForm.valid) return;
+    this.toast.info({
+      summary: 'Iniciando sesión',
+      detail: 'Validando sus datos, un momento por favor...',
+      life: 12000,
+      closable: false,
+    });
+    this.authService
+      .signIn(this.loginForm.value.login, this.loginForm.value.password)
+      .then(() => {
         this.toast.clear();
-      } catch (error) {
-        const initCodePosition = error.indexOf('(');
-        const endCodePosition = error.indexOf(')');
-        const code = error.substring(initCodePosition + 1, endCodePosition);
-        this.authService.fireAuthError(code, error, this.loginForm.value.login);
-      }
-    }
+      })
+      .catch((err) => {
+        this.authService.fireAuthError(
+          err.code,
+          err.message,
+          this.loginForm.value.login
+        );
+      });
   }
 }

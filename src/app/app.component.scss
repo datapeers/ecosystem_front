@@ -1,0 +1,22 @@
+$background-color: #fff;
+$border-radius: 10px;
+$divider-color: #d9dfe6;
+$black-color: #232323;
+$grey-color: #495057;
+$primary-color: #18e4e6;
+
+// $purple-color: #5100ba;
+$--border-radius: 10px;
+$side-nav-font-size: 16px;
+$side-nav-font-height: 40px;
+$side-nav-icon-size: 24px;
+$side-nav-font-weight: 600;
+
+body {
+  background-color: rgba($color: #e1e1e2, $alpha: 0.1);
+  font-family: var(--font-family);
+}
+
+.p-toast {
+  z-index: 99999;
+}

@@ -34,6 +34,8 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { TooltipModule } from 'primeng/tooltip';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
@@ -71,6 +73,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     OverlayPanelModule,
     SidebarModule,
     TooltipModule,
+    MessagesModule,
+    ToastModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

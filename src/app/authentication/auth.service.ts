@@ -3,28 +3,35 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { ToastService } from '@shared/services/toast.service';
-
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
+import { SetUserAction } from '@auth/store/auth.actions';
+import { cloneDeep } from 'lodash';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(public fireAuth: AngularFireAuth, public toast: ToastService) {
-    this.authStatusListener();
-  }
-
   currentUser = null;
   private authStatusSub = new BehaviorSubject(this.currentUser);
-  currentAuthStatus = this.authStatusSub.asObservable();
+
+  constructor(
+    public fireAuth: AngularFireAuth,
+    public toast: ToastService,
+    private store: Store<AppState>
+  ) {
+    this.authStatusListener();
+  }
 
   authStatusListener() {
     this.fireAuth.onAuthStateChanged((credential) => {
       if (credential) {
         console.log(credential);
-        this.authStatusSub.next(credential);
-        console.log('User is logged in');
+        this.store.dispatch(new SetUserAction(cloneDeep(credential)));
+        console.log('b');
+        this.authStatusSub.next(true);
+        console.log('c');
       } else {
         this.authStatusSub.next(null);
-        console.log('User is logged out');
       }
     });
   }
@@ -73,6 +80,7 @@ export class AuthService {
         msg = error;
         break;
     }
+    this.toast.clear();
     this.toast.error({
       summary: 'Error al intentar ingresar',
       detail: msg,
