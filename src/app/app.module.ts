@@ -13,11 +13,21 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TopNavComponent } from './navbar/top-nav/top-nav.component';
+import { SideNavComponent } from './navbar/side-nav/side-nav.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { RegisterComponent } from './authentication/register/register.component';
 
 // ?---------- Components ---------------------
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    TopNavComponent,
+    SideNavComponent,
+    LoginComponent,
+    RegisterComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
