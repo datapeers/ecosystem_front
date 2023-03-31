@@ -1,0 +1,11 @@
+.form-field {
+  &.ng-invalid.ng-dirty, &.ng-invalid.ng-touched {
+    & + *.field-help {
+      visibility: visible;
+    }
+  }
+}
+
+.field-help {
+  visibility: hidden;
+}
