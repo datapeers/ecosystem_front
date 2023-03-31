@@ -4,7 +4,15 @@
         <img src="assets/ministerio.jpg" height="30" />
     </div>
     <div class="center-items">
-        aaaaa
+        <span class="p-input-icon-right">
+            <ng-container *ngIf="searchValue; else searchButton">
+                <i class="pi pi-times" (click)="clearSearch()" pTooltip="Cancelar búsqueda"></i>
+            </ng-container>
+            <ng-template #searchButton>
+                <i class="pi pi-search"></i>
+            </ng-template>
+            <input class="p-inputtext" type="text" pInputText placeholder="¿Qué buscas?" [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" style="width: 20vw" />
+        </span>
     </div>
     <div class="right-items flex align-items-center ">
         <ng-container *ngIf="!user?.miniatura else imageTemplate">
