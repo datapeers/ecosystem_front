@@ -12,8 +12,8 @@ export class SetUserAction implements Action {
   constructor(public user: User) {}
 }
 
-export class ClearStoreAction implements Action {
+export class ClearAuthStoreAction implements Action {
   readonly type = CLEAR_STORE;
 }
 
-export type AuthActions = SetUserAction | ClearStoreAction;
+export type AuthActions = SetUserAction | ClearAuthStoreAction;

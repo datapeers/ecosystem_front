@@ -4,8 +4,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import { SetUserAction } from '@auth/store/auth.actions';
+import { ClearAuthStoreAction, SetUserAction } from '@auth/store/auth.actions';
 import { cloneDeep } from 'lodash';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,19 +17,20 @@ export class AuthService {
   constructor(
     public fireAuth: AngularFireAuth,
     public toast: ToastService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {
     this.authStatusListener();
   }
 
   authStatusListener() {
-    console.log('a>');
     this.fireAuth.authState.subscribe(async (credential) => {
       if (credential) {
         this.store.dispatch(new SetUserAction(cloneDeep(credential)));
         this.authStatusSub.next(true);
       } else {
         this.authStatusSub.next(null);
+        this.signOut();
       }
     });
     // this.fireAuth.onAuthStateChanged((credential) => {
@@ -49,7 +51,10 @@ export class AuthService {
   }
 
   signOut() {
-    return this.fireAuth.signOut();
+    sessionStorage.clear();
+    this.store.dispatch(new ClearAuthStoreAction());
+    this.router.navigate(['/sign-in']);
+    this.fireAuth.signOut();
   }
 
   send_remember_email(email): Promise<void> {

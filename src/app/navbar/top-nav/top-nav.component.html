@@ -1,116 +1,20 @@
-<p>top-nav works!</p>
-<div class="top-nav-container px-3 h-4rem">
-    <div class="left-items">
-        <div class="flex align-items-center">
-            <fa-icon *ngIf="menu$ | async" [icon]="faBars" class="hamburger-button" (click)="toggleMenu()"></fa-icon>
-            <!--<img [src]="logo" height="30" />-->
-            <img src="assets/ministerio.jpg" height="30" />
-        </div>
-        <!--<hr style="height:50%;">
-      <div class="institute-selector cursor-pointer" (click)="instituteMenu.toggle($event)">
-        <span class="font-semibold text-ellipsis" [pTooltip]="selectedInstitute.label">{{selectedInstitute.label}}</span>
-      </div>
-      <p-menu #instituteMenu [model]="adminInstitutes" [popup]="true"></p-menu>-->
+<div class="top-nav-container flex flex-row justify-content-between align-content-center p-2">
+    <div class="left-items flex align-items-center">
+        <fa-icon *ngIf="menu$ | async" [icon]="faBars" class="hamburger-button" (click)="toggleMenu()"></fa-icon>
+        <img src="assets/ministerio.jpg" height="30" />
     </div>
-
-
-    <div>
-        <div class="options">
-            <!-- <app-task-indicator></app-task-indicator> -->
-        </div>
-        <span class="p-input-icon-right">
-            <ng-container *ngIf="searchValue; else searchButton">
-                <i class="pi pi-times" (click)="clearSearch()" pTooltip="Cancelar búsqueda"></i>
-            </ng-container>
-            <ng-template #searchButton>
-                <i class="pi pi-search"></i>
-            </ng-template>
-            <input class="p-inputtext" type="text" pInputText placeholder="¿Qué buscas?" [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" style="width: 20vw" />
-
-        </span>
-        <p-overlay #overlayPanel [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom' }" (onHide)="clearSearch()">
-            <ng-container *ngIf="overlayLoading; else elseTemplate">
-                <div class="flex flex-row justify-content-center align-items-center pt-1">
-                    <!-- <p-progressSpinner></p-progressSpinner> -->
-                </div>
-            </ng-container>
-            <ng-template #elseTemplate>
-                <!-- <p-listbox [options]="menuOverlay" (onChange)="goTo($event.value)" [styleClass]="'listbox-search'">
-            <ng-template let-item pTemplate="item">
-              <div class="flex w-full">
-                <p class="font-bold text-black-alpha-90 absolute opacity-80 text-xs border-round-lg p-1">{{item.tag}}</p>
-                <p class="overflow-hidden text-sm mt-4 ml-2">{{item.label}}</p>
-              </div>
-            </ng-template>
-          </p-listbox> -->
-            </ng-template>
-        </p-overlay>
+    <div class="center-items">
+        aaaaa
     </div>
-
-    <div #rightmenu class="right-items">
-
-        <span class="show-md">
-            <span class="cursor-pointer mr-3" severity="warning" pBadge [value]="notifyBadge">
-                <fa-icon [icon]="faBell" size="lg" pTooltip="Notificaciones" tooltipPosition="bottom" (click)="overlayPanelNotify.toggle($event)"></fa-icon>
-            </span>
-
-            <!--<a href="https://www.youtube.com/channel/UCDp-PYfiXrIprTm5vLQarKQ" style="color:#000" target="_blank">
-          <fa-icon [icon]="faQuestionCircle" class="mr-3" size="lg" pTooltip="{{'top_nav.videosHelp' | translate}}"
-            tooltipPosition="bottom"></fa-icon>
-        </a>
-  
-        <a href="https://asteri.atlassian.net/servicedesk/customer/portal/4" style="color:#000" target="_blank">
-          <fa-icon [icon]="faLifeRing" class="mr-3" size="lg" pTooltip="{{'top_nav.help' | translate}}"
-            tooltipPosition="bottom"></fa-icon>
-        </a>-->
-        </span>
-
+    <div class="right-items flex align-items-center ">
         <ng-container *ngIf="!user?.miniatura else imageTemplate">
-            <p-avatar icon="pi pi-user" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="a" tooltipPosition="bottom">
+            <p-avatar icon="pi pi-user" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
             </p-avatar>
         </ng-container>
         <ng-template #imageTemplate>
-            <p-avatar [image]="user?.miniatura ?? ''" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Perfil" tooltipPosition="bottom">
+            <p-avatar [image]="user?.miniatura??''" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
             </p-avatar>
         </ng-template>
-        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+        <p-menu #menu [popup]="true" [model]="items" appendTo="body"></p-menu>
     </div>
 </div>
-
-
-
-
-
-<!-- Notifications panel -->
-<p-overlayPanel #overlayPanelNotify appendTo="body" [dismissable]="true">
-
-    <div class="flex flex-row justify-content-start align-items-center pt-2" style="gap: 10px;">
-        <div class="flex flex-row">
-            <fa-icon [icon]="faBell" size="lg" class="pr-1"></fa-icon>
-            <span>Notificaciones</span>
-        </div>
-    </div>
-
-    <p-divider></p-divider>
-    <div style="max-height: 200px;">
-        <ng-container *ngIf="notifyArray.length === 0; else listNotifications">
-            <!-- <app-empty *ngIf="notifyArray && notifyArray.length === 0" [display]="'notification'"
-          [tittle]="'AÚN NO HAY NOTIFICACIONES'"
-          [description]="'Ahora mismo no tienes notificaciones. Vuelva más tarde'"></app-empty> -->
-        </ng-container>
-        <ng-template #listNotifications>
-            <ng-container *ngFor="let item of notifyArray; let i=index">
-                <div class="notify-s">
-                    <span [pTooltip]="item.message" tooltipPosition="left" class="cursor-pointer" [ngClass]="{'text-gray-500': item.read}">{{item.message}}</span>
-                    <div class="flex flex-row" style="gap: 5px">
-                        <i class="pi pi-check text-green-500 cursor-pointer" pTooltip="Leído" tooltipPosition="left" *ngIf="!item.read" (click)="markAsRead(item)"></i>
-                        <i class="pi pi-trash text-pink-500 cursor-pointer" pTooltip="Eliminar" tooltipPosition="left" (click)="markAsDelete(item, i)"></i>
-                    </div>
-                </div>
-                <p-divider></p-divider>
-            </ng-container>
-        </ng-template>
-
-    </div>
-
-</p-overlayPanel>
