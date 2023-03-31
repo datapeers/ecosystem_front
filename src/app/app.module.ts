@@ -25,6 +25,7 @@ import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { HomeComponent } from './home/home.component';
+import { SideNavItemComponent } from './navbar/side-nav/side-nav-item/side-nav-item.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { HomeComponent } from './home/home.component';
     SignUpComponent,
     ForgotPasswordComponent,
     HomeComponent,
+    SideNavItemComponent,
   ],
   imports: [
     BrowserModule,

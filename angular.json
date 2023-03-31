@@ -32,7 +32,10 @@
               "node_modules/primeflex/primeflex.css"
             ],
             "allowedCommonJsDependencies": ["lodash"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            }
           },
           "configurations": {
             "production": {
