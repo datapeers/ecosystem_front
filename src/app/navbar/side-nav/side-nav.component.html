@@ -22,9 +22,10 @@
             <ng-template *ngIf="menu.header" [ngTemplateOutlet]="headerTemplate" [ngTemplateOutletContext]=" { header: menu.header }"></ng-template>
 
             <ul class="option-list">
-                <app-side-nav-item [disabled]="disabled" *ngFor="let item of menu.options" [item]="item" [expanded]="menuExpanded"></app-side-nav-item>
+                <ng-container *ngFor="let item of menu.options">
+                    <app-side-nav-item [disabled]="disabled" [item]="item" [expanded]="menuExpanded"></app-side-nav-item>
+                </ng-container>
             </ul>
-
             <div class="px-3"> <p-divider styleClass="px-0 mx-0"></p-divider></div>
             <div [pTooltip]="menuExpanded ? 'Contraer' : 'Expandir'" class="flex flex-row w-full justify-content-end cursor-pointer toggle-menu pr-5" (click)="toggleMenu()">
                 <fa-icon [icon]="menuExpanded ? faAngleDoubleLeft : faAngleDoubleRight" class="option"></fa-icon>

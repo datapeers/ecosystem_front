@@ -35,7 +35,7 @@ export class User implements IUser {
     this.emailVerified = user.emailVerified;
     this.signUp = user.signUp;
     this.phone = user.phone;
-    this.rol = user.rol;
+    this.rol = user.rol ?? 'admin';
     this.extraData = user.extraData;
   }
 

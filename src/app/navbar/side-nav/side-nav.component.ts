@@ -117,9 +117,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   updateMenu() {
     const menuType = getDeepestData(this.routeOpt.snapshot.root, 'menu');
-    console.log(this.routeOpt.snapshot.root, menuType);
     if (this.lastMenu !== menuType) {
-      console.log('b');
       this.lastMenu = menuType;
       this.setMenu(menuType);
     }
@@ -137,7 +135,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   async setMenu(type: string) {
     this.sub$?.unsubscribe();
-    console.log('c');
     switch (type) {
       case 'edit':
         //Space name can change here thats why we subscribe to the observables
@@ -181,11 +178,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
       default:
         //The user only changes when leaving the home component which at the moment destroys this component first
         //Thats why we use a promise instead
-        console.log('d');
         this.onUser().then(async (userStore) => {
           const user = new User(userStore);
           const homeMenu = await this.homeService.getDefaultHomeMenu(user);
-          console.log('e', homeMenu);
           this.store.dispatch(new SetMenuAction(homeMenu));
         });
         break;

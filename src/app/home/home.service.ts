@@ -22,7 +22,7 @@ import {
   faVolumeHigh,
   faWaveSquare,
 } from '@fortawesome/free-solid-svg-icons';
-import { IMenuOption } from '@shared/models/menu';
+import { IMenu, IMenuOption } from '@shared/models/menu';
 import { User } from '@shared/models/user';
 
 @Injectable({
@@ -31,7 +31,7 @@ import { User } from '@shared/models/user';
 export class HomeService {
   constructor() {}
 
-  async getDefaultHomeMenu(user: User): Promise<IMenuOption[]> {
+  async getDefaultHomeMenu(user: User): Promise<IMenu> {
     const options = this.optionsMenu();
     let rolOptions: (keyof typeof options)[] = [];
     switch (user.rol) {
@@ -78,7 +78,7 @@ export class HomeService {
     const outputOptions: IMenuOption[] = rolOptions.map(
       (optKey) => options[optKey] as IMenuOption
     );
-    return outputOptions;
+    return { options: outputOptions };
   }
 
   optionsMenu() {
