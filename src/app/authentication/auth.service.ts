@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
@@ -22,7 +22,6 @@ export class AuthService {
   }
 
   authStatusListener() {
-    console.log('a>');
     this.fireAuth.authState.subscribe(async (credential) => {
       if (credential) {
         this.store.dispatch(new SetUserAction(cloneDeep(credential)));
@@ -52,7 +51,7 @@ export class AuthService {
     return this.fireAuth.signOut();
   }
 
-  send_remember_email(email): Promise<void> {
+  sendPasswordResetEmail(email: string): Promise<void> {
     return this.fireAuth.sendPasswordResetEmail(email);
   }
 

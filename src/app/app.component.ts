@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from '@appStore/app.reducer';
-import { Store } from '@ngrx/store';
 import { AuthService } from './authentication/auth.service';
 
 @Component({
