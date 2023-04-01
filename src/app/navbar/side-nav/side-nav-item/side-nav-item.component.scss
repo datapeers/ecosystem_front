@@ -1,0 +1,68 @@
+@import "../../../../styles.scss";
+
+.option {
+  &:focus-visible {
+    outline: none;
+  }
+  &:hover {
+    cursor: pointer;
+    color: var(--second-color);
+    background: lightgrey;
+  }
+  padding-right: 4px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  //Box used to create a solid color bar at the start of the option
+  .marker-box {
+    border-style: solid;
+    border-width: 20px 2px;
+    border-color: transparent;
+  }
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  &.closed {
+    gap: 32px;
+  }
+  fa-icon {
+    width: 24px;
+    color: $grey-color;
+    height: $side-nav-font-height;
+    text-align: center;
+    line-height: $side-nav-font-height;
+    font-size: $side-nav-icon-size;
+    transition: all 0.3 ease;
+  }
+  span {
+    font-size: $side-nav-font-size;
+    line-height: $side-nav-font-height;
+  }
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  text-align: left;
+}
+
+.current {
+  .marker-box {
+    border-color: var(--primary-color);
+  }
+  color: var(--primary-color) !important;
+  font-weight: 700;
+  background-color: rgba($color: #e1e1e2, $alpha: 0.64);
+  fa-icon {
+    color: var(--primary-color) !important;
+  }
+  span {
+    font-weight: 600;
+  }
+}
+
+.option-list {
+  max-width: 100%;
+  overflow-x: hidden;
+  user-select: none;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

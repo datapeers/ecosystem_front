@@ -1,1 +1,56 @@
-<p>side-nav works!</p>
+<p-scrollPanel #mainsidenavcontainer styleClass="p-0" [scrollLeft]="false" class="menu-container custom-scroll-panel surface-overlay" [ngClass]="{ 'cursor-move' : isDragging }">
+    <ng-container *ngIf="menu">
+        <div class="w-full flex flex-row justify-content-center align-content-center pr-2 py-4">
+            <img class="w-9" src="/assets/startup.png" />
+        </div>
+        <div [ngClass]="{ 'open' : menuExpanded, 'close' : !(menuExpanded)  }">
+            <ng-container *ngIf="menu.returnPath">
+                <ng-container *ngIf="(menuExpanded); else minMenu">
+                    <div class="flex w-full justify-content-center align-items-center mb-2">
+                        <button pButton pRipple type="button" [label]="'Regresar'" pTooltip="Regresar" icon="pi pi-arrow-circle-left" class="p-button-text return" (click)="return()">
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-template #minMenu>
+                    <div class="flex w-full justify-content-center align-items-center mb-2">
+                        <button pButton pRipple type="button" [label]="''" pTooltip="Regresar" icon="pi pi-arrow-circle-left" class="p-button-text return" (click)="return()">
+                        </button>
+                    </div>
+                </ng-template>
+            </ng-container>
+
+            <ng-template *ngIf="menu.header" [ngTemplateOutlet]="headerTemplate" [ngTemplateOutletContext]=" { header: menu.header }"></ng-template>
+
+            <ul class="option-list">
+                <ng-container *ngFor="let item of menu.options">
+                    <app-side-nav-item [disabled]="disabled" [item]="item" [expanded]="menuExpanded"></app-side-nav-item>
+                </ng-container>
+            </ul>
+            <div class="px-3"> <p-divider styleClass="px-0 mx-0"></p-divider></div>
+            <div [pTooltip]="menuExpanded ? 'Contraer' : 'Expandir'" class="flex flex-row w-full justify-content-end cursor-pointer toggle-menu pr-5" (click)="toggleMenu()">
+                <fa-icon [icon]="menuExpanded ? faAngleDoubleLeft : faAngleDoubleRight" class="option"></fa-icon>
+            </div>
+            <div class="px-3"> <p-divider styleClass="px-0 mx-0"></p-divider></div>
+        </div>
+    </ng-container>
+</p-scrollPanel>
+
+
+
+<ng-template #headerTemplate let-header="header">
+    <div class="logo-details px-3">
+        <ng-container *ngIf="header.avatar">
+            <ng-container *ngIf="header.avatar === ''; else elseTemplate">
+                <p-avatar [label]="header.title[0]" styleClass="avatar-size cursor-pointer" (click)="toggleMenu()" [pTooltip]="header.title"></p-avatar>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <img [src]="header.avatar" class="avatar-size cursor-pointer" style="object-fit: contain;" (click)="toggleMenu()" [pTooltip]="header.title">
+            </ng-template>
+        </ng-container>
+
+        <div class="logo_name">
+            <span class="title-menu" [pTooltip]="header.title" tooltipPosition="right">{{header.title}}</span>
+            <span class="subtitle-menu">{{header.subTitle}}</span>
+        </div>
+    </div>
+</ng-template>

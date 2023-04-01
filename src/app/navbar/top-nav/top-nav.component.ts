@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
+import { AuthService } from '@auth/auth.service';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   faBars,
@@ -15,7 +16,7 @@ import { ToggleMenuAction } from '@home/store/home.actions';
 import { Store } from '@ngrx/store';
 import { IMenu, IMenuOption } from '@shared/models/menu';
 import { ToastService } from '@shared/services/toast.service';
-import { MegaMenuItem, MenuItem } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import {
   debounceTime,
   filter,
@@ -31,17 +32,9 @@ import {
   styleUrls: ['./top-nav.component.scss'],
 })
 export class TopNavComponent {
-  items: MegaMenuItem[];
+  items: MenuItem[];
   user: any;
   user$: Subscription;
-  rolUser: any;
-
-  userItems: MenuItem[] = [];
-  adminItems: MenuItem[] = [];
-  instituteSelectItem: MenuItem;
-  selectedInstitute: { label: string; _id: string };
-  adminInstitutes: MenuItem[];
-  logo = '/assets/vinku/thumbnail_vinku2.png';
 
   faBars = faBars as IconProp;
   faTh = faTh as IconProp;
@@ -52,10 +45,6 @@ export class TopNavComponent {
 
   menu$: Observable<IMenu>;
 
-  notifyArray = [];
-  notifyBadge = '0';
-  loadedNotifications = false;
-  @ViewChild('overlayPanelNotify') overlayPanelNotify;
   @ViewChild('rightmenu') rightmenu;
 
   searchValue: string;
@@ -64,12 +53,8 @@ export class TopNavComponent {
   onDestroy$: Subject<Boolean> = new Subject<Boolean>();
   overlayVisible = false;
   overlayLoading = true;
-  mainMenu: IMenuOption[];
   menuOverlay = [];
-  config;
-  spacesUser = [];
-
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, public auth: AuthService) {
     this.menu$ = this.store.select((storeState) => storeState.home.menu);
     this.search$
       .pipe(
@@ -103,45 +88,24 @@ export class TopNavComponent {
         //  this.user = new User(userStore);
         // this.rolUser = this.user.get_rol();
       });
+    this.items = [
+      {
+        label: 'Perfil',
+        icon: 'pi pi-user',
+        routerLink: ['/perfil'],
+      },
+      {
+        label: 'Salir',
+        icon: 'pi pi-sign-out',
+        command: () => {
+          this.auth.signOut();
+        },
+      },
+    ];
   }
 
   toggleMenu() {
     this.store.dispatch(new ToggleMenuAction());
-  }
-
-  get extraFields(): MenuItem[] {
-    return [
-      {
-        styleClass: 'hide-md',
-        label: 'Tutoriales',
-        icon: 'pi pi-question-circle',
-        command: () => {
-          window.open(
-            'https://www.youtube.com/channel/UCDp-PYfiXrIprTm5vLQarKQ',
-            '_blank'
-          );
-        },
-      },
-      {
-        styleClass: 'hide-md',
-        label: 'Ayuda',
-        icon: 'pi pi-info',
-        command: () => {
-          window.open(
-            'https://www.youtube.com/channel/UCDp-PYfiXrIprTm5vLQarKQ',
-            '_blank'
-          );
-        },
-      },
-      {
-        styleClass: 'hide-md',
-        label: 'Notificaciones',
-        icon: 'pi pi-bell',
-        command: ($event) => {
-          this.overlayPanelNotify.toggle($event, this.rightmenu.nativeElement);
-        },
-      },
-    ];
   }
 
   goTo(option: IMenuOption) {

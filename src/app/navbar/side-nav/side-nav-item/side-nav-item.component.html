@@ -1,0 +1,32 @@
+<ng-container [ngSwitch]="item.type">
+    <ng-container *ngSwitchCase="'single'">
+        <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item }"></ng-template>
+    </ng-container>
+    <ng-container *ngSwitchCase="'dropdown'">
+        <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item }"></ng-template>
+        <li *ngIf="item.opened && expanded">
+            <ul class="option-list">
+                <app-side-nav-item [disabled]="disabled" [expanded]="expanded" *ngFor="let child of item.children" [level]="(level + 1)" [item]="child"></app-side-nav-item>
+            </ul>
+        </li>
+    </ng-container>
+    <ng-container *ngSwitchCase="'section'">
+        <div class="pr-3 pl-3"> <p-divider styleClass="px-0 mx-0"></p-divider> </div>
+        <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item }"></ng-template>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+    </ng-container>
+</ng-container>
+
+
+
+<ng-template #itemTemplate let-item="item">
+    <li class="p-1" [pTooltip]="expanded ? null : item.label" tooltipPosition="right" [ngStyle]="{'pointer-events': disabled ? 'none' : null}" (click)="optionAction(item)" [ngClass]="['option', item.class??'', expanded?'':'closed']" router [queryParams]="item.queryParamsRute" [routerLink]="item?.rute" routerLinkActive="current">
+        <div class="marker-box"></div>
+        <div *ngFor="let i of deep"></div>
+        <fa-icon [icon]="item.icon"></fa-icon>
+        <ng-container *ngIf="expanded">
+            <span class="text-ellipsis">{{item.label}}</span>
+        </ng-container>
+    </li>
+</ng-template>

@@ -26,6 +26,7 @@ import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { HomeComponent } from './home/home.component';
 import { BackgroundComponent } from './shared/components/layout/background/background.component';
+import { SideNavItemComponent } from './navbar/side-nav/side-nav-item/side-nav-item.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BackgroundComponent } from './shared/components/layout/background/backg
     ForgotPasswordComponent,
     HomeComponent,
     BackgroundComponent,
+    SideNavItemComponent,
   ],
   imports: [
     BrowserModule,
