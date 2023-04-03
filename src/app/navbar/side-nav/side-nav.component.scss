@@ -42,7 +42,7 @@
   width: 100%;
   justify-content: center;
   cursor: pointer;
-  color: $grey-color;
+  color: var(--primary-color);
 }
 
 .logo-details {
@@ -59,7 +59,7 @@
 
 .logo-details fa-icon {
   font-size: 30px;
-  color: $grey-color;
+  color: var(--primary-color);
   height: 50px;
   min-width: 96px;
   text-align: center;
@@ -83,7 +83,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: $grey-color;
+  color: var(--primary-color);
   font-weight: 600;
   // max-width: 210px;
 }
@@ -93,7 +93,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: $grey-color;
+  color: var(--primary-color);
   font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: normal;
 }
@@ -135,7 +135,7 @@
 }
 
 .nav-links li fa-icon {
-  color: $grey-color;
+  color: var(--primary-color);
   height: $side-nav-font-height;
   min-width: 96px;
   text-align: center;
@@ -176,7 +176,7 @@
 .nav-links li .sub-menu {
   padding: 6px 0 6px 0;
   margin-top: -10px;
-  color: $grey-color;
+  color: var(--primary-color);
   display: none;
   fa-icon {
     padding-left: 70px;
@@ -184,7 +184,7 @@
 }
 
 .nav-links li .sub-menu .option {
-  color: $grey-color;
+  color: var(--primary-color);
   font-size: 14px;
   padding: 5px 0;
   white-space: nowrap;
@@ -248,7 +248,7 @@
 }
 
 .return {
-  color: $grey-color;
+  color: var(--primary-color);
   gap: 5px;
 }
 
