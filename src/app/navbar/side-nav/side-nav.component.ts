@@ -20,7 +20,7 @@ import {
 import { cloneDeep } from 'lodash';
 import { SetMenuAction, ToggleMenuAction } from '@home/store/home.actions';
 import { getDeepestData } from '@shared/functions/router.utils';
-import { User } from '@shared/models/user';
+import { User } from '@shared/models/auth/user';
 import {
   faAngleDoubleLeft,
   faAngleDoubleRight,

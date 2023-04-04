@@ -13,6 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from '@angular/common/http';
+import { GraphQLModule } from '@graphqlApollo/graphql.module';
 
 // ?---------- Components & Services ---------------------
 import { AppComponent } from './app.component';
@@ -54,6 +56,8 @@ import { SideNavItemComponent } from './navbar/side-nav/side-nav-item/side-nav-i
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FontAwesomeModule,
+    GraphQLModule,
+    HttpClientModule,
   ],
   providers: [AuthService, ToastService],
   bootstrap: [AppComponent],

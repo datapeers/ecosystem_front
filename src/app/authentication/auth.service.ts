@@ -7,6 +7,7 @@ import { AppState } from '@appStore/app.reducer';
 import { ClearAuthStoreAction, SetUserAction } from '@auth/store/auth.actions';
 import { cloneDeep } from 'lodash';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +19,8 @@ export class AuthService {
     public fireAuth: AngularFireAuth,
     public toast: ToastService,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private userService: UserService,
   ) {
     this.authStatusListener();
   }
@@ -26,24 +28,14 @@ export class AuthService {
   authStatusListener() {
     this.fireAuth.authState.subscribe(async (credential) => {
       if (credential) {
-        this.store.dispatch(new SetUserAction(cloneDeep(credential)));
+        const userData = await this.userService.getUserByUid(credential.uid);
+        this.store.dispatch(new SetUserAction(userData));
         this.authStatusSub.next(true);
       } else {
         this.authStatusSub.next(null);
         this.signOut();
       }
     });
-    // this.fireAuth.onAuthStateChanged((credential) => {
-    //   if (credential) {
-    //     console.log(credential);
-    //     this.store.dispatch(new SetUserAction(cloneDeep(credential)));
-    //     console.log('b');
-    //     this.authStatusSub.next(true);
-    //     console.log('c');
-    //   } else {
-    //     this.authStatusSub.next(null);
-    //   }
-    // });
   }
 
   signIn(email: string, password: string) {

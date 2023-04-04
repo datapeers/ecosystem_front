@@ -1,4 +1,4 @@
-import { User } from '@shared/models/user';
+import { User } from '@shared/models/auth/user';
 import * as fromAuth from './auth.actions';
 export interface IAuthState {
   user: User;
@@ -20,7 +20,7 @@ export function authReducer(
     case fromAuth.SET_USER:
       return {
         ...state,
-        user: action.user,
+        user: new User(action.user),
         loaded: true,
         logged: true,
       };
