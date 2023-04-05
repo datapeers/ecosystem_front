@@ -18,29 +18,21 @@ import { GraphQLModule } from '@graphqlApollo/graphql.module';
 
 // ?---------- Components & Services ---------------------
 import { AppComponent } from './app.component';
-import { TopNavComponent } from './navbar/top-nav/top-nav.component';
-import { SideNavComponent } from './navbar/side-nav/side-nav.component';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
-import { HomeComponent } from './home/home.component';
 import { BackgroundComponent } from './shared/components/layout/background/background.component';
-import { SideNavItemComponent } from './navbar/side-nav/side-nav-item/side-nav-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopNavComponent,
-    SideNavComponent,
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    HomeComponent,
     BackgroundComponent,
-    SideNavItemComponent,
   ],
   imports: [
     BrowserModule,

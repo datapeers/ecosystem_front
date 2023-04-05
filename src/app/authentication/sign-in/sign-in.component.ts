@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import {
   UntypedFormGroup,
@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import { Subscription } from 'rxjs';
+import { Subject, first, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastService } from '@shared/services/toast.service';
 @Component({
@@ -15,9 +15,9 @@ import { ToastService } from '@shared/services/toast.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
   loginForm: UntypedFormGroup;
-  storeSubscription: Subscription;
+  onDestroy$: Subject<void> = new Subject();
   constructor(
     public authService: AuthService,
     private store: Store<AppState>,
@@ -32,15 +32,24 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.storeSubscription?.unsubscribe();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   initComponent() {
-    this.storeSubscription = this.store
-      .select('auth')
+    this.store
+      .select(state => state.auth)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        first(state => state.logged)
+      )
       .subscribe(async (auth) => {
         if (auth.logged) {
-          this.router.navigate(['/home']);
+          if(auth.user.isUser) {
+            this.router.navigate(['/user']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         }
       });
   }
