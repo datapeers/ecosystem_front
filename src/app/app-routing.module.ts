@@ -6,11 +6,10 @@ import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { RoleGuard } from '@auth/guards/role.guard';
 import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
 
-
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'register-user', component: SignUpComponent },
+  { path: 'register', component: SignUpComponent },
   {
     path: 'home',
     canMatch: [AuthGuard, RoleGuard],
