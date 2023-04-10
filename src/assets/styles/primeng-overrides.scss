@@ -4,3 +4,9 @@
     width: 100%;
   } 
 }
+
+.tabview-content-fit {
+  .p-tabview-panels {
+    padding: 0;
+  }
+}
