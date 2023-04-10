@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  api: 'http://localhost:3000',
   graphql: 'http://localhost:3000/graphql',
   graphqlSubscription: 'ws://localhost:2500/subscriptions',
   firebase: {
