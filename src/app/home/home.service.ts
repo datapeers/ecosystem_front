@@ -23,7 +23,7 @@ import {
   faWaveSquare,
 } from '@fortawesome/free-solid-svg-icons';
 import { IMenu, IMenuOption } from '@shared/models/menu';
-import { User } from '@shared/models/user';
+import { User } from '@shared/models/auth/user';
 
 @Injectable({
   providedIn: 'root',

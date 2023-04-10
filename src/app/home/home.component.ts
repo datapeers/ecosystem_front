@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, Observable, Subscription } from 'rxjs';
+import { User } from '@shared/models/auth/user';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +10,16 @@ import { firstValueFrom, Observable, Subscription } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  user$: Observable<any | null>;
-  menuExpanded$: Subscription;
-  user: any;
+  user$: Observable<User | null>;
+  onDestroy$: Subject<void> = new Subject();
+  user: User;
   loading: boolean = true;
   menuExpanded: boolean;
   @ViewChild('mainPanel') scrollbarPanel;
   constructor(private store: Store<AppState>) {
-    this.menuExpanded$ = this.store
+    this.store
       .select((storeState) => storeState.home.menuExpanded)
+      .pipe(takeUntil(this.onDestroy$))
       .subscribe((expanded) => {
         this.menuExpanded = expanded;
         //This is used as a quick fix to re-calculate the scrollbar position
@@ -38,7 +40,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.menuExpanded$?.unsubscribe();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   async loadComponent() {

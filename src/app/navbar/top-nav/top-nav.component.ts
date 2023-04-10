@@ -1,30 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  faBars,
-  faTh,
-  faCog,
-  faLifeRing,
-  faQuestionCircle,
-  faBell,
-} from '@fortawesome/free-solid-svg-icons';
-import { HomeService } from '@home/home.service';
+import { faBars, faTh, faCog, faLifeRing, faQuestionCircle, faBell, } from '@fortawesome/free-solid-svg-icons';
 import { ToggleMenuAction } from '@home/store/home.actions';
 import { Store } from '@ngrx/store';
+import { User } from '@shared/models/auth/user';
+import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
 import { IMenu, IMenuOption } from '@shared/models/menu';
-import { ToastService } from '@shared/services/toast.service';
-import { MenuItem } from 'primeng/api';
-import {
-  debounceTime,
-  filter,
-  Observable,
-  Subject,
-  Subscription,
-  takeUntil,
-} from 'rxjs';
+import { ProtectedMenuItem } from '@shared/models/primeng/protected-menu-item';
+import { debounceTime, filter, Observable, Subject, takeUntil, } from 'rxjs';
 
 @Component({
   selector: 'app-top-nav',
@@ -32,9 +17,29 @@ import {
   styleUrls: ['./top-nav.component.scss'],
 })
 export class TopNavComponent {
-  items: MenuItem[];
-  user: any;
-  user$: Subscription;
+  availableItems: ProtectedMenuItem[] = [
+    {
+      label: 'Perfil',
+      icon: 'pi pi-user',
+      routerLink: ['/perfil'],
+    },
+    {
+      label: 'Usuarios',
+      icon: 'pi pi-users',
+      routerLink: ['/home/admin'],
+      roles: [ ValidRoles.superAdmin, ValidRoles.admin ]
+    },
+    {
+      label: 'Salir',
+      icon: 'pi pi-sign-out',
+      command: () => {
+        this.auth.signOut();
+      },
+    },
+  ];
+  
+  items: ProtectedMenuItem[];
+  user: User;
 
   faBars = faBars as IconProp;
   faTh = faTh as IconProp;
@@ -50,11 +55,14 @@ export class TopNavComponent {
   searchValue: string;
   search$: Subject<String> = new Subject<String>();
 
-  onDestroy$: Subject<Boolean> = new Subject<Boolean>();
+  onDestroy$: Subject<void> = new Subject();
   overlayVisible = false;
   overlayLoading = true;
   menuOverlay = [];
-  constructor(private store: Store<AppState>, public auth: AuthService) {
+  constructor(
+    private readonly store: Store<AppState>,
+    private readonly auth: AuthService,
+  ) {
     this.menu$ = this.store.select((storeState) => storeState.home.menu);
     this.search$
       .pipe(
@@ -69,39 +77,29 @@ export class TopNavComponent {
         }
       });
   }
+
   ngOnInit() {
     this.loadComponent();
   }
 
   ngOnDestroy() {
-    this.user$?.unsubscribe();
-    this.onDestroy$.next(true);
+    this.onDestroy$.next();
     this.onDestroy$.complete();
   }
 
   async loadComponent() {
-    this.user$ = this.store
+    this.store
       .select((store) => store.auth.user)
+      .pipe(
+        filter(user => !!user), // Avoid null and undefined values
+        takeUntil(this.onDestroy$)
+      )
       .subscribe(async (user) => {
-        if (!user) return;
-        const userStore = user;
-        //  this.user = new User(userStore);
-        // this.rolUser = this.user.get_rol();
+        this.user = user;
+        this.items = this.availableItems.filter(item => {
+          return item.roles?.some(rol => user.roles.includes(rol)) ?? true;
+        })
       });
-    this.items = [
-      {
-        label: 'Perfil',
-        icon: 'pi pi-user',
-        routerLink: ['/perfil'],
-      },
-      {
-        label: 'Salir',
-        icon: 'pi pi-sign-out',
-        command: () => {
-          this.auth.signOut();
-        },
-      },
-    ];
   }
 
   toggleMenu() {

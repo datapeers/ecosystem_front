@@ -16,7 +16,6 @@ export class ToastService {
   }
 
   info(msg: IToastMessage) {
-    console.log(this.key);
     this.messageService.add({
       severity: 'info',
       key: this.key,

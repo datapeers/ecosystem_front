@@ -1,0 +1,84 @@
+<p-table styleClass="p-datatable-customers" #dt [value]="invitations" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} invitaciones" [filterDelay]="0" [globalFilterFields]="['_id','nombre', 'invitado', 'invitateForName','rolName', 'estado']">
+  <ng-template pTemplate="caption">
+    <div class="flex flex-row justify-content-between align-items-center">
+      <div class="text-2xl">
+        <span class="pl-2 font-semibold">Invitaciones</span>
+      </div>
+      <div class="flex flex-row gap-2">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+        </span>
+        <p-button type="button" label="Invitar" class="font-semibold" (onClick)="openInvitationDialog()"></p-button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="email">Correo<p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="createdBy">Invitado por<p-sortIcon field="createdBy"></p-sortIcon>
+      </th>
+      <th pSortableColumn="rol">Rol esperado<p-sortIcon field="rol"></p-sortIcon>
+      </th>
+      <th pSortableColumn="state">Estado<p-sortIcon field="state"></p-sortIcon>
+      </th>
+      <th pSortableColumn="createdAt">Creada<p-sortIcon field="createdAt"></p-sortIcon>
+      </th>
+      <th pSortableColumn="expiresAt">Expira<p-sortIcon field="expiresAt"></p-sortIcon>
+      </th>
+      <th style="width: 3rem"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-invitationRow>
+    <tr class="p-selectable-row" [ngClass]="{'text-pink-600': invitationRow.estado === 'cancelado', 'text-green-600': invitationRow.estado === 'registrado'}">
+      <td>
+        {{invitationRow.email}}
+      </td>
+      <td>
+        <span>{{invitationRow.createdBy}}</span>
+      </td>
+      <td>
+        <span>{{invitationRow.rol}}</span>
+      </td>
+      <td>
+        <span>{{invitationRow.state}}</span>
+      </td>
+      <td>
+        <span>{{invitationRow.createdAt | date }}</span>
+      </td>
+      <td>
+        <span>{{invitationRow.expiresAt | date }}</span>
+      </td>
+      <td style="text-align: center">
+        <p-button *ngIf="invitationRow.isEnabled" styleClass="p-button-danger p-button-text p-button-rounded" icon="pi pi-ban" [pTooltip]="'Inhabilitar invitación'" tooltipPosition="left" (click)="cancelInvitation(invitationRow)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7">No hay invitaciones.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog header="Invitación" [(visible)]="displayInvitationDialog" styleClass="confirm-dialog" [draggable]="false">
+  <div class="flex flex-column gap-2">
+    <form [formGroup]="formInvitation">
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+            <label for="email">Email</label>
+            <input pInputText id="email" formControlName="email" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="rol">Rol</label>
+            <p-dropdown appendTo="body" class="w-full block" styleClass="w-full" id="rol" formControlName="rol" [options]="roles" optionLabel="name" optionValue="value"></p-dropdown>
+        </div>
+      </div>
+      <div class="flex flex-row gap-2 justify-content-end">
+        <p-button label="Confirmar" type="submit" [disabled]="formInvitation.invalid" (onClick)="submit$.next()"></p-button>
+        <p-button label="Cancelar" styleClass="p-button-outlined" (onClick)="hideInvitationDialog()"></p-button>
+      </div>
+    </form>
+  </div>
+</p-dialog>

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { ClearAuthStoreAction, SetUserAction } from '@auth/store/auth.actions';
-import { cloneDeep } from 'lodash';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +18,8 @@ export class AuthService {
     public fireAuth: AngularFireAuth,
     public toast: ToastService,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private userService: UserService,
   ) {
     this.authStatusListener();
   }
@@ -26,24 +27,13 @@ export class AuthService {
   authStatusListener() {
     this.fireAuth.authState.subscribe(async (credential) => {
       if (credential) {
-        this.store.dispatch(new SetUserAction(cloneDeep(credential)));
+        const userData = await this.userService.getUserByUid(credential.uid);
+        this.store.dispatch(new SetUserAction(userData));
         this.authStatusSub.next(true);
       } else {
         this.authStatusSub.next(null);
-        this.signOut();
       }
     });
-    // this.fireAuth.onAuthStateChanged((credential) => {
-    //   if (credential) {
-    //     console.log(credential);
-    //     this.store.dispatch(new SetUserAction(cloneDeep(credential)));
-    //     console.log('b');
-    //     this.authStatusSub.next(true);
-    //     console.log('c');
-    //   } else {
-    //     this.authStatusSub.next(null);
-    //   }
-    // });
   }
 
   signIn(email: string, password: string) {
@@ -53,11 +43,11 @@ export class AuthService {
   signOut() {
     sessionStorage.clear();
     this.store.dispatch(new ClearAuthStoreAction());
-    this.router.navigate(['/sign-in']);
     this.fireAuth.signOut();
+    this.router.navigate(['/sign-in']);
   }
 
-  send_remember_email(email): Promise<void> {
+  sendPasswordResetEmail(email: string): Promise<void> {
     return this.fireAuth.sendPasswordResetEmail(email);
   }
 

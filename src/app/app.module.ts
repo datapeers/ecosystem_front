@@ -13,30 +13,26 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HttpClientModule } from '@angular/common/http';
+import { GraphQLModule } from '@graphqlApollo/graphql.module';
 
 // ?---------- Components & Services ---------------------
 import { AppComponent } from './app.component';
-import { TopNavComponent } from './navbar/top-nav/top-nav.component';
-import { SideNavComponent } from './navbar/side-nav/side-nav.component';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
-import { HomeComponent } from './home/home.component';
-import { SideNavItemComponent } from './navbar/side-nav/side-nav-item/side-nav-item.component';
+import { BackgroundComponent } from './shared/components/layout/background/background.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopNavComponent,
-    SideNavComponent,
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    HomeComponent,
-    SideNavItemComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +48,8 @@ import { SideNavItemComponent } from './navbar/side-nav/side-nav-item/side-nav-i
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FontAwesomeModule,
+    GraphQLModule,
+    HttpClientModule,
   ],
   providers: [AuthService, ToastService],
   bootstrap: [AppComponent],

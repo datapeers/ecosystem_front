@@ -1,0 +1,70 @@
+<p-table class="overflow-hidden shadow-elevated border-round-lg" #dt [value]="users" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuarios" [filterDelay]="0" [globalFilterFields]="['_id','nombre','correo','userRol']">
+  <ng-template pTemplate="caption">
+    <div class="flex flex-row justify-content-between align-items-center">
+      <div class="text-2xl">
+        <span class="pl-2 font-semibold">Usuarios</span>
+      </div>
+      <div class="flex flex-row gap-2">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="fullName">Nombre<p-sortIcon field="fullName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="email">Correo<p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="rolName">Rol<p-sortIcon field="rolName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="createdAt">Creado<p-sortIcon field="createdAt"></p-sortIcon>
+      </th>
+      <th pSortableColumn="updatedAt">Modificado<p-sortIcon field="updatedAt"></p-sortIcon>
+      </th>
+      <th pSortableColumn="isActive"
+        tooltipPosition="top" pTooltip="El usuario puede acceder a la aplicación">Activo<p-sortIcon field="isActive"></p-sortIcon>
+      </th>
+      <th pSortableColumn="passwordSet"
+        tooltipPosition="top" pTooltip="El usuario completo el registro con su propia contraseña">Registrado<p-sortIcon field="passwordSet"></p-sortIcon>
+      </th>
+      <th pSortableColumn="uid">Uid<p-sortIcon field="uid"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-userRow>
+    <tr class="p-selectable-row">
+      <td>
+        <span>{{userRow.fullName}}</span>
+      </td>
+      <td>
+        <span>{{userRow.email}}</span>
+      </td>
+      <td>
+        <span>{{userRow.rolName}}</span>
+      </td>
+      <td>
+        <span>{{userRow.createdAt | date}}</span>
+      </td>
+      <td>
+        <span>{{userRow.updatedAt | date}}</span>
+      </td>
+      <td>
+        <span>{{userRow.isActive ? 'Si':'No'}}</span>
+      </td>
+      <td>
+        <span>{{userRow.passwordSet ? 'Si':'No'}}</span>
+      </td>
+      <td>
+        <span>{{userRow.uid}}</span>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">No hay usuarios.</td>
+    </tr>
+  </ng-template>
+</p-table>

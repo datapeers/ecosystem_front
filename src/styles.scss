@@ -1,12 +1,6 @@
-$background-color: #fff;
-$border-radius: 10px;
-$divider-color: #d9dfe6;
-$black-color: #232323;
-$grey-color: #495057;
-$primary-color: #18e4e6;
+@import './assets/styles/utilities.scss';
+@import './assets/styles/shadows.scss';
 
-// $purple-color: #5100ba;
-$--border-radius: 10px;
 $side-nav-font-size: 16px;
 $side-nav-font-height: 40px;
 $side-nav-icon-size: 24px;
@@ -15,9 +9,6 @@ $side-nav-font-weight: 600;
 $side-nav-text-color: #0f2133;
 $side-nav-active-color: var(--side-nav-active-color);
 $side-nav-hover-color: var(--text-color);
-//$text-color: var(--text-color);
-/* You can add global styles to this file, and also import other style files */
-
 $text-color: #172b4d;
 $font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 $font-family-secondary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -30,17 +21,6 @@ body {
   overflow-x: hidden;
 }
 
-::ng-deep .w-full-psw .p-password {
-  width: 100%;
-  .p-inputtext {
-    width: 100%;
-  }
-}
-
-.color-custom {
-  color: $text-color;
-}
-
 @mixin font($font, $weight, $size, $line) {
   font-family: $font;
   font-weight: $weight;
@@ -48,6 +28,9 @@ body {
   line-height: $line;
 }
 
+.p-toast {
+  z-index: 99999;
+}
 .customModal {
   max-height: 100%;
 }
@@ -111,4 +94,10 @@ body {
 //---------- Fixes for primeng components ----------//
 .p-dialog-mask {
   z-index: 999;
+}
+
+.confirm-dialog {
+  min-width: 50vw;
+  max-width: 95%;
+  width: max(50vw, 24rem);
 }
