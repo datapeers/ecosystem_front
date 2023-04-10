@@ -40,8 +40,8 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.store
       .select(state => state.auth)
       .pipe(
+        first(state => state.logged),
         takeUntil(this.onDestroy$),
-        first(state => state.logged)
       )
       .subscribe(async (auth) => {
         if (auth.logged) {

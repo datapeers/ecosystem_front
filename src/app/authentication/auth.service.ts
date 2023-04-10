@@ -5,7 +5,6 @@ import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { ClearAuthStoreAction, SetUserAction } from '@auth/store/auth.actions';
-import { cloneDeep } from 'lodash';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 @Injectable({
@@ -33,7 +32,6 @@ export class AuthService {
         this.authStatusSub.next(true);
       } else {
         this.authStatusSub.next(null);
-        this.signOut();
       }
     });
   }
@@ -45,8 +43,8 @@ export class AuthService {
   signOut() {
     sessionStorage.clear();
     this.store.dispatch(new ClearAuthStoreAction());
-    this.router.navigate(['/sign-in']);
     this.fireAuth.signOut();
+    this.router.navigate(['/sign-in']);
   }
 
   sendPasswordResetEmail(email: string): Promise<void> {

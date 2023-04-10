@@ -1,48 +1,41 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { QueryOptions, MutationOptions } from '@apollo/client/core';
 import { Apollo, gql } from 'apollo-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Subject, takeUntil } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GraphqlService {
-  token;
-  constructor(private apollo: Apollo, private afAuth: AngularFireAuth) {}
-
-  async tokenFirebase() {
-    const user = (await this.afAuth.currentUser) as any;
-    this.token = await user.getIdToken(true);
-    return;
+export class GraphqlService implements OnDestroy {
+  onDestroy$: Subject<void> = new Subject();
+  token: string;
+  constructor(
+    private readonly apollo: Apollo,
+    private readonly afAuth: AngularFireAuth
+  ) {
+    this.afAuth.idToken
+    .pipe(takeUntil(this.onDestroy$))
+    .subscribe((idToken) => {
+      this.token = idToken;
+    });
   }
 
-  async getToken() {
-    try {
-      if (!this.token) {
-        await this.tokenFirebase();
-        setInterval(async () => {
-          await this.tokenFirebase();
-        }, 3500000);
-      }
-      return this.token;
-    } catch (error) {
-      console.log('error al obtener token de login');
-      console.warn(error);
-      return null;
-    }
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
-  async refMutation(
+  refMutation(
     request: string,
     variables: any,
     refetchQueries?: any[],
     config?: { auth?: boolean; rol?: boolean },
-  ): Promise<MutationOptions> {
+  ): MutationOptions {
     const reqDocument = gql(request);
-    const token = config?.auth ? await this.getToken() : null;
+    const token = config?.auth ? this.token : null;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    // .set('RolUser', this.rolUser && config.rol ? this.rolUser._id : null);
     return {
       mutation: reqDocument,
       fetchPolicy: 'network-only',
@@ -54,7 +47,7 @@ export class GraphqlService {
     };
   }
 
-  async refQuery(
+  refQuery(
     request: string,
     variables: {},
     fetchPolicy:
@@ -64,11 +57,10 @@ export class GraphqlService {
       | 'no-cache'
       | 'standby',
     config?: { auth: boolean; rol?: boolean },
-  ): Promise<QueryOptions> {
+  ): QueryOptions {
     const reqDocument = gql(request);
-    const token = config?.auth ? await this.getToken() : null;
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`)
+    const token = config?.auth ? this.token : null;
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
     return {
       query: reqDocument,
       fetchPolicy,
