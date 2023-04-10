@@ -8,6 +8,9 @@ import { SideNavComponent } from '../navbar/side-nav/side-nav.component';
 import { TopNavComponent } from '../navbar/top-nav/top-nav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { PhasesComponent } from './phases/phases.component';
+import { LoadingComponent } from '@shared/components/loading/loading.component';
+import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { FormsModule } from '@angular/forms';
     TopNavComponent,
     SideNavComponent,
     SideNavItemComponent,
+    PhasesComponent,
+    LoadingComponent,
+    PhasesConfigComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +28,6 @@ import { FormsModule } from '@angular/forms';
     HomeRoutingModule,
     PrimengModule,
     FontAwesomeModule,
-  ]
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}

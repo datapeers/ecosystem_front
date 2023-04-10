@@ -146,7 +146,7 @@ export class HomeService {
       },
       phases: {
         label: 'Fases',
-        rute: '/phases',
+        rute: '/home/phases',
         type: 'single',
         icon: faSync,
       },

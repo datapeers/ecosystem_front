@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { AuthGuard } from '@auth/guards/auth.guard';
 import { RoleGuard } from '@auth/guards/role.guard';
 import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
+import { PhasesComponent } from './phases/phases.component';
+import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
 
 const routes: Routes = [
   {
@@ -12,13 +13,22 @@ const routes: Routes = [
     children: [
       {
         path: 'admin',
-        canMatch: [AuthGuard, RoleGuard],
+        canMatch: [RoleGuard],
         data: {
-          roles: [ValidRoles.admin, ValidRoles.superAdmin]
+          roles: [ValidRoles.admin, ValidRoles.superAdmin],
         },
-        loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule)
+        loadChildren: () =>
+          import('../admin/admin.module').then((m) => m.AdminModule),
       },
-    ]
+      {
+        path: 'phases',
+        component: PhasesComponent,
+      },
+      {
+        path: 'config_phases',
+        component: PhasesConfigComponent,
+      },
+    ],
   },
 ];
 

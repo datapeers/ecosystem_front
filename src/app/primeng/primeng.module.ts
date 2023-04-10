@@ -38,6 +38,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
@@ -80,6 +81,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     ToastModule,
     MenuModule,
     AvatarModule,
+    ProgressSpinnerModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

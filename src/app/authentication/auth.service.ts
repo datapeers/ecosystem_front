@@ -19,7 +19,7 @@ export class AuthService {
     public toast: ToastService,
     private store: Store<AppState>,
     private router: Router,
-    private userService: UserService,
+    private userService: UserService
   ) {
     this.authStatusListener();
   }
