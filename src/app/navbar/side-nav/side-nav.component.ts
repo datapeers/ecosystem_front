@@ -11,11 +11,8 @@ import { Store } from '@ngrx/store';
 import { IMenu } from '@shared/models/menu';
 import {
   Subscription,
-  combineLatest,
-  filter,
   first,
   firstValueFrom,
-  map,
 } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { SetMenuAction, ToggleMenuAction } from '@home/store/home.actions';
@@ -79,7 +76,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
       .select((store) => store.home.menu)
       .subscribe((menu) => {
         this.menu = cloneDeep(menu);
-        console.log(this.menu);
       });
   }
 
