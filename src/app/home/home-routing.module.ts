@@ -25,7 +25,7 @@ const routes: Routes = [
         component: PhasesComponent,
       },
       {
-        path: 'config_phases',
+        path: 'phases/config',
         component: PhasesConfigComponent,
       },
     ],
