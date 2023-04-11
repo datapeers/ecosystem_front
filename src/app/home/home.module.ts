@@ -7,7 +7,7 @@ import { SideNavItemComponent } from '../navbar/side-nav/side-nav-item/side-nav-
 import { SideNavComponent } from '../navbar/side-nav/side-nav.component';
 import { TopNavComponent } from '../navbar/top-nav/top-nav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PhasesComponent } from './phases/phases.component';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
@@ -27,6 +27,7 @@ import { PhasesCreatorComponent } from './phases/phases-creator/phases-creator.c
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HomeRoutingModule,
     PrimengModule,
     FontAwesomeModule,

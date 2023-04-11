@@ -1,1 +1,31 @@
-<p>phases-creator works!</p>
+<div class="flex flex-column justify-content-between align-items-stretch p-2 h-full">
+    <form (keyup)="onKeyUp($event)" class="formgrid grid gap-4" [formGroup]="phaseCreationForm">
+        <!-- <span class="w-full p-float-label">
+            <input id="name" type="text" pInputText formControlName="name" class="inputfield field-full">
+            <label for="name">Nombre</label>
+            <small for="name" class="p-error field-help">El nombre no es valido</small>
+        </span> -->
+        <span class="w-full p-float-label mt-2">
+            <input pInputText id="namePhase" formControlName="name" class="inputfield field-full" />
+            <label htmlFor="namePhase">Nombre</label>
+            <small [hidden]="phaseCreationForm.controls['name'].valid || !phaseCreationForm.controls['name'].dirty" for="name" class="p-error field-help" *ngIf="">El nombre no es valido</small>
+        </span>
+        <span class="w-full p-float-label">
+            <textarea maxlength="300" inputId="textarea" rows="4" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" pInputTextarea></textarea>
+            <label for="textarea">Descripción - {{phaseCreationForm.controls['description'].value?.length}}/120 caracteres permitidos</label>
+        </span>
+        <div class="flex flex-row gap-2">
+            <span class="p-float-label" style="width: 100%">
+                <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
+                <label for="calendar-first">Comienza</label>
+            </span>
+            <span class="p-float-label" style="width: 100%">
+                <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt"></p-calendar>
+                <label for="calendar-last">Termina</label>
+            </span>
+        </div>
+
+    </form>
+
+    <p-button type="submit" label="Crear" (onClick)="onSubmit()" [disabled]="!phaseCreationForm.valid" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+</div>
