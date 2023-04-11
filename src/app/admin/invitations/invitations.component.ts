@@ -11,6 +11,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./invitations.component.scss']
 })
 export class InvitationsComponent implements OnInit {
+  columns = [
+    { field: "email", name: "Correo" },
+    { field: "createdBy.fullName", name: "Invitado por" },
+    { field: "rolName", name: "Rol esperado" },
+    { field: "stateName", name: "Estado" },
+    { field: "createdAt", name: "Creada" },
+    { field: "expiresAt", name: "Expira" },
+  ];
+  filterFields = this.columns.map(column => column.field);
   invitations: Invitation[];
   loading: boolean = true;
   displayInvitationDialog: boolean;

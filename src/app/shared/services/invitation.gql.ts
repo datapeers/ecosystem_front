@@ -3,7 +3,9 @@ const fragments = {
     fragment invitationFields on Invitation {
       _id
       rol
-      createdBy
+      createdBy {
+        fullName
+      }
       createdAt
       updatedAt
       expiresAt

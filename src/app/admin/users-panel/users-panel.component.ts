@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from '@shared/models/auth/user';
@@ -10,6 +9,17 @@ import { User } from '@shared/models/auth/user';
   styleUrls: ['./users-panel.component.scss']
 })
 export class UsersPanelComponent implements OnInit {
+  columns = [
+    { field: "fullName", name: "Nombre", tooltip: "" },
+    { field: "email", name: "Correo", tooltip: "" },
+    { field: "rolName", name: "Rol", tooltip: "" },
+    { field: "createdAt", name: "Creado", tooltip: "" },
+    { field: "updatedAt", name: "Modificado", tooltip: "" },
+    { field: "isActive", name: "Activo", tooltip: "El usuario puede acceder a la aplicación" },
+    { field: "passwordSet", name: "Registrado", tooltip: "El usuario completo el registro con su propia contraseña" },
+    { field: "uid", name: "Uid", tooltip: "" },
+  ];
+  filterFields = this.columns.map(column => column.field);
   users: User[] = [];
   loading = true;
   constructor(

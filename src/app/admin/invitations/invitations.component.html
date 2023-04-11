@@ -1,4 +1,4 @@
-<p-table styleClass="p-datatable-customers" #dt [value]="invitations" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} invitaciones" [filterDelay]="0" [globalFilterFields]="['_id','nombre', 'invitado', 'invitateForName','rolName', 'estado']">
+<p-table class="overflow-hidden shadow-elevated border-round-lg" #dt [value]="invitations" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} invitaciones" [filterDelay]="0" [globalFilterFields]="filterFields">
   <ng-template pTemplate="caption">
     <div class="flex flex-row justify-content-between align-items-center">
       <div class="text-2xl">
@@ -15,17 +15,11 @@
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="email">Correo<p-sortIcon field="email"></p-sortIcon>
-      </th>
-      <th pSortableColumn="createdBy">Invitado por<p-sortIcon field="createdBy"></p-sortIcon>
-      </th>
-      <th pSortableColumn="rol">Rol esperado<p-sortIcon field="rol"></p-sortIcon>
-      </th>
-      <th pSortableColumn="state">Estado<p-sortIcon field="state"></p-sortIcon>
-      </th>
-      <th pSortableColumn="createdAt">Creada<p-sortIcon field="createdAt"></p-sortIcon>
-      </th>
-      <th pSortableColumn="expiresAt">Expira<p-sortIcon field="expiresAt"></p-sortIcon>
+      <th *ngFor="let column of columns" [pSortableColumn]="column.field">
+        <div class="flex flex-row gap-2 align-items-center">
+          <span>{{column.name}}</span>
+          <p-sortIcon style="min-width: min-content; display: flex;" [field]="column.field"></p-sortIcon>
+        </div>
       </th>
       <th style="width: 3rem"></th>
     </tr>
@@ -33,26 +27,37 @@
   <ng-template pTemplate="body" let-invitationRow>
     <tr class="p-selectable-row" [ngClass]="{'text-pink-600': invitationRow.estado === 'cancelado', 'text-green-600': invitationRow.estado === 'registrado'}">
       <td>
-        {{invitationRow.email}}
+        <div class="flex flex-row gap-2 align-items-center">
+          <span class="white-space-nowrap">{{invitationRow.email}}</span>
+        </div>
       </td>
       <td>
-        <span>{{invitationRow.createdBy}}</span>
+        <div class="flex flex-row gap-2 align-items-center">
+          <span class="white-space-nowrap">{{invitationRow.createdBy.fullName}}</span>
+        </div>
       </td>
       <td>
-        <span>{{invitationRow.rol}}</span>
+        <div class="flex flex-row gap-2 align-items-center">
+          <span class="white-space-nowrap">{{invitationRow.rolName}}</span>
+        </div>
       </td>
       <td>
-        <span>{{invitationRow.state}}</span>
+        <div class="flex flex-row gap-2 align-items-center">
+          <span class="white-space-nowrap">{{invitationRow.stateName}}</span>
+          <i *ngIf="invitationRow.isEnabled" class="pi pi-ban cursor-pointer" [pTooltip]="'Inhabilitar invitación'" tooltipPosition="top" (click)="cancelInvitation(invitationRow)"></i>
+        </div>
       </td>
       <td>
-        <span>{{invitationRow.createdAt | date }}</span>
+        <div class="flex flex-row gap-2 align-items-center">
+          <span class="white-space-nowrap">{{invitationRow.createdAt | date }}</span>
+        </div>
       </td>
       <td>
-        <span>{{invitationRow.expiresAt | date }}</span>
+        <div class="flex flex-row gap-2 align-items-center">
+          <span class="white-space-nowrap">{{invitationRow.expiresAt | date }}</span>
+        </div>
       </td>
-      <td style="text-align: center">
-        <p-button *ngIf="invitationRow.isEnabled" styleClass="p-button-danger p-button-text p-button-rounded" icon="pi pi-ban" [pTooltip]="'Inhabilitar invitación'" tooltipPosition="left" (click)="cancelInvitation(invitationRow)"></p-button>
-      </td>
+      <td></td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">

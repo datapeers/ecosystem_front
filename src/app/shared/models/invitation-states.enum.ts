@@ -4,12 +4,12 @@ export enum InvitationStates {
   accepted = "accepted"
 }
 
-export const statusNames: Record<InvitationStates, string> = {
+export const stateNames: Record<InvitationStates, string> = {
   [InvitationStates.enabled]: "Enabled",
   [InvitationStates.disabled]: "Disabled",
   [InvitationStates.accepted]: "Accepted",
 }
 
 export const invitationStateName = (state: InvitationStates) => {
-  return statusNames[state];
+  return stateNames[state];
 };
