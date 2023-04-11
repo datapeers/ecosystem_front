@@ -1,5 +1,8 @@
 export const environment = {
   production: false,
+  // api: 'https://vinku.net/back',
+  // graphQL: 'https://vinku.net/back/graphql',
+  // graphqlSubscription: 'wss://vinku.net/backsub/subscriptions',
   api: 'http://localhost:3000',
   graphQL: 'http://localhost:3000/graphql',
   graphqlSubscription: 'ws://localhost:2500/subscriptions',

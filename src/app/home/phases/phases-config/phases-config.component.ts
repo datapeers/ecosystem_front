@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PhasesService } from '../phases.service';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
+import { DialogService } from 'primeng/dynamicdialog';
+import { PhasesCreatorComponent } from '../phases-creator/phases-creator.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-phases-config',
@@ -533,8 +536,13 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       tagsNames: 'Capacitación, Emprendimiento',
     },
   ];
-
-  constructor(private service: PhasesService, private _location: Location) {}
+  dialogRef;
+  onCloseDialogSub$: Subscription;
+  constructor(
+    private service: PhasesService,
+    private _location: Location,
+    public dialogService: DialogService
+  ) {}
 
   ngOnInit() {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -542,11 +550,26 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    this.onCloseDialogSub$?.unsubscribe();
   }
 
   return() {
     this._location.back();
+  }
+
+  openCreator() {
+    this.dialogRef = this.dialogService.open(PhasesCreatorComponent, {
+      header: 'Creador de fase',
+      width: '70vw',
+      height: '70vh',
+      data: {
+        parents: [],
+      },
+    });
+
+    this.onCloseDialogSub$ = this.dialogRef.onClose.subscribe(async (data) => {
+      this.onCloseDialogSub$.unsubscribe();
+      this.dialogRef = null;
+    });
   }
 }

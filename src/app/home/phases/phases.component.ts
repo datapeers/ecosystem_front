@@ -38,9 +38,7 @@ export class PhasesComponent implements OnInit {
   constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
+    this.loading = false;
   }
 
   onAction(event: { mouseEvent: MouseEvent; action: any }) {

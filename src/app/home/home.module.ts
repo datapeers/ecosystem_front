@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { PhasesComponent } from './phases/phases.component';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
+import { PhasesCreatorComponent } from './phases/phases-creator/phases-creator.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { PhasesConfigComponent } from './phases/phases-config/phases-config.comp
     PhasesComponent,
     LoadingComponent,
     PhasesConfigComponent,
+    PhasesCreatorComponent,
   ],
   imports: [
     CommonModule,
