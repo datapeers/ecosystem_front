@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { firstValueFrom, map } from 'rxjs';
 import phaseQueries from './phase.gql';
+import { IPhase } from './model/phase.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,13 +21,15 @@ export class PhasesService {
     );
   }
 
-  async createPhase(phase): Promise<any> {
+  async createPhase(createPhaseInput): Promise<IPhase> {
+    console.log('a');
     const mutationRef = this.graphql.refMutation(
       phaseQueries.mutation.createPhase,
-      { phase },
+      { createPhaseInput },
       [],
       { auth: true }
     );
+    console.log('b');
     return firstValueFrom(
       this.graphql
         .mutation(mutationRef)

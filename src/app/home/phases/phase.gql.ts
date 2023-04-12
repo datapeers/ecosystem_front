@@ -1,6 +1,6 @@
 const fragments = {
   phaseFields: `
-    fragment phaseFields on Phase {
+  fragment phaseFields on Phase {
       _id
       name
       description
@@ -31,12 +31,12 @@ const query = {
 
 const mutation = {
   createPhase: `
-    mutation CreatePhase($createPhaseInput: CreatePhaseInput!) {
+    ${fragments.phaseFields}
+    mutation CreatePhase($createPhaseInput: createPhaseInput!) {
       createPhase(createPhaseInput: $createPhaseInput) {
         ...phaseFields
       }
     }
-    ${fragments.phaseFields}
   `,
 };
 

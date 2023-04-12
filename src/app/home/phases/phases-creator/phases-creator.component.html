@@ -1,11 +1,6 @@
 <div class="flex flex-column justify-content-between align-items-stretch p-2 h-full">
     <form (keyup)="onKeyUp($event)" class="formgrid grid gap-4" [formGroup]="phaseCreationForm">
-        <!-- <span class="w-full p-float-label">
-            <input id="name" type="text" pInputText formControlName="name" class="inputfield field-full">
-            <label for="name">Nombre</label>
-            <small for="name" class="p-error field-help">El nombre no es valido</small>
-        </span> -->
-        <span class="w-full p-float-label mt-2">
+        <span class="w-full p-float-label mt-3">
             <input pInputText id="namePhase" formControlName="name" class="inputfield field-full" />
             <label htmlFor="namePhase">Nombre</label>
             <small [hidden]="phaseCreationForm.controls['name'].valid || !phaseCreationForm.controls['name'].dirty" for="name" class="p-error field-help" *ngIf="">El nombre no es valido</small>
