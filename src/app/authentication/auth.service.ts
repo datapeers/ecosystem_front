@@ -7,6 +7,7 @@ import { AppState } from '@appStore/app.reducer';
 import { ClearAuthStoreAction, SetUserAction } from '@auth/store/auth.actions';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
+import firebase from 'firebase/compat/app';
 @Injectable({
   providedIn: 'root',
 })
@@ -89,5 +90,42 @@ export class AuthService {
       detail: msg,
       life: 5000,
     });
+  }
+
+  async updateUserPassword(currentPassword: string, newPassword: string) {
+    // First, get the current user object from Firebase Authentication
+    const user = await this.fireAuth.currentUser;
+    // Next, reauthenticate the user with their current password
+    const credentials = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      currentPassword,
+    );
+
+    user.reauthenticateWithCredential(credentials).then(() => {
+      // The user has been successfully reauthenticated with their current password
+      // Now, update the user's password to a new value
+      user.updatePassword(newPassword).then(() => {
+        // The user's password has been successfully updated
+        this.toast.success({
+          summary: "Exitó",
+          detail: "Contraseña actualizada con exito",
+        });
+      }).catch((error) => {
+        // An error occurred while updating the user's password
+        console.error(error);
+        this.toast.error({
+          summary: "Error",
+          detail: "Fallo al intentar cambiar la contraseña",
+        });
+      });
+    }).catch((error) => {
+      console.error(error);
+      this.toast.error({
+        summary: "Error",
+        detail: "Fallo al intentar validar la contraseña",
+      });
+      // An error occurred while reauthenticating the user with their current password
+    });
+
   }
 }
