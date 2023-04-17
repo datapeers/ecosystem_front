@@ -24,6 +24,11 @@ export function authReducer(
         loaded: true,
         logged: true,
       };
+    case fromAuth.UPDATE_USER:
+      return {
+        ...state,
+        user: new User(action.updatedUser),
+      };
     case fromAuth.CLEAR_STORE:
       return { ...initialState };
     default:

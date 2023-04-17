@@ -1,0 +1,88 @@
+<ng-container *ngIf="user else loadingTemplate">
+  <div class="flex flex-column h-full w-full px-3 py-3">
+    <div class="surface-0 flex flex-column align-items-center h-full w-full border-round shadow-elevated overflow-hidden px-3 py-4">
+      <div class="flex flex-row justify-content-center flex-wrap gap-4 shadow-elevated px-3 py-2 border-round">
+        <div class="w-12rem h-12rem border-circle relative shadow-border hover-panel">
+          <p-avatar shape="circle" [image]="user.profileImageUrl" styleClass="w-full h-full"></p-avatar>
+          <div class="panel absolute z-2 flex flex-column gap-2 align-items-center justify-content-center border-circle surface-300 top-0 left-0 right-0 bottom-0">
+            <p-button [label]="user.profileImageUrl ? 'Cambiar' : 'Cargar' " icon="pi pi-upload" (onClick)="fileInput.click()" styleClass="p-button-outlined"></p-button>
+            <p-button *ngIf="user.profileImageUrl" label="Remover" icon="pi pi-trash" (onClick)="removeProfileImage()" styleClass="p-button-outlined"></p-button>
+            <input #fileInput type="file" class="hidden" accept="image/*" (change)="selectFile(fileInput)">
+          </div>
+        </div>
+        <div class="flex flex-column gap-1 justify-content-center">
+          <span class="text-xl font-semibold">{{user.fullName}}</span>
+          <span class="font-semibold">{{user.email}}</span>
+          <span class="font-semibold">{{user.rolName}}</span>
+          <p-button label="Cambiar contraseña" (onClick)="openPasswordDialog()"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loadingTemplate>
+  <app-loading></app-loading>
+</ng-template>
+
+
+
+<p-dialog [(visible)]="passwordDialog" header="Cambiar contraseña">
+    <form (keyup)="onKeyUp($event)" class="formgrid grid mt-6 gap-3" [formGroup]="changePasswordForm">
+        <span class="w-full">
+            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="currentPassword" placeholder="Contraseña"></p-password>
+
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="changePasswordForm.controls['currentPassword'].valid || !changePasswordForm.controls['currentPassword'].dirty" class="alert alert-danger">
+                    <small class="p-error">Debe ingresarse una contraseña</small>
+                </div>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="changePasswordForm.controls['currentPassword'].valid || !changePasswordForm.controls['currentPassword'].dirty" class="alert alert-danger">
+                    <small *ngIf="changePasswordForm.controls['currentPassword'].errors?.['required']" class="error-message">La
+                        contraseña es obligatoria</small>
+                    <small *ngIf="changePasswordForm.controls['currentPassword'].errors?.['minlength']" class="error-message">La
+                        contraseña debe tener al menos 6 caracteres</small>
+                </div>
+            </div>
+        </span>
+
+        <span class="w-full">
+            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="newPassword" placeholder="Nueva contraseña"></p-password>
+
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="changePasswordForm.controls['newPassword'].valid || !changePasswordForm.controls['newPassword'].dirty" class="alert alert-danger">
+                    <small class="p-error">Debe ingresarse una contraseña</small>
+                </div>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="changePasswordForm.controls['newPassword'].valid || !changePasswordForm.controls['newPassword'].dirty" class="alert alert-danger">
+                    <small *ngIf="changePasswordForm.controls['newPassword'].errors?.['required']" class="error-message">La
+                        contraseña es obligatoria</small>
+                    <small *ngIf="changePasswordForm.controls['newPassword'].errors?.['minlength']" class="error-message">La
+                        contraseña debe tener al menos 6 caracteres</small>
+                </div>
+            </div>
+        </span>
+
+        <span class="w-full">
+            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="confirmNewPassword" placeholder="Confirmar contraseña"></p-password>
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="changePasswordForm.controls['confirmNewPassword'].valid || !changePasswordForm.controls['confirmNewPassword'].dirty" class="alert alert-danger">
+                    <small class="p-error">Debe ingresarse una contraseña</small>
+                </div>
+            </div>
+            <div class="flex align-items-center justify-content-center">
+                <div [hidden]="changePasswordForm.controls['confirmNewPassword'].valid || !changePasswordForm.controls['confirmNewPassword'].dirty" class="alert alert-danger">
+                    <small *ngIf="changePasswordForm.controls['confirmNewPassword'].errors?.['required']" class="error-message">
+                        Ambas contraseñas deben ser iguales
+                    </small>
+                </div>
+            </div>
+        </span>
+        <div class="flex flex-row justify-content-end gap-2 w-full">
+            <p-button type="submit" label="Cambiar" (onClick)="onSubmit()" [disabled]="!changePasswordForm.valid" styleClass=""></p-button>
+            <p-button label="Cancelar" (onClick)="passwordDialog = false;" styleClass="p-button-outlined"></p-button>
+        </div>
+    </form>
+</p-dialog>

@@ -41,6 +41,7 @@ import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload';
 @NgModule({
   declarations: [],
   exports: [
@@ -83,6 +84,7 @@ import { CalendarModule } from 'primeng/calendar';
     AvatarModule,
     ProgressSpinnerModule,
     CalendarModule,
+    FileUploadModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

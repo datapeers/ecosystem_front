@@ -18,7 +18,8 @@ export class User implements IUser {
   roles: ValidRoles[];
   isActive: boolean;
   profileImageUrl: string;
-  
+
+  get nameInitial(): string { return (this.fullName ?? "U")[0].toUpperCase(); }
   get rolName(): string { return validRolName(this.roles[0]); };
   get rol(): ValidRoles { return this.roles[0]; };
   get isSuperAdmin() { return this.roles.some(rol => rol === ValidRoles.superAdmin); }

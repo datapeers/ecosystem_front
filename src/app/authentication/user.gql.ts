@@ -10,6 +10,7 @@ const fragments = {
       updatedAt
       isActive
       passwordSet
+      profileImageUrl
     }
   `
 };
@@ -37,6 +38,14 @@ const mutation = {
   createUser: `
     mutation CreateUser($createUserInput: CreateUserInput!) {
       createUser(createUserInput: $createUserInput) {
+        ...userFields
+      }
+    }
+    ${fragments.userFields}
+  `,
+  updateUser: `
+    mutation UpdateUser($updateUserInput: UpdateUserInput!) {
+      updateUser(updateUserInput: $updateUserInput) {
         ...userFields
       }
     }

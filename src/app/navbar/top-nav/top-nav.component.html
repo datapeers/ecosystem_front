@@ -16,7 +16,7 @@
     </div>
     <div class="right-items flex align-items-center ">
         <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-            <p-avatar icon="pi pi-user" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
+            <p-avatar [label]="user.nameInitial" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
             </p-avatar>
         </ng-container>
         <ng-template #imageTemplate>

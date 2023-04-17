@@ -12,6 +12,7 @@ import { PhasesComponent } from './phases/phases.component';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
 import { PhasesCreatorComponent } from './phases/phases-creator/phases-creator.component';
+import { ProfileComponent } from '@shared/components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PhasesCreatorComponent } from './phases/phases-creator/phases-creator.c
     LoadingComponent,
     PhasesConfigComponent,
     PhasesCreatorComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

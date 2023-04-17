@@ -4,6 +4,8 @@ import { firstValueFrom, map } from 'rxjs';
 import { IUser, User } from '@shared/models/auth/user';
 import userQueries from './user.gql';
 import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
+import { StorageService } from '@shared/services/storage.service';
+import { StoragePaths } from '@shared/services/storage.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ export class UserService {
 
   constructor(
     private readonly graphql: GraphqlService,
+    private readonly storageService: StorageService,
   ) { }
 
   // Queries
@@ -43,10 +46,10 @@ export class UserService {
   }
 
   // Mutations
-  async createUser(): Promise<User> {
+  async createUser(user: Omit<IUser,'_id'>): Promise<User> {
     const mutationRef = this.graphql.refMutation(
       userQueries.mutation.createUser,
-      {},
+      { createUserInput: user },
       [],
       { auth: true }
     );
@@ -96,4 +99,32 @@ export class UserService {
       .pipe(map((request) => request.data))
     );
   }
+
+  async updateUser(id: string, data: Partial<IUser>): Promise<User> {
+    data._id = id;
+    const mutRef = this.graphql.refMutation(
+      userQueries.mutation.updateUser,
+      { updateUserInput: data },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql
+      .mutation(mutRef)
+      .pipe(map((request) => request.data.updateUser))
+    );
+  }
+
+  updateProfileImage(user: User, file: File) {
+    const renamedFile = new File([file], user.uid, {
+      type: file.type,
+      lastModified: file.lastModified,
+    });
+    return this.storageService.uploadFile(StoragePaths.profileImages, renamedFile);
+  }
+
+  removeProfileImage(user: User) {
+    return this.storageService.deleteFile(StoragePaths.profileImages, user.uid);
+  }
+
+  
 }

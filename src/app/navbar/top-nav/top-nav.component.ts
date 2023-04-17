@@ -21,7 +21,7 @@ export class TopNavComponent {
     {
       label: 'Perfil',
       icon: 'pi pi-user',
-      routerLink: ['/perfil'],
+      routerLink: ['/home/profile'],
     },
     {
       label: 'Usuarios',

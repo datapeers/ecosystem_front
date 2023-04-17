@@ -9,3 +9,13 @@
 .field-help {
   visibility: hidden;
 }
+
+.hover-panel {
+  & .panel {
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  &:hover .panel {
+    opacity: 0.8;
+  }
+}

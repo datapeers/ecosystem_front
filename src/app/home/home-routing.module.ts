@@ -5,6 +5,7 @@ import { RoleGuard } from '@auth/guards/role.guard';
 import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
 import { PhasesComponent } from './phases/phases.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
+import { ProfileComponent } from '@shared/components/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
         },
         loadChildren: () =>
           import('../admin/admin.module').then((m) => m.AdminModule),
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
         path: 'phases',

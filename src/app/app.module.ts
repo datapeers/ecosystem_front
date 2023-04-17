@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { appEffects } from '@appStore/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
@@ -45,7 +46,7 @@ import { BackgroundComponent } from './shared/components/layout/background/backg
     provideAuth(() => getAuth()),
     PrimengModule,
     StoreModule.forRoot(appReducers, {}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot(appEffects),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     FontAwesomeModule,
     GraphQLModule,
