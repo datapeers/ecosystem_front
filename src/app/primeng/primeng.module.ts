@@ -42,6 +42,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ColorPickerModule } from 'primeng/colorpicker';
 @NgModule({
   declarations: [],
   exports: [
@@ -85,6 +86,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     ProgressSpinnerModule,
     CalendarModule,
     FileUploadModule,
+    ColorPickerModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

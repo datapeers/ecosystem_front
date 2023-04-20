@@ -1,15 +1,16 @@
-<div class="text-wrapper flex flex-row align-items-center text-center py-4 px-4">
-    <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
-    </fa-icon> <span class="subheader text-white ">Configuración fases</span>
-    <p-button type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button>
+<div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
+    <div class="text-wrapper flex flex-row align-items-center text-center ">
+        <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
+        </fa-icon> <span class="subheader text-white ">Configuración fases</span>
+    </div>
+    <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="showDialogStages()"></p-button>
+    <!-- <p-button type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button> -->
 </div>
 
-<ng-container *ngIf="loading; else listPhasesBase">
-    <app-loading></app-loading>
-</ng-container>
-<ng-template #listPhasesBase>
-    <div class="flex flex-row flex-wrap gap-10 px-4">
-        <ng-container *ngFor="let item of fases">
+
+<ng-container *ngIf="loaded; else loadingTemplate">
+    <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center ">
+        <ng-container *ngFor="let item of phases">
             <div class="tour-card bg-white" style="margin:0.5rem;" (mouseenter)="selectedPhase = item;" (mouseleave)="selectedPhase = undefined;">
                 <img width="100%" height="144px" [src]="item?.thumbnail ? item?.thumbnail : '/assets/noPic.jpg'" alt="">
                 <div class="title-wrapper">
@@ -25,5 +26,67 @@
             </div>
         </ng-container>
     </div>
+</ng-container>
 
+
+<p-dialog header="Etapas" [(visible)]="showStages" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <!-- <div class="w-full flex flex-row justify-content-end">
+        <p-button type="button" label="Etapa" icon="pi pi-plus" (onClick)="createStage()"></p-button>
+    </div> -->
+    <p-table [value]="stages" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '45rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:25%">Name</th>
+                <th style="width:25%">Label</th>
+                <th style="width:25%">Color</th>
+                <th style="width:25%"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-stage let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="stage">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="stage.name" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{stage.name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="stage.label" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{stage.label}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-colorPicker [(ngModel)]="stage.color" [inline]="true" appendTo="body"></p-colorPicker>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <p-colorPicker [(ngModel)]="stage.color" [disabled]="true"></p-colorPicker>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onStageEditInit(stage)" class="p-button-rounded p-button-text"></button>
+                        <!-- <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash" (click)="stageDelete(stage)" class="p-button-rounded p-button-text"></button> -->
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onStageEditSave(stage, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onStageEditCancel(stage, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
+
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
 </ng-template>
