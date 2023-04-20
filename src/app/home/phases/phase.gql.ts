@@ -32,8 +32,8 @@ const query = {
 const mutation = {
   createPhase: `
     ${fragments.phaseFields}
-    mutation CreatePhase($createPhaseInput: createPhaseInput!) {
-      createPhase(createPhaseInput: $createPhaseInput) {
+    mutation CreatePhase($createPhaseInput: createPhaseInput) {
+      CreatePhase(createPhaseInput: $createPhaseInput) {
         ...phaseFields
       }
     }
