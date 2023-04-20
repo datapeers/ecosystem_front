@@ -1,3 +1,4 @@
 export enum StoragePaths {
-  profileImages = "users/profile"
+  profileImages = "users/profile",
+  phaseThumbnails = "phases/thumbnail",
 }

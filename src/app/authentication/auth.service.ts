@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest, debounceTime, filter } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
@@ -14,6 +14,7 @@ import firebase from 'firebase/compat/app';
 export class AuthService {
   currentUser = null;
   private authStatusSub = new BehaviorSubject(this.currentUser);
+  renewToken$: Subject<void> = new Subject();
 
   constructor(
     public fireAuth: AngularFireAuth,
@@ -23,6 +24,29 @@ export class AuthService {
     private userService: UserService
   ) {
     this.authStatusListener();
+    const tokenExpirationTime = 3540000; // 59 Minutos
+    // Renew token subscription
+    const delayedRenew = this.renewToken$.asObservable().pipe(debounceTime(tokenExpirationTime));
+    combineLatest([this.fireAuth.authState, delayedRenew])
+      .pipe(filter(([user]) => !!user))
+      .subscribe(async ([user]) => {
+        await user.getIdToken(true).then(() => {
+          // Do anything when token gets renewed
+        })
+        .catch(reason => {
+          // Failed to renew token sign out user
+          console.error("Failed to renew account credentials, this may be due to network issues.")
+          this.signOut();
+        });
+    });
+
+    this.fireAuth.idToken
+    .subscribe((idToken) => {
+      if(idToken != null) {
+        // Set trigger to renew token before expiration
+        this.renewToken$.next();
+      }
+    });
   }
 
   authStatusListener() {
