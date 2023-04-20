@@ -16,7 +16,11 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class PhasesCreatorComponent implements OnInit, OnDestroy {
   phaseCreationForm: FormGroup;
-  constructor(private service: PhasesService, readonly fb: FormBuilder) {
+  constructor(
+    private readonly service: PhasesService,
+    private readonly ref: DynamicDialogRef,
+    readonly fb: FormBuilder,
+  ) {
     this.phaseCreationForm = new UntypedFormGroup({
       name: new UntypedFormControl(null, Validators.required),
       description: new UntypedFormControl(null),
@@ -37,10 +41,12 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
-    this.service
-      .createPhase(this.phaseCreationForm.value)
-      .then(console.log)
-      .catch(console.warn);
+  async onSubmit() {
+    const phaseData = this.phaseCreationForm.value;
+    await this.service
+      .createPhase(phaseData, true)
+      .then((phase) => {
+        this.ref.close();
+      });
   }
 }

@@ -13,6 +13,8 @@ import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
 import { PhasesCreatorComponent } from './phases/phases-creator/phases-creator.component';
 import { ProfileComponent } from '@shared/components/profile/profile.component';
+import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component';
+import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ProfileComponent } from '@shared/components/profile/profile.component';
     PhasesConfigComponent,
     PhasesCreatorComponent,
     ProfileComponent,
+    PhasesEditComponent,
+    PhaseLoadComponent,
   ],
   imports: [
     CommonModule,

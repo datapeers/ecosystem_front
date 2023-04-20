@@ -32,6 +32,9 @@
       "@auth/*": [
         "src/app/authentication/*"
       ],
+      "@phase/*": [
+        "src/app/home/phases/*"
+      ],
       "@graphqlApollo/*": [
         "src/app/graphql/*"
       ],

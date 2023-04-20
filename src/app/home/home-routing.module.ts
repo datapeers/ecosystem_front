@@ -6,6 +6,8 @@ import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
 import { PhasesComponent } from './phases/phases.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
 import { ProfileComponent } from '@shared/components/profile/profile.component';
+import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component';
+import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
 
 const routes: Routes = [
   {
@@ -26,12 +28,28 @@ const routes: Routes = [
         component: ProfileComponent,
       },
       {
+        // TODO: Add guards or modules if required
         path: 'phases',
-        component: PhasesComponent,
-      },
-      {
-        path: 'phases/config',
-        component: PhasesConfigComponent,
+        children: [
+          {
+            path: "",
+            component: PhasesComponent,
+          },
+          {
+            path: 'config',
+            component: PhasesConfigComponent,
+          },
+          {
+            path: ':id',
+            component: PhaseLoadComponent,
+            children: [
+              {
+                path: 'edit',
+                component: PhasesEditComponent,
+              }
+            ]
+          },
+        ]
       },
     ],
   },
