@@ -2,6 +2,7 @@ const fragments = {
   phaseFields: `
   fragment phaseFields on Phase {
       _id
+      stage
       name
       description
       thumbnail
