@@ -19,9 +19,17 @@ const fragments = {
 };
 
 const query = {
+  getPhase: `
+    query Phase($id: String!) {
+      phase(id: $id) {
+        ...phaseFields
+      }
+    }
+    ${fragments.phaseFields}
+  `,
   getPhases: `
-    query Phases() {
-      phases() {
+    query Phases {
+      phases {
         ...phaseFields
       }
     }
@@ -32,8 +40,16 @@ const query = {
 const mutation = {
   createPhase: `
     ${fragments.phaseFields}
-    mutation CreatePhase($createPhaseInput: createPhaseInput!) {
+    mutation CreatePhase($createPhaseInput: CreatePhaseInput!) {
       createPhase(createPhaseInput: $createPhaseInput) {
+        ...phaseFields
+      }
+    }
+  `,
+  updatePhase: `
+    ${fragments.phaseFields}
+    mutation CreatePhase($updatePhaseInput: UpdatePhaseInput!) {
+      updatePhase(updatePhaseInput: $updatePhaseInput) {
         ...phaseFields
       }
     }
