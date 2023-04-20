@@ -7,6 +7,7 @@ import { PhasesCreatorComponent } from '../phases-creator/phases-creator.compone
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Phase } from '../model/phase.model';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-phases-config',
@@ -20,11 +21,14 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
 
   dialogRef;
   onCloseDialogSub$: Subscription;
+  phases$: Subscription;
+  loading = true;
   constructor(
     private service: PhasesService,
     private router: Router,
     private _location: Location,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -33,10 +37,29 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.onCloseDialogSub$?.unsubscribe();
+    this.phases$?.unsubscribe();
   }
-  
-  async loadComponent() {
-    this.fases = await this.service.getPhases();
+
+  loadComponent() {
+    this.service
+      .watchPhases()
+      .then(
+        (obsPhases$) =>
+          (this.phases$ = obsPhases$.subscribe((phasesList) => {
+            this.loading = true;
+            this.fases = phasesList.filter((i) => i.basePhase);
+            this.loading = false;
+          }))
+      )
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar fases',
+          detail: err,
+          life: 12000,
+        });
+        this.fases = [];
+        this.loading = false;
+      });
   }
 
   openPhaseEdit(phase: Phase) {

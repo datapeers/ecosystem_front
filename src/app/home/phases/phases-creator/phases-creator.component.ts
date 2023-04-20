@@ -19,11 +19,11 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
   constructor(
     private readonly service: PhasesService,
     private readonly ref: DynamicDialogRef,
-    readonly fb: FormBuilder,
+    readonly fb: FormBuilder
   ) {
     this.phaseCreationForm = new UntypedFormGroup({
       name: new UntypedFormControl(null, Validators.required),
-      description: new UntypedFormControl(null),
+      description: new UntypedFormControl(''),
       childrenOf: new UntypedFormControl(null),
       thumbnail: new UntypedFormControl(null),
       startAt: new UntypedFormControl(null, Validators.required),
@@ -42,11 +42,10 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
   }
 
   async onSubmit() {
-    const phaseData = this.phaseCreationForm.value;
     await this.service
-      .createPhase(phaseData, true)
+      .createPhase({ ...this.phaseCreationForm.value, basePhase: true })
       .then((phase) => {
-        this.ref.close();
+        this.ref.close(phase);
       });
   }
 }

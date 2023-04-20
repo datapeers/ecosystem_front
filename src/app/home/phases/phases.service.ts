@@ -9,9 +9,10 @@ import { StoragePaths } from '@shared/services/storage.constants';
   providedIn: 'root',
 })
 export class PhasesService {
+  _getPhases;
   constructor(
     private readonly graphql: GraphqlService,
-    private readonly storageService: StorageService,
+    private readonly storageService: StorageService
   ) {}
 
   async getPhase(id: string): Promise<Phase> {
@@ -22,8 +23,7 @@ export class PhasesService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.query(queryRef)
-      .pipe(
+      this.graphql.query(queryRef).pipe(
         map((request) => request.data.phase),
         map((phase) => Phase.fromJson(phase))
       )
@@ -38,29 +38,38 @@ export class PhasesService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.query(queryRef)
-      .pipe(
+      this.graphql.query(queryRef).pipe(
         map((request) => request.data.phases),
-        map((phases) => phases.map(phase => Phase.fromJson(phase)))
+        map((phases) => phases.map((phase) => Phase.fromJson(phase)))
       )
     );
   }
 
-  async createPhase(createPhaseInput, basePhase: boolean): Promise<Phase> {
-    createPhaseInput.basePhase = basePhase;
+  async watchPhases() {
+    this._getPhases = this.graphql.refQuery(
+      phaseQueries.query.getPhases,
+      {},
+      'cache-first',
+      { auth: true }
+    );
+    return this.graphql.watch_query(this._getPhases).valueChanges.pipe(
+      map((request) => request.data.phases),
+      map((phases) => phases.map((phase) => Phase.fromJson(phase)))
+    );
+  }
+
+  async createPhase(createPhaseInput): Promise<Phase> {
     const mutationRef = this.graphql.refMutation(
       phaseQueries.mutation.createPhase,
       { createPhaseInput },
-      [],
+      [this._getPhases],
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql
-        .mutation(mutationRef)
-        .pipe(
-          map((request) => request.data.createPhase),
-          map((phase) => Phase.fromJson(phase))
-        )
+      this.graphql.mutation(mutationRef).pipe(
+        map((request) => request.data.createPhase),
+        map((phase) => Phase.fromJson(phase))
+      )
     );
   }
 
@@ -72,9 +81,10 @@ export class PhasesService {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutRef)
-      .pipe(map((request) => request.data.updatePhase))
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(map((request) => request.data.updatePhase))
     );
   }
 
@@ -83,10 +93,16 @@ export class PhasesService {
       type: file.type,
       lastModified: file.lastModified,
     });
-    return this.storageService.uploadFile(StoragePaths.phaseThumbnails, renamedFile);
+    return this.storageService.uploadFile(
+      StoragePaths.phaseThumbnails,
+      renamedFile
+    );
   }
 
   removePhaseThumbnail(phase: Phase) {
-    return this.storageService.deleteFile(StoragePaths.phaseThumbnails, phase._id);
+    return this.storageService.deleteFile(
+      StoragePaths.phaseThumbnails,
+      phase._id
+    );
   }
 }
