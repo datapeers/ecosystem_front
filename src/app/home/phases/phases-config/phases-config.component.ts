@@ -29,6 +29,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   loaded = false;
   showStages = false;
   stages: Stage[] = [];
+  showedStages: { [s: string]: Stage } = {};
   clonedStages: { [s: string]: Stage } = {};
   constructor(
     private service: PhasesService,
@@ -56,6 +57,8 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       .then((stages$) => {
         this.stages$ = stages$.subscribe((stageList) => {
           this.stages = stageList;
+          for (const iterator of this.stages)
+            this.showedStages[iterator._id] = iterator;
         });
       })
       .catch((err) => {
@@ -101,7 +104,9 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       header: 'Creador de fase',
       width: '75vw',
       height: '70vh',
-      data: {},
+      data: {
+        stages: this.stages,
+      },
     });
 
     this.onCloseDialogSub$ = this.dialogRef.onClose.subscribe(async (data) => {

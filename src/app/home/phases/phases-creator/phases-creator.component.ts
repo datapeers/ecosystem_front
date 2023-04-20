@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Stage } from '../model/stage.model';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-phases-creator',
@@ -16,14 +18,18 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class PhasesCreatorComponent implements OnInit, OnDestroy {
   phaseCreationForm: FormGroup;
+  stages: Stage[] = [];
   constructor(
+    public config: DynamicDialogConfig,
     private readonly service: PhasesService,
     private readonly ref: DynamicDialogRef,
-    readonly fb: FormBuilder
+    readonly fb: FormBuilder,
+    private toast: ToastService
   ) {
     this.phaseCreationForm = new UntypedFormGroup({
       name: new UntypedFormControl(null, Validators.required),
       description: new UntypedFormControl(''),
+      stage: new UntypedFormControl('', Validators.required),
       childrenOf: new UntypedFormControl(null),
       thumbnail: new UntypedFormControl(null),
       startAt: new UntypedFormControl(null, Validators.required),
@@ -31,7 +37,10 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.stages = this.config.data.stages;
+    this.phaseCreationForm.get('stage').setValue(this.stages[0]._id);
+  }
 
   ngOnDestroy() {}
 
@@ -41,11 +50,20 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
     }
   }
 
-  async onSubmit() {
-    await this.service
+  onSubmit() {
+    this.toast.info({ summary: 'Creando...', detail: '' });
+    this.service
       .createPhase({ ...this.phaseCreationForm.value, basePhase: true })
       .then((phase) => {
+        this.toast.clear();
         this.ref.close(phase);
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.error({
+          summary: 'Error al intentar crear fase',
+          detail: err,
+        });
       });
   }
 }
