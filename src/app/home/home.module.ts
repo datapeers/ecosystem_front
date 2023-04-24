@@ -15,6 +15,8 @@ import { PhasesCreatorComponent } from './phases/phases-creator/phases-creator.c
 import { ProfileComponent } from '@shared/components/profile/profile.component';
 import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component';
 import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
+import { SafePipe } from '@shared/pipe/safe.pipe';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
     ProfileComponent,
     PhasesEditComponent,
     PhaseLoadComponent,
+    SafePipe,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,9 @@ import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
     HomeRoutingModule,
     PrimengModule,
     FontAwesomeModule,
+    NgxTinymceModule.forRoot({
+      baseURL: '/assets/tinymce/',
+    }),
   ],
 })
 export class HomeModule {}

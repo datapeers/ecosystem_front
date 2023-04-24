@@ -44,6 +44,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { AnimateModule } from 'primeng/animate';
 
 @NgModule({
   declarations: [],
@@ -90,6 +91,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     FileUploadModule,
     ColorPickerModule,
     MultiSelectModule,
+    AnimateModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],
