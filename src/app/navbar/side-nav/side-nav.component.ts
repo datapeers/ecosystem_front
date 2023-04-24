@@ -9,11 +9,7 @@ import { AppState } from '@appStore/app.reducer';
 import { HomeService } from '@home/home.service';
 import { Store } from '@ngrx/store';
 import { IMenu } from '@shared/models/menu';
-import {
-  Subscription,
-  first,
-  firstValueFrom,
-} from 'rxjs';
+import { Subscription, first, firstValueFrom } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { SetMenuAction, ToggleMenuAction } from '@home/store/home.actions';
 import { getDeepestData } from '@shared/functions/router.utils';
@@ -63,8 +59,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.updateMenu();
+    this.setMainMenu();
   }
+
   ngOnDestroy(): void {
     this.menuExpanded$?.unsubscribe();
     this.menu$?.unsubscribe();
@@ -73,17 +70,20 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   menuSub() {
     this.menu$ = this.store
-      .select((store) => store.home.menu)
-      .subscribe((menu) => {
-        this.menu = cloneDeep(menu);
+      .select((store) => store.home)
+      .subscribe((homeStore) => {
+        console.log(homeStore);
+        this.menu = homeStore.otherMenu
+          ? cloneDeep(homeStore.otherMenu)
+          : cloneDeep(homeStore.menu);
       });
   }
 
   routeSub() {
-    //Router subscription
+    // Router subscription
     this.router$ = this.router.events.subscribe(async (routerEvent) => {
-      //On navigation start check if the menu is expanded and if the screen is small enough to assume
-      //That the expanded menu uses all the window width, if thats the case toggle the menu state
+      // On navigation start check if the menu is expanded and if the screen is small enough to assume
+      // That the expanded menu uses all the window width, if thats the case toggle the menu state
       if (routerEvent instanceof NavigationStart) {
         const menuExpanded = await firstValueFrom(
           this.store
@@ -96,11 +96,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
           }
         }
       }
-
-      //On navigation end check if the menu should be updated based on the data found on the routes
-      if (routerEvent instanceof NavigationEnd) {
-        this.updateMenu();
-      }
     });
 
     //Menu expanded subscription
@@ -111,12 +106,12 @@ export class SideNavComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateMenu() {
-    const menuType = getDeepestData(this.routeOpt.snapshot.root, 'menu');
-    if (this.lastMenu !== menuType) {
-      this.lastMenu = menuType;
-      this.setMenu(menuType);
-    }
+  setMainMenu() {
+    this.onUser().then(async (userStore) => {
+      const user = new User(userStore);
+      const homeMenu = await this.homeService.getDefaultHomeMenu(user);
+      this.store.dispatch(new SetMenuAction(homeMenu));
+    });
   }
 
   toggleMenu() {
@@ -127,60 +122,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
     this.router.navigate(this.menu.returnPath, {
       queryParams: this.menu.returnQueryParamsRute,
     });
-  }
-
-  async setMenu(type: string) {
-    this.sub$?.unsubscribe();
-    switch (type) {
-      case 'edit':
-        //Space name can change here thats why we subscribe to the observables
-        //But the truth is that for this application only the space may change during edit
-        //Any change in the user requires this component to be destroyer
-        //and changes in space require to load another case of menu before that
-        // this.sub$ = this.onUserAndSpace().subscribe(([user, space]) => {
-        //   const editMenu = this.espaciosService.get_menu_space(
-        //     space,
-        //     user.get_rol()
-        //   );
-        //   this.store.dispatch(new SetMenuAction(editMenu));
-        // });
-        break;
-      case 'manage':
-        // this.sub$ = this.onUserAndSpace().subscribe(([user, space]) => {
-        //   const manageMenu = this.espaciosService.get_menu_manage_space(
-        //     space,
-        //     user.get_rol()
-        //   );
-        //   if (
-        //     !manageMenu.options.some((opt) => opt.rute.length === 2) &&
-        //     this.router.url.includes('dashboard')
-        //   ) {
-        //     this.router.navigate(manageMenu.options[0].rute, {
-        //       queryParams: manageMenu.options[0].queryParamsRute,
-        //     });
-        //   }
-        //   this.store.dispatch(new SetMenuAction(manageMenu));
-        // });
-        break;
-      case 'content':
-        // this.sub$ = this.onUserAndSpace().subscribe(([user, space]) => {
-        //   const contentMenu = this.espaciosService.get_menu_space_content(
-        //     space,
-        //     user
-        //   );
-        //   this.store.dispatch(new SetMenuAction(contentMenu));
-        // });
-        break;
-      default:
-        //The user only changes when leaving the home component which at the moment destroys this component first
-        //Thats why we use a promise instead
-        this.onUser().then(async (userStore) => {
-          const user = new User(userStore);
-          const homeMenu = await this.homeService.getDefaultHomeMenu(user);
-          this.store.dispatch(new SetMenuAction(homeMenu));
-        });
-        break;
-    }
   }
 
   async onUser() {

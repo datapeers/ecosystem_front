@@ -7,6 +7,8 @@ import { IPhase, Phase } from './model/phase.model';
 import { IStage, Stage } from './model/stage.model';
 import { StorageService } from '@shared/services/storage.service';
 import { StoragePaths } from '@shared/services/storage.constants';
+import { IMenu } from '@shared/models/menu';
+import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 @Injectable({
   providedIn: 'root',
 })
@@ -150,5 +152,19 @@ export class PhasesService {
       StoragePaths.phaseThumbnails,
       phase._id
     );
+  }
+
+  optionsMenu(phase: IPhase) {
+    return {
+      returnPath: ['home', 'phases'],
+      options: [
+        {
+          label: 'Información',
+          rute: ['home', 'phases', phase._id, 'edit'],
+          type: 'single',
+          icon: faClipboard,
+        },
+      ],
+    };
   }
 }
