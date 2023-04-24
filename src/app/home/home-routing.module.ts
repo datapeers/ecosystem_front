@@ -8,6 +8,7 @@ import { PhasesConfigComponent } from './phases/phases-config/phases-config.comp
 import { ProfileComponent } from '@shared/components/profile/profile.component';
 import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component';
 import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
+import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
         path: 'phases',
         children: [
           {
-            path: "",
+            path: '',
             component: PhasesComponent,
           },
           {
@@ -46,10 +47,14 @@ const routes: Routes = [
               {
                 path: 'edit',
                 component: PhasesEditComponent,
-              }
-            ]
+              },
+              {
+                path: 'content',
+                component: PhaseContentComponent,
+              },
+            ],
           },
-        ]
+        ],
       },
     ],
   },

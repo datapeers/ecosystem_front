@@ -17,6 +17,7 @@ import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component'
 import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
 import { SafePipe } from '@shared/pipe/safe.pipe';
 import { NgxTinymceModule } from 'ngx-tinymce';
+import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { NgxTinymceModule } from 'ngx-tinymce';
     PhasesEditComponent,
     PhaseLoadComponent,
     SafePipe,
+    PhaseContentComponent,
   ],
   imports: [
     CommonModule,

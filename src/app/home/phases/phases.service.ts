@@ -8,7 +8,7 @@ import { IStage, Stage } from './model/stage.model';
 import { StorageService } from '@shared/services/storage.service';
 import { StoragePaths } from '@shared/services/storage.constants';
 import { IMenu } from '@shared/models/menu';
-import { faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faList } from '@fortawesome/free-solid-svg-icons';
 @Injectable({
   providedIn: 'root',
 })
@@ -160,9 +160,15 @@ export class PhasesService {
       options: [
         {
           label: 'Información',
-          rute: ['home', 'phases', phase._id, 'edit'],
+          rute: ['phases', phase._id, 'edit'],
           type: 'single',
           icon: faClipboard,
+        },
+        {
+          label: 'Contenidos',
+          icon: faList,
+          rute: ['phases', phase._id, 'content'],
+          type: 'single',
         },
       ],
     };
