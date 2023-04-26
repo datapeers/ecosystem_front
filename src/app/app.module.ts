@@ -26,6 +26,7 @@ import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { BackgroundComponent } from './shared/components/layout/background/background.component';
+import { FormModule } from '@shared/form/form.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { BackgroundComponent } from './shared/components/layout/background/backg
     AppRoutingModule,
     CommonModule,
     FormsModule,
+    FormModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth()),

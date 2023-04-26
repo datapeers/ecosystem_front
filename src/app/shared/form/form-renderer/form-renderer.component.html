@@ -1,0 +1,11 @@
+<div class="flex flex-column w-full h-full">
+    <div class="iframe-container" style="flex: 9">
+        <ng-container *ngIf="urlSafe">
+            <iframe frameBorder="0" [src]="urlSafe"></iframe>
+        </ng-container>
+    </div>
+    <div class="flex flex-row justify-content-end align-items-end" style="flex: 1">
+        <p-button  type="button" icon="pi pi-times" label="Cerrar" class="p-button-raised p-button-danger"
+            (onClick)="close()"></p-button>
+    </div>
+</div>

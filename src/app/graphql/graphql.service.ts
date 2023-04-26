@@ -83,11 +83,10 @@ export class GraphqlService implements OnDestroy {
     return this.apollo.mutate<any>(mutationRef);
   }
 
-  subscribeRequest(stringSubscribe: string) {
+  subscribeRequest(stringSubscribe: string, variables: any) {
     return this.apollo.subscribe<any>({
-      query: gql`
-        ${stringSubscribe}
-      `,
+      query: gql` ${stringSubscribe} `,
+      variables: variables,
       fetchPolicy: 'network-only',
     });
   }
