@@ -72,7 +72,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
     this.menu$ = this.store
       .select((store) => store.home)
       .subscribe((homeStore) => {
-        console.log(homeStore);
         this.menu = homeStore.otherMenu
           ? cloneDeep(homeStore.otherMenu)
           : cloneDeep(homeStore.menu);

@@ -1,1 +1,73 @@
-<p>phase-content works!</p>
+<ng-container *ngIf="loaded; else loadingTemplates">
+    <div class="p-4">
+        <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
+            <h2>Contenidos</h2>
+            <div class="flex flex-row gap-2">
+                <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
+                <p-button label="Contenido" icon="pi pi-plus" (onClick)="openCreatorSprint()"></p-button>
+            </div>
+        </div>
+        <div class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
+            <p-treeTable [value]="table" selectionMode="single">
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                    <tr class="tree-row" [ngClass]="{
+                                '0': 'surface-100',
+                                '1': 'surface-0'
+                            }[(rowNode.level)%2]" [ttRow]="rowNode">
+                        <td class="relative" tooltipPosition="top" pTooltip="{{rowData?.item?.name ?? ''}}">
+                            <div *ngIf="rowData.hide" class="flex justify-content-start align-items-start w-full h-full
+                                    absolute top-0 left-0 text-xs text-primary font-semibold p-1 border-2 border-primary bg-transparent">
+                                <span>Oculto</span>
+                            </div>
+                            <div class="row-container">
+                                <div class="flex flex-row align-items-center overflow-hidden px-1">
+                                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                    <div class="flex flex-column gap-1 overflow-hidden" (click)="selectViewContent(rowData)">
+                                        <span class="font-bold overflow-hidden white-space-nowrap text-overflow-ellipsis">{{rowData?.item?.nombre ?? ''}}</span>
+                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
+                                            <i (click)="showInitDateDialog(rowData, rowNode?.parent?.data)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
+                                            <span tooltipPosition="top" pTooltip="Cuando estará habilitado el contenido, tiene efecto sobre los contenidos internos." class="underline">
+                                                <b>Habilitado:</b>
+                                            </span>
+                                            <span>{{(rowData?.item?.startDate | date:'MMM d, y, h:mm a')?? "Siempre"}}</span>
+                                        </div>
+                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
+                                            <i (click)="dialogWeight(rowData)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
+                                            <span tooltipPosition="top" pTooltip="Valoración individual por completar el contenido, no tiene relación con la puntuación de sus recursos ni contenidos internos." class="underline">
+                                                <b>Puntuación:</b>
+                                            </span>
+                                            <span>{{(rowData?.item?.puntos)?? 100}}</span>
+                                        </div>
+                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
+                                            <span><b>Recursos:</b></span>
+                                            <span>{{(rowData?.recursos?.length)?? 0}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-row flex-wrap gap-1 align-items-center justify-content-end">
+                                    <button pButton pRipple icon="pi pi-paperclip" class="p-button-outlined" pTooltip="Link" tooltipPosition="top">
+                                    </button>
+                                    <button pButton pRipple icon="pi pi-qrcode" class="p-button-outlined" pTooltip="Qr" tooltipPosition="top">
+                                    </button>
+                                    <button pButton pRipple icon="pi pi-file" class="p-button-outlined" pTooltip="Ver" tooltipPosition="top">
+                                    </button>
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined" pTooltip="Editar" tooltipPosition="top">
+                                    </button>
+                                    <button pButton pRipple [icon]="rowData.oculto ? 'pi pi-eye-slash' : 'pi pi-eye'" class="p-button-outlined p-button-help" [pTooltip]="rowData.oculto ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
+                                    </button>
+                                    <button pButton pRipple *ngIf="rowData.levelNode < 2" icon="pi pi-plus" class="p-button-outlined" pTooltip="Agregar contenido" tooltipPosition="top">
+                                    </button>
+                                    <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" pTooltip="Borrar" tooltipPosition="top">
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-treeTable>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loadingTemplates>
+    <app-loading></app-loading>
+</ng-template>

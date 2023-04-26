@@ -45,6 +45,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AnimateModule } from 'primeng/animate';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [],
@@ -92,6 +93,7 @@ import { AnimateModule } from 'primeng/animate';
     ColorPickerModule,
     MultiSelectModule,
     AnimateModule,
+    TreeTableModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],
