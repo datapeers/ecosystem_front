@@ -55,6 +55,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
         if (iterator.isDeleted == false)
           this.table.push(this.service.convertContainerToNode(iterator));
       }
+      console.log(this.table);
       this.loaded = true;
     });
   }

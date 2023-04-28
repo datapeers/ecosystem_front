@@ -49,9 +49,11 @@ export class PhaseContentService {
   ): TreeNode<IContent> {
     const levelNode = level + 1;
     const data = { ...container, levelNode, father };
-    const children = container.childs.map((child) => {
-      return this.convertContainerToNode(child, levelNode, container);
-    });
+    const children = container.childs
+      ? container.childs.map((child) => {
+          return this.convertContainerToNode(child, levelNode, container);
+        })
+      : [];
     return {
       data,
       expanded: true,

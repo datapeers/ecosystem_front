@@ -1,6 +1,7 @@
 export interface IContent {
   _id: string;
   childs: Content[];
+  name: string;
   content: string;
   extra_options: any;
   hide: boolean;
@@ -13,6 +14,7 @@ export interface IContent {
 export class Content implements IContent {
   _id: string;
   childs: Content[];
+  name: string;
   content: string;
   extra_options: any;
   hide: boolean;

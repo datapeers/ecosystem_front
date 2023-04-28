@@ -2,7 +2,16 @@ const fragments = {
   contentFields: `
   fragment contentFields on Content {
       _id
-      childs
+      childs {
+        _id
+        name
+        content
+        hide
+        isDeleted
+        createdAt
+        updatedAt
+      }
+      extra_options
       name
       content
       hide
