@@ -6,7 +6,12 @@ const fragments = {
       description
       formJson
       target
-      documents
+      documents {
+        name
+        observation
+        optional
+        key
+      }
       keys
       tags {
         _id
