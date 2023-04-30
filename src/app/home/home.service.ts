@@ -231,7 +231,7 @@ export class HomeService {
       },
       forms: {
         label: 'Formularios',
-        rute: '/forms',
+        rute: '/home/forms',
         type: 'single',
         class: 'mt-4',
         icon: faBook,

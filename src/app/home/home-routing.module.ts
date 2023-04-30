@@ -9,6 +9,7 @@ import { ProfileComponent } from '@shared/components/profile/profile.component';
 import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component';
 import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
+import { FormsComponent } from './forms/forms.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: "forms",
+        component: FormsComponent,
       },
       {
         // TODO: Add guards or modules if required

@@ -19,6 +19,10 @@ import { SafePipe } from '@shared/pipe/safe.pipe';
 import { NgxTinymceModule } from 'ngx-tinymce';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 import { PhaseContentCreatorComponent } from './phases/phase-content/phase-content-creator/phase-content-creator.component';
+import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component';
+import { StartupsComponent } from './startups/startups.component';
+import { FormsComponent } from './forms/forms.component';
+import { InvestorsComponent } from './investors/investors.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,10 @@ import { PhaseContentCreatorComponent } from './phases/phase-content/phase-conte
     SafePipe,
     PhaseContentComponent,
     PhaseContentCreatorComponent,
+    EntrepreneursComponent,
+    StartupsComponent,
+    FormsComponent,
+    InvestorsComponent,
   ],
   imports: [
     CommonModule,
