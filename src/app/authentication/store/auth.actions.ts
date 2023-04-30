@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { User } from '@shared/models/auth/user';
+import { User } from '@auth/models/user';
 
 export const SET_USER = '[Auth] Set user';
 export const SET_ERROR = '[Auth] Set error in store';

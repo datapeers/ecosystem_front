@@ -4,7 +4,7 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { RoleGuard } from '@auth/guards/role.guard';
-import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

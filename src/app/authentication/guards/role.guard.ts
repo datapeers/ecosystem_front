@@ -3,7 +3,6 @@ import { CanMatch, Route, UrlSegment, UrlTree } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
 import { Store } from '@ngrx/store';
-import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
 import { Observable, first, map } from 'rxjs';
 
 @Injectable({

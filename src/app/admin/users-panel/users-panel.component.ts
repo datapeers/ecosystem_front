@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { User } from '@shared/models/auth/user';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-users-panel',

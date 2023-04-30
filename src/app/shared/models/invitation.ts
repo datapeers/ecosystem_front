@@ -1,5 +1,5 @@
-import { IUser, User } from "./auth/user";
-import { ValidRoles, rolNames } from "./auth/valid-roles.enum";
+import { IUser, User } from "../../authentication/models/user";
+import { ValidRoles, rolNames } from "@auth/models/valid-roles.enum";
 import { InvitationStates, stateNames } from "./invitation-states.enum";
 
 export interface IInvitation {

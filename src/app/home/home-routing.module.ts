@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { RoleGuard } from '@auth/guards/role.guard';
-import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { PhasesComponent } from './phases/phases.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
 import { ProfileComponent } from '@shared/components/profile/profile.component';

@@ -1,5 +1,5 @@
+import { ValidRoles } from "@auth/models/valid-roles.enum";
 import { MenuItem } from "primeng/api";
-import { ValidRoles } from "../auth/valid-roles.enum";
 
 export interface ProtectedMenuItem extends MenuItem {
   roles?: ValidRoles[];

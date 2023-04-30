@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../../authentication/user.service';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
-import { User } from '@shared/models/auth/user';
+import { User } from '@auth/models/user';
 import { Subject, filter, takeUntil, tap } from 'rxjs';
 import { UpdateUserImageAction } from '@auth/store/auth.actions';
 import { HttpEventType } from '@angular/common/http';
