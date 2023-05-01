@@ -14,6 +14,8 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   const ws = new GraphQLWsLink(
     createClient({
       url: environment.graphqlSubscription,
+      retryAttempts: 10,
+      shouldRetry: () => true
     })
   );
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable, firstValueFrom } from 'rxjs';
 import { AppForm, IForm } from './models/form';
 import formQueries from './form.gql';
