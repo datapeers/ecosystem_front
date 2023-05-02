@@ -20,6 +20,10 @@ import { NgxTinymceModule } from 'ngx-tinymce';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 import { PhaseContentCreatorComponent } from './phases/phase-content/phase-content-creator/phase-content-creator.component';
 import { PhaseContentViewComponent } from './phases/phase-content/phase-content-view/phase-content-view.component';
+// import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component';
+// import { StartupsComponent } from './startups/startups.component';
+import { FormsComponent } from './forms/forms.component';
+// import { InvestorsComponent } from './investors/investors.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,10 @@ import { PhaseContentViewComponent } from './phases/phase-content/phase-content-
     PhaseContentComponent,
     PhaseContentCreatorComponent,
     PhaseContentViewComponent,
+    // EntrepreneursComponent,
+    // StartupsComponent,
+    FormsComponent,
+    // InvestorsComponent,
   ],
   imports: [
     CommonModule,

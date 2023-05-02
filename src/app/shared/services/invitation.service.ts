@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { IInvitation, Invitation } from '@shared/models/invitation';
 import invitationQueries from './invitation.gql';
 

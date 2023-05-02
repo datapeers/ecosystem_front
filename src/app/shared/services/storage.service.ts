@@ -9,7 +9,6 @@ import { StoragePaths } from './storage.constants';
 })
 export class StorageService {
   private readonly apiUrl: string = `${environment.api}/storage`;
-  private readonly storageUri: string = `http://localhost:4566`;
   constructor(
     private readonly http: HttpClient,
   ) {

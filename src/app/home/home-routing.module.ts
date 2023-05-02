@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { RoleGuard } from '@auth/guards/role.guard';
-import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { PhasesComponent } from './phases/phases.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
 import { ProfileComponent } from '@shared/components/profile/profile.component';
@@ -10,6 +10,7 @@ import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component'
 import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 import { PhaseContentViewComponent } from './phases/phase-content/phase-content-view/phase-content-view.component';
+import { FormsComponent } from './forms/forms.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+      },
+      {
+        path: 'forms',
+        component: FormsComponent,
       },
       {
         // TODO: Add guards or modules if required

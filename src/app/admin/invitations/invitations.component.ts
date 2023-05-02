@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { Subject, throttleTime } from 'rxjs';
-import { ValidRoles, validRoles } from '@shared/models/auth/valid-roles.enum';
 import { Invitation } from '@shared/models/invitation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidRoles, validRoles } from '@auth/models/valid-roles.enum';
 
 @Component({
   selector: 'app-invitations',

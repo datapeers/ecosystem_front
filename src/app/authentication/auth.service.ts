@@ -150,6 +150,5 @@ export class AuthService {
       });
       // An error occurred while reauthenticating the user with their current password
     });
-
   }
 }

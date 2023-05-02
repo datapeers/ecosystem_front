@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { firstValueFrom, map } from 'rxjs';
-import { IUser, User } from '@shared/models/auth/user';
-import userQueries from './user.gql';
-import { ValidRoles } from '@shared/models/auth/valid-roles.enum';
+import { IUser, User } from '@auth/models/user';
+import { ValidRoles } from './models/valid-roles.enum';
 import { StorageService } from '@shared/services/storage.service';
 import { StoragePaths } from '@shared/services/storage.constants';
+import userQueries from './user.gql';
 
 @Injectable({
   providedIn: 'root'

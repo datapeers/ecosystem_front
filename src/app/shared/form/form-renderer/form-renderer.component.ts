@@ -21,13 +21,11 @@ export class FormRendererComponent {
   ) {}
 
   ngOnInit(): void {
-    this.idSubscription = this.config.data.idSubscription;
-    if (this.idSubscription) {
-      this.subSocket(this.idSubscription);
-      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.config.data.iframe
-      );
-    }
+    const { idSubscription, iframe } = this.config.data
+    this.idSubscription = idSubscription;
+    if (!this.idSubscription) return this.ref.close();
+    this.subSocket(this.idSubscription);
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(iframe);
   }
   
   ngOnDestroy() {
@@ -48,9 +46,6 @@ export class FormRendererComponent {
   }
 
   async close() {
-    if (this.idSubscription) {
-      this.formService.closeFormSubscription(this.idSubscription);
-    }
     this.ref.close();
   }
 }

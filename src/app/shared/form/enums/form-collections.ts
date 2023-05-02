@@ -1,20 +1,21 @@
 export enum FormCollections {
-  Announcements = "announcements",
-  Entrepreneurs = "entrepreneurs",
-  Resources = "resources",
-  Survey = "survey"
+  announcements = "announcements",
+  resources = "resources",
+  survey = "survey",
+  entrepreneurs = "entrepreneurs",
+  startups = "startups",
+  investors = "investors",
 }
 
 export const formCollectionNames: Record<FormCollections, string> = {
-  [FormCollections.Entrepreneurs]: "Emprendedores",
-  [FormCollections.Resources]: "Recursos",
-  [FormCollections.Announcements]: "Convocatorias",
-  [FormCollections.Survey]: "Encuestas"
+  [FormCollections.announcements]: "Convocatorias",
+  [FormCollections.resources]: "Recursos",
+  [FormCollections.survey]: "Encuestas",
+  [FormCollections.entrepreneurs]: "Emprendedores",
+  [FormCollections.startups]: "Startups",
+  [FormCollections.investors]: "Inversionistas",
 }
 
-export const formCollections: { name: string, type: FormCollections }[] = [
-  { name: 'Emprendedor', type: FormCollections.Entrepreneurs },
-  { name: 'Recurso', type: FormCollections.Resources },
-  { name: 'Convocatoria', type: FormCollections.Announcements },
-  { name: 'Encuesta', type: FormCollections.Survey },
-];
+export const formCollections = Object.entries(formCollectionNames).map(([key, value]: [FormCollections, string]) => {
+  return { name: value, type: key };
+});

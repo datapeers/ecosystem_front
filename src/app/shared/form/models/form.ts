@@ -1,4 +1,5 @@
 import { FormCollections, formCollectionNames } from "../enums/form-collections";
+import { FormDocument } from "./form-document";
 import { IFormTag } from "./form-tag";
 
 export interface IForm {
@@ -6,8 +7,8 @@ export interface IForm {
   name: string;
   description: string;
   formJson: string;
-  target?: FormCollections;
-  documents?: any[];
+  target: FormCollections;
+  documents: any[];
   keys?: any[];
   tags: IFormTag[];
   isDeleted?: boolean;
@@ -19,7 +20,7 @@ export class AppForm implements IForm {
   description: string;
   formJson: string;
   target: FormCollections;
-  documents?: any[];
+  documents: FormDocument[];
   keys?: any[];
   tags: IFormTag[];
   isDeleted?: boolean;

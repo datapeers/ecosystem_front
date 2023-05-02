@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ValidRoles, rolNames } from '@shared/models/auth/valid-roles.enum';
-import { IUser } from '@shared/models/auth/user';
+import { IUser } from '@auth/models/user';
+import { ValidRoles, rolNames } from '@auth/models/valid-roles.enum';
 import { UserService } from '@auth/user.service';
 import { InvitationService } from '@shared/services/invitation.service';
 

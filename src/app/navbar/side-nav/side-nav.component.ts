@@ -13,7 +13,7 @@ import { Subscription, first, firstValueFrom } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { SetMenuAction, ToggleMenuAction } from '@home/store/home.actions';
 import { getDeepestData } from '@shared/functions/router.utils';
-import { User } from '@shared/models/auth/user';
+import { User } from '@auth/models/user';
 import {
   faAngleDoubleLeft,
   faAngleDoubleRight,

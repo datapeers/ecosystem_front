@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
-import { User } from '@shared/models/auth/user';
+import { User } from '@auth/models/user';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({

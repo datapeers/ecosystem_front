@@ -1,4 +1,4 @@
-import { User } from '@shared/models/auth/user';
+import { User } from '@auth/models/user';
 import * as fromAuth from './auth.actions';
 export interface IAuthState {
   user: User;
