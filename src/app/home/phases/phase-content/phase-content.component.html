@@ -24,32 +24,31 @@
                                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                                     <div class="flex flex-column gap-1 overflow-hidden" (click)="selectViewContent(rowData)">
                                         <span class="font-bold overflow-hidden white-space-nowrap text-overflow-ellipsis">{{rowData?.name ?? ''}}</span>
-
                                         <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
                                             <i (click)="dialogWeight(rowData)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
                                             <span tooltipPosition="top" pTooltip="Valoración individual por completar el contenido, no tiene relación con la puntuación de sus recursos ni contenidos internos." class="underline">
                                                 <b>Puntuación:</b>
                                             </span>
-                                            <span>{{(rowData?.item?.puntos)?? 100}}</span>
+                                            <span>{{(rowData?.item?.points)?? 100}}</span>
                                         </div>
-                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
+                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center" *ngIf="rowData?.extra_options?.duration">
                                             <i (click)="dialogWeight(rowData)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
                                             <span tooltipPosition="top" pTooltip="Duración en dias del sprint" class="underline">
                                                 <b>Duración:</b>
                                             </span>
-                                            <span>{{(rowData?.extra_options?.duration)?? 100}}</span>
+                                            <span>{{rowData?.extra_options?.duration}}</span>
                                         </div>
                                         <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
                                             <span><b>Recursos:</b></span>
-                                            <span>{{(rowData?.recursos?.length)?? 0}}</span>
+                                            <span>{{(rowData?.resources?.length)?? 0}}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="flex flex-row flex-wrap gap-1 align-items-center justify-content-end">
 
-                                    <button pButton pRipple icon="pi pi-file" class="p-button-outlined" pTooltip="Ver" tooltipPosition="top">
-                                    </button>
-                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined" pTooltip="Editar" tooltipPosition="top">
+                                    <!-- <button pButton pRipple icon="pi pi-file" class="p-button-outlined" pTooltip="Ver" tooltipPosition="top" *ngIf="!rowData?.extra_options?.sprint">
+                                    </button> -->
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined" pTooltip="Editar" tooltipPosition="top" (click)="selectViewContent(rowData)">
                                     </button>
                                     <button pButton pRipple [icon]="rowData.hide ? 'pi pi-eye-slash' : 'pi pi-eye'" class="p-button-outlined p-button-help" [pTooltip]="rowData.hide ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
                                     </button>

@@ -19,6 +19,7 @@ import { SafePipe } from '@shared/pipe/safe.pipe';
 import { NgxTinymceModule } from 'ngx-tinymce';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 import { PhaseContentCreatorComponent } from './phases/phase-content/phase-content-creator/phase-content-creator.component';
+import { PhaseContentViewComponent } from './phases/phase-content/phase-content-view/phase-content-view.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { PhaseContentCreatorComponent } from './phases/phase-content/phase-conte
     SafePipe,
     PhaseContentComponent,
     PhaseContentCreatorComponent,
+    PhaseContentViewComponent,
   ],
   imports: [
     CommonModule,

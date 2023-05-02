@@ -8,6 +8,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { PhaseContentCreatorComponent } from './phase-content-creator/phase-content-creator.component';
 import { cloneDeep } from 'lodash';
 import { Content } from '../model/content.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-phase-content',
@@ -25,6 +26,8 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   displayTable = false;
   constructor(
     private store: Store<AppState>,
+    private router: Router,
+    private route: ActivatedRoute,
     public dialogService: DialogService,
     private service: PhaseContentService
   ) {}
@@ -55,7 +58,6 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
         if (iterator.isDeleted == false)
           this.table.push(this.service.convertContainerToNode(iterator));
       }
-      console.log(this.table);
       this.loaded = true;
     });
   }
@@ -79,6 +81,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
 
   selectViewContent(content: Content) {
     console.log(content);
+    this.router.navigate([content._id], { relativeTo: this.route });
   }
 
   showInitDateDialog(content: Content, parent: Content) {
