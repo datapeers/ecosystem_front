@@ -11,6 +11,10 @@ import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 import { PhaseContentViewComponent } from './phases/phase-content/phase-content-view/phase-content-view.component';
 import { FormsComponent } from './forms/forms.component';
+import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component';
+import { StartupsComponent } from './startups/startups.component';
+import { InvestorsComponent } from './investors/investors.component';
+import { ResponsiblesComponent } from './responsibles/responsibles.component';
 
 const routes: Routes = [
   {
@@ -33,6 +37,22 @@ const routes: Routes = [
       {
         path: 'forms',
         component: FormsComponent,
+      },
+      {
+        path: 'entrepreneurs',
+        component: EntrepreneursComponent,
+      },
+      {
+        path: 'startups',
+        component: StartupsComponent,
+      },
+      {
+        path: 'investors',
+        component: InvestorsComponent,
+      },
+      {
+        path: 'responsibles',
+        component: ResponsiblesComponent,
       },
       {
         // TODO: Add guards or modules if required

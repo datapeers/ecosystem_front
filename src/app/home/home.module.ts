@@ -20,10 +20,11 @@ import { NgxTinymceModule } from 'ngx-tinymce';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 import { PhaseContentCreatorComponent } from './phases/phase-content/phase-content-creator/phase-content-creator.component';
 import { PhaseContentViewComponent } from './phases/phase-content/phase-content-view/phase-content-view.component';
-// import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component';
-// import { StartupsComponent } from './startups/startups.component';
+import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component';
+import { StartupsComponent } from './startups/startups.component';
 import { FormsComponent } from './forms/forms.component';
-// import { InvestorsComponent } from './investors/investors.component';
+import { InvestorsComponent } from './investors/investors.component';
+import { ResponsiblesComponent } from './responsibles/responsibles.component';
 
 @NgModule({
   declarations: [
@@ -42,10 +43,11 @@ import { FormsComponent } from './forms/forms.component';
     PhaseContentComponent,
     PhaseContentCreatorComponent,
     PhaseContentViewComponent,
-    // EntrepreneursComponent,
-    // StartupsComponent,
+    EntrepreneursComponent,
+    StartupsComponent,
     FormsComponent,
-    // InvestorsComponent,
+    InvestorsComponent,
+    ResponsiblesComponent,
   ],
   imports: [
     CommonModule,
