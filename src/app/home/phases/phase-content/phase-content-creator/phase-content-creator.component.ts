@@ -23,6 +23,7 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
     sprint: boolean;
     duration: number;
   };
+  parent_content;
   constructor(
     public config: DynamicDialogConfig,
     private readonly service: PhaseContentService,
@@ -35,6 +36,7 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
       content: new UntypedFormControl(''),
       duration: new UntypedFormControl(7, [Validators.required]),
     });
+    this.parent_content = this.config.data.content;
   }
 
   ngOnInit() {
@@ -56,8 +58,11 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
       content: this.contentCreationForm.value.content,
       phase: this.config.data.phase,
       extra_options: {
-        sprint: this.config.data.sprint ?? false,
-        duration: this.contentCreationForm.value.duration,
+        sprint: this.parent_content ? false : true,
+        duration: this.parent_content
+          ? undefined
+          : this.contentCreationForm.value.duration,
+        parent: this.parent_content._id,
       },
     };
     this.service

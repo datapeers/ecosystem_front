@@ -4,7 +4,7 @@
             <h2>Contenidos</h2>
             <div class="flex flex-row gap-2">
                 <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
-                <p-button label="Contenido" icon="pi pi-plus" (onClick)="openCreatorSprint()"></p-button>
+                <p-button label="Contenido" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
             </div>
         </div>
         <div class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
@@ -52,7 +52,7 @@
                                     </button>
                                     <button pButton pRipple [icon]="rowData.hide ? 'pi pi-eye-slash' : 'pi pi-eye'" class="p-button-outlined p-button-help" [pTooltip]="rowData.hide ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
                                     </button>
-                                    <button pButton pRipple *ngIf="rowData.levelNode < 2" icon="pi pi-plus" class="p-button-outlined" pTooltip="Agregar contenido" tooltipPosition="top">
+                                    <button pButton pRipple *ngIf="rowData.levelNode < 2" icon="pi pi-plus" class="p-button-outlined" pTooltip="Agregar contenido" tooltipPosition="top" (click)="openCreator(rowData)">
                                     </button>
                                     <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" pTooltip="Borrar" tooltipPosition="top">
                                     </button>

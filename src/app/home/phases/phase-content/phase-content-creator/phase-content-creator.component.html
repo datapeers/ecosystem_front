@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="flex-auto px-2">
+        <div class="flex-auto px-2" *ngIf="!parent_content">
             <label class="mb-2 block font-bold" for="horizontal">Duración (días)</label>
             <p-inputNumber formControlName="duration" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
         </div>

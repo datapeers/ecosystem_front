@@ -62,14 +62,15 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
     });
   }
 
-  openCreatorSprint() {
+  openCreator(content?) {
+    console.log(content);
     this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
-      header: 'Añadir sprint',
+      header: content ? 'Añadir contenido' : 'Añadir sprint',
       width: '75vw',
       height: '70vh',
       data: {
         phase: this.phase._id,
-        sprint: true,
+        content,
       },
     });
 
