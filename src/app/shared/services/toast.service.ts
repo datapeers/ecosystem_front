@@ -54,7 +54,7 @@ export class ToastService {
 }
 
 export interface IToastMessage {
-  summary: string;
+  summary?: string;
   detail: string;
   life?: number;
   closable?: boolean;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { map } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { Observable, firstValueFrom } from 'rxjs';
 import { AppForm, IForm } from './models/form';
 import formQueries from './form.gql';
@@ -10,6 +10,7 @@ import { FormRendererComponent } from './form-renderer/form-renderer.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { environment } from 'src/environments/environment';
 import { CreateSubscriptionArgs as CreateSubscriptionInput } from './models/create-subscription.input';
+import { ToastService } from '@shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class FormService {
   constructor(
     private readonly graphql: GraphqlService,
     private readonly dialogService: DialogService,
+    private readonly toast: ToastService,
   ) {}
 
   getForm(id: string): Promise<AppForm> {
@@ -73,7 +75,7 @@ export class FormService {
     );
   }
 
-  createFormSubscription(args: CreateSubscriptionInput): Promise<AppForm> {
+  createFormSubscription(args: CreateSubscriptionInput): Promise<IFormSubscription> {
     const refMutation = this.graphql.refMutation(
       formQueries.mutation.createFormSubscription,
       { createFormSubscriptionInput: args },
@@ -110,8 +112,10 @@ export class FormService {
     );
   }
 
-  openFormFromSubscription(idSubscription: string, title: string = "Formulario") {
-    this.dialogService.open(FormRendererComponent, {
+  openFormFromSubscription(formSubscription: IFormSubscription, title: string = "Formulario"): Observable<string | null> {
+    const idSubscription: string = formSubscription._id;
+    const isEdit: boolean = !!formSubscription.doc;
+    const ref = this.dialogService.open(FormRendererComponent, {
       modal: true,
       width: '95%',
       height: '100vh',
@@ -122,5 +126,16 @@ export class FormService {
       header: title,
       showHeader: true,
     });
+    ref.onClose
+    .pipe(take(1))
+    .subscribe((doc?: string) => {
+      if(doc) {
+        const message = isEdit ? 'Documento editado con éxito' : 'Documento creado con éxito'
+        this.toast.success({
+          detail: message
+        });
+      }
+    });
+    return ref.onClose;
   }
 }
