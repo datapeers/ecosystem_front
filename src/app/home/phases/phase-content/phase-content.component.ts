@@ -80,7 +80,6 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   }
 
   selectViewContent(content: Content) {
-    console.log(content);
     this.router.navigate([content._id], { relativeTo: this.route });
   }
 

@@ -1,5 +1,13 @@
-import firebase from 'firebase/compat/app';
 import { uniqueId } from 'lodash';
+import { StorageService } from '@shared/services/storage.service';
+import { StoragePaths } from '@shared/services/storage.constants';
+import { Injector } from '@angular/core';
+import {
+  HttpClient,
+  HttpEventType,
+  HttpHandler,
+  HttpXhrBackend,
+} from '@angular/common/http';
 
 export const configTinyMce = {
   height: 300,
@@ -9,18 +17,38 @@ export const configTinyMce = {
   default_link_target: '_blank',
   //  skin_url: '../../../assets/tinymce/skins/lightgray',
   images_upload_handler: async function (blobInfo, success, failure) {
-    let stringPath = `galeria/${uniqueId('img')}${blobInfo.filename()}`;
-    var storage = firebase.storage();
-    /// ref(stringPath).put(blobInfo.blob()).then;
-    try {
-      const ref = storage.ref(stringPath);
-      await ref.put(blobInfo.blob());
-      const url = await ref.getDownloadURL();
-      success(url);
-    } catch (error) {
-      console.warn(error);
-      failure(null);
-    }
+    const httpClientInjector = Injector.create({
+      providers: [
+        { provide: HttpClient, deps: [HttpHandler] },
+        {
+          provide: HttpHandler,
+          useValue: new HttpXhrBackend({ build: () => new XMLHttpRequest() }),
+        },
+      ],
+    });
+
+    const injector = Injector.create({
+      providers: [
+        {
+          provide: StorageService,
+          useClass: StorageService,
+        },
+      ],
+      parent: httpClientInjector,
+    });
+
+    const wantedServiceC = injector.get(StorageService);
+    const renamedFile = new File([blobInfo.blob()], uniqueId('img'), {
+      type: blobInfo.type,
+      lastModified: blobInfo.lastModified,
+    });
+    wantedServiceC
+      .uploadFile(StoragePaths.contentImages, renamedFile)
+      .subscribe((event) => {
+        if (event.type === HttpEventType.Response) {
+          success(event.url);
+        }
+      });
   },
   imagetools_toolbar:
     'rotateleft rotateright | flipv fliph | editimage imageoptions',
