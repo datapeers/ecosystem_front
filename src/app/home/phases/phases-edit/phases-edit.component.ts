@@ -50,15 +50,10 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
     this.service
       .updatePhase(this.phase._id, updateItem)
       .then((phase) => {
-        this.toast.clear();
-        this.cancelEdit(property);
-        this.store.dispatch(new SetPhaseAction(phase));
+        this.successChange(property, phase);
       })
       .catch((err) => {
-        this.toast.clear();
-        // this.cancelEdit(property);
-        this.toast.error({ summary: 'Error al guardar cambios', detail: err });
-        console.warn(err);
+        this.failChange(err);
       });
   }
 
@@ -89,6 +84,14 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
         if (event.type === HttpEventType.Response) {
           this.service.updatePhase(phase._id, { thumbnail: event.url });
           this.store.dispatch(new UpdatePhaseImageAction(event.url));
+          this.service
+            .updatePhase(this.phase._id, { thumbnail: event.url })
+            .then((phase) => {
+              this.successChange('thumbnail', phase);
+            })
+            .catch((err) => {
+              this.failChange(err);
+            });
         }
       });
   }
@@ -99,5 +102,17 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
         this.store.dispatch(new UpdatePhaseImageAction(''));
       }
     });
+  }
+  successChange(property, phase) {
+    this.toast.clear();
+    this.cancelEdit(property);
+    this.store.dispatch(new SetPhaseAction(phase));
+  }
+
+  failChange(err) {
+    this.toast.clear();
+    // this.cancelEdit(property);
+    this.toast.error({ summary: 'Error al guardar cambios', detail: err });
+    console.warn(err);
   }
 }
