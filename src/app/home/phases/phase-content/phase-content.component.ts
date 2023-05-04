@@ -26,6 +26,8 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   table = [];
   displayTable = false;
   routeSubscription$: Subscription;
+  selectedContent: Content;
+
   constructor(
     private store: Store<AppState>,
     private router: Router,
@@ -86,14 +88,10 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
     this.router.navigate([content._id], { relativeTo: this.route });
   }
 
-  showInitDateDialog(content: Content, parent: Content) {
-    console.log('a');
-  }
-
-  dialogWeight(content: Content) {
-    // this.weight = content.item?.puntos ?? 100;
-    // this.selectedElement = content;
-    console.log('b');
+  selectContent(content: Content) {
+    this.selectedContent = cloneDeep(content);
+    if (!this.selectedContent.extra_options.points)
+      this.selectedContent.extra_options.points = 100;
   }
 
   invertHide(content: Content) {
@@ -102,6 +100,22 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
       .updateContent({ _id: content._id, hide: !content.hide })
       .then(() => {
         this.toast.clear();
+      })
+      .catch((err) => {
+        this.failChange(err);
+      });
+  }
+
+  changeExtraOptions() {
+    this.toast.info({ summary: 'Guardando...', detail: '' });
+    this.service
+      .updateContent({
+        _id: this.selectedContent._id,
+        extra_options: { ...this.selectedContent.extra_options },
+      })
+      .then(() => {
+        this.toast.clear();
+        this.toast.info({ summary: 'Cambio guardado', detail: '', life: 2000 });
       })
       .catch((err) => {
         this.failChange(err);
