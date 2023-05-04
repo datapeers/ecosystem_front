@@ -4,5 +4,18 @@
 
         </fa-icon> <span class="subheader text-white ">Contenidos</span>
     </div>
-    <p-button type="button" label="Guardar cambios" icon="pi pi-save"></p-button>
+    <p-button type="button" label="Guardar cambios" icon="pi pi-save" (onClick)="saveChanges()"></p-button>
+</div>
+<div class="flex flex-column bg-white mx-4 my-2 gap-2 p-4 border-round" *ngIf="content">
+    <div class="field mt-4">
+        <label for="float-input" class="p-1 text-gray-500">Nombre</label>
+        <input id="float-input" type="text" pInputText [(ngModel)]="content.name" class="inputfield w-full">
+
+
+    </div>
+    <div class="field">
+
+        <label for="float-details" class="p-1 text-gray-500">Detalles</label>
+        <tinymce id="float-details" [(ngModel)]="content.content" [config]="configTiny"></tinymce>
+    </div>
 </div>

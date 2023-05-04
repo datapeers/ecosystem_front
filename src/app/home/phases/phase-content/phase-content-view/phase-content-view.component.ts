@@ -6,6 +6,9 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Location } from '@angular/common';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { PhaseContentService } from '../phase-content.service';
+import { Content } from '@home/phases/model/content.model';
+import { cloneDeep } from 'lodash';
+import { configTinyMce } from '@shared/models/configTinyMce';
 
 @Component({
   selector: 'app-phase-content-view',
@@ -15,6 +18,8 @@ import { PhaseContentService } from '../phase-content.service';
 export class PhaseContentViewComponent implements OnInit, OnDestroy {
   faReply = faReply;
   contentID;
+  content: Content;
+  configTiny = configTinyMce;
   constructor(
     private routeOpt: ActivatedRoute,
     private _location: Location,
@@ -38,11 +43,44 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
   loadContent() {
     this.service
       .getContent(this.contentID)
-      .then(console.log)
-      .catch(console.warn);
+      .then((content) => {
+        this.content = cloneDeep(content);
+      })
+      .catch((err) => {
+        this.toast.clear();
+        // this.cancelEdit(property);
+        this.toast.error({ summary: 'Error al cargar contenido', detail: err });
+        console.warn(err);
+        this.return();
+      });
   }
 
   return() {
     this._location.back();
+  }
+
+  saveChanges() {
+    this.toast.info({ summary: 'Guardando...', detail: '' });
+    this.service
+      .updateContent({
+        _id: this.content._id,
+        content: this.content.content,
+        name: this.content.name,
+      })
+      .then(async () => {
+        await this.loadContent();
+        this.toast.clear();
+        this.toast.info({ summary: 'Cambio guardado', detail: '', life: 2000 });
+      })
+      .catch((err) => {
+        this.failChange(err);
+      });
+  }
+
+  failChange(err) {
+    this.toast.clear();
+    // this.cancelEdit(property);
+    this.toast.error({ summary: 'Error al guardar cambios', detail: err });
+    console.warn(err);
   }
 }
