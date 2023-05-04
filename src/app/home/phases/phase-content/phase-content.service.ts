@@ -31,7 +31,7 @@ export class PhaseContentService {
     const queryRef = this.graphql.refQuery(
       contentQueries.query.getContent,
       { id },
-      'no-cache',
+      'cache-first',
       { auth: true }
     );
     return firstValueFrom(

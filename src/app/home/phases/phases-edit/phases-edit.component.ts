@@ -3,13 +3,14 @@ import { Phase } from '../model/phase.model';
 import { PhasesService } from '../phases.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
-import { Observable, Subscription, tap } from 'rxjs';
+import { Observable, Subscription, firstValueFrom, tap } from 'rxjs';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { SetPhaseAction, UpdatePhaseImageAction } from '../store/phase.actions';
 import { ToastService } from '@shared/services/toast.service';
 import { cloneDeep } from 'lodash';
 import { configTinyMce } from '@shared/models/configTinyMce';
+import { StorageService } from '@shared/services/storage.service';
 
 @Component({
   selector: 'app-phases-edit',
@@ -24,7 +25,8 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
   constructor(
     private readonly service: PhasesService,
     private readonly store: Store<AppState>,
-    private toast: ToastService
+    private toast: ToastService,
+    private readonly storageService: StorageService
   ) {
     this.phase$ = this.store
       .select((state) => state.phase.phase)

@@ -25,6 +25,7 @@ import { StartupsComponent } from './startups/startups.component';
 import { FormsComponent } from './forms/forms.component';
 import { InvestorsComponent } from './investors/investors.component';
 import { ResponsiblesComponent } from './responsibles/responsibles.component';
+import { GetImagePipe } from '@shared/pipe/get-image.pipe';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ResponsiblesComponent } from './responsibles/responsibles.component';
     FormsComponent,
     InvestorsComponent,
     ResponsiblesComponent,
+    GetImagePipe,
   ],
   imports: [
     CommonModule,

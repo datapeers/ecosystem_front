@@ -2,20 +2,24 @@
     <div class="text-wrapper flex flex-row align-items-center text-center ">
         <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
 
-        </fa-icon> <span class="subheader text-white ">Contenidos</span>
+        </fa-icon> <span class="subheader text-white ">Regresar a Contenidos</span>
     </div>
     <p-button type="button" label="Guardar cambios" icon="pi pi-save" (onClick)="saveChanges()"></p-button>
 </div>
-<div class="flex flex-column bg-white mx-4 my-2 gap-2 p-4 border-round" *ngIf="content">
+<div class="flex flex-column bg-white mx-4 gap-2 p-4 border-round" *ngIf="content">
     <div class="field mt-4">
         <label for="float-input" class="p-1 text-gray-500">Nombre</label>
         <input id="float-input" type="text" pInputText [(ngModel)]="content.name" class="inputfield w-full">
-
-
     </div>
     <div class="field">
-
         <label for="float-details" class="p-1 text-gray-500">Detalles</label>
         <tinymce id="float-details" [(ngModel)]="content.content" [config]="configTiny"></tinymce>
+    </div>
+</div>
+
+<div class="flex flex-column bg-white mx-4 mt-4 p-4 border-round">
+    <div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
+        <span class="subheader text-white ">Recursos</span>
+        <p-button type="button" label="Recurso" icon="pi pi-plus"></p-button>
     </div>
 </div>
