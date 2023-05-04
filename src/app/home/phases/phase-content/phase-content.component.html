@@ -50,11 +50,11 @@
                                     </button> -->
                                     <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined" pTooltip="Editar" tooltipPosition="top" (click)="selectViewContent(rowData)">
                                     </button>
-                                    <button pButton pRipple [icon]="rowData.hide ? 'pi pi-eye-slash' : 'pi pi-eye'" class="p-button-outlined p-button-help" [pTooltip]="rowData.hide ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
+                                    <button pButton pRipple [icon]="rowData.hide ? 'pi pi-eye-slash' : 'pi pi-eye'" class="p-button-outlined p-button-help" [pTooltip]="rowData.hide ? 'Mostrar' : 'Ocultar'" tooltipPosition="top" (click)="invertHide(rowData)">
                                     </button>
                                     <button pButton pRipple *ngIf="rowData.levelNode < 2" icon="pi pi-plus" class="p-button-outlined" pTooltip="Agregar contenido" tooltipPosition="top" (click)="openCreator(rowData)">
                                     </button>
-                                    <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" pTooltip="Borrar" tooltipPosition="top">
+                                    <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" pTooltip="Borrar" tooltipPosition="top" (click)="deleteContent(rowData)">
                                     </button>
                                 </div>
                             </div>

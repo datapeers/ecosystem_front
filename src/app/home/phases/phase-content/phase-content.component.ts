@@ -9,6 +9,7 @@ import { PhaseContentCreatorComponent } from './phase-content-creator/phase-cont
 import { cloneDeep } from 'lodash';
 import { Content } from '../model/content.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-phase-content',
@@ -24,10 +25,12 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   contentList = [];
   table = [];
   displayTable = false;
+  routeSubscription$: Subscription;
   constructor(
     private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute,
+    private toast: ToastService,
     public dialogService: DialogService,
     private service: PhaseContentService
   ) {}
@@ -63,7 +66,6 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   }
 
   openCreator(content?) {
-    console.log(content);
     this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
       header: content ? 'Añadir contenido' : 'Añadir sprint',
       width: '75vw',
@@ -88,9 +90,40 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
     console.log('a');
   }
 
-  dialogWeight(content) {
+  dialogWeight(content: Content) {
     // this.weight = content.item?.puntos ?? 100;
     // this.selectedElement = content;
     console.log('b');
+  }
+
+  invertHide(content: Content) {
+    this.toast.info({ summary: 'Guardando...', detail: '' });
+    this.service
+      .updateContent({ _id: content._id, hide: !content.hide })
+      .then(() => {
+        this.toast.clear();
+      })
+      .catch((err) => {
+        this.failChange(err);
+      });
+  }
+
+  deleteContent(content: Content) {
+    this.toast.info({ summary: 'Borrando...', detail: '' });
+    this.service
+      .updateContent({ _id: content._id, isDeleted: true })
+      .then(() => {
+        this.toast.clear();
+      })
+      .catch((err) => {
+        this.failChange(err);
+      });
+  }
+
+  failChange(err) {
+    this.toast.clear();
+    // this.cancelEdit(property);
+    this.toast.error({ summary: 'Error al guardar cambios', detail: err });
+    console.warn(err);
   }
 }

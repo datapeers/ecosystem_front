@@ -1,1 +1,8 @@
-<p>phase-content-view works!</p>
+<div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
+    <div class="text-wrapper flex flex-row align-items-center text-center ">
+        <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
+
+        </fa-icon> <span class="subheader text-white ">Contenidos</span>
+    </div>
+    <p-button type="button" label="Guardar cambios" icon="pi pi-save"></p-button>
+</div>

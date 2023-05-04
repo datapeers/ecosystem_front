@@ -6,7 +6,7 @@ export interface IContent {
   extra_options: any;
   hide: boolean;
   phase: string;
-  idDeleted: boolean;
+  isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,7 +19,7 @@ export class Content implements IContent {
   extra_options: any;
   hide: boolean;
   phase: string;
-  idDeleted: boolean;
+  isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 

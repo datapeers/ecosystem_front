@@ -76,8 +76,11 @@ const routes: Routes = [
               },
               {
                 path: 'content',
-                component: PhaseContentComponent,
                 children: [
+                  {
+                    path: '',
+                    component: PhaseContentComponent,
+                  },
                   {
                     path: ':idContent',
                     component: PhaseContentViewComponent,
@@ -91,10 +94,6 @@ const routes: Routes = [
     ],
   },
 ];
-
-export const routingConfiguration: ExtraOptions = {
-  paramsInheritanceStrategy: 'always',
-};
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

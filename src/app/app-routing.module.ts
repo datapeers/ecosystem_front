@@ -14,17 +14,22 @@ const routes: Routes = [
     path: 'home',
     canMatch: [AuthGuard, RoleGuard],
     data: {
-      roles: [ValidRoles.admin, ValidRoles.superAdmin, ValidRoles.responsible, ValidRoles.investor]
+      roles: [
+        ValidRoles.admin,
+        ValidRoles.superAdmin,
+        ValidRoles.responsible,
+        ValidRoles.investor,
+      ],
     },
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'user',
     canMatch: [AuthGuard, RoleGuard],
     data: {
-      roles: [ValidRoles.user]
+      roles: [ValidRoles.user],
     },
-    loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
 ];
 
@@ -33,7 +38,7 @@ export const routingConfiguration: ExtraOptions = {
 };
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routingConfiguration)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

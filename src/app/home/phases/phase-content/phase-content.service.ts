@@ -27,6 +27,21 @@ export class PhaseContentService {
     );
   }
 
+  async getContent(id: string): Promise<Content> {
+    const queryRef = this.graphql.refQuery(
+      contentQueries.query.getContent,
+      { id },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
+        map((request) => request.data.content),
+        map((content) => Content.fromJson(content))
+      )
+    );
+  }
+
   async createContent(createContentInput): Promise<Content> {
     const mutationRef = this.graphql.refMutation(
       contentQueries.mutation.createContent,
@@ -59,5 +74,20 @@ export class PhaseContentService {
       expanded: true,
       children,
     };
+  }
+
+  async updateContent(data: Partial<IContent>): Promise<Content> {
+    const mutRef = this.graphql.refMutation(
+      contentQueries.mutation.updateContent,
+      { updateContentInput: data },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.updateContent),
+        map((content) => Content.fromJson(content))
+      )
+    );
   }
 }
