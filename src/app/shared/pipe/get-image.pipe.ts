@@ -13,17 +13,9 @@ export class GetImagePipe implements PipeTransform {
   ) {}
 
   transform(url: string): Promise<any> {
-    const regex = /ecosystem-bt-colombia\/(.+)\?/;
-    const match = url.match(regex);
-    if (match) {
-      return firstValueFrom(
-        this.storageService.getFile(match[1]).pipe(
-          map((response: any) => {
-            return response;
-          }),
-          map((i) => i.url)
-        )
-      );
+    const key = this.storageService.getKey(url);
+    if (key !== '') {
+      return firstValueFrom(this.storageService.getFile(key));
     }
     return new Promise((resolve, reject) => {
       setTimeout(() => {

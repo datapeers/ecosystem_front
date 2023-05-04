@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, mergeMap } from 'rxjs';
+import { Observable, map, mergeMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StoragePaths } from './storage.constants';
 
@@ -59,7 +59,7 @@ export class StorageService {
     );
   }
 
-  getFile(key: string) {
+  getFile(key: string): Observable<string> {
     const headers = new HttpHeaders();
     headers.set('Content-type', 'application/json');
     const request = this.http.get<{ url: string }>(
@@ -68,6 +68,15 @@ export class StorageService {
         headers: headers,
       }
     );
-    return request;
+    return request.pipe(map((i) => i.url));
+  }
+
+  getKey(url: string) {
+    const regex = /ecosystem-bt-colombia\/(.+)\?/;
+    const match = url.match(regex);
+    if (match) {
+      return match[1];
+    }
+    return '';
   }
 }
