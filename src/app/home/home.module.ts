@@ -26,6 +26,7 @@ import { FormsComponent } from './forms/forms.component';
 import { InvestorsComponent } from './investors/investors.component';
 import { ResponsiblesComponent } from './responsibles/responsibles.component';
 import { GetImagePipe } from '@shared/pipe/get-image.pipe';
+import { PhaseContentResourceCreatorComponent } from './phases/phase-content/phase-content-resource-creator/phase-content-resource-creator.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { GetImagePipe } from '@shared/pipe/get-image.pipe';
     InvestorsComponent,
     ResponsiblesComponent,
     GetImagePipe,
+    PhaseContentResourceCreatorComponent,
   ],
   imports: [
     CommonModule,

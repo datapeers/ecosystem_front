@@ -9,6 +9,7 @@ import { PhaseContentService } from '../phase-content.service';
 import { Content } from '@home/phases/model/content.model';
 import { cloneDeep } from 'lodash';
 import { configTinyMce } from '@shared/models/configTinyMce';
+import { PhaseContentResourceCreatorComponent } from '../phase-content-resource-creator/phase-content-resource-creator.component';
 
 @Component({
   selector: 'app-phase-content-view',
@@ -35,10 +36,7 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
     this.loadContent();
   }
 
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-  }
+  ngOnDestroy() {}
 
   loadContent() {
     this.service
@@ -82,5 +80,49 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
     // this.cancelEdit(property);
     this.toast.error({ summary: 'Error al guardar cambios', detail: err });
     console.warn(err);
+  }
+
+  addResource() {
+    const ref = this.dialogService.open(PhaseContentResourceCreatorComponent, {
+      header: 'Añadir recurso',
+      width: '95vw',
+      data: {
+        contentID: this.content._id,
+        phaseID: this.content.phase,
+        onlyView: false,
+      },
+    });
+
+    ref.onClose.subscribe(async (item) => {
+      if (item) {
+        this.toast.info({
+          detail: '',
+          summary: 'Guardando...',
+          closable: false,
+        });
+        // const request = await this.service.addResource(
+        //   this.institute.dbName,
+        //   container._id,
+        //   this.space._id,
+        //   item
+        // );
+        this.toast.clear();
+        // if (request.res) {
+        //   this.toast.success({
+        //     detail: '',
+        //     summary: 'Recurso creado',
+        //     life: 700,
+        //   });
+        //   await this.service.refetchGetResourcesContainer();
+        //   this.setDisplayList();
+        // } else {
+        //   this.toast.error({
+        //     detail:
+        //       'No se guardo correctamente el recurso, comuniquese con un administrador',
+        //     summary: 'Error al guardar',
+        //   });
+        // }
+      }
+    });
   }
 }
