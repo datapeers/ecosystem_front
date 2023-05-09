@@ -10,6 +10,8 @@ import { IResource } from '@home/phases/model/resource.model';
 import { ToastService } from '@shared/services/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PhaseContentService } from '../phase-content.service';
+import { StorageService } from '@shared/services/storage.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-phase-content-resource-creator',
@@ -27,20 +29,27 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
   busy = false;
   content: Content;
   phase: Phase;
+  file;
+  onDestroy$: Subject<boolean> = new Subject();
+  listFields = [];
+  listForms = [];
+  listFormsFiltered = [];
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private toast: ToastService,
-    private service: PhaseContentService
+    private service: PhaseContentService,
+    private storageService: StorageService
   ) {
     this.setForm();
   }
 
-  ngOnInit() {
-    this;
-  }
+  ngOnInit() {}
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.onDestroy$.next(true);
+    this.onDestroy$.complete();
+  }
 
   setForm() {
     this.content = this.config.data.content;
@@ -59,22 +68,12 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
       ),
       extra_options: new UntypedFormGroup({}),
     });
-    const contentControls = {};
-    if (this.phase.basePhase) {
-      contentControls['duration'] = new UntypedFormControl(
-        7,
-        Validators.required
-      );
-    } else {
-      contentControls['expiration'] = new UntypedFormControl(
-        new Date(),
-        Validators.required
-      );
-    }
-    this.formResource.setControl(
-      'extra_options',
-      new UntypedFormGroup(contentControls)
-    );
+    this.formResource
+      .get('type')
+      .valueChanges.pipe(takeUntil(this.onDestroy$))
+      .subscribe((opt) => {
+        this.setExtraFieldsByType(opt);
+      });
   }
 
   setResource(resource: IResource) {
@@ -82,7 +81,75 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     this.formResource.get('name').setValue(resource.name);
     this.formResource.get('type').patchValue(resource.type);
     this.formResource.get('hide').setValue(resource.hide);
-    this.formResource.get('expiration').setValue(resource.expiration);
+  }
+
+  setExtraFieldsByType(type: 'downloadable' | 'task' | 'form') {
+    const contentControls = {};
+    this.listFields = [
+      {
+        name: this.phase.basePhase ? 'Duración' : 'Fecha limite',
+        key: this.phase.basePhase ? 'duration' : 'expiration',
+        type: this.phase.basePhase ? 'duration' : 'expiration',
+      },
+    ];
+    contentControls[this.phase.basePhase ? 'Number' : 'Date'] =
+      new UntypedFormControl(
+        this.phase.basePhase ? 7 : new Date(),
+        Validators.required
+      );
+    switch (type) {
+      case 'downloadable':
+        contentControls['file'] = new UntypedFormControl(
+          null,
+          Validators.required
+        );
+        this.listFields.push({
+          name: 'Archivo',
+          key: 'file',
+          type: 'File',
+        });
+        break;
+      case 'task':
+        contentControls['file'] = new UntypedFormControl(
+          null,
+          Validators.required
+        );
+        this.listFields.push({
+          name: 'Archivo',
+          key: 'file',
+          type: 'File',
+        });
+        break;
+      case 'form':
+        contentControls['form'] = new UntypedFormControl(
+          null,
+          Validators.required
+        );
+        this.listFields.push({
+          name: 'Formulario',
+          key: 'form',
+          type: 'String',
+        });
+        break;
+      default:
+        break;
+    }
+    this.formResource.setControl(
+      'extra_options',
+      new UntypedFormGroup(contentControls)
+    );
+  }
+
+  filterAutocomplete(event) {
+    let query = event.query;
+    const filtered = this.listForms.filter(
+      (data) =>
+        data.nombre
+          .toString()
+          .toLowerCase()
+          .indexOf(query.toString().toLowerCase()) !== -1
+    );
+    this.listFormsFiltered = [...filtered];
   }
 
   save() {
@@ -98,5 +165,56 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
         this.toast.error({ summary: 'Error al intentar guardar', detail: err });
         console.warn(err);
       });
+  }
+
+  dealWithFiles(event) {
+    this.formResource
+      .get('extra_options')
+      .get('file')
+      .setValue(event.currentFiles[0].name);
+    this.file = event.currentFiles[0];
+  }
+
+  clearFile(event) {
+    this.formResource.get('contenido').get('contenido').setValue(null);
+    this.file = null;
+  }
+
+  downloadFile() {
+    const resource = this.config.data.resource;
+    const file = resource?.file;
+    const key = this.storageService.getKey(file);
+    const url = this.storageService.getFile(key);
+    // if (url) {
+    //   window.open(url, '_blank');
+    // }
+  }
+
+  async loadForms() {
+    // const forms = this.resourceTypes.find((i) => i.type === 'forms');
+    // if (forms) {
+    //   try {
+    //     const formsSubscription = await this.formService.get_forms_collection(
+    //       this.institute.dbName,
+    //       'datos_recursos'
+    //     );
+    //     const forms = await firstValueFrom(formsSubscription);
+    //     this.listForms = [...forms];
+    //     this.listFormsFiltered = [...forms];
+    //   } catch (error) {
+    //     this.toast.alert({
+    //       summary: 'No se cargaron formularios',
+    //       detail:
+    //         'Problema al intentar cargar la lista de formularios disponibles para recursos',
+    //     });
+    //   }
+    // }
+  }
+
+  async show() {
+    // let dbName = this.institute.dbName;
+    // let id = this.formResource.get('contenido').get('contenido').value._id;
+    // let url = `${environment.forms}view/${id}/${dbName}`;
+    // window.open(url, '_blank');
   }
 }

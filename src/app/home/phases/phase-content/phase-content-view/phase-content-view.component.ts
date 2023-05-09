@@ -53,7 +53,6 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
       await this.service.watchContent(this.contentID)
     ).subscribe((content) => {
       this.content = cloneDeep(content);
-      console.log(this.content);
     });
   }
 
