@@ -22,4 +22,46 @@
         <span class="subheader">Recursos</span>
         <p-button type="button" label="Recurso" icon="pi pi-plus" (onClick)="addResource()"></p-button>
     </div>
+    <div style="height: 10px;"></div>
+    <p-treeTable [value]="displayResources" selectionMode="single" *ngIf="displayResources">
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- "space_add_contents": "name" : "Nombre", -->
+                <th>Nombre</th>
+                <!-- "space_add_resources": "type_resources" : "Tipo", -->
+                <th>Tipo</th>
+                <th style="width: 15rem">
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr [ttRow]="rowNode">
+                <td [ngClass]="{'kb-cell': rowData.hide}">
+                    {{rowData?.name ?? ''}}
+                </td>
+                <td [ngClass]="{'kb-cell': rowData.hide}">
+                    {{rowData?.type ?? ''}}
+                </td>
+                <td>
+                    <button pButton pRipple icon="pi pi-chart-pie" class="p-button-outlined mr-1" pTooltip="Peso" *ngIf="rowData.type !== 'downloadable'" (click)="dialogWeight(rowData)" tooltipPosition="top">
+                    </button>
+                    <button pButton pRipple icon="pi pi-clone" class="p-button-outlined mr-1" pTooltip="Ver" (click)="viewResource(rowData.containerParent, rowData)" tooltipPosition="top">
+                    </button>
+
+                    <button pButton pRipple [icon]="rowData.oculto ? 'pi pi-eye-slash' : 'pi pi-eye'" (click)="hideResource(rowData, $event)" class="p-button-outlined p-button-help mr-1" [pTooltip]="rowData.oculto ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
+                    </button>
+
+                    <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" (click)="deleteResource(rowData, $event)" pTooltip="Borrar" tooltipPosition="top">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-treeTable>
 </div>
+<div style="height: 2rem;"></div>
+
+<p-dialog header="Peso" [(visible)]="weight" (onHide)="weight = null; forSave = null">
+    <p-inputNumber [(ngModel)]="weight"></p-inputNumber>
+    <div style="width: 10px; height: 10px;"></div>
+    <p-button icon="pi pi-save" label="Guardar" (onClick)="changeWeight()" [disabled]="saving"></p-button>
+</p-dialog>

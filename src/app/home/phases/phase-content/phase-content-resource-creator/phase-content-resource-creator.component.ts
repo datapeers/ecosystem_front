@@ -232,7 +232,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
   }
 
   clearFile(event) {
-    this.formResource.get('contenido').get('contenido').setValue(null);
+    this.formResource.get('extra_options').get('file').setValue(null);
     this.file = null;
   }
 

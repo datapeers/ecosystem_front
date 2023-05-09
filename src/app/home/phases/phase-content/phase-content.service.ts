@@ -5,7 +5,8 @@ import resourceQueries from '../graphql/resource.gql';
 import { IContent, Content } from '../model/content.model';
 import { firstValueFrom, map } from 'rxjs';
 import { TreeNode } from 'primeng/api';
-import { Resource } from '../model/resource.model';
+import { IResource, Resource } from '../model/resource.model';
+import { cloneDeep } from '@apollo/client/utilities';
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +78,26 @@ export class PhaseContentService {
     };
   }
 
+  convertResourceToNode(
+    resources: IResource[],
+    container: Content
+  ): TreeNode[] {
+    const data = [];
+    for (const iterator of resources) {
+      if (iterator.isDeleted) {
+        continue;
+      }
+      const containerParent = cloneDeep(container);
+      delete containerParent.resources;
+      const node = { ...cloneDeep(iterator), containerParent };
+      data.push({
+        data: node,
+        children: [],
+      });
+    }
+    return data;
+  }
+
   async updateContent(data: Partial<IContent>): Promise<Content> {
     const mutRef = this.graphql.refMutation(
       contentQueries.mutation.updateContent,
@@ -103,6 +124,21 @@ export class PhaseContentService {
       this.graphql.mutation(mutationRef).pipe(
         map((request) => request.data.createResource),
         map((resource) => Resource.fromJson(resource))
+      )
+    );
+  }
+
+  async updateResource(data: Partial<IResource>): Promise<Resource> {
+    const mutRef = this.graphql.refMutation(
+      resourceQueries.mutation.updateResource,
+      { updateResourceInput: data },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.updateResource),
+        map((content) => Resource.fromJson(content))
       )
     );
   }
