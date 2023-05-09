@@ -121,7 +121,7 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
     this.forSave = rowResource;
   }
 
-  viewResource(item, data) {
+  viewResource(container: Content, resource: Resource) {
     const ref = this.dialogService.open(PhaseContentResourceCreatorComponent, {
       header: 'Añadir recurso',
       width: '95vw',
@@ -130,7 +130,8 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
         content: this.content,
         contentID: this.content._id,
         phaseID: this.content.phase,
-        onlyView: false,
+        onlyView: true,
+        resource,
       },
     });
 
@@ -143,7 +144,6 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
   }
 
   hideResource(resource: Resource, event) {
-    console.log('a');
     this.confirmationService.confirm({
       key: 'confirmPopup',
       target: event.target,
