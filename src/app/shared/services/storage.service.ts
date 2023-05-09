@@ -18,7 +18,7 @@ export class StorageService {
   constructor(private readonly http: HttpClient) {}
 
   uploadFile(
-    filePath: StoragePaths,
+    filePath: StoragePaths | string,
     file: File
   ): Observable<HttpEvent<HttpEventType>> {
     // Get a presigned URL for uploading the file

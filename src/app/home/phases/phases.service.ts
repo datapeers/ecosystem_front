@@ -142,14 +142,14 @@ export class PhasesService {
       lastModified: file.lastModified,
     });
     return this.storageService.uploadFile(
-      StoragePaths.phaseThumbnails,
+      `phases/${phase._id}/thumbnail`,
       renamedFile
     );
   }
 
   removePhaseThumbnail(phase: Phase) {
     return this.storageService.deleteFile(
-      StoragePaths.phaseThumbnails,
+      `phases/${phase._id}/thumbnail`,
       phase._id
     );
   }

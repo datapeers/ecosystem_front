@@ -11,7 +11,10 @@ import { ToastService } from '@shared/services/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PhaseContentService } from '../phase-content.service';
 import { StorageService } from '@shared/services/storage.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, first, firstValueFrom, takeUntil } from 'rxjs';
+import { triggerControlValidators } from '@shared/utils/reactive-forms.utils';
+import { StoragePaths } from '@shared/services/storage.constants';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-phase-content-resource-creator',
@@ -89,14 +92,13 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
       {
         name: this.phase.basePhase ? 'Duración' : 'Fecha limite',
         key: this.phase.basePhase ? 'duration' : 'expiration',
-        type: this.phase.basePhase ? 'duration' : 'expiration',
+        type: this.phase.basePhase ? 'Number' : 'Date',
       },
     ];
-    contentControls[this.phase.basePhase ? 'Number' : 'Date'] =
-      new UntypedFormControl(
-        this.phase.basePhase ? 7 : new Date(),
-        Validators.required
-      );
+    contentControls[this.listFields[0].key] = new UntypedFormControl(
+      this.phase.basePhase ? 7 : new Date(),
+      Validators.required
+    );
     switch (type) {
       case 'downloadable':
         contentControls['file'] = new UntypedFormControl(
@@ -152,11 +154,65 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     this.listFormsFiltered = [...filtered];
   }
 
-  save() {
+  async save() {
+    if (!this.formResource.valid) {
+      triggerControlValidators(this.formResource);
+      return;
+    }
     this.busy = true;
+    const newResource: IResource = {
+      ...this.formResource.value,
+      extra_options: {},
+    };
+    for (const iterator of this.listFields) {
+      switch (iterator.type) {
+        case 'File':
+          this.toast.info({
+            summary: 'Subiendo archivo...',
+            detail: 'Por favor espere, no cierre la ventana',
+          });
+          try {
+            const fileUploaded: any = await firstValueFrom(
+              this.storageService
+                .uploadFile(`phases/${this.phase._id}/resources`, this.file)
+                .pipe(first((event) => event.type === HttpEventType.Response))
+            );
+            console.log(fileUploaded.url);
+            newResource.extra_options[iterator.key] = fileUploaded.url;
+            this.toast.info({
+              summary: 'Archivo almacenado con éxito',
+              detail: '',
+            });
+            console.log(newResource.extra_options);
+          } catch (error) {
+            console.error(error);
+            this.toast.info({
+              summary: 'Error al subir archivo',
+              detail: 'Ocurrió un error al intentar subir el archivo',
+            });
+            return;
+          }
+          continue;
+        case 'Date':
+          newResource.extra_options[iterator.key] = new Date(
+            this.formResource.get('extra_options').get(iterator.key).value
+          );
+          continue;
+        case 'Forms':
+          newResource.extra_options[iterator.key] = this.formResource
+            .get('extra_options')
+            .get(iterator.key).value._id;
+          continue;
+        default:
+          newResource.extra_options[iterator.key] = this.formResource
+            .get('extra_options')
+            .get(iterator.key).value;
+          continue;
+      }
+    }
     this.toast.info({ summary: 'Guardando...', detail: '' });
     this.service
-      .createResource(this.formResource.value)
+      .createResource(newResource)
       .then((ans) => {
         this.ref.close(ans);
       })
