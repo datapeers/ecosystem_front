@@ -6,15 +6,36 @@ const fragments = {
         _id
         name
         content
+        resources {
+          _id
+          name
+          hide
+           isDeleted
+          createdAt
+          updatedAt
+          type
+          extra_options
+        }
         hide
         isDeleted
         createdAt
         updatedAt
       }
+      resources {
+        _id
+        name
+        hide
+         isDeleted
+        createdAt
+        updatedAt
+        type
+        extra_options
+      }
       extra_options
       name
       content
       hide
+      phase
       isDeleted
       createdAt
       updatedAt

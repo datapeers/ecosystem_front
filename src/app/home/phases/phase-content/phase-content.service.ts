@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import contentQueries from './content.gql';
+import contentQueries from '../graphql/content.gql';
+import resourceQueries from '../graphql/resource.gql';
 import { IContent, Content } from '../model/content.model';
 import { firstValueFrom, map } from 'rxjs';
 import { TreeNode } from 'primeng/api';
+import { Resource } from '../model/resource.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PhaseContentService {
   private _getContent;
+  private _lastContent;
   constructor(private readonly graphql: GraphqlService) {}
 
-  async watchContent(phase: string) {
+  async watchContents(phase: string) {
     this._getContent = this.graphql.refQuery(
       contentQueries.query.getContents,
       { phase },
@@ -27,18 +30,16 @@ export class PhaseContentService {
     );
   }
 
-  async getContent(id: string): Promise<Content> {
-    const queryRef = this.graphql.refQuery(
+  async watchContent(id: string) {
+    this._lastContent = this.graphql.refQuery(
       contentQueries.query.getContent,
       { id },
       'cache-first',
       { auth: true }
     );
-    return firstValueFrom(
-      this.graphql.query(queryRef).pipe(
-        map((request) => request.data.content),
-        map((content) => Content.fromJson(content))
-      )
+    return this.graphql.watch_query(this._lastContent).valueChanges.pipe(
+      map((request) => request.data.content),
+      map((content) => Content.fromJson(content))
     );
   }
 
@@ -87,6 +88,21 @@ export class PhaseContentService {
       this.graphql.mutation(mutRef).pipe(
         map((request) => request.data.updateContent),
         map((content) => Content.fromJson(content))
+      )
+    );
+  }
+
+  async createResource(createResourceInput): Promise<Resource> {
+    const mutationRef = this.graphql.refMutation(
+      resourceQueries.mutation.createResource,
+      { createResourceInput },
+      [this._lastContent],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
+        map((request) => request.data.createResource),
+        map((resource) => Resource.fromJson(resource))
       )
     );
   }

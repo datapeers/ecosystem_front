@@ -10,6 +10,10 @@ import { Content } from '@home/phases/model/content.model';
 import { cloneDeep } from 'lodash';
 import { configTinyMce } from '@shared/models/configTinyMce';
 import { PhaseContentResourceCreatorComponent } from '../phase-content-resource-creator/phase-content-resource-creator.component';
+import { Phase } from '@home/phases/model/phase.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
+import { Subscription, first, firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-phase-content-view',
@@ -21,7 +25,10 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
   contentID;
   content: Content;
   configTiny = configTinyMce;
+  phase: Phase;
+  watchContent$: Subscription;
   constructor(
+    private store: Store<AppState>,
     private routeOpt: ActivatedRoute,
     private _location: Location,
     public dialogService: DialogService,
@@ -38,19 +45,16 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  loadContent() {
-    this.service
-      .getContent(this.contentID)
-      .then((content) => {
-        this.content = cloneDeep(content);
-      })
-      .catch((err) => {
-        this.toast.clear();
-        // this.cancelEdit(property);
-        this.toast.error({ summary: 'Error al cargar contenido', detail: err });
-        console.warn(err);
-        this.return();
-      });
+  async loadContent() {
+    firstValueFrom(
+      this.store.select((i) => i.phase.phase).pipe(first((i) => i !== null))
+    ).then((phase) => (this.phase = phase));
+    this.watchContent$ = (
+      await this.service.watchContent(this.contentID)
+    ).subscribe((content) => {
+      this.content = cloneDeep(content);
+      console.log(this.content);
+    });
   }
 
   return() {
@@ -87,6 +91,8 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
       header: 'Añadir recurso',
       width: '95vw',
       data: {
+        phase: this.phase,
+        content: this.content,
         contentID: this.content._id,
         phaseID: this.content.phase,
         onlyView: false,
@@ -95,33 +101,8 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
 
     ref.onClose.subscribe(async (item) => {
       if (item) {
-        this.toast.info({
-          detail: '',
-          summary: 'Guardando...',
-          closable: false,
-        });
-        // const request = await this.service.addResource(
-        //   this.institute.dbName,
-        //   container._id,
-        //   this.space._id,
-        //   item
-        // );
+        await this.loadContent();
         this.toast.clear();
-        // if (request.res) {
-        //   this.toast.success({
-        //     detail: '',
-        //     summary: 'Recurso creado',
-        //     life: 700,
-        //   });
-        //   await this.service.refetchGetResourcesContainer();
-        //   this.setDisplayList();
-        // } else {
-        //   this.toast.error({
-        //     detail:
-        //       'No se guardo correctamente el recurso, comuniquese con un administrador',
-        //     summary: 'Error al guardar',
-        //   });
-        // }
       }
     });
   }

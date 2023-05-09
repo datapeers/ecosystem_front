@@ -38,7 +38,7 @@ export const configTinyMce = {
     });
 
     const wantedServiceC = injector.get(StorageService);
-    const renamedFile = new File([blobInfo.blob()], uniqueId('img'), {
+    const renamedFile = new File([blobInfo.blob()], uniqueId('contents'), {
       type: blobInfo.type,
       lastModified: blobInfo.lastModified,
     });

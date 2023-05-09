@@ -53,7 +53,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
         .pipe(first((i) => i !== null))
     );
     this.watchContent$ = (
-      await this.service.watchContent(this.phase._id)
+      await this.service.watchContents(this.phase._id)
     ).subscribe((i) => {
       this.loaded = false;
       this.contentList = cloneDeep(i);
@@ -63,6 +63,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
         if (iterator.isDeleted == false)
           this.table.push(this.service.convertContainerToNode(iterator));
       }
+      console.log(this.contentList);
       this.loaded = true;
     });
   }

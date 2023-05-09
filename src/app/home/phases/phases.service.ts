@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { firstValueFrom, map } from 'rxjs';
-import phaseQueries from './phase.gql';
+import phaseQueries from './graphql/phase.gql';
 import stageQueries from './stage.gql';
 import { IPhase, Phase } from './model/phase.model';
 import { IStage, Stage } from './model/stage.model';
