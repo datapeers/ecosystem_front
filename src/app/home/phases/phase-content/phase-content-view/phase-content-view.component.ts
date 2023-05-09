@@ -121,13 +121,13 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
     this.forSave = rowResource;
   }
 
-  viewResource(container: Content, resource: Resource) {
+  viewResource(content: Content, resource: Resource) {
     const ref = this.dialogService.open(PhaseContentResourceCreatorComponent, {
-      header: 'Añadir recurso',
+      header: resource.name,
       width: '95vw',
       data: {
         phase: this.phase,
-        content: this.content,
+        content,
         contentID: this.content._id,
         phaseID: this.content.phase,
         onlyView: true,

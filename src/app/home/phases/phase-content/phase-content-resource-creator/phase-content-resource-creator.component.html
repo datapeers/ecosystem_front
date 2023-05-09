@@ -18,7 +18,7 @@
                         <i class="pi pi-book"></i>
                     </span>
                     <span class="p-float-label">
-                        <input type="text" id="tipoRecursoOnlyView" pInputText [value]="onlyView.tipoRecurso.name" readonly="true" />
+                        <input type="text" id="tipoRecursoOnlyView" pInputText [value]="onlyView.type" readonly="true" />
                         <label for="tipoRecursoOnlyView">Tipo</label>
                     </span>
                 </div>
@@ -35,7 +35,7 @@
                 </div>
             </ng-template>
         </div>
-        <div class="field col-6 md:col-6 pt-3">
+        <div class="field col-6 md:col-6 pt-3" *ngIf="!config.data.resource">
             <p-checkbox name="oculto" label="Establecer como recurso oculto " formControlName="hide" [binary]="true" [readonly]="onlyView">
             </p-checkbox>
         </div>
@@ -78,13 +78,13 @@
                                 <ng-template pTemplate="content" let-files>
                                     <span *ngIf="!formResource.controls['extra_options']['controls'][item.key].value" class="p-float-label">
                                         <input styleClass="border-0" [style]="{ 'width':'100%' }" id="file" type="text" [id]="item.key" pInputText [formControl]="formResource.controls['extra_options']['controls'][item.key]" [value]="" readonly />
-                                        <label for="file">Archivo</label>
+                                        <label for="file">{{item.name}}</label>
                                     </span>
                                 </ng-template>
                             </p-fileUpload>
                         </ng-container>
                         <ng-template #previewFileTemplate>
-                            <p-button label="Descargar" (onClick)="downloadFile()"></p-button>
+                            <p-button id="" label="Descargar" (onClick)="downloadFile()"></p-button>
                         </ng-template>
                     </div>
                     <div *ngSwitchCase="'Date'" class="field col-12 md:col-12 pt-3">
@@ -140,7 +140,7 @@
         </ng-container>
 
     </form>
-    <div class="flex flex-row justify-content-end align-items-end" style="flex: 1">
-        <p-button icon="pi pi-save" label="Guardar" type="button" [disabled]="busy" (onClick)="save()"></p-button>
+    <div class="flex flex-row justify-content-end align-items-end" style="flex: 1" *ngIf="!config.data.resource">
+        <p-button icon="pi pi-save" label="Guardar" type="button" [disabled]="busy || formResource.invalid" (onClick)="save()"></p-button>
     </div>
 </div>

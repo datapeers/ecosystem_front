@@ -13,7 +13,6 @@ import { PhaseContentService } from '../phase-content.service';
 import { StorageService } from '@shared/services/storage.service';
 import { Subject, first, firstValueFrom, takeUntil } from 'rxjs';
 import { triggerControlValidators } from '@shared/utils/reactive-forms.utils';
-import { StoragePaths } from '@shared/services/storage.constants';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -47,11 +46,32 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     this.setForm();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadComponent();
+  }
 
   ngOnDestroy() {
     this.onDestroy$.next(true);
     this.onDestroy$.complete();
+  }
+
+  loadComponent() {
+    if (!this.config.data.content) {
+      this.toast.alert({ detail: '', summary: 'Se necesita un contenedor' });
+      this.closeDialog();
+      return;
+    }
+    if (!this.config.data.phase) {
+      this.toast.alert({
+        detail: '',
+        summary: 'Se necesita conocer la fase del recurso',
+      });
+      this.closeDialog();
+      return;
+    }
+    if (this.config.data.resource) {
+      this.setResource(this.config.data.resource);
+    }
   }
 
   setForm() {
@@ -84,6 +104,31 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     this.formResource.get('name').setValue(resource.name);
     this.formResource.get('type').patchValue(resource.type);
     this.formResource.get('hide').setValue(resource.hide);
+    for (const iterator of this.listFields) {
+      switch (iterator.type) {
+        case 'Date':
+          this.formResource
+            .get('extra_options')
+            .get(iterator.key)
+            .setValue(new Date(resource.extra_options[iterator.key]));
+          break;
+        case 'form':
+          const item = this.listForms.find(
+            (i) => i._id === resource.extra_options[iterator.key]
+          );
+          this.formResource
+            .get('extra_options')
+            .get(iterator.key)
+            .setValue(item);
+          break;
+        default:
+          this.formResource
+            .get('extra_options')
+            .get(iterator.key)
+            .setValue(resource.extra_options[iterator.key]);
+          break;
+      }
+    }
   }
 
   setExtraFieldsByType(type: 'downloadable' | 'task' | 'form') {
@@ -112,12 +157,9 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
         });
         break;
       case 'task':
-        contentControls['file'] = new UntypedFormControl(
-          null,
-          Validators.required
-        );
+        contentControls['file'] = new UntypedFormControl(null);
         this.listFields.push({
-          name: 'Archivo',
+          name: 'Plantilla',
           key: 'file',
           type: 'File',
         });
@@ -236,14 +278,14 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     this.file = null;
   }
 
-  downloadFile() {
+  async downloadFile() {
     const resource = this.config.data.resource;
-    const file = resource?.file;
+    const file = resource?.extra_options?.file;
     const key = this.storageService.getKey(file);
-    const url = this.storageService.getFile(key);
-    // if (url) {
-    //   window.open(url, '_blank');
-    // }
+    const url = await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      window.open(url, '_blank');
+    }
   }
 
   async loadForms() {
@@ -272,5 +314,9 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     // let id = this.formResource.get('contenido').get('contenido').value._id;
     // let url = `${environment.forms}view/${id}/${dbName}`;
     // window.open(url, '_blank');
+  }
+
+  closeDialog() {
+    this.ref.close();
   }
 }
