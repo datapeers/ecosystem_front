@@ -15,7 +15,8 @@ export class GetImagePipe implements PipeTransform {
   transform(url: string): Promise<any> {
     const key = this.storageService.getKey(url);
     if (key !== '') {
-      return firstValueFrom(this.storageService.getFile(key));
+      const getUrl = firstValueFrom(this.storageService.getFile(key));
+      return getUrl;
     }
     return new Promise((resolve, reject) => {
       setTimeout(() => {

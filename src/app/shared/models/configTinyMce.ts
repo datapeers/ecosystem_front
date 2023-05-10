@@ -43,10 +43,10 @@ export const configTinyMce = {
       lastModified: blobInfo.lastModified,
     });
     wantedServiceC
-      .uploadFile(StoragePaths.contentImages, renamedFile)
+      .uploadFile(StoragePaths.contentImages, renamedFile, true)
       .subscribe((event) => {
         if (event.type === HttpEventType.Response) {
-          success(event.url);
+          success(event.url.split('?')[0]);
         }
       });
   },

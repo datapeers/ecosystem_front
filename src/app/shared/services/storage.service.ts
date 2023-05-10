@@ -19,7 +19,8 @@ export class StorageService {
 
   uploadFile(
     filePath: StoragePaths | string,
-    file: File
+    file: File,
+    publicFile?: boolean
   ): Observable<HttpEvent<HttpEventType>> {
     // Get a presigned URL for uploading the file
     const headers = new HttpHeaders();
@@ -27,7 +28,7 @@ export class StorageService {
     const key = `${filePath}/${file.name}`;
     const request = this.http.post<{ url: string }>(
       this.apiUrl,
-      { name: key },
+      { name: key, publicFile },
       { headers: headers }
     );
     return request.pipe(

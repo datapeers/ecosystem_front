@@ -24,7 +24,12 @@
                             </ng-template>
                             <ng-template let-stepPhase pTemplate="gridItem">
                                 <div class="tour-card" style="margin:0.5rem;" (mouseenter)="selected = stepPhase;" (mouseleave)="selected = undefined;">
-                                    <img width="100%" height="144px" [src]="stepPhase?.thumbnail ? stepPhase?.thumbnail : '/assets/noPic.jpg'" alt="">
+                                    <ng-container *ngIf="stepPhase?.thumbnail; else noThumbnail">
+                                        <img width="100%" height="144px" [src]="stepPhase.thumbnail | getImage | async" alt="">
+                                    </ng-container>
+                                    <ng-template #noThumbnail>
+                                        <img width="100%" height="144px" src="/assets/noPic.jpg" alt="">
+                                    </ng-template>
                                     <div class="title-wrapper">
                                         <span class="subheader-small card-title">{{stepPhase.name}}</span>
                                     </div>
