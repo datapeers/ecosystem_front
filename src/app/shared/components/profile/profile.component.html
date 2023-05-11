@@ -2,14 +2,7 @@
   <div class="flex flex-column h-full w-full px-3 py-3">
     <div class="surface-0 flex flex-column align-items-center h-full w-full border-round shadow-elevated overflow-hidden px-3 py-4">
       <div class="flex flex-row justify-content-center flex-wrap gap-4 shadow-elevated px-3 py-2 border-round">
-        <div class="w-12rem h-12rem border-circle relative shadow-border hover-panel">
-          <p-avatar shape="circle" [image]="user.profileImageUrl" styleClass="w-full h-full"></p-avatar>
-          <div class="panel absolute z-2 flex flex-column gap-2 align-items-center justify-content-center border-circle surface-300 top-0 left-0 right-0 bottom-0">
-            <p-button [label]="user.profileImageUrl ? 'Cambiar' : 'Cargar' " icon="pi pi-upload" (onClick)="fileInput.click()" styleClass="p-button-outlined"></p-button>
-            <p-button *ngIf="user.profileImageUrl" label="Remover" icon="pi pi-trash" (onClick)="removeProfileImage()" styleClass="p-button-outlined"></p-button>
-            <input #fileInput type="file" class="hidden" accept="image/*" (change)="selectFile(fileInput)">
-          </div>
-        </div>
+        <app-avatar-uploader [imageUrl]="user.profileImageUrl | getImage | async" (onUpload)="uploadImage($event, user)" (onRemove)="removeImage(user)"></app-avatar-uploader>
         <div class="flex flex-column gap-1 justify-content-center">
           <span class="text-xl font-semibold">{{user.fullName}}</span>
           <span class="font-semibold">{{user.email}}</span>

@@ -21,12 +21,12 @@ export class PhaseEffects {
       switchMap(async (action: fromPhase.UpdatePhaseImageAction) => {
         const user = await firstValueFrom(this.store.select(state => state.phase.phase));
         const imageUrl = action.imageUrl;
-        var result = await this.phasesService.updatePhase(user._id, { thumbnail: imageUrl })
+        let result = await this.phasesService.updatePhase(user._id, { thumbnail: imageUrl })
         .then(updatedPhase => {
           return new fromPhase.UpdatePhaseAction(updatedPhase);
         })
         .catch(ex => {
-          return new fromPhase.FailUpdatePhaseAction("Failed to update user profile image");
+          return new fromPhase.FailUpdatePhaseAction("Failed to update phase thumbnail image");
         });
         return result;
       })

@@ -1,16 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Phase } from '../model/phase.model';
 import { PhasesService } from '../phases.service';
-import { ActivatedRoute } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
-import { Observable, Subscription, firstValueFrom, tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { SetPhaseAction, UpdatePhaseImageAction } from '../store/phase.actions';
 import { ToastService } from '@shared/services/toast.service';
 import { cloneDeep } from 'lodash';
 import { configTinyMce } from '@shared/models/configTinyMce';
-import { StorageService } from '@shared/services/storage.service';
 
 @Component({
   selector: 'app-phases-edit',
@@ -26,7 +24,6 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
     private readonly service: PhasesService,
     private readonly store: Store<AppState>,
     private toast: ToastService,
-    private readonly storageService: StorageService
   ) {
     this.phase$ = this.store
       .select((state) => state.phase.phase)
@@ -64,15 +61,7 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
     delete this.clonedEdit[property];
   }
 
-  imageSelected: any;
-  selectFile(element: HTMLInputElement, phase: Phase) {
-    const files = element.files;
-    if (files && files.item(0)) {
-      this.upload(files.item(0), phase);
-    }
-  }
-
-  async upload(fileToUpload: File, phase: Phase) {
+  async uploadImage(fileToUpload: File, phase: Phase) {
     this.service
       .updatePhaseThumbnail(phase, fileToUpload)
       .pipe(
@@ -86,14 +75,6 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
         if (event.type === HttpEventType.Response) {
           this.service.updatePhase(phase._id, { thumbnail: event.url });
           this.store.dispatch(new UpdatePhaseImageAction(event.url));
-          this.service
-            .updatePhase(this.phase._id, { thumbnail: event.url })
-            .then((phase) => {
-              this.successChange('thumbnail', phase);
-            })
-            .catch((err) => {
-              this.failChange(err);
-            });
         }
       });
   }
