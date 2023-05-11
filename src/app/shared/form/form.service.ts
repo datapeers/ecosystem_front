@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Observable, firstValueFrom } from 'rxjs';
 import { AppForm, IForm } from './models/form';
 import formQueries from './form.gql';
@@ -11,6 +11,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { environment } from 'src/environments/environment';
 import { CreateSubscriptionArgs as CreateSubscriptionInput } from './models/create-subscription.input';
 import { ToastService } from '@shared/services/toast.service';
+import { FormViewComponent } from './form-view/form-view.component';
 
 @Injectable({
   providedIn: 'root',
@@ -135,6 +136,20 @@ export class FormService {
           detail: message
         });
       }
+    });
+    return ref.onClose;
+  }
+
+  openFormPreview(id: string, formName: string) {
+    const ref = this.dialogService.open(FormViewComponent, {
+      modal: true,
+      width: '95%',
+      height: '100vh',
+      data: {
+        iframe: `${environment.forms}form/view/${id}`,
+      },
+      header: `Vista previa ${formName}`,
+      showHeader: true,
     });
     return ref.onClose;
   }
