@@ -289,6 +289,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
   }
 
   async loadForms() {
+    console.log('a');
     // const forms = this.resourceTypes.find((i) => i.type === 'forms');
     // if (forms) {
     //   try {
