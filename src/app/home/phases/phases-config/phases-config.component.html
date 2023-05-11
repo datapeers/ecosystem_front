@@ -39,7 +39,9 @@
                 <th style="width:25%">Name</th>
                 <th style="width:25%">Label</th>
                 <th style="width:25%">Color</th>
-                <th style="width:25%"></th>
+                <th style="width:25%">
+                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="createStage()" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar etapa'"></button>
+                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-stage let-editing="editing" let-ri="rowIndex">

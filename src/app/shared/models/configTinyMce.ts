@@ -46,7 +46,7 @@ export const configTinyMce = {
       .uploadFile(StoragePaths.contentImages, renamedFile, true)
       .subscribe((event) => {
         if (event.type === HttpEventType.Response) {
-          success(event.url.split('?')[0]);
+          success(wantedServiceC.getPureUrl(event.url));
         }
       });
   },

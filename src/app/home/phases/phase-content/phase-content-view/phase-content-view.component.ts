@@ -48,7 +48,9 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
     this.loadContent();
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.watchContent$?.unsubscribe();
+  }
 
   async loadContent() {
     firstValueFrom(
@@ -62,7 +64,6 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
         this.content.resources,
         this.content
       );
-      console.log(this.displayResources);
     });
   }
 

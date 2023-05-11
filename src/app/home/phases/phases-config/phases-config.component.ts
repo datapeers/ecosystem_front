@@ -123,8 +123,8 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     this.toast.info({ detail: '', summary: 'Creando' });
     this.service
       .createStage({
-        label: 'Exit stage',
-        name: 'Sharing',
+        label: 'new',
+        name: 'stage nae',
         color: '#C54927',
       })
       .then((ans) => {

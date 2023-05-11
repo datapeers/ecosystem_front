@@ -84,10 +84,11 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
       )
       .subscribe((event) => {
         if (event.type === HttpEventType.Response) {
-          this.service.updatePhase(phase._id, { thumbnail: event.url });
-          this.store.dispatch(new UpdatePhaseImageAction(event.url));
+          const realUrl = this.storageService.getPureUrl(event.url);
+          this.service.updatePhase(phase._id, { thumbnail: realUrl });
+          this.store.dispatch(new UpdatePhaseImageAction(realUrl));
           this.service
-            .updatePhase(this.phase._id, { thumbnail: event.url })
+            .updatePhase(this.phase._id, { thumbnail: realUrl })
             .then((phase) => {
               this.successChange('thumbnail', phase);
             })

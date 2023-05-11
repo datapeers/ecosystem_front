@@ -143,7 +143,8 @@ export class PhasesService {
     });
     return this.storageService.uploadFile(
       `phases/${phase._id}/thumbnail`,
-      renamedFile
+      renamedFile,
+      true
     );
   }
 

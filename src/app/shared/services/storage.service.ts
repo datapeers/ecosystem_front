@@ -80,4 +80,8 @@ export class StorageService {
     }
     return '';
   }
+
+  getPureUrl(url: string) {
+    return url.split('?')[0];
+  }
 }
