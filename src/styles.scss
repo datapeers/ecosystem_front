@@ -109,3 +109,17 @@ body {
 .subheader {
   @include font($font-family, 600, 20px, 24px);
 }
+
+.mce-tinymce.mce-container.mce-panel {
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  &:hover {
+    border-color: var(--primary-color);
+  }
+  &:focus-within {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem var(--primary-shadow);
+    border-color: var(--primary-color);
+  }
+}
