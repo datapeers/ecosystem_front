@@ -1,0 +1,48 @@
+<div class="card" *ngIf="!loading else loadingPage">
+  <div class="home-section-container" style="gap:1rem;">
+    <div class="flex justify-content-between flex-wrap gap-2 align-items-center w-full mb-3">
+      <span id="home-section-header" class="text-white"></span>
+      <div class="flex flex-row flex-wrap gap-2 justify-content-center">
+        <p-button type="button" label="Crear Convocatoria" icon="pi pi-plus" (onClick)="createOpenAnnouncement()"></p-button>
+        <p-button type="button" label="Crear Reto" icon="pi pi-plus" (onClick)="createChallenge()"></p-button>
+      </div>
+    </div>
+    <p-dataView class="app-dataview" #dv [value]="announcements" [paginator]="false" filterBy="name" layout="grid">
+      <ng-template pTemplate="header">
+        <div class="flex flex-wrap align-items-center justify-content-between">
+          <span class="p-input-icon-left mr-2">
+            <i class="pi pi-search-plus"></i>
+            <input type="text" pInputText (input)="dv.filter($any($event.target).value)" placeholder="Buscar" />
+          </span>
+        </div>
+      </ng-template>
+      <ng-template let-item pTemplate="gridItem">
+        <div class="tour-card" style="margin:0.5rem;">
+          <img width="100%" height="144px" [src]="item?.thumbnail ? item?.thumbnail : '/assets/noPic.jpg'" alt="">
+          <span class="card-title">{{item.name}}</span>
+          <p class="card-description">{{item.description}}</p>
+          <div class="flex flex-row align-items-center justify-content-between">
+            <div class="flex flex-row" style="gap:0.5rem;">
+              <ng-container *ngFor="let action of cardActions">
+                <p-button (click)="action.command($event, item)" type="button" [label]="action.label"></p-button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="empty">
+        <div class="flex flex-column gap-2 w-full align-items-center">
+          <h2>Sin resultados</h2>
+          <div class="flex flex-row gap-2 justify-content-center w-full">
+            <p-button type="button" label="Crear Convocatoria" icon="pi pi-plus" (onClick)="createOpenAnnouncement()"></p-button>
+            <p-button type="button" label="Crear Reto" icon="pi pi-plus" (onClick)="createChallenge()"></p-button>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
+</div>
+
+<ng-template #loadingPage>
+  <app-loading></app-loading>
+</ng-template>

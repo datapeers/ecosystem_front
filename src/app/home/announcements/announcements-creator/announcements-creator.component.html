@@ -1,0 +1,35 @@
+<div class="flex flex-column justify-content-between align-items-stretch p-2 h-full">
+  <form (keyup)="onKeyUp($event)" class="formgrid grid" [formGroup]="announcementCreationForm">
+
+    <div class="field col-12">
+      <label for="nameAnnouncement">Nombre</label>
+      <input pInputText id="nameAnnouncement" formControlName="name" class="inputfield field-full" />
+    </div>
+
+    <div class="field col-12">
+      <label for="textarea">Descripción</label>
+      <textarea maxlength="300" inputId="textarea" rows="4" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" pInputTextarea></textarea>
+      <small>{{announcementCreationForm.controls['description'].value?.length}}/120 caracteres permitidos</small>
+    </div>
+
+    <div class="field col-12">
+      <label for="announcementForms">Formulario</label>
+      <p-dropdown styleClass="w-full" id="announcementForms" [options]="forms" formControlName="form" optionLabel="label" optionValue="id"></p-dropdown>
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="calendar-first">Comienza</label>
+      <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="calendar-last">Termina</label>
+      <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt"></p-calendar>
+    </div>
+    <div *ngIf="announcementCreationForm.errors && announcementCreationForm.errors['dateRange']" class="field col-12 flex">
+      <label class="m-auto p-error">La fecha de fin debe ser superior a la de inicio</label>
+    </div>
+
+  </form>
+  <p-button type="submit" label="Crear" (onClick)="onSubmit()" [disabled]="!announcementCreationForm.valid" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+</div>

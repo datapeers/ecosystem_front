@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthCodeService } from '@auth/auth-code.service';
+import { FormService } from '@shared/form/form.service';
 import { Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-forms',
@@ -9,18 +8,16 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./forms.component.scss']
 })
 export class FormsComponent {
-  token: string;
   onDestroy$: Subject<void> = new Subject();
+
   constructor(
-    private readonly authCodeService: AuthCodeService,
+    private readonly formService: FormService,
   ) {
 
   }
 
   async openFormApp() {
-    const code = await this.authCodeService.createAuthCode();
-    const formAppUrl = `${environment.forms}session/authorize?code=${code._id}`;
-    window.open(formAppUrl, "_blank");
+    this.formService.openFormApp();
   }
 
   ngOnDestroy() {

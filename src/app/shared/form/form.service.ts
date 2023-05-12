@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { CreateSubscriptionArgs as CreateSubscriptionInput } from './models/create-subscription.input';
 import { ToastService } from '@shared/services/toast.service';
 import { FormViewComponent } from './form-view/form-view.component';
+import { AuthCodeService } from '@auth/auth-code.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,7 @@ export class FormService {
     private readonly graphql: GraphqlService,
     private readonly dialogService: DialogService,
     private readonly toast: ToastService,
+    private readonly authCodeService: AuthCodeService,
   ) {}
 
   getForm(id: string): Promise<AppForm> {
@@ -152,5 +154,11 @@ export class FormService {
       showHeader: true,
     });
     return ref.onClose;
+  }
+
+  async openFormApp() {
+    const code = await this.authCodeService.createAuthCode();
+    const formAppUrl = `${environment.forms}session/authorize?code=${code._id}`;
+    window.open(formAppUrl, "_blank");
   }
 }

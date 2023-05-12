@@ -35,6 +35,9 @@
       "@phase/*": [
         "src/app/home/phases/*"
       ],
+      "@announcement/*": [
+        "src/app/home/announcements/*"
+      ],
       "@graphqlApollo/*": [
         "src/app/graphql/*"
       ],
