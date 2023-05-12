@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { map, take, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Observable, firstValueFrom } from 'rxjs';
 import { AppForm, IForm } from './models/form';
 import formQueries from './form.gql';
@@ -11,6 +11,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { environment } from 'src/environments/environment';
 import { CreateSubscriptionArgs as CreateSubscriptionInput } from './models/create-subscription.input';
 import { ToastService } from '@shared/services/toast.service';
+import { FormViewComponent } from './form-view/form-view.component';
+import { AuthCodeService } from '@auth/auth-code.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +22,7 @@ export class FormService {
     private readonly graphql: GraphqlService,
     private readonly dialogService: DialogService,
     private readonly toast: ToastService,
+    private readonly authCodeService: AuthCodeService,
   ) {}
 
   getForm(id: string): Promise<AppForm> {
@@ -137,5 +140,25 @@ export class FormService {
       }
     });
     return ref.onClose;
+  }
+
+  openFormPreview(id: string, formName: string) {
+    const ref = this.dialogService.open(FormViewComponent, {
+      modal: true,
+      width: '95%',
+      height: '100vh',
+      data: {
+        iframe: `${environment.forms}form/view/${id}`,
+      },
+      header: `Vista previa ${formName}`,
+      showHeader: true,
+    });
+    return ref.onClose;
+  }
+
+  async openFormApp() {
+    const code = await this.authCodeService.createAuthCode();
+    const formAppUrl = `${environment.forms}session/authorize?code=${code._id}`;
+    window.open(formAppUrl, "_blank");
   }
 }

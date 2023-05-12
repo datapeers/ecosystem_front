@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { PrimengModule } from '../primeng/primeng.module';
+import { AvatarUploaderModule } from '@shared/components/form/avatar-uploader/avatar-uploader.module';
 import { SideNavItemComponent } from '../navbar/side-nav/side-nav-item/side-nav-item.component';
 import { SideNavComponent } from '../navbar/side-nav/side-nav.component';
 import { TopNavComponent } from '../navbar/top-nav/top-nav.component';
@@ -27,6 +28,10 @@ import { InvestorsComponent } from './investors/investors.component';
 import { ResponsiblesComponent } from './responsibles/responsibles.component';
 import { GetImagePipe } from '@shared/pipe/get-image.pipe';
 import { PhaseContentResourceCreatorComponent } from './phases/phase-content/phase-content-resource-creator/phase-content-resource-creator.component';
+import { AnnouncementsComponent } from './announcements/announcements.component';
+import { AnnouncementsCreatorComponent } from './announcements/announcements-creator/announcements-creator.component';
+import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
+import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +57,10 @@ import { PhaseContentResourceCreatorComponent } from './phases/phase-content/pha
     ResponsiblesComponent,
     GetImagePipe,
     PhaseContentResourceCreatorComponent,
+    AnnouncementsComponent,
+    AnnouncementsCreatorComponent,
+    AnnouncementEditComponent,
+    AnnouncementLoadComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +69,7 @@ import { PhaseContentResourceCreatorComponent } from './phases/phase-content/pha
     HomeRoutingModule,
     PrimengModule,
     FontAwesomeModule,
+    AvatarUploaderModule,
     NgxTinymceModule.forRoot({
       baseURL: '/assets/tinymce/',
     }),

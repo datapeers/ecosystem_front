@@ -139,7 +139,7 @@ export class HomeService {
       },
       announcements: {
         label: 'Convocatorias',
-        rute: '/announcements',
+        rute: '/home/announcements',
         type: 'single',
         // class: 'mt-4',
         icon: faVolumeHigh,

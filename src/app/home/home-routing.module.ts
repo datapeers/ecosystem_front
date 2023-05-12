@@ -15,6 +15,9 @@ import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component'
 import { StartupsComponent } from './startups/startups.component';
 import { InvestorsComponent } from './investors/investors.component';
 import { ResponsiblesComponent } from './responsibles/responsibles.component';
+import { AnnouncementsComponent } from './announcements/announcements.component';
+import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
+import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
 
 const routes: Routes = [
   {
@@ -53,6 +56,25 @@ const routes: Routes = [
       {
         path: 'responsibles',
         component: ResponsiblesComponent,
+      },
+      {
+        path: 'announcements',
+        children: [
+          {
+            path: '',
+            component: AnnouncementsComponent,
+          },
+          {
+            path: ':id',
+            component: AnnouncementLoadComponent,
+            children: [
+              {
+                path: 'edit',
+                component: AnnouncementEditComponent,
+              }
+            ]
+          }
+        ]
       },
       {
         // TODO: Add guards or modules if required

@@ -1,0 +1,8 @@
+<div class="w-12rem h-12rem border-circle relative shadow-border hover-panel">
+  <p-avatar shape="circle" [image]="imageUrl" styleClass="w-full h-full"></p-avatar>
+  <div class="panel absolute z-2 flex flex-column gap-2 align-items-center justify-content-center border-circle surface-300 top-0 left-0 right-0 bottom-0">
+    <p-button [label]="imageUrl ? 'Cambiar' : 'Cargar' " icon="pi pi-upload" (onClick)="fileInput.click()" styleClass="p-button-outlined"></p-button>
+    <p-button *ngIf="imageUrl" label="Remover" icon="pi pi-trash" (onClick)="removeImage()" styleClass="p-button-outlined"></p-button>
+    <input #fileInput type="file" class="hidden" accept="image/*" (change)="selectFile(fileInput)">
+  </div>
+</div>

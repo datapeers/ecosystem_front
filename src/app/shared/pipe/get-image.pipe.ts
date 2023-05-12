@@ -1,18 +1,20 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
 import { StorageService } from '@shared/services/storage.service';
-import { Observable, first, firstValueFrom, map } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Pipe({
   name: 'getImage',
 })
 export class GetImagePipe implements PipeTransform {
   constructor(
-    private http: HttpClient,
     private storageService: StorageService
   ) {}
 
-  transform(url: string): Promise<any> {
+  async transform(url: string): Promise<string> {
+    if(url.includes("http://localhost:4566")) {
+      return url;
+    }
     const key = this.storageService.getKey(url);
     if (key !== '') {
       const getUrl = firstValueFrom(this.storageService.getFile(key));

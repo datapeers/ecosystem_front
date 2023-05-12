@@ -1,0 +1,95 @@
+<ng-container *ngIf="announcement else loadingTemplate">
+  <form [formGroup]="announcementEditForm">
+    <div class="p-4">
+      <div class="surface-0 flex flex-column align-items-stretch justify-content-start border-round p-3 align-items-center gap-2">
+        <div class="flex flex-row w-full">
+          <div class="flex flex-row justify-content-center flex-wrap gap-4 w-full">
+            <app-avatar-uploader [imageUrl]="announcement.thumbnail | getImage | async" (onUpload)="uploadImage($event, announcement)" (onRemove)="removeImage(announcement)"></app-avatar-uploader>
+            <div class="flex flex-row flex-grow-1">
+              <div class="flex flex-column gap-2 justify-content-between w-full">
+                <ng-container *ngIf="!editEnabled else editTemplate">
+                  <div class="flex flex-column gap-1">
+                    <span class="text-xl font-semibold">{{announcement.name}}</span>
+                    <span class="font-semibold">Inicia el {{announcement.startAt | date}}</span>
+                    <span class="font-semibold">Finaliza el {{announcement.endAt | date}}</span>
+                    <span class="font-semibold">{{announcement.typeName}}</span>
+                  </div>
+                </ng-container>
+                <ng-template #editTemplate>
+                  <div class="grid formgrid">
+                    <div class="field col-12">
+                      <label for="nameAnnouncement">Nombre</label>
+                      <input pInputText id="nameAnnouncement" formControlName="name" class="inputfield field-full" />
+                    </div>
+                    <div class="field col-12 md:col-6">
+                      <label for="calendar-first">Comienza</label>
+                      <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                      <label for="calendar-last">Termina</label>
+                      <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt"></p-calendar>
+                    </div>
+                    <div *ngIf="announcementEditForm.errors && announcementEditForm.errors['dateRange']" class="field col-12 flex">
+                      <label class="m-auto p-error">La fecha de fin debe ser superior a la de inicio</label>
+                    </div>
+                  </div>
+                  <div class="flex flex-row flex-wrap gap-2">
+                    <p-button icon="pi pi-save" label="Aplicar cambios" [loading]="saving" [disabled]="announcementEditForm.pristine || announcementEditForm.invalid" (onClick)="saveFormChanges()"></p-button>
+                    <p-button icon="pi pi-times" styleClass="p-button-outlined" label="Cancelar" (onClick)="cancelEdit()"></p-button>
+                  </div>
+                </ng-template>
+                <ng-container *ngIf="!editEnabled">
+                  <div class="flex flex-row flex-wrap gap-2">
+                    <p-button icon="pi pi-pencil" label="Editar" (onClick)="editEnabled = true"></p-button>
+                    <ng-container *ngIf="!announcement.published else publishedTemplate">
+                      <p-button icon="pi pi-send" styleClass="p-button-danger" label="Publicar" (onClick)="publish()"></p-button>
+                    </ng-container>
+                    <ng-template #publishedTemplate>
+                      <p-button icon="pi pi-check" [disabled]="true" styleClass="p-button-success" label="Publicada"></p-button>
+                    </ng-template>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p-divider class="w-full"></p-divider>
+        <div class="flex flex-column w-full gap-2">
+          <div class="flex flex-row flex-wrap gap-2 align-items-center">
+            <label class="text-xl font-semibold" for="form">Formulario</label>
+            <p-button label="Ver Formulario" icon="pi pi-eye" (onClick)="previewForm()"></p-button>
+            <p-button *ngIf="canCreateForm" styleClass="p-button-outlined" label="Nuevo Formulario" icon="pi pi-plus" (onClick)="createForm()"></p-button>
+          </div>
+          <p-dropdown *ngIf="editEnabled" styleClass="w-full" id="form" [options]="forms" formControlName="form" optionLabel="label" optionValue="id"></p-dropdown>
+          <label *ngIf="!editEnabled">{{ announcement.form.name }}</label>
+        </div>
+        <p-divider class="w-full"></p-divider>
+        <div class="w-full">
+          <div class="w-full flex flex-column w-full gap-2">
+            <div class="w-full flex flex-row justify-content-between">
+              <span class="text-xl font-semibold">Descripción</span>
+            </div>
+            <textarea *ngIf="editEnabled" pInputTextarea formControlName="description" [maxlength]="120" [rows]="5" style="width: 100% !important;"></textarea>
+            <p *ngIf="!editEnabled">{{announcement.description}}</p>
+          </div>
+        </div>
+        <p-divider class="w-full"></p-divider>
+        <div class="w-full flex flex-column w-full gap-2">
+          <div class="w-full flex flex-row justify-content-between">
+            <span class="text-xl font-semibold">Landing</span>
+          </div>
+          <tinymce *ngIf="editEnabled" formControlName="landing" [config]="configTiny" class="w-full"></tinymce>
+          <ng-container *ngIf="!editEnabled">
+            <p-button *ngIf="!announcement.landing" class="m-auto" label="Agregar landing" (onClick)="editEnabled = true"></p-button>
+            <div class="w-full" [innerHtml]="(announcement.landing | safe:'html')"></div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+
+<ng-template #loadingTemplate>
+  <app-loading></app-loading>
+</ng-template>

@@ -61,16 +61,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   }
 
-  imageSelected: any;
-  selectFile(element: HTMLInputElement) {
-    const files = element.files;
-    if (files && files.item(0)) {
-      this.upload(files.item(0));
-    }
-  }
-
-  async upload(fileToUpload: File) {
-    this.userService.updateProfileImage(this.user, fileToUpload)
+  async uploadImage(fileToUpload: File, user: User) {
+    this.userService.updateProfileImage(user, fileToUpload)
     .pipe(
       tap((event) => {
         if(event.type === HttpEventType.DownloadProgress) {
@@ -84,8 +76,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  removeProfileImage() {
-    this.userService.removeProfileImage(this.user)
+  removeImage(user: User) {
+    this.userService.removeProfileImage(user)
       .subscribe((event) => {
         if(event.type === HttpEventType.Response) {
           this.store.dispatch(new UpdateUserImageAction(""));

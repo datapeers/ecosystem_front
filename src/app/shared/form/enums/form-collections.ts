@@ -5,6 +5,7 @@ export enum FormCollections {
   entrepreneurs = "entrepreneurs",
   startups = "startups",
   investors = "investors",
+  responsibles = "responsibles",
 }
 
 export const formCollectionNames: Record<FormCollections, string> = {
@@ -14,6 +15,7 @@ export const formCollectionNames: Record<FormCollections, string> = {
   [FormCollections.entrepreneurs]: "Emprendedores",
   [FormCollections.startups]: "Startups",
   [FormCollections.investors]: "Inversionistas",
+  [FormCollections.responsibles]: "Responsables",
 }
 
 export const formCollections = Object.entries(formCollectionNames).map(([key, value]: [FormCollections, string]) => {

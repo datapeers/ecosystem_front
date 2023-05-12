@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Phase } from '../model/phase.model';
 import { PhasesService } from '../phases.service';
-import { ActivatedRoute } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
-import { Observable, Subscription, firstValueFrom, tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { SetPhaseAction, UpdatePhaseImageAction } from '../store/phase.actions';
@@ -25,8 +24,8 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
   constructor(
     private readonly service: PhasesService,
     private readonly store: Store<AppState>,
-    private toast: ToastService,
-    private readonly storageService: StorageService
+    private storageService: StorageService,
+    private toast: ToastService
   ) {
     this.phase$ = this.store
       .select((state) => state.phase.phase)
@@ -64,15 +63,7 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
     delete this.clonedEdit[property];
   }
 
-  imageSelected: any;
-  selectFile(element: HTMLInputElement, phase: Phase) {
-    const files = element.files;
-    if (files && files.item(0)) {
-      this.upload(files.item(0), phase);
-    }
-  }
-
-  async upload(fileToUpload: File, phase: Phase) {
+  async uploadImage(fileToUpload: File, phase: Phase) {
     this.service
       .updatePhaseThumbnail(phase, fileToUpload)
       .pipe(
@@ -85,7 +76,6 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
       .subscribe((event) => {
         if (event.type === HttpEventType.Response) {
           const realUrl = this.storageService.getPureUrl(event.url);
-          this.service.updatePhase(phase._id, { thumbnail: realUrl });
           this.store.dispatch(new UpdatePhaseImageAction(realUrl));
           this.service
             .updatePhase(this.phase._id, { thumbnail: realUrl })
