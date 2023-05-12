@@ -1,146 +1,153 @@
 <div class="flex flex-column w-full h-full">
-    <form [formGroup]="formResource" class="formgrid grid" style="flex: 9">
-        <div class="field col-12 pt-4">
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">
-                    <i class="pi pi-id-card"></i>
-                </span>
-                <span class="p-float-label">
-                    <input type="text" id="name" pInputText formControlName="name" [readonly]="onlyView" />
-                    <label for="name"> Nombre</label>
-                </span>
-            </div>
-        </div>
-        <div class="field col-12 md:col-12 pt-3">
-            <ng-container *ngIf="onlyView; else interactType">
+    <ng-container *ngIf="load; else loadingTemplate">
+        <form [formGroup]="formResource" class="formgrid grid" style="flex: 9">
+            <div class="field col-12 pt-4">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">
-                        <i class="pi pi-book"></i>
+                        <i class="pi pi-id-card"></i>
                     </span>
                     <span class="p-float-label">
-                        <input type="text" id="tipoRecursoOnlyView" pInputText [value]="onlyView.type" readonly="true" />
-                        <label for="tipoRecursoOnlyView">Tipo</label>
+                        <input type="text" id="name" pInputText formControlName="name" [readonly]="onlyView" />
+                        <label for="name"> Nombre</label>
                     </span>
                 </div>
-            </ng-container>
-            <ng-template #interactType>
-                <div class="flex">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-book"></i>
-                    </span>
-                    <span class="p-float-label" style="width: 100%">
-                        <p-dropdown inputId="dropdownTags" [options]="resourcesTypes" optionLabel="label" optionValue="value" [style]="{ width: '100%' }" formControlName="type" appendTo="body" placeholder="Seleccione uin tipo" [readonly]="onlyView">
-                        </p-dropdown>
-                    </span>
-                </div>
-            </ng-template>
-        </div>
-        <div class="field col-6 md:col-6 pt-3" *ngIf="!config.data.resource">
-            <p-checkbox name="oculto" label="Establecer como recurso oculto " formControlName="hide" [binary]="true" [readonly]="onlyView">
-            </p-checkbox>
-        </div>
-        <ng-container formGroupName="extra_options" *ngIf="formResource.controls['extra_options']">
-            <ng-container *ngFor="let item of listFields">
-                <ng-container [ngSwitch]="item.type">
-                    <div *ngSwitchCase="'String'" class="field col-12 md:col-12 pt-3">
-                        <div class="p-inputgroup">
-                            <span class="p-inputgroup-addon">
-                                <i class="pi pi-align-left"></i>
-                            </span>
-                            <span class="p-float-label">
-                                <input type="text" [id]="item.key" pInputText [formControl]="formResource.controls['extra_options']['controls'][item.key]" [readonly]="onlyView" />
-                                <label [for]="item.key">{{item.name}}</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div *ngSwitchCase="'Select'" class="field col-12 md:col-12 pt-3">
-                        <div class="flex">
-                            <span class="p-inputgroup-addon">
-                                <i class="pi pi-list"></i>
-                            </span>
-                            <span class="p-float-label" style="width: 100%">
-                                <p-dropdown [inputId]="item.key" [options]="item.options" [style]="{ width: '100%' }" [formControl]="formResource.controls['extra_options']['controls'][item.key]" appendTo="body" [placeholder]="item.name" [readonly]="onlyView">
-                                </p-dropdown>
-                            </span>
-                        </div>
-                    </div>
-                    <ng-template *ngSwitchCase="'Number'" class="field col-12 md:col-12 pt-3">
-                        <div class="field col-12 pt-3 md:col-12">
-                            <div class="flex-auto">
-                                <label class="mb-2 block font-bold" for="stacked">item.name</label>
-                                <p-inputNumber [formControl]="formResource.controls['extra_options']['controls'][item.key]" [showButtons]="true" inputId="stacked"> </p-inputNumber>
-                            </div>
-                        </div>
-                    </ng-template>
-                    <div *ngSwitchCase="'File'" class="field col-12 md:col-12 pt-3">
-                        <ng-container *ngIf="!onlyView else previewFileTemplate">
-                            <p-fileUpload name="files" [showUploadButton]="false" (onSelect)="dealWithFiles($event)" (onRemove)="clearFile($event)" (onClear)="clearFile($event)" chooseLabel="Subir archivo" cancelLabel="Cancelar">
-                                <ng-template pTemplate="content" let-files>
-                                    <span *ngIf="!formResource.controls['extra_options']['controls'][item.key].value" class="p-float-label">
-                                        <input styleClass="border-0" [style]="{ 'width':'100%' }" id="file" type="text" [id]="item.key" pInputText [formControl]="formResource.controls['extra_options']['controls'][item.key]" [value]="" readonly />
-                                        <label for="file">{{item.name}}</label>
-                                    </span>
-                                </ng-template>
-                            </p-fileUpload>
-                        </ng-container>
-                        <ng-template #previewFileTemplate>
-                            <p-button id="" label="Descargar" (onClick)="downloadFile()"></p-button>
-                        </ng-template>
-                    </div>
-                    <div *ngSwitchCase="'Date'" class="field col-12 md:col-12 pt-3">
-                        <div class="flex">
-                            <span class="p-inputgroup-addon">
-                                <i class="pi pi-calendar-times"></i>
-                            </span>
-                            <span class="p-float-label" style="width: 100%">
-                                <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" [formControl]="formResource.controls['extra_options']['controls'][item.key]" [disabled]="onlyView">
-                                </p-calendar>
-                                <label for="calendar-first">{{item.name}}</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div *ngSwitchCase="'Textbox'" class="field col-12 pt-4">
-                        <div class="p-inputgroup">
-                            <span class="p-inputgroup-addon">
-                                <i class="pi pi-align-left"></i>
-                            </span>
-                            <span class="p-float-label">
-                                <textarea [id]="item.key" rows="4" style="width: 100%;" [formControl]="formResource.controls['extra_options']['controls'][item.key]" [readonly]="onlyView" pInputTextarea></textarea>
-                                <label [for]="item.key">{{item.name}}</label>
-                            </span>
-                        </div>
-                    </div>
-                    <div *ngSwitchCase="'Forms'" class="field col-12 md:col-12 pt-3">
-                        <div class="flex">
-                            <span class="p-inputgroup-addon">
-                                <i class="pi pi-list"></i>
-                            </span>
-                            <span class="p-float-label" style="width: 100%">
-                                <p-autoComplete [inputId]="item.key" [suggestions]="listFormsFiltered" field="nombre" [formControl]="formResource.controls['extra_options']['controls'][item.key]" appendTo="body" [placeholder]="item.name" (completeMethod)="filterAutocomplete($event)" [dropdown]="!onlyView" [readonly]="onlyView" [style]="{ width: '100%' }">
-                                    <ng-template let-formItem pTemplate="item">
-                                        <div class="formItem-item">
-                                            <div>{{formItem.nombre}}</div>
-                                        </div>
-                                    </ng-template>
-                                </p-autoComplete>
-                            </span>
-                        </div>
-                        <div class="flex">
-                            <button pButton pRipple *ngIf="formResource.get(item.key).value" type="button" label="Ver formulario" icon="pi pi-eye" class="p-button-text" (click)="show()"></button>
-                        </div>
-                    </div>
-                    <div *ngSwitchCase="'Boolean'" class="field col-12 md:col-12 pt-3">
-                        <p-checkbox [name]="item.name" value="false" [label]="item.name" [formControl]="formResource.controls['extra_options']['controls'][item.key]" [binary]="true" [readonly]="onlyView">
-                        </p-checkbox>
-                    </div>
-                    <div *ngSwitchDefault>
+            </div>
+            <div class="field col-12 md:col-12 pt-3">
+                <ng-container *ngIf="onlyView; else interactType">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">
+                            <i class="pi pi-book"></i>
+                        </span>
+                        <span class="p-float-label">
+                            <input type="text" id="tipoRecursoOnlyView" pInputText [value]="onlyView.type" readonly="true" />
+                            <label for="tipoRecursoOnlyView">Tipo</label>
+                        </span>
                     </div>
                 </ng-container>
+                <ng-template #interactType>
+                    <div class="flex">
+                        <span class="p-inputgroup-addon">
+                            <i class="pi pi-book"></i>
+                        </span>
+                        <span class="p-float-label" style="width: 100%">
+                            <p-dropdown inputId="dropdownTags" [options]="resourcesTypes" optionLabel="label" optionValue="value" [style]="{ width: '100%' }" formControlName="type" appendTo="body" placeholder="Seleccione uin tipo" [readonly]="onlyView">
+                            </p-dropdown>
+                        </span>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="field col-6 md:col-6 pt-3" *ngIf="!config.data.resource">
+                <p-checkbox name="oculto" label="Establecer como recurso oculto " formControlName="hide" [binary]="true" [readonly]="onlyView">
+                </p-checkbox>
+            </div>
+            <ng-container formGroupName="extra_options" *ngIf="formResource.controls['extra_options']">
+                <ng-container *ngFor="let item of listFields">
+                    <ng-container [ngSwitch]="item.type">
+                        <div *ngSwitchCase="'String'" class="field col-12 md:col-12 pt-3">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon">
+                                    <i class="pi pi-align-left"></i>
+                                </span>
+                                <span class="p-float-label">
+                                    <input type="text" [id]="item.key" pInputText [formControl]="formResource.controls['extra_options']['controls'][item.key]" [readonly]="onlyView" />
+                                    <label [for]="item.key">{{item.name}}</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'Select'" class="field col-12 md:col-12 pt-3">
+                            <div class="flex">
+                                <span class="p-inputgroup-addon">
+                                    <i class="pi pi-list"></i>
+                                </span>
+                                <span class="p-float-label" style="width: 100%">
+                                    <p-dropdown [inputId]="item.key" [options]="item.options" [style]="{ width: '100%' }" [formControl]="formResource.controls['extra_options']['controls'][item.key]" appendTo="body" [placeholder]="item.name" [readonly]="onlyView">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                        </div>
+                        <ng-template *ngSwitchCase="'Number'" class="field col-12 md:col-12 pt-3">
+                            <div class="field col-12 pt-3 md:col-12">
+                                <div class="flex-auto">
+                                    <label class="mb-2 block font-bold" for="stacked">item.name</label>
+                                    <p-inputNumber [formControl]="formResource.controls['extra_options']['controls'][item.key]" [showButtons]="true" inputId="stacked"> </p-inputNumber>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <div *ngSwitchCase="'File'" class="field col-12 md:col-12 pt-3">
+                            <ng-container *ngIf="!onlyView else previewFileTemplate">
+                                <p-fileUpload name="files" [showUploadButton]="false" (onSelect)="dealWithFiles($event)" (onRemove)="clearFile($event)" (onClear)="clearFile($event)" chooseLabel="Subir archivo" cancelLabel="Cancelar">
+                                    <ng-template pTemplate="content" let-files>
+                                        <span *ngIf="!formResource.controls['extra_options']['controls'][item.key].value" class="p-float-label">
+                                            <input styleClass="border-0" [style]="{ 'width':'100%' }" id="file" type="text" [id]="item.key" pInputText [formControl]="formResource.controls['extra_options']['controls'][item.key]" [value]="" readonly />
+                                            <label for="file">{{item.name}}</label>
+                                        </span>
+                                    </ng-template>
+                                </p-fileUpload>
+                            </ng-container>
+                            <ng-template #previewFileTemplate>
+                                <p-button id="" label="Descargar" (onClick)="downloadFile()"></p-button>
+                            </ng-template>
+                        </div>
+                        <div *ngSwitchCase="'Date'" class="field col-12 md:col-12 pt-3">
+                            <div class="flex">
+                                <span class="p-inputgroup-addon">
+                                    <i class="pi pi-calendar-times"></i>
+                                </span>
+                                <span class="p-float-label" style="width: 100%">
+                                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" [formControl]="formResource.controls['extra_options']['controls'][item.key]" [disabled]="onlyView">
+                                    </p-calendar>
+                                    <label for="calendar-first">{{item.name}}</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'Textbox'" class="field col-12 pt-4">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon">
+                                    <i class="pi pi-align-left"></i>
+                                </span>
+                                <span class="p-float-label">
+                                    <textarea [id]="item.key" rows="4" style="width: 100%;" [formControl]="formResource.controls['extra_options']['controls'][item.key]" [readonly]="onlyView" pInputTextarea></textarea>
+                                    <label [for]="item.key">{{item.name}}</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'Forms'" class="field col-12 md:col-12 pt-3">
+                            <div class="flex">
+                                <span class="p-inputgroup-addon">
+                                    <i class="pi pi-list"></i>
+                                </span>
+                                <span class="p-float-label" style="width: 100%">
+                                    <p-autoComplete [inputId]="item.key" [suggestions]="listFormsFiltered" field="label" [formControl]="formResource.controls['extra_options']['controls'][item.key]" appendTo="body" [placeholder]="item.name" (completeMethod)="filterAutocomplete($event)" [dropdown]="!onlyView" [readonly]="onlyView" [style]="{ width: '100%' }">
+                                        <ng-template let-formItem pTemplate="item">
+                                            <div class="formItem-item">
+                                                <div>{{formItem.label}}</div>
+                                            </div>
+                                        </ng-template>
+                                    </p-autoComplete>
+                                </span>
+                            </div>
+                            <div class="flex">
+                                <button pButton pRipple *ngIf="formResource.controls['extra_options']['controls'][item.key].value" type="button" label="Ver formulario" icon="pi pi-eye" class="p-button-text" (click)="previewForm()"></button>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="'Boolean'" class="field col-12 md:col-12 pt-3">
+                            <p-checkbox [name]="item.name" value="false" [label]="item.name" [formControl]="formResource.controls['extra_options']['controls'][item.key]" [binary]="true" [readonly]="onlyView">
+                            </p-checkbox>
+                        </div>
+                        <div *ngSwitchDefault>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </ng-container>
-        </ng-container>
 
-    </form>
-    <div class="flex flex-row justify-content-end align-items-end" style="flex: 1" *ngIf="!config.data.resource">
-        <p-button icon="pi pi-save" label="Guardar" type="button" [disabled]="busy || formResource.invalid" (onClick)="save()"></p-button>
-    </div>
+        </form>
+        <div class="flex flex-row justify-content-end align-items-end" style="flex: 1" *ngIf="!config.data.resource">
+            <p-button icon="pi pi-save" label="Guardar" type="button" [disabled]="busy || formResource.invalid" (onClick)="save()"></p-button>
+        </div>
+    </ng-container>
+    <ng-template #loadingTemplate>
+        <app-loading></app-loading>
+    </ng-template>
+
+
 </div>

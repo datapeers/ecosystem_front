@@ -2,7 +2,7 @@
   <div class="p-4">
     <div class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
       <div class="flex flex-row w-full gap-4">
-        <app-avatar-uploader [imageUrl]="phase.thumbnail | getImage | async" (onUpload)="uploadImage($event, phase)" (onRemove)="removeImage(phase)"></app-avatar-uploader>
+        <app-avatar-uploader [imageUrl]="phase.thumbnail" (onUpload)="uploadImage($event, phase)" (onRemove)="removeImage(phase)"></app-avatar-uploader>
         <div class="flex flex-column gap-1 justify-content-center">
           <span class="text-xl font-semibold">{{phase.name}}</span>
           <span class="font-semibold">Inicia el {{phase.startAt | date}}</span>

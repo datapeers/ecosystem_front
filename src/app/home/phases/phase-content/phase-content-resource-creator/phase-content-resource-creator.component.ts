@@ -14,6 +14,14 @@ import { StorageService } from '@shared/services/storage.service';
 import { Subject, first, firstValueFrom, takeUntil } from 'rxjs';
 import { triggerControlValidators } from '@shared/utils/reactive-forms.utils';
 import { HttpEventType } from '@angular/common/http';
+import { FormService } from '@shared/form/form.service';
+import { FormCollections } from '@shared/form/enums/form-collections';
+import { AppForm } from '@shared/form/models/form';
+import { IDropItem } from '@shared/models/dropdown-item';
+import {
+  resourcesTypesArray,
+  resourcesTypesNames,
+} from '@home/phases/model/resources-types.model';
 
 @Component({
   selector: 'app-phase-content-resource-creator',
@@ -23,25 +31,23 @@ import { HttpEventType } from '@angular/common/http';
 export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
   formResource: UntypedFormGroup;
   onlyView = null;
-  resourcesTypes = [
-    { value: 'downloadable', label: 'Descargable' },
-    { value: 'task', label: 'Entregable' },
-    { value: 'form', label: 'Formulario' },
-  ];
+  resourcesTypes = resourcesTypesArray;
   busy = false;
   content: Content;
   phase: Phase;
   file;
   onDestroy$: Subject<boolean> = new Subject();
   listFields = [];
-  listForms = [];
+  load = false;
+  forms: IDropItem[] = [];
   listFormsFiltered = [];
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private toast: ToastService,
     private service: PhaseContentService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private formService: FormService
   ) {
     this.setForm();
   }
@@ -55,7 +61,8 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
-  loadComponent() {
+  async loadComponent() {
+    this.load = false;
     if (!this.config.data.content) {
       this.toast.alert({ detail: '', summary: 'Se necesita un contenedor' });
       this.closeDialog();
@@ -69,9 +76,14 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
       this.closeDialog();
       return;
     }
+    this.forms = (
+      await this.formService.getFormByCollection(FormCollections.resources)
+    ).map((form) => ({ id: form._id, label: form.name }));
+    this.listFormsFiltered = [...this.forms];
     if (this.config.data.resource) {
       this.setResource(this.config.data.resource);
     }
+    this.load = true;
   }
 
   setForm() {
@@ -112,9 +124,9 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
             .get(iterator.key)
             .setValue(new Date(resource.extra_options[iterator.key]));
           break;
-        case 'form':
-          const item = this.listForms.find(
-            (i) => i._id === resource.extra_options[iterator.key]
+        case 'Forms':
+          const item = this.forms.find(
+            (i) => i.id === resource.extra_options[iterator.key]
           );
           this.formResource
             .get('extra_options')
@@ -172,7 +184,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
         this.listFields.push({
           name: 'Formulario',
           key: 'form',
-          type: 'String',
+          type: 'Forms',
         });
         break;
       default:
@@ -186,9 +198,9 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
 
   filterAutocomplete(event) {
     let query = event.query;
-    const filtered = this.listForms.filter(
+    const filtered = this.forms.filter(
       (data) =>
-        data.nombre
+        data.label
           .toString()
           .toLowerCase()
           .indexOf(query.toString().toLowerCase()) !== -1
@@ -219,13 +231,11 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
                 .uploadFile(`phases/${this.phase._id}/resources`, this.file)
                 .pipe(first((event) => event.type === HttpEventType.Response))
             );
-            console.log(fileUploaded.url);
             newResource.extra_options[iterator.key] = fileUploaded.url;
             this.toast.info({
               summary: 'Archivo almacenado con éxito',
               detail: '',
             });
-            console.log(newResource.extra_options);
           } catch (error) {
             console.error(error);
             this.toast.info({
@@ -243,7 +253,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
         case 'Forms':
           newResource.extra_options[iterator.key] = this.formResource
             .get('extra_options')
-            .get(iterator.key).value._id;
+            .get(iterator.key).value.id;
           continue;
         default:
           newResource.extra_options[iterator.key] = this.formResource
@@ -288,33 +298,12 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     }
   }
 
-  async loadForms() {
-    console.log('a');
-    // const forms = this.resourceTypes.find((i) => i.type === 'forms');
-    // if (forms) {
-    //   try {
-    //     const formsSubscription = await this.formService.get_forms_collection(
-    //       this.institute.dbName,
-    //       'datos_recursos'
-    //     );
-    //     const forms = await firstValueFrom(formsSubscription);
-    //     this.listForms = [...forms];
-    //     this.listFormsFiltered = [...forms];
-    //   } catch (error) {
-    //     this.toast.alert({
-    //       summary: 'No se cargaron formularios',
-    //       detail:
-    //         'Problema al intentar cargar la lista de formularios disponibles para recursos',
-    //     });
-    //   }
-    // }
-  }
-
-  async show() {
-    // let dbName = this.institute.dbName;
-    // let id = this.formResource.get('contenido').get('contenido').value._id;
-    // let url = `${environment.forms}view/${id}/${dbName}`;
-    // window.open(url, '_blank');
+  previewForm() {
+    const formResource = this.formResource.getRawValue();
+    this.formService.openFormPreview(
+      formResource.extra_options.form.id,
+      formResource.extra_options.form.label
+    );
   }
 
   closeDialog() {

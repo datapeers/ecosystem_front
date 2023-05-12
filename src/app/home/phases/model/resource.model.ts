@@ -1,9 +1,11 @@
+import { ResourcesTypes, resourcesTypesNames } from './resources-types.model';
+
 export interface IResource {
   _id: string;
   name: string;
   content: string;
   phase: string;
-  type: 'downloadable' | 'task' | 'form';
+  type: ResourcesTypes;
   extra_options: any;
   hide: boolean;
   isDeleted: boolean;
@@ -17,7 +19,7 @@ export class Resource implements IResource {
   name: string;
   content: string;
   phase: string;
-  type: 'downloadable' | 'task' | 'form';
+  type: ResourcesTypes;
   extra_options: any;
   hide: boolean;
   isDeleted: boolean;
@@ -36,5 +38,9 @@ export class Resource implements IResource {
       updatedAt: new Date(data.updatedAt),
     });
     return resource;
+  }
+
+  get typeName(): string {
+    return resourcesTypesNames[this.type];
   }
 }
