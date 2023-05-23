@@ -18,6 +18,7 @@ import { ResponsiblesComponent } from './responsibles/responsibles.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
 import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
+import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hours-config.component';
 
 const routes: Routes = [
   {
@@ -71,10 +72,10 @@ const routes: Routes = [
               {
                 path: 'edit',
                 component: AnnouncementEditComponent,
-              }
-            ]
-          }
-        ]
+              },
+            ],
+          },
+        ],
       },
       {
         // TODO: Add guards or modules if required
@@ -108,6 +109,10 @@ const routes: Routes = [
                     component: PhaseContentViewComponent,
                   },
                 ],
+              },
+              {
+                path: 'bag-hours',
+                component: PhaseHoursConfigComponent,
               },
             ],
           },

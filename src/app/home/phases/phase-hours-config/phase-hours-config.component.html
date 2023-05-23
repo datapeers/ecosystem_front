@@ -1,0 +1,75 @@
+<ng-container *ngIf="loaded else loadingTemplate">
+    <div class="flex flex-row justify-content-between mb-2">
+        <span class="header color-custom">Configurar bolsa de horas</span>
+    </div>
+
+
+    <p-accordion>
+        <p-accordionTab [header]="'Configuración'">
+            <div class="p-fluid grid formgrid">
+                <div class="field col-12">
+                    <label for="limitUser">Limite de peticiones por usuario</label>
+                    <p-inputNumber [(ngModel)]="activitiesConfig.limit" inputId="limitUser" mode="decimal" [min]="0" [max]="100">
+                    </p-inputNumber>
+                </div>
+                <div class="field col-12">
+                    <label for="totalLimit">Total de eventos del programa</label>
+                    <p-inputNumber [(ngModel)]="activitiesConfig.totalLimit" inputId="totalLimit" mode="decimal" [min]="0" [max]="100">
+                    </p-inputNumber>
+                </div>
+            </div>
+        </p-accordionTab>
+
+        <p-accordionTab [header]="'Horarios'">
+            <ng-container *ngFor="let range of activitiesConfig.availability">
+                <div class="p-fluid grid formgrid">
+                    <div class="field col-6">
+                        <p-calendar [(ngModel)]="range.start" [stepMinute]="15" [stepSecond]="0" [timeOnly]="true" hourFormat="12" inputId="start"></p-calendar>
+                    </div>
+                    <div class="field col-6">
+                        <p-calendar [(ngModel)]="range.end" [stepMinute]="15" [stepSecond]="0" [timeOnly]="true" hourFormat="12" inputId="end"></p-calendar>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="flex">
+                <p-button *ngIf="activitiesConfig.availability.length<limitRanges" label="Agregar rango" (onClick)="addRange()"></p-button>
+            </div>
+        </p-accordionTab>
+
+        <p-accordionTab [header]="'Actividades'">
+            <div class="flex flex-column">
+                <ng-container *ngFor="let activity of activitiesConfig.activities">
+                    <h5>activity.label</h5>
+                    <div class="p-fluid grid formgrid">
+                        <div class="field col-12 md:col-6">
+                            <label for="minmax">Limite de eventos por usuario</label>
+                            <p-inputNumber [(ngModel)]="activity.limit" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100">
+                            </p-inputNumber>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <p-button class="mt-2" label="Agregar actividad"></p-button>
+        </p-accordionTab>
+    </p-accordion>
+
+    <ng-container *ngIf="activitiesConfig">
+        <div class="flex flex-column align-items-center justify-content-center mt-2">
+            <p-button label="Guardar"></p-button>
+        </div>
+    </ng-container>
+</ng-container>
+
+<p-dialog appendTo="body" [header]="'Agregar actividad'" [(visible)]="showActivityDialog" [maximizable]="true" [style]="{width: '50vw'}">
+
+    <div class="p-fluid grid formgrid">
+        <div class="field col-12 md:col-6">
+            <p-dropdown appendTo="body" [options]="leftActivities" [(ngModel)]="selectedActivity" optionLabel="name"></p-dropdown>
+        </div>
+    </div>
+    <p-button [disabled]="saving" label="Agregar"></p-button>
+</p-dialog>
+
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>

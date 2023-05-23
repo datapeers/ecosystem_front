@@ -32,6 +32,7 @@ import { AnnouncementsComponent } from './announcements/announcements.component'
 import { AnnouncementsCreatorComponent } from './announcements/announcements-creator/announcements-creator.component';
 import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
 import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
+import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hours-config.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { AnnouncementLoadComponent } from './announcements/announcement-load/ann
     AnnouncementsCreatorComponent,
     AnnouncementEditComponent,
     AnnouncementLoadComponent,
+    PhaseHoursConfigComponent,
   ],
   imports: [
     CommonModule,

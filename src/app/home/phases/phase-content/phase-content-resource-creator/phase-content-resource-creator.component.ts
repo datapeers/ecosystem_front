@@ -16,12 +16,8 @@ import { triggerControlValidators } from '@shared/utils/reactive-forms.utils';
 import { HttpEventType } from '@angular/common/http';
 import { FormService } from '@shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
-import { AppForm } from '@shared/form/models/form';
 import { IDropItem } from '@shared/models/dropdown-item';
-import {
-  resourcesTypesArray,
-  resourcesTypesNames,
-} from '@home/phases/model/resources-types.model';
+import { resourcesTypesArray } from '@home/phases/model/resources-types.model';
 
 @Component({
   selector: 'app-phase-content-resource-creator',

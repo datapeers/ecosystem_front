@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Subscription, first, firstValueFrom } from 'rxjs';
 import { Resource } from '@home/phases/model/resource.model';
+import { resourcesTypesNames } from '@home/phases/model/resources-types.model';
 
 @Component({
   selector: 'app-phase-content-view',
@@ -32,6 +33,7 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
   weight = null;
   forSave;
   saving = false;
+  resourcesTypesNames = resourcesTypesNames;
   constructor(
     private store: Store<AppState>,
     private routeOpt: ActivatedRoute,

@@ -40,7 +40,7 @@
                     {{rowData?.name ?? ''}}
                 </td>
                 <td [ngClass]="{'kb-cell': rowData.hide}">
-                    {{rowData?.type ?? ''}}
+                    {{rowData ? resourcesTypesNames[rowData.type] : ''}}
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-chart-pie" class="p-button-outlined mr-1" pTooltip="Peso" *ngIf="rowData.type !== 'downloadable'" (click)="dialogWeight(rowData)" tooltipPosition="top">
