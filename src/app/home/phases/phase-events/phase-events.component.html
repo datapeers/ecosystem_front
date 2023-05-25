@@ -1,0 +1,74 @@
+<ng-container *ngIf="loaded; else loadingTemplate">
+    <div class="p-4">
+        <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
+            <h2>Eventos</h2>
+            <div class="flex flex-row gap-2">
+                <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
+                <p-button label="Tipos de eventos" icon="pi pi-tags" (onClick)="openTypes()"></p-button>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>
+
+<p-dialog header="Tipo eventos" [(visible)]="showTypes" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <!-- <div class="w-full flex flex-row justify-content-end">
+        <p-button type="button" label="Etapa" icon="pi pi-plus" (onClick)="createStage()"></p-button>
+    </div> -->
+    <p-table [value]="typesEvents" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '45rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:25%">Name</th>
+                <th style="width:25%">Label</th>
+                <th style="width:25%">Color</th>
+                <th style="width:25%">
+                    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar etapa'"></button>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-stage let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="stage">
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="stage.name" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{stage.name}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="stage.label" required>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{stage.label}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-colorPicker [(ngModel)]="stage.color" [inline]="true" appendTo="body"></p-colorPicker>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            <p-colorPicker [(ngModel)]="stage.color" [disabled]="true"></p-colorPicker>
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onTypeEventEditInit(stage)" class="p-button-rounded p-button-text"></button>
+                        <!-- <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash" (click)="stageDelete(stage)" class="p-button-rounded p-button-text"></button> -->
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onTypeEventEditSave(stage, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onTypeEventEditCancel(stage, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>

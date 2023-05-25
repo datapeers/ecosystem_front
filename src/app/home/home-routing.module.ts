@@ -19,6 +19,7 @@ import { AnnouncementsComponent } from './announcements/announcements.component'
 import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
 import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
 import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hours-config.component';
+import { PhaseEventsComponent } from './phases/phase-events/phase-events.component';
 
 const routes: Routes = [
   {
@@ -113,6 +114,10 @@ const routes: Routes = [
               {
                 path: 'bag-hours',
                 component: PhaseHoursConfigComponent,
+              },
+              {
+                path: 'events',
+                component: PhaseEventsComponent,
               },
             ],
           },
