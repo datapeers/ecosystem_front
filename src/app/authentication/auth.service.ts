@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, combineLatest, debounceTime, filter } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest, filter } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,8 @@ import { ClearAuthStoreAction, SetUserAction } from '@auth/store/auth.actions';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import firebase from 'firebase/compat/app';
+import { AppJwt } from '@shared/models/common/app-jwt';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +17,7 @@ export class AuthService {
   currentUser = null;
   private authStatusSub = new BehaviorSubject(this.currentUser);
   renewToken$: Subject<void> = new Subject();
-
+  renewTimer: any;
   constructor(
     public fireAuth: AngularFireAuth,
     public toast: ToastService,
@@ -24,9 +26,8 @@ export class AuthService {
     private userService: UserService
   ) {
     this.authStatusListener();
-    const tokenExpirationTime = 3540000; // 59 Minutos
     // Renew token subscription
-    const delayedRenew = this.renewToken$.asObservable().pipe(debounceTime(tokenExpirationTime));
+    const delayedRenew = this.renewToken$.asObservable();
     combineLatest([this.fireAuth.authState, delayedRenew])
       .pipe(filter(([user]) => !!user))
       .subscribe(async ([user]) => {
@@ -42,10 +43,17 @@ export class AuthService {
 
     this.fireAuth.idToken
     .subscribe((idToken) => {
-      if(idToken != null) {
-        // Set trigger to renew token before expiration
+      // If exists clears the timeout
+      if(this.renewTimer) { window.clearTimeout(this.renewTimer); }
+      // Set renew strategy only if the token is set
+      if(!idToken) { return; }
+      const jwtObject = new AppJwt(idToken);
+      // Renew token 1 minute before expiration
+      const milisecondsForTokenRenew = Math.max(1, jwtObject.milisecondsTillExpiration - 60000);
+      // Set trigger to renew token before expiration
+      this.renewTimer = setTimeout(() => {
         this.renewToken$.next();
-      }
+      }, milisecondsForTokenRenew);
     });
   }
 

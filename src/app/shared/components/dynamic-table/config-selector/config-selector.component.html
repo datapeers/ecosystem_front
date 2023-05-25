@@ -1,0 +1,21 @@
+<p-tabView [controlClose]="true" styleClass="w-full" [(activeIndex)]="tabIndex" [scrollable]="true" (onChange)="handleTabChange($event)" (onClose)="handleClose($event)">
+  <p-tabPanel [closable]="!first" *ngFor="let config of options let first=first" [header]="config.name">
+    <ng-template pTemplate="header">
+      <span class="p-tabview-title">{{config.name}}</span>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel [header]="'Todos'">
+    <ng-template pTemplate="header">
+      <span class="p-tabview-title pi pi-plus " [pTooltip]="'Nueva vista'" tooltipPosition="top"></span>
+    </ng-template>
+  </p-tabPanel>
+</p-tabView>
+
+<p-dialog header="Nueva configuración" [(visible)]="showNewConfigDialog">
+  <div class="p-grid p-fluid p-2">
+    <div class="field w-full">
+      <input type="text" pInputText [placeholder]="'Ingrese un nombre'" [(ngModel)]="newConfigName">
+    </div>
+    <p-button [label]="'Nueva configuración'" [disabled]="!newConfigName" (onClick)="addNewConfig()"></p-button>
+  </div>
+</p-dialog>

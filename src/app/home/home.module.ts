@@ -25,13 +25,14 @@ import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component'
 import { StartupsComponent } from './startups/startups.component';
 import { FormsComponent } from './forms/forms.component';
 import { InvestorsComponent } from './investors/investors.component';
-import { ResponsiblesComponent } from './responsibles/responsibles.component';
 import { GetImagePipe } from '@shared/pipe/get-image.pipe';
 import { PhaseContentResourceCreatorComponent } from './phases/phase-content/phase-content-resource-creator/phase-content-resource-creator.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { AnnouncementsCreatorComponent } from './announcements/announcements-creator/announcements-creator.component';
 import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
 import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
+import { DynamicTableModule } from '@shared/components/dynamic-table/dynamic-table.module';
+import { ExpertsComponent } from './experts/experts.component';
 
 @NgModule({
   declarations: [
@@ -54,13 +55,13 @@ import { AnnouncementLoadComponent } from './announcements/announcement-load/ann
     StartupsComponent,
     FormsComponent,
     InvestorsComponent,
-    ResponsiblesComponent,
     GetImagePipe,
     PhaseContentResourceCreatorComponent,
     AnnouncementsComponent,
     AnnouncementsCreatorComponent,
     AnnouncementEditComponent,
     AnnouncementLoadComponent,
+    ExpertsComponent,
   ],
   imports: [
     CommonModule,
@@ -70,6 +71,7 @@ import { AnnouncementLoadComponent } from './announcements/announcement-load/ann
     PrimengModule,
     FontAwesomeModule,
     AvatarUploaderModule,
+    DynamicTableModule,
     NgxTinymceModule.forRoot({
       baseURL: '/assets/tinymce/',
     }),

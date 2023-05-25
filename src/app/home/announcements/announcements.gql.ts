@@ -16,7 +16,6 @@ const fragments = {
       updatedAt
     }
   `,
-
   detailedAnnouncementFields: `
     fragment detailedAnnouncementFields on Announcement {
       _id

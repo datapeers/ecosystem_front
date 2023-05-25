@@ -20,7 +20,7 @@
             </p-avatar>
         </ng-container>
         <ng-template #imageTemplate>
-            <p-avatar [image]="user?.profileImageUrl ??'' " shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
+            <p-avatar [image]="user.profileImageUrl | getImage | async" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
             </p-avatar>
         </ng-template>
         <p-menu #menu [popup]="true" [model]="items" appendTo="body"></p-menu>

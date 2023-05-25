@@ -1,0 +1,185 @@
+<div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
+  <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
+  <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="handleConfigChange"  (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
+  <p-table [columns]="cols" (onColReorder)="columnReorder($event)"
+  [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id"
+  [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($event)"
+  [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]"
+  [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true"
+  [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter"
+  [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords"
+  styleClass="p-datatable-sm" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($event)">
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <span class="header color-custom">{{title}}</span>
+      <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+        </span>
+        <ng-container>
+          <ng-container *ngIf="actionsMenu?.length > 0">
+            <div>
+              <p-button #actionButton styleClass="p-button-outlined" type="button" icon="pi pi-angle-down" [iconPos]="'right'" label="Acciones" (onClick)="actionsTable.toggle($event)"></p-button>
+              <p-tieredMenu appendTo="body" #actionsTable [popup]="true" [model]="actionsMenu"></p-tieredMenu>
+            </div>
+          </ng-container>
+          <ng-container *ngFor="let featuredAction of featuredActions">
+            <ng-container *ngIf="featuredAction?.items?.length else simpleActionTemplate">
+              <div>
+                <p-button [styleClass]="featuredAction.styleClass" #featuredActionButton [disabled]="disableActions" type="button" icon="pi pi-angle-down" [iconPos]="'right'" [label]="featuredAction.label" (onClick)="featureMenu.toggle($event)"></p-button>
+                <p-tieredMenu appendTo="body" #featureMenu [popup]="true" [model]="featuredAction.items"></p-tieredMenu>
+              </div>
+            </ng-container>
+            <ng-template #simpleActionTemplate>
+              <p-button [styleClass]="featuredAction.styleClass" [disabled]="disableActions" [icon]="featuredAction.icon" [label]="featuredAction.label" (onClick)="featuredAction.command({item: featuredAction, originalEvent: $event})"></p-button>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+        <p-button *ngIf="allowFullscreen" [pTooltip]="(fullscreen ? 'global.close' : 'global.fullscreen')" (onClick)="setFullscreen()" [icon]="fullscreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></p-button>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3rem" *ngIf="options.selection">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <ng-container *ngFor="let item of cols">
+        <ng-container [ngSwitch]="item.format">
+          <ng-container *ngSwitchCase="'boolean'">
+            <th [pSortableColumn]="item.key" pReorderableColumn>
+              <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
+                <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
+                <p-columnFilter [field]="item.key" display="menu" matchMode="equals" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                  <ng-template pTemplate="header">
+                    <div style="height: 10px;"></div>
+                    <span class=" pl-3 mt-3 pb-3 text-bold">Estado</span>
+                  </ng-template>
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-dropdown appendTo="body" [options]="[{label: item.booleanText?.true, value: true}, {label: item.booleanText?.false, value: false}]" optionLabel="label" optionValue="value" placeholder="Seleccione un estado" (onChange)="filter($event.value);">
+                    </p-dropdown>
+                  </ng-template>
+                </p-columnFilter>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container *ngSwitchCase="'currency'">
+            <th [pSortableColumn]="item.key" pReorderableColumn>
+              <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
+                <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
+                <p-columnFilter type="numeric" currency="$" [field]="item.key" display="menu"> </p-columnFilter>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container *ngSwitchCase="'number'">
+            <th [pSortableColumn]="item.key" pReorderableColumn>
+              <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
+                <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
+                <p-columnFilter type="numeric" [field]="item.key" display="menu"></p-columnFilter>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container [ngTemplateOutlet]="dateTemplate" [ngTemplateOutletContext]="{ item: item}" *ngSwitchCase="'date'">
+          </ng-container>
+          <ng-container [ngTemplateOutlet]="dateTemplate" [ngTemplateOutletContext]="{ item: item}" *ngSwitchCase="'dateAndTime'">
+          </ng-container>
+          <ng-container [ngTemplateOutlet]="dateTemplate" [ngTemplateOutletContext]="{ item: item}" *ngSwitchCase="'time'">
+          </ng-container>
+          <ng-template #dateTemplate let-item="item">
+            <th [pSortableColumn]="item.key" pReorderableColumn>
+              <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
+                <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
+                <p-columnFilter type="date" [field]="item.key" display="menu">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-calendar [ngModel]="value" [showTime]="true" (onSelect)="filter($event)">
+                    </p-calendar>
+                  </ng-template>
+                </p-columnFilter>
+              </div>
+            </th>
+          </ng-template>
+          <ng-container *ngSwitchCase="'url'">
+            <th class="text-center">
+              <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
+              </div>
+            </th>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <th [pSortableColumn]="item.key" pReorderableColumn>
+              <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
+                <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
+                <p-columnFilter *ngIf="!item?.options" type="text" [field]="item.key" display="menu"></p-columnFilter>
+                <!-- <p-columnFilter *ngIf="item?.options" [field]="item.key" matchMode="equals" [matchModeOptions]="item.arrayFields ? arrayMatchOptions : selectMatchOptions" display="menu">
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-dropdown [showClear]="true" [editable]="true" [ngModel]="value" [options]="item?.options??[]" (onChange)="filter($event.value)" placeholder="Seleccione" [filter]="true">
+                      <ng-template let-option pTemplate="item">
+                        <span>{{option}}</span>
+                      </ng-template>
+                    </p-dropdown>
+                  </ng-template>
+                </p-columnFilter> -->
+              </div>
+            </th>
+          </ng-container>
+        </ng-container>
+        
+      </ng-container>
+      <ng-container *ngIf="options.actions_row === 'compress' && options.actionsPerRow.length; else buttonPerAction">
+        <th style="width: 3rem" class="frozen-header">
+        </th>
+      </ng-container>
+      <ng-template #buttonPerAction>
+        <ng-container *ngFor="let item of options.actionsPerRow">
+          <th style="width: 3rem" class="frozen-header">
+          </th>
+        </ng-container>
+      </ng-template>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row>
+    <tr ngClass="{{row.classRow}}" (click)="onRowClick.emit(row)" [ngClass]="{'cursor-pointer' : onRowClick.observed}">
+      <td *ngIf="options.selection">
+        <p-tableCheckbox [value]="row" (click)="$event.stopPropagation()"></p-tableCheckbox>
+      </td>
+      <ng-container *ngFor="let item of config.columns">
+        <ng-container [ngSwitch]="item.format">
+          <ng-container *ngSwitchCase="'url'">
+            <td>
+              <ng-container *ngIf="row[item.key]; else noUrl">
+                <a [href]="row[item.key]" target="_blank" rel="noopener noreferrer" class="pi pi-file-o text-teal-500 cursor-pointer no-underline" pTooltip="Ver"></a>
+              </ng-container>
+              <ng-template #noUrl>
+                <i class="pi pi-file-excel text-orange-500"></i>
+              </ng-template>
+            </td>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <td [innerHtml]="row[item.key]" class="small" ngClass="{{item['propConditionalClass'] && row[item.propConditionalClass.prop] ? item.propConditionalClass.class : ''}}">
+            </td>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="options.actions_row === 'compress' && options.actionsPerRow.length; else buttonPerAction">
+        <td style="width: 3rem" class="frozen-column" (click)="$event.stopPropagation();">
+          <i class="pi pi-ellipsis-v text-primary cursor-pointer" pTooltip="Opciones" tooltipPosition="left" style="font-size: 1rem" (click)="rowMenu.toggle($event); rowInteract = row"></i>
+        </td>
+      </ng-container>
+      <ng-template #buttonPerAction>
+        <ng-container *ngFor="let item of options.actionsPerRow">
+          <td style="width: 3rem" class="frozen-column" (click)="$event.stopPropagation();">
+            <i ngClass="{{item.icon}} {{item.class}} cursor-pointer" style="font-size: 1rem" [pTooltip]="item.label" tooltipPosition="left" (click)="callAction(item.action, row, $event)"></i>
+          </td>
+        </ng-container>
+      </ng-template>
+    </tr>
+  </ng-template>
+</p-table>
+
+</div>
