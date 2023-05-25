@@ -24,6 +24,19 @@ export class PhaseEventsService {
     );
   }
 
+  async getTypesEvents() {
+    this._getTypesEvents = this.graphql.refQuery(
+      typesEventsQueries.query.getTypes,
+      {},
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom( this.graphql.query(this._getTypesEvents).pipe(
+      map((request) => request.data.typesEvents),
+      map((typesEvents) => typesEvents.map((typeEvent) => TypeEvent.fromJson(typeEvent))))
+    );
+  }
+
   async createTypesEvent(createTypesEventInput): Promise<TypeEvent> {
     const mutationRef = this.graphql.refMutation(
       typesEventsQueries.mutation.createTypesEvent,

@@ -3,7 +3,6 @@ const fragments = {
   fragment activitiesConfigFields on ActivitiesConfig {
       _id
       limit
-      totalLimit
       phase
       availability
       activities {

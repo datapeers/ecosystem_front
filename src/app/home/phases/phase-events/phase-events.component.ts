@@ -108,7 +108,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   deleteType(typeEventToEdit: TypeEvent, index: number) {
-
     this.confirmationService.confirm({
       key: 'confirmDialog',
       acceptLabel: 'Eliminar',

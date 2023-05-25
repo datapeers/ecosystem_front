@@ -49,21 +49,3 @@ export class ActivitiesConfig implements IActivitiesConfig {
     return content;
   }
 }
-
-export enum ActivitiesTypes {
-  mentoring = 'mentoring',
-  advisory = 'advisory',
-  committees = 'committees',
-}
-
-export const activitiesTypesNames: Record<ActivitiesTypes, string> = {
-  [ActivitiesTypes.mentoring]: 'Mentoría',
-  [ActivitiesTypes.advisory]: 'Asesoría',
-  [ActivitiesTypes.committees]: 'Comités',
-};
-
-export const activitiesTypesArray: { label: string; value: ActivitiesTypes }[] =
-  Object.entries(activitiesTypesNames).map(([value, label]) => ({
-    label,
-    value: value as ActivitiesTypes,
-  }));

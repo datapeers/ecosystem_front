@@ -1,61 +1,41 @@
 <ng-container *ngIf="loaded else loadingTemplate">
-    <div class="flex flex-row justify-content-between mb-2">
-        <span class="header color-custom">Configurar bolsa de horas</span>
+    <div class="p-4">
+        <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
+            <h2>Configuración bolsa de horas</h2>
+            <div class="flex flex-row gap-2">
+                <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
+                <!-- <p-button label="Sprint" icon="pi pi-plus" (onClick)="openCreator()"></p-button> -->
+            </div>
+        </div>
     </div>
 
+    <div class="p-4 border-round">
+        <div class="flex-auto p-4 bg-white w-full">
+            <label for="limitHours">Limite de horas global</label>
+            <p-inputNumber  [(ngModel)]="activitiesConfig.limit" inputId="limitHours" mode="decimal" [min]="0" class="pl-2"> </p-inputNumber>
+        </div>
+    </div>
+   
 
-    <p-accordion>
-        <p-accordionTab [header]="'Configuración'">
-            <div class="p-fluid grid formgrid">
-                <div class="field col-12">
-                    <label for="limitUser">Limite de peticiones por usuario</label>
-                    <p-inputNumber [(ngModel)]="activitiesConfig.limit" inputId="limitUser" mode="decimal" [min]="0" [max]="100">
-                    </p-inputNumber>
-                </div>
-                <div class="field col-12">
-                    <label for="totalLimit">Total de eventos del programa</label>
-                    <p-inputNumber [(ngModel)]="activitiesConfig.totalLimit" inputId="totalLimit" mode="decimal" [min]="0" [max]="100">
-                    </p-inputNumber>
-                </div>
-            </div>
-        </p-accordionTab>
-
-        <p-accordionTab [header]="'Horarios'">
-            <ng-container *ngFor="let range of activitiesConfig.availability">
-                <div class="p-fluid grid formgrid">
-                    <div class="field col-6">
-                        <p-calendar [(ngModel)]="range.start" [stepMinute]="15" [stepSecond]="0" [timeOnly]="true" hourFormat="12" inputId="start"></p-calendar>
-                    </div>
-                    <div class="field col-6">
-                        <p-calendar [(ngModel)]="range.end" [stepMinute]="15" [stepSecond]="0" [timeOnly]="true" hourFormat="12" inputId="end"></p-calendar>
-                    </div>
+    <div class="p-4 border-round">
+        <div class="flex flex-wrap gap-3 p-fluid p-4 bg-white border-round">
+            
+            <ng-container *ngFor="let item of showActivityConfig">
+                <div class="flex-auto">
+                    <label for="activityName">{{item.activityName}} </label>
+                    <p-inputNumber  [(ngModel)]="activitiesConfig.limit" inputId="activityName" mode="decimal" [min]="0" [max]="100"> </p-inputNumber>
                 </div>
             </ng-container>
-            <div class="flex">
-                <p-button *ngIf="activitiesConfig.availability.length<limitRanges" label="Agregar rango" (onClick)="addRange()"></p-button>
-            </div>
-        </p-accordionTab>
+            
+            
+        </div>
+    </div>
+   
 
-        <p-accordionTab [header]="'Actividades'">
-            <div class="flex flex-column">
-                <ng-container *ngFor="let activity of activitiesConfig.activities">
-                    <h5>activity.label</h5>
-                    <div class="p-fluid grid formgrid">
-                        <div class="field col-12 md:col-6">
-                            <label for="minmax">Limite de eventos por usuario</label>
-                            <p-inputNumber [(ngModel)]="activity.limit" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="100">
-                            </p-inputNumber>
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
-            <p-button class="mt-2" label="Agregar actividad"></p-button>
-        </p-accordionTab>
-    </p-accordion>
-
+    
     <ng-container *ngIf="activitiesConfig">
         <div class="flex flex-column align-items-center justify-content-center mt-2">
-            <p-button label="Guardar"></p-button>
+            <p-button label="Guardar" styleClass="p-button-secondary"></p-button>
         </div>
     </ng-container>
 </ng-container>
