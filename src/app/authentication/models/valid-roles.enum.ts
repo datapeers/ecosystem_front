@@ -2,7 +2,7 @@ export enum ValidRoles {
   superAdmin = 'superAdmin',
   admin = 'admin',
   user = 'user',
-  responsible = 'responsible',
+  expert = 'expert',
   investor = 'investor',
 }
 
@@ -11,7 +11,7 @@ export const rolNames: Record<ValidRoles, string> = {
   [ValidRoles.superAdmin]: "Super admin",
   [ValidRoles.admin]: "Admin",
   [ValidRoles.user]: "Usuario",
-  [ValidRoles.responsible]: "Responsable",
+  [ValidRoles.expert]: "Experto",
   [ValidRoles.investor]: "Inversionista"
 }
 

@@ -1,9 +1,9 @@
 const fragments = {
   typesEventFields: `
-  fragment typesEventFields on typesEvent {
+  fragment typesEventFields on TypesEvent {
       _id
       name
-      allowActa
+      extra_options
       createdAt
       updatedAt
     }
@@ -40,12 +40,20 @@ const mutation = {
   `,
   updateTypeEvent: `
     ${fragments.typesEventFields}
-    mutation UpdateStage($updateTypesEventInput: UpdateTypesEventInput!) {
+    mutation UpdateTypeEvent($updateTypesEventInput: UpdateTypesEventInput!) {
       updateTypesEvent(updateTypesEventInput: $updateTypesEventInput) {
         ...typesEventFields
       }
     }
   `,
+  deleteTypeEvent: `
+  ${fragments.typesEventFields}
+  mutation RemoveTypeEvent($id: String!) {
+    removeTypesEvent(id: $id) {
+      ...typesEventFields
+    }
+  }
+`,
 };
 
 const typesEventsQueries = {

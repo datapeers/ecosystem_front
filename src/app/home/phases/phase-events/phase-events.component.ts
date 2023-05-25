@@ -3,7 +3,8 @@ import { ToastService } from '@shared/services/toast.service';
 import { PhaseEventsService } from './phase-events.service';
 import { TypeEvent } from '../model/events.model';
 import { cloneDeep } from '@apollo/client/utilities';
-
+import { Subscription } from 'rxjs';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -15,7 +16,9 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   typesEvents: TypeEvent[] = [];
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   clonedTypesEvents: { [s: string]: TypeEvent } = {};
+  typesEvent$:  Subscription;
   constructor(
+    private readonly confirmationService: ConfirmationService,
     private readonly toast: ToastService,
     private service: PhaseEventsService
   ) {}
@@ -25,12 +28,29 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    this.typesEvent$?.unsubscribe();
   }
 
   loadComponent() {
+
     this.loaded = true;
+    this.service
+      .watchTypesEvents()
+      .then((typesEvent$) => {
+        this.typesEvent$ = typesEvent$.subscribe((typeEventList: TypeEvent[]) => {
+          this.typesEvents = typeEventList.filter(x => !x.isDeleted);
+          for (const iterator of this.typesEvents)
+            this.showedTypesEvents[iterator._id] = iterator;
+        });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar tipo de eventos',
+          detail: err,
+          life: 12000,
+        });
+        this.typesEvents = [];
+      });
   }
 
   openTypes() {
@@ -41,9 +61,12 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     this.toast.info({ detail: '', summary: 'Creando' });
     this.service
       .createTypesEvent({
-        label: 'new',
-        name: 'stage nae',
-        color: '#C54927',
+        name: 'Nuevo tipo evento',
+        extra_options: {
+          allow_acta: false,
+          allow_files: false
+        }
+        // color: '#C54927',
       })
       .then((ans) => {
         this.toast.clear();
@@ -51,8 +74,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       .catch(console.warn);
   }
 
-  onTypeEventEditInit(stage: TypeEvent) {
-    this.clonedTypesEvents[stage._id] = cloneDeep(stage);
+  onTypeEventEditInit(typeEvent: TypeEvent) {
+    this.clonedTypesEvents[typeEvent._id] = cloneDeep(typeEvent);
   }
 
   onTypeEventEditSave(typeEventToEdit: TypeEvent, index: number) {
@@ -63,7 +86,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.toast.clear();
         this.typesEvents[index] = typeEventToEdit;
         this.toast.success({
-          detail: 'La etapa se edito exitosamente',
+          detail: 'El tipo de evento ha sido editado exitosamente',
           summary: 'Etapa editada!',
           life: 2000,
         });
@@ -71,7 +94,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       .catch((err) => {
         this.toast.clear();
         this.toast.alert({
-          summary: 'Error al editar etapa',
+          summary: 'Error al editar tipo de evento',
           detail: err,
           life: 12000,
         });
@@ -82,5 +105,40 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   onTypeEventEditCancel(typeEvent: TypeEvent, index: number) {
     this.typesEvents[index] = this.clonedTypesEvents[typeEvent._id];
     delete this.clonedTypesEvents[typeEvent._id];
+  }
+
+  deleteType(typeEventToEdit: TypeEvent, index: number) {
+
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que quiere continuar?',
+      message:
+        'Al eliminar este tipo de evento, se limitará únicamente la creación de eventos futuros, mientras que los eventos pasados se conservarán tal como están. ¿Está seguro de que desea eliminar este tipo de evento?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .deleteTypeEvent(typeEventToEdit._id)
+          .then((ans) => {
+            this.toast.clear();
+            this.toast.success({
+              detail: 'El tipo de evento ha sido eliminado exitosamente',
+              summary: 'Etapa editada!',
+              life: 2000,
+            });
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar tipo de evento',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+   
   }
 }

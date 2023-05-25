@@ -17,7 +17,7 @@ const routes: Routes = [
       roles: [
         ValidRoles.admin,
         ValidRoles.superAdmin,
-        ValidRoles.responsible,
+        ValidRoles.expert,
         ValidRoles.investor,
       ],
     },

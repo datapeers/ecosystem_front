@@ -1,0 +1,63 @@
+<div class="main-column-grid gap-2 py-2">
+  <div class="main-container-grid gap-2 p-2">
+      <div class="flex flex-column shadow-custom border-round max-h-full overflow-y-auto overflow-x-hidden pr-2">
+          <p-orderList filterPlaceholder="Buscar" filterBy="label" dragdropScope="nodes" styleClass="p-2 h-full" [dragdrop]="true"
+          [value]="selectedColumns" [listStyle]="{'overflow-y': 'auto'}" header="Columnas visibles">
+              <ng-template let-selectedColumn pTemplate="item">
+                  <ng-container [ngTemplateOutlet]="selectedCardTemplate" [ngTemplateOutletContext]="{ column: selectedColumn }">
+                  </ng-container>
+              </ng-template>
+              <ng-template pTemplate="empty">
+                  <span>No hay columnas visibles</span>
+              </ng-template>
+          </p-orderList>
+      </div>
+      <div class="shadow-custom border-round min-w-min flex flex-column gap-2 overflow-auto h-full p-2">
+          <ng-container *ngIf="fieldGroups && fieldGroups.length > 0 else noGroupsTemplate">
+              <ng-container *ngFor="let group of fieldGroups">
+                  <div *ngIf="group.columns.length > 0" class="flex flex-column gap-2 border-round p-2 shadow-1">
+                      <div class="flex flex-row gap-2 justify-content-between">
+                          <span class="flex flex-row gap-1 align-items-center">
+                              <i tooltipPosition="top" pTooltip="Agregar todas" class="cursor-pointer hover:text-500 text-sm pi pi-plus" (click)="addColumns(group.columns)"></i>
+                              <i tooltipPosition="top" pTooltip="Remover todas" class="cursor-pointer hover:text-500 text-sm pi pi-minus" (click)="removeColumns(group.columns)"></i>
+                              <span class="font-semibold">{{group.name}}</span>
+                              <i *ngIf="group.type" class="pi pi-file"></i>
+                          </span>
+                      </div>
+                      <div class="container-grid gap-2">
+                      <ng-container *ngFor="let availableColumn of group.columns">
+                          <ng-container [ngTemplateOutlet]="availableCardTemplate" [ngTemplateOutletContext]="{ column: availableColumn }">
+                          </ng-container>
+                      </ng-container>
+                      </div>
+                  </div>
+              </ng-container>
+          </ng-container>
+          <ng-template #noGroupsTemplate>
+              <span>No se encontraron grupos de columnas</span>
+          </ng-template>
+      </div>
+  </div>
+  <div class="flex flex-row justify-content-end">
+      <p-button type="button" icon="pi pi-saves" label="Guardar"
+          class="p-button-raised p-button-help" (onClick)="saveChanges()" [loading]="saving"></p-button>
+  </div>
+</div>
+<ng-template #availableCardTemplate let-column="column">
+  <div [pTooltip]="column.label" tooltipPosition="top"
+  (mousedown)="$event.stopPropagation()" (click)="toggleColumn(column)"
+  [ngClass]="{ 'text-primary surface-200': selected[column.key] }"
+  class="hover:text-500 tag-column flex flex-row align-items-center justify-content-between gap-2 border-round px-3 py-2 overflow-hidden cursor-pointer" style="--border-radius: 0.5rem;">
+      <span class="w-10rem font-semibold white-space-nowrap text-overflow-ellipsis overflow-hidden">{{column.label}}</span>
+      <i [ngClass]="selected[column.key] ? 'pi pi-minus' : 'pi pi-plus'" class="text-sm"></i>
+  </div>
+</ng-template>
+
+<ng-template #selectedCardTemplate let-column="column">
+  <div [ngClass]="{ 'bg-pink-300' : !availableKeys[column.key] }"
+  [pTooltip]="column.label" tooltipPosition="top"
+  class="tag-column flex flex-row align-items-center justify-content-between gap-2 border-round px-3 py-2 overflow-hidden" style="--border-radius: 0.5rem;">
+      <span class="w-10rem font-semibold white-space-nowrap text-overflow-ellipsis overflow-hidden">{{column.label}}</span>
+      <i (mousedown)="$event.stopPropagation()" (click)="removeColumns([column])" class="pi pi-minus text-sm cursor-pointer"></i>
+  </div>
+</ng-template>

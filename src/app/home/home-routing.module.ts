@@ -14,7 +14,7 @@ import { FormsComponent } from './forms/forms.component';
 import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component';
 import { StartupsComponent } from './startups/startups.component';
 import { InvestorsComponent } from './investors/investors.component';
-import { ResponsiblesComponent } from './responsibles/responsibles.component';
+import { ExpertsComponent } from './experts/experts.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
 import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
@@ -56,8 +56,8 @@ const routes: Routes = [
         component: InvestorsComponent,
       },
       {
-        path: 'responsibles',
-        component: ResponsiblesComponent,
+        path: 'experts',
+        component: ExpertsComponent,
       },
       {
         path: 'announcements',

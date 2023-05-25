@@ -24,7 +24,7 @@ export class User implements IUser {
   get rol(): ValidRoles { return this.roles[0]; };
   get isSuperAdmin() { return this.roles.some(rol => rol === ValidRoles.superAdmin); }
   get isAdmin() { return this.roles.some(rol => rol === ValidRoles.admin); }
-  get isResponsible() { return this.roles.some(rol => rol === ValidRoles.responsible); }
+  get isExpert() { return this.roles.some(rol => rol === ValidRoles.expert); }
   get isUser() { return this.roles.some(rol => rol === ValidRoles.user); }
 
   constructor(data: IUser) {

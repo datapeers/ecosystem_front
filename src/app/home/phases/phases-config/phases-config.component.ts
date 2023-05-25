@@ -37,7 +37,6 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     private _location: Location,
     public dialogService: DialogService,
     private toast: ToastService,
-    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {

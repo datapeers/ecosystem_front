@@ -1,7 +1,7 @@
 export interface ITypeEvent {
   _id: string;
   name: string;
-  allowActa: boolean;
+  extra_options: any;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -10,7 +10,10 @@ export interface ITypeEvent {
 export class TypeEvent implements ITypeEvent {
   _id: string;
   name: string;
-  allowActa: boolean;
+  extra_options: {
+    allow_acta: boolean;
+    allow_files: boolean;
+  };
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -23,6 +26,11 @@ export class TypeEvent implements ITypeEvent {
       ...data,
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
+      extra_options: {
+        allow_acta: false,
+        allow_files: false,
+        ...(data?.extra_options)
+      }
     });
     return content;
   }
@@ -31,6 +39,7 @@ export class TypeEvent implements ITypeEvent {
     return {
       _id: this._id,
       name: this.name,
+      extra_options: this.extra_options
     };
   }
 }

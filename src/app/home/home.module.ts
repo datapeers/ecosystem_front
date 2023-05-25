@@ -25,7 +25,6 @@ import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component'
 import { StartupsComponent } from './startups/startups.component';
 import { FormsComponent } from './forms/forms.component';
 import { InvestorsComponent } from './investors/investors.component';
-import { ResponsiblesComponent } from './responsibles/responsibles.component';
 import { GetImagePipe } from '@shared/pipe/get-image.pipe';
 import { PhaseContentResourceCreatorComponent } from './phases/phase-content/phase-content-resource-creator/phase-content-resource-creator.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
@@ -34,6 +33,9 @@ import { AnnouncementEditComponent } from './announcements/announcement-edit/ann
 import { AnnouncementLoadComponent } from './announcements/announcement-load/announcement-load.component';
 import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hours-config.component';
 import { PhaseEventsComponent } from './phases/phase-events/phase-events.component';
+import { DynamicTableModule } from '@shared/components/dynamic-table/dynamic-table.module';
+import { ExpertsComponent } from './experts/experts.component';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,6 @@ import { PhaseEventsComponent } from './phases/phase-events/phase-events.compone
     StartupsComponent,
     FormsComponent,
     InvestorsComponent,
-    ResponsiblesComponent,
     GetImagePipe,
     PhaseContentResourceCreatorComponent,
     AnnouncementsComponent,
@@ -65,6 +66,7 @@ import { PhaseEventsComponent } from './phases/phase-events/phase-events.compone
     AnnouncementLoadComponent,
     PhaseHoursConfigComponent,
     PhaseEventsComponent,
+    ExpertsComponent,
   ],
   imports: [
     CommonModule,
@@ -74,9 +76,11 @@ import { PhaseEventsComponent } from './phases/phase-events/phase-events.compone
     PrimengModule,
     FontAwesomeModule,
     AvatarUploaderModule,
+    DynamicTableModule,
     NgxTinymceModule.forRoot({
       baseURL: '/assets/tinymce/',
     }),
   ],
+  providers: [ConfirmationService],
 })
 export class HomeModule {}

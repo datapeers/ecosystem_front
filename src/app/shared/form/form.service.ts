@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { Observable, firstValueFrom } from 'rxjs';
 import { AppForm, IForm } from './models/form';
 import formQueries from './form.gql';
@@ -52,7 +52,14 @@ export class FormService {
       this.graphql.query(refQuery)
       .pipe(
         map((request) => request.data.forms),
-        map((forms) => forms.map(form => AppForm.fromJson(form)))
+        map((forms) => forms.map(form => AppForm.fromJson(form))),
+        tap(forms => {
+          if(forms.length === 0) {
+            return this.toast.alert({
+              detail: "No se encontró un formulario definido para esta colección."
+            });
+          }
+        })
       )
     );
   }
