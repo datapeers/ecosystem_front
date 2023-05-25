@@ -36,7 +36,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     private router: Router,
     private _location: Location,
     public dialogService: DialogService,
-    private toast: ToastService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -105,6 +105,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       height: '70vh',
       data: {
         stages: this.stages,
+        basePhase: true,
       },
     });
 

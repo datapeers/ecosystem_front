@@ -19,6 +19,7 @@ import { ToastService } from '@shared/services/toast.service';
 export class PhasesCreatorComponent implements OnInit, OnDestroy {
   phaseCreationForm: FormGroup;
   stages: Stage[] = [];
+  basePhase: boolean = true;
   constructor(
     public config: DynamicDialogConfig,
     private readonly service: PhasesService,
@@ -32,13 +33,14 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
       stage: new UntypedFormControl('', Validators.required),
       childrenOf: new UntypedFormControl(null),
       thumbnail: new UntypedFormControl(null),
-      startAt: new UntypedFormControl(null, Validators.required),
-      endAt: new UntypedFormControl(null, Validators.required),
+      startAt: new UntypedFormControl(new Date(), Validators.required),
+      endAt: new UntypedFormControl(new Date(), Validators.required),
     });
   }
 
   ngOnInit() {
     this.stages = this.config.data.stages;
+    this.basePhase = this.config.data.basePhase;
     this.phaseCreationForm.get('stage').setValue(this.stages[0]._id);
   }
 
@@ -53,7 +55,10 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.toast.info({ summary: 'Creando...', detail: '' });
     this.service
-      .createPhase({ ...this.phaseCreationForm.value, basePhase: true })
+      .createPhase({
+        ...this.phaseCreationForm.value,
+        basePhase: this.basePhase,
+      })
       .then((phase) => {
         this.toast.clear();
         this.ref.close(phase);

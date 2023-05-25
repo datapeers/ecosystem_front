@@ -9,7 +9,7 @@
             <textarea maxlength="300" inputId="textarea" rows="4" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" pInputTextarea></textarea>
             <label for="textarea">Descripción - {{phaseCreationForm.controls['description'].value?.length}}/120 caracteres permitidos</label>
         </span>
-        <div class="flex flex-row gap-2">
+        <div class="flex flex-row gap-2" *ngIf="!basePhase">
             <span class="p-float-label" style="width: 100%">
                 <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
                 <label for="calendar-first">Comienza</label>
