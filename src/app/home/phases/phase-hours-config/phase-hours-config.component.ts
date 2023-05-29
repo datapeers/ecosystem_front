@@ -6,9 +6,7 @@ import { Subscription, first, firstValueFrom } from 'rxjs';
 import { Phase } from '../model/phase.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import {
-  ActivitiesConfig,
-} from '../model/activities.model';
+import { ActivitiesConfig } from '../model/activities.model';
 import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
 
@@ -19,24 +17,18 @@ import { TypeEvent } from '../model/events.model';
 })
 export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   loaded = false;
-  limitRanges: number = 3;
   saving: boolean = false;
-
-  showActivityDialog: boolean = false;
-  selectedActivity;
-
-  leftActivities;
   activitiesConfig: ActivitiesConfig;
   watchConfig$: Subscription;
-  typesEvent$: Subscription;
   phase: Phase;
   typesActivities: TypeEvent[];
   showActivityConfig = [];
+  totalActivities = 0;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
     private readonly service: PhaseHourConfigService,
-    private readonly activitiesTypesService: PhaseEventsService,
+    private readonly activitiesTypesService: PhaseEventsService
   ) {}
 
   ngOnInit() {
@@ -45,7 +37,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.watchConfig$?.unsubscribe();
-    this.typesEvent$?.unsubscribe();
   }
 
   async loadComponent() {
@@ -61,15 +52,20 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
       this.showActivityConfig = [];
+      this.totalActivities = 0;
       for (const iterator of this.typesActivities) {
-        const prevConfig = this.activitiesConfig.activities.find(i => i.idActivity === iterator._id);
-        this.showActivityConfig.push({
+        const prevConfig = this.activitiesConfig.activities.find(
+          (i) => i.idActivity === iterator._id
+        );
+        const configActivity = {
           idActivity: iterator._id,
           limit: 0,
           options: {},
           ...prevConfig,
-          activityName: iterator.name
-        })
+          activityName: iterator.name,
+        };
+        this.showActivityConfig.push(configActivity);
+        this.totalActivities += configActivity.limit;
       }
       this.loaded = true;
     });
@@ -80,29 +76,24 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     this.updateConfig();
   }
 
-  getFixedConfig() {
-    return {
-      ...this.activitiesConfig,
-      phase: this.phase._id,
-      availability: this.activitiesConfig.availability.map(({ start, end }) => {
-        return {
-          start: {
-            hour: start.getUTCHours(),
-            minute: start.getUTCMinutes(),
-          },
-          end: {
-            hour: end.getUTCHours(),
-            minute: end.getUTCMinutes(),
-          },
-        };
-      }),
-    };
-  }
-
   async updateConfig() {
-    const fixedConfig = this.getFixedConfig();
+    if (this.activitiesConfig.limit - this.totalActivities < 0) {
+      this.toast.alert({
+        summary: 'Configuración inválida',
+        detail:
+          'La cantidad de horas asignadas a las actividades supera el límite total de horas permitidas para esta fase',
+        life: 3000,
+      });
+      return;
+    }
     this.service
-      .updateConfig(this.activitiesConfig._id, fixedConfig)
+      .updateConfig(this.activitiesConfig._id, {
+        activities: this.showActivityConfig.map((i) => {
+          delete i['activityName'];
+          return i;
+        }),
+        limit: this.activitiesConfig.limit,
+      })
       .then((res) => {
         if (res) {
           this.toast.success({
@@ -122,5 +113,4 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         this.saving = false;
       });
   }
-  
 }

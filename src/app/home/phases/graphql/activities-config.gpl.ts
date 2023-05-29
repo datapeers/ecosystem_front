@@ -4,7 +4,6 @@ const fragments = {
       _id
       limit
       phase
-      availability
       activities {
         idActivity
         limit
