@@ -3,7 +3,7 @@ export const environment = {
   api: 'https://vinku.net/back',
   graphQL: 'https://vinku.net/back/graphql',
   graphqlSubscription: 'wss://vinku.net/backsub/subscriptions',
-  forms: "http://localhost:4300/",
+  forms: 'https://main.d2h6zim9hprrte.amplifyapp.com/',
   firebase: {
     projectId: 'ecosystem-dev-f4893',
     appId: '1:965227033049:web:51ba48888ba0772607a9c8',
