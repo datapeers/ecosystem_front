@@ -90,7 +90,9 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
 
   selectContent(content: Content) {
     this.selectedContent = cloneDeep(content);
-    if (!this.selectedContent.extra_options.points)
+    if (!this.selectedContent.extra_options)
+      this.selectedContent['extra_options'] = { points: 100 };
+    if (!this.selectedContent.extra_options?.points)
       this.selectedContent.extra_options.points = 100;
   }
 
