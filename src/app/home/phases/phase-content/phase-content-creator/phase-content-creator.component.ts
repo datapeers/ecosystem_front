@@ -62,7 +62,7 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
         duration: this.parent_content
           ? undefined
           : this.contentCreationForm.value.duration,
-        parent: this.parent_content._id,
+        parent: this.parent_content?._id,
       },
     };
     this.service
