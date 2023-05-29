@@ -4,19 +4,21 @@ const fragments = {
       _id
       childs {
         _id
-        name
-        content
         resources {
           _id
           name
           hide
-           isDeleted
+          isDeleted
           createdAt
           updatedAt
           type
           extra_options
         }
+        extra_options
+        name
+        content
         hide
+        phase
         isDeleted
         createdAt
         updatedAt
