@@ -11,7 +11,6 @@ import { ToastService } from '@shared/services/toast.service';
 import { Stage } from '../model/stage.model';
 import { cloneDeep } from 'lodash';
 import { ConfirmationService } from 'primeng/api';
-
 @Component({
   selector: 'app-phases-config',
   templateUrl: './phases-config.component.html',
@@ -36,7 +35,8 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     private router: Router,
     private _location: Location,
     public dialogService: DialogService,
-    private toast: ToastService
+    private toast: ToastService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -115,8 +115,21 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     });
   }
 
-  showDialogStages() {
-    this.showStages = true;
+  async showDialogStages() {
+    // this.showStages = true;
+
+    const dialog = await this.confirmationService.confirm({
+      message: 'Are you sure that you want to proceed?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        console.log('acept');
+      },
+      reject: (type) => {
+        console.log('reject');
+      },
+    });
+    console.log(dialog);
   }
 
   createStage() {
@@ -164,5 +177,50 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   onStageEditCancel(stage: Stage, index: number) {
     this.stages[index] = this.clonedStages[stage._id];
     delete this.clonedStages[stage._id];
+  }
+
+  stageDelete(stage: Stage) {
+    console.log(stage);
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to proceed?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        console.log('acept');
+      },
+      reject: (type) => {
+        console.log('reject');
+      },
+    });
+    // this.confirmationService.confirm({
+    //   key: 'confirmDialog',
+    //   acceptLabel: 'Eliminar',
+    //   rejectLabel: 'Cancelar',
+    //   header: '¿Está seguro de que quiere continuar?',
+    //   message:
+    //     'Al eliminar este tipo de evento, se limitará únicamente la creación de eventos futuros, mientras que los eventos pasados se conservarán tal como están. ¿Está seguro de que desea eliminar este tipo de evento?',
+    //   icon: 'pi pi-exclamation-triangle',
+    //   accept: async () => {
+    //     this.toast.info({ detail: '', summary: 'Eliminado...' });
+    //     // this.service
+    //     //   .deleteTypeEvent(typeEventToEdit._id)
+    //     //   .then((ans) => {
+    //     //     this.toast.clear();
+    //     //     this.toast.success({
+    //     //       detail: 'El tipo de evento ha sido eliminado exitosamente',
+    //     //       summary: 'Etapa editada!',
+    //     //       life: 2000,
+    //     //     });
+    //     //   })
+    //     //   .catch((err) => {
+    //     //     this.toast.clear();
+    //     //     this.toast.alert({
+    //     //       summary: 'Error al intentar eliminar tipo de evento',
+    //     //       detail: err,
+    //     //       life: 12000,
+    //     //     });
+    //     //   });
+    //   },
+    // });
   }
 }

@@ -35,7 +35,6 @@ import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hou
 import { PhaseEventsComponent } from './phases/phase-events/phase-events.component';
 import { DynamicTableModule } from '@shared/components/dynamic-table/dynamic-table.module';
 import { ExpertsComponent } from './experts/experts.component';
-import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -81,6 +80,5 @@ import { ConfirmationService } from 'primeng/api';
       baseURL: '/assets/tinymce/',
     }),
   ],
-  providers: [ConfirmationService],
 })
 export class HomeModule {}

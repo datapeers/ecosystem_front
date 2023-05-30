@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule, isDevMode, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { GraphQLModule } from '@graphqlApollo/graphql.module';
-
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 // ?---------- Components & Services ---------------------
 import { AppComponent } from './app.component';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
@@ -28,6 +29,7 @@ import { ToastService } from '@shared/services/toast.service';
 import { BackgroundComponent } from './shared/components/layout/background/background.component';
 import { FormModule } from '@shared/form/form.module';
 
+registerLocaleData(localeEs);
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +56,11 @@ import { FormModule } from '@shared/form/form.module';
     GraphQLModule,
     HttpClientModule,
   ],
-  providers: [AuthService, ToastService],
+  providers: [
+    AuthService,
+    ToastService,
+    { provide: LOCALE_ID, useValue: 'es' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

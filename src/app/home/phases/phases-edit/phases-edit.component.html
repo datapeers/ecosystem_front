@@ -5,8 +5,14 @@
         <app-avatar-uploader [imageUrl]="phase.thumbnail" (onUpload)="uploadImage($event, phase)" (onRemove)="removeImage(phase)"></app-avatar-uploader>
         <div class="flex flex-column gap-1 justify-content-center">
           <span class="text-xl font-semibold">{{phase.name}}</span>
-          <span class="font-semibold">Inicia el {{phase.startAt | date}}</span>
-          <span class="font-semibold">Finaliza el {{phase.endAt | date}}</span>
+          <ng-container *ngIf="phase.basePhase; else normalPhase">
+            <span class="font-semibold">Creado el {{phase.createdAt | date}}</span>
+            <span class="font-semibold">Actualizado el {{phase.updatedAt | date}}</span>
+          </ng-container>
+          <ng-template #normalPhase>
+            <span class="font-semibold">Inicia el {{phase.startAt | date}}</span>
+            <span class="font-semibold">Finaliza el {{phase.endAt | date}}</span>
+          </ng-template>
         </div>
       </div>
 
