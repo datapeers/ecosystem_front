@@ -42,6 +42,10 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
     this.stages = this.config.data.stages;
     this.basePhase = this.config.data.basePhase;
     this.phaseCreationForm.get('stage').setValue(this.stages[0]._id);
+    if (this.config.data.childrenOf)
+      this.phaseCreationForm
+        .get('childrenOf')
+        .setValue(this.config.data.childrenOf);
   }
 
   ngOnDestroy() {}

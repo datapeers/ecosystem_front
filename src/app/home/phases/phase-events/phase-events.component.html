@@ -80,9 +80,8 @@
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_acta" label="Permite acta" inputId="allowActa"></p-checkbox>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_files" label="Permite archivos" inputId="allowFiles"></p-checkbox>
         <div style="height: 1rem;"></div>
-        <p-button icon="pi pi-save" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''"></p-button>
+        <p-button type="submit" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </div>
-
 </p-dialog>
 
 

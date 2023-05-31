@@ -19,7 +19,7 @@
                 <label for="calendar-last">Termina</label>
             </span>
         </div>
-        <p-dropdown [options]="stages" formControlName="stage" optionLabel="label" optionValue="_id"></p-dropdown>
+        <p-dropdown [options]="stages" formControlName="stage" optionLabel="label" optionValue="_id" *ngIf="basePhase"></p-dropdown>
 
 
     </form>

@@ -20,6 +20,7 @@
                                         <i class="pi pi-search-plus"></i>
                                         <input type="text" pInputText (input)="dv.filter($any($event.target).value)" placeholder="Buscar" />
                                     </span>
+                                    <p-button type="button" label="batch" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
                                 </div>
                             </ng-template>
                             <ng-template let-stepPhase pTemplate="gridItem">
