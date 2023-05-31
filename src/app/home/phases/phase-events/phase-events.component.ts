@@ -89,7 +89,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.typesEvents[index] = typeEventToEdit;
         this.toast.success({
           detail: 'El tipo de evento ha sido editado exitosamente',
-          summary: 'Etapa editada!',
+          summary: 'Tipo de evento editado!',
           life: 2000,
         });
       })
@@ -126,7 +126,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
             this.toast.clear();
             this.toast.success({
               detail: 'El tipo de evento ha sido eliminado exitosamente',
-              summary: 'Etapa editada!',
+              summary: 'Tipo de evento eliminado!',
               life: 2000,
             });
           })
