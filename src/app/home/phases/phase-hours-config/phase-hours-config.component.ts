@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { cloneDeep } from '@apollo/client/utilities';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseHourConfigService } from './phase-hour-config.service';
-import { Subscription, first, firstValueFrom } from 'rxjs';
+import { Subscription, first, firstValueFrom, filter } from 'rxjs';
 import { Phase } from '../model/phase.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
@@ -45,7 +45,9 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
-    this.typesActivities = await this.activitiesTypesService.getTypesEvents();
+    this.typesActivities = (
+      await this.activitiesTypesService.getTypesEvents()
+    ).filter((x) => !x.isDeleted);
     this.watchConfig$ = (
       await this.service.watchConfig(this.phase._id)
     ).subscribe((i) => {

@@ -16,11 +16,11 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   typesEvents: TypeEvent[] = [];
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   clonedTypesEvents: { [s: string]: TypeEvent } = {};
-  typesEvent$:  Subscription;
+  typesEvent$: Subscription;
   constructor(
-    private readonly confirmationService: ConfirmationService,
     private readonly toast: ToastService,
-    private service: PhaseEventsService
+    private service: PhaseEventsService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -32,16 +32,17 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   loadComponent() {
-
     this.loaded = true;
     this.service
       .watchTypesEvents()
       .then((typesEvent$) => {
-        this.typesEvent$ = typesEvent$.subscribe((typeEventList: TypeEvent[]) => {
-          this.typesEvents = typeEventList.filter(x => !x.isDeleted);
-          for (const iterator of this.typesEvents)
-            this.showedTypesEvents[iterator._id] = iterator;
-        });
+        this.typesEvent$ = typesEvent$.subscribe(
+          (typeEventList: TypeEvent[]) => {
+            this.typesEvents = typeEventList.filter((x) => !x.isDeleted);
+            for (const iterator of this.typesEvents)
+              this.showedTypesEvents[iterator._id] = iterator;
+          }
+        );
       })
       .catch((err) => {
         this.toast.alert({
@@ -64,8 +65,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         name: 'Nuevo tipo evento',
         extra_options: {
           allow_acta: false,
-          allow_files: false
-        }
+          allow_files: false,
+        },
         // color: '#C54927',
       })
       .then((ans) => {
@@ -138,6 +139,5 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
           });
       },
     });
-   
   }
 }

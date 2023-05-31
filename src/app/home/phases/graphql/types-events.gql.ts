@@ -4,6 +4,7 @@ const fragments = {
       _id
       name
       extra_options
+      isDeleted
       createdAt
       updatedAt
     }
