@@ -5,6 +5,7 @@ export interface IPhase {
   description?: string;
   landing?: string;
   createdBy: string;
+  stage: string;
   startAt: Date;
   endAt: Date;
   isActive: boolean;
@@ -23,6 +24,7 @@ export class Phase implements IPhase {
   description?: string;
   landing?: string;
   createdBy: string;
+  stage: string;
   startAt: Date;
   endAt: Date;
   isActive: boolean;
@@ -37,7 +39,7 @@ export class Phase implements IPhase {
 
   static fromJson(data: IPhase): Phase {
     const phase = new Phase();
-    Object.assign(phase,{
+    Object.assign(phase, {
       ...data,
       startAt: new Date(data.startAt),
       endAt: new Date(data.endAt),

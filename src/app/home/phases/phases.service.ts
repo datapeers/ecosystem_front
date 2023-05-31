@@ -68,6 +68,21 @@ export class PhasesService {
     );
   }
 
+  async deleteStage(id: string): Promise<Stage> {
+    const mutRef = this.graphql.refMutation(
+      stageQueries.mutation.deleteStage,
+      { id },
+      [this._getStages],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.removeStage),
+        map((stage) => Stage.fromJson(stage))
+      )
+    );
+  }
+
   async getPhase(id: string): Promise<Phase> {
     const queryRef = this.graphql.refQuery(
       phaseQueries.query.getPhase,

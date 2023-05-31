@@ -47,6 +47,14 @@ const mutation = {
       }
     }
   `,
+  deleteStage: `
+  ${fragments.stageFields}
+  mutation RemoveStage($id: String!) {
+    removeStage(id: $id) {
+      ...stageFields
+    }
+  }
+  `,
 };
 
 const stageQueries = {

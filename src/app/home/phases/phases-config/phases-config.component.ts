@@ -30,6 +30,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   stages: Stage[] = [];
   showedStages: { [s: string]: Stage } = {};
   clonedStages: { [s: string]: Stage } = {};
+  stagesUsed: Set<String>;
   constructor(
     private service: PhasesService,
     private router: Router,
@@ -73,9 +74,14 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       .watchPhases()
       .then(
         (obsPhases$) =>
-          (this.phases$ = obsPhases$.subscribe((phasesList) => {
+          (this.phases$ = obsPhases$.subscribe((phasesList: Phase[]) => {
             this.loaded = false;
             this.phases = phasesList.filter((i) => i.basePhase);
+            this.stagesUsed = new Set();
+            for (const iterator of phasesList) {
+              if (!this.stagesUsed.has(iterator.stage))
+                this.stagesUsed.add(iterator.stage);
+            }
             this.loaded = true;
           }))
       )
@@ -116,20 +122,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   }
 
   async showDialogStages() {
-    // this.showStages = true;
-
-    const dialog = await this.confirmationService.confirm({
-      message: 'Are you sure that you want to proceed?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        console.log('acept');
-      },
-      reject: (type) => {
-        console.log('reject');
-      },
-    });
-    console.log(dialog);
+    this.showStages = true;
   }
 
   createStage() {
@@ -180,47 +173,43 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   }
 
   stageDelete(stage: Stage) {
-    console.log(stage);
+    if (this.stagesUsed.has(stage._id)) {
+      this.toast.alert({
+        summary: 'Etapa en uso',
+        detail:
+          'No se puede eliminar esta etapa, ya que una o varias fases la utilizan actualmente como etapa.',
+        life: 3000,
+      });
+      return;
+    }
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to proceed?',
-      header: 'Confirmation',
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea continuar?',
+      message: '¿Está seguro de que desea eliminar esta etapa?',
       icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        console.log('acept');
-      },
-      reject: (type) => {
-        console.log('reject');
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .deleteStage(stage._id)
+          .then((ans) => {
+            this.toast.clear();
+            this.toast.success({
+              detail: 'La etapa ha sido eliminado exitosamente',
+              summary: 'Etapa eliminado!',
+              life: 2000,
+            });
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar etapa',
+              detail: err,
+              life: 12000,
+            });
+          });
       },
     });
-    // this.confirmationService.confirm({
-    //   key: 'confirmDialog',
-    //   acceptLabel: 'Eliminar',
-    //   rejectLabel: 'Cancelar',
-    //   header: '¿Está seguro de que quiere continuar?',
-    //   message:
-    //     'Al eliminar este tipo de evento, se limitará únicamente la creación de eventos futuros, mientras que los eventos pasados se conservarán tal como están. ¿Está seguro de que desea eliminar este tipo de evento?',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   accept: async () => {
-    //     this.toast.info({ detail: '', summary: 'Eliminado...' });
-    //     // this.service
-    //     //   .deleteTypeEvent(typeEventToEdit._id)
-    //     //   .then((ans) => {
-    //     //     this.toast.clear();
-    //     //     this.toast.success({
-    //     //       detail: 'El tipo de evento ha sido eliminado exitosamente',
-    //     //       summary: 'Etapa editada!',
-    //     //       life: 2000,
-    //     //     });
-    //     //   })
-    //     //   .catch((err) => {
-    //     //     this.toast.clear();
-    //     //     this.toast.alert({
-    //     //       summary: 'Error al intentar eliminar tipo de evento',
-    //     //       detail: err,
-    //     //       life: 12000,
-    //     //     });
-    //     //   });
-    //   },
-    // });
   }
 }
