@@ -36,11 +36,11 @@
     <p-table [value]="stages" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '45rem'}">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:25%">Name</th>
-                <th style="width:25%">Label</th>
+                <th style="width:25%">Nombre</th>
+                <th style="width:25%">Etiqueta</th>
                 <th style="width:25%">Color</th>
                 <th style="width:25%">
-                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="createStage()" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar etapa'"></button>
+                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="showStageCreator = true" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar etapa'"></button>
                 </th>
             </tr>
         </ng-template>
@@ -92,5 +92,31 @@
 <ng-template #loadingTemplate>
     <app-loading></app-loading>
 </ng-template>
+
+<p-dialog header="Crear etapa" [(visible)]="showStageCreator" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
+    <div class="flex flex-column justify-content-between h-full w-full ">
+        <div class="flex flex-wrap gap-3 p-fluid">
+            <div class="flex-auto">
+                <label for="stageName">Nombre</label>
+                <input inputId="stageName" pInputText type="text" [(ngModel)]="newStage.name" required>
+            </div>
+            <div class="flex-auto">
+                <label for="stageLabel">Etiqueta</label>
+                <input pInputText type="text" [(ngModel)]="newStage.label" required>
+            </div>
+            <div class="flex-auto">
+                <p-colorPicker [(ngModel)]="newStage.color" [inline]="true" appendTo="body"></p-colorPicker>
+            </div>
+            <div style="height: 1rem;"></div>
+
+        </div>
+        <div class="flex w-full justify-content-end align-items-end">
+            <p-button icon="pi pi-save" label="Crear" (onClick)="createStage()"></p-button>
+        </div>
+    </div>
+
+
+
+</p-dialog>
 
 <p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

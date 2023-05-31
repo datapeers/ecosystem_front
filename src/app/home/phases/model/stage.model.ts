@@ -35,4 +35,12 @@ export class Stage implements IStage {
       color: this.color,
     };
   }
+
+  static newStage(): Partial<Stage> {
+    return {
+      label: '',
+      name: '',
+      color: '#C54927',
+    };
+  }
 }

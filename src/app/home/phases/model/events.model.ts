@@ -29,8 +29,8 @@ export class TypeEvent implements ITypeEvent {
       extra_options: {
         allow_acta: false,
         allow_files: false,
-        ...(data?.extra_options)
-      }
+        ...data?.extra_options,
+      },
     });
     return content;
   }
@@ -39,7 +39,17 @@ export class TypeEvent implements ITypeEvent {
     return {
       _id: this._id,
       name: this.name,
-      extra_options: this.extra_options
+      extra_options: this.extra_options,
+    };
+  }
+
+  static newEventType(): Partial<TypeEvent> {
+    return {
+      name: '',
+      extra_options: {
+        allow_acta: false,
+        allow_files: false,
+      },
     };
   }
 }

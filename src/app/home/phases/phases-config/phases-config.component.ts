@@ -27,6 +27,8 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   stages$: Subscription;
   loaded = false;
   showStages = false;
+  showStageCreator = false;
+  newStage = Stage.newStage();
   stages: Stage[] = [];
   showedStages: { [s: string]: Stage } = {};
   clonedStages: { [s: string]: Stage } = {};
@@ -104,6 +106,11 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     this._location.back();
   }
 
+  resetCreator() {
+    this.showStageCreator = false;
+    this.newStage = Stage.newStage();
+  }
+
   openCreator() {
     this.dialogRef = this.dialogService.open(PhasesCreatorComponent, {
       header: 'Creador de fase',
@@ -128,13 +135,10 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   createStage() {
     this.toast.info({ detail: '', summary: 'Creando' });
     this.service
-      .createStage({
-        label: 'new',
-        name: 'stage nae',
-        color: '#C54927',
-      })
+      .createStage(this.newStage)
       .then((ans) => {
         this.toast.clear();
+        this.resetCreator();
       })
       .catch(console.warn);
   }

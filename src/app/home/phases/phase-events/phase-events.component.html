@@ -24,7 +24,7 @@
                 <th style="width:25%">Permite acta</th>
                 <th style="width:25%">Permite archivos</th>
                 <th style="width:25%">
-                    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="createTypeEvent()"></button>
+                    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
                 </th>
             </tr>
         </ng-template>
@@ -72,5 +72,18 @@
         </ng-template>
     </p-table>
 </p-dialog>
+
+
+<p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '30vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()">
+    <div class="flex flex-column gap-2 py-2">
+        <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Nombre" required>
+        <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_acta" label="Permite acta" inputId="allowActa"></p-checkbox>
+        <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_files" label="Permite archivos" inputId="allowFiles"></p-checkbox>
+        <div style="height: 1rem;"></div>
+        <p-button icon="pi pi-save" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''"></p-button>
+    </div>
+
+</p-dialog>
+
 
 <p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

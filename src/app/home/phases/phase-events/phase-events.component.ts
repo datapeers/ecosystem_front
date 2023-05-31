@@ -13,6 +13,8 @@ import { ConfirmationService } from 'primeng/api';
 export class PhaseEventsComponent implements OnInit, OnDestroy {
   loaded = false;
   showTypes = false;
+  showCreatorType = false;
+  newTypeEvent = TypeEvent.newEventType();
   typesEvents: TypeEvent[] = [];
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   clonedTypesEvents: { [s: string]: TypeEvent } = {};
@@ -58,19 +60,18 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     this.showTypes = true;
   }
 
+  resetCreatorEventType() {
+    this.showCreatorType = false;
+    this.newTypeEvent = TypeEvent.newEventType();
+  }
+
   createTypeEvent() {
     this.toast.info({ detail: '', summary: 'Creando' });
     this.service
-      .createTypesEvent({
-        name: 'Nuevo tipo evento',
-        extra_options: {
-          allow_acta: false,
-          allow_files: false,
-        },
-        // color: '#C54927',
-      })
+      .createTypesEvent(this.newTypeEvent)
       .then((ans) => {
         this.toast.clear();
+        this.resetCreatorEventType();
       })
       .catch(console.warn);
   }
