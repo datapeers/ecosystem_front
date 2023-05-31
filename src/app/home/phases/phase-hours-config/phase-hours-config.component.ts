@@ -48,6 +48,8 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     this.typesActivities = (
       await this.activitiesTypesService.getTypesEvents()
     ).filter((x) => !x.isDeleted);
+
+    /// console.log(this.typesActivities);
     this.watchConfig$ = (
       await this.service.watchConfig(this.phase._id)
     ).subscribe((i) => {
@@ -66,6 +68,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
           ...prevConfig,
           activityName: iterator.name,
         };
+        delete configActivity['__typename'];
         this.showActivityConfig.push(configActivity);
         this.totalActivities += configActivity.limit;
       }

@@ -41,6 +41,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.typesEvent$ = typesEvent$.subscribe(
           (typeEventList: TypeEvent[]) => {
             this.typesEvents = typeEventList.filter((x) => !x.isDeleted);
+            // console.log(this.typesEvents);
             for (const iterator of this.typesEvents)
               this.showedTypesEvents[iterator._id] = iterator;
           }
