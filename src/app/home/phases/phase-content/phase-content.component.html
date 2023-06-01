@@ -33,7 +33,7 @@
                                         </div>
                                         <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center" *ngIf="rowData?.extra_options?.duration">
                                             <i (click)="selectContent(rowData); changeDuration.toggle($event)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
-                                            <span tooltipPosition="top" pTooltip="Duración en dias del sprint" class="underline">
+                                            <span tooltipPosition="top" pTooltip="Duración en días del sprint" class="underline">
                                                 <b>Duración:</b>
                                             </span>
                                             <span>{{rowData?.extra_options?.duration}}</span>

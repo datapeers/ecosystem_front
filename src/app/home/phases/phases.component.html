@@ -26,7 +26,7 @@
                             <ng-template let-stepPhase pTemplate="gridItem">
                                 <div class="tour-card" style="margin:0.5rem;" (mouseenter)="selected = stepPhase;" (mouseleave)="selected = undefined;">
                                     <ng-container *ngIf="stepPhase?.thumbnail; else noThumbnail">
-                                        <img width="100%" height="144px" [src]="stepPhase.thumbnail | getImage | async" alt="">
+                                        <img width="100%" height="144px" [src]="stepPhase.thumbnail" alt="">
                                     </ng-container>
                                     <ng-template #noThumbnail>
                                         <img width="100%" height="144px" src="/assets/noPic.jpg" alt="">
