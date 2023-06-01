@@ -38,6 +38,12 @@
                                             </span>
                                             <span>{{rowData?.extra_options?.duration}}</span>
                                         </div>
+                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center" *ngIf="rowData?.extra_options?.start">
+                                            <span tooltipPosition="top" pTooltip="Fechas" class="underline">
+                                                <b>Fechas</b>
+                                            </span>
+                                            <span>{{rowData?.extra_options.start | date:'dd/MM/yyyy' }} - {{rowData?.extra_options.end | date:'dd/MM/yyyy' }}</span>
+                                        </div>
                                         <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
                                             <span><b>Recursos:</b></span>
                                             <span>{{(rowData?.resources?.length)?? 0}}</span>

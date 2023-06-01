@@ -128,12 +128,17 @@ export class PhasesComponent implements OnInit, OnDestroy {
     });
   }
 
-  onAction(event: { mouseEvent: MouseEvent; action: any }) {
+  onAction(event: { mouseEvent: MouseEvent; action: any; phase: Phase }) {
     switch (event.action.action) {
       case 'manage':
         break;
       case 'edit':
+        this.openPhaseEdit(event.phase);
         break;
     }
+  }
+
+  openPhaseEdit(phase: Phase) {
+    this.router.navigate([`/home/phases/${phase._id}/edit`]);
   }
 }

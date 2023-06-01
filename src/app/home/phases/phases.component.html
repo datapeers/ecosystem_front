@@ -38,7 +38,7 @@
                                     <div class="flex flex-row align-items-center justify-content-between">
                                         <div class="flex flex-row" style="gap:0.5rem;">
                                             <ng-container *ngFor="let action of actions">
-                                                <p-button [styleClass]="action.class" (click)="onAction({mouseEvent: $event, action})" type="button" label="{{action.label}}"></p-button>
+                                                <p-button [styleClass]="action.class" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})" type="button" label="{{action.label}}"></p-button>
                                             </ng-container>
                                         </div>
                                         <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
