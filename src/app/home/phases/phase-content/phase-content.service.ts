@@ -67,9 +67,11 @@ export class PhaseContentService {
     const levelNode = level + 1;
     const data = { ...container, levelNode, father };
     const children = container.childs
-      ? container.childs.map((child) => {
-          return this.convertContainerToNode(child, levelNode, container);
-        })
+      ? container.childs
+          .filter((i) => !i.isDeleted)
+          .map((child) => {
+            return this.convertContainerToNode(child, levelNode, container);
+          })
       : [];
     return {
       data,
