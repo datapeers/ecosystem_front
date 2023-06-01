@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <p-tabView>
+        <p-tabView [(activeIndex)]="activeIndex">
             <ng-container *ngFor="let item of list">
                 <ng-container>
                     <p-tabPanel [header]="item.label ">

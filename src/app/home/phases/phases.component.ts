@@ -45,6 +45,7 @@ export class PhasesComponent implements OnInit, OnDestroy {
 
   dialogRef;
   onCloseDialogSub$: Subscription;
+  activeIndex = 0;
   constructor(
     private store: Store<AppState>,
     public dialogService: DialogService,
