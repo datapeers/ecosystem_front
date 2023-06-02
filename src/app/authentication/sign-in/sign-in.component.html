@@ -34,7 +34,7 @@
         </span>
     </form>
     <div class="flex flex-row justify-content-end ">
-        <p class="link-style cursor-pointer">Olvidé mi contraseña</p>
+        <p class="link-style cursor-pointer" (click)="rememberPsw = true">Olvidé mi contraseña</p>
     </div>
     <p-button type="submit" label="Entrar" (onClick)="onSubmit()" [disabled]="loginForm.invalid" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     <p-divider [align]="'center'">
@@ -42,7 +42,27 @@
     </p-divider>
     <div class="flex flex-row align-items-center justify-content-around py-2">
         <!-- <img src="/assets/microsoft.png" alt="inMicrosoft" height="auto" class="cursor-pointer" (click)="logInWithMicrosoft()" style="width: 120px !important;"> -->
-        <img src="/assets/google.png" alt="inGoogle" height="auto" class="cursor-pointer" style="width: 80px !important;">
+        <img src="/assets/google.png" alt="inGoogle" height="auto" class="cursor-pointer" style="width: 80px !important;" (click)="logInWithGoogle()">
     </div>
-    <p class="text-center font-medium text-base">¿No eres miembro? <a class="link-style cursor-pointer text-purple-800"  routerLink="/register">Regístrate</a>.</p>
+    <p class="text-center font-medium text-base">¿No eres miembro? <a class="link-style cursor-pointer text-purple-800" routerLink="/register">Regístrate</a>.</p>
 </p-card>
+
+<p-dialog header="Recuperar contraseña" [(visible)]="rememberPsw" [style]="{width: '50vw'}" (onHide)="recoverPsw.reset()">
+    <div class="flex">
+        <span>Email</span>
+    </div>
+    <div class="p-col-12 p-md-4 pt-2">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+            <input type="text" pInputText placeholder="Correcto Electrónico" autofocus [ngClass]="{'ng-invalid ng-dirty': recoverPsw.hasError('email')}" [formControl]="recoverPsw">
+        </div>
+    </div>
+    <div class="flex align-items-center justify-content-center">
+        <div [hidden]="recoverPsw.valid || !recoverPsw.dirty" class="alert alert_danger">
+            <small id="username2-help" class="p-error">Email invalido</small>
+        </div>
+    </div>
+    <div class="flex flex-row justify-content-end pt-4">
+        <p-button label="Recuperar" (onClick)="sendRememberPsw()" [disabled]="!recoverPsw.value || recoverPsw.invalid"></p-button>
+    </div>
+</p-dialog>

@@ -4,6 +4,7 @@ import {
   UntypedFormGroup,
   Validators,
   UntypedFormControl,
+  FormControl,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
@@ -18,6 +19,8 @@ import { ToastService } from '@shared/services/toast.service';
 export class SignInComponent implements OnInit, OnDestroy {
   loginForm: UntypedFormGroup;
   onDestroy$: Subject<void> = new Subject();
+  recoverPsw = new FormControl(null, [Validators.email]);
+  rememberPsw = false;
   constructor(
     public authService: AuthService,
     private store: Store<AppState>,
@@ -38,14 +41,14 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   initComponent() {
     this.store
-      .select(state => state.auth)
+      .select((state) => state.auth)
       .pipe(
-        first(state => state.logged),
-        takeUntil(this.onDestroy$),
+        first((state) => state.logged),
+        takeUntil(this.onDestroy$)
       )
       .subscribe(async (auth) => {
         if (auth.logged) {
-          if(auth.user.isUser) {
+          if (auth.user.isUser) {
             this.router.navigate(['/user']);
           } else {
             this.router.navigate(['/home']);
@@ -95,5 +98,28 @@ export class SignInComponent implements OnInit, OnDestroy {
         );
         return;
       });
+  }
+
+  logInWithGoogle() {
+    return this.authService.signInGoogle();
+  }
+
+  async sendRememberPsw(): Promise<void> {
+    try {
+      const request = await this.authService.sendPasswordResetEmail(
+        this.recoverPsw.value
+      );
+      this.toast.info({
+        summary: 'Correo de recuperación enviado', // "email-sent" : "Correo de recuperación enviado"
+        detail: '',
+      });
+      this.rememberPsw = false;
+    } catch (error) {
+      console.warn(error);
+      this.toast.error({
+        summary: 'No se pudo enviar el email', //"email-not-sent" : "No se pudo enviar el email",
+        detail: 'Es posible que este email no se encuentre registrado', // "email-not-registered" : "Es posible que este email no se encuentre registrado"
+      });
+    }
   }
 }

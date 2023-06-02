@@ -35,6 +35,24 @@ export class HomeService {
     const options = this.optionsMenu();
     let rolOptions: (keyof typeof options)[] = [];
     switch (user.rol) {
+      case 'superAdmin':
+        rolOptions = [
+          'init',
+          'announcements',
+          'phases',
+          'communities',
+          'entrepreneurs',
+          'startUps',
+          'expert',
+          'investors',
+          'helpDesk',
+          'foros',
+          'reports',
+          'settings',
+          'forms',
+          // 'inversionistas',
+        ];
+        break;
       case 'admin':
         rolOptions = [
           'init',

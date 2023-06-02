@@ -6,8 +6,8 @@
     <p class="text-center font-medium text-sm">Si necesitas ayuda haz <a href="https://www.ejemplo.com/" class="link-style">click aquí</a>.</p>
     <form (keyup)="onKeyUp($event)" class="formgrid grid mt-6 gap-3" [formGroup]="signUpForm">
         <span class="w-full">
-          <input id="name" type="text" pInputText formControlName="name" class="inputfield p-4 border-round-2xl form-field field-full" placeholder="Nombre">
-          <small for="name" class="p-error field-help">El nombre no es valido</small>
+            <input id="name" type="text" pInputText formControlName="name" class="inputfield p-4 border-round-2xl form-field field-full" placeholder="Nombre">
+            <small for="name" class="p-error field-help">El nombre no es valido</small>
         </span>
 
         <span class="w-full">
@@ -44,7 +44,7 @@
             </div>
         </span>
 
-        
+
 
     </form>
     <div class="flex flex-row justify-content-end ">
@@ -55,7 +55,7 @@
         <p class="font-medium">O ingresa con tu cuenta:</p>
     </p-divider>
     <div class="flex flex-row align-items-center justify-content-around py-2">
-        <img src="/assets/google.png" alt="inGoogle" height="auto" class="cursor-pointer" style="width: 80px !important;">
+        <img src="/assets/google.png" alt="inGoogle" height="auto" class="cursor-pointer" style="width: 80px !important;" (click)="googleAuth()">
     </div>
     <p class="text-center font-medium text-base">¿No eres miembro? <a class="link-style cursor-pointer text-purple-800" routerLink="/sign-in">Volver al login</a>.</p>
 </p-card>
