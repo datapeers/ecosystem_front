@@ -5,8 +5,8 @@ import phaseQueries from './graphql/phase.gql';
 import stageQueries from './graphql/stage.gql';
 import { IPhase, Phase } from './model/phase.model';
 import { IStage, Stage } from './model/stage.model';
-import { StorageService } from '@shared/services/storage.service';
-import { StoragePaths } from '@shared/services/storage.constants';
+import { StorageService } from '@shared/storage/storage.service';
+import { StoragePaths } from '@shared/storage/storage.constants';
 import { IMenu } from '@shared/models/menu';
 import {
   faCalendar,

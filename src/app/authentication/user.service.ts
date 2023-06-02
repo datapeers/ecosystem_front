@@ -3,8 +3,8 @@ import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { firstValueFrom, map } from 'rxjs';
 import { IUser, User } from '@auth/models/user';
 import { ValidRoles } from './models/valid-roles.enum';
-import { StorageService } from '@shared/services/storage.service';
-import { StoragePaths } from '@shared/services/storage.constants';
+import { StorageService } from '@shared/storage/storage.service';
+import { StoragePaths } from '@shared/storage/storage.constants';
 import userQueries from './user.gql';
 
 @Injectable({

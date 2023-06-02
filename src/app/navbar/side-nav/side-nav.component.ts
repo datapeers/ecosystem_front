@@ -1,10 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router, } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { HomeService } from '@home/home.service';
 import { Store } from '@ngrx/store';
@@ -12,7 +7,6 @@ import { IMenu } from '@shared/models/menu';
 import { Subscription, first, firstValueFrom } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { SetMenuAction, ToggleMenuAction } from '@home/store/home.actions';
-import { getDeepestData } from '@shared/functions/router.utils';
 import { User } from '@auth/models/user';
 import {
   faAngleDoubleLeft,

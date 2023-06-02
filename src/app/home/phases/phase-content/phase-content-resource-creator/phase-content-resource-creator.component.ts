@@ -10,7 +10,7 @@ import { IResource } from '@home/phases/model/resource.model';
 import { ToastService } from '@shared/services/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PhaseContentService } from '../phase-content.service';
-import { StorageService } from '@shared/services/storage.service';
+import { StorageService } from '@shared/storage/storage.service';
 import { Subject, first, firstValueFrom, takeUntil } from 'rxjs';
 import { triggerControlValidators } from '@shared/utils/reactive-forms.utils';
 import { HttpEventType } from '@angular/common/http';

@@ -1,6 +1,6 @@
 import { uniqueId } from 'lodash';
-import { StorageService } from '@shared/services/storage.service';
-import { StoragePaths } from '@shared/services/storage.constants';
+import { StorageService } from '@shared/storage/storage.service';
+import { StoragePaths } from '@shared/storage/storage.constants';
 import { Injector } from '@angular/core';
 import {
   HttpClient,

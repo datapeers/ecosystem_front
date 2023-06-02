@@ -1,7 +1,6 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
-import { StorageService } from '@shared/services/storage.service';
 import { firstValueFrom } from 'rxjs';
+import { StorageService } from '../storage.service';
 
 @Pipe({
   name: 'getImage',

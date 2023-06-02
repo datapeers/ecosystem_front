@@ -17,6 +17,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { GraphQLModule } from '@graphqlApollo/graphql.module';
 import { registerLocaleData } from '@angular/common';
+import { FormModule } from '@shared/form/form.module';
+import { AppSharedModule } from '@shared/app-shared.module';
 import localeEs from '@angular/common/locales/es';
 // ?---------- Components & Services ---------------------
 import { AppComponent } from './app.component';
@@ -27,7 +29,6 @@ import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { BackgroundComponent } from './shared/components/layout/background/background.component';
-import { FormModule } from '@shared/form/form.module';
 
 registerLocaleData(localeEs);
 @NgModule({
@@ -55,6 +56,7 @@ registerLocaleData(localeEs);
     FontAwesomeModule,
     GraphQLModule,
     HttpClientModule,
+    AppSharedModule,
   ],
   providers: [
     AuthService,

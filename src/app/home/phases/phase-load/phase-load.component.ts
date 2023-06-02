@@ -4,7 +4,7 @@ import { PhasesService } from '../phases.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { ClearPhaseStoreAction, SetPhaseAction } from '../store/phase.actions';
-import { SetMenuAction, SetOtherMenuAction } from '@home/store/home.actions';
+import { SetOtherMenuAction } from '@home/store/home.actions';
 import { RestoreMenuAction } from '@home/store/home.actions';
 
 @Component({

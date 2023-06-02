@@ -9,7 +9,7 @@ import { SetPhaseAction, UpdatePhaseImageAction } from '../store/phase.actions';
 import { ToastService } from '@shared/services/toast.service';
 import { cloneDeep } from 'lodash';
 import { configTinyMce } from '@shared/models/configTinyMce';
-import { StorageService } from '@shared/services/storage.service';
+import { StorageService } from '@shared/storage/storage.service';
 
 @Component({
   selector: 'app-phases-edit',

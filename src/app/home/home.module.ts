@@ -4,11 +4,11 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { PrimengModule } from '../primeng/primeng.module';
 import { AvatarUploaderModule } from '@shared/components/form/avatar-uploader/avatar-uploader.module';
-import { SideNavItemComponent } from '../navbar/side-nav/side-nav-item/side-nav-item.component';
-import { SideNavComponent } from '../navbar/side-nav/side-nav.component';
-import { TopNavComponent } from '../navbar/top-nav/top-nav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavigationModule } from '../navbar/navigation.module';
+import { StorageModule } from "../shared/storage/storage.module";
+import { AppSharedModule } from '@shared/app-shared.module';
 import { PhasesComponent } from './phases/phases.component';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { PhasesConfigComponent } from './phases/phases-config/phases-config.component';
@@ -16,7 +16,6 @@ import { PhasesCreatorComponent } from './phases/phases-creator/phases-creator.c
 import { ProfileComponent } from '@shared/components/profile/profile.component';
 import { PhasesEditComponent } from './phases/phases-edit/phases-edit.component';
 import { PhaseLoadComponent } from './phases/phase-load/phase-load.component';
-import { SafePipe } from '@shared/pipe/safe.pipe';
 import { NgxTinymceModule } from 'ngx-tinymce';
 import { PhaseContentComponent } from './phases/phase-content/phase-content.component';
 import { PhaseContentCreatorComponent } from './phases/phase-content/phase-content-creator/phase-content-creator.component';
@@ -25,7 +24,6 @@ import { EntrepreneursComponent } from './entrepreneurs/entrepreneurs.component'
 import { StartupsComponent } from './startups/startups.component';
 import { FormsComponent } from './forms/forms.component';
 import { InvestorsComponent } from './investors/investors.component';
-import { GetImagePipe } from '@shared/pipe/get-image.pipe';
 import { PhaseContentResourceCreatorComponent } from './phases/phase-content/phase-content-resource-creator/phase-content-resource-creator.component';
 import { AnnouncementsComponent } from './announcements/announcements.component';
 import { AnnouncementsCreatorComponent } from './announcements/announcements-creator/announcements-creator.component';
@@ -39,9 +37,6 @@ import { ExpertsComponent } from './experts/experts.component';
 @NgModule({
   declarations: [
     HomeComponent,
-    TopNavComponent,
-    SideNavComponent,
-    SideNavItemComponent,
     PhasesComponent,
     LoadingComponent,
     PhasesConfigComponent,
@@ -49,7 +44,6 @@ import { ExpertsComponent } from './experts/experts.component';
     ProfileComponent,
     PhasesEditComponent,
     PhaseLoadComponent,
-    SafePipe,
     PhaseContentComponent,
     PhaseContentCreatorComponent,
     PhaseContentViewComponent,
@@ -57,7 +51,6 @@ import { ExpertsComponent } from './experts/experts.component';
     StartupsComponent,
     FormsComponent,
     InvestorsComponent,
-    GetImagePipe,
     PhaseContentResourceCreatorComponent,
     AnnouncementsComponent,
     AnnouncementsCreatorComponent,
@@ -76,9 +69,12 @@ import { ExpertsComponent } from './experts/experts.component';
     FontAwesomeModule,
     AvatarUploaderModule,
     DynamicTableModule,
+		NavigationModule,
     NgxTinymceModule.forRoot({
       baseURL: '/assets/tinymce/',
     }),
-  ],
+		StorageModule,
+		AppSharedModule,
+	]
 })
 export class HomeModule {}
