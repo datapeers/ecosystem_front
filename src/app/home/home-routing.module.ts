@@ -20,6 +20,8 @@ import { AnnouncementLoadComponent } from './announcements/announcement-load/ann
 import { AnnouncementEditComponent } from './announcements/announcement-edit/announcement-edit.component';
 import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hours-config.component';
 import { PhaseEventsComponent } from './phases/phase-events/phase-events.component';
+import { BusinessesComponent } from './businesses/businesses.component';
+import { ApplicantsComponent } from './announcements/applicants/applicants.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,10 @@ const routes: Routes = [
         component: EntrepreneursComponent,
       },
       {
+        path: 'businesses',
+        component: BusinessesComponent,
+      },
+      {
         path: 'startups',
         component: StartupsComponent,
       },
@@ -74,9 +80,13 @@ const routes: Routes = [
                 path: 'edit',
                 component: AnnouncementEditComponent,
               },
-            ],
-          },
-        ],
+              {
+                path: 'applicants',
+                component: ApplicantsComponent,
+              }
+            ]
+          }
+        ]
       },
       {
         // TODO: Add guards or modules if required

@@ -33,6 +33,8 @@ import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hou
 import { PhaseEventsComponent } from './phases/phase-events/phase-events.component';
 import { DynamicTableModule } from '@shared/components/dynamic-table/dynamic-table.module';
 import { ExpertsComponent } from './experts/experts.component';
+import { BusinessesComponent } from './businesses/businesses.component';
+import { ApplicantsComponent } from './announcements/applicants/applicants.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { ExpertsComponent } from './experts/experts.component';
     PhaseHoursConfigComponent,
     PhaseEventsComponent,
     ExpertsComponent,
+		ApplicantsComponent,
+		BusinessesComponent,
   ],
   imports: [
     CommonModule,
