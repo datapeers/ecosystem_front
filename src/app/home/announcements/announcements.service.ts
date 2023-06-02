@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { StoragePaths } from '@shared/services/storage.constants';
-import { StorageService } from '@shared/services/storage.service';
+import { StoragePaths } from '@shared/storage/storage.constants';
+import { StorageService } from '@shared/storage/storage.service';
 import { Observable, firstValueFrom, map, take } from 'rxjs';
-import { Announcement, IAnnouncement } from './model/announcement';
+import { Announcement } from './model/announcement';
 import announcementQueries from './announcements.gql';
 import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AnnouncementsCreatorComponent } from './announcements-creator/announcements-creator.component';
-import { faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faFile, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { CreateAnnouncementInput } from './model/create-announcement.input';
 import { AnnouncementTypes } from './model/announcement-types.enum';
 import { UpdateAnnouncementInput } from './model/update-announcement.input';
@@ -179,6 +179,12 @@ export class AnnouncementsService {
           rute: ['announcements', announcement._id, 'edit'],
           type: 'single',
           icon: faClipboard,
+        },
+        {
+          label: 'Preinscritos',
+          rute: ['announcements', announcement._id, 'applicants'],
+          type: 'single',
+          icon: faFile,
         },
       ],
     };

@@ -7,6 +7,8 @@ export interface IAnnouncement {
   description?: string;
   thumbnail?: string;
   landing?: string;
+  redirectLink: string;
+  exitText: string;
   form: IForm;
   startAt: Date;
   endAt: Date;
@@ -18,6 +20,9 @@ export interface IAnnouncement {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+  active: boolean;
+  ended: boolean;
+  notStarted: boolean;
 }
 
 export class Announcement implements IAnnouncement {
@@ -26,6 +31,8 @@ export class Announcement implements IAnnouncement {
   description?: string;
   thumbnail?: string;
   landing?: string;
+  redirectLink: string;
+  exitText: string;
   form: IForm;
   startAt: Date;
   endAt: Date;
@@ -37,6 +44,9 @@ export class Announcement implements IAnnouncement {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+  active: boolean;
+  ended: boolean;
+  notStarted: boolean;
 
   get typeName() {
     return announcementTypeNames[this.type];
@@ -46,13 +56,21 @@ export class Announcement implements IAnnouncement {
 
   static fromJson(data: IAnnouncement): Announcement {
     const announcement = new Announcement();
+    const startAt = new Date(data.startAt);
+    const endAt = new Date(data.endAt);
+    const now = Date.now();
+    const ended = now > endAt.getTime();
+    const notStarted = now < startAt.getTime();
     Object.assign(announcement, {
       ...data,
-      startAt: new Date(data.startAt),
-      endAt: new Date(data.endAt),
+      startAt,
+      endAt,
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
       deletedAt: new Date(data.deletedAt),
+      active: !ended && !notStarted,
+      notStarted,
+      ended,
     });
     return announcement;
   }

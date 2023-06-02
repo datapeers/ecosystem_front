@@ -10,6 +10,7 @@ const fragments = {
       emailMessage
       type
       redirectLink
+      exitText
       startAt
       endAt
       createdAt
@@ -31,6 +32,7 @@ const fragments = {
       emailMessage
       type
       redirectLink
+      exitText
       startAt
       endAt
       createdAt

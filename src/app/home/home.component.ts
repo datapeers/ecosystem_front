@@ -45,8 +45,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
-    // const userState = await firstValueFrom(this.user$);
-    // this.user = await firstValueFrom(userState);
     this.loading = false;
   }
 }

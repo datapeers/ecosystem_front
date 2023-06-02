@@ -13,10 +13,11 @@ import { ClearAnnouncementStoreAction, SetAnnouncementAction } from '../store/an
 })
 export class AnnouncementLoadComponent {
   announcementId: string;
+  announcement$ = this.store.select(state => state.announcement.announcement);
   constructor(
     private readonly store: Store<AppState>,
     private readonly announcementsService: AnnouncementsService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
   ) {
     this.announcementId = route.snapshot.paramMap.get('id');
   }

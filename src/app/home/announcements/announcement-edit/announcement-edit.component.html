@@ -65,6 +65,24 @@
         </div>
         <p-divider class="w-full"></p-divider>
         <div class="w-full">
+          <div class="w-full flex flex-row justify-content-between">
+            <span class="text-xl font-semibold">Enlace para redirigir despues de entregar formulario.</span>
+          </div>
+          <input *ngIf="editEnabled" pInputText formControlName="redirectLink" class="inputfield field-full" />
+          <p *ngIf="!editEnabled">{{announcement.redirectLink ? announcement.redirectLink : "Sin asignar"}}</p>
+        </div>
+        <p-divider class="w-full"></p-divider>
+        <div class="w-full">
+          <div class="w-full flex flex-column w-full gap-2">
+            <div class="w-full flex flex-row justify-content-between">
+              <span class="text-xl font-semibold">Texto para despues de entregar formulario.</span>
+            </div>
+            <textarea *ngIf="editEnabled" pInputTextarea formControlName="exitText" [maxlength]="500" [rows]="5" style="width: 100% !important;"></textarea>
+            <p *ngIf="!editEnabled">{{announcement.exitText ? announcement.exitText : "Sin asignar"}}</p>
+          </div>
+        </div>
+        <p-divider class="w-full"></p-divider>
+        <div class="w-full">
           <div class="w-full flex flex-column w-full gap-2">
             <div class="w-full flex flex-row justify-content-between">
               <span class="text-xl font-semibold">Descripción</span>
@@ -75,8 +93,9 @@
         </div>
         <p-divider class="w-full"></p-divider>
         <div class="w-full flex flex-column w-full gap-2">
-          <div class="w-full flex flex-row justify-content-between">
+          <div class="w-full flex flex-row gap-2 flex-wrap">
             <span class="text-xl font-semibold">Landing</span>
+            <p-button icon="pi pi-external-link" pTooltip="Ir a landing" tooltipPosition="top" [routerLink]="landingUrl"></p-button>
           </div>
           <tinymce *ngIf="editEnabled" formControlName="landing" [config]="configTiny" class="w-full"></tinymce>
           <ng-container *ngIf="!editEnabled">

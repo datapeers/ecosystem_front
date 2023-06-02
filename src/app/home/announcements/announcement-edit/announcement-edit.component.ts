@@ -24,10 +24,13 @@ export class AnnouncementEditComponent {
   announcement: Announcement;
   forms: { id: string; label: string; }[] = [];
   configTiny = configTinyMce;
+  landingUrl: string = '';
   announcementEditForm = new FormGroup({
     name: new FormControl<string>(null, { validators: [Validators.required] }),
-    description: new FormControl<string>(null, { validators: [Validators.required] }),
+    description: new FormControl<string>(null, { validators: [] }),
     landing: new FormControl<string>(null, { validators: [Validators.required] }),
+    exitText: new FormControl<string>(null, { validators: [] }),
+    redirectLink: new FormControl<string>(null, { validators: [] }),
     form: new FormControl<string>(null, { validators: [Validators.required] }),
     startAt: new FormControl<Date>(null, { validators: [Validators.required] }),
     endAt: new FormControl<Date>(null, { validators: [Validators.required] }),
@@ -60,6 +63,8 @@ export class AnnouncementEditComponent {
           name: announcement.name,
           description: announcement.description,
           landing: announcement.landing,
+          exitText: announcement.exitText,
+          redirectLink: announcement.redirectLink,
           form: announcement.form._id,
           startAt: announcement.startAt,
           endAt: announcement.endAt,
@@ -67,6 +72,7 @@ export class AnnouncementEditComponent {
         this.saving = false;
         this.editEnabled = false;
       });
+      this.landingUrl = `/landing/${this.announcement._id}`
   }
 
   ngOnInit() {
