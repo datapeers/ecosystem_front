@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { Investor } from '@shared/models/entities/investor';
 import { firstValueFrom, map } from 'rxjs';
-import investorQueries from './investors.gql';
+import businessQueries from './businesses.gql';
+import { Business } from '@shared/models/entities/business';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InvestorsService {
+export class BusinessesService {
 
   constructor(
     private readonly graphql: GraphqlService,
   ) {
-    
+
   }
 
-  async getDocuments(args: any): Promise<Investor[]> {
+  async getDocuments(args: any): Promise<Business[]> {
     const queryRef = this.graphql.refQuery(
-      investorQueries.query.investors,
+      businessQueries.query.businesses,
       { },
       'no-cache',
       { auth: true }
@@ -25,7 +25,7 @@ export class InvestorsService {
     return firstValueFrom(this.graphql
       .query(queryRef)
       .pipe(
-        map((request) => request.data.investors),
+        map((request) => request.data.businesses),
       )
     );
   }

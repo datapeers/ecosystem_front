@@ -20,7 +20,7 @@ export class ExpertsService implements DocumentProvider {
     const queryRef = this.graphql.refQuery(
       expertsQueries.query.experts,
       { },
-      'cache-first',
+      'no-cache',
       { auth: true }
     );
     return firstValueFrom(this.graphql

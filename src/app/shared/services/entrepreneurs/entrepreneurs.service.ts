@@ -20,7 +20,7 @@ export class EntrepreneursService implements DocumentProvider {
     const queryRef = this.graphql.refQuery(
       entrepreneurQueries.query.entrepreneurs,
       { },
-      'cache-first',
+      'no-cache',
       { auth: true }
     );
     return firstValueFrom(this.graphql
