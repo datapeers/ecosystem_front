@@ -4,22 +4,23 @@ import { Subject, throttleTime } from 'rxjs';
 import { Invitation } from '@shared/models/invitation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidRoles, validRoles } from '@auth/models/valid-roles.enum';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-invitations',
   templateUrl: './invitations.component.html',
-  styleUrls: ['./invitations.component.scss']
+  styleUrls: ['./invitations.component.scss'],
 })
 export class InvitationsComponent implements OnInit {
   columns = [
-    { field: "email", name: "Correo" },
-    { field: "createdBy.fullName", name: "Invitado por" },
-    { field: "rolName", name: "Rol esperado" },
-    { field: "stateName", name: "Estado" },
-    { field: "createdAt", name: "Creada" },
-    { field: "expiresAt", name: "Expira" },
+    { field: 'email', name: 'Correo' },
+    { field: 'createdBy.fullName', name: 'Invitado por' },
+    { field: 'rolName', name: 'Rol esperado' },
+    { field: 'stateName', name: 'Estado' },
+    { field: 'createdAt', name: 'Creada' },
+    { field: 'expiresAt', name: 'Expira' },
   ];
-  filterFields = this.columns.map(column => column.field);
+  filterFields = this.columns.map((column) => column.field);
   invitations: Invitation[];
   loading: boolean = true;
   displayInvitationDialog: boolean;
@@ -27,18 +28,22 @@ export class InvitationsComponent implements OnInit {
   formInvitation: FormGroup;
   submit$: Subject<void> = new Subject();
   constructor(
+    private readonly toast: ToastService,
     private readonly service: AdminService,
     readonly fb: FormBuilder
   ) {
     this.formInvitation = fb.group({
-      email: fb.control<string>("", { validators: [ Validators.required, Validators.email ] }),
-      rol: fb.control<ValidRoles>(ValidRoles.user, { validators: [ Validators.required ] })
+      email: fb.control<string>('', {
+        validators: [Validators.required, Validators.email],
+      }),
+      rol: fb.control<ValidRoles>(ValidRoles.user, {
+        validators: [Validators.required],
+      }),
     });
-    this.submit$.pipe(throttleTime(250))
-      .subscribe(() => {
-        const { email, rol } = this.formInvitation.value;
-        this.createInvitation(email, rol);
-      });
+    this.submit$.pipe(throttleTime(250)).subscribe(() => {
+      const { email, rol } = this.formInvitation.value;
+      this.createInvitation(email, rol);
+    });
   }
 
   ngOnInit(): void {
@@ -66,13 +71,15 @@ export class InvitationsComponent implements OnInit {
   async createInvitation(email: string, rol: ValidRoles) {
     this.hideInvitationDialog();
     const invitation = await this.service.createInvitation(email, rol);
-    if(invitation) {
+    if (invitation) {
       await this.loadInvitations();
     }
   }
 
   async cancelInvitation(invitationRow: Invitation) {
+    this.toast.info({ summary: 'Cancelando', detail: '' });
     await this.service.cancelInvitation(invitationRow._id);
     await this.loadInvitations();
+    this.toast.clear();
   }
 }

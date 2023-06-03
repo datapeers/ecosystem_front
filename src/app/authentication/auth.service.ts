@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import firebase from 'firebase/compat/app';
 import { AppJwt } from '@shared/models/common/app-jwt';
-
+import { GoogleAuthProvider } from 'firebase/auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -31,25 +31,35 @@ export class AuthService {
     combineLatest([this.fireAuth.authState, delayedRenew])
       .pipe(filter(([user]) => !!user))
       .subscribe(async ([user]) => {
-        await user.getIdToken(true).then(() => {
-          // Do anything when token gets renewed
-        })
-        .catch(reason => {
-          // Failed to renew token sign out user
-          console.error("Failed to renew account credentials, this may be due to network issues.")
-          this.signOut();
-        });
-    });
+        await user
+          .getIdToken(true)
+          .then(() => {
+            // Do anything when token gets renewed
+          })
+          .catch((reason) => {
+            // Failed to renew token sign out user
+            console.error(
+              'Failed to renew account credentials, this may be due to network issues.'
+            );
+            this.signOut();
+          });
+      });
 
-    this.fireAuth.idToken
-    .subscribe((idToken) => {
+    this.fireAuth.idToken.subscribe((idToken) => {
       // If exists clears the timeout
-      if(this.renewTimer) { window.clearTimeout(this.renewTimer); }
+      if (this.renewTimer) {
+        window.clearTimeout(this.renewTimer);
+      }
       // Set renew strategy only if the token is set
-      if(!idToken) { return; }
+      if (!idToken) {
+        return;
+      }
       const jwtObject = new AppJwt(idToken);
       // Renew token 1 minute before expiration
-      const milisecondsForTokenRenew = Math.max(1, jwtObject.milisecondsTillExpiration - 60000);
+      const milisecondsForTokenRenew = Math.max(
+        1,
+        jwtObject.milisecondsTillExpiration - 60000
+      );
       // Set trigger to renew token before expiration
       this.renewTimer = setTimeout(() => {
         this.renewToken$.next();
@@ -71,6 +81,28 @@ export class AuthService {
 
   signIn(email: string, password: string) {
     return this.fireAuth.signInWithEmailAndPassword(email, password);
+  }
+
+  signUpGoogle() {
+    return this.fireAuth.signInWithPopup(new GoogleAuthProvider());
+  }
+
+  async signInGoogle() {
+    return this.fireAuth
+      .signInWithPopup(new GoogleAuthProvider())
+      .then(async (result) => {
+        if (result && result.additionalUserInfo.isNewUser) {
+          (await this.fireAuth.currentUser).delete();
+          this.toast.alert({
+            detail:
+              'No estas registrado actualmente con la cuenta especificada',
+            summary: 'Cuenta no existente',
+            life: 15000,
+          });
+          this.signOut();
+          return;
+        }
+      });
   }
 
   signOut() {
@@ -130,33 +162,39 @@ export class AuthService {
     // Next, reauthenticate the user with their current password
     const credentials = firebase.auth.EmailAuthProvider.credential(
       user.email,
-      currentPassword,
+      currentPassword
     );
 
-    user.reauthenticateWithCredential(credentials).then(() => {
-      // The user has been successfully reauthenticated with their current password
-      // Now, update the user's password to a new value
-      user.updatePassword(newPassword).then(() => {
-        // The user's password has been successfully updated
-        this.toast.success({
-          summary: "Exitó",
-          detail: "Contraseña actualizada con exito",
-        });
-      }).catch((error) => {
-        // An error occurred while updating the user's password
+    user
+      .reauthenticateWithCredential(credentials)
+      .then(() => {
+        // The user has been successfully reauthenticated with their current password
+        // Now, update the user's password to a new value
+        user
+          .updatePassword(newPassword)
+          .then(() => {
+            // The user's password has been successfully updated
+            this.toast.success({
+              summary: 'Exitó',
+              detail: 'Contraseña actualizada con exito',
+            });
+          })
+          .catch((error) => {
+            // An error occurred while updating the user's password
+            console.error(error);
+            this.toast.error({
+              summary: 'Error',
+              detail: 'Fallo al intentar cambiar la contraseña',
+            });
+          });
+      })
+      .catch((error) => {
         console.error(error);
         this.toast.error({
-          summary: "Error",
-          detail: "Fallo al intentar cambiar la contraseña",
+          summary: 'Error',
+          detail: 'Fallo al intentar validar la contraseña',
         });
+        // An error occurred while reauthenticating the user with their current password
       });
-    }).catch((error) => {
-      console.error(error);
-      this.toast.error({
-        summary: "Error",
-        detail: "Fallo al intentar validar la contraseña",
-      });
-      // An error occurred while reauthenticating the user with their current password
-    });
   }
 }

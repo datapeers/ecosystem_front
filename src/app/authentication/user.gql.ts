@@ -10,9 +10,10 @@ const fragments = {
       updatedAt
       isActive
       passwordSet
+      googleIn
       profileImageUrl
     }
-  `
+  `,
 };
 
 const query = {
@@ -80,6 +81,6 @@ const mutation = {
 const userQueries = {
   query,
   mutation,
-}
+};
 
 export default userQueries;
