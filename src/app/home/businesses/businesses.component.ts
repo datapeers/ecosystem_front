@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
+import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
 import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
@@ -8,12 +9,16 @@ import { TableOptions } from '@shared/components/dynamic-table/models/table-opti
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
+import { BusinessesService } from '@shared/services/businesses/businesses.service';
 import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-businesses',
   templateUrl: './businesses.component.html',
-  styleUrls: ['./businesses.component.scss']
+  styleUrls: ['./businesses.component.scss'],
+  providers: [
+    { provide: DocumentProvider, useExisting: BusinessesService }
+  ]
 })
 export class BusinessesComponent {
   optionsTable: TableOptions;

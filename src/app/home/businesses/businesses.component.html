@@ -1,1 +1,7 @@
-<p>businesses works!</p>
+<div class="flex px-4 py-3 h-full w-full">
+  <ng-container *ngIf="tableContext">
+    <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading"
+      [height]="tableHeightOffset" [title]="tableTitle" (action)="actionFromTable($event)">
+    </app-dynamic-table>
+  </ng-container>
+</div>
