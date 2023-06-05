@@ -28,7 +28,7 @@ export class AnnouncementEditComponent {
   announcementEditForm = new FormGroup({
     name: new FormControl<string>(null, { validators: [Validators.required] }),
     description: new FormControl<string>(null, { validators: [] }),
-    landing: new FormControl<string>(null, { validators: [Validators.required] }),
+    landing: new FormControl<string>(null, { validators: [] }),
     exitText: new FormControl<string>(null, { validators: [] }),
     redirectLink: new FormControl<string>(null, { validators: [] }),
     form: new FormControl<string>(null, { validators: [Validators.required] }),

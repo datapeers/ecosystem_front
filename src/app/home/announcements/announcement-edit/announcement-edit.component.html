@@ -18,15 +18,15 @@
                 <ng-template #editTemplate>
                   <div class="grid formgrid">
                     <div class="field col-12">
-                      <label for="nameAnnouncement">Nombre</label>
+                      <label class="font-semibold" for="nameAnnouncement">Nombre</label>
                       <input pInputText id="nameAnnouncement" formControlName="name" class="inputfield field-full" />
                     </div>
                     <div class="field col-12 md:col-6">
-                      <label for="calendar-first">Comienza</label>
+                      <label class="font-semibold" for="calendar-first">Comienza</label>
                       <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
                     </div>
                     <div class="field col-12 md:col-6">
-                      <label for="calendar-last">Termina</label>
+                      <label class="font-semibold" for="calendar-last">Termina</label>
                       <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt"></p-calendar>
                     </div>
                     <div *ngIf="announcementEditForm.errors && announcementEditForm.errors['dateRange']" class="field col-12 flex">
@@ -65,11 +65,13 @@
         </div>
         <p-divider class="w-full"></p-divider>
         <div class="w-full">
-          <div class="w-full flex flex-row justify-content-between">
-            <span class="text-xl font-semibold">Enlace para redirigir despues de entregar formulario.</span>
+          <div class="w-full flex flex-column w-full gap-2">
+            <div class="w-full flex flex-row justify-content-between">
+              <span class="text-xl font-semibold">Enlace para redirigir despues de entregar formulario.</span>
+            </div>
+            <input *ngIf="editEnabled" pInputText formControlName="redirectLink" class="inputfield field-full" />
+            <p *ngIf="!editEnabled">{{announcement.redirectLink ? announcement.redirectLink : "Sin asignar"}}</p>
           </div>
-          <input *ngIf="editEnabled" pInputText formControlName="redirectLink" class="inputfield field-full" />
-          <p *ngIf="!editEnabled">{{announcement.redirectLink ? announcement.redirectLink : "Sin asignar"}}</p>
         </div>
         <p-divider class="w-full"></p-divider>
         <div class="w-full">
