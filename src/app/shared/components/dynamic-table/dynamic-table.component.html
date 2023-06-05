@@ -1,22 +1,29 @@
 <div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
   <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
-  <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="handleConfigChange" (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
-  <p-table [columns]="cols" (onColReorder)="columnReorder($event)" [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id" [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($event)" [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true" [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords" styleClass="p-datatable-sm" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($event)">
-    <ng-template pTemplate="caption">
-      <div class="table-header">
-        <span class="header color-custom">{{title}}</span>
-        <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
-          <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
-          </span>
-          <ng-container>
-            <ng-container *ngIf="actionsMenu?.length > 0">
-              <div>
-                <p-button #actionButton styleClass="p-button-outlined" type="button" icon="pi pi-angle-down" [iconPos]="'right'" label="Acciones" (onClick)="actionsTable.toggle($event)"></p-button>
-                <p-tieredMenu appendTo="body" #actionsTable [popup]="true" [model]="actionsMenu"></p-tieredMenu>
-              </div>
-            </ng-container>
+  <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="handleConfigChange($event)"  (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
+  <p-table [columns]="cols" (onColReorder)="columnReorder($event)"
+  [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id"
+  [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($event)"
+  [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]"
+  [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true"
+  [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter"
+  [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords"
+  styleClass="p-datatable-sm" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($event)">
+  <ng-template pTemplate="caption">
+    <div class="table-header">
+      <span class="header color-custom">{{title}}</span>
+      <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+        </span>
+        <ng-container>
+          <ng-container *ngIf="actionsMenu?.length > 0">
+            <div>
+              <p-button #actionButton styleClass="p-button-outlined" type="button" icon="pi pi-angle-down" [iconPos]="'right'" label="Acciones" (onClick)="actionsTable.toggle($event)"></p-button>
+              <p-tieredMenu appendTo="body" #actionsTable [popup]="true" [model]="actionsMenu"></p-tieredMenu>
+            </div>
+          </ng-container>
             <ng-container *ngFor="let featuredAction of featuredActions">
               <ng-container *ngIf="featuredAction?.items?.length else simpleActionTemplate">
                 <div>

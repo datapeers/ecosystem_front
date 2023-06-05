@@ -55,8 +55,6 @@ export class DynamicTableComponent {
   //Table config
   tabIndex: number = 0;
 
-  @Output() activeConfigChange = new EventEmitter<TableConfig>();
-
   //Lazy loading
   @Input() lazy: boolean = false;
   @Input() totalRecords: number = 0;
@@ -90,20 +88,22 @@ export class DynamicTableComponent {
     private readonly service: DynamicTableService,
     private readonly documentProvider: DocumentProvider,
   ) {
-    this.onConfigChange
-      .pipe(
-        filter((config) => config !== null && config !== undefined),
-        takeUntil(this.onDestroy$)
-      )
-      .subscribe((newConfig) => this.handleConfigChange(newConfig));
+    this.onConfigChange.pipe(
+      filter((config) => config !== null && config !== undefined),
+      takeUntil(this.onDestroy$)
+    )
+    .subscribe((newConfig) => this.handleConfigChange(newConfig));
 
-    this.refresh$.subscribe(async () => {
-      await this.initComponent();
+    this.refresh$.pipe(
+      takeUntil(this.onDestroy$)
+    )
+    .subscribe(async () => {
       this.onConfigChange.next(this.config);
-    })
+    });
   }
 
   handleConfigChange(newConfig: TableConfig) {
+    this.buildTable();
     this.loading = true;
     const { columns, loadEvent } = newConfig;
     this.config = newConfig;
@@ -163,11 +163,15 @@ export class DynamicTableComponent {
 
   async initComponent() {
     await this.initConfiguration();
-    this.rawData = await this.documentProvider.getDocuments(this.context.data);
-    this.setRows(this.entity.columns);
+    await this.buildTable();
     this.setOptions();
     this.setGlobalFilter();
     this.validateHeight(window.innerHeight, this.fullscreen);
+  }
+
+  async buildTable() {
+    this.rawData = await this.documentProvider.getDocuments(this.context.data);
+    this.setRows(this.entity.columns);
   }
 
   async initConfiguration() {
