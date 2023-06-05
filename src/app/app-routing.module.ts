@@ -5,11 +5,13 @@ import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { RoleGuard } from '@auth/guards/role.guard';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { LandingComponent } from './public/landing/landing.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: SignUpComponent },
+  { path: 'landing/:id', component: LandingComponent },
   {
     path: 'home',
     canMatch: [AuthGuard, RoleGuard],

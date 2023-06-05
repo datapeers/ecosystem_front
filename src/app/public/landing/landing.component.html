@@ -1,0 +1,34 @@
+<div class="surface-0 h-screen w-full" *ngIf="announcement">
+  <div class="relative h-full w-full">
+    <ng-container *ngIf="announcement.landing">
+      <div class="w-full h-full pt-2 pb-8" [innerHtml]="(announcement.landing | safe:'html')"></div>
+    </ng-container>
+    <div class="fixed z-5 bottom-0 w-full p-0 m-0 justify-content-center align-content-center flex p-2" style="background-color: transparent;">
+      <ng-container [ngSwitch]="currentState">
+        <ng-container *ngSwitchDefault>
+          <p-progressSpinner></p-progressSpinner>
+        </ng-container>
+        <ng-container *ngSwitchCase="applicantStates.initial">
+          <button *ngIf="announcement.active" pButton icon="pi pi-plus-circle" label="Registrarme" class="p-button-lg" (click)="registerAt()">
+          </button>
+          <button *ngIf="announcement.notStarted" pButton icon="pi pi-arrow-right" label="Próximamente" class="p-button-lg" [disabled]="true">
+          </button>
+          <button *ngIf="announcement.ended" pButton icon="pi pi-times" label="Finalizada" class="p-button-lg" [disabled]="true">
+          </button>
+        </ng-container>
+        <ng-container *ngSwitchCase="applicantStates.withEntrepreneur">
+          <div class="flex flex-row flex-wrap gap-2">
+            <button pButton icon="pi pi-plus-circle" label="Registrar empresa" class="p-button-lg p-button-outlined" (click)="addBusiness()">
+            </button>
+            <button pButton icon="pi pi-arrow-right" label="Continuar" class="p-button-lg" (click)="addStartup()">
+            </button>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="applicantStates.withStartup">
+          <button pButton icon="pi pi-plus-circle" label="Finalizar registro" class="p-button-lg" (click)="openAnnouncementForm()">
+          </button>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>

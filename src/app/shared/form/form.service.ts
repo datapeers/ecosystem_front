@@ -4,7 +4,7 @@ import { map, take, tap } from 'rxjs/operators';
 import { Observable, firstValueFrom } from 'rxjs';
 import { AppForm, IForm } from './models/form';
 import formQueries from './form.gql';
-import { FormCollections } from './enums/form-collections';
+import { FormCollections, formCollections } from './enums/form-collections';
 import { IFormSubscription } from './models/form-subscription';
 import { FormRendererComponent } from './form-renderer/form-renderer.component';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -13,6 +13,12 @@ import { CreateSubscriptionArgs as CreateSubscriptionInput } from './models/crea
 import { ToastService } from '@shared/services/toast.service';
 import { FormViewComponent } from './form-view/form-view.component';
 import { AuthCodeService } from '@auth/auth-code.service';
+import { Announcement } from '@home/announcements/model/announcement';
+
+const formUrls = {
+  renderer: `${environment.forms}form/renderer`,
+  announcement: `${environment.forms}form/announcement`
+}
 
 @Injectable({
   providedIn: 'root',
@@ -122,7 +128,20 @@ export class FormService {
     );
   }
 
-  openFormFromSubscription(formSubscription: IFormSubscription, title: string = "Formulario"): Observable<string | null> {
+  openAnnouncementFromSubscription(announcement: Announcement, participantId: string, subscription?: IFormSubscription) {
+    let frameUrl = `${formUrls.announcement}/${announcement._id}/${participantId}`;
+    if(subscription) {
+      frameUrl = frameUrl.concat(`?sub=${subscription._id}`);
+    }
+    window.open(frameUrl, "_blank");
+  }
+
+  openFormFromSubscription(formSubscription: IFormSubscription, title: string = "Formulario") {
+    const frameUrl = `${formUrls.renderer}/${formSubscription._id}`;
+    return this.openFormFromSubscriptionDialog(formSubscription, title, frameUrl);
+  }
+
+  openFormFromSubscriptionDialog(formSubscription: IFormSubscription, title: string, frameUrl: string): Observable<string | null> {
     const idSubscription: string = formSubscription._id;
     const isEdit: boolean = !!formSubscription.doc;
     const ref = this.dialogService.open(FormRendererComponent, {
@@ -131,7 +150,7 @@ export class FormService {
       height: '100vh',
       data: {
         idSubscription,
-        iframe: `${environment.forms}form/renderer/${idSubscription}`,
+        iframe: frameUrl,
       },
       header: title,
       showHeader: true,
