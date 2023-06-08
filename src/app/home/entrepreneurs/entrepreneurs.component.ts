@@ -30,7 +30,6 @@ export class EntrepreneursComponent {
   configTable: TableConfig;
   tableLocator: string = tableLocators.entrepreneurs;
   entityForm: AppForm;
-  tableHeightOffset: number = 0;
   onDestroy$: Subject<void> = new Subject();
 
   constructor(

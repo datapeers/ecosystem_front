@@ -29,3 +29,11 @@
     }
   }
 }
+
+.app-table {
+  display: flex;
+  height: 100%;
+  .p-datatable-wrapper {
+    height: 100%;
+  }
+}

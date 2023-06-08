@@ -29,7 +29,6 @@ export class StartupsComponent {
   configTable: TableConfig;
   tableLocator: string = tableLocators.startups;
   entityForm: AppForm;
-  tableHeightOffset: number = 0;
   onDestroy$: Subject<void> = new Subject();
 
   constructor(

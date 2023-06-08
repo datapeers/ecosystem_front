@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewC
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { Subject, filter, take, takeUntil } from 'rxjs';
+import { Subject, filter, fromEvent, take, takeUntil } from 'rxjs';
 import { DynamicTableService } from './dynamic-table.service';
 import { TableExportFormats } from './models/table-export-formats.enum';
 import { TableAction, TableActionEvent } from './models/table-action';
@@ -42,14 +42,6 @@ export class DynamicTableComponent {
   @Input() title: string = '';
   @Output() onRowClick = new EventEmitter<any>();
 
-  _height: number = 0;
-  get height(): number {
-    return this._height;
-  }
-  @Input() set height(value) {
-    this._height = value;
-    this.validateHeight(window.innerHeight, this.fullscreen);
-  }
   @Output() action = new EventEmitter<TableActionEvent>();
   @Input() disableActions: any;
   //Table config
@@ -74,8 +66,9 @@ export class DynamicTableComponent {
   lastLazyEvent: TableLazyLoadEvent = null;
 
   @ViewChild('dt', { static: true }) dt: Table;
-  @ViewChild('tableWrapper', { static: false })
-  wrapper: ElementRef<HTMLDivElement>;
+  @ViewChild('tableWrapper', { static: false }) wrapper: ElementRef<HTMLDivElement>;
+  header: Element;
+  footer: Element;
 
   @Input() allowFullscreen: boolean = true;
   fullscreen: boolean;
@@ -126,7 +119,7 @@ export class DynamicTableComponent {
     if (!document.fullscreenElement) {
       this.fullscreen = false;
     }
-    this.validateHeight(window.innerHeight, this.fullscreen);
+    this.validateHeight();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -134,26 +127,29 @@ export class DynamicTableComponent {
     if (!document.fullscreenElement && this.fullscreen) {
       this.fullscreen = false;
     }
-    this.validateHeight(event.target.innerHeight, this.fullscreen);
+    this.validateHeight();
   }
 
-  validateHeight(windowHeight: number, fullscreen?: boolean) {
-    const tabViewHeight = this.options?.showConfigButton ? 50 : 0;
-    const paginatorHeight = 60;
-    const captionHeight = 57;
-    const offsetHeight = fullscreen ? 0 : this.height; //Top nav and breadcrumb height plus padding
-    const finalHeight =
-      windowHeight -
-      captionHeight -
-      paginatorHeight -
-      offsetHeight -
-      tabViewHeight;
+  validateHeight() {
+    let availableHeight: number;
+    availableHeight = this.wrapper.nativeElement.offsetHeight;
+    availableHeight-= this.header ? this.header.scrollHeight : 0;
+    availableHeight-= this.footer ? this.footer.scrollHeight : 0;
+    const tabViewHeight = 50;
+    const finalHeight = availableHeight - tabViewHeight;
     const minHeight = 300;
-    this.scrollHeight = `${Math.max(finalHeight, minHeight)}px`;
+    const height = Math.max(finalHeight, minHeight);
+    this.scrollHeight = `${height}px`;
   }
 
   ngOnInit(): void {
     this.initComponent();
+  }
+
+  ngAfterViewInit() {
+    const table: ElementRef<HTMLDivElement> = this.dt.el;
+    this.header = table.nativeElement.getElementsByClassName("p-datatable-header").item(0);
+    this.footer = table.nativeElement.getElementsByClassName("p-paginator").item(0);
   }
 
   ngOnDestroy(): void {
@@ -166,7 +162,7 @@ export class DynamicTableComponent {
     await this.buildTable();
     this.setOptions();
     this.setGlobalFilter();
-    this.validateHeight(window.innerHeight, this.fullscreen);
+    this.validateHeight();
   }
 
   async buildTable() {
@@ -280,8 +276,9 @@ export class DynamicTableComponent {
         });
       }
       this.featuredActions.push({
-        label: 'Guardar filtros',
-        icon: 'pi pi-save',
+        label: '',
+        tooltip: 'Guardar filtros',
+        icon: 'pi pi-filter',
         command: () => {
           this.saveCurrentFilters();
         },

@@ -30,7 +30,6 @@ export class ExpertsComponent {
   configTable: TableConfig;
   tableLocator: string = tableLocators.experts;
   entityForm: AppForm;
-  tableHeightOffset: number = 0;
   onDestroy$: Subject<void> = new Subject();
 
   constructor(

@@ -1,14 +1,14 @@
 <div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
   <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
   <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="handleConfigChange($event)"  (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
-  <p-table [columns]="cols" (onColReorder)="columnReorder($event)"
+  <p-table [columns]="cols" (onColReorder)="columnReorder($event)" [ngStyle]="{ 'height': scrollHeight + 'px'}"
   [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id"
-  [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($event)"
+  [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($event)" paginatorPosition="bottom"
   [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]"
   [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true"
   [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter"
   [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords"
-  styleClass="p-datatable-sm" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($event)">
+  styleClass="p-datatable-sm app-table" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($event)">
   <ng-template pTemplate="caption">
     <div class="table-header">
       <span class="header color-custom">{{title}}</span>
@@ -32,11 +32,11 @@
                 </div>
               </ng-container>
               <ng-template #simpleActionTemplate>
-                <p-button [styleClass]="featuredAction.styleClass" [disabled]="disableActions" [icon]="featuredAction.icon" [label]="featuredAction.label" (onClick)="featuredAction.command({item: featuredAction, originalEvent: $event})"></p-button>
+                <p-button [pTooltip]="featuredAction.tooltip" tooltipPosition="top" [styleClass]="featuredAction.styleClass" [disabled]="disableActions" [icon]="featuredAction.icon" [label]="featuredAction.label" (onClick)="featuredAction.command({item: featuredAction, originalEvent: $event})"></p-button>
               </ng-template>
             </ng-container>
           </ng-container>
-          <p-button *ngIf="allowFullscreen" [pTooltip]="(fullscreen ? 'global.close' : 'global.fullscreen')" (onClick)="setFullscreen()" [icon]="fullscreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></p-button>
+          <p-button *ngIf="allowFullscreen" [pTooltip]="(fullscreen ? 'Cancelar' : 'Pantalla completa')" tooltipPosition="top" (onClick)="setFullscreen()" [icon]="fullscreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></p-button>
         </div>
       </div>
     </ng-template>

@@ -29,7 +29,6 @@ export class ApplicantsComponent {
   tableTitle: string = '';
   configTable: TableConfig;
   tableLocator: string;
-  tableHeightOffset: number = 0;
   onDestroy$: Subject<void> = new Subject();
   announcement: Announcement;
 

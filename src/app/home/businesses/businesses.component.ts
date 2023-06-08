@@ -29,7 +29,6 @@ export class BusinessesComponent {
   configTable: TableConfig;
   tableLocator: string = tableLocators.businesses;
   entityForm: AppForm;
-  tableHeightOffset: number = 0;
   onDestroy$: Subject<void> = new Subject();
 
   constructor(

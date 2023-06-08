@@ -29,7 +29,6 @@ export class InvestorsComponent {
     configTable: TableConfig;
     tableLocator: string = tableLocators.investors;
     entityForm: AppForm;
-    tableHeightOffset: number = 0;
     onDestroy$: Subject<void> = new Subject();
   
     constructor(
