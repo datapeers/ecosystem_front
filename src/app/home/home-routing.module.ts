@@ -22,6 +22,7 @@ import { PhaseHoursConfigComponent } from './phases/phase-hours-config/phase-hou
 import { PhaseEventsComponent } from './phases/phase-events/phase-events.component';
 import { BusinessesComponent } from './businesses/businesses.component';
 import { ApplicantsComponent } from './announcements/applicants/applicants.component';
+import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.component';
 
 const routes: Routes = [
   {
@@ -83,10 +84,10 @@ const routes: Routes = [
               {
                 path: 'applicants',
                 component: ApplicantsComponent,
-              }
-            ]
-          }
-        ]
+              },
+            ],
+          },
+        ],
       },
       {
         // TODO: Add guards or modules if required
@@ -128,6 +129,10 @@ const routes: Routes = [
               {
                 path: 'events',
                 component: PhaseEventsComponent,
+              },
+              {
+                path: 'experts',
+                component: PhaseExpertsComponent,
               },
             ],
           },

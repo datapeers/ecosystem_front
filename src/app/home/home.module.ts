@@ -35,6 +35,7 @@ import { DynamicTableModule } from '@shared/components/dynamic-table/dynamic-tab
 import { ExpertsComponent } from './experts/experts.component';
 import { BusinessesComponent } from './businesses/businesses.component';
 import { ApplicantsComponent } from './announcements/applicants/applicants.component';
+import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { ApplicantsComponent } from './announcements/applicants/applicants.compo
     ExpertsComponent,
 		ApplicantsComponent,
 		BusinessesComponent,
+  PhaseExpertsComponent,
   ],
   imports: [
     CommonModule,

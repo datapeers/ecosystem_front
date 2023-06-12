@@ -13,6 +13,7 @@ import {
   faClipboard,
   faList,
   faCamera,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 @Injectable({
   providedIn: 'root',
@@ -189,6 +190,12 @@ export class PhasesService {
           label: 'Contenidos',
           icon: faList,
           rute: ['phases', phase._id, 'content'],
+          type: 'single',
+        },
+        {
+          label: 'Expertos',
+          rute: ['phases', phase._id, 'experts'],
+          icon: faUsers,
           type: 'single',
         },
         {

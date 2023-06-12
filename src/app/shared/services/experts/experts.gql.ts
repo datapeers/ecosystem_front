@@ -2,10 +2,14 @@ const fragments = {
   expertFields: `
     fragment expertFields on Expert {
       _id
+      phases {
+        _id
+        name
+      }
       item
     }
-  `
-}
+  `,
+};
 
 const query = {
   experts: `
@@ -18,13 +22,11 @@ const query = {
   `,
 };
 
-const mutation = {
-
-};
+const mutation = {};
 
 export const expertQueries = {
   query,
-  mutation
+  mutation,
 };
 
 export default expertQueries;
