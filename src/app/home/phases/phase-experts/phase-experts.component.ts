@@ -104,7 +104,6 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
       return;
     }
     this.entityForm = forms.find(() => true);
-
     this.tableContext = {
       locator: `experts phase ${this.phase._id}`,
       name: 'Expertos',
