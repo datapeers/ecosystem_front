@@ -30,16 +30,34 @@ export class PhaseExpertsService implements DocumentProvider {
     phaseName: string,
     experts: string[]
   ): Promise<UpdateResultPayload> {
-    const queryRef = this.graphql.refQuery(
+    const queryRef = this.graphql.refMutation(
       expertsQueries.mutation.linkToPhase,
       { name: phaseName, phaseId, experts },
-      'no-cache',
+      [],
       { auth: true }
     );
     return firstValueFrom(
       this.graphql
-        .query(queryRef)
+        .mutation(queryRef)
         .pipe(map((request) => request.data.linkPhaseToExperts))
+    );
+  }
+
+  linkStartups(
+    expertId: string,
+    phase: string,
+    startUps: { _id: string; name: string }[]
+  ) {
+    const queryRef = this.graphql.refMutation(
+      expertsQueries.mutation.linkStartups,
+      { expertId, phase, startUps },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(queryRef)
+        .pipe(map((request) => request.data.linkStartupsToExperts))
     );
   }
 }

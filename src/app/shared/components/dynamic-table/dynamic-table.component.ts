@@ -1,4 +1,12 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
@@ -19,7 +27,7 @@ import { TableContext } from './models/table-context';
 @Component({
   selector: 'app-dynamic-table',
   templateUrl: './dynamic-table.component.html',
-  styleUrls: ['./dynamic-table.component.scss']
+  styleUrls: ['./dynamic-table.component.scss'],
 })
 export class DynamicTableComponent {
   @Input() context: TableContext;
@@ -66,7 +74,8 @@ export class DynamicTableComponent {
   lastLazyEvent: TableLazyLoadEvent = null;
 
   @ViewChild('dt', { static: true }) dt: Table;
-  @ViewChild('tableWrapper', { static: false }) wrapper: ElementRef<HTMLDivElement>;
+  @ViewChild('tableWrapper', { static: false })
+  wrapper: ElementRef<HTMLDivElement>;
   header: Element;
   footer: Element;
 
@@ -79,18 +88,16 @@ export class DynamicTableComponent {
   constructor(
     public dialogService: DialogService,
     private readonly service: DynamicTableService,
-    private readonly documentProvider: DocumentProvider,
+    private readonly documentProvider: DocumentProvider
   ) {
-    this.onConfigChange.pipe(
-      filter((config) => config !== null && config !== undefined),
-      takeUntil(this.onDestroy$)
-    )
-    .subscribe((newConfig) => this.handleConfigChange(newConfig));
+    this.onConfigChange
+      .pipe(
+        filter((config) => config !== null && config !== undefined),
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe((newConfig) => this.handleConfigChange(newConfig));
 
-    this.refresh$.pipe(
-      takeUntil(this.onDestroy$)
-    )
-    .subscribe(async () => {
+    this.refresh$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
       this.onConfigChange.next(this.config);
     });
   }
@@ -103,9 +110,7 @@ export class DynamicTableComponent {
     this.cols = columns;
     if (newConfig?.loadEvent) {
       const { filters, sortField, sortOrder } = loadEvent;
-      this.dt.filters = filters
-        ? cloneDeep(filters)
-        : {};
+      this.dt.filters = filters ? cloneDeep(filters) : {};
       this.dt.sortField = sortField ?? '';
       this.dt.sortOrder = sortOrder;
     } else {
@@ -133,8 +138,8 @@ export class DynamicTableComponent {
   validateHeight() {
     let availableHeight: number;
     availableHeight = this.wrapper.nativeElement.offsetHeight;
-    availableHeight-= this.header ? this.header.scrollHeight : 0;
-    availableHeight-= this.footer ? this.footer.scrollHeight : 0;
+    availableHeight -= this.header ? this.header.scrollHeight : 0;
+    availableHeight -= this.footer ? this.footer.scrollHeight : 0;
     const tabViewHeight = 50;
     const finalHeight = availableHeight - tabViewHeight;
     const minHeight = 300;
@@ -148,8 +153,12 @@ export class DynamicTableComponent {
 
   ngAfterViewInit() {
     const table: ElementRef<HTMLDivElement> = this.dt.el;
-    this.header = table.nativeElement.getElementsByClassName("p-datatable-header").item(0);
-    this.footer = table.nativeElement.getElementsByClassName("p-paginator").item(0);
+    this.header = table.nativeElement
+      .getElementsByClassName('p-datatable-header')
+      .item(0);
+    this.footer = table.nativeElement
+      .getElementsByClassName('p-paginator')
+      .item(0);
   }
 
   ngOnDestroy(): void {
@@ -171,15 +180,17 @@ export class DynamicTableComponent {
   }
 
   async initConfiguration() {
-
     this.entity = await this.service.getTable(this.context.locator);
-    if(!this.entity) {
-      this.entity = await this.service.createTable(this.context.locator, this.context.form);
+    if (!this.entity) {
+      this.entity = await this.service.createTable(
+        this.context.locator,
+        this.context.form
+      );
     }
-    this.service.getTableConfigs(this.entity._id)
-      .pipe(
-        takeUntil(this.onDestroy$)
-      ).subscribe((configs) => {
+    this.service
+      .getTableConfigs(this.entity._id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((configs) => {
         this.configs = cloneDeep(configs);
         const defaultConfig = this.configs[0];
         this.onConfigChange.next(defaultConfig);
@@ -202,31 +213,28 @@ export class DynamicTableComponent {
 
   initActionButtons() {
     const actionHandler =
-    (action: any) =>
-    (evt: { item: any; originalEvent: PointerEvent }) => {
-      if (evt.item.type == 'input') {
-        let fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = evt.item.accept;
-        fileInput.addEventListener('change', (fileEvent) => {
-          this.callAction(action.action, this.selected, fileEvent);
-          fileInput.remove();
-        });
-        fileInput.click();
-      } else {
-        this.callAction(action.action, this.selected, evt.originalEvent);
-      }
-    };
+      (action: any) => (evt: { item: any; originalEvent: PointerEvent }) => {
+        if (evt.item.type == 'input') {
+          let fileInput = document.createElement('input');
+          fileInput.type = 'file';
+          fileInput.accept = evt.item.accept;
+          fileInput.addEventListener('change', (fileEvent) => {
+            this.callAction(action.action, this.selected, fileEvent);
+            fileInput.remove();
+          });
+          fileInput.click();
+        } else {
+          this.callAction(action.action, this.selected, evt.originalEvent);
+        }
+      };
     const mappedActions = this.options.actionsTable.map((action) =>
       this.includeCommand(action, actionHandler)
     );
-    this.actionsMenu = mappedActions.filter(
-      (action: any) => !action.featured
-    );
+    this.actionsMenu = mappedActions.filter((action: any) => !action.featured);
     this.featuredActions = mappedActions.filter(
       (action: any) => action.featured
     );
-    if(this.options.showConfigButton) {
+    if (this.options.showConfigButton) {
       this.featuredActions.push({
         label: 'Configurar tabla',
         icon: 'pi pi-cog',
@@ -364,9 +372,12 @@ export class DynamicTableComponent {
       action,
       element,
       event,
+      rawDataTable: this.rawData,
       callbacks: {
-        refresh: () => { this.refresh$.next(); }
-      }
+        refresh: () => {
+          this.refresh$.next();
+        },
+      },
     });
   }
 
@@ -388,12 +399,9 @@ export class DynamicTableComponent {
   }
 
   columnReorder(_) {
-    this.saveConfigChanges(
-      this.config._id,
-      {
-        columns: this.config.columns
-      }
-    );
+    this.saveConfigChanges(this.config._id, {
+      columns: this.config.columns,
+    });
   }
 
   clearFullscreen(): boolean {
@@ -420,12 +428,12 @@ export class DynamicTableComponent {
   }
 
   async createNewConfigForTable(configName: string) {
-    if(!configName) return;
+    if (!configName) return;
     await this.service.createTableConfig(this.entity._id, configName);
   }
 
   async deleteTableConfig(configId: string) {
-    if(!configId) return;
+    if (!configId) return;
     await this.service.deleteTableConfig(this.entity._id, configId);
   }
 
@@ -446,19 +454,20 @@ export class DynamicTableComponent {
       showHeader: true,
     });
     ref.onClose
-      .pipe(
-        take(1),
-        takeUntil(this.onDestroy$)
-      )
+      .pipe(take(1), takeUntil(this.onDestroy$))
       .subscribe(async (config: ITableConfig) => {
         if (config) {
           this.saveConfigChanges(this.config._id, config);
         }
       });
   }
-  
+
   async saveConfigChanges(configId: string, changes: Partial<ITableConfig>) {
-    const updatedConfig = await this.service.updateTableConfig(this.entity._id, configId, changes);
+    const updatedConfig = await this.service.updateTableConfig(
+      this.entity._id,
+      configId,
+      changes
+    );
     this.onConfigChange.next(updatedConfig);
   }
 }

@@ -7,6 +7,10 @@ const fragments = {
       phases {
         _id
         name
+        startUps {
+          _id
+          name
+        }
       }
       item
     }
@@ -40,6 +44,14 @@ const mutation = {
       }
     }
     ${updateResultPayloadFields}
+  `,
+  linkStartups: `
+    mutation LinkStartupsToExperts($expertId: String!, $phase: String!, $startUps: [StartupItem!]) {
+      linkStartupsToExperts(expertId: $expertId, phase: $phase, startUps: $startUps) {
+        ...expertFields
+      }
+    }
+    ${fragments.expertFields}
   `,
 };
 

@@ -15,6 +15,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Phase } from '../model/phase.model';
 import { ExpertsService } from '@shared/services/experts/experts.service';
+import { StartupsService } from '@shared/services/startups/startups.service';
+import { Expert } from '@shared/models/entities/expert';
 
 @Component({
   selector: 'app-phase-experts',
@@ -33,11 +35,17 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<void> = new Subject();
   showAddExpert = false;
   listExperts = [];
-  selectedExperts: [] = [];
+  selectedExperts = [];
   phase: Phase;
+  showAddStartups = false;
+  listStartups = [];
+  selectedStartups = [];
+  selectedExpert = null;
+  titleStartupDialog = '';
   constructor(
     private service: PhaseExpertsService,
     private readonly expertsService: ExpertsService,
+    private readonly startupsService: StartupsService,
     private readonly formService: FormService,
     private readonly toast: ToastService,
     private store: Store<AppState>
@@ -51,7 +59,14 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
       redirect: null,
       selection: true,
       actions_row: 'compress',
-      actionsPerRow: [],
+      actionsPerRow: [
+        {
+          action: 'expert_startup_link',
+          label: `Adjuntar startUp`,
+          icon: 'pi pi-link',
+          featured: true,
+        },
+      ],
       extraColumnsTable: [],
       actionsTable: [
         {
@@ -106,10 +121,11 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
     element,
     event,
     callbacks,
+    rawDataTable,
   }: TableActionEvent) {
     switch (action) {
       case 'link_expert':
-        this.listExperts = (await this.expertsService.getDocuments({})).map(
+        const posibleExperts = (await this.expertsService.getDocuments({})).map(
           (doc) => {
             return {
               _id: doc._id,
@@ -117,7 +133,39 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
             };
           }
         );
+        this.listExperts = [];
+        for (const iterator of posibleExperts) {
+          if (rawDataTable.find((i) => i._id === iterator._id)) continue;
+          this.listExperts.push(iterator);
+        }
         this.showAddExpert = true;
+        break;
+      case 'expert_startup_link':
+        const listStartups = (await this.startupsService.getDocuments({})).map(
+          (doc) => {
+            return {
+              _id: doc._id,
+              name: doc.item.nombre,
+            };
+          }
+        );
+        let startupsWithExpert = new Set();
+        for (const expert of rawDataTable) {
+          const expertPhase = expert['phases'].find(
+            (i) => i._id === this.phase._id
+          );
+
+          for (const iterator of expertPhase.startUps) {
+            startupsWithExpert.add(iterator);
+          }
+        }
+        for (const iterator of listStartups) {
+          if (startupsWithExpert.has(iterator._id)) continue;
+          this.listStartups.push(iterator);
+        }
+        this.selectedExpert = element;
+        this.titleStartupDialog = `Agregar startups para ${element['item, nombre']}`;
+        this.showAddStartups = true;
         break;
     }
   }
@@ -144,5 +192,37 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   resetExpertsDialog() {
     this.selectedExperts = [];
     this.showAddExpert = false;
+  }
+
+  addExpertStartupPhase() {
+    this.toast.info({ summary: 'Agregando...', detail: '' });
+    // const expertPhase = this.selectedExpert['phases'].find(
+    //   (i) => i._id === this.phase._id
+    // );
+    this.service
+      .linkStartups(
+        this.selectedExpert._id,
+        this.phase._id,
+        this.selectedStartups
+      )
+      .then((ans) => {
+        this.toast.clear();
+        this.resetStartupsExpertDialog();
+      })
+      .catch((err) => {
+        console.warn(err);
+        this.resetExpertsDialog;
+        this.toast.clear();
+        this.toast.error({
+          summary: 'Error al intentar vincular startups a experto',
+          detail: err,
+        });
+      });
+  }
+
+  resetStartupsExpertDialog() {
+    this.selectedStartups = [];
+    this.showAddStartups = false;
+    this.selectedExpert = null;
   }
 }
