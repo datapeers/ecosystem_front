@@ -154,17 +154,16 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
           const expertPhase = expert['phases'].find(
             (i) => i._id === this.phase._id
           );
-
           for (const iterator of expertPhase.startUps) {
-            startupsWithExpert.add(iterator);
+            startupsWithExpert.add(iterator._id);
           }
         }
         for (const iterator of listStartups) {
           if (startupsWithExpert.has(iterator._id)) continue;
           this.listStartups.push(iterator);
         }
-        this.selectedExpert = element;
-        this.titleStartupDialog = `Agregar startups para ${element['item, nombre']}`;
+        this.selectedExpert = rawDataTable.find((i) => i._id === element._id);
+        this.titleStartupDialog = `Agregar startups para ${this.selectedExpert['item']['nombre']}`;
         this.showAddStartups = true;
         break;
     }
@@ -196,15 +195,14 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
 
   addExpertStartupPhase() {
     this.toast.info({ summary: 'Agregando...', detail: '' });
-    // const expertPhase = this.selectedExpert['phases'].find(
-    //   (i) => i._id === this.phase._id
-    // );
+    const expertPhase = this.selectedExpert['phases'].find(
+      (i) => i._id === this.phase._id
+    );
     this.service
-      .linkStartups(
-        this.selectedExpert._id,
-        this.phase._id,
-        this.selectedStartups
-      )
+      .linkStartups(this.selectedExpert._id, this.phase._id, [
+        ...expertPhase.startUps.map(({ __typename, ...rest }) => rest),
+        ...this.selectedStartups,
+      ])
       .then((ans) => {
         this.toast.clear();
         this.resetStartupsExpertDialog();
