@@ -36,6 +36,7 @@ import { ExpertsComponent } from './experts/experts.component';
 import { BusinessesComponent } from './businesses/businesses.component';
 import { ApplicantsComponent } from './announcements/applicants/applicants.component';
 import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.component';
+import { PhaseStartupsComponent } from './phases/phase-startups/phase-startups.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.comp
 		ApplicantsComponent,
 		BusinessesComponent,
   PhaseExpertsComponent,
+  PhaseStartupsComponent,
   ],
   imports: [
     CommonModule,

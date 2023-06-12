@@ -1,28 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
-import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
 import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
-import { FormCollections } from '@shared/form/enums/form-collections';
-import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
+import { Subject, firstValueFrom, first } from 'rxjs';
+import { Phase } from '../model/phase.model';
+import { PhaseStartupsService } from './phase-startups.service';
+import { StartupsService } from '@shared/services/startups/startups.service';
+import { FormService } from '@shared/form/form.service';
 import { ToastService } from '@shared/services/toast.service';
-import { Subject, first, firstValueFrom } from 'rxjs';
-import { PhaseExpertsService } from './phase-experts.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import { Phase } from '../model/phase.model';
-import { ExpertsService } from '@shared/services/experts/experts.service';
+import { FormCollections } from '@shared/form/enums/form-collections';
+import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
+import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 
 @Component({
-  selector: 'app-phase-experts',
-  templateUrl: './phase-experts.component.html',
-  styleUrls: ['./phase-experts.component.scss'],
-  providers: [{ provide: DocumentProvider, useExisting: PhaseExpertsService }],
+  selector: 'app-phase-startups',
+  templateUrl: './phase-startups.component.html',
+  styleUrls: ['./phase-startups.component.scss'],
+  providers: [{ provide: DocumentProvider, useExisting: PhaseStartupsService }],
 })
-export class PhaseExpertsComponent implements OnInit, OnDestroy {
+export class PhaseStartupsComponent implements OnInit, OnDestroy {
   optionsTable: TableOptions;
   dynamicTable: DynamicTable;
   tableContext: TableContext;
@@ -31,13 +31,13 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   configTable: TableConfig;
   entityForm: AppForm;
   onDestroy$: Subject<void> = new Subject();
-  showAddExpert = false;
-  listExperts = [];
-  selectedExperts: [] = [];
+  showAddStartups = false;
+  listStartups = [];
+  selectedStartups: [] = [];
   phase: Phase;
   constructor(
-    private service: PhaseExpertsService,
-    private readonly expertsService: ExpertsService,
+    private service: PhaseStartupsService,
+    private readonly startupsService: StartupsService,
     private readonly formService: FormService,
     private readonly toast: ToastService,
     private store: Store<AppState>
@@ -46,7 +46,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
       save: true,
       download: false,
       details: true,
-      summary: 'Expertos',
+      summary: 'StartUps',
       showConfigButton: true,
       redirect: null,
       selection: true,
@@ -55,8 +55,8 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
       extraColumnsTable: [],
       actionsTable: [
         {
-          action: 'link_expert',
-          label: `Añadir experto`,
+          action: 'link_startup',
+          label: `Añadir startUp`,
           icon: 'pi pi-plus',
           featured: true,
         },
@@ -79,11 +79,11 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
-    this.optionsTable.summary = 'Expertos';
-    this.tableTitle = 'Expertos';
+    this.optionsTable.summary = 'StartUps';
+    this.tableTitle = 'StartUps';
     this.loading = true;
     const forms = await this.formService.getFormByCollection(
-      FormCollections.experts
+      FormCollections.startups
     );
     if (!forms.length) {
       return;
@@ -91,8 +91,8 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
     this.entityForm = forms.find(() => true);
 
     this.tableContext = {
-      locator: `experts phase ${this.phase._id}`,
-      name: 'Expertos',
+      locator: `startups phase ${this.phase._id}`,
+      name: 'StartUps',
       form: this.entityForm._id,
       data: {
         phase: this.phase._id,
@@ -108,8 +108,8 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
     callbacks,
   }: TableActionEvent) {
     switch (action) {
-      case 'link_expert':
-        this.listExperts = (await this.expertsService.getDocuments({})).map(
+      case 'link_startup':
+        this.listStartups = (await this.startupsService.getDocuments({})).map(
           (doc) => {
             return {
               _id: doc._id,
@@ -117,32 +117,36 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
             };
           }
         );
-        this.showAddExpert = true;
+        this.showAddStartups = true;
         break;
     }
   }
 
-  addExpertPhase() {
+  addStartUpPhase() {
     this.toast.info({ summary: 'Agregando...', detail: '' });
     this.service
-      .linkExpertToBatch(this.phase._id, this.phase.name, this.selectedExperts)
+      .linkStartupToBatch(
+        this.phase._id,
+        this.phase.name,
+        this.selectedStartups
+      )
       .then((ans) => {
         this.toast.clear();
-        this.resetExpertsDialog();
+        this.resetStartupsDialog();
       })
       .catch((err) => {
         console.warn(err);
-        this.resetExpertsDialog;
+        this.resetStartupsDialog();
         this.toast.clear();
         this.toast.error({
-          summary: 'Error al intentar vincular expertos',
+          summary: 'Error al intentar vincular startup',
           detail: err,
         });
       });
   }
 
-  resetExpertsDialog() {
-    this.selectedExperts = [];
-    this.showAddExpert = false;
+  resetStartupsDialog() {
+    this.selectedStartups = [];
+    this.showAddStartups = false;
   }
 }

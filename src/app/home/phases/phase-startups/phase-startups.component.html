@@ -1,0 +1,14 @@
+<div class="flex px-4 py-3 h-full w-full">
+    <ng-container *ngIf="tableContext">
+        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)">
+        </app-dynamic-table>
+    </ng-container>
+</div>
+
+<p-dialog header="Agregar StartUps" [(visible)]="showAddStartups" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="resetStartupsDialog()">
+    <div class="card flex justify-content-center w-full">
+        <p-multiSelect display="chip" appendTo="body" [options]="listStartups" [(ngModel)]="selectedStartups" optionLabel="name" optionValue="_id" [style]="{ width: '100%', height: 'auto' }" [style]="{ width: '100%', height: 'auto' }" placeholder="Seleccione startups"></p-multiSelect>
+    </div>
+    <div style="height: 1rem;"></div>
+    <p-button type="submit" label="Agregar" (onClick)="addStartUpPhase()" styleClass="p-button-lg w-full border-round-2xl my-1 p-2 bg-primary"></p-button>
+</p-dialog>

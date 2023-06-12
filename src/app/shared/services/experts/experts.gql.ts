@@ -1,3 +1,5 @@
+import { updateResultPayloadFields } from '@shared/models/graphql/update-result-payload';
+
 const fragments = {
   expertFields: `
     fragment expertFields on Expert {
@@ -20,9 +22,26 @@ const query = {
     }
     ${fragments.expertFields}
   `,
+  expertsPhase: `
+    query ExpertsPhase($phase: String!) {
+      expertsPhase(phase: $phase) {
+        ...expertFields
+      }
+    }
+    ${fragments.expertFields}
+  `,
 };
 
-const mutation = {};
+const mutation = {
+  linkToPhase: `
+    mutation LinkPhaseToExperts($experts: [String!]!, $name: String!, $phaseId: String!) {
+      linkPhaseToExperts(experts: $experts, name: $name, phaseId: $phaseId) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
+};
 
 export const expertQueries = {
   query,

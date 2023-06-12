@@ -52,6 +52,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
+
     this.watchContent$ = (
       await this.service.watchContents(this.phase._id)
     ).subscribe((i) => {

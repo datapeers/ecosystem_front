@@ -193,6 +193,12 @@ export class PhasesService {
           type: 'single',
         },
         {
+          label: 'StartUps',
+          rute: ['phases', phase._id, 'startups'],
+          icon: faUsers,
+          type: 'single',
+        },
+        {
           label: 'Expertos',
           rute: ['phases', phase._id, 'experts'],
           icon: faUsers,
