@@ -35,6 +35,7 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
   listStartups = [];
   selectedStartups: [] = [];
   phase: Phase;
+  callbackTable;
   constructor(
     private service: PhaseStartupsService,
     private readonly startupsService: StartupsService,
@@ -117,6 +118,7 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
             };
           }
         );
+        this.callbackTable = callbacks;
         this.showAddStartups = true;
         break;
     }
@@ -132,6 +134,7 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
       )
       .then((ans) => {
         this.toast.clear();
+        this.callbackTable.refresh();
         this.resetStartupsDialog();
       })
       .catch((err) => {
@@ -148,5 +151,6 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
   resetStartupsDialog() {
     this.selectedStartups = [];
     this.showAddStartups = false;
+    this.callbackTable = undefined;
   }
 }
