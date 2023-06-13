@@ -53,3 +53,15 @@ export class TypeEvent implements ITypeEvent {
     };
   }
 }
+
+export interface IEvent {
+  _id: string;
+  name: string;
+  extra_options: any;
+  isDeleted: boolean;
+  type: string;
+  startAt: Date;
+  endAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}

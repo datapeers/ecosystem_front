@@ -19,6 +19,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   clonedTypesEvents: { [s: string]: TypeEvent } = {};
   typesEvent$: Subscription;
+
+  showCreatorEvent = false;
   constructor(
     private readonly toast: ToastService,
     private service: PhaseEventsService,
@@ -141,5 +143,10 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
           });
       },
     });
+  }
+
+  resetCreatorEvent() {
+    this.showCreatorEvent = false;
+    this.newTypeEvent = TypeEvent.newEventType();
   }
 }

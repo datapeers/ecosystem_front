@@ -42,6 +42,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   selectedStartups = [];
   selectedExpert = null;
   titleStartupDialog = '';
+  callbackTable;
   constructor(
     private service: PhaseExpertsService,
     private readonly expertsService: ExpertsService,
@@ -137,6 +138,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
           if (rawDataTable.find((i) => i._id === iterator._id)) continue;
           this.listExperts.push(iterator);
         }
+        this.callbackTable = callbacks;
         this.showAddExpert = true;
         break;
       case 'expert_startup_link':
@@ -163,6 +165,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         }
         this.selectedExpert = rawDataTable.find((i) => i._id === element._id);
         this.titleStartupDialog = `Agregar startups para ${this.selectedExpert['item']['nombre']}`;
+        this.callbackTable = callbacks;
         this.showAddStartups = true;
         break;
     }
@@ -174,6 +177,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
       .linkExpertToBatch(this.phase._id, this.phase.name, this.selectedExperts)
       .then((ans) => {
         this.toast.clear();
+        this.callbackTable.refresh();
         this.resetExpertsDialog();
       })
       .catch((err) => {
@@ -190,6 +194,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   resetExpertsDialog() {
     this.selectedExperts = [];
     this.showAddExpert = false;
+    this.callbackTable = undefined;
   }
 
   addExpertStartupPhase() {
@@ -204,6 +209,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
       ])
       .then((ans) => {
         this.toast.clear();
+        this.callbackTable.refresh();
         this.resetStartupsExpertDialog();
       })
       .catch((err) => {
@@ -221,5 +227,6 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
     this.selectedStartups = [];
     this.showAddStartups = false;
     this.selectedExpert = null;
+    this.callbackTable = undefined;
   }
 }

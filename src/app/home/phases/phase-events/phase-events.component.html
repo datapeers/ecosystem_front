@@ -5,6 +5,7 @@
             <div class="flex flex-row gap-2">
                 <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
                 <p-button label="Tipos de eventos" icon="pi pi-tags" (onClick)="openTypes()"></p-button>
+                <p-button label="Evento" icon="pi pi-plus" (onClick)="openTypes()"></p-button>
             </div>
         </div>
     </div>
@@ -84,5 +85,15 @@
     </div>
 </p-dialog>
 
+
+<p-dialog header="Crear evento" [(visible)]="showCreatorEvent" [style]="{ width: '50vw', height: '30vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEvent()">
+    <div class="flex flex-column gap-2 py-2">
+        <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Nombre" required>
+        <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_acta" label="Permite acta" inputId="allowActa"></p-checkbox>
+        <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_files" label="Permite archivos" inputId="allowFiles"></p-checkbox>
+        <div style="height: 1rem;"></div>
+        <p-button type="submit" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </div>
+</p-dialog>
 
 <p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>
