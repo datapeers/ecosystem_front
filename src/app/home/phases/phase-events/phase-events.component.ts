@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseEventsService } from './phase-events.service';
-import { TypeEvent } from '../model/events.model';
+import { Event, TypeEvent } from '../model/events.model';
 import { cloneDeep } from '@apollo/client/utilities';
-import { Subscription } from 'rxjs';
+import { Subscription, first, firstValueFrom } from 'rxjs';
 import { ConfirmationService } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
+import { Phase } from '../model/phase.model';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -20,8 +23,15 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   clonedTypesEvents: { [s: string]: TypeEvent } = {};
   typesEvent$: Subscription;
 
+  phase: Phase;
   showCreatorEvent = false;
+  newEvent = Event.newEvent();
+  stateOptionsAssistant: any[] = [
+    { label: 'Presencial', value: 'onsite' },
+    { label: 'Virtual', value: 'virtual' },
+  ];
   constructor(
+    private store: Store<AppState>,
     private readonly toast: ToastService,
     private service: PhaseEventsService,
     private confirmationService: ConfirmationService
@@ -35,7 +45,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     this.typesEvent$?.unsubscribe();
   }
 
-  loadComponent() {
+  async loadComponent() {
     this.loaded = true;
     this.service
       .watchTypesEvents()
@@ -57,10 +67,11 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
         this.typesEvents = [];
       });
-  }
-
-  openTypes() {
-    this.showTypes = true;
+    this.phase = await firstValueFrom(
+      this.store
+        .select((store) => store.phase.phase)
+        .pipe(first((i) => i !== null))
+    );
   }
 
   resetCreatorEventType() {
@@ -147,6 +158,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   resetCreatorEvent() {
     this.showCreatorEvent = false;
-    this.newTypeEvent = TypeEvent.newEventType();
+    this.newEvent = Event.newEvent();
   }
 }
