@@ -8,10 +8,11 @@ import announcementQueries from './announcements.gql';
 import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AnnouncementsCreatorComponent } from './announcements-creator/announcements-creator.component';
-import { faClipboard, faFile, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faFile, faUserCheck, faUserTie, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { CreateAnnouncementInput } from './model/create-announcement.input';
 import { AnnouncementTypes } from './model/announcement-types.enum';
 import { UpdateAnnouncementInput } from './model/update-announcement.input';
+import { ApplicationStates } from './model/application-states.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -182,9 +183,21 @@ export class AnnouncementsService {
         },
         {
           label: 'Preinscritos',
-          rute: ['announcements', announcement._id, 'applicants'],
+          rute: ['announcements', announcement._id, 'applicants', ApplicationStates.enrolled],
           type: 'single',
-          icon: faFile,
+          icon: faUsers,
+        },
+        {
+          label: 'Inscritos',
+          rute: ['announcements', announcement._id, 'applicants', ApplicationStates.preregistered],
+          type: 'single',
+          icon: faUserTie,
+        },
+        {
+          label: 'Seleccionados',
+          rute: ['announcements', announcement._id, 'applicants', ApplicationStates.selected],
+          type: 'single',
+          icon: faUserCheck,
         },
       ],
     };

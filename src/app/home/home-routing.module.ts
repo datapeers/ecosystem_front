@@ -83,7 +83,7 @@ const routes: Routes = [
                 component: AnnouncementEditComponent,
               },
               {
-                path: 'applicants',
+                path: 'applicants/:state',
                 component: ApplicantsComponent,
               },
             ],

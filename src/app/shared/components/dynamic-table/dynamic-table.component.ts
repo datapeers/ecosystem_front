@@ -10,7 +10,7 @@ import {
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { Subject, filter, fromEvent, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, filter, fromEvent, take, takeUntil } from 'rxjs';
 import { DynamicTableService } from './dynamic-table.service';
 import { TableExportFormats } from './models/table-export-formats.enum';
 import { TableAction, TableActionEvent } from './models/table-action';
@@ -30,7 +30,13 @@ import { TableContext } from './models/table-context';
   styleUrls: ['./dynamic-table.component.scss'],
 })
 export class DynamicTableComponent {
-  @Input() context: TableContext;
+  @Input() set context(value: TableContext) {
+    this.onContextChange.next(value);
+  };
+  get context(): TableContext {
+    return this.onContextChange.getValue();
+  }
+  onContextChange = new BehaviorSubject<TableContext>(null);
   @Input() options: TableOptions;
   entity: DynamicTable;
   configs: TableConfig[];
@@ -148,7 +154,12 @@ export class DynamicTableComponent {
   }
 
   ngOnInit(): void {
-    this.initComponent();
+    this.onContextChange.pipe(
+      takeUntil(this.onDestroy$),
+      filter(context => context != null)
+    ).subscribe((_) => {
+      this.initComponent();
+    });
   }
 
   ngAfterViewInit() {

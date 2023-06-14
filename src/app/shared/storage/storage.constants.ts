@@ -3,3 +3,8 @@ export enum StoragePaths {
   contentImages = 'content/images',
   announcementThumbnails = "announcements/thumbnail"
 }
+
+export const resolveStorage = {
+  applicantFiles: (announcementId: string, applicantId: string) =>
+    `announcements/${announcementId}/applicants/${applicantId}/files`,
+}

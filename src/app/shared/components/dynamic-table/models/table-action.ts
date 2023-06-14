@@ -8,9 +8,9 @@ export interface TableAction extends MenuItem {
   rawDataTable?: any[];
 }
 
-export interface TableActionEvent<TAction = string> {
-  action: string;
-  element: any;
+export interface TableActionEvent<TElement = any, TAction = string> {
+  action: TAction;
+  element: TElement;
   event: Event;
   callbacks: CallbacksTable;
   rawDataTable?: any[];
