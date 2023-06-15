@@ -8,6 +8,98 @@
                 <p-button label="Evento" icon="pi pi-plus" (onClick)="showCreatorEvent = true"></p-button>
             </div>
         </div>
+        <p-table #dt id="dt" [value]="events" dataKey="_id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [loading]="!loaded" [paginator]="true">
+            <ng-template pTemplate="header">
+            </ng-template>
+            <ng-template pTemplate="body" let-event>
+                <div class="card shadow-4 my-2 p-2 border-round">
+                    <div class="flex flex-row flex-wrap card-container blue-container justify-content-center">
+                        <div class="flex flex-none align-items-center justify-content-center">
+                            <div class="flex align-items-center justify-content-center">
+                                <div class="p-0 align-items-center justify-content-center">
+                                    <div class="cursor-pointer flex flex-column align-items-center justify-content-center border-round shadow-2 m-2" pTooltip=" video" tooltipPosition="top">
+                                        <img src='/assets/noPic.jpg' alt="" class="border-round" style="height: 225px; width: 400px; object-fit: contain;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
+                            <div class="flex flex-column align-items-center justify-content-start w-full h-full">
+                                <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
+                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.item.nombre}}</span>
+                                </div>
+                                <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
+                                    <div class="flex flex-column w-full">
+                                        <span class="text-gray-600 font-semibold">Participación</span>
+                                        <div class="flex align-items-center my-1">
+                                            <span class="text-gray-600 text-base mr-2">
+                                                0
+                                            </span>
+                                            <p-button styleClass="p-button-text" icon="pi pi-eye"></p-button>
+                                        </div>
+                                    </div>
+                                    <div class="flex align-items-center w-full my-1">
+                                        <i class="pi pi-video text-base"></i>
+                                        <span class="text-base ml-2">
+                                            0
+                                        </span>
+                                    </div>
+                                    <div class="flex align-items-center w-full my-1">
+                                        <i class="pi pi-user text-base"></i>
+                                        <span class="text-base ml-2">
+                                            {{'Tipo de evento: '}}
+                                        </span>
+                                    </div>
+                                    <div class="flex align-items-center w-full my-1">
+                                        <i class="pi pi-calendar text-base"></i>
+                                        <span class="text-base ml-2">
+                                            {{event.objectRef.item.startAt | date:'yyyy MMM dd - hh:mm aa'}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex align-items-end justify-content-center p-2">
+                            <div class="flex flex-row justify-content-end align-items-end">
+                                <ng-container *ngIf="event.objectRef.item.asistencia=='Virtual'">
+                                    <div class="flex flex-row">
+                                        <p-button class="mx-1" type="button" icon="pi pi-external-link" label="" pTooltip="website" tooltipPosition="top">
+                                        </p-button>
+                                        <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top">
+                                        </p-button>
+                                    </div>
+                                </ng-container>
+                                <div class="flex flex-row">
+                                    <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="QR" tooltipPosition="top">
+                                    </p-button>
+                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
+                                                            pTooltip="Notas" tooltipPosition="top"
+                                                            (click)="notesDisplay = true">
+                                                        </p-button> -->
+                                    <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
+                                    </p-button>
+                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="MModificar" tooltipPosition="top">
+                                    </p-button>
+                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top">
+                                    </p-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <div class="card shadow-4 my-2 p-2" style="min-width: 200px;">
+                    <div class="flex flex-column card-container align-items-center justify-content-center">
+                        <div class="flex align-items-center justify-content-center" style="min-height: 100px;">
+                            <h2>Rasfra</h2>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-table>
     </div>
 </ng-container>
 <ng-template #loadingTemplate>
@@ -74,7 +166,6 @@
     </p-table>
 </p-dialog>
 
-
 <p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '30vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()">
     <div class="flex flex-column gap-2 py-2">
         <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Nombre" required>
@@ -85,11 +176,27 @@
     </div>
 </p-dialog>
 
-
 <p-dialog header="Crear evento" [(visible)]="showCreatorEvent" [style]="{ width: '80vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEvent()">
-    <div class="formgrid grid">
+    <div class="flex gap-2">
+        <div class="field">
+            <label for="assistantType">Tipo de asistencia</label>
+            <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" [(ngModel)]="newEvent.extra_options.assistant" class="inputfield mt-2"></p-selectButton>
+        </div>
+        <div class="field pt-4 pl-2" *ngIf="newEvent.extra_options.assistant === 'virtual'">
+            <div class="flex">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-link"></i>
+                </span>
+                <span class="p-float-label" style="width: 100%">
+                    <input pInputText type="text" [(ngModel)]="newEvent.extra_options.url" placeholder="Url" required>
+                    <label for="url">Url</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="formgrid grid pt-2">
         <div style="height: 1rem;"></div>
-        <div class="field col-12 md:col-6 pt-4">
+        <div class="field col-12 md:col-6">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
                     <i class="pi pi-id-card"></i>
@@ -101,13 +208,13 @@
             </div>
         </div>
 
-        <div class="field col-12 md:col-6 pt-4">
+        <div class="field col-12 md:col-6">
             <div class="flex">
                 <span class="p-inputgroup-addon">
                     <i class="pi pi-list"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type">
+                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type" (onChange)="selectionType($event.value)">
                     </p-dropdown>
                     <label for="typeEvent">Tipo Evento</label>
                 </span>
@@ -138,9 +245,23 @@
             </div>
         </div>
 
+        <div class="field col-12 md:col-12">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-align-left"></i>
+                </span>
+                <span class="p-float-label">
+                    <textarea id="descEvent" rows="4" style="width: 100%;" [(ngModel)]="newEvent.extra_options.description" pInputTextarea></textarea>
+                    <label for="descEvent">Descripción</label>
+                </span>
+            </div>
+        </div>
+
+
         <div style="height: 1rem;"></div>
-        <p-button type="submit" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+
     </div>
+    <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="newEvent.type === ''" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
 </p-dialog>
 
 <p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

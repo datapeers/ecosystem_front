@@ -30,6 +30,9 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     { label: 'Presencial', value: 'onsite' },
     { label: 'Virtual', value: 'virtual' },
   ];
+
+  events$: Subscription;
+  events: Event[];
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -72,6 +75,22 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
+    this.service
+      .watchEvents()
+      .then((events$) => {
+        this.events$ = events$.subscribe((eventList: Event[]) => {
+          this.events = eventList;
+          console.log(this.events);
+        });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar eventos',
+          detail: err,
+          life: 12000,
+        });
+        this.typesEvents = [];
+      });
   }
 
   resetCreatorEventType() {
@@ -156,8 +175,33 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     });
   }
 
+  selectionType(selected) {
+    console.log(selected);
+  }
+
   resetCreatorEvent() {
     this.showCreatorEvent = false;
     this.newEvent = Event.newEvent();
+  }
+
+  createEvent() {
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.newEvent.phase = this.phase._id;
+    this.service
+      .createEvent(this.newEvent)
+      .then((ans) => {
+        this.toast.clear();
+        console.log(ans);
+        this.resetCreatorEvent();
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al crear evento',
+          detail: err,
+          life: 12000,
+        });
+        this.resetCreatorEvent();
+      });
   }
 }
