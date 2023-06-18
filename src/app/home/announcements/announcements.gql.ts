@@ -9,6 +9,7 @@ const fragments = {
       published
       emailMessage
       type
+      target
       redirectLink
       exitText
       startAt
@@ -31,6 +32,7 @@ const fragments = {
       }
       emailMessage
       type
+      target
       redirectLink
       exitText
       startAt

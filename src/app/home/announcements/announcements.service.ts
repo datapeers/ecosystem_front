@@ -8,11 +8,12 @@ import announcementQueries from './announcements.gql';
 import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AnnouncementsCreatorComponent } from './announcements-creator/announcements-creator.component';
-import { faClipboard, faFile, faUserCheck, faUserTie, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faUserCheck, faUserTie, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { CreateAnnouncementInput } from './model/create-announcement.input';
 import { AnnouncementTypes } from './model/announcement-types.enum';
 import { UpdateAnnouncementInput } from './model/update-announcement.input';
 import { ApplicationStates } from './model/application-states.enum';
+import { AnnouncementTargets } from './model/announcement-targets.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -129,13 +130,14 @@ export class AnnouncementsService {
     );
   }
 
-  openCreateAnnouncement(type: AnnouncementTypes): Observable<any> {
+  openCreateAnnouncement(type: AnnouncementTypes, target: AnnouncementTargets = AnnouncementTargets.entrepreneurs): Observable<any> {
     const ref = this.dialogService.open(AnnouncementsCreatorComponent, {
       modal: true,
       width: '95%',
       height: '100vh',
       data: {
         type,
+        target,
       },
       header: "Creación de convocatoria",
       showHeader: true,

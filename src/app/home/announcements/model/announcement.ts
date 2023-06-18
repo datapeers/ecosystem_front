@@ -1,5 +1,6 @@
 import { IForm } from "@shared/form/models/form";
 import { AnnouncementTypes, announcementTypeNames } from "./announcement-types.enum";
+import { AnnouncementTargets } from "./announcement-targets.enum";
 
 export interface IAnnouncement {
   _id: string;
@@ -38,6 +39,7 @@ export class Announcement implements IAnnouncement {
   endAt: Date;
   published: boolean;
   type: AnnouncementTypes;
+  target: AnnouncementTargets;
   createdBy: string;
   updatedBy: string;
   deletedBy: string;

@@ -7,6 +7,7 @@ import { FormService } from '@shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { AnnouncementTypes, announcementTypes } from '../model/announcement-types.enum';
 import { CustomValidators } from '@shared/forms/custom-validators';
+import { AnnouncementTargets } from '../model/announcement-targets.enum';
 
 @Component({
   selector: 'app-announcements-creator',
@@ -19,6 +20,7 @@ export class AnnouncementsCreatorComponent implements OnInit, OnDestroy {
     description: new FormControl<string>('', { validators: [Validators.required, Validators.maxLength(120)] }),
     form: new FormControl<string>('', Validators.required),
     type: new FormControl<AnnouncementTypes>(null, { validators: [Validators.required] }),
+    target: new FormControl<AnnouncementTargets>(null, { validators: [Validators.required] }),
     startAt: new FormControl<Date>(new Date(), Validators.required),
     endAt: new FormControl<Date>(new Date(), Validators.required),
   }, { validators: [ CustomValidators.dateRangeValidator("startAt", "endAt") ] });
@@ -35,8 +37,10 @@ export class AnnouncementsCreatorComponent implements OnInit, OnDestroy {
     private readonly formService: FormService,
   ) {
     const type: AnnouncementTypes = this.config.data.type;
+    const target: AnnouncementTargets = this.config.data.target;
     this.announcementCreationForm.patchValue({
       type: type,
+      target: target,
     });
   }
 

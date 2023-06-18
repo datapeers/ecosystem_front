@@ -3,8 +3,12 @@
     <div class="flex justify-content-between flex-wrap gap-2 align-items-center w-full mb-3">
       <span id="home-section-header" class="text-white"></span>
       <div class="flex flex-row flex-wrap gap-2 justify-content-center">
-        <p-button type="button" label="Crear Convocatoria" icon="pi pi-plus" (onClick)="createOpenAnnouncement()"></p-button>
-        <p-button type="button" label="Crear Reto" icon="pi pi-plus" (onClick)="createChallenge()"></p-button>
+        <div class="flex flex-row gap-2 justify-content-center w-full">
+          <p-button type="button" label="Crear Convocatoria" icon="pi pi-plus" (onClick)="openMenu.toggle($event)"></p-button>
+          <p-tieredMenu appendTo="body" #openMenu [model]="createOpenActions" [popup]="true"></p-tieredMenu>
+          <p-button type="button" label="Crear Reto" icon="pi pi-plus" (onClick)="challengeMenu.toggle($event)"></p-button>
+          <p-tieredMenu appendTo="body" #challengeMenu [model]="createChallengeActions" [popup]="true"></p-tieredMenu>
+        </div>
       </div>
     </div>
     <p-dataView class="app-dataview" #dv [value]="announcements" [paginator]="false" filterBy="name" layout="grid">
@@ -33,10 +37,6 @@
       <ng-template pTemplate="empty">
         <div class="flex flex-column gap-2 w-full align-items-center">
           <h2>Sin resultados</h2>
-          <div class="flex flex-row gap-2 justify-content-center w-full">
-            <p-button type="button" label="Crear Convocatoria" icon="pi pi-plus" (onClick)="createOpenAnnouncement()"></p-button>
-            <p-button type="button" label="Crear Reto" icon="pi pi-plus" (onClick)="createChallenge()"></p-button>
-          </div>
         </div>
       </ng-template>
     </p-dataView>

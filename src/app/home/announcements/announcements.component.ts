@@ -4,6 +4,8 @@ import { AnnouncementsService } from './announcements.service';
 import { Announcement } from './model/announcement';
 import { Router } from '@angular/router';
 import { AnnouncementTypes } from './model/announcement-types.enum';
+import { AnnouncementTargets, announcementTargetNames } from './model/announcement-targets.enum';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-announcements',
@@ -14,7 +16,22 @@ export class AnnouncementsComponent {
   onDestroy$: Subject<void> = new Subject();
   loading: boolean = true;
   announcements: Announcement[];
-
+  createOpenActions: MenuItem[] = [
+    {
+      label: announcementTargetNames.entrepreneurs,
+      command: () => { this.createAnnouncement(AnnouncementTypes.open, AnnouncementTargets.entrepreneurs); }
+    },
+    {
+      label: announcementTargetNames.experts,
+      command: () => { this.createAnnouncement(AnnouncementTypes.open, AnnouncementTargets.experts); }
+    }
+  ];
+  createChallengeActions: MenuItem[] = [
+    {
+      label: announcementTargetNames.entrepreneurs,
+      command: () => { this.createAnnouncement(AnnouncementTypes.challenge, AnnouncementTargets.entrepreneurs); }
+    }
+  ];
   cardActions = [
     {
       label: "Gestionar",
@@ -43,12 +60,8 @@ export class AnnouncementsComponent {
     this.onDestroy$.complete();
   }
 
-  async createOpenAnnouncement() {
-    this.announcementsService.openCreateAnnouncement(AnnouncementTypes.open);
-  }
-
-  async createChallenge() {
-    this.announcementsService.openCreateAnnouncement(AnnouncementTypes.challenge);
+  async createAnnouncement(type: AnnouncementTypes, target: AnnouncementTargets) {
+    this.announcementsService.openCreateAnnouncement(type, target);
   }
 
   navigateToEdit(id: string) {
