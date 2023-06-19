@@ -18,20 +18,43 @@
             </button>
           </ng-container>
           <ng-container *ngSwitchCase="applicantStates.withExpert">
-            <button pButton icon="pi pi-plus-circle" label="Finalizar registro" class="p-button-lg" (click)="openAnnouncementForm()">
+            <button pButton icon="pi pi-check" label="Finalizar registro" class="p-button-lg" (click)="openAnnouncementForm()">
             </button>
           </ng-container>
           <ng-container *ngSwitchCase="applicantStates.withEntrepreneur">
-            <div class="flex flex-row flex-wrap gap-2">
-              <button pButton icon="pi pi-plus-circle" label="Registrar empresa" class="p-button-lg p-button-outlined" (click)="addBusiness()">
-              </button>
-              <button pButton icon="pi pi-arrow-right" label="Continuar" class="p-button-lg" (click)="addStartup()">
-              </button>
-            </div>
+            <p-dialog [visible]="true" header="Registro de empresas">
+              <div class="flex flex-column">
+                <p>¿Posees alguna empresa? Puedes agregarla ahora o continuar con el registro.</p>
+                <div class="flex flex-row flex-wrap gap-2">
+                  <button pButton icon="pi pi-building" label="Registrar empresa" class="p-button-lg p-button-outlined" (click)="addBusiness()">
+                  </button>
+                  <button pButton icon="pi pi-arrow-right" label="Continuar" class="p-button-lg" (click)="finishBusinessesRequest()">
+                  </button>
+                </div>
+              </div>
+            </p-dialog>
+          </ng-container>
+          <ng-container *ngSwitchCase="applicantStates.withBusinesses">
+            <p-dialog [visible]="true" header="Registro de startup">
+              <div class="flex flex-column">
+                <p>Nos gustaria conocer tu idea.</p>
+                <div class="flex flex-row flex-wrap gap-2">
+                  <button pButton icon="pi pi-arrow-right" label="Agregar Startup" class="p-button-lg" (click)="addStartup()">
+                  </button>
+                  <button pButton icon="pi pi-times" label="No poseo startup" class="p-button-lg p-button-outlined" (click)="finishStartupRequest()">
+                  </button>
+                </div>
+              </div>
+            </p-dialog>
           </ng-container>
           <ng-container *ngSwitchCase="applicantStates.withStartup">
-            <button pButton icon="pi pi-plus-circle" label="Finalizar registro" class="p-button-lg" (click)="openAnnouncementForm()">
-            </button>
+            <p-dialog [visible]="true" header="Finalizar registro">
+              <div class="flex flex-column">
+                <p>Completa tu registro con el siguiente formulario.</p>
+                <button pButton icon="pi pi-check" label="Finalizar registro" class="p-button-lg" (click)="openAnnouncementForm()">
+                </button>
+              </div>
+            </p-dialog>
           </ng-container>
         </ng-container>
       </div>

@@ -4,7 +4,7 @@ import { AnnouncementsService } from '../../home/announcements/announcements.ser
 import { Announcement } from '@home/announcements/model/announcement';
 import { FormService } from '../../shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, firstValueFrom, map, take, takeUntil } from 'rxjs';
 import { IFormSubscription } from '@shared/form/models/form-subscription';
 import { AnnouncementTargets, announcementTargets } from '@home/announcements/model/announcement-targets.enum';
 
@@ -54,7 +54,13 @@ export class LandingComponent {
 
   async registerAt() {
     switch(this.announcement.target) {
-      case AnnouncementTargets.experts: await this.requestFormExpert(); break;
+      case AnnouncementTargets.experts: {
+        const expertFormSubmitted = await this.requestFormExpert();
+        if(expertFormSubmitted) {
+          this.openAnnouncementForm();
+        }
+        break;
+      }
       case AnnouncementTargets.entrepreneurs:  await this.requestFormEntrepreneur(); break;
     }
   }
@@ -66,9 +72,21 @@ export class LandingComponent {
   }
 
   async addStartup() {
-    await this.requestFormStartup({
+    const submittedSuccessfully = await this.requestFormStartup({
       entrepreneur: this.applicantContext.entrepreneur,
     });
+    if(submittedSuccessfully) {
+      this.openAnnouncementForm();
+    }
+  }
+  
+  finishStartupRequest() {
+    this.currentState = ApplicantState.withStartup;
+    this.openAnnouncementForm();
+  }
+
+  finishBusinessesRequest() {
+    this.currentState = ApplicantState.withBusinesses;
   }
 
   async openAnnouncementForm() {
@@ -130,7 +148,7 @@ export class LandingComponent {
   }
 
   async requestFormStartup(data?: any) {
-    if(this.currentSubscription$) return;
+    if(this.currentSubscription$) return false;
     const forms = await this.formService.getFormByCollection(FormCollections.startups);
     const entityForm = forms.find(() => true);
     const subscription = await this.formService.createFormSubscription({
@@ -148,10 +166,11 @@ export class LandingComponent {
       this.applicantContext.startup = submittedDocId;
       this.currentState = ApplicantState.withStartup;
     });
+    return firstValueFrom(subRef.pipe(map(doc => !!doc)));
   }
   
   async requestFormExpert(data?: any) {
-    if(this.currentSubscription$) return;
+    if(this.currentSubscription$) return false;
     const forms = await this.formService.getFormByCollection(FormCollections.experts);
     const entityForm = forms.find(() => true);
     const subscription = await this.formService.createFormSubscription({
@@ -170,12 +189,14 @@ export class LandingComponent {
       this.applicantContext.id = submittedDocId;
       this.currentState = ApplicantState.withExpert;
     });
+    return subRef.pipe(map(doc => !!doc));
   }
 }
 
 export enum ApplicantState {
   initial = "initial",
   withEntrepreneur = "withEntrepreneur",
+  withBusinesses = "withBusinesses",
   withStartup = "withStartup",
   withExpert = "withExpert",
   submitted = "submitted",
@@ -184,6 +205,7 @@ export enum ApplicantState {
 export const applicantStates: Record<ApplicantState, ApplicantState> = {
   [ApplicantState.initial]: ApplicantState.initial,
   [ApplicantState.withEntrepreneur]: ApplicantState.withEntrepreneur,
+  [ApplicantState.withBusinesses]: ApplicantState.withBusinesses,
   [ApplicantState.withStartup]: ApplicantState.withStartup,
   [ApplicantState.submitted]: ApplicantState.submitted,
   [ApplicantState.withExpert]: ApplicantState.withExpert,
