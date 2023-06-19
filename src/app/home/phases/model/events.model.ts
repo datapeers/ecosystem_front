@@ -118,7 +118,17 @@ export class Event implements IEvent {
         assistant: 'onsite',
         description: '',
         url: '',
+        files: [],
       },
     };
   }
+}
+
+export interface IEventFile {
+  url?: string;
+  name: string;
+}
+
+export interface IEventFileExtended extends IEventFile {
+  file?: File;
 }

@@ -1,13 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseEventsService } from './phase-events.service';
-import { Event, TypeEvent } from '../model/events.model';
+import { Event, IEventFileExtended, TypeEvent } from '../model/events.model';
 import { cloneDeep } from '@apollo/client/utilities';
 import { Subscription, first, firstValueFrom } from 'rxjs';
 import { ConfirmationService } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Phase } from '../model/phase.model';
+import { faPaperclip, faTimes } from '@fortawesome/free-solid-svg-icons';
+import FileSaver from 'file-saver';
+import { ExpertsService } from '@shared/services/experts/experts.service';
+import { StorageService } from '@shared/storage/storage.service';
+import { HttpEventType } from '@angular/common/http';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -33,10 +38,28 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   events$: Subscription;
   events: Event[];
+  selectedExperts = [];
+  selectedParticipants = [];
+
+  //Limits
+  fileSizeLimit = 1000000;
+  filesLimit = 5;
+  participantsLimit = 20000;
+  expertsLimit = 20000;
+  commitmentsLimit = 200;
+
+  allowFiles = false;
+  selectedFiles: IEventFileExtended[] = [];
+  faPaperclip = faPaperclip;
+  faTimes = faTimes;
+
   constructor(
     private store: Store<AppState>,
+
     private readonly toast: ToastService,
-    private service: PhaseEventsService,
+    private readonly service: PhaseEventsService,
+    private readonly expertsServices: ExpertsService,
+    private readonly storageService: StorageService,
     private confirmationService: ConfirmationService
   ) {}
 
@@ -56,7 +79,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.typesEvent$ = typesEvent$.subscribe(
           (typeEventList: TypeEvent[]) => {
             this.typesEvents = typeEventList.filter((x) => !x.isDeleted);
-            // console.log(this.typesEvents);
+            if (this.typesEvents[0]?.extra_options?.allow_files)
+              this.allowFiles = true;
             for (const iterator of this.typesEvents)
               this.showedTypesEvents[iterator._id] = iterator;
           }
@@ -176,22 +200,51 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   selectionType(selected) {
-    console.log(selected);
+    const selectedType = this.typesEvents.find((i) => i._id === selected);
+    if (selectedType && selectedType.extra_options?.allow_files) {
+      this.allowFiles = true;
+    } else {
+      this.allowFiles = false;
+      this.selectedFiles = [];
+    }
   }
 
   resetCreatorEvent() {
     this.showCreatorEvent = false;
     this.newEvent = Event.newEvent();
+    this.selectedFiles = [];
   }
 
-  createEvent() {
+  async createEvent() {
+    if (this.allowFiles && this.selectedFiles.length > 0) {
+      this.newEvent.extra_options['files'] = [];
+      for (const iterator of this.selectedFiles) {
+        this.toast.clear();
+        this.toast.info({
+          summary: 'Subiendo archivo...',
+          detail: 'Por favor espere, no cierre la ventana',
+        });
+        const fileUploaded: any = await firstValueFrom(
+          this.storageService
+            .uploadFile(
+              `phases/${this.phase._id}/events/${this.newEvent.name}`,
+              iterator.file
+            )
+            .pipe(first((event) => event.type === HttpEventType.Response))
+        );
+        this.newEvent.extra_options['files'].push({
+          name: iterator.name,
+          url: fileUploaded.url,
+        });
+      }
+    }
+    this.toast.clear();
     this.toast.info({ detail: '', summary: 'Guardando...' });
     this.newEvent.phase = this.phase._id;
     this.service
       .createEvent(this.newEvent)
       .then((ans) => {
         this.toast.clear();
-        console.log(ans);
         this.resetCreatorEvent();
       })
       .catch((err) => {
@@ -203,5 +256,34 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
         this.resetCreatorEvent();
       });
+  }
+
+  onUpload(event, target) {
+    for (let newFile of event.files as File[]) {
+      if (this.selectedFiles.length >= this.filesLimit) {
+        // console.log('file limit reached');
+        break;
+      }
+      if (!this.selectedFiles.some((f) => f.name == newFile.name)) {
+        this.selectedFiles.push({
+          file: newFile,
+          name: newFile.name,
+        });
+      }
+    }
+    target.clear();
+  }
+
+  removeFile(fileName: string) {
+    if (this.selectedFiles) {
+      this.selectedFiles = this.selectedFiles.filter((f) => f.name != fileName);
+    }
+  }
+
+  async downloadFile(file: IEventFileExtended) {
+    if (file.file) {
+      FileSaver.saveAs(file.file);
+      return;
+    }
   }
 }

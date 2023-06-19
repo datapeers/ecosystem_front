@@ -12,7 +12,7 @@
             <ng-template pTemplate="header">
             </ng-template>
             <ng-template pTemplate="body" let-event>
-                <div class="card shadow-4 my-2 p-2 border-round">
+                <div class="card shadow-4 my-2 p-2 border-round bg-white">
                     <div class="flex flex-row flex-wrap card-container blue-container justify-content-center">
                         <div class="flex flex-none align-items-center justify-content-center">
                             <div class="flex align-items-center justify-content-center">
@@ -26,7 +26,7 @@
                         <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
                             <div class="flex flex-column align-items-center justify-content-start w-full h-full">
                                 <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
-                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.item.nombre}}</span>
+                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.name}}</span>
                                 </div>
                                 <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
                                     <div class="flex flex-column w-full">
@@ -53,7 +53,7 @@
                                     <div class="flex align-items-center w-full my-1">
                                         <i class="pi pi-calendar text-base"></i>
                                         <span class="text-base ml-2">
-                                            {{event.objectRef.item.startAt | date:'yyyy MMM dd - hh:mm aa'}}
+                                            {{event.startAt | date:'yyyy MMM dd - hh:mm aa'}}
                                         </span>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
 
                         <div class="flex align-items-end justify-content-center p-2">
                             <div class="flex flex-row justify-content-end align-items-end">
-                                <ng-container *ngIf="event.objectRef.item.asistencia=='Virtual'">
+                                <ng-container *ngIf="event.extra_options.assistant ==='Virtual'">
                                     <div class="flex flex-row">
                                         <p-button class="mx-1" type="button" icon="pi pi-external-link" label="" pTooltip="website" tooltipPosition="top">
                                         </p-button>
@@ -91,10 +91,10 @@
 
             </ng-template>
             <ng-template pTemplate="emptymessage">
-                <div class="card shadow-4 my-2 p-2" style="min-width: 200px;">
+                <div class="card shadow-4 my-2 p-2 bg-white" style="min-width: 200px;">
                     <div class="flex flex-column card-container align-items-center justify-content-center">
                         <div class="flex align-items-center justify-content-center" style="min-height: 100px;">
-                            <h2>Rasfra</h2>
+                            <h2>No hay eventos</h2>
                         </div>
                     </div>
                 </div>
@@ -245,22 +245,41 @@
             </div>
         </div>
 
-        <div class="field col-12 md:col-12">
+        <div class="field col-12 pt-3 md:col-12 ">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
                     <i class="pi pi-align-left"></i>
                 </span>
                 <span class="p-float-label">
-                    <textarea id="descEvent" rows="4" style="width: 100%;" [(ngModel)]="newEvent.extra_options.description" pInputTextarea></textarea>
+                    <textarea id="descEvent" rows="3" style="width: 100%;" [(ngModel)]="newEvent.extra_options.description" pInputTextarea></textarea>
                     <label for="descEvent">Descripción</label>
                 </span>
             </div>
         </div>
 
 
+
         <div style="height: 1rem;"></div>
 
     </div>
+    <ng-container class="w-full" *ngIf="allowFiles">
+        <!-- <div class="flex flex-row align-items-center justify-content-center">
+            <h3 class="mt-0 mb-1">Archivos</h3>
+        </div> -->
+        <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+            <ng-template let-file pTemplate="file">
+                <div></div>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                    <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>
+                    <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" [href]="file.url" target="_blank">{{file.name}}</a>
+                    <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                    <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)"></fa-icon>
+                </div>
+            </ng-template>
+        </p-fileUpload>
+    </ng-container>
     <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="newEvent.type === ''" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
 </p-dialog>
 
