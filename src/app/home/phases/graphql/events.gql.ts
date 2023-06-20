@@ -8,6 +8,10 @@ const fragments = {
       extra_options
       startAt
       endAt
+      experts {
+        _id
+        name
+      }
       isDeleted
       createdAt
       updatedAt

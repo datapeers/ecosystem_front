@@ -8,11 +8,19 @@ import { ConfirmationService } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Phase } from '../model/phase.model';
-import { faPaperclip, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClock,
+  faPaperclip,
+  faPlus,
+  faTimes,
+  faUserTie,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import FileSaver from 'file-saver';
 import { ExpertsService } from '@shared/services/experts/experts.service';
 import { StorageService } from '@shared/storage/storage.service';
 import { HttpEventType } from '@angular/common/http';
+import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -38,27 +46,27 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   events$: Subscription;
   events: Event[];
+  expertsList = [];
   selectedExperts = [];
   selectedParticipants = [];
-
+  currentExpert;
   //Limits
   fileSizeLimit = 1000000;
   filesLimit = 5;
-  participantsLimit = 20000;
-  expertsLimit = 20000;
-  commitmentsLimit = 200;
 
   allowFiles = false;
   selectedFiles: IEventFileExtended[] = [];
   faPaperclip = faPaperclip;
   faTimes = faTimes;
-
+  faUserTie = faUserTie;
+  faPlus = faPlus;
+  faClock = faClock;
+  faUsers = faUsers;
   constructor(
     private store: Store<AppState>,
-
     private readonly toast: ToastService,
     private readonly service: PhaseEventsService,
-    private readonly expertsServices: ExpertsService,
+    private readonly expertsServices: PhaseExpertsService,
     private readonly storageService: StorageService,
     private confirmationService: ConfirmationService
   ) {}
@@ -115,6 +123,15 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
         this.typesEvents = [];
       });
+    this.expertsList = (
+      await this.expertsServices.getDocuments({ phase: this.phase._id })
+    ).map((doc) => {
+      return {
+        _id: doc._id,
+        name: doc.item.nombre,
+      };
+    });
+    console.log(this.expertsList);
   }
 
   resetCreatorEventType() {
@@ -286,4 +303,20 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       return;
     }
   }
+
+  addExperts() {
+    for (let res of this.selectedExperts) {
+      if (this.newEvent.experts.find((i) => i._id === res._id)) {
+        continue;
+      }
+      this.newEvent.experts.push(res);
+    }
+    this.selectedExperts = [];
+  }
+
+  removeExpert(id: string) {
+    this.newEvent.experts = this.newEvent.experts.filter((r) => r._id != id);
+  }
+
+  removeParticipant(a) {}
 }

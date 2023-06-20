@@ -18,6 +18,14 @@ const fragments = {
 };
 
 const query = {
+  expertById: `
+    query Expert($id: String!) {
+      expert(id: $id) {
+        ...expertFields
+      }
+    }
+    ${fragments.expertFields}
+  `,
   experts: `
     query Experts {
       experts {
@@ -29,6 +37,14 @@ const query = {
   expertsPhase: `
     query ExpertsPhase($phase: String!) {
       expertsPhase(phase: $phase) {
+        ...expertFields
+      }
+    }
+    ${fragments.expertFields}
+  `,
+  expertByAccount: `
+    query ExpertsAccount($accountId: String!) {
+      expertsAccount(accountId: $accountId) {
         ...expertFields
       }
     }

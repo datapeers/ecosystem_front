@@ -62,6 +62,7 @@ export interface IEvent {
   startAt: Date;
   endAt: Date;
   phase: string;
+  experts: { _id: string; name: string }[];
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -75,6 +76,7 @@ export class Event implements IEvent {
   startAt: Date;
   endAt: Date;
   phase: string;
+  experts: { _id: string; name: string }[];
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -107,13 +109,14 @@ export class Event implements IEvent {
     };
   }
 
-  static newEvent() {
+  static newEvent(): Partial<Event> {
     return {
       name: '',
       type: '',
       startAt: new Date(),
       endAt: new Date(),
       phase: '',
+      experts: [],
       extra_options: {
         assistant: 'onsite',
         description: '',

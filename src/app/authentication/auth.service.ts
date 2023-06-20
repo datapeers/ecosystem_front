@@ -10,6 +10,9 @@ import { UserService } from './user.service';
 import firebase from 'firebase/compat/app';
 import { AppJwt } from '@shared/models/common/app-jwt';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { User } from './models/user';
+import { ExpertsService } from '@shared/services/experts/experts.service';
+import { EntrepreneursService } from '@shared/services/entrepreneurs/entrepreneurs.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +26,9 @@ export class AuthService {
     public toast: ToastService,
     private store: Store<AppState>,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private readonly expertsService: ExpertsService,
+    private readonly entrepreneursService: EntrepreneursService
   ) {
     this.authStatusListener();
     // Renew token subscription
@@ -72,6 +77,14 @@ export class AuthService {
       if (credential) {
         const userData = await this.userService.getUserByUid(credential.uid);
         this.store.dispatch(new SetUserAction(userData));
+        const instanceUser = new User(userData);
+        if (instanceUser.isExpert) {
+          this.expertDoc(instanceUser);
+        }
+        if (instanceUser.isUser) {
+          this.entrepreneurDoc(instanceUser);
+        }
+
         this.authStatusSub.next(true);
       } else {
         this.authStatusSub.next(null);
@@ -196,5 +209,33 @@ export class AuthService {
         });
         // An error occurred while reauthenticating the user with their current password
       });
+  }
+
+  async expertDoc(user: User) {
+    const doc = await this.expertsService.getUserDoc(user);
+    if (!doc) {
+      this.toast.clear();
+      this.toast.alert({
+        summary: 'No se puede continuar',
+        detail:
+          'Debes tener una ficha de experto para operar dentro de StartUp Factory',
+      });
+      this.signOut();
+    }
+    return;
+  }
+
+  async entrepreneurDoc(user: User) {
+    const doc = await this.entrepreneursService.getUserDoc(user);
+    if (!doc) {
+      this.toast.clear();
+      this.toast.alert({
+        summary: 'No se puede continuar',
+        detail:
+          'Debes tener una ficha de experto para operar dentro de StartUp Factory',
+      });
+      this.signOut();
+    }
+    return;
   }
 }
