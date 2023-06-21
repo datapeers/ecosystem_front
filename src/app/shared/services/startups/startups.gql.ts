@@ -5,6 +5,10 @@ const fragments = {
     fragment startupFields on Startup {
       _id
       item
+      entrepreneurs {
+        _id
+        item
+      }
     }
   `,
 };

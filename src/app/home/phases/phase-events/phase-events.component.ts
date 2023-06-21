@@ -17,10 +17,11 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import FileSaver from 'file-saver';
-import { ExpertsService } from '@shared/services/experts/experts.service';
 import { StorageService } from '@shared/storage/storage.service';
 import { HttpEventType } from '@angular/common/http';
 import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
+import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
+
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -46,9 +47,15 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   events$: Subscription;
   events: Event[];
+
   expertsList = [];
+  startupsList = [];
+  entrepreneurList = [];
+
   selectedExperts = [];
   selectedParticipants = [];
+  selectedStartups = [];
+
   currentExpert;
   //Limits
   fileSizeLimit = 1000000;
@@ -68,6 +75,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     private readonly service: PhaseEventsService,
     private readonly expertsServices: PhaseExpertsService,
     private readonly storageService: StorageService,
+    private readonly phaseStartupsService: PhaseStartupsService,
     private confirmationService: ConfirmationService
   ) {}
 
@@ -112,7 +120,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       .then((events$) => {
         this.events$ = events$.subscribe((eventList: Event[]) => {
           this.events = eventList;
-          console.log(this.events);
         });
       })
       .catch((err) => {
@@ -123,6 +130,11 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
         this.typesEvents = [];
       });
+    await this.loadExperts();
+    await this.loadStartUps();
+  }
+
+  async loadExperts() {
     this.expertsList = (
       await this.expertsServices.getDocuments({ phase: this.phase._id })
     ).map((doc) => {
@@ -131,7 +143,31 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         name: doc.item.nombre,
       };
     });
-    console.log(this.expertsList);
+  }
+
+  async loadStartUps() {
+    const startupsPhase = await this.phaseStartupsService.getDocuments({
+      phase: this.phase._id,
+    });
+    this.entrepreneurList = [];
+    this.startupsList = [];
+    for (const startUp of startupsPhase) {
+      this.startupsList.push({
+        _id: startUp._id,
+        name: startUp.item.nombre,
+        entrepreneurs: startUp.entrepreneurs.map((entrepreneur) => {
+          return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
+        }),
+      });
+      for (const entrepreneur of startUp.entrepreneurs) {
+        this.entrepreneurList.push({
+          _id: entrepreneur._id,
+          name: entrepreneur.item.nombre,
+        });
+      }
+    }
+    console.log('entrepreneurs', this.entrepreneurList);
+    console.log('startups', this.startupsList);
   }
 
   resetCreatorEventType() {
@@ -318,5 +354,33 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     this.newEvent.experts = this.newEvent.experts.filter((r) => r._id != id);
   }
 
-  removeParticipant(a) {}
+  addParticipant() {
+    for (let res of this.selectedParticipants) {
+      if (this.newEvent.participants.find((i) => i._id === res._id)) {
+        continue;
+      }
+      this.newEvent.participants.push(res);
+    }
+    this.selectedParticipants = [];
+  }
+
+  removeParticipant(id: string) {
+    this.newEvent.participants = this.newEvent.participants.filter(
+      (r) => r._id != id
+    );
+  }
+
+  addStartup() {
+    for (let startup of this.selectedStartups) {
+      for (const entrepreneur of startup.entrepreneurs) {
+        if (
+          this.newEvent.participants.find((i) => i._id === entrepreneur._id)
+        ) {
+          continue;
+        }
+        this.newEvent.participants.push(entrepreneur);
+      }
+    }
+    this.selectedStartups = [];
+  }
 }

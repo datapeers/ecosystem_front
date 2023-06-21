@@ -1,6 +1,7 @@
-import { Document } from "../common/document";
+import { Document } from '../common/document';
 
 export interface Startup extends Document {
-  phase: any[];
+  phase: { _id: string; name: string }[];
   item: any;
+  entrepreneurs: { _id: string; item: any }[];
 }
