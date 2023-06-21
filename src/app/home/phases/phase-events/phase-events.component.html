@@ -79,9 +79,9 @@
                                                         </p-button> -->
                                     <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
                                     </p-button>
-                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="MModificar" tooltipPosition="top">
+                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" (onClick)="openEdit(event)">
                                     </p-button>
-                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top">
+                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event)">
                                     </p-button>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
     <div class="flex gap-2">
         <div class="field">
             <label for="assistantType">Tipo de asistencia</label>
-            <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" [(ngModel)]="newEvent.extra_options.assistant" class="inputfield mt-2"></p-selectButton>
+            <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" [disabled]="editingEvent" [(ngModel)]="newEvent.extra_options.assistant" class="inputfield mt-2"></p-selectButton>
         </div>
         <div class="field pt-4 pl-2" *ngIf="newEvent.extra_options.assistant === 'virtual'">
             <div class="flex">
@@ -188,7 +188,7 @@
                     <i class="pi pi-link"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <input pInputText type="text" [(ngModel)]="newEvent.extra_options.url" placeholder="Url" required>
+                    <input pInputText type="text" [(ngModel)]="newEvent.extra_options.url" placeholder="Url" [readOnly]="editingEvent" required>
                     <label for="url">Url</label>
                 </span>
             </div>
@@ -214,7 +214,7 @@
                     <i class="pi pi-list"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type" (onChange)="selectionType($event.value)">
+                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type" (onChange)="selectionType($event.value)" [readonly]="editingEvent">
                     </p-dropdown>
                     <label for="typeEvent">Tipo Evento</label>
                 </span>
@@ -331,7 +331,12 @@
             </ng-template>
         </p-fileUpload>
     </ng-container>
-    <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="newEvent.type === ''" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    <ng-container *ngIf="!editingEvent; else editButton">
+        <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="newEvent.type === ''" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </ng-container>
+    <ng-template #editButton>
+        <p-button type="submit" label="Guardar cambios" (onClick)="eventEdit()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </ng-template>
 </p-dialog>
 
 <p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

@@ -64,7 +64,8 @@ export interface IEvent {
   startAt: Date;
   endAt: Date;
   phase: string;
-  experts: { _id: string; name: string }[];
+  experts: { _id: string; name: string; __typename?: string }[];
+  participants: { _id: string; name: string; __typename?: string }[];
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -97,25 +98,42 @@ export class Event implements IEvent {
       extra_options: {
         ...data?.extra_options,
       },
+      experts: data.experts.map(({ __typename, ...rest }) => rest),
+      participants: data.participants.map(({ __typename, ...rest }) => rest),
     });
     return content;
   }
 
-  static newEvent(): Partial<Event> {
-    return {
-      name: '',
-      type: '',
-      startAt: new Date(),
-      endAt: moment(new Date()).add(1, 'hours').toDate(),
-      phase: '',
-      experts: [],
-      participants: [],
+  static newEvent(event?: IEvent) {
+    const eventBody = {
+      _id: event?._id ?? undefined,
+      name: event?.name ?? '',
+      type: event?.type ?? '',
+      startAt: event?.startAt ?? new Date(),
+      endAt: event?.endAt ?? moment(new Date()).add(1, 'hours').toDate(),
+      phase: event?.phase ?? '',
+      experts: event?.experts ?? [],
+      participants: event?.participants ?? [],
       extra_options: {
-        assistant: 'onsite',
-        description: '',
-        url: '',
-        files: [],
+        assistant: event?.extra_options?.assistant ?? 'onsite',
+        description: event?.extra_options?.description ?? '',
+        url: event?.extra_options?.url ?? '',
+        files: event?.extra_options?.files ?? [],
       },
+    };
+    return eventBody;
+  }
+
+  toSave(): Partial<Event> {
+    return {
+      _id: this._id,
+      name: this.name,
+      extra_options: this.extra_options,
+      startAt: this.startAt,
+      endAt: this.endAt,
+      isDeleted: this.isDeleted,
+      experts: this.experts,
+      participants: this.participants,
     };
   }
 }

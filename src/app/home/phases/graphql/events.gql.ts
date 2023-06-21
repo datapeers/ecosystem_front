@@ -12,6 +12,10 @@ const fragments = {
         _id
         name
       }
+      participants {
+        _id
+        name
+      }
       isDeleted
       createdAt
       updatedAt
@@ -31,6 +35,14 @@ const query = {
   getEvents: `
     query Events {
       events {
+        ...eventFields
+      }
+    }
+    ${fragments.eventFields}
+  `,
+  getEventsPhase: `
+    query EventsPhase($phase: String!) {
+      eventsPhase(phase: $phase) {
         ...eventFields
       }
     }
@@ -57,8 +69,8 @@ const mutation = {
   `,
   deleteEvent: `
   ${fragments.eventFields}
-    mutation RemoveEvent($removeEventId: String!) {
-      removeEvent(id: $removeEventId) {
+    mutation RemoveEvent($id: String!) {
+      removeEvent(id: $id) {
         ...eventFields
       } 
     }

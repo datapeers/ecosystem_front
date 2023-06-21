@@ -69,6 +69,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   faPlus = faPlus;
   faClock = faClock;
   faUsers = faUsers;
+  editingEvent = false;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -116,7 +117,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         .pipe(first((i) => i !== null))
     );
     this.service
-      .watchEvents()
+      .watchEvents(this.phase._id)
       .then((events$) => {
         this.events$ = events$.subscribe((eventList: Event[]) => {
           this.events = eventList;
@@ -166,13 +167,20 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
       }
     }
-    console.log('entrepreneurs', this.entrepreneurList);
-    console.log('startups', this.startupsList);
+  }
+
+  openEdit(event) {
+    console.log(event);
+    this.newEvent = Event.newEvent(cloneDeep(event));
+    console.log(this.newEvent);
+    this.editingEvent = true;
+    this.showCreatorEvent = true;
   }
 
   resetCreatorEventType() {
     this.showCreatorType = false;
     this.newTypeEvent = TypeEvent.newEventType();
+    this.editingEvent = false;
   }
 
   createTypeEvent() {
@@ -382,5 +390,55 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       }
     }
     this.selectedStartups = [];
+  }
+
+  eventEdit() {
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.service
+      .updateEvent(this.newEvent)
+      .then((ans) => {
+        this.toast.clear();
+        this.resetCreatorEvent();
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al editar evento',
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  eventDelete(event: Event) {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea continuar?',
+      message: '¿Está seguro de que desea eliminar este evento?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .deleteEvent(event._id)
+          .then((ans) => {
+            this.toast.clear();
+            this.toast.success({
+              detail: 'El evento ha sido eliminado exitosamente',
+              summary: 'Evento eliminado!',
+              life: 2000,
+            });
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar evento',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
   }
 }
