@@ -60,7 +60,12 @@ export interface IEvent {
   _id: string;
   name: string;
   type: string;
-  extra_options: any;
+  extra_options: {
+    assistant: 'onsite' | 'virtual' | 'zoom';
+    description: string;
+    url?: string;
+    files?: { name: string; url: string }[];
+  };
   startAt: Date;
   endAt: Date;
   phase: string;
@@ -75,7 +80,12 @@ export class Event implements IEvent {
   _id: string;
   name: string;
   type: string;
-  extra_options: any;
+  extra_options: {
+    assistant: 'onsite' | 'virtual' | 'zoom';
+    description: string;
+    url?: string;
+    files?: { name: string; url: string }[];
+  };
   startAt: Date;
   endAt: Date;
   phase: string;
@@ -94,7 +104,7 @@ export class Event implements IEvent {
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
       startAt: new Date(data.createdAt),
-      endAt: new Date(data.createdAt),
+      endAt: new Date(data.endAt),
       extra_options: {
         ...data?.extra_options,
       },

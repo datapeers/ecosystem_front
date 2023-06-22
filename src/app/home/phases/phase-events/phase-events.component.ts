@@ -100,6 +100,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
               this.allowFiles = true;
             for (const iterator of this.typesEvents)
               this.showedTypesEvents[iterator._id] = iterator;
+            console.log(this.showedTypesEvents);
           }
         );
       })
@@ -121,6 +122,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       .then((events$) => {
         this.events$ = events$.subscribe((eventList: Event[]) => {
           this.events = eventList;
+          console.log(this.events);
         });
       })
       .catch((err) => {
@@ -174,6 +176,9 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     this.newEvent = Event.newEvent(cloneDeep(event));
     console.log(this.newEvent);
     this.editingEvent = true;
+    for (const fileDoc of this.newEvent.extra_options.files) {
+      this.selectedFiles.push(fileDoc);
+    }
     this.showCreatorEvent = true;
   }
 
@@ -279,25 +284,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   async createEvent() {
     if (this.allowFiles && this.selectedFiles.length > 0) {
       this.newEvent.extra_options['files'] = [];
-      for (const iterator of this.selectedFiles) {
-        this.toast.clear();
-        this.toast.info({
-          summary: 'Subiendo archivo...',
-          detail: 'Por favor espere, no cierre la ventana',
-        });
-        const fileUploaded: any = await firstValueFrom(
-          this.storageService
-            .uploadFile(
-              `phases/${this.phase._id}/events/${this.newEvent.name}`,
-              iterator.file
-            )
-            .pipe(first((event) => event.type === HttpEventType.Response))
-        );
-        this.newEvent.extra_options['files'].push({
-          name: iterator.name,
-          url: fileUploaded.url,
-        });
-      }
+      await this.uploadFiles();
     }
     this.toast.clear();
     this.toast.info({ detail: '', summary: 'Guardando...' });
@@ -319,6 +306,37 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       });
   }
 
+  async uploadFiles() {
+    this.newEvent.extra_options.files = [];
+    for (const iterator of this.selectedFiles) {
+      this.toast.clear();
+      this.toast.info({
+        summary: 'Subiendo archivo...',
+        detail: 'Por favor espere, no cierre la ventana',
+      });
+      if (iterator.file) {
+        const fileUploaded: any = await firstValueFrom(
+          this.storageService
+            .uploadFile(
+              `phases/${this.phase._id}/events/${this.newEvent.name}`,
+              iterator.file
+            )
+            .pipe(first((event) => event.type === HttpEventType.Response))
+        );
+        this.newEvent.extra_options['files'].push({
+          name: iterator.name,
+          url: fileUploaded.url,
+        });
+      } else {
+        this.newEvent.extra_options['files'].push({
+          name: iterator.name,
+          url: iterator.url,
+        });
+      }
+    }
+    this.toast.clear();
+  }
+
   onUpload(event, target) {
     for (let newFile of event.files as File[]) {
       if (this.selectedFiles.length >= this.filesLimit) {
@@ -338,6 +356,14 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   removeFile(fileName: string) {
     if (this.selectedFiles) {
       this.selectedFiles = this.selectedFiles.filter((f) => f.name != fileName);
+    }
+  }
+
+  async downloadUrl(urlFile: string) {
+    const key = this.storageService.getKey(urlFile);
+    const url = await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      window.open(url, '_blank');
     }
   }
 
@@ -392,7 +418,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     this.selectedStartups = [];
   }
 
-  eventEdit() {
+  async eventEdit() {
+    await this.uploadFiles();
     this.toast.info({ detail: '', summary: 'Guardando...' });
     this.service
       .updateEvent(this.newEvent)

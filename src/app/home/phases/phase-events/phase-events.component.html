@@ -33,27 +33,21 @@
                                         <span class="text-gray-600 font-semibold">Participación</span>
                                         <div class="flex align-items-center my-1">
                                             <span class="text-gray-600 text-base mr-2">
-                                                0
+                                                {{0}}
                                             </span>
                                             <p-button styleClass="p-button-text" icon="pi pi-eye"></p-button>
                                         </div>
                                     </div>
                                     <div class="flex align-items-center w-full my-1">
-                                        <i class="pi pi-video text-base"></i>
-                                        <span class="text-base ml-2">
-                                            0
-                                        </span>
-                                    </div>
-                                    <div class="flex align-items-center w-full my-1">
                                         <i class="pi pi-user text-base"></i>
                                         <span class="text-base ml-2">
-                                            {{'Tipo de evento: '}}
+                                            {{'Tipo de evento: ' + showedTypesEvents[event.type].name }}
                                         </span>
                                     </div>
                                     <div class="flex align-items-center w-full my-1">
                                         <i class="pi pi-calendar text-base"></i>
                                         <span class="text-base ml-2">
-                                            {{event.startAt | date:'yyyy MMM dd - hh:mm aa'}}
+                                            {{event.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.endAt | date:'yyyy MMM dd - hh:mm aa'}}
                                         </span>
                                     </div>
                                 </div>
@@ -71,14 +65,14 @@
                                     </div>
                                 </ng-container>
                                 <div class="flex flex-row">
-                                    <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="QR" tooltipPosition="top">
-                                    </p-button>
+                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="QR" tooltipPosition="top">
+                                    </p-button> -->
                                     <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
                                                             pTooltip="Notas" tooltipPosition="top"
                                                             (click)="notesDisplay = true">
                                                         </p-button> -->
-                                    <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
-                                    </p-button>
+                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
+                                    </p-button> -->
                                     <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" (onClick)="openEdit(event)">
                                     </p-button>
                                     <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event)">
@@ -324,7 +318,7 @@
             <ng-template pTemplate="content">
                 <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
                     <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>
-                    <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" [href]="file.url" target="_blank">{{file.name}}</a>
+                    <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
                     <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
                     <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)"></fa-icon>
                 </div>
