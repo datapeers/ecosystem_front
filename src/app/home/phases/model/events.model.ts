@@ -98,8 +98,8 @@ export class Event implements IEvent {
   private constructor() {}
 
   static fromJson(data: IEvent): Event {
-    const content = new Event();
-    Object.assign(content, {
+    const obj = new Event();
+    Object.assign(obj, {
       ...data,
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
@@ -111,7 +111,7 @@ export class Event implements IEvent {
       experts: data.experts.map(({ __typename, ...rest }) => rest),
       participants: data.participants.map(({ __typename, ...rest }) => rest),
     });
-    return content;
+    return obj;
   }
 
   static newEvent(event?: IEvent) {
