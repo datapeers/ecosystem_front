@@ -1,13 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseEventsService } from './phase-events.service';
-import { Event, TypeEvent } from '../model/events.model';
+import { Event, IEventFileExtended, TypeEvent } from '../model/events.model';
 import { cloneDeep } from '@apollo/client/utilities';
 import { Subscription, first, firstValueFrom } from 'rxjs';
 import { ConfirmationService } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Phase } from '../model/phase.model';
+import {
+  faClock,
+  faPaperclip,
+  faPlus,
+  faTimes,
+  faUserTie,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
+import FileSaver from 'file-saver';
+import { StorageService } from '@shared/storage/storage.service';
+import { HttpEventType } from '@angular/common/http';
+import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
+import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
+
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -33,10 +47,36 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   events$: Subscription;
   events: Event[];
+
+  expertsList = [];
+  startupsList = [];
+  entrepreneurList = [];
+
+  selectedExperts = [];
+  selectedParticipants = [];
+  selectedStartups = [];
+
+  currentExpert;
+  //Limits
+  fileSizeLimit = 1000000;
+  filesLimit = 5;
+
+  allowFiles = false;
+  selectedFiles: IEventFileExtended[] = [];
+  faPaperclip = faPaperclip;
+  faTimes = faTimes;
+  faUserTie = faUserTie;
+  faPlus = faPlus;
+  faClock = faClock;
+  faUsers = faUsers;
+  editingEvent = false;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
-    private service: PhaseEventsService,
+    private readonly service: PhaseEventsService,
+    private readonly expertsServices: PhaseExpertsService,
+    private readonly storageService: StorageService,
+    private readonly phaseStartupsService: PhaseStartupsService,
     private confirmationService: ConfirmationService
   ) {}
 
@@ -56,9 +96,11 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.typesEvent$ = typesEvent$.subscribe(
           (typeEventList: TypeEvent[]) => {
             this.typesEvents = typeEventList.filter((x) => !x.isDeleted);
-            // console.log(this.typesEvents);
+            if (this.typesEvents[0]?.extra_options?.allow_files)
+              this.allowFiles = true;
             for (const iterator of this.typesEvents)
               this.showedTypesEvents[iterator._id] = iterator;
+            console.log(this.showedTypesEvents);
           }
         );
       })
@@ -76,7 +118,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         .pipe(first((i) => i !== null))
     );
     this.service
-      .watchEvents()
+      .watchEvents(this.phase._id)
       .then((events$) => {
         this.events$ = events$.subscribe((eventList: Event[]) => {
           this.events = eventList;
@@ -91,11 +133,59 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
         this.typesEvents = [];
       });
+    await this.loadExperts();
+    await this.loadStartUps();
+  }
+
+  async loadExperts() {
+    this.expertsList = (
+      await this.expertsServices.getDocuments({ phase: this.phase._id })
+    ).map((doc) => {
+      return {
+        _id: doc._id,
+        name: doc.item.nombre,
+      };
+    });
+  }
+
+  async loadStartUps() {
+    const startupsPhase = await this.phaseStartupsService.getDocuments({
+      phase: this.phase._id,
+    });
+    this.entrepreneurList = [];
+    this.startupsList = [];
+    for (const startUp of startupsPhase) {
+      this.startupsList.push({
+        _id: startUp._id,
+        name: startUp.item.nombre,
+        entrepreneurs: startUp.entrepreneurs.map((entrepreneur) => {
+          return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
+        }),
+      });
+      for (const entrepreneur of startUp.entrepreneurs) {
+        this.entrepreneurList.push({
+          _id: entrepreneur._id,
+          name: entrepreneur.item.nombre,
+        });
+      }
+    }
+  }
+
+  openEdit(event) {
+    console.log(event);
+    this.newEvent = Event.newEvent(cloneDeep(event));
+    console.log(this.newEvent);
+    this.editingEvent = true;
+    for (const fileDoc of this.newEvent.extra_options.files) {
+      this.selectedFiles.push(fileDoc);
+    }
+    this.showCreatorEvent = true;
   }
 
   resetCreatorEventType() {
     this.showCreatorType = false;
     this.newTypeEvent = TypeEvent.newEventType();
+    this.editingEvent = false;
   }
 
   createTypeEvent() {
@@ -176,22 +266,33 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   selectionType(selected) {
-    console.log(selected);
+    const selectedType = this.typesEvents.find((i) => i._id === selected);
+    if (selectedType && selectedType.extra_options?.allow_files) {
+      this.allowFiles = true;
+    } else {
+      this.allowFiles = false;
+      this.selectedFiles = [];
+    }
   }
 
   resetCreatorEvent() {
     this.showCreatorEvent = false;
     this.newEvent = Event.newEvent();
+    this.selectedFiles = [];
   }
 
-  createEvent() {
+  async createEvent() {
+    if (this.allowFiles && this.selectedFiles.length > 0) {
+      this.newEvent.extra_options['files'] = [];
+      await this.uploadFiles();
+    }
+    this.toast.clear();
     this.toast.info({ detail: '', summary: 'Guardando...' });
     this.newEvent.phase = this.phase._id;
     this.service
       .createEvent(this.newEvent)
       .then((ans) => {
         this.toast.clear();
-        console.log(ans);
         this.resetCreatorEvent();
       })
       .catch((err) => {
@@ -203,5 +304,168 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
         this.resetCreatorEvent();
       });
+  }
+
+  async uploadFiles() {
+    this.newEvent.extra_options.files = [];
+    for (const iterator of this.selectedFiles) {
+      this.toast.clear();
+      this.toast.info({
+        summary: 'Subiendo archivo...',
+        detail: 'Por favor espere, no cierre la ventana',
+      });
+      if (iterator.file) {
+        const fileUploaded: any = await firstValueFrom(
+          this.storageService
+            .uploadFile(
+              `phases/${this.phase._id}/events/${this.newEvent.name}`,
+              iterator.file
+            )
+            .pipe(first((event) => event.type === HttpEventType.Response))
+        );
+        this.newEvent.extra_options['files'].push({
+          name: iterator.name,
+          url: fileUploaded.url,
+        });
+      } else {
+        this.newEvent.extra_options['files'].push({
+          name: iterator.name,
+          url: iterator.url,
+        });
+      }
+    }
+    this.toast.clear();
+  }
+
+  onUpload(event, target) {
+    for (let newFile of event.files as File[]) {
+      if (this.selectedFiles.length >= this.filesLimit) {
+        // console.log('file limit reached');
+        break;
+      }
+      if (!this.selectedFiles.some((f) => f.name == newFile.name)) {
+        this.selectedFiles.push({
+          file: newFile,
+          name: newFile.name,
+        });
+      }
+    }
+    target.clear();
+  }
+
+  removeFile(fileName: string) {
+    if (this.selectedFiles) {
+      this.selectedFiles = this.selectedFiles.filter((f) => f.name != fileName);
+    }
+  }
+
+  async downloadUrl(urlFile: string) {
+    const key = this.storageService.getKey(urlFile);
+    const url = await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      window.open(url, '_blank');
+    }
+  }
+
+  async downloadFile(file: IEventFileExtended) {
+    if (file.file) {
+      FileSaver.saveAs(file.file);
+      return;
+    }
+  }
+
+  addExperts() {
+    for (let res of this.selectedExperts) {
+      if (this.newEvent.experts.find((i) => i._id === res._id)) {
+        continue;
+      }
+      this.newEvent.experts.push(res);
+    }
+    this.selectedExperts = [];
+  }
+
+  removeExpert(id: string) {
+    this.newEvent.experts = this.newEvent.experts.filter((r) => r._id != id);
+  }
+
+  addParticipant() {
+    for (let res of this.selectedParticipants) {
+      if (this.newEvent.participants.find((i) => i._id === res._id)) {
+        continue;
+      }
+      this.newEvent.participants.push(res);
+    }
+    this.selectedParticipants = [];
+  }
+
+  removeParticipant(id: string) {
+    this.newEvent.participants = this.newEvent.participants.filter(
+      (r) => r._id != id
+    );
+  }
+
+  addStartup() {
+    for (let startup of this.selectedStartups) {
+      for (const entrepreneur of startup.entrepreneurs) {
+        if (
+          this.newEvent.participants.find((i) => i._id === entrepreneur._id)
+        ) {
+          continue;
+        }
+        this.newEvent.participants.push(entrepreneur);
+      }
+    }
+    this.selectedStartups = [];
+  }
+
+  async eventEdit() {
+    await this.uploadFiles();
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.service
+      .updateEvent(this.newEvent)
+      .then((ans) => {
+        this.toast.clear();
+        this.resetCreatorEvent();
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al editar evento',
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  eventDelete(event: Event) {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea continuar?',
+      message: '¿Está seguro de que desea eliminar este evento?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .deleteEvent(event._id)
+          .then((ans) => {
+            this.toast.clear();
+            this.toast.success({
+              detail: 'El evento ha sido eliminado exitosamente',
+              summary: 'Evento eliminado!',
+              life: 2000,
+            });
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar evento',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
   }
 }

@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export interface ITypeEvent {
   _id: string;
   name: string;
@@ -58,10 +60,17 @@ export interface IEvent {
   _id: string;
   name: string;
   type: string;
-  extra_options: any;
+  extra_options: {
+    assistant: 'onsite' | 'virtual' | 'zoom';
+    description: string;
+    url?: string;
+    files?: { name: string; url: string }[];
+  };
   startAt: Date;
   endAt: Date;
   phase: string;
+  experts: { _id: string; name: string; __typename?: string }[];
+  participants: { _id: string; name: string; __typename?: string }[];
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -71,10 +80,17 @@ export class Event implements IEvent {
   _id: string;
   name: string;
   type: string;
-  extra_options: any;
+  extra_options: {
+    assistant: 'onsite' | 'virtual' | 'zoom';
+    description: string;
+    url?: string;
+    files?: { name: string; url: string }[];
+  };
   startAt: Date;
   endAt: Date;
   phase: string;
+  experts: { _id: string; name: string }[];
+  participants: { _id: string; name: string }[];
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -88,12 +104,34 @@ export class Event implements IEvent {
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
       startAt: new Date(data.createdAt),
-      endAt: new Date(data.createdAt),
+      endAt: new Date(data.endAt),
       extra_options: {
         ...data?.extra_options,
       },
+      experts: data.experts.map(({ __typename, ...rest }) => rest),
+      participants: data.participants.map(({ __typename, ...rest }) => rest),
     });
     return content;
+  }
+
+  static newEvent(event?: IEvent) {
+    const eventBody = {
+      _id: event?._id ?? undefined,
+      name: event?.name ?? '',
+      type: event?.type ?? '',
+      startAt: event?.startAt ?? new Date(),
+      endAt: event?.endAt ?? moment(new Date()).add(1, 'hours').toDate(),
+      phase: event?.phase ?? '',
+      experts: event?.experts ?? [],
+      participants: event?.participants ?? [],
+      extra_options: {
+        assistant: event?.extra_options?.assistant ?? 'onsite',
+        description: event?.extra_options?.description ?? '',
+        url: event?.extra_options?.url ?? '',
+        files: event?.extra_options?.files ?? [],
+      },
+    };
+    return eventBody;
   }
 
   toSave(): Partial<Event> {
@@ -104,21 +142,17 @@ export class Event implements IEvent {
       startAt: this.startAt,
       endAt: this.endAt,
       isDeleted: this.isDeleted,
+      experts: this.experts,
+      participants: this.participants,
     };
   }
+}
 
-  static newEvent() {
-    return {
-      name: '',
-      type: '',
-      startAt: new Date(),
-      endAt: new Date(),
-      phase: '',
-      extra_options: {
-        assistant: 'onsite',
-        description: '',
-        url: '',
-      },
-    };
-  }
+export interface IEventFile {
+  url?: string;
+  name: string;
+}
+
+export interface IEventFileExtended extends IEventFile {
+  file?: File;
 }

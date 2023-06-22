@@ -12,7 +12,7 @@
             <ng-template pTemplate="header">
             </ng-template>
             <ng-template pTemplate="body" let-event>
-                <div class="card shadow-4 my-2 p-2 border-round">
+                <div class="card shadow-4 my-2 p-2 border-round bg-white">
                     <div class="flex flex-row flex-wrap card-container blue-container justify-content-center">
                         <div class="flex flex-none align-items-center justify-content-center">
                             <div class="flex align-items-center justify-content-center">
@@ -26,34 +26,28 @@
                         <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
                             <div class="flex flex-column align-items-center justify-content-start w-full h-full">
                                 <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
-                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.item.nombre}}</span>
+                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.name}}</span>
                                 </div>
                                 <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
                                     <div class="flex flex-column w-full">
                                         <span class="text-gray-600 font-semibold">Participación</span>
                                         <div class="flex align-items-center my-1">
                                             <span class="text-gray-600 text-base mr-2">
-                                                0
+                                                {{0}}
                                             </span>
                                             <p-button styleClass="p-button-text" icon="pi pi-eye"></p-button>
                                         </div>
                                     </div>
                                     <div class="flex align-items-center w-full my-1">
-                                        <i class="pi pi-video text-base"></i>
-                                        <span class="text-base ml-2">
-                                            0
-                                        </span>
-                                    </div>
-                                    <div class="flex align-items-center w-full my-1">
                                         <i class="pi pi-user text-base"></i>
                                         <span class="text-base ml-2">
-                                            {{'Tipo de evento: '}}
+                                            {{'Tipo de evento: ' + showedTypesEvents[event.type].name }}
                                         </span>
                                     </div>
                                     <div class="flex align-items-center w-full my-1">
                                         <i class="pi pi-calendar text-base"></i>
                                         <span class="text-base ml-2">
-                                            {{event.objectRef.item.startAt | date:'yyyy MMM dd - hh:mm aa'}}
+                                            {{event.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.endAt | date:'yyyy MMM dd - hh:mm aa'}}
                                         </span>
                                     </div>
                                 </div>
@@ -62,7 +56,7 @@
 
                         <div class="flex align-items-end justify-content-center p-2">
                             <div class="flex flex-row justify-content-end align-items-end">
-                                <ng-container *ngIf="event.objectRef.item.asistencia=='Virtual'">
+                                <ng-container *ngIf="event.extra_options.assistant ==='Virtual'">
                                     <div class="flex flex-row">
                                         <p-button class="mx-1" type="button" icon="pi pi-external-link" label="" pTooltip="website" tooltipPosition="top">
                                         </p-button>
@@ -71,17 +65,17 @@
                                     </div>
                                 </ng-container>
                                 <div class="flex flex-row">
-                                    <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="QR" tooltipPosition="top">
-                                    </p-button>
+                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="QR" tooltipPosition="top">
+                                    </p-button> -->
                                     <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
                                                             pTooltip="Notas" tooltipPosition="top"
                                                             (click)="notesDisplay = true">
                                                         </p-button> -->
-                                    <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
+                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
+                                    </p-button> -->
+                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" (onClick)="openEdit(event)">
                                     </p-button>
-                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="MModificar" tooltipPosition="top">
-                                    </p-button>
-                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top">
+                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event)">
                                     </p-button>
                                 </div>
                             </div>
@@ -91,10 +85,10 @@
 
             </ng-template>
             <ng-template pTemplate="emptymessage">
-                <div class="card shadow-4 my-2 p-2" style="min-width: 200px;">
+                <div class="card shadow-4 my-2 p-2 bg-white" style="min-width: 200px;">
                     <div class="flex flex-column card-container align-items-center justify-content-center">
                         <div class="flex align-items-center justify-content-center" style="min-height: 100px;">
-                            <h2>Rasfra</h2>
+                            <h2>No hay eventos</h2>
                         </div>
                     </div>
                 </div>
@@ -180,7 +174,7 @@
     <div class="flex gap-2">
         <div class="field">
             <label for="assistantType">Tipo de asistencia</label>
-            <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" [(ngModel)]="newEvent.extra_options.assistant" class="inputfield mt-2"></p-selectButton>
+            <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" [disabled]="editingEvent" [(ngModel)]="newEvent.extra_options.assistant" class="inputfield mt-2"></p-selectButton>
         </div>
         <div class="field pt-4 pl-2" *ngIf="newEvent.extra_options.assistant === 'virtual'">
             <div class="flex">
@@ -188,7 +182,7 @@
                     <i class="pi pi-link"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <input pInputText type="text" [(ngModel)]="newEvent.extra_options.url" placeholder="Url" required>
+                    <input pInputText type="text" [(ngModel)]="newEvent.extra_options.url" placeholder="Url" [readOnly]="editingEvent" required>
                     <label for="url">Url</label>
                 </span>
             </div>
@@ -214,7 +208,7 @@
                     <i class="pi pi-list"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type" (onChange)="selectionType($event.value)">
+                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type" (onChange)="selectionType($event.value)" [readonly]="editingEvent">
                     </p-dropdown>
                     <label for="typeEvent">Tipo Evento</label>
                 </span>
@@ -245,23 +239,155 @@
             </div>
         </div>
 
-        <div class="field col-12 md:col-12">
+        <div class="field col-12 pt-3 md:col-12 ">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
                     <i class="pi pi-align-left"></i>
                 </span>
                 <span class="p-float-label">
-                    <textarea id="descEvent" rows="4" style="width: 100%;" [(ngModel)]="newEvent.extra_options.description" pInputTextarea></textarea>
+                    <textarea id="descEvent" rows="3" style="width: 100%;" [(ngModel)]="newEvent.extra_options.description" pInputTextarea></textarea>
                     <label for="descEvent">Descripción</label>
                 </span>
             </div>
         </div>
-
-
         <div style="height: 1rem;"></div>
-
     </div>
-    <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="newEvent.type === ''" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    <div class="flex w-full flex-row p-2 gap-2">
+        <p-card class="w-">
+            <div class="flex flex-row align-items-center justify-content-center">
+                <h3 class="my-2">
+                    <fa-icon [icon]="faUserTie"></fa-icon> Expertos
+                </h3>
+            </div>
+            <div class="flex flex-row align-items-center justify-content-center mb-2 cursor-pointer" (click)="opExperts.toggle($event)">
+                <span>
+                    <fa-icon [icon]="faPlus"></fa-icon> Añadir experto
+                </span>
+            </div>
+            <div class="flex flex-column align-items-center justify-content-start px-1" style="max-height: 240px; overflow-y: auto;">
+                <div *ngFor="let expert of newEvent.experts; let i=index" class="mb-1 flex flex-row align-items-center justify-content-start w-full">
+                    <span pTooltip="{{(i+1) + ' - ' + expert.name}}">
+                        <p-avatar icon="pi pi-user" styleClass="mx-2" shape="circle"></p-avatar>
+                        {{expert.name.length>15 ? (expert.name | slice:0:15) : expert.name}}
+                    </span>
+                    <div class="flex-grow-1"></div>
+                    <fa-icon [icon]="faTimes" class="ml-1 cursor-pointer" pTooltip="Quitar experto" (click)="
+                            removeExpert(expert._id)"></fa-icon>
+                </div>
+
+            </div>
+
+
+        </p-card>
+        <p-card>
+            <div class="flex flex-row align-items-center justify-content-center">
+                <h3 class="my-2">
+                    <fa-icon [icon]="faUsers"></fa-icon> Participantes
+                </h3>
+            </div>
+            <div class="flex flex-column align-items-center justify-content-center mb-2 cursor-pointer gap-2">
+                <span (click)="opParticipants.toggle($event)">
+                    <fa-icon [icon]="faPlus"></fa-icon> Añadir Participante(s)
+                </span>
+                <span (click)="opStartUps.toggle($event)">
+                    <fa-icon [icon]="faPlus"></fa-icon> Añadir StartUp(s)
+                </span>
+            </div>
+            <div class="flex flex-column align-items-center justify-content-start px-1" style="max-height: 240px; overflow-y: auto;">
+                <div *ngFor="let part of newEvent.participants; let i=index" class="mb-1 flex flex-row align-items-center justify-content-start w-full">
+                    <span pTooltip="{{(i+1) + ' - ' + part.name}}">
+                        <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
+                        {{part.name.length>15 ? (part.name | slice:0:15) : part.name}}
+                    </span>
+                    <div class="flex-grow-1"></div>
+                    <!-- "space_management_add_acta" "tittle_delete_participants" : "Quitar participantes", -->
+                    <fa-icon [icon]="faTimes" class="ml-1 cursor-pointer" pTooltip="Quitar participantes" (click)="removeParticipant(part._id)"></fa-icon>
+                </div>
+            </div>
+        </p-card>
+    </div>
+
+    <ng-container class="w-full" *ngIf="allowFiles">
+        <!-- <div class="flex flex-row align-items-center justify-content-center">
+            <h3 class="mt-0 mb-1">Archivos</h3>
+        </div> -->
+        <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+            <ng-template let-file pTemplate="file">
+                <div></div>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                    <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>
+                    <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                    <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                    <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)"></fa-icon>
+                </div>
+            </ng-template>
+        </p-fileUpload>
+    </ng-container>
+    <ng-container *ngIf="!editingEvent; else editButton">
+        <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="newEvent.type === ''" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </ng-container>
+    <ng-template #editButton>
+        <p-button type="submit" label="Guardar cambios" (onClick)="eventEdit()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </ng-template>
 </p-dialog>
 
 <p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>
+
+<p-overlayPanel #opExperts [dismissable]="false" [style]="{'width':'500px'}">
+    <ng-template pTemplate>
+        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">
+            <div class="formgrid grid col-10">
+                <div class="field col-12 md:col-12 pt-3" style="max-width: 400px;">
+                    <div class="flex">
+                        <span class="p-float-label" style="width: 100%">
+                            <p-multiSelect inputId="dropdownExperts" [options]="expertsList" optionLabel="name" selectedItemsLabel="{0} Experto(s)" [style]="{ width: '100%' }" appendTo="body" display="chip" [(ngModel)]="selectedExperts"></p-multiSelect>
+                            <label for="dropdownExperts">Experto(s)</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <p-button class="h-2rem ml-2 p-button-raised field col-2" type="button" icon="pi pi-check" label="" pTooltip="Aceptar" (onClick)="addExperts(); opExperts.hide()">
+            </p-button>
+        </div>
+    </ng-template>
+</p-overlayPanel>
+
+<p-overlayPanel #opParticipants [dismissable]="false" [style]="{'width':'500px'}">
+    <ng-template pTemplate>
+        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">
+            <div class="formgrid grid col-10">
+                <div class="field col-12 md:col-12 pt-3" style="max-width: 400px;">
+                    <div class="flex">
+                        <span class="p-float-label" style="width: 100%">
+                            <p-multiSelect inputId="dropdownParticipants" [options]="entrepreneurList" optionLabel="name" selectedItemsLabel="{0} Participante(s)" [style]="{ width: '100%' }" appendTo="body" display="chip" [(ngModel)]="selectedParticipants"></p-multiSelect>
+                            <label for="dropdownParticipants">Participante(s)</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <p-button class="h-2rem ml-2 p-button-raised field col-2" type="button" icon="pi pi-check" label="" pTooltip="Aceptar" (onClick)="addParticipant(); opParticipants.hide()">
+            </p-button>
+        </div>
+    </ng-template>
+</p-overlayPanel>
+
+<p-overlayPanel #opStartUps [dismissable]="false" [style]="{'width':'500px'}">
+    <ng-template pTemplate>
+        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">
+            <div class="formgrid grid col-10">
+                <div class="field col-12 md:col-12 pt-3" style="max-width: 400px;">
+                    <div class="flex">
+                        <span class="p-float-label" style="width: 100%">
+                            <p-multiSelect inputId="dropdownStartups" [options]="startupsList" optionLabel="name" selectedItemsLabel="{0} Startups" [style]="{ width: '100%' }" appendTo="body" display="chip" [(ngModel)]="selectedStartups"></p-multiSelect>
+                            <label for="dropdownStartups">StartUp(s)</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <p-button class="h-2rem ml-2 p-button-raised field col-2" type="button" icon="pi pi-check" label="" pTooltip="Aceptar" (onClick)="addStartup(); opStartUps.hide()">
+            </p-button>
+        </div>
+    </ng-template>
+</p-overlayPanel>

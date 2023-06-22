@@ -4,10 +4,18 @@ const fragments = {
       _id
       item
     }
-  `
-}
+  `,
+};
 
 const query = {
+  entrepreneurById: `
+    query Entrepreneur($id: String!) {
+      entrepreneur(id: $id) {
+        ...entrepreneurFields
+      }
+    }
+    ${fragments.entrepreneurFields}
+  `,
   entrepreneurs: `
     query Entrepreneurs {
       entrepreneurs {
@@ -16,15 +24,21 @@ const query = {
     }
     ${fragments.entrepreneurFields}
   `,
+  entrepreneurByAccount: `
+    query EntrepreneurAccount($accountId: String!) {
+      entrepreneurAccount(accountId: $accountId) {
+        ...entrepreneurFields
+      }
+    }
+    ${fragments.entrepreneurFields}
+  `,
 };
 
-const mutation = {
-
-};
+const mutation = {};
 
 export const entrepreneurQueries = {
   query,
-  mutation
+  mutation,
 };
 
 export default entrepreneurQueries;

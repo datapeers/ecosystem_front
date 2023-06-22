@@ -4,6 +4,7 @@ import { Event, ITypeEvent, TypeEvent } from '../model/events.model';
 import typesEventsQueries from '../graphql/types-events.gql';
 import eventsQueries from '../graphql/events.gql';
 import { firstValueFrom, map } from 'rxjs';
+import { StorageService } from '@shared/storage/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,10 @@ import { firstValueFrom, map } from 'rxjs';
 export class PhaseEventsService {
   _getTypesEvents;
   _getEvents;
-  constructor(private graphql: GraphqlService) {}
+  constructor(
+    private graphql: GraphqlService,
+    private readonly storageService: StorageService
+  ) {}
 
   // --------------------------------------------- Types Events ----------------------------------------------
 
@@ -94,29 +98,29 @@ export class PhaseEventsService {
 
   // ----------------------------------------- Events ---------------------------------------
 
-  async watchEvents() {
+  async watchEvents(phase: string) {
     this._getEvents = this.graphql.refQuery(
-      eventsQueries.query.getEvents,
-      {},
+      eventsQueries.query.getEventsPhase,
+      { phase },
       'cache-first',
       { auth: true }
     );
     return this.graphql.watch_query(this._getEvents).valueChanges.pipe(
-      map((request) => request.data.events),
+      map((request) => request.data.eventsPhase),
       map((events) => events.map((eventDoc) => Event.fromJson(eventDoc)))
     );
   }
 
-  async getEvents() {
+  async getEvents(phase: string) {
     this._getEvents = this.graphql.refQuery(
-      eventsQueries.query.getEvents,
-      {},
+      eventsQueries.query.getEventsPhase,
+      { phase },
       'cache-first',
       { auth: true }
     );
     return firstValueFrom(
       this.graphql.query(this._getEvents).pipe(
-        map((request) => request.data.events),
+        map((request) => request.data.eventsPhase),
         map((events) => events.map((eventDoc) => Event.fromJson(eventDoc)))
       )
     );
@@ -134,6 +138,54 @@ export class PhaseEventsService {
         map((request) => request.data.createEvent),
         map((EventDoc) => Event.fromJson(EventDoc))
       )
+    );
+  }
+
+  async updateEvent(data: Partial<Event>): Promise<Event> {
+    const mutRef = this.graphql.refMutation(
+      eventsQueries.mutation.updateEvent,
+      { updateEventInput: data },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(map((request) => request.data.updateEvent))
+    );
+  }
+
+  async deleteEvent(id: string): Promise<Event> {
+    const mutRef = this.graphql.refMutation(
+      eventsQueries.mutation.deleteEvent,
+      { id },
+      [this._getEvents],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.removeEvent),
+        map((eventDoc) => Event.fromJson(eventDoc))
+      )
+    );
+  }
+
+  updateEventThumbnail(event: Event, file: File) {
+    const renamedFile = new File([file], event._id, {
+      type: file.type,
+      lastModified: file.lastModified,
+    });
+    return this.storageService.uploadFile(
+      `phases/${event.phase}/events/${event._id}/thumbnail`,
+      renamedFile,
+      true
+    );
+  }
+
+  removeEventThumbnail(event: Event) {
+    return this.storageService.deleteFile(
+      `phases/${event.phase}/events/${event._id}/thumbnail`,
+      event._id
     );
   }
 }
