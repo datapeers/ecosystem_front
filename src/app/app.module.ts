@@ -39,7 +39,7 @@ registerLocaleData(localeEs);
     SignUpComponent,
     ForgotPasswordComponent,
     BackgroundComponent,
-		LandingComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,

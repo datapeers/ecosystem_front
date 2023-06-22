@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseEventsService } from './phase-events.service';
 import { Event, IEventFileExtended, TypeEvent } from '../model/events.model';
@@ -21,6 +21,14 @@ import { StorageService } from '@shared/storage/storage.service';
 import { HttpEventType } from '@angular/common/http';
 import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
 import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
+import { Table } from 'primeng/table';
+import { ListedObject } from '@shared/components/datefilter/models/datefilter.interfaces';
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+  differenceInMilliseconds,
+} from 'date-fns';
 
 @Component({
   selector: 'app-phase-events',
@@ -44,7 +52,10 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     { label: 'Presencial', value: 'onsite' },
     { label: 'Virtual', value: 'virtual' },
   ];
-
+  optionsAssistant = {
+    onsite: 'Presencial',
+    virtual: 'Virtual',
+  };
   events$: Subscription;
   events: Event[];
 
@@ -70,6 +81,15 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   faClock = faClock;
   faUsers = faUsers;
   editingEvent = false;
+
+  currentFilterType = 'contains';
+  currentFilterField = 'item.nombre';
+  currentFilterFieldName = 'Titulo';
+  currentFilterFieldValue = '';
+  tableData: ListedObject[] = [];
+  list: ListedObject[];
+  dataArray;
+  @ViewChild('dt') dataTableRef: Table;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -122,7 +142,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       .then((events$) => {
         this.events$ = events$.subscribe((eventList: Event[]) => {
           this.events = eventList;
-          console.log(this.events);
+          this.preloadTableItems();
         });
       })
       .catch((err) => {
@@ -135,6 +155,39 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       });
     await this.loadExperts();
     await this.loadStartUps();
+  }
+
+  preloadTableItems() {
+    this.list = [];
+    this.events.forEach((ev) => {
+      const diffInMinutes = Math.abs(differenceInMinutes(ev.endAt, ev.startAt));
+      const days = Math.floor(diffInMinutes / (24 * 60));
+      const hours = Math.floor((diffInMinutes % (24 * 60)) / 60);
+      const minutes = diffInMinutes % 60;
+
+      let duration = '';
+
+      if (days > 0) {
+        duration += `${days} día${days > 1 ? 's' : ''} `;
+      }
+
+      if (hours > 0) {
+        duration += `${hours} hora${hours !== 1 ? 's' : ''} `;
+      }
+
+      if (minutes > 0 || duration === '') {
+        duration += `${minutes} minuto${minutes !== 1 ? 's' : ''}`;
+      }
+
+      this.list.push({
+        objectRef: ev,
+        date: new Date(ev.startAt),
+        name: ev.name,
+        duration: hours,
+        durationString: duration,
+      });
+    });
+    console.log(this.list);
   }
 
   async loadExperts() {
@@ -172,9 +225,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   openEdit(event) {
-    console.log(event);
     this.newEvent = Event.newEvent(cloneDeep(event));
-    console.log(this.newEvent);
     this.editingEvent = true;
     for (const fileDoc of this.newEvent.extra_options.files) {
       this.selectedFiles.push(fileDoc);
@@ -467,5 +518,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
           });
       },
     });
+  }
+
+  filter(stringToFilter: string) {
+    this.dataTableRef.filter(stringToFilter, 'name', this.currentFilterType);
+  }
+
+  updateTable(event) {
+    this.dataArray = event;
   }
 }

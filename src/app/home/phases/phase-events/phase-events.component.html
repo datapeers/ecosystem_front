@@ -8,92 +8,121 @@
                 <p-button label="Evento" icon="pi pi-plus" (onClick)="showCreatorEvent = true"></p-button>
             </div>
         </div>
-        <p-table #dt id="dt" [value]="events" dataKey="_id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [loading]="!loaded" [paginator]="true">
-            <ng-template pTemplate="header">
-            </ng-template>
-            <ng-template pTemplate="body" let-event>
-                <div class="card shadow-4 my-2 p-2 border-round bg-white">
-                    <div class="flex flex-row flex-wrap card-container blue-container justify-content-center">
-                        <div class="flex flex-none align-items-center justify-content-center">
-                            <div class="flex align-items-center justify-content-center">
-                                <div class="p-0 align-items-center justify-content-center">
-                                    <div class="cursor-pointer flex flex-column align-items-center justify-content-center border-round shadow-2 m-2" pTooltip=" video" tooltipPosition="top">
-                                        <img src='/assets/noPic.jpg' alt="" class="border-round" style="height: 225px; width: 400px; object-fit: contain;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
-                            <div class="flex flex-column align-items-center justify-content-start w-full h-full">
-                                <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
-                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.name}}</span>
-                                </div>
-                                <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
-                                    <div class="flex flex-column w-full">
-                                        <span class="text-gray-600 font-semibold">Participación</span>
-                                        <div class="flex align-items-center my-1">
-                                            <span class="text-gray-600 text-base mr-2">
-                                                {{0}}
-                                            </span>
-                                            <p-button styleClass="p-button-text" icon="pi pi-eye"></p-button>
-                                        </div>
-                                    </div>
-                                    <div class="flex align-items-center w-full my-1">
-                                        <i class="pi pi-user text-base"></i>
-                                        <span class="text-base ml-2">
-                                            {{'Tipo de evento: ' + showedTypesEvents[event.type].name }}
-                                        </span>
-                                    </div>
-                                    <div class="flex align-items-center w-full my-1">
-                                        <i class="pi pi-calendar text-base"></i>
-                                        <span class="text-base ml-2">
-                                            {{event.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.endAt | date:'yyyy MMM dd - hh:mm aa'}}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <app-datefilter [alwaysBetween]="true" [emitAll]="true" [viewOptions]="[
+            { label: 'Todos', value: 'all' },
+            { label: 'Próximos', value: 'future' },
+            { label: 'Pasados', value: 'past' },
+            { label: 'En curso', value: 'current' },
+            { label: 'Del día', value: 'daily' }
+            ]" [listOfObjects]='list' [inputTooltip]="'Buscar'" (OnInput)="filter($event)" (OnChange)="updateTable($event)">
+        </app-datefilter>
 
-                        <div class="flex align-items-end justify-content-center p-2">
-                            <div class="flex flex-row justify-content-end align-items-end">
-                                <ng-container *ngIf="event.extra_options.assistant ==='Virtual'">
-                                    <div class="flex flex-row">
-                                        <p-button class="mx-1" type="button" icon="pi pi-external-link" label="" pTooltip="website" tooltipPosition="top">
-                                        </p-button>
-                                        <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top">
-                                        </p-button>
-                                    </div>
-                                </ng-container>
-                                <div class="flex flex-row">
-                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="QR" tooltipPosition="top">
+        <div class="card">
+            <p-tabView>
+                <ng-container *ngFor="let tableData of dataArray">
+                    <p-tabPanel [header]="tableData.label">
+                        <p-table #dt id="dt" [value]="tableData.array" dataKey="_id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [loading]="!loaded" [paginator]="true">
+                            <ng-template pTemplate="header">
+                            </ng-template>
+                            <ng-template pTemplate="body" let-event>
+                                <div class="card shadow-4 my-2 p-2 border-round bg-white">
+                                    <div class="flex flex-row flex-wrap card-container blue-container justify-content-center">
+                                        <div class="flex flex-none align-items-center justify-content-center">
+                                            <div class="flex align-items-center justify-content-center">
+                                                <div class="p-0 align-items-center justify-content-center">
+                                                    <div class="cursor-pointer flex flex-column align-items-center justify-content-center border-round shadow-2 m-2" pTooltip=" video" tooltipPosition="top">
+                                                        <img src='/assets/noPic.jpg' alt="" class="border-round" style="height: 225px; width: 400px; object-fit: contain;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
+                                            <div class="flex flex-column align-items-center justify-content-start w-full h-full">
+                                                <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
+                                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.name}}</span>
+                                                </div>
+                                                <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
+                                                    <div class="flex flex-column w-full">
+                                                        <span class="text-gray-600 font-semibold">Participación</span>
+                                                        <div class="flex align-items-center my-1">
+                                                            <span class="text-gray-600 text-base mr-2">
+                                                                {{0}}
+                                                            </span>
+                                                            <p-button styleClass="p-button-text" icon="pi pi-eye"></p-button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex align-items-center w-full my-1">
+                                                        <i class="pi pi-video text-base"></i>
+                                                        <span class="text-base ml-2">
+                                                            {{optionsAssistant[event.objectRef.extra_options.assistant]}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex align-items-center w-full my-1">
+                                                        <i class="pi pi-user text-base"></i>
+                                                        <span class="text-base ml-2">
+                                                            {{'Tipo de evento: ' + showedTypesEvents[event.objectRef.type].name }}
+                                                        </span>
+                                                    </div>
+                                                    <div class="flex align-items-center w-full my-1">
+                                                        <i class="pi pi-calendar text-base"></i>
+                                                        <span class="text-base ml-2">
+                                                            {{event.objectRef.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.objectRef.endAt | date:'yyyy MMM dd - hh:mm aa'}}
+                                                        </span>
+                                                    </div>
+                                                    <div *ngIf="event.durationString" class="flex align-items-center w-full my-1">
+                                                        <i class="pi pi-clock text-base"></i>
+                                                        <span class="text-base ml-2">
+                                                            {{'Duración: ' + event.durationString }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex align-items-end justify-content-center p-2">
+                                            <div class="flex flex-row justify-content-end align-items-end">
+                                                <ng-container *ngIf="event.objectRef.extra_options.assistant ==='virtual'">
+                                                    <div class="flex flex-row">
+                                                        <p-button class="mx-1" type="button" icon="pi pi-external-link" label="" pTooltip="website" tooltipPosition="top">
+                                                        </p-button>
+                                                        <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top">
+                                                        </p-button>
+                                                    </div>
+                                                </ng-container>
+                                                <div class="flex flex-row">
+                                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="QR" tooltipPosition="top">
                                     </p-button> -->
-                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
+                                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
                                                             pTooltip="Notas" tooltipPosition="top"
                                                             (click)="notesDisplay = true">
                                                         </p-button> -->
-                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
+                                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
                                     </p-button> -->
-                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" (onClick)="openEdit(event)">
-                                    </p-button>
-                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event)">
-                                    </p-button>
+                                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" (onClick)="openEdit(event.objectRef)">
+                                                    </p-button>
+                                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)">
+                                                    </p-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-                <div class="card shadow-4 my-2 p-2 bg-white" style="min-width: 200px;">
-                    <div class="flex flex-column card-container align-items-center justify-content-center">
-                        <div class="flex align-items-center justify-content-center" style="min-height: 100px;">
-                            <h2>No hay eventos</h2>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </p-table>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <div class="card shadow-4 my-2 p-2 bg-white" style="min-width: 200px;">
+                                    <div class="flex flex-column card-container align-items-center justify-content-center">
+                                        <div class="flex align-items-center justify-content-center" style="min-height: 100px;">
+                                            <h2>No hay eventos</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-table>
+                    </p-tabPanel>
+                </ng-container>
+            </p-tabView>
+        </div>
     </div>
 </ng-container>
 <ng-template #loadingTemplate>
@@ -208,7 +237,7 @@
                     <i class="pi pi-list"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type" (onChange)="selectionType($event.value)" [readonly]="editingEvent">
+                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" [(ngModel)]="newEvent.type" (onChange)="selectionType($event.value)">
                     </p-dropdown>
                     <label for="typeEvent">Tipo Evento</label>
                 </span>
@@ -221,7 +250,7 @@
                     <i class="pi pi-calendar-times"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" [(ngModel)]="newEvent.startAt" [showTime]="true"></p-calendar>
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" [(ngModel)]="newEvent.startAt" [showTime]="true" [maxDate]="newEvent.endAt"></p-calendar>
                     <label for="calendar-first">Inicia</label>
                 </span>
             </div>
@@ -233,7 +262,7 @@
                     <i class="pi pi-calendar-times"></i>
                 </span>
                 <span class="p-float-label" style="width: 100%">
-                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" [(ngModel)]="newEvent.endAt" [showTime]="true"></p-calendar>
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" [(ngModel)]="newEvent.endAt" [showTime]="true" [minDate]="newEvent.startAt"></p-calendar>
                     <label for="calendar-first">Termina</label>
                 </span>
             </div>

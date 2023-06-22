@@ -7,7 +7,7 @@ import { AvatarUploaderModule } from '@shared/components/form/avatar-uploader/av
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationModule } from '../navbar/navigation.module';
-import { StorageModule } from "../shared/storage/storage.module";
+import { StorageModule } from '../shared/storage/storage.module';
 import { AppSharedModule } from '@shared/app-shared.module';
 import { PhasesComponent } from './phases/phases.component';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
@@ -38,6 +38,7 @@ import { ApplicantsComponent } from './announcements/applicants/applicants.compo
 import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.component';
 import { PhaseStartupsComponent } from './phases/phase-startups/phase-startups.component';
 import { ApplicantStateEditComponent } from './announcements/applicants/applicant-state-edit/applicant-state-edit.component';
+import { DatefilterComponent } from '@shared/components/datefilter/datefilter.component';
 
 @NgModule({
   declarations: [
@@ -64,11 +65,12 @@ import { ApplicantStateEditComponent } from './announcements/applicants/applican
     PhaseHoursConfigComponent,
     PhaseEventsComponent,
     ExpertsComponent,
-		ApplicantsComponent,
-		BusinessesComponent,
+    ApplicantsComponent,
+    BusinessesComponent,
     PhaseExpertsComponent,
     PhaseStartupsComponent,
     ApplicantStateEditComponent,
+    DatefilterComponent,
   ],
   imports: [
     CommonModule,
@@ -79,12 +81,12 @@ import { ApplicantStateEditComponent } from './announcements/applicants/applican
     FontAwesomeModule,
     AvatarUploaderModule,
     DynamicTableModule,
-		NavigationModule,
+    NavigationModule,
     NgxTinymceModule.forRoot({
       baseURL: '/assets/tinymce/',
     }),
-		StorageModule,
-		AppSharedModule,
-	]
+    StorageModule,
+    AppSharedModule,
+  ],
 })
 export class HomeModule {}

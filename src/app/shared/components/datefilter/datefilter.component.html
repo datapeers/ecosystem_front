@@ -1,0 +1,40 @@
+<div class="flex flex-column card-container">
+
+    <div *ngIf="!emitAll" class="flex align-items-center justify-content-start">
+        <div class="flex align-items-center justify-content-center mx-1">
+            <div class="flex align-items-center justify-content-center my-1">
+                <p-dropdown *ngIf="rangeSelector == 'dropdown'" [options]="viewOptions" [(ngModel)]="order" placeholder="label" optionLabel="label" optionValue="value" appendTo="body"></p-dropdown>
+                <p-selectButton *ngIf="rangeSelector == 'selectButton'" [options]="viewOptions" [(ngModel)]="order" optionLabel="label" optionValue="value" (onChange)="switchStorage($event)"></p-selectButton>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex align-items-center justify-content-start">
+
+        <div class="flex flex-row flex-wrap align-items-center justify-content-start">
+
+            <div class="flex align-items-center justify-content-center mx-1">
+                <div class="flex align-items-center justify-content-start my-1">
+                    <input placeholder="Buscar" type="text" pInputText [(ngModel)]="currentFilterFieldValue" (input)="filter()" [pTooltip]="inputTooltip">
+                </div>
+            </div>
+
+            <div *ngIf="order=='between' || alwaysBetween" class="flex align-items-center justify-content-center mx-1">
+                <div class="flex align-items-center justify-content-center my-1">
+                    <p-calendar #calendar1 [panelStyle]="{'width': '400px'}" [inputStyle]="{'width': '220px'}" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" (onSelect)="applyNewRange()" [pTooltip]="dateTooltip" [showButtonBar]="true" (onClearClick)="clearRange()" (onTodayClick)="applyNewRange()">
+                    </p-calendar>
+                </div>
+            </div>
+
+
+            <div *ngIf="filterTypeOptions.length>1" class="flex align-items-center justify-content-center mx-1">
+                <div class="flex align-items-center justify-content-center my-1">
+                    <p-dropdown [options]="filterTypeOptions" [(ngModel)]="currentFilterType" placeholder="Contiene" optionLabel="label" optionValue="value" appendTo="body"></p-dropdown>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
