@@ -6,13 +6,14 @@ import { configTinyMce } from '@shared/models/configTinyMce';
 import { Subject, filter, takeUntil, tap } from 'rxjs';
 import { AnnouncementsService } from '../announcements.service';
 import { Announcement } from '../model/announcement';
-import { UpdateAnnouncementImageAction, UpdateAnnouncementAction, PublishAnnouncementAction } from '../store/announcement.actions';
+import { UpdateAnnouncementImageAction, UpdateAnnouncementAction, PublishAnnouncementAction, UnpublishAnnouncementAction } from '../store/announcement.actions';
 import { cloneDeep } from 'lodash';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '@shared/forms/custom-validators';
 import { UpdateAnnouncementInput } from '../model/update-announcement.input';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-announcement-edit',
@@ -43,6 +44,8 @@ export class AnnouncementEditComponent {
     private readonly service: AnnouncementsService,
     private readonly formService: FormService,
     private readonly store: Store<AppState>,
+    private readonly clipboard: Clipboard,
+    private readonly toast: ToastService,
   ) {
     this.store.select((state) => state.auth.user)
     .pipe(
@@ -100,6 +103,10 @@ export class AnnouncementEditComponent {
     this.store.dispatch(new PublishAnnouncementAction());
   }
 
+  unpublish() {
+    this.store.dispatch(new UnpublishAnnouncementAction());
+  }
+
   cancelEdit() {
     this.editEnabled = false;
   }
@@ -140,6 +147,13 @@ export class AnnouncementEditComponent {
       if (event.type === HttpEventType.Response) {
         this.store.dispatch(new UpdateAnnouncementImageAction(''));
       }
+    });
+  }
+
+  async copyText(value: string) {
+    await this.clipboard.writeText(value);
+    this.toast.success({
+      detail: "Texto copiado."
     });
   }
 }

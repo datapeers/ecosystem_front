@@ -129,6 +129,23 @@ export class AnnouncementsService {
         )
     );
   }
+  
+  async unpublishAnnouncement(id: string) {
+    const mutRef = this.graphql.refMutation(
+      announcementQueries.mutation.unpublishAnnouncement,
+      { id },
+      [this.cachedQueries.announcements],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(
+          map((request) => request.data.unpublishAnnouncement),
+          map((announcement) => Announcement.fromJson(announcement))
+        )
+    );
+  }
 
   openCreateAnnouncement(type: AnnouncementTypes, target: AnnouncementTargets = AnnouncementTargets.entrepreneurs): Observable<any> {
     const ref = this.dialogService.open(AnnouncementsCreatorComponent, {

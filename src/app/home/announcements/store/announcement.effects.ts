@@ -90,4 +90,27 @@ export class AnnouncementEffects {
     )
   );
 
+  unpublishAnnouncement$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromAnnouncement.UNPUBLISH_ANNOUNCEMENT),
+      switchMap(async (action: fromAnnouncement.UnpublishAnnouncementAction) => {
+        const current = await firstValueFrom(this.store.select(state => state.announcement.announcement));
+        let result = await this.announcementsService.unpublishAnnouncement(current._id)
+        .then(updatedAnnouncement => {
+          this.toast.success({
+            detail: "Cambios realizados con éxito"
+          });
+          return new fromAnnouncement.SetAnnouncementAction(updatedAnnouncement);
+        })
+        .catch(ex => {
+          console.error(ex);
+          this.toast.error({
+            detail: "Ocurrio un error al actualizar los datos"
+          });
+          return new fromAnnouncement.FailUpdateAnnouncementAction("Error al actualizar datos");
+        });
+        return result;
+      })
+    )
+  );
 }
