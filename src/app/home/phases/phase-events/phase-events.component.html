@@ -83,9 +83,7 @@
                                             <div class="flex flex-row justify-content-end align-items-end">
                                                 <ng-container *ngIf="event.objectRef.extra_options.assistant ==='virtual'">
                                                     <div class="flex flex-row">
-                                                        <p-button class="mx-1" type="button" icon="pi pi-external-link" label="" pTooltip="website" tooltipPosition="top">
-                                                        </p-button>
-                                                        <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top">
+                                                        <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top" (onClick)="goToLink(event.objectRef.extra_options.url)">
                                                         </p-button>
                                                     </div>
                                                 </ng-container>

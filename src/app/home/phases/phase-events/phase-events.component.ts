@@ -120,7 +120,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
               this.allowFiles = true;
             for (const iterator of this.typesEvents)
               this.showedTypesEvents[iterator._id] = iterator;
-            console.log(this.showedTypesEvents);
           }
         );
       })
@@ -187,7 +186,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         durationString: duration,
       });
     });
-    console.log(this.list);
   }
 
   async loadExperts() {
@@ -526,5 +524,18 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   updateTable(event) {
     this.dataArray = event;
+  }
+
+  goToLink(url: string) {
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      this.toast.info({
+        summary: 'Info',
+        detail:
+          'No hay enlace asociado a este evento virtual, editarlo para agregar un enlace valido',
+        life: 2000,
+      });
+    }
   }
 }
