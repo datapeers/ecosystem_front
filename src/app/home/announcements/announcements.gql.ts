@@ -87,6 +87,14 @@ const mutation = {
       }
     }
   `,
+  unpublishAnnouncement: `
+    ${fragments.detailedAnnouncementFields}
+    mutation UnpublishAnnouncement($id: String!) {
+      unpublishAnnouncement(id: $id) {
+        ...detailedAnnouncementFields
+      }
+    }
+  `,
 };
 
 const announcementQueries = {

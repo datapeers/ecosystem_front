@@ -8,6 +8,7 @@ export const CLEAR_STORE = '[Announcement] Clear store of auth';
 export const UPDATE_ANNOUNCEMENT_IMAGE = '[Announcement] Update announcement thumbnail image';
 export const UPDATE_ANNOUNCEMENT = '[Announcement] Update announcement';
 export const PUBLISH_ANNOUNCEMENT = '[Announcement] Publish announcement';
+export const UNPUBLISH_ANNOUNCEMENT = '[Announcement] Unpublish announcement';
 export const FAIL_UPDATE_ANNOUNCEMENT = '[Announcement] Failed to update announcement';
 
 export class SetAnnouncementAction implements Action {
@@ -33,6 +34,12 @@ export class UpdateAnnouncementAction implements Action {
 
 export class PublishAnnouncementAction implements Action {
   readonly type = PUBLISH_ANNOUNCEMENT;
+
+  constructor() {}
+}
+
+export class UnpublishAnnouncementAction implements Action {
+  readonly type = UNPUBLISH_ANNOUNCEMENT;
 
   constructor() {}
 }
