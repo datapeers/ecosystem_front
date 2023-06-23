@@ -6,7 +6,12 @@ import { configTinyMce } from '@shared/models/configTinyMce';
 import { Subject, filter, takeUntil, tap } from 'rxjs';
 import { AnnouncementsService } from '../announcements.service';
 import { Announcement } from '../model/announcement';
-import { UpdateAnnouncementImageAction, UpdateAnnouncementAction, PublishAnnouncementAction, UnpublishAnnouncementAction } from '../store/announcement.actions';
+import {
+  UpdateAnnouncementImageAction,
+  UpdateAnnouncementAction,
+  PublishAnnouncementAction,
+  UnpublishAnnouncementAction,
+} from '../store/announcement.actions';
 import { cloneDeep } from 'lodash';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
@@ -14,28 +19,38 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '@shared/forms/custom-validators';
 import { UpdateAnnouncementInput } from '../model/update-announcement.input';
 import { ToastService } from '@shared/services/toast.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-announcement-edit',
   templateUrl: './announcement-edit.component.html',
-  styleUrls: ['./announcement-edit.component.scss']
+  styleUrls: ['./announcement-edit.component.scss'],
 })
 export class AnnouncementEditComponent {
   onDestroy$: Subject<void> = new Subject();
   announcement: Announcement;
-  forms: { id: string; label: string; }[] = [];
+  forms: { id: string; label: string }[] = [];
   configTiny = configTinyMce;
   landingUrl: string = '';
-  announcementEditForm = new FormGroup({
-    name: new FormControl<string>(null, { validators: [Validators.required] }),
-    description: new FormControl<string>(null, { validators: [] }),
-    landing: new FormControl<string>(null, { validators: [] }),
-    exitText: new FormControl<string>(null, { validators: [] }),
-    redirectLink: new FormControl<string>(null, { validators: [] }),
-    form: new FormControl<string>(null, { validators: [Validators.required] }),
-    startAt: new FormControl<Date>(null, { validators: [Validators.required] }),
-    endAt: new FormControl<Date>(null, { validators: [Validators.required] }),
-  }, { validators: [ CustomValidators.dateRangeValidator('startAt', 'endAt') ] });
+  announcementEditForm = new FormGroup(
+    {
+      name: new FormControl<string>(null, {
+        validators: [Validators.required],
+      }),
+      description: new FormControl<string>(null, { validators: [] }),
+      landing: new FormControl<string>(null, { validators: [] }),
+      exitText: new FormControl<string>(null, { validators: [] }),
+      redirectLink: new FormControl<string>(null, { validators: [] }),
+      form: new FormControl<string>(null, {
+        validators: [Validators.required],
+      }),
+      startAt: new FormControl<Date>(null, {
+        validators: [Validators.required],
+      }),
+      endAt: new FormControl<Date>(null, { validators: [Validators.required] }),
+    },
+    { validators: [CustomValidators.dateRangeValidator('startAt', 'endAt')] }
+  );
   editEnabled: boolean = false;
   saving: boolean = false;
   canCreateForm: boolean = false;
@@ -45,20 +60,22 @@ export class AnnouncementEditComponent {
     private readonly formService: FormService,
     private readonly store: Store<AppState>,
     private readonly clipboard: Clipboard,
-    private readonly toast: ToastService,
+    private readonly toast: ToastService
   ) {
-    this.store.select((state) => state.auth.user)
-    .pipe(
-      takeUntil(this.onDestroy$),
-      filter(user => user != null)
-    )
-    .subscribe((user) => {
-      this.canCreateForm = user.isAdmin || user.isSuperAdmin;
-    });
-    this.store.select((state) => state.announcement.announcement)
+    this.store
+      .select((state) => state.auth.user)
       .pipe(
         takeUntil(this.onDestroy$),
-        filter(announcement => announcement != null)
+        filter((user) => user != null)
+      )
+      .subscribe((user) => {
+        this.canCreateForm = user.isAdmin || user.isSuperAdmin;
+      });
+    this.store
+      .select((state) => state.announcement.announcement)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((announcement) => announcement != null)
       )
       .subscribe((announcement) => {
         this.announcement = Announcement.fromJson(cloneDeep(announcement));
@@ -75,13 +92,15 @@ export class AnnouncementEditComponent {
         this.saving = false;
         this.editEnabled = false;
       });
-      this.landingUrl = `/landing/${this.announcement._id}`
+    this.landingUrl = `/landing/${this.announcement._id}`;
   }
 
   ngOnInit() {
-    this.formService.getFormByCollection(FormCollections.announcements).then((forms) => {
-      this.forms = forms.map(form => ({ id: form._id, label: form.name }));
-    });
+    this.formService
+      .getFormByCollection(FormCollections.announcements)
+      .then((forms) => {
+        this.forms = forms.map((form) => ({ id: form._id, label: form.name }));
+      });
   }
 
   ngOnDestroy() {
@@ -91,7 +110,7 @@ export class AnnouncementEditComponent {
 
   previewForm() {
     const { form: id } = this.announcementEditForm.getRawValue();
-    const formName = this.forms.find(form => form.id === id).label;
+    const formName = this.forms.find((form) => form.id === id).label;
     this.formService.openFormPreview(id, formName);
   }
 
@@ -115,8 +134,10 @@ export class AnnouncementEditComponent {
     this.saving = true;
     let formValues = this.announcementEditForm.getRawValue();
     let updates: Partial<typeof formValues> = {};
-    const updatedItems: UpdateAnnouncementInput = Object.entries(formValues).reduce((accu, [key, value]) => {
-      if(value !== this.announcement[key]) {
+    const updatedItems: UpdateAnnouncementInput = Object.entries(
+      formValues
+    ).reduce((accu, [key, value]) => {
+      if (value !== this.announcement[key]) {
         accu[key] = value;
       }
       return accu;
@@ -136,24 +157,30 @@ export class AnnouncementEditComponent {
       )
       .subscribe((event) => {
         if (event.type === HttpEventType.Response) {
-          this.service.updateAnnouncement(announcement._id, { thumbnail: event.url });
+          this.service.updateAnnouncement(announcement._id, {
+            thumbnail: event.url,
+          });
           this.store.dispatch(new UpdateAnnouncementImageAction(event.url));
         }
       });
   }
 
   removeImage(announcement: Announcement) {
-    this.service.removeAnnouncementThumbnail(announcement).subscribe((event) => {
-      if (event.type === HttpEventType.Response) {
-        this.store.dispatch(new UpdateAnnouncementImageAction(''));
-      }
-    });
+    this.service
+      .removeAnnouncementThumbnail(announcement)
+      .subscribe((event) => {
+        if (event.type === HttpEventType.Response) {
+          this.store.dispatch(new UpdateAnnouncementImageAction(''));
+        }
+      });
   }
 
   async copyText(value: string) {
-    await this.clipboard.writeText(value);
+    //console.log(location.origin);
+    this.clipboard.copy(`${location.origin}${value}`);
+    // await this.clipboard.writeText(value);
     this.toast.success({
-      detail: "Texto copiado."
+      detail: 'Texto copiado.',
     });
   }
 }
