@@ -23,12 +23,10 @@ import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
 import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
 import { Table } from 'primeng/table';
 import { ListedObject } from '@shared/components/datefilter/models/datefilter.interfaces';
-import {
-  differenceInDays,
-  differenceInHours,
-  differenceInMinutes,
-  differenceInMilliseconds,
-} from 'date-fns';
+import { differenceInMinutes } from 'date-fns';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ActaComponent } from './acta/acta.component';
+import { Acta } from '../model/acta.model';
 
 @Component({
   selector: 'app-phase-events',
@@ -89,10 +87,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   tableData: ListedObject[] = [];
   list: ListedObject[];
   dataArray;
+
+  ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dataTableRef: Table;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
+    public dialogService: DialogService,
     private readonly service: PhaseEventsService,
     private readonly expertsServices: PhaseExpertsService,
     private readonly storageService: StorageService,
@@ -106,6 +107,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.typesEvent$?.unsubscribe();
+    this.ref?.close();
   }
 
   async loadComponent() {
@@ -332,7 +334,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   async createEvent() {
     if (this.allowFiles && this.selectedFiles.length > 0) {
-      this.newEvent.extra_options['files'] = [];
       await this.uploadFiles();
     }
     this.toast.clear();
@@ -366,10 +367,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       if (iterator.file) {
         const fileUploaded: any = await firstValueFrom(
           this.storageService
-            .uploadFile(
-              `phases/${this.phase._id}/events/${this.newEvent.name}`,
-              iterator.file
-            )
+            .uploadFile(`phases/${this.phase._id}/events`, iterator.file)
             .pipe(first((event) => event.type === HttpEventType.Response))
         );
         this.newEvent.extra_options['files'].push({
@@ -537,5 +535,28 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         life: 2000,
       });
     }
+  }
+
+  showActa(event: Event) {
+    this.ref = this.dialogService.open(ActaComponent, {
+      header: 'Acta',
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      data: {
+        event,
+        phase: this.phase,
+      },
+    });
+
+    this.ref.onClose.subscribe((acta: Acta) => {
+      if (acta?._id && !event.extra_options.acta) {
+        this.service.updateEvent({
+          _id: event._id,
+          extra_options: { ...event.extra_options, acta: acta._id },
+        });
+      }
+    });
   }
 }

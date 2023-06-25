@@ -39,6 +39,7 @@ import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.comp
 import { PhaseStartupsComponent } from './phases/phase-startups/phase-startups.component';
 import { ApplicantStateEditComponent } from './announcements/applicants/applicant-state-edit/applicant-state-edit.component';
 import { DatefilterComponent } from '@shared/components/datefilter/datefilter.component';
+import { ActaComponent } from './phases/phase-events/acta/acta.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { DatefilterComponent } from '@shared/components/datefilter/datefilter.co
     PhaseStartupsComponent,
     ApplicantStateEditComponent,
     DatefilterComponent,
+    ActaComponent,
   ],
   imports: [
     CommonModule,

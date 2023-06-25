@@ -65,6 +65,7 @@ export interface IEvent {
     description: string;
     url?: string;
     files?: { name: string; url: string }[];
+    acta?: string;
   };
   startAt: Date;
   endAt: Date;
@@ -85,6 +86,7 @@ export class Event implements IEvent {
     description: string;
     url?: string;
     files?: { name: string; url: string }[];
+    acta?: string;
   };
   startAt: Date;
   endAt: Date;
@@ -129,6 +131,7 @@ export class Event implements IEvent {
         description: event?.extra_options?.description ?? '',
         url: event?.extra_options?.url ?? '',
         files: event?.extra_options?.files ?? [],
+        acta: event?.extra_options?.acta ?? undefined,
       },
     };
     return eventBody;
