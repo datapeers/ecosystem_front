@@ -118,4 +118,11 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         this.saving = false;
       });
   }
+
+  async updateCalcHours() {
+    this.totalActivities = 0;
+    for (const configActivity of this.showActivityConfig) {
+      this.totalActivities += configActivity.limit;
+    }
+  }
 }

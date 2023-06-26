@@ -203,7 +203,7 @@
     <div class="flex gap-2">
         <div class="field">
             <label for="assistantType">Tipo de asistencia</label>
-            <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" [disabled]="editingEvent" [(ngModel)]="newEvent.extra_options.assistant" class="inputfield mt-2"></p-selectButton>
+            <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" [(ngModel)]="newEvent.extra_options.assistant" class="inputfield mt-2"></p-selectButton>
         </div>
         <div class="field pt-4 pl-2" *ngIf="newEvent.extra_options.assistant === 'virtual'">
             <div class="flex">

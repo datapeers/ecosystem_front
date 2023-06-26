@@ -26,7 +26,7 @@
                     <ng-container *ngFor="let item of showActivityConfig">
                         <div class="flex-auto">
                             <label for="activityName">{{item.activityName}} </label>
-                            <p-inputNumber [(ngModel)]="item.limit" inputId="activityName" mode="decimal" [min]="0"> </p-inputNumber>
+                            <p-inputNumber [(ngModel)]="item.limit" inputId="activityName" mode="decimal" [min]="0" (ngModelChange)="updateCalcHours()"> </p-inputNumber>
                         </div>
                     </ng-container>
                 </div>
