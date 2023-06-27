@@ -27,7 +27,7 @@ import { differenceInMinutes } from 'date-fns';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActaComponent } from './acta/acta.component';
 import { Acta } from '../model/acta.model';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -45,7 +45,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   phase: Phase;
   showCreatorEvent = false;
-  newEvent = Event.newEvent();
+  newEvent = Event.newEvent(null);
   stateOptionsAssistant: any[] = [
     { label: 'Presencial', value: 'onsite' },
     { label: 'Virtual', value: 'virtual' },
@@ -138,6 +138,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
+    this.newEvent = Event.newEvent(this.phase);
     this.service
       .watchEvents(this.phase._id)
       .then((events$) => {
@@ -328,11 +329,19 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   resetCreatorEvent() {
     this.showCreatorEvent = false;
-    this.newEvent = Event.newEvent();
+    this.newEvent = Event.newEvent(this.phase);
     this.selectedFiles = [];
   }
 
   async createEvent() {
+    if (moment(this.newEvent.endAt).isBefore(this.newEvent.startAt)) {
+      this.toast.alert({
+        summary: 'Error de fechas',
+        detail:
+          'La fecha de inicio seleccionada es posterior a la fecha de término. Por favor, ajusta las fechas para continuar correctamente.',
+      });
+      return;
+    }
     if (this.allowFiles && this.selectedFiles.length > 0) {
       await this.uploadFiles();
     }

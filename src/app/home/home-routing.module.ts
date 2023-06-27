@@ -24,6 +24,7 @@ import { BusinessesComponent } from './businesses/businesses.component';
 import { ApplicantsComponent } from './announcements/applicants/applicants.component';
 import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.component';
 import { PhaseStartupsComponent } from './phases/phase-startups/phase-startups.component';
+import { CommunitiesComponent } from './communities/communities.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
       {
         path: 'experts',
         component: ExpertsComponent,
+      },
+      {
+        path: 'communities',
+        component: CommunitiesComponent,
       },
       {
         path: 'announcements',

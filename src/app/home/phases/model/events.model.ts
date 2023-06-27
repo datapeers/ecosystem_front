@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { Phase } from './phase.model';
 
 export interface ITypeEvent {
   _id: string;
@@ -116,14 +117,14 @@ export class Event implements IEvent {
     return obj;
   }
 
-  static newEvent(event?: IEvent) {
+  static newEvent(phase: Phase, event?: IEvent) {
     const eventBody = {
       _id: event?._id ?? undefined,
-      name: event?.name ?? '',
+      name: event?.name ?? `${phase?.name} - evento`,
       type: event?.type ?? '',
       startAt: event?.startAt ?? new Date(),
       endAt: event?.endAt ?? moment(new Date()).add(1, 'hours').toDate(),
-      phase: event?.phase ?? '',
+      phase: phase?._id,
       experts: event?.experts ?? [],
       participants: event?.participants ?? [],
       extra_options: {

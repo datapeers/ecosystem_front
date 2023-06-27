@@ -173,7 +173,7 @@ export class HomeService {
       },
       communities: {
         label: 'Comunidades',
-        rute: '/homecommunities',
+        rute: '/home/communities',
         type: 'single',
         class: '',
         icon: faUsers,

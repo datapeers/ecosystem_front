@@ -7,6 +7,7 @@ const fragments = {
       item
       entrepreneurs {
         _id
+        rol
         item
       }
     }
@@ -25,6 +26,14 @@ const query = {
   startupsPhase: `
     query StartupsPhase($phase: String!) {
       startupsPhase(phase: $phase) {
+        ...startupFields
+      }
+    }
+    ${fragments.startupFields}
+  `,
+  startupsCommunities: `
+    query StartupsCommunities {
+      startupsCommunities {
         ...startupFields
       }
     }

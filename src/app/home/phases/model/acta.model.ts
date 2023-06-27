@@ -1,4 +1,6 @@
 import * as moment from 'moment';
+import { Phase } from './phase.model';
+import { Event } from './events.model';
 
 export interface IActa {
   _id: string;
@@ -55,17 +57,17 @@ export class Acta implements IActa {
     return obj;
   }
 
-  static newActa(phase: string, event: string, acta?: IActa) {
+  static newActa(phase: Phase, event: Event, acta?: IActa) {
     const actaBody = {
       _id: acta?._id ?? undefined,
-      name: acta?.name ?? '',
+      name: acta?.name ?? `${phase.name} - ${event.name} - acta`,
       objective: acta?.objective ?? '',
       solution: acta?.solution ?? '',
       date: acta?.date ? new Date(acta.date) : new Date(),
       topics_covered: acta?.topics_covered ?? '',
       conclusions: acta?.conclusions ?? '',
-      event,
-      phase,
+      event: event._id,
+      phase: phase._id,
       extra_options: {
         files: acta?.extra_options?.files ?? [],
         expertHours: acta?.extra_options?.expertHours ?? undefined,

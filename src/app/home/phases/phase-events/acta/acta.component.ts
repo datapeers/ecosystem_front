@@ -65,8 +65,8 @@ export class ActaComponent implements OnInit, OnDestroy {
       .getActa(this.event._id)
       .then((acta) => {
         this.acta = acta
-          ? Acta.newActa(this.phase._id, this.event._id, cloneDeep(acta))
-          : Acta.newActa(this.phase._id, this.event._id);
+          ? Acta.newActa(this.phase, this.event, cloneDeep(acta))
+          : Acta.newActa(this.phase, this.event);
 
         for (const fileDoc of this.acta.extra_options.files) {
           this.selectedFiles.push(fileDoc);
