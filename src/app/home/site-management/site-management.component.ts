@@ -12,6 +12,7 @@ import { ToastService } from '@shared/services/toast.service';
 import { HttpEventType } from '@angular/common/http';
 import { StorageService } from '@shared/storage/storage.service';
 import { Map, tileLayer, marker, Marker } from 'leaflet';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-site-management',
@@ -26,22 +27,24 @@ export class SiteManagementComponent
   loading = true;
   showCreatorSite = false;
   newSite = Site.newSite();
-  editSite = false;
   saving = false;
-  showMap = false;
+
+  tabIndex = 0;
+
   mainMap: Map;
   assignMap: Map;
-  tabIndex = 0;
   latLong = [5.0710225, -75.4927164];
   markerAdded;
 
   allMarkersSites = [];
+  selectedSite;
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
   }
 
   constructor(
+    private confirmationService: ConfirmationService,
     private readonly service: SiteManagementService,
     private readonly storageService: StorageService,
     private readonly toast: ToastService
@@ -99,7 +102,6 @@ export class SiteManagementComponent
   openCreatorSite() {
     this.newSite = Site.newSite();
     this.showCreatorSite = true;
-    this.editSite = false;
 
     if (!this.assignMap) {
       setTimeout(() => {
@@ -108,11 +110,54 @@ export class SiteManagementComponent
     }
   }
 
+  editSite(site: Site) {
+    this.newSite = Site.newSite(site);
+    this.showCreatorSite = true;
+
+    if (!this.assignMap) {
+      setTimeout(() => {
+        this.initializeAssignMap();
+      }, 300);
+    }
+  }
+
+  deleteSite(site: Site) {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea continuar?',
+      message: '¿Está seguro de que desea eliminar esta sede?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .deleteSite(site._id)
+          .then((ans) => {
+            this.toast.clear();
+            this.toast.success({
+              detail: 'La sede ha sido eliminado exitosamente',
+              summary: 'Evento eliminado!',
+              life: 2000,
+            });
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar sede',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
   resetCreatorSite() {
     this.newSite = Site.newSite();
-    this.editSite = false;
     this.showCreatorSite = false;
     this.markerAdded = undefined;
+    this.saving = false;
   }
 
   async uploadImage(fileToUpload: File, site: Site | any) {
@@ -142,6 +187,7 @@ export class SiteManagementComponent
       return;
     }
     this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.saving = true;
     this.service
       .createSite(this.newSite)
       .then((ans) => {

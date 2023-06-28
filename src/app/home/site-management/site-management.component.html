@@ -7,13 +7,28 @@
 <div class="w-full p-4">
     <p-tabView [(activeIndex)]="tabIndex" [scrollable]="true" (onChange)="changeTab($event)">
         <p-tabPanel header="Lista sedes">
-            <ng-container *ngFor="let site of sites">
-                a
-            </ng-container>
+            <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center ">
+                <ng-container *ngFor="let site of sites">
+                    <div class="tour-card bg-white" style="margin:0.5rem;" (mouseenter)="selectedSite = site;" (mouseleave)="selectedSite = undefined;">
+                        <img width="100%" height="144px" [src]="site?.thumbnail ? site?.thumbnail : '/assets/noPic.jpg'" alt="">
+                        <div class="title-wrapper">
+                            <span class="subheader-small card-title">{{site.name}}</span>
+                        </div>
+                        <div class="flex flex-row align-items-center justify-content-between">
+                            <div class="flex flex-row" style="gap:0.5rem;">
+                                <p-button type="button" label="Ver" (onClick)="editSite(site)"></p-button>
+                                <p-button type="button" label="Eliminar" (onClick)="deleteSite(site)"></p-button>
+                            </div>
+                            <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
         </p-tabPanel>
         <p-tabPanel header="Mapa de sedes">
             <div id="map" class="w-full">
-
             </div>
         </p-tabPanel>
     </p-tabView>
@@ -60,17 +75,10 @@
             <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lng" class="inputfield w-full">
         </div>
         <div id="mapAssign" class="w-full">
-
         </div>
-
         <div style="height: 1rem;"></div>
     </div>
+    <p-button type="submit" label="Crear sede" (onClick)="createSite()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
 
 
-    <ng-container *ngIf="!editSite; else editButton">
-        <p-button type="submit" label="Crear" (onClick)="createSite()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
-    </ng-container>
-    <ng-template #editButton>
-        <p-button type="submit" label="Guardar cambios" (onClick)="siteEdit()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
-    </ng-template>
 </p-dialog>
