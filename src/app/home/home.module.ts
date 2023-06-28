@@ -41,6 +41,7 @@ import { ApplicantStateEditComponent } from './announcements/applicants/applican
 import { DatefilterComponent } from '@shared/components/datefilter/datefilter.component';
 import { ActaComponent } from './phases/phase-events/acta/acta.component';
 import { CommunitiesComponent } from './communities/communities.component';
+import { SiteManagementComponent } from './site-management/site-management.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { CommunitiesComponent } from './communities/communities.component';
     DatefilterComponent,
     ActaComponent,
     CommunitiesComponent,
+    SiteManagementComponent,
   ],
   imports: [
     CommonModule,

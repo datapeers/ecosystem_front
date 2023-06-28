@@ -1,0 +1,76 @@
+<div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
+    <div class="text-wrapper flex flex-row align-items-center text-center ">
+        <span class="subheader text-white ">Administración de sedes</span>
+    </div>
+    <p-button type="button" label="Añadir sede" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>
+</div>
+<div class="w-full p-4">
+    <p-tabView [(activeIndex)]="tabIndex" [scrollable]="true" (onChange)="changeTab($event)">
+        <p-tabPanel header="Lista sedes">
+            <ng-container *ngFor="let site of sites">
+                a
+            </ng-container>
+        </p-tabPanel>
+        <p-tabPanel header="Mapa de sedes">
+            <div id="map" class="w-full">
+
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+
+
+<p-dialog [header]="editSite ? 'Editar sede' : 'Crear sede'" [(visible)]="showCreatorSite" [style]="{ width: '70vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorSite()">
+    <div class="formgrid grid pt-2">
+        <div style="height: 2rem;"></div>
+        <div class="field">
+            <label for="logoField" class="w-full text-center">
+                <b>Logo</b>
+            </label>
+            <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail" (onUpload)="uploadImage($event, newSite)"></app-avatar-uploader>
+        </div>
+        <div class="field col-12 md:col-9 pl-6">
+            <label for="nameField" class="w-full text-center">
+                <b>Nombre de la sede</b>
+            </label>
+            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.name" class="inputfield w-full">
+            <div style="height: 1rem;"></div>
+            <label for="descriptionField" class="w-full text-center">
+                <b>Descripción</b>
+            </label>
+            <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="newSite.description" pInputTextarea></textarea>
+        </div>
+        <div class="field col-12 md:col-12">
+            <p-divider [align]="'center'">
+                <p class="font-medium">Ubicación</p>
+            </p-divider>
+        </div>
+
+        <div class="field col-12 md:col-6">
+            <label for="nameField" class="w-full text-center">
+                <b>Latitud</b>
+            </label>
+            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lat" class="inputfield w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="nameField" class="w-full text-center">
+                <b>Longitud</b>
+            </label>
+            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lng" class="inputfield w-full">
+        </div>
+        <div id="mapAssign" class="w-full">
+
+        </div>
+
+        <div style="height: 1rem;"></div>
+    </div>
+
+
+    <ng-container *ngIf="!editSite; else editButton">
+        <p-button type="submit" label="Crear" (onClick)="createSite()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </ng-container>
+    <ng-template #editButton>
+        <p-button type="submit" label="Guardar cambios" (onClick)="siteEdit()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </ng-template>
+</p-dialog>

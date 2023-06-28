@@ -25,6 +25,7 @@ import { ApplicantsComponent } from './announcements/applicants/applicants.compo
 import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.component';
 import { PhaseStartupsComponent } from './phases/phase-startups/phase-startups.component';
 import { CommunitiesComponent } from './communities/communities.component';
+import { SiteManagementComponent } from './site-management/site-management.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
       {
         path: 'communities',
         component: CommunitiesComponent,
+      },
+      {
+        path: 'site_management',
+        component: SiteManagementComponent,
       },
       {
         path: 'announcements',

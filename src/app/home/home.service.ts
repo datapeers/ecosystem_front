@@ -238,8 +238,8 @@ export class HomeService {
         icon: faCircleQuestion,
       },
       foros: {
-        label: 'Foros',
-        rute: '/home/foros',
+        label: 'Administración de sedes',
+        rute: '/home/site_management',
         type: 'single',
         icon: faComments,
       },
