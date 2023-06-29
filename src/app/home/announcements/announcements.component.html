@@ -22,7 +22,7 @@
       </ng-template>
       <ng-template let-item pTemplate="gridItem">
         <div class="tour-card" style="margin:0.5rem;">
-          <img width="100%" height="144px" [src]="item?.thumbnail ? item?.thumbnail : '/assets/noPic.jpg'" alt="">
+          <img width="100%" height="144px" [src]="item?.thumbnail ? (item?.thumbnail | getImage | async) : '/assets/noPic.jpg'" alt="">
           <span class="card-title">{{item.name}}</span>
           <p class="card-description">{{item.description}}</p>
           <div class="flex flex-row align-items-center justify-content-between">
