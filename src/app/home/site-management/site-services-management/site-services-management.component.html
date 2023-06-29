@@ -124,7 +124,7 @@
         <div style="height: 1rem;"></div>
     </div>
     <ng-container *ngIf="editService; else createButton">
-        <p-button type="submit" label="Guardar cambios" (onClick)="saveEditService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
+        <p-button type="submit" label="Modificar" (onClick)="saveEditService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
     </ng-container>
     <ng-template #createButton>
         <p-button type="submit" label="Crear servicios" (onClick)="createService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
