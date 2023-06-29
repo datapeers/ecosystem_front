@@ -202,8 +202,6 @@ export class SiteManagementComponent
       });
   }
 
-  siteEdit() {}
-
   resizeMap() {
     if (this.mainMap) {
       this.mainMap.on('viewreset', (value) => {
@@ -249,7 +247,7 @@ export class SiteManagementComponent
     if (!this.assignMap) {
       this.assignMap = new Map('mapAssign').setView(this.latLong as any, 15);
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 19,
+        minZoom: 10,
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',

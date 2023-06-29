@@ -171,7 +171,7 @@ export class SiteServicesManagementComponent
         15
       );
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 19,
+        minZoom: 10,
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
