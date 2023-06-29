@@ -66,13 +66,13 @@
             <label for="nameField" class="w-full text-center">
                 <b>Latitud</b>
             </label>
-            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lat" class="inputfield w-full">
+            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lat" class="inputfield w-full" (keyup)="changeOnCoords($event)">
         </div>
         <div class="field col-12 md:col-6">
             <label for="nameField" class="w-full text-center">
                 <b>Longitud</b>
             </label>
-            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lng" class="inputfield w-full">
+            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lng" class="inputfield w-full" (keyup)="changeOnCoords($event)">
         </div>
         <div id="mapAssign" class="w-full">
         </div>

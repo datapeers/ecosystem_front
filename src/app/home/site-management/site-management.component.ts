@@ -267,4 +267,16 @@ export class SiteManagementComponent
       });
     }
   }
+
+  changeOnCoords(event) {
+    if (this.markerAdded) {
+      this.assignMap.removeControl(this.markerAdded);
+    }
+    this.markerAdded = new Marker([
+      this.newSite.coords.lat,
+      this.newSite.coords.lng,
+    ])
+      .addTo(this.assignMap)
+      .bindPopup('Ubicación seleccionado');
+  }
 }

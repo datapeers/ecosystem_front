@@ -33,13 +33,13 @@
                     <label for="nameField" class="w-full text-center">
                         <b>Latitud</b>
                     </label>
-                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lat" [readonly]="true" class="inputfield w-full">
+                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lat" class="inputfield w-full" (keyup)="changeOnCoords($event)">
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="nameField" class="w-full text-center">
                         <b>Longitud</b>
                     </label>
-                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lng" [readonly]="true" class="inputfield w-full">
+                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lng" class="inputfield w-full" (keyup)="changeOnCoords($event)">
                 </div>
             </div>
             <div class="dates flex flex-column gap-2 flex-1">
@@ -111,13 +111,13 @@
             <label for="latField" class="w-full text-center">
                 <b>Latitud</b>
             </label>
-            <input id="latField" type="text" pInputText [(ngModel)]="newService.coords.lat" [readonly]="true" class="inputfield w-full">
+            <input id="latField" type="text" pInputText [(ngModel)]="newService.coords.lat" (keyup)="changeOnCoordsService($event)" class="inputfield w-full">
         </div>
         <div class="field col-12 md:col-6">
             <label for="lngField" class="w-full text-center">
                 <b>Longitud</b>
             </label>
-            <input id="lngField" type="text" pInputText [(ngModel)]="newService.coords.lng" [readonly]="true" class="inputfield w-full">
+            <input id="lngField" type="text" pInputText [(ngModel)]="newService.coords.lng" (keyup)="changeOnCoordsService($event)" class="inputfield w-full">
         </div>
         <div id="mapService" class="w-full">
         </div>

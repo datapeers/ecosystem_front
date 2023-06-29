@@ -273,4 +273,30 @@ export class SiteServicesManagementComponent
       this.listMarkersServices.push(markerService);
     }
   }
+
+  changeOnCoords(event) {
+    if (this.ubicationSite) {
+      this.mapSite.removeControl(this.ubicationSite);
+    }
+    this.ubicationSite = new Marker([
+      this.site.coords.lat,
+      this.site.coords.lng,
+    ])
+      .addTo(this.mapSite)
+      .bindPopup('Ubicación sede');
+  }
+
+  changeOnCoordsService(event) {
+    if (this.markerService) {
+      this.mapService.removeControl(this.markerService);
+    }
+    this.markerService = new Marker(
+      [this.newService.coords.lat, this.newService.coords.lng],
+      {
+        icon: this.iconServiceMap,
+      }
+    )
+      .addTo(this.mapService)
+      .bindPopup('Ubicación seleccionado');
+  }
 }
