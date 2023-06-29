@@ -3,12 +3,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-avatar-uploader',
   templateUrl: './avatar-uploader.component.html',
-  styleUrls: ['./avatar-uploader.component.scss']
+  styleUrls: ['./avatar-uploader.component.scss'],
 })
 export class AvatarUploaderComponent {
-  @Input() imageUrl: string = "";
+  @Input() imageUrl: string = '';
   @Output() onUpload: EventEmitter<File> = new EventEmitter();
   @Output() onRemove: EventEmitter<void> = new EventEmitter();
+  @Input() disableRemove: boolean = false;
 
   selectFile(element: HTMLInputElement) {
     const files = element.files;

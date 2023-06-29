@@ -26,6 +26,7 @@ import { PhaseExpertsComponent } from './phases/phase-experts/phase-experts.comp
 import { PhaseStartupsComponent } from './phases/phase-startups/phase-startups.component';
 import { CommunitiesComponent } from './communities/communities.component';
 import { SiteManagementComponent } from './site-management/site-management.component';
+import { SiteServicesManagementComponent } from './site-management/site-services-management/site-services-management.component';
 
 const routes: Routes = [
   {
@@ -75,7 +76,16 @@ const routes: Routes = [
       },
       {
         path: 'site_management',
-        component: SiteManagementComponent,
+        children: [
+          {
+            path: '',
+            component: SiteManagementComponent,
+          },
+          {
+            path: ':id',
+            component: SiteServicesManagementComponent,
+          },
+        ],
       },
       {
         path: 'announcements',

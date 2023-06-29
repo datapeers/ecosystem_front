@@ -13,6 +13,7 @@ import { HttpEventType } from '@angular/common/http';
 import { StorageService } from '@shared/storage/storage.service';
 import { Map, tileLayer, marker, Marker } from 'leaflet';
 import { ConfirmationService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-site-management',
@@ -44,6 +45,7 @@ export class SiteManagementComponent
   }
 
   constructor(
+    private readonly router: Router,
     private confirmationService: ConfirmationService,
     private readonly service: SiteManagementService,
     private readonly storageService: StorageService,
@@ -51,19 +53,23 @@ export class SiteManagementComponent
   ) {}
 
   ngOnInit() {
+    console.log('init');
     this.loadComponent();
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.sites$?.unsubscribe();
+  }
 
   ngAfterViewInit(): void {
+    console.log('afterview');
     if (!navigator.geolocation) {
       console.log('locations is not supported');
     }
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coords = position.coords;
-      this.latLong = [coords.latitude, coords.longitude];
-    });
+    // navigator.geolocation.getCurrentPosition((position) => {
+    //   const coords = position.coords;
+    //   this.latLong = [coords.latitude, coords.longitude];
+    // });
     this.initializeMainMap();
   }
 
@@ -76,7 +82,7 @@ export class SiteManagementComponent
             this.loading = true;
             this.sites = sitesList;
             for (const iterator of this.allMarkersSites) {
-              this.assignMap.removeControl(iterator);
+              this.mainMap.removeControl(iterator);
             }
             this.allMarkersSites = [];
             for (const site of this.sites) {
@@ -106,19 +112,12 @@ export class SiteManagementComponent
     if (!this.assignMap) {
       setTimeout(() => {
         this.initializeAssignMap();
-      }, 300);
+      }, 100);
     }
   }
 
-  editSite(site: Site) {
-    this.newSite = Site.newSite(site);
-    this.showCreatorSite = true;
-
-    if (!this.assignMap) {
-      setTimeout(() => {
-        this.initializeAssignMap();
-      }, 300);
-    }
+  navigateToEdit(site: Site) {
+    this.router.navigate([`/home/site_management/${site._id}`]);
   }
 
   deleteSite(site: Site) {
@@ -138,7 +137,7 @@ export class SiteManagementComponent
             this.toast.success({
               detail: 'La sede ha sido eliminado exitosamente',
               summary: 'Evento eliminado!',
-              life: 2000,
+              life: 1500,
             });
           })
           .catch((err) => {
@@ -237,6 +236,7 @@ export class SiteManagementComponent
   }
 
   initializeMainMap() {
+    console.log('a');
     if (!this.mainMap) {
       this.mainMap = new Map('map').setView(this.latLong as any, 15);
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -268,7 +268,7 @@ export class SiteManagementComponent
           this.newSite.coords.lng,
         ])
           .addTo(this.assignMap)
-          .bindPopup('Punto seleccionado');
+          .bindPopup('Ubicación seleccionado');
       });
     }
   }

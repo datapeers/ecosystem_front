@@ -10,20 +10,21 @@ import { ISite, Site } from './model/site.model';
 })
 export class SiteManagementService {
   private _getSites;
+  private _getSite;
   constructor(
     private readonly graphql: GraphqlService,
     private readonly storageService: StorageService
   ) {}
 
   async getSite(id: string): Promise<Site> {
-    const queryRef = this.graphql.refQuery(
+    this._getSite = this.graphql.refQuery(
       sitesQueries.query.getSite,
       { id },
       'cache-first',
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.query(queryRef).pipe(
+      this.graphql.query(this._getSite).pipe(
         map((request) => request.data.site),
         map((site) => Site.fromJson(site))
       )
@@ -78,7 +79,7 @@ export class SiteManagementService {
     const mutRef = this.graphql.refMutation(
       sitesQueries.mutation.updateSite,
       { updateSiteInput: data },
-      [],
+      [this._getSite],
       { auth: true }
     );
     return firstValueFrom(

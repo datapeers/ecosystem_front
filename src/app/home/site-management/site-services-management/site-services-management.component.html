@@ -1,0 +1,55 @@
+<div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
+    <div class="text-wrapper flex flex-row align-items-center text-center ">
+        <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
+        </fa-icon> <span class="subheader text-white ">Servicios</span>
+    </div>
+    <p-button type="button" label="Guardar cambios" icon="pi pi-save" (onClick)="saveChanges()"></p-button>
+</div>
+
+<div class="px-4">
+    <div class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
+        <div class="top-banner">
+            <div class="logo flex flex-column">
+                <label for="logoField" class="w-full text-center">
+                    <b>Logo</b>
+                </label>
+                <div style="height: 1rem;"></div>
+                <app-avatar-uploader [imageUrl]="site.thumbnail" (onUpload)="uploadImage($event, site)" [disableRemove]="true"></app-avatar-uploader>
+            </div>
+            <div class="fields formgrid grid pt-2">
+                <div class="field col-12 md:col-6">
+                    <label for="nameField" class="w-full text-center">
+                        <b>Nombre de la sede</b>
+                    </label>
+                    <input id="nameField" type="text" pInputText [(ngModel)]="site.name" class="inputfield w-full">
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="descriptionField" class="w-full text-center">
+                        <b>Descripción</b>
+                    </label>
+                    <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="site.description" pInputTextarea></textarea>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="nameField" class="w-full text-center">
+                        <b>Latitud</b>
+                    </label>
+                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lat" [readonly]="true" class="inputfield w-full">
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="nameField" class="w-full text-center">
+                        <b>Longitud</b>
+                    </label>
+                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lng" [readonly]="true" class="inputfield w-full">
+                </div>
+            </div>
+            <div class="dates flex flex-column gap-2 flex-1">
+                <span class="font-semibold text-right">Creado el {{site.createdAt | date}}</span>
+                <span class="font-semibold text-right">Actualizado el {{site.updatedAt | date}}</span>
+            </div>
+        </div>
+        <div id="mapSite" class="w-full">
+        </div>
+
+    </div>
+
+</div>

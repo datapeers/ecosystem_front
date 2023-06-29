@@ -42,6 +42,7 @@ import { DatefilterComponent } from '@shared/components/datefilter/datefilter.co
 import { ActaComponent } from './phases/phase-events/acta/acta.component';
 import { CommunitiesComponent } from './communities/communities.component';
 import { SiteManagementComponent } from './site-management/site-management.component';
+import { SiteServicesManagementComponent } from './site-management/site-services-management/site-services-management.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { SiteManagementComponent } from './site-management/site-management.compo
     ActaComponent,
     CommunitiesComponent,
     SiteManagementComponent,
+    SiteServicesManagementComponent,
   ],
   imports: [
     CommonModule,

@@ -16,7 +16,7 @@
                         </div>
                         <div class="flex flex-row align-items-center justify-content-between">
                             <div class="flex flex-row" style="gap:0.5rem;">
-                                <p-button type="button" label="Ver" (onClick)="editSite(site)"></p-button>
+                                <p-button type="button" label="Ver" (onClick)="navigateToEdit(site)"></p-button>
                                 <p-button type="button" label="Eliminar" (onClick)="deleteSite(site)"></p-button>
                             </div>
                             <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
@@ -36,14 +36,14 @@
 
 
 
-<p-dialog [header]="editSite ? 'Editar sede' : 'Crear sede'" [(visible)]="showCreatorSite" [style]="{ width: '70vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorSite()">
+<p-dialog [header]="'Crear sede'" [(visible)]="showCreatorSite" [style]="{ width: '70vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorSite()">
     <div class="formgrid grid pt-2">
         <div style="height: 2rem;"></div>
         <div class="field">
             <label for="logoField" class="w-full text-center">
                 <b>Logo</b>
             </label>
-            <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail" (onUpload)="uploadImage($event, newSite)"></app-avatar-uploader>
+            <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail" (onUpload)="uploadImage($event, newSite)" [disableRemove]="true"></app-avatar-uploader>
         </div>
         <div class="field col-12 md:col-9 pl-6">
             <label for="nameField" class="w-full text-center">
@@ -82,3 +82,5 @@
 
 
 </p-dialog>
+
+<p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>
