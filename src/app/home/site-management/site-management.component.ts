@@ -53,7 +53,6 @@ export class SiteManagementComponent
   ) {}
 
   ngOnInit() {
-    console.log('init');
     this.loadComponent();
   }
 
@@ -62,7 +61,6 @@ export class SiteManagementComponent
   }
 
   ngAfterViewInit(): void {
-    console.log('afterview');
     if (!navigator.geolocation) {
       console.log('locations is not supported');
     }
@@ -236,7 +234,6 @@ export class SiteManagementComponent
   }
 
   initializeMainMap() {
-    console.log('a');
     if (!this.mainMap) {
       this.mainMap = new Map('map').setView(this.latLong as any, 15);
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

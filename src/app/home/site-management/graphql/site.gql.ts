@@ -6,6 +6,13 @@ const fragments = {
       thumbnail
       description
       coords
+      services {
+        name
+        description
+        email
+        contact
+        coords
+      }
       isDeleted
       createdAt
       updatedAt

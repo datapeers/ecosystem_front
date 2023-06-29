@@ -47,9 +47,83 @@
                 <span class="font-semibold text-right">Actualizado el {{site.updatedAt | date}}</span>
             </div>
         </div>
+        <p-divider styleClass="w-full"> Servicios</p-divider>
+        <p-table [value]="site.services" editMode="row" [tableStyle]="{'min-width': '45rem'}" [styleClass]="'p-datatable-sm'">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Correo</th>
+                    <th>Contacto</th>
+                    <th><button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar servicio'" (click)="openCreatorService()"></button></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-service let-ri="rowIndex">
+                <tr>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.description }}</td>
+                    <td>{{ service.email }}</td>
+                    <td>{{ service.contact }}</td>
+                    <th>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="openCreatorService(service)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text" (click)="deleteService(ri)"></button>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+        </p-table>
         <div id="mapSite" class="w-full">
         </div>
 
     </div>
 
 </div>
+
+<p-dialog [header]="'Crear servicio'" [(visible)]="showCreatorService" [style]="{ width: '70vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorService()">
+    <div class="formgrid grid pt-2">
+        <div style="height: 2rem;"></div>
+        <div class="field col-12 md:col-6">
+            <label for="nameField" class="w-full text-center">
+                <b>Nombre del servicio</b>
+            </label>
+            <input id="nameField" type="text" pInputText [(ngModel)]="newService.name" class="inputfield w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="descriptionField" class="w-full text-center">
+                <b>Descripción</b>
+            </label>
+            <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="newService.description" pInputTextarea></textarea>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="emailField" class="w-full text-center">
+                <b>Correo</b>
+            </label>
+            <input id="emailField" type="text" pInputText [(ngModel)]="newService.contact" class="inputfield w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="contactField" class="w-full text-center">
+                <b>Contacto</b>
+            </label>
+            <input id="contactField" type="text" pInputText [(ngModel)]="newService.email" class="inputfield w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="latField" class="w-full text-center">
+                <b>Latitud</b>
+            </label>
+            <input id="latField" type="text" pInputText [(ngModel)]="newService.coords.lat" [readonly]="true" class="inputfield w-full">
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="lngField" class="w-full text-center">
+                <b>Longitud</b>
+            </label>
+            <input id="lngField" type="text" pInputText [(ngModel)]="newService.coords.lng" [readonly]="true" class="inputfield w-full">
+        </div>
+        <div id="mapService" class="w-full">
+        </div>
+        <div style="height: 1rem;"></div>
+    </div>
+    <p-button type="submit" label="Crear sede" (onClick)="createService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
+
+
+</p-dialog>

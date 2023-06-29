@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppState } from '@appStore/app.reducer';
 import {
   faBuilding,
   faUser,
   faUserTie,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import { Store } from '@ngrx/store';
 import { PhasesService } from './phases.service';
 import { Subscription } from 'rxjs';
 import { Stage } from './model/stage.model';
@@ -47,7 +45,6 @@ export class PhasesComponent implements OnInit, OnDestroy {
   onCloseDialogSub$: Subscription;
   activeIndex = 0;
   constructor(
-    private store: Store<AppState>,
     public dialogService: DialogService,
     private readonly service: PhasesService,
     private readonly toast: ToastService,
