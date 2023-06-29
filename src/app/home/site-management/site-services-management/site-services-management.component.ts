@@ -242,6 +242,7 @@ export class SiteServicesManagementComponent implements OnInit, OnDestroy {
     this.newService = new ServiceSite();
     this.showCreatorService = false;
     this.saving = false;
+    this.editService = false;
     this.editingIndex = undefined;
   }
 
