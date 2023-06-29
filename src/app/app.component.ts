@@ -17,5 +17,7 @@ export class AppComponent implements OnInit {
     this.primengConfig.setTranslation(lang_es.primeng);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // console.log('funciona')
+  }
 }
