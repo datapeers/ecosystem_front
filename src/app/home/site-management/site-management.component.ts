@@ -235,7 +235,7 @@ export class SiteManagementComponent
     if (!this.mainMap) {
       this.mainMap = new Map('map').setView(this.latLong as any, 15);
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 6,
+        minZoom: 1,
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -245,9 +245,9 @@ export class SiteManagementComponent
 
   initializeAssignMap() {
     if (!this.assignMap) {
-      this.assignMap = new Map('mapAssign').setView(this.latLong as any, 15);
+      this.assignMap = new Map('mapAssign').setView(this.latLong as any, 17);
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 10,
+        minZoom: 1,
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',

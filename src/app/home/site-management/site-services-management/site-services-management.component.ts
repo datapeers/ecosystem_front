@@ -132,10 +132,10 @@ export class SiteServicesManagementComponent
     if (!this.mapSite) {
       this.mapSite = new Map('mapSite').setView(
         [this.site.coords.lat, this.site.coords.lng],
-        15
+        17
       );
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 10,
+        minZoom: 1,
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -168,10 +168,10 @@ export class SiteServicesManagementComponent
     if (!this.mapService) {
       this.mapService = new Map('mapService').setView(
         [this.site.coords.lat, this.site.coords.lng],
-        15
+        19
       );
       tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 10,
+        minZoom: 1,
         maxZoom: 20,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
