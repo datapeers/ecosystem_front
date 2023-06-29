@@ -60,6 +60,7 @@ export class SiteManagementService {
   }
 
   async createSite(createSiteInput): Promise<Site> {
+    delete createSiteInput['services'];
     const mutationRef = this.graphql.refMutation(
       sitesQueries.mutation.createSite,
       { createSiteInput },
