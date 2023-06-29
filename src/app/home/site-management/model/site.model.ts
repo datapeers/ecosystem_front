@@ -43,6 +43,7 @@ export class Site implements ISite {
       ...cloneDeep(data),
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
+      services: data.services.map((i) => new ServiceSite(i)),
     });
     return site;
   }

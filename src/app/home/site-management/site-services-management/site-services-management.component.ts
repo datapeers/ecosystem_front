@@ -21,9 +21,7 @@ import { Map, tileLayer, Marker, Icon } from 'leaflet';
   templateUrl: './site-services-management.component.html',
   styleUrls: ['./site-services-management.component.scss'],
 })
-export class SiteServicesManagementComponent
-  implements OnInit, OnDestroy, AfterViewInit
-{
+export class SiteServicesManagementComponent implements OnInit, OnDestroy {
   siteID: string;
   site: Site | any = Site.newSite();
   loading = true;
@@ -34,10 +32,12 @@ export class SiteServicesManagementComponent
   ubicationSite;
 
   saving = false;
+
   newService = new ServiceSite();
   showCreatorService = false;
   markerService;
   editService = false;
+  editingIndex;
 
   listMarkersServices = [];
   iconServiceMap;
@@ -56,7 +56,6 @@ export class SiteServicesManagementComponent
     this.iconServiceMap = new Icon({
       iconSize: [25, 41],
       iconAnchor: [13, 0],
-      // specify the path here
       iconUrl: '../../../../assets/leaf-orange.png',
     });
   }
@@ -65,14 +64,7 @@ export class SiteServicesManagementComponent
     this.loadComponent();
   }
 
-  ngOnDestroy() {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-  }
-
-  ngAfterViewInit(): void {
-    // this.initializeMainMap();
-  }
+  ngOnDestroy() {}
 
   async loadComponent() {
     this.site = await this.service.getSite(this.siteID);
@@ -215,8 +207,9 @@ export class SiteServicesManagementComponent
     }
   }
 
-  openCreatorService(service?: IServiceSite) {
+  openCreatorService(service?: IServiceSite, index?: number) {
     if (service) this.editService = true;
+    this.editingIndex = index;
     this.newService = new ServiceSite(service);
     this.showCreatorService = true;
     setTimeout(() => {
@@ -239,10 +232,17 @@ export class SiteServicesManagementComponent
     }, 100);
   }
 
+  saveEditService() {
+    this.site.services[this.editingIndex] = this.newService;
+    this.site.services = [...this.site.services];
+    this.resetCreatorService();
+  }
+
   resetCreatorService() {
     this.newService = new ServiceSite();
     this.showCreatorService = false;
     this.saving = false;
+    this.editingIndex = undefined;
   }
 
   createService() {

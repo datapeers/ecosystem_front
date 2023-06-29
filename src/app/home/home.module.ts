@@ -43,6 +43,7 @@ import { ActaComponent } from './phases/phase-events/acta/acta.component';
 import { CommunitiesComponent } from './communities/communities.component';
 import { SiteManagementComponent } from './site-management/site-management.component';
 import { SiteServicesManagementComponent } from './site-management/site-services-management/site-services-management.component';
+import { ValidateParticipationComponent } from './phases/phase-events/validate-participation/validate-participation.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { SiteServicesManagementComponent } from './site-management/site-services
     CommunitiesComponent,
     SiteManagementComponent,
     SiteServicesManagementComponent,
+    ValidateParticipationComponent,
   ],
   imports: [
     CommonModule,

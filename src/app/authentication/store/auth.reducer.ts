@@ -2,12 +2,14 @@ import { User } from '@auth/models/user';
 import * as fromAuth from './auth.actions';
 export interface IAuthState {
   user: User;
+  profileDoc: any;
   loaded: boolean;
   logged: boolean;
 }
 
 const initialState: IAuthState = {
   user: null,
+  profileDoc: null,
   loaded: false,
   logged: false,
 };

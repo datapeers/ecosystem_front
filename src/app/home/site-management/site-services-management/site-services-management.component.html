@@ -66,7 +66,7 @@
                     <td>{{ service.contact }}</td>
                     <th>
                         <div class="flex align-items-center justify-content-center gap-2">
-                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="openCreatorService(service)"></button>
+                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="openCreatorService(service, ri)"></button>
                             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text" (click)="deleteService(ri)"></button>
                         </div>
                     </th>
@@ -123,7 +123,14 @@
         </div>
         <div style="height: 1rem;"></div>
     </div>
-    <p-button type="submit" label="Crear sede" (onClick)="createService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
+    <ng-container *ngIf="editService; else createButton">
+        <p-button type="submit" label="Guardar cambios" (onClick)="saveEditService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
+    </ng-container>
+    <ng-template #createButton>
+        <p-button type="submit" label="Crear servicios" (onClick)="createService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
+    </ng-template>
+
+
 
 
 </p-dialog>
