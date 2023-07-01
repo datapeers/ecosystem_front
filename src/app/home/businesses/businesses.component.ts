@@ -93,7 +93,7 @@ export class BusinessesComponent {
           takeUntil(this.onDestroy$)
         ).subscribe((doc) => {
           if(doc) {
-            callbacks.refresh();
+            callbacks.fullRefresh();
           }
         });
         break;

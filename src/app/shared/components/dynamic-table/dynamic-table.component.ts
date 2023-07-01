@@ -10,7 +10,7 @@ import {
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { BehaviorSubject, Subject, filter, fromEvent, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, debounceTime, filter, fromEvent, take, takeUntil } from 'rxjs';
 import { DynamicTableService } from './dynamic-table.service';
 import { TableExportFormats } from './models/table-export-formats.enum';
 import { TableAction, TableActionEvent } from './models/table-action';
@@ -23,6 +23,7 @@ import { tableUtilities } from './dynamic-table.utilities';
 import { cloneDeep } from 'lodash';
 import { TableConfigComponent } from './table-config/table-config.component';
 import { TableContext } from './models/table-context';
+import { requestUtilities } from '@shared/utils/request.utils';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -46,6 +47,7 @@ export class DynamicTableComponent {
   onDestroy$: Subject<void> = new Subject();
   onConfigChange = new Subject<TableConfig>();
   refresh$: Subject<void> = new Subject();
+  clearCache$: Subject<void> = new Subject();
 
   @Input() locator: string;
   data: any;
@@ -70,7 +72,7 @@ export class DynamicTableComponent {
   lazyLoadDebouncer: Subject<LazyLoadEvent> = new Subject<LazyLoadEvent>();
 
   @Input() downloading = false;
-  selected = [];
+  selected: { _id: string }[] = [];
   textSummary = ``;
   page: number = 0;
   globalFilter = [];
@@ -88,24 +90,41 @@ export class DynamicTableComponent {
   @Input() allowFullscreen: boolean = true;
   fullscreen: boolean;
 
-  actionsMenu: any[] = [];
-  featuredActions: any[] = [];
+  actionsMenu: TableAction[] = [];
+  featuredActions: TableAction[] = [];
 
   constructor(
     public dialogService: DialogService,
     private readonly service: DynamicTableService,
     private readonly documentProvider: DocumentProvider
   ) {
+    this.lazy = !!this.documentProvider.getDocumentsPage;
     this.onConfigChange
       .pipe(
         filter((config) => config !== null && config !== undefined),
         takeUntil(this.onDestroy$)
       )
       .subscribe((newConfig) => this.handleConfigChange(newConfig));
+    
+    this.clearCache$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
+      if(this.documentProvider.clearCache) { this.documentProvider.clearCache(); }
+    });
 
     this.refresh$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
       this.onConfigChange.next(this.config);
     });
+
+    this.lazyLoadDebouncer
+      .pipe(debounceTime(500))
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (lazyLoadEvent) => {
+        this.lastLazyEvent = cloneDeep(lazyLoadEvent);
+        Object.freeze(this.lastLazyEvent);
+        if(this.documentProvider.getDocumentsPage) {
+          await this.buildTable();
+        }
+        this.onLazyLoad.emit(this.lastLazyEvent);
+      });
   }
 
   handleConfigChange(newConfig: TableConfig) {
@@ -179,14 +198,28 @@ export class DynamicTableComponent {
 
   async initComponent() {
     await this.initConfiguration();
-    await this.buildTable();
+    if(!this.lazy) {
+      await this.buildTable();
+    }
     this.setOptions();
     this.setGlobalFilter();
     this.validateHeight();
   }
 
   async buildTable() {
-    this.rawData = await this.documentProvider.getDocuments(this.context.data);
+    if(this.lazy) {
+      const lazyEvent = this.lastLazyEvent ?? this.dt.createLazyLoadMetadata();
+      const invalidKeys = ["_id"];
+      const globalFilterKeys = this.config.columns
+      .filter((c) => !invalidKeys.some((invalidKey) => invalidKey == c.key))
+      .map((c) => c.key);
+      const pageRequest = requestUtilities.parseTableOptionsToRequest(lazyEvent, globalFilterKeys);
+      const pageResult = await this.documentProvider.getDocumentsPage(this.context.data, pageRequest);
+      this.rawData = pageResult.documents;
+      this.totalRecords = pageResult.totalRecords;
+    } else {
+      this.rawData = await this.documentProvider.getDocuments(this.context.data);
+    }
     this.setRows(this.entity.columns);
   }
 
@@ -208,8 +241,8 @@ export class DynamicTableComponent {
       });
   }
 
-  includeCommand(action: TableAction, actionHandler): MenuItem | TableAction {
-    const items: MenuItem[] =
+  includeCommand(action: TableAction, actionHandler): TableAction {
+    const items: TableAction[] =
       action?.items?.map((child) =>
         this.includeCommand(child, actionHandler)
       ) ?? undefined;
@@ -324,6 +357,25 @@ export class DynamicTableComponent {
       };
       this.actionsMenu.push(filterAction);
     }
+
+    if(this.documentProvider.deleteDocuments) {
+      const noRowsSelected = () => !this.selected.length;
+      this.actionsMenu.push({
+        action: "delete",
+        label: 'Eliminar registros',
+        icon: 'pi pi-trash',
+        disabled: noRowsSelected(),
+        disableOn: noRowsSelected,
+        command: async () => {
+          const selectedDocumentsIds = this.selected.map(doc => doc._id);
+          const result = await this.documentProvider.deleteDocuments(selectedDocumentsIds);
+          if(result.acknowledged) {
+            this.clearCache$.next();
+            this.refresh$.next();
+          }
+        },
+      });
+    }
   }
 
   saveCurrentFilters() {
@@ -388,6 +440,13 @@ export class DynamicTableComponent {
         refresh: () => {
           this.refresh$.next();
         },
+        clearCache: () => {
+          this.clearCache$.next();
+        },
+        fullRefresh: () => {
+          this.clearCache$.next();
+          this.refresh$.next();
+        },
       },
     });
   }
@@ -406,7 +465,27 @@ export class DynamicTableComponent {
   }
 
   onSelectAll(event: { originalEvent: PointerEvent; checked: boolean }) {
-    //TODO: Find a way to make header selectall checkbox work with lazy loading
+    this.updateActions();
+  }
+
+  onRowSelected(evt: any) {
+    this.updateActions();
+  }
+
+  onRowUnselected(evt: any) {
+    this.updateActions();
+  }
+
+  updateActions() {
+    this.actionsMenu = this.actionsMenu.map(action => {
+      if(action.disableOn) {
+        return {
+          ...action,
+          disabled: action.disableOn()
+        };
+      }
+      return action;
+    });
   }
 
   columnReorder(_) {

@@ -7,6 +7,9 @@ import { map, firstValueFrom, take } from 'rxjs';
 import { FormService } from '@shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { User } from '@auth/models/user';
+import { PageRequest } from '@shared/models/requests/page-request';
+import { PaginatedResult } from '@shared/models/requests/paginated-result';
+import { jsonUtils } from '@shared/utils/json.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +20,13 @@ export class EntrepreneursService implements DocumentProvider {
     private readonly formService: FormService
   ) {}
 
-  async getDocuments(args: any): Promise<Entrepreneur[]> {
+  cachedQueries: string[] = [];
+
+  async clearCache(): Promise<void> {
+    this.graphql.evictStore(this.cachedQueries);
+  }
+
+  async getDocuments(_: any): Promise<Entrepreneur[]> {
     const queryRef = this.graphql.refQuery(
       entrepreneurQueries.query.entrepreneurs,
       {},
@@ -28,6 +37,25 @@ export class EntrepreneursService implements DocumentProvider {
       this.graphql
         .query(queryRef)
         .pipe(map((request) => request.data.entrepreneurs))
+    );
+  }
+
+  async getDocumentsPage(_: any, request: PageRequest): Promise<PaginatedResult<Entrepreneur>> {
+    const queryRef = this.graphql.refQuery(
+      entrepreneurQueries.query.entrepreneursPage,
+      { request },
+      'cache-first',
+      { auth: true }
+    );
+    request = jsonUtils.sortObjectKeys(request);
+    const requestKey = `entrepreneursPage(${JSON.stringify({ request })})`;
+    if(!this.cachedQueries.some(queryKey => queryKey === requestKey)) {
+      this.cachedQueries.push(requestKey);
+    }
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.entrepreneursPage))
     );
   }
 
@@ -88,5 +116,19 @@ export class EntrepreneursService implements DocumentProvider {
     } else {
       return doc;
     }
+  }
+  async deleteDocuments(ids: string[]) {
+    const mutationRef = this.graphql.refMutation(
+      entrepreneurQueries.mutation.deleteEntrepreneurs,
+      { ids },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql
+      .mutation(mutationRef)
+      .pipe(
+        map((request) => request.data.deleteEntrepreneurs),
+      )
+    );
   }
 }

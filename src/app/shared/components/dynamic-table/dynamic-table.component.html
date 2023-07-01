@@ -7,7 +7,7 @@
   [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]"
   [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true"
   [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter"
-  [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords"
+  [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords" (onRowSelect)="onRowSelected($event)" (onRowUnselect)="onRowUnselected($event)"
   styleClass="p-datatable-sm app-table" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($event)">
   <ng-template pTemplate="caption">
     <div class="table-header">

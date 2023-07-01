@@ -1,3 +1,6 @@
+import { paginatedResultFields } from "@shared/models/graphql/paginated-result";
+import { updateResultPayloadFields } from "@shared/models/graphql/update-result-payload";
+
 const fragments = {
   entrepreneurFields: `
     fragment entrepreneurFields on Entrepreneur {
@@ -32,9 +35,26 @@ const query = {
     }
     ${fragments.entrepreneurFields}
   `,
+  entrepreneursPage: `
+    query EntrepreneursPage($request: PageRequest!) {
+      entrepreneursPage(request: $request) {
+        ...paginatedResultFields
+      }
+    }
+    ${paginatedResultFields}
+  `,
 };
 
-const mutation = {};
+const mutation = {
+  deleteEntrepreneurs: `
+    mutation DeleteEntrepreneurs($ids: [String!]!) {
+      deleteEntrepreneurs(ids: $ids) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `
+};
 
 export const entrepreneurQueries = {
   query,

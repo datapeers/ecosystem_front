@@ -94,7 +94,7 @@ export class EntrepreneursComponent {
           takeUntil(this.onDestroy$)
         ).subscribe((doc) => {
           if(doc) {
-            callbacks.refresh();
+            callbacks.fullRefresh();
           }
         });
         break;

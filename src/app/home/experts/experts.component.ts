@@ -95,7 +95,7 @@ export class ExpertsComponent {
           takeUntil(this.onDestroy$)
         ).subscribe((doc) => {
           if(doc) {
-            callbacks.refresh();
+            callbacks.fullRefresh();
           }
         });
         break;

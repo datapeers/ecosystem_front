@@ -1,11 +1,12 @@
 import { MenuItem } from 'primeng/api';
 
 export interface TableAction extends MenuItem {
-  action: string;
-  class: string;
-  featured: boolean;
-  items: TableAction[];
+  action?: string;
+  class?: string;
+  featured?: boolean;
+  items?: TableAction[];
   rawDataTable?: any[];
+  disableOn?: () => boolean;
 }
 
 export interface TableActionEvent<TElement = any, TAction = string> {
@@ -18,4 +19,6 @@ export interface TableActionEvent<TElement = any, TAction = string> {
 
 type CallbacksTable = {
   refresh: () => void;
+  fullRefresh: () => void;
+  clearCache: () => void;
 };
