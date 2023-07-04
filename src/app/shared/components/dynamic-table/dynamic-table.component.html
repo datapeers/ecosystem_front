@@ -1,7 +1,7 @@
 <div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
   <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
   <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="handleConfigChange($event)"  (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
-  <p-table [columns]="cols" (onColReorder)="columnReorder($event)" [ngStyle]="{ 'height': scrollHeight + 'px'}"
+  <p-table [columns]="config?.columns ?? []" (onColReorder)="columnReorder($event)" [ngStyle]="{ 'height': scrollHeight + 'px'}"
   [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id"
   [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($event)" paginatorPosition="bottom"
   [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]"
@@ -27,12 +27,12 @@
             <ng-container *ngFor="let featuredAction of featuredActions">
               <ng-container *ngIf="featuredAction?.items?.length else simpleActionTemplate">
                 <div>
-                  <p-button [styleClass]="featuredAction.styleClass" #featuredActionButton [disabled]="disableActions" type="button" icon="pi pi-angle-down" [iconPos]="'right'" [label]="featuredAction.label" (onClick)="featureMenu.toggle($event)"></p-button>
+                  <p-button [disabled]="featuredAction.disabled || disableActions" [styleClass]="featuredAction.styleClass" #featuredActionButton type="button" icon="pi pi-angle-down" [iconPos]="'right'" [label]="featuredAction.label" (onClick)="featureMenu.toggle($event)"></p-button>
                   <p-tieredMenu appendTo="body" #featureMenu [popup]="true" [model]="featuredAction.items"></p-tieredMenu>
                 </div>
               </ng-container>
               <ng-template #simpleActionTemplate>
-                <p-button [pTooltip]="featuredAction.tooltip" tooltipPosition="top" [styleClass]="featuredAction.styleClass" [disabled]="disableActions" [icon]="featuredAction.icon" [label]="featuredAction.label" (onClick)="featuredAction.command({item: featuredAction, originalEvent: $event})"></p-button>
+                <p-button [disabled]="featuredAction.disabled || disableActions" [pTooltip]="featuredAction.tooltip" tooltipPosition="top" [styleClass]="featuredAction.styleClass" [icon]="featuredAction.icon" [label]="featuredAction.label" (onClick)="featuredAction.command({item: featuredAction, originalEvent: $event})"></p-button>
               </ng-template>
             </ng-container>
           </ng-container>
@@ -45,7 +45,7 @@
         <th style="width: 3rem" *ngIf="options.selection">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <ng-container *ngFor="let item of cols">
+        <ng-container *ngFor="let item of config?.columns ?? []">
           <ng-container [ngSwitch]="item.format">
             <ng-container *ngSwitchCase="'boolean'">
               <th [pSortableColumn]="item.key" pReorderableColumn>
@@ -115,16 +115,7 @@
                 <div class="flex align-items-center" [style]="{'max-width':'300px'}">
                   <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
                   <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
-                  <p-columnFilter *ngIf="!item?.options" type="text" [field]="item.key" display="menu"></p-columnFilter>
-                  <!-- <p-columnFilter *ngIf="item?.options" [field]="item.key" matchMode="equals" [matchModeOptions]="item.arrayFields ? arrayMatchOptions : selectMatchOptions" display="menu">
-                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                    <p-dropdown [showClear]="true" [editable]="true" [ngModel]="value" [options]="item?.options??[]" (onChange)="filter($event.value)" placeholder="Seleccione" [filter]="true">
-                      <ng-template let-option pTemplate="item">
-                        <span>{{option}}</span>
-                      </ng-template>
-                    </p-dropdown>
-                  </ng-template>
-                </p-columnFilter> -->
+                  <p-columnFilter type="text" [field]="item.key" display="menu"></p-columnFilter>
                 </div>
               </th>
             </ng-container>

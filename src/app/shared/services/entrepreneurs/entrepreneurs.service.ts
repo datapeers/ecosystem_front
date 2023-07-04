@@ -10,6 +10,9 @@ import { User } from '@auth/models/user';
 import { PageRequest } from '@shared/models/requests/page-request';
 import { PaginatedResult } from '@shared/models/requests/paginated-result';
 import { jsonUtils } from '@shared/utils/json.utils';
+import { UpdateResultPayload } from '@shared/models/graphql/update-result-payload';
+import { ToastService } from '../toast.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +20,8 @@ import { jsonUtils } from '@shared/utils/json.utils';
 export class EntrepreneursService implements DocumentProvider {
   constructor(
     private readonly graphql: GraphqlService,
-    private readonly formService: FormService
+    private readonly formService: FormService,
+    private readonly toast: ToastService,
   ) {}
 
   cachedQueries: string[] = [];
@@ -117,7 +121,8 @@ export class EntrepreneursService implements DocumentProvider {
       return doc;
     }
   }
-  async deleteDocuments(ids: string[]) {
+
+  async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       entrepreneurQueries.mutation.deleteEntrepreneurs,
       { ids },
@@ -128,6 +133,89 @@ export class EntrepreneursService implements DocumentProvider {
       .mutation(mutationRef)
       .pipe(
         map((request) => request.data.deleteEntrepreneurs),
+      )
+    );
+  }
+
+  async linkWithBusinessesByRequest(request: PageRequest, targetIds: string[]): Promise<UpdateResultPayload> {
+    const mutationRef = this.graphql.refMutation(
+      entrepreneurQueries.mutation.linkEntrepreneursWithBusinessesByRequest,
+      { request, targetIds },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql
+      .mutation(mutationRef)
+      .pipe(
+        map((request) => request.data.linkEntrepreneursWithBusinessesByRequest),
+        tap((result: UpdateResultPayload) => {
+          if(result.acknowledged) {
+            this.toast.success({
+              detail: "Se asociaron con éxito las empresas seleccionadas con los empresarios"
+            });
+          } else {
+            this.toast.success({
+              detail: "Se asociaron con éxito las empresas seleccionadas con los empresarios"
+            });
+          }
+        })
+      )
+    );
+  }
+
+  async linkWithBusinesses(ids: string[], targetIds: string[]): Promise<UpdateResultPayload> {
+    const mutationRef = this.graphql.refMutation(
+      entrepreneurQueries.mutation.linkEntrepreneursWithBusinesses,
+      { ids, targetIds },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql
+      .mutation(mutationRef)
+      .pipe(
+        map((request) => request.data.linkEntrepreneursWithBusinesses),
+      )
+    );
+  }
+
+  
+  async linkWithStartupsByRequest(request: PageRequest, targetIds: string[]): Promise<UpdateResultPayload> {
+    const mutationRef = this.graphql.refMutation(
+      entrepreneurQueries.mutation.linkEntrepreneursWithStartupsByRequest,
+      { request, targetIds },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql
+      .mutation(mutationRef)
+      .pipe(
+        map((request) => request.data.linkEntrepreneursWithStartupsByRequest),
+        tap((result: UpdateResultPayload) => {
+          if(result.acknowledged) {
+            this.toast.success({
+              detail: "Se asociaron con éxito las startups seleccionadas con los empresarios"
+            });
+          } else {
+            this.toast.success({
+              detail: "Se asociaron con éxito las startups seleccionadas con los empresarios"
+            });
+          }
+        })
+      )
+    );
+  }
+
+  async linkWithStartups(ids: string[], targetIds: string[]): Promise<UpdateResultPayload> {
+    const mutationRef = this.graphql.refMutation(
+      entrepreneurQueries.mutation.linkEntrepreneursWithStartups,
+      { ids, targetIds },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql
+      .mutation(mutationRef)
+      .pipe(
+        map((request) => request.data.linkEntrepreneursWithStartups),
       )
     );
   }

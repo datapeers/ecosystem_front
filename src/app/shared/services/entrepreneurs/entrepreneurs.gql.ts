@@ -53,7 +53,39 @@ const mutation = {
       }
     }
     ${updateResultPayloadFields}
-  `
+  `,
+  linkEntrepreneursWithBusinessesByRequest: `
+    mutation LinkEntrepreneursWithBusinessesByRequest($request: PageRequest!, $targetIds: [String!]!) {
+      linkEntrepreneursWithBusinessesByRequest(request: $request, targetIds: $targetIds) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
+  linkEntrepreneursWithBusinesses: `
+    mutation LinkEntrepreneursWithBusinesses($ids: [String!]!, $targetIds: [String!]!) {
+      linkEntrepreneursWithBusinesses(ids: $ids, targetIds: $targetIds) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
+  linkEntrepreneursWithStartupsByRequest: `
+    mutation LinkEntrepreneursWithStartupsByRequest($request: PageRequest!, $targetIds: [String!]!) {
+      linkEntrepreneursWithStartupsByRequest(request: $request, targetIds: $targetIds) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
+  linkEntrepreneursWithStartups: `
+    mutation LinkEntrepreneursWithStartups($ids: [String!]!, $targetIds: [String!]!) {
+      linkEntrepreneursWithStartups(ids: $ids, targetIds: $targetIds) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
 };
 
 export const entrepreneurQueries = {

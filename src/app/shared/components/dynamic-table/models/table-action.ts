@@ -1,4 +1,6 @@
-import { MenuItem } from 'primeng/api';
+import { PageRequest } from '@shared/models/requests/page-request';
+import { LazyLoadEvent, MenuItem } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 export interface TableAction extends MenuItem {
   action?: string;
@@ -12,8 +14,11 @@ export interface TableAction extends MenuItem {
 export interface TableActionEvent<TElement = any, TAction = string> {
   action: TAction;
   element: TElement;
+  selected: TElement[];
   event: Event;
   callbacks: CallbacksTable;
+  lazyLoadEvent: LazyLoadEvent;
+  pageRequest: PageRequest;
   rawDataTable?: any[];
 }
 

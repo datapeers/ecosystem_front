@@ -10,7 +10,7 @@ import {
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { BehaviorSubject, Subject, debounceTime, filter, fromEvent, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, debounceTime, filter, firstValueFrom, lastValueFrom, take, takeUntil } from 'rxjs';
 import { DynamicTableService } from './dynamic-table.service';
 import { TableExportFormats } from './models/table-export-formats.enum';
 import { TableAction, TableActionEvent } from './models/table-action';
@@ -24,6 +24,7 @@ import { cloneDeep } from 'lodash';
 import { TableConfigComponent } from './table-config/table-config.component';
 import { TableContext } from './models/table-context';
 import { requestUtilities } from '@shared/utils/request.utils';
+import { PageRequest } from '@shared/models/requests/page-request';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -52,7 +53,6 @@ export class DynamicTableComponent {
   @Input() locator: string;
   data: any;
   rawData: any;
-  cols: any[] = [];
   @Output() configChange: EventEmitter<TableConfig> = new EventEmitter();
   @Input() loading: boolean = false;
   @Input() title: string = '';
@@ -60,6 +60,7 @@ export class DynamicTableComponent {
 
   @Output() action = new EventEmitter<TableActionEvent>();
   @Input() disableActions: any;
+  @Output() selection = new EventEmitter<any[]>();
   //Table config
   tabIndex: number = 0;
 
@@ -68,6 +69,7 @@ export class DynamicTableComponent {
   @Input() totalRecords: number = 0;
   @Output() onLazyLoad = new EventEmitter<TableLazyLoadEvent>();
   @Output() onLazyDownload = new EventEmitter<TableLazyDownloadEvent>();
+  onPageRequest$: BehaviorSubject<PageRequest> = new BehaviorSubject(null);
 
   lazyLoadDebouncer: Subject<LazyLoadEvent> = new Subject<LazyLoadEvent>();
 
@@ -98,7 +100,6 @@ export class DynamicTableComponent {
     private readonly service: DynamicTableService,
     private readonly documentProvider: DocumentProvider
   ) {
-    this.lazy = !!this.documentProvider.getDocumentsPage;
     this.onConfigChange
       .pipe(
         filter((config) => config !== null && config !== undefined),
@@ -106,6 +107,7 @@ export class DynamicTableComponent {
       )
       .subscribe((newConfig) => this.handleConfigChange(newConfig));
     
+    // Action callbacks
     this.clearCache$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
       if(this.documentProvider.clearCache) { this.documentProvider.clearCache(); }
     });
@@ -114,6 +116,7 @@ export class DynamicTableComponent {
       this.onConfigChange.next(this.config);
     });
 
+    // Lazy loading
     this.lazyLoadDebouncer
       .pipe(debounceTime(500))
       .pipe(takeUntil(this.onDestroy$))
@@ -124,15 +127,18 @@ export class DynamicTableComponent {
           await this.buildTable();
         }
         this.onLazyLoad.emit(this.lastLazyEvent);
-      });
+      });    
+    this.lazy = !!this.documentProvider.getDocumentsPage;
   }
 
-  handleConfigChange(newConfig: TableConfig) {
-    this.buildTable();
-    this.loading = true;
-    const { columns, loadEvent } = newConfig;
+  async handleConfigChange(newConfig: TableConfig) {
     this.config = newConfig;
-    this.cols = columns;
+    await this.buildTable();
+    this.loading = true;
+    this.setOptions();
+    this.setGlobalFilter();
+    this.validateHeight();
+    const { loadEvent } = newConfig;
     if (newConfig?.loadEvent) {
       const { filters, sortField, sortOrder } = loadEvent;
       this.dt.filters = filters ? cloneDeep(filters) : {};
@@ -198,12 +204,6 @@ export class DynamicTableComponent {
 
   async initComponent() {
     await this.initConfiguration();
-    if(!this.lazy) {
-      await this.buildTable();
-    }
-    this.setOptions();
-    this.setGlobalFilter();
-    this.validateHeight();
   }
 
   async buildTable() {
@@ -214,6 +214,7 @@ export class DynamicTableComponent {
       .filter((c) => !invalidKeys.some((invalidKey) => invalidKey == c.key))
       .map((c) => c.key);
       const pageRequest = requestUtilities.parseTableOptionsToRequest(lazyEvent, globalFilterKeys);
+      this.onPageRequest$.next(pageRequest);
       const pageResult = await this.documentProvider.getDocumentsPage(this.context.data, pageRequest);
       this.rawData = pageResult.documents;
       this.totalRecords = pageResult.totalRecords;
@@ -430,11 +431,16 @@ export class DynamicTableComponent {
     this.globalFilter = [];
   }
 
-  callAction(action, element?: any, event?: any) {
+  async callAction(action, element?: any | any[], event?: any) {
+    const selected = Array.isArray(element) && element;
+    const lastPageRequest = await firstValueFrom(this.onPageRequest$);
     this.action.emit({
       action,
       element,
+      selected,
       event,
+      lazyLoadEvent: this.lastLazyEvent,
+      pageRequest: lastPageRequest,
       rawDataTable: this.rawData,
       callbacks: {
         refresh: () => {
@@ -477,6 +483,7 @@ export class DynamicTableComponent {
   }
 
   updateActions() {
+    this.selection.emit(this.dt.selection);
     this.actionsMenu = this.actionsMenu.map(action => {
       if(action.disableOn) {
         return {

@@ -1,0 +1,7 @@
+<div class="flex px-4 py-3 h-full w-full">
+  <ng-container *ngIf="tableContext">
+    <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading"
+      [title]="tableTitle" (action)="actionFromTable($event)" (selection)="selection = $event">
+    </app-dynamic-table>
+  </ng-container>
+</div>

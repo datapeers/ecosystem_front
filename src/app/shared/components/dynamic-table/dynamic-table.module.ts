@@ -15,13 +15,22 @@ import { DragDropModule } from 'primeng/dragdrop';
 import { TableConfigComponent } from './table-config/table-config.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfigSelectorComponent } from './config-selector/config-selector.component';
+import { BusinessSelectTableComponent } from './table-select-dialog/providers/business-select-table/business-select-table.component';
+import { TableSelectDialogComponent } from './table-select-dialog/table-select-dialog.component';
+import { ConfirmationService } from 'primeng/api';
+import { EntrepreneurSelectTableComponent } from './table-select-dialog/providers/entrepreneur-select-table/entrepreneur-select-table.component';
+import { StartupSelectTableComponent } from './table-select-dialog/providers/startup-select-table/startup-select-table.component';
 
 
 @NgModule({
   declarations: [
     DynamicTableComponent,
     TableConfigComponent,
-    ConfigSelectorComponent
+    ConfigSelectorComponent,
+    TableSelectDialogComponent,
+    BusinessSelectTableComponent,
+    EntrepreneurSelectTableComponent,
+    StartupSelectTableComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +49,7 @@ import { ConfigSelectorComponent } from './config-selector/config-selector.compo
   ],
   exports: [
     DynamicTableComponent
-  ]
+  ],
+  providers: [ConfirmationService]
 })
 export class DynamicTableModule { }
