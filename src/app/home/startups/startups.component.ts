@@ -6,10 +6,13 @@ import { TableActionEvent } from '@shared/components/dynamic-table/models/table-
 import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
+import { TableSelection } from '@shared/components/dynamic-table/models/table-selection';
+import { EntrepreneurSelectTableComponent } from '@shared/components/dynamic-table/table-select-dialog/providers/entrepreneur-select-table/entrepreneur-select-table.component';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
 import { StartupsService } from '@shared/services/startups/startups.service';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
@@ -33,6 +36,8 @@ export class StartupsComponent {
 
   constructor(
     private readonly formService: FormService,
+    private readonly dialogService: DialogService,
+    private readonly service: StartupsService,
   ) {
     this.optionsTable = {
       save: true,
@@ -51,6 +56,11 @@ export class StartupsComponent {
           label: `Nueva Startup`,
           icon: 'pi pi-plus',
           featured: true
+        },
+        {
+          action: 'linkWithEntrepreneurs',
+          label: `Vincular a empresarios`,
+          icon: 'pi pi-user',
         },
       ],
     };
@@ -80,7 +90,7 @@ export class StartupsComponent {
     this.loading = false;
   }
 
-  async actionFromTable({ action, element, event, callbacks }: TableActionEvent) {
+  async actionFromTable({ action, element, event, callbacks, pageRequest }: TableActionEvent) {
     switch(action) {
       case 'add':
         const subscription = await this.formService.createFormSubscription({
@@ -96,6 +106,26 @@ export class StartupsComponent {
             callbacks.fullRefresh();
           }
         });
+        break;
+      case 'linkWithEntrepreneurs':
+        this.dialogService.open(EntrepreneurSelectTableComponent, {
+          modal: true,
+          height: "100%",
+          width: "100%",
+        }).onClose
+          .pipe(
+            take(1),
+            takeUntil(this.onDestroy$)
+          ).subscribe(async (data?: TableSelection) => {
+            if(!data) return;
+            if(!data.selected) return;
+            const entrepreneursIds = data.selected;
+            if(entrepreneursIds.length) {
+              await this.service.linkWithEntrepreneurs(entrepreneursIds, entrepreneursIds);
+            } else {
+              await this.service.linkWithEntrepreneursByRequest(pageRequest, entrepreneursIds);
+            }
+          });
         break;
     }
   }
