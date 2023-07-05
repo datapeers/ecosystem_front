@@ -1,3 +1,4 @@
+import { paginatedResultFields } from '@shared/models/graphql/paginated-result';
 import { updateResultPayloadFields } from '@shared/models/graphql/update-result-payload';
 
 const fragments = {
@@ -34,6 +35,14 @@ const query = {
     }
     ${fragments.expertFields}
   `,
+  expertsPage: `
+    query ExpertsPage($request: PageRequest!) {
+      expertsPage(request: $request) {
+        ...paginatedResultFields
+      }
+    }
+    ${paginatedResultFields}
+  `,
   expertsPhase: `
     query ExpertsPhase($phase: String!) {
       expertsPhase(phase: $phase) {
@@ -53,6 +62,14 @@ const query = {
 };
 
 const mutation = {
+  deleteExperts: `
+    mutation DeleteExperts($ids: [String!]!) {
+      deleteExperts(ids: $ids) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
   linkToPhase: `
     mutation LinkPhaseToExperts($experts: [String!]!, $name: String!, $phaseId: String!) {
       linkPhaseToExperts(experts: $experts, name: $name, phaseId: $phaseId) {
