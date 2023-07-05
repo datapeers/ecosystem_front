@@ -107,7 +107,7 @@ export class BusinessesComponent {
           }
         });
         break;
-      case 'linkWithStartups':
+      case 'linkWithEntrepreneurs':
         this.dialogService.open(EntrepreneurSelectTableComponent, {
           modal: true,
           height: "100%",
