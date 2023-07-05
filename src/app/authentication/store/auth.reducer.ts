@@ -31,6 +31,8 @@ export function authReducer(
         ...state,
         user: new User(action.updatedUser),
       };
+    case fromAuth.SET_PROFILE_DOC:
+      return { ...state, profileDoc: action.doc };
     case fromAuth.CLEAR_STORE:
       return { ...initialState };
     default:

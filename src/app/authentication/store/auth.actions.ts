@@ -37,7 +37,7 @@ export class FailUpdateUserAction implements Action {
 
 export class SetProfileDocAction implements Action {
   readonly type = SET_PROFILE_DOC;
-  constructor(public user: User) {}
+  constructor(public doc: any) {}
 }
 
 export type AuthActions =

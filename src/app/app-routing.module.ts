@@ -20,7 +20,7 @@ const routes: Routes = [
         ValidRoles.admin,
         ValidRoles.superAdmin,
         ValidRoles.expert,
-        ValidRoles.investor,
+        // ValidRoles.investor,
       ],
     },
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),

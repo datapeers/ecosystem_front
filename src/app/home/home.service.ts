@@ -90,9 +90,9 @@ export class HomeService {
           'services',
         ];
         break;
-      case 'investor':
-        rolOptions = ['init', 'startUps'];
-        break;
+      // case 'investor':
+      //   rolOptions = ['init', 'startUps'];
+      //   break;
       default:
         break;
     }
