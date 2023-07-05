@@ -3,6 +3,10 @@ import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { Investor } from '@shared/models/entities/investor';
 import { firstValueFrom, map } from 'rxjs';
 import investorQueries from './investors.gql';
+import { UpdateResultPayload } from '@shared/models/graphql/update-result-payload';
+import { PageRequest } from '@shared/models/requests/page-request';
+import { PaginatedResult } from '@shared/models/requests/paginated-result';
+import { jsonUtils } from '@shared/utils/json.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +17,12 @@ export class InvestorsService {
     private readonly graphql: GraphqlService,
   ) {
     
+  }
+
+  cachedQueries: string[] = [];
+
+  async clearCache(): Promise<void> {
+    this.graphql.evictStore(this.cachedQueries);
   }
 
   async getDocuments(args: any): Promise<Investor[]> {
@@ -26,6 +36,40 @@ export class InvestorsService {
       .query(queryRef)
       .pipe(
         map((request) => request.data.investors),
+      )
+    );
+  }
+
+  async getDocumentsPage(_: any, request: PageRequest): Promise<PaginatedResult<Investor>> {
+    const queryRef = this.graphql.refQuery(
+      investorQueries.query.investorsPage,
+      { request },
+      'cache-first',
+      { auth: true }
+    );
+    request = jsonUtils.sortObjectKeys(request);
+    const requestKey = `investorsPage(${JSON.stringify({ request })})`;
+    if(!this.cachedQueries.some(queryKey => queryKey === requestKey)) {
+      this.cachedQueries.push(requestKey);
+    }
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.investorsPage))
+    );
+  }
+
+  async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
+    const mutationRef = this.graphql.refMutation(
+      investorQueries.mutation.deleteInvestors,
+      { ids },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql
+      .mutation(mutationRef)
+      .pipe(
+        map((request) => request.data.deleteInvestors),
       )
     );
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { firstValueFrom, map, take, takeUntil } from 'rxjs';
+import { firstValueFrom, map, take } from 'rxjs';
 import expertsQueries from './experts.gql';
 import { Expert } from '@shared/models/entities/expert';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
