@@ -16,88 +16,88 @@ import { Subject, take, takeUntil } from 'rxjs';
   selector: 'app-investors',
   templateUrl: './investors.component.html',
   styleUrls: ['./investors.component.scss'],
-  providers: [
-    { provide: DocumentProvider, useExisting: InvestorsService }
-  ]
+  providers: [{ provide: DocumentProvider, useExisting: InvestorsService }],
 })
 export class InvestorsComponent {
-    optionsTable: TableOptions;
-    dynamicTable: DynamicTable;
-    tableContext: TableContext;
-    loading: boolean = false;
-    tableTitle: string = '';
-    configTable: TableConfig;
-    tableLocator: string = tableLocators.investors;
-    entityForm: AppForm;
-    onDestroy$: Subject<void> = new Subject();
-  
-    constructor(
-      private readonly formService: FormService,
-    ) {
-      this.optionsTable = {
-        save: true,
-        download: false,
-        details: true,
-        summary: "Inversores",
-        showConfigButton: true,
-        redirect: null,
-        selection: true,
-        actions_row: 'compress',
-        actionsPerRow: [],
-        extraColumnsTable: [],
-        actionsTable: [
-          {
-            action: 'add',
-            label: `Nuevo Inversor`,
-            icon: 'pi pi-plus',
-            featured: true
-          },
-        ],
-      };
-    }
-  
-    ngOnInit(): void {
-      this.loadComponent();
-    }
-  
-    ngOnDestroy() {
-      this.onDestroy$.next();
-      this.onDestroy$.complete();
-    }
-  
-    async loadComponent() {
-      this.optionsTable.summary = "Inversores";
-      this.tableTitle = "Inversores";
-      this.loading = true;
-      const forms = await this.formService.getFormByCollection(FormCollections.investors);
-      if(!forms.length) { return; }
-      this.entityForm = forms.find(() => true);
-      this.tableContext = {
-        locator: this.tableLocator,
-        name: "Inversores",
-        form: this.entityForm._id,
-      }
-      this.loading = false;
-    }
-  
-    async actionFromTable({ action, element, event, callbacks }: TableActionEvent) {
-      switch(action) {
-        case 'add':
-          const subscription = await this.formService.createFormSubscription({
-            form: this.entityForm._id,
-            reason: "Create investor",
-          });
-          const ref = this.formService.openFormFromSubscription(subscription, "Creación de inversor");
-          ref.pipe(
-            take(1),
-            takeUntil(this.onDestroy$)
-          ).subscribe((doc) => {
-            if(doc) {
-              callbacks.fullRefresh();
-            }
-          });
-          break;
-      }
+  optionsTable: TableOptions;
+  dynamicTable: DynamicTable;
+  tableContext: TableContext;
+  loading: boolean = false;
+  tableTitle: string = '';
+  configTable: TableConfig;
+  tableLocator: string = tableLocators.investors;
+  entityForm: AppForm;
+  onDestroy$: Subject<void> = new Subject();
+
+  constructor(private readonly formService: FormService) {
+    this.optionsTable = {
+      save: true,
+      download: false,
+      details: true,
+      summary: 'Inversores',
+      showConfigButton: true,
+      redirect: null,
+      selection: true,
+      actions_row: 'compress',
+      actionsPerRow: [],
+      extraColumnsTable: [],
+      actionsTable: [
+        {
+          action: 'add',
+          label: `Nuevo Inversor`,
+          icon: 'pi pi-plus',
+          featured: true,
+        },
+      ],
+    };
+  }
+
+  ngOnInit(): void {
+    this.loadComponent();
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  async loadComponent() {
+    this.optionsTable.summary = 'Inversores';
+    this.tableTitle = 'Inversores';
+    this.loading = true;
+    // const forms = await this.formService.getFormByCollection(FormCollections.investors);
+    // if(!forms.length) { return; }
+    // this.entityForm = forms.find(() => true);
+    // this.tableContext = {
+    //   locator: this.tableLocator,
+    //   name: "Inversores",
+    //   form: this.entityForm._id,
+    // }
+    // this.loading = false;
+  }
+
+  async actionFromTable({
+    action,
+    element,
+    event,
+    callbacks,
+  }: TableActionEvent) {
+    switch (action) {
+      case 'add':
+        const subscription = await this.formService.createFormSubscription({
+          form: this.entityForm._id,
+          reason: 'Create investor',
+        });
+        const ref = this.formService.openFormFromSubscription(
+          subscription,
+          'Creación de inversor'
+        );
+        ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
+          if (doc) {
+            callbacks.fullRefresh();
+          }
+        });
+        break;
     }
   }
-  
+}

@@ -46,13 +46,11 @@ export class HomeService {
           'businesses',
           'startUps',
           'expert',
-          'investors',
           'helpDesk',
           'foros',
           'reports',
           'settings',
           'forms',
-          // 'inversionistas',
         ];
         break;
       case 'admin':
@@ -65,13 +63,11 @@ export class HomeService {
           'businesses',
           'startUps',
           'expert',
-          'investors',
           'helpDesk',
           'foros',
           'reports',
           'settings',
           'forms',
-          // 'inversionistas',
         ];
         break;
       case 'user':
@@ -202,12 +198,6 @@ export class HomeService {
         rute: '/home/experts',
         type: 'single',
         icon: faUsers,
-      },
-      investors: {
-        label: 'Inversionistas',
-        rute: '/home/investors',
-        type: 'single',
-        icon: faUserTie,
       },
       prospects: {
         label: 'Prospectos',
