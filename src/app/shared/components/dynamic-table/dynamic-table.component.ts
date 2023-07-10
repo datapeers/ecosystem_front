@@ -10,7 +10,7 @@ import {
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { BehaviorSubject, Subject, debounceTime, filter, firstValueFrom, lastValueFrom, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, debounceTime, filter, first, firstValueFrom, lastValueFrom, skip, take, takeUntil, combineLatest } from 'rxjs';
 import { DynamicTableService } from './dynamic-table.service';
 import { TableExportFormats } from './models/table-export-formats.enum';
 import { TableAction, TableActionEvent } from './models/table-action';
@@ -100,14 +100,27 @@ export class DynamicTableComponent {
     private readonly service: DynamicTableService,
     private readonly documentProvider: DocumentProvider
   ) {
-    this.onConfigChange
-      .pipe(
-        filter((config) => config !== null && config !== undefined),
-        takeUntil(this.onDestroy$)
-      )
-      .subscribe((newConfig) => this.handleConfigChange(newConfig));
+    // Table Config
+    this.onConfigChange.pipe(
+      filter((config) => config !== null && config !== undefined),
+      takeUntil(this.onDestroy$)
+    ).subscribe((newConfig) => this.handleConfigChange(newConfig));
+  
+    // Lazy loading
+    this.lazyLoadDebouncer
+    .pipe(
+      debounceTime(400),
+      takeUntil(this.onDestroy$)
+    ).subscribe(lazyLoadEvent => this.handleLazyLoadChange(lazyLoadEvent));
+
+    // Set as lazy if the provider can handle lazy loading
+    this.lazy = !!this.documentProvider.getDocumentsPage;
     
     // Action callbacks
+    this.setupCallbacks();
+  }
+
+  setupCallbacks() {
     this.clearCache$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
       if(this.documentProvider.clearCache) { this.documentProvider.clearCache(); }
     });
@@ -115,38 +128,42 @@ export class DynamicTableComponent {
     this.refresh$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
       this.onConfigChange.next(this.config);
     });
+  }
 
-    // Lazy loading
-    this.lazyLoadDebouncer
-      .pipe(debounceTime(500))
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(async (lazyLoadEvent) => {
-        this.lastLazyEvent = cloneDeep(lazyLoadEvent);
-        Object.freeze(this.lastLazyEvent);
-        if(this.documentProvider.getDocumentsPage) {
-          await this.buildTable();
-        }
-        this.onLazyLoad.emit(this.lastLazyEvent);
-      });    
-    this.lazy = !!this.documentProvider.getDocumentsPage;
+  handleLazyLoadChange(lazyLoadEvent: LazyLoadEvent) {
+    this.lastLazyEvent = cloneDeep(lazyLoadEvent);
+    Object.freeze(this.lastLazyEvent);
+    this.onLazyLoad.emit(this.lastLazyEvent);
+    this.setupTable();
   }
 
   async handleConfigChange(newConfig: TableConfig) {
     this.config = newConfig;
-    await this.buildTable();
-    this.loading = true;
-    this.setOptions();
-    this.setGlobalFilter();
-    this.validateHeight();
     const { loadEvent } = newConfig;
     if (newConfig?.loadEvent) {
       const { filters, sortField, sortOrder } = loadEvent;
       this.dt.filters = filters ? cloneDeep(filters) : {};
       this.dt.sortField = sortField ?? '';
       this.dt.sortOrder = sortOrder;
+      if(this.lazy) {
+        this.lazyLoadDebouncer.next(this.dt.createLazyLoadMetadata());
+      }
     } else {
+      // Reset filters trigger a new lazy load event
       this.resetFilters();
     }
+    if(!this.lazy) {
+      // If lazy load is not enabled the config change should be enough to setup the table again.
+      this.setupTable();
+    }
+  }
+
+  async setupTable() {
+    await this.buildTable();
+    this.loading = true;
+    this.setOptions();
+    this.setGlobalFilter();
+    this.validateHeight();
     this.loading = false;
   }
 
@@ -221,25 +238,38 @@ export class DynamicTableComponent {
     } else {
       this.rawData = await this.documentProvider.getDocuments(this.context.data);
     }
-    this.setRows(this.entity.columns);
+    this.setRows(this.config.columns, this.rawData);
   }
 
   async initConfiguration() {
-    this.entity = await this.service.getTable(this.context.locator);
-    if (!this.entity) {
-      this.entity = await this.service.createTable(
-        this.context.locator,
-        this.context.form
-      );
-    }
-    this.service
-      .getTableConfigs(this.entity._id)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe((configs) => {
-        this.configs = cloneDeep(configs);
-        const defaultConfig = this.configs[0];
-        this.onConfigChange.next(defaultConfig);
-      });
+    const tableChanges = this.service.getTable(this.context.locator);
+    tableChanges.pipe(
+      // Cancel subscription if parent subscription emits a value
+      // Skip(1) because subscription has initial value
+      takeUntil(this.onContextChange.pipe(skip(1))),
+      takeUntil(this.onDestroy$),
+    ).subscribe(async entity => {
+      this.entity = entity;
+      if (!this.entity) {
+        this.entity = await this.service.createTable(
+          this.context.locator,
+          this.context.form
+        );
+      }
+      this.service
+        .getTableConfigs(this.entity._id)
+        .pipe(
+          // Cancel subscription if parent subscription emits a value
+          // Skip(1) because subscription has initial value
+          takeUntil(tableChanges.pipe(skip(1))),
+          takeUntil(this.onDestroy$),
+        )
+        .subscribe((configs) => {
+          this.configs = cloneDeep(configs);
+          const defaultConfig = this.configs[0];
+          this.onConfigChange.next(defaultConfig);
+        });
+    });
   }
 
   includeCommand(action: TableAction, actionHandler): TableAction {
@@ -457,9 +487,9 @@ export class DynamicTableComponent {
     });
   }
 
-  setRows(columns: TableColumns) {
+  setRows(columns: TableColumns, rawData: any[]) {
     this.loading = true;
-    this.data = this.rawData.map((doc) => {
+    this.data = rawData.map((doc) => {
       return tableUtilities.setRowList(doc, columns);
     });
     this.data = [...this.data];
@@ -547,6 +577,7 @@ export class DynamicTableComponent {
         table: this.entity,
         tableConfig: this.config,
         context: this.context,
+        options: this.options,
       },
       showHeader: true,
     });

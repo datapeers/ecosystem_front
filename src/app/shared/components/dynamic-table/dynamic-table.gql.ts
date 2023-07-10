@@ -6,7 +6,9 @@ const fragments = {
       _id
       locator
       form
+      joins
       columns
+      columnGroups
     }
   `,
   tableConfigFields: `
@@ -78,6 +80,14 @@ const mutation = {
       }
     }
     ${fragments.tableConfigFields}
+  `,
+  addTableJoin: `
+    mutation AddTableJoin($addTableJoinInput: AddTableJoinInput!) {
+      addTableJoin(addTableJoinInput: $addTableJoinInput) {
+        ...tableFields
+      }
+    }
+    ${fragments.tableFields}
   `,
   deleteTableConfig: `
     mutation DeleteTableConfig($id: String!) {

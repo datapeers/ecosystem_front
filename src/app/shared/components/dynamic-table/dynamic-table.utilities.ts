@@ -1,3 +1,5 @@
+import { TableColumn, TableColumnType } from "./models/table-config";
+
 const dotNotate = (obj, target = {}, prefix = '') => {
   Object.keys(obj).map((key) => {
     if (typeof obj[key] === 'object' && obj[key] !== null) {
@@ -11,7 +13,7 @@ const dotNotate = (obj, target = {}, prefix = '') => {
 
 const setRowList = (
   tableDocument: any,
-  config: any[] = [],
+  config: TableColumn[] = [],
   options?: { classRow?: string }
 ) => {
   let newRow = { _id: tableDocument._id, ...options };
@@ -29,7 +31,7 @@ const setRowList = (
         valuesPlaceholder.push(v);
       }
     });
-    if (key.includes(';') || type === 'array') {
+    if (key.includes(';') || type === TableColumnType.array) {
       newRow[key] = valuesPlaceholder;
     } else {
       newRow[key] = valuesPlaceholder.find((first) => first);

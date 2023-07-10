@@ -13,15 +13,14 @@
           </p-orderList>
       </div>
       <div class="shadow-custom border-round min-w-min flex flex-column gap-2 overflow-auto h-full p-2">
-          <ng-container *ngIf="fieldGroups && fieldGroups.length > 0 else noGroupsTemplate">
-              <ng-container *ngFor="let group of fieldGroups">
+          <ng-container *ngIf="columnGroups && columnGroups.length > 0 else noGroupsTemplate">
+              <ng-container *ngFor="let group of columnGroups">
                   <div *ngIf="group.columns.length > 0" class="flex flex-column gap-2 border-round p-2 shadow-1">
                       <div class="flex flex-row gap-2 justify-content-between">
                           <span class="flex flex-row gap-1 align-items-center">
                               <i tooltipPosition="top" pTooltip="Agregar todas" class="cursor-pointer hover:text-500 text-sm pi pi-plus" (click)="addColumns(group.columns)"></i>
                               <i tooltipPosition="top" pTooltip="Remover todas" class="cursor-pointer hover:text-500 text-sm pi pi-minus" (click)="removeColumns(group.columns)"></i>
                               <span class="font-semibold">{{group.name}}</span>
-                              <i *ngIf="group.type" class="pi pi-file"></i>
                           </span>
                       </div>
                       <div class="container-grid gap-2">
@@ -36,6 +35,14 @@
           <ng-template #noGroupsTemplate>
               <span>No se encontraron grupos de columnas</span>
           </ng-template>
+          <div *ngIf="joins.length" class="flex flex-column gap-2 border-round p-2 shadow-1">
+            <span class="font-semibold">Campos adicionales</span>
+            <div class="container-grid gap-2">
+              <ng-container *ngFor="let join of joins">
+                <p-button [label]="join.name" (onClick)="addJoin(join)" icon="pi pi-plus"></p-button>
+              </ng-container>
+            </div>
+          </div>
       </div>
   </div>
   <div class="flex flex-row justify-content-end">

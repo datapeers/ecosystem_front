@@ -6,6 +6,8 @@ const fragments = {
     fragment entrepreneurFields on Entrepreneur {
       _id
       item
+      businesses
+      startups
     }
   `,
 };

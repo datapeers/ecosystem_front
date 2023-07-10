@@ -1,3 +1,5 @@
+import { TableColumn } from "./table-config";
+
 export interface TableOptions {
   save: boolean;
   download: boolean;
@@ -8,6 +10,6 @@ export interface TableOptions {
   actions_row: string;
   actionsPerRow: any[];
   actionsTable: any[];
-  extraColumnsTable: any[];
+  extraColumnsTable: TableColumn[];
   summary?: string;
 }

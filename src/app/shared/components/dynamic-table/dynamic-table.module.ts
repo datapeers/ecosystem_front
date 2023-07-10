@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { DynamicTableComponent } from './dynamic-table.component';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
@@ -20,6 +20,7 @@ import { TableSelectDialogComponent } from './table-select-dialog/table-select-d
 import { ConfirmationService } from 'primeng/api';
 import { EntrepreneurSelectTableComponent } from './table-select-dialog/providers/entrepreneur-select-table/entrepreneur-select-table.component';
 import { StartupSelectTableComponent } from './table-select-dialog/providers/startup-select-table/startup-select-table.component';
+import { CellFormatPipe } from './pipes/cell-format.pipe';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { StartupSelectTableComponent } from './table-select-dialog/providers/sta
     BusinessSelectTableComponent,
     EntrepreneurSelectTableComponent,
     StartupSelectTableComponent,
+    CellFormatPipe,
   ],
   imports: [
     CommonModule,
@@ -50,6 +52,6 @@ import { StartupSelectTableComponent } from './table-select-dialog/providers/sta
   exports: [
     DynamicTableComponent
   ],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, CurrencyPipe]
 })
 export class DynamicTableModule { }

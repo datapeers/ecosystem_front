@@ -5,6 +5,7 @@ import tableQueries from './dynamic-table.gql';
 import { DynamicTable } from './models/dynamic-table';
 import { ITableConfig, TableConfig } from './models/table-config';
 import { UpdateResultPayload } from '@shared/models/graphql/update-result-payload';
+import { TableJoin } from './models/table-join';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class DynamicTableService {
   }
   
   // Queries
-  async getTable(locator: string): Promise<DynamicTable> {
+  getTable(locator: string): Observable<DynamicTable> {
     const queryRef = this.graphql.refQuery(
       tableQueries.query.getTable,
       { locator },
@@ -32,15 +33,18 @@ export class DynamicTableService {
       { auth: true }
     );
     this.cachedQueries.tables[locator] = queryRef;
-    return firstValueFrom(
-      this.graphql
-        .query(queryRef)
-        .pipe(
-          map((request) => request.data.table),
-          map((table) => DynamicTable.fromJson(table)),
-          catchError(err => of(null))
-        )
-    );
+    return this.graphql
+      .watch_query(queryRef).valueChanges
+      .pipe(
+        map((request) => request.data.table),
+        map((table) => DynamicTable.fromJson(table)),
+        catchError(err => of(null))
+      );
+  }
+
+  async refetchTable(locator: string) {
+    const cachedQuery = this.cachedQueries.tables[locator];
+    return this.graphql.refetchQuery(cachedQuery);
   }
 
   async getTableConfig(id: string): Promise<TableConfig> {
@@ -118,6 +122,21 @@ export class DynamicTableService {
       this.graphql.mutation(mutationRef).pipe(
         map((request) => request.data.updateTableConfig),
         map((config) => TableConfig.fromJson(config))
+      )
+    );
+  }
+
+  async addTableJoin(id: string, join: TableJoin, locator: string): Promise<DynamicTable> {
+    const mutationRef = this.graphql.refMutation(
+      tableQueries.mutation.addTableJoin,
+      { addTableJoinInput: { id, join } },
+      [this.cachedQueries.tables[locator]],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
+        map((request) => request.data.addTableJoin),
+        map((config) => DynamicTable.fromJson(config))
       )
     );
   }

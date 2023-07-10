@@ -24,9 +24,15 @@ export type TableColumns = TableColumn[];
 export type TableColumn = {
   label: string;
   key: string;
+  type: TableColumnType;
   format: TableCellFormat;
   propConditionalClass?: { prop?: string; class?: any };
   booleanText?: { true: string; false: string };
+};
+
+export enum TableColumnType {
+  data = "data",
+  array = "array",
 };
   
 type TableCellFormat = 

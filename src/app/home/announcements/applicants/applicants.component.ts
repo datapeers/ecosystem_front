@@ -3,7 +3,6 @@ import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
-import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
 import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
@@ -29,7 +28,6 @@ import { ApplicantState } from '../model/applicant-state';
 })
 export class ApplicantsComponent {
   optionsTable: TableOptions;
-  dynamicTable: DynamicTable;
   tableContext: TableContext;
   loading: boolean = false;
   tableTitle: string = '';

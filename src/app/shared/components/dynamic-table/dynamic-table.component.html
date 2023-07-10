@@ -1,6 +1,6 @@
 <div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
   <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
-  <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="handleConfigChange($event)"  (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
+  <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="onConfigChange.next($event)"  (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
   <p-table [columns]="config?.columns ?? []" (onColReorder)="columnReorder($event)" [ngStyle]="{ 'height': scrollHeight + 'px'}"
   [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id"
   [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($event)" paginatorPosition="bottom"
@@ -49,7 +49,7 @@
           <ng-container [ngSwitch]="item.format">
             <ng-container *ngSwitchCase="'boolean'">
               <th [pSortableColumn]="item.key" pReorderableColumn>
-                <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
                   <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
                   <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
                   <p-columnFilter [field]="item.key" display="menu" matchMode="equals" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
@@ -67,7 +67,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'currency'">
               <th [pSortableColumn]="item.key" pReorderableColumn>
-                <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
                   <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
                   <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
                   <p-columnFilter type="numeric" currency="$" [field]="item.key" display="menu"> </p-columnFilter>
@@ -76,7 +76,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'number'">
               <th [pSortableColumn]="item.key" pReorderableColumn>
-                <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
                   <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
                   <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
                   <p-columnFilter type="numeric" [field]="item.key" display="menu"></p-columnFilter>
@@ -91,7 +91,7 @@
             </ng-container>
             <ng-template #dateTemplate let-item="item">
               <th [pSortableColumn]="item.key" pReorderableColumn>
-                <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
                   <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
                   <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
                   <p-columnFilter type="date" [field]="item.key" display="menu">
@@ -105,14 +105,14 @@
             </ng-template>
             <ng-container *ngSwitchCase="'url'">
               <th class="text-center">
-                <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
                   <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
                 </div>
               </th>
             </ng-container>
             <ng-container *ngSwitchDefault>
               <th [pSortableColumn]="item.key" pReorderableColumn>
-                <div class="flex align-items-center" [style]="{'max-width':'300px'}">
+                <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
                   <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
                   <p-sortIcon [field]="item.key" style="min-width: min-content; display: flex;"></p-sortIcon>
                   <p-columnFilter type="text" [field]="item.key" display="menu"></p-columnFilter>
@@ -152,7 +152,7 @@
               </td>
             </ng-container>
             <ng-container *ngSwitchDefault>
-              <td [innerHtml]="row[item.key]" class="small" ngClass="{{item['propConditionalClass'] && row[item.propConditionalClass.prop] ? item.propConditionalClass.class : ''}}">
+              <td [innerHtml]="row[item.key] | cellFormat: item" class="small" ngClass="{{item['propConditionalClass'] && row[item.propConditionalClass.prop] ? item.propConditionalClass.class : ''}}">
               </td>
             </ng-container>
           </ng-container>

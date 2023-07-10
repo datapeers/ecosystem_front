@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { tableLocators } from '@shared/components/dynamic-table/locators';;
-import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider'
-import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
+import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import { TableColumnType, TableConfig } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { TableSelection } from '@shared/components/dynamic-table/models/table-selection';
@@ -14,8 +13,8 @@ import { AppForm } from '@shared/form/models/form';
 import { EntrepreneursService } from '@shared/services/entrepreneurs/entrepreneurs.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { take, takeUntil, Subject } from 'rxjs';
-import { ConfirmationService } from 'primeng/api';
 import { StartupSelectTableComponent } from '@shared/components/dynamic-table/table-select-dialog/providers/startup-select-table/startup-select-table.component';
+import { RowConfigColumn } from '@shared/models/row-config-column';
 
 @Component({
   selector: 'app-entrepreneurs',
@@ -27,7 +26,6 @@ import { StartupSelectTableComponent } from '@shared/components/dynamic-table/ta
 })
 export class EntrepreneursComponent {
   optionsTable: TableOptions;
-  dynamicTable: DynamicTable;
   tableContext: TableContext;
   loading: boolean = false;
   tableTitle: string = '';
@@ -39,7 +37,6 @@ export class EntrepreneursComponent {
   constructor(
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
-    private readonly confirmationService: ConfirmationService,
     private readonly service: EntrepreneursService,
   ) {
     this.optionsTable = {
@@ -68,7 +65,7 @@ export class EntrepreneursComponent {
         {
           action: 'linkWithStartups',
           label: `Vincular a startup`,
-          icon: 'pi pi-rocket',
+          icon: 'pi pi-bolt',
         },
       ],
     };
@@ -90,10 +87,26 @@ export class EntrepreneursComponent {
     const forms = await this.formService.getFormByCollection(FormCollections.entrepreneurs);
     if(!forms.length) { return; }
     this.entityForm = forms.find(() => true);
+    const businessesForms = await this.formService.getFormByCollection(FormCollections.businesses);
+    const businessesForm = businessesForms.find(() => true);
+    const startupsForms = await this.formService.getFormByCollection(FormCollections.startups);
+    const startupsForm = startupsForms.find(() => true);
     this.tableContext = {
       locator: this.tableLocator,
       name: "Emprendedores",
       form: this.entityForm._id,
+      joins: [
+        {
+          name: "Empresas",
+          key: "businesses",
+          form: businessesForm._id,
+        },
+        {
+          name: "Startups",
+          key: "startups",
+          form: startupsForm._id,
+        },
+      ],
     }
     this.loading = false;
   }

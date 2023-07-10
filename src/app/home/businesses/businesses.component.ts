@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
-import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import { TableColumnType, TableConfig } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { TableSelection } from '@shared/components/dynamic-table/models/table-selection';
@@ -25,7 +24,6 @@ import { Subject, take, takeUntil } from 'rxjs';
 })
 export class BusinessesComponent {
   optionsTable: TableOptions;
-  dynamicTable: DynamicTable;
   tableContext: TableContext;
   loading: boolean = false;
   tableTitle: string = '';
@@ -82,10 +80,19 @@ export class BusinessesComponent {
     const forms = await this.formService.getFormByCollection(FormCollections.businesses);
     if(!forms.length) { return; }
     this.entityForm = forms.find(() => true);
+    const entrepreneursForms = await this.formService.getFormByCollection(FormCollections.entrepreneurs);
+    const entrepreneursForm = entrepreneursForms.find(() => true);
     this.tableContext = {
       locator: this.tableLocator,
       name: "Empresas",
       form: this.entityForm._id,
+      joins: [
+        {
+          name: "Empresarios",
+          key: "entrepreneurs",
+          form: entrepreneursForm._id,
+        },
+      ]
     }
     this.loading = false;
   }

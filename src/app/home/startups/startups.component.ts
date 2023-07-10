@@ -3,7 +3,7 @@ import { tableLocators } from '@shared/components/dynamic-table/locators';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import { TableColumnType, TableConfig } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { TableSelection } from '@shared/components/dynamic-table/models/table-selection';
@@ -11,6 +11,7 @@ import { EntrepreneurSelectTableComponent } from '@shared/components/dynamic-tab
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
+import { RowConfigColumn } from '@shared/models/row-config-column';
 import { StartupsService } from '@shared/services/startups/startups.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, take, takeUntil } from 'rxjs';
@@ -49,7 +50,24 @@ export class StartupsComponent {
       selection: true,
       actions_row: 'compress',
       actionsPerRow: [],
-      extraColumnsTable: [],
+      extraColumnsTable: [
+        {
+          label: "Fases",
+          key: "phases; name",
+          type: TableColumnType.data,
+          format: "string"
+        },
+        {
+          label: "Prospecto",
+          key: "isProspect",
+          type: TableColumnType.data,
+          format: "boolean",
+          booleanText: {
+            true: 'Si',
+            false: 'No'
+          }
+        },
+      ],
       actionsTable: [
         {
           action: 'add',
@@ -82,10 +100,19 @@ export class StartupsComponent {
     const forms = await this.formService.getFormByCollection(FormCollections.startups);
     if(!forms.length) { return; }
     this.entityForm = forms.find(() => true);
+    const entrepreneursForms = await this.formService.getFormByCollection(FormCollections.entrepreneurs);
+    const entrepreneursForm = entrepreneursForms.find(() => true);
     this.tableContext = {
       locator: this.tableLocator,
       name: "Startups",
       form: this.entityForm._id,
+      joins: [
+        {
+          name: "Empresarios",
+          key: "entrepreneurs",
+          form: entrepreneursForm._id,
+        },
+      ]
     }
     this.loading = false;
   }

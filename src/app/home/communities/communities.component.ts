@@ -50,9 +50,7 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       selection: true,
       actions_row: 'compress',
       actionsPerRow: [],
-      extraColumnsTable: [
-        new RowConfigColumn('Líder', 'array', 'entrepreneurs; name', 'string'),
-      ],
+      extraColumnsTable: [],
       actionsTable: [],
     };
   }

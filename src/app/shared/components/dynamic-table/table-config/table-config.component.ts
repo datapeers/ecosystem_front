@@ -3,6 +3,11 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ITableConfig, TableColumns, TableConfig } from '../models/table-config';
 import { DynamicTable } from '../models/dynamic-table';
 import { TableContext } from '../models/table-context';
+import { TableJoin } from '../models/table-join';
+import { ColumnGroup } from '../models/column-group';
+import { DynamicTableService } from '../dynamic-table.service';
+import { Subject, takeUntil } from 'rxjs';
+import { TableOptions } from '../models/table-options';
 
 @Component({
   selector: 'app-table-config',
@@ -13,9 +18,13 @@ export class TableConfigComponent {
   table: DynamicTable;
   tableConfig: TableConfig;
   context: TableContext;
+  options: TableOptions;
+  joins: TableJoin[];
   loading = true;
   saving = false;
-  fieldGroups: { name: string; type?: string; path?: string; columns: TableColumns; }[]; 
+  columnGroups: ColumnGroup[];
+  config$: Subject<DynamicDialogConfig> = new Subject();
+  onDestroy$: Subject<void> = new Subject();
 
   selected: Record<string, boolean> = {};
   _selectedColumns: TableColumns = [];
@@ -33,7 +42,7 @@ export class TableConfigComponent {
   }
 
   get availableKeys() {
-    return this.fieldGroups
+    return this.columnGroups
       .map((g) => g.columns.map((c) => c.key))
       .reduce((accum, arr) => {
         arr.map((e) => {
@@ -46,26 +55,56 @@ export class TableConfigComponent {
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
+    private readonly dynamicTableService: DynamicTableService
   ) {
-    const { table, tableConfig, context } = this.config.data;
-    this.table = table;
-    this.tableConfig = tableConfig;
-    this.context = context;
+    this.config$
+      .pipe(
+        takeUntil(this.onDestroy$)
+      ).subscribe(config => {
+        const { table, tableConfig, context, options } = config.data;
+        this.table = table;
+        this.tableConfig = tableConfig;
+        this.context = context;
+        this.options = options;
+        const availableJoins = this.context?.joins?.filter(join => !table.joins.some(tableJoin => tableJoin.key === join.key)) ?? [];
+        this.joins = availableJoins;
+        const defaultGroup = {
+          name: this.context.name,
+          columns: this.table.columns,
+        };
+        const tableColumnGroups = this.table?.columnGroups ?? [];
+        const extraColumnsGroup: ColumnGroup = {
+          name: 'Columnas Adicionales',
+          columns: this.options.extraColumnsTable,
+        };
+        this.columnGroups = [defaultGroup];
+        if(extraColumnsGroup.columns.length) {
+          this.columnGroups.push(extraColumnsGroup);
+        }
+        this.columnGroups.push(...tableColumnGroups);
+        this.selectedColumns = [...this.tableConfig.columns];
+      });
+    this.config$.next(this.config);
   }
 
   ngOnInit(): void {
-    this.initComponent();
+
   }
 
-  async initComponent() {
-    this.loading = true;
-    const defaultGroup = {
-      name: this.context.name,
-      columns: this.table.columns,
-    };
-    this.fieldGroups = [defaultGroup];
-    this.selectedColumns = [...this.tableConfig.columns];
-    this.loading = false;
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  async addJoin(join: TableJoin) {
+    const updatedTable = await this.dynamicTableService.addTableJoin(this.table._id, join, this.context.locator);
+    this.config$.next({
+      ...this.config,
+      data: {
+        ...this.config.data,
+        table: updatedTable,
+      }
+    });
   }
 
   async saveChanges() {
