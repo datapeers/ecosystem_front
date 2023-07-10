@@ -6,7 +6,7 @@ const fragments = {
     fragment startupFields on Startup {
       _id
       item
-      prospect
+      isProspect
       entrepreneurs {
         _id
         rol
