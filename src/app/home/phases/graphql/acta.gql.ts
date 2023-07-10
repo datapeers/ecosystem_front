@@ -21,7 +21,7 @@ const fragments = {
 const query = {
   getActa: `
     query Acta($id: String!) {
-      event(id: $id) {
+      acta(id: $id) {
         ...actaFields
       }
     }

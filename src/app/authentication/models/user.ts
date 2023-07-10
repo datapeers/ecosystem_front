@@ -1,3 +1,4 @@
+import { IRol, Rol } from './rol';
 import { ValidRoles, validRolName } from './valid-roles.enum';
 
 export interface IUser {
@@ -5,7 +6,7 @@ export interface IUser {
   uid: string;
   fullName: string;
   email: string;
-  roles: ValidRoles[];
+  rol: Rol;
   isActive: boolean;
   profileImageUrl: string;
 }
@@ -15,7 +16,7 @@ export class User implements IUser {
   uid: string;
   fullName: string;
   email: string;
-  roles: ValidRoles[];
+  rol: Rol;
   isActive: boolean;
   profileImageUrl: string;
 
@@ -25,22 +26,19 @@ export class User implements IUser {
     )[0].toUpperCase();
   }
   get rolName(): string {
-    return validRolName(this.roles[0]);
-  }
-  get rol(): ValidRoles {
-    return this.roles[0];
+    return this.rol.name;
   }
   get isSuperAdmin() {
-    return this.roles.some((rol) => rol === ValidRoles.superAdmin);
+    return this.rol.type === ValidRoles.superAdmin;
   }
   get isAdmin() {
-    return this.roles.some((rol) => rol === ValidRoles.admin);
+    return this.rol.type === ValidRoles.admin;
   }
   get isExpert() {
-    return this.roles.some((rol) => rol === ValidRoles.expert);
+    return this.rol.type === ValidRoles.expert;
   }
   get isUser() {
-    return this.roles.some((rol) => rol === ValidRoles.user);
+    return this.rol.type === ValidRoles.user;
   }
 
   constructor(data: IUser) {

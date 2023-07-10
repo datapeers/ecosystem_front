@@ -1,8 +1,96 @@
-<div class="flex flex-column gap-2">
-  <ng-container *ngFor="let rol of roles">
-    <span class="font-semibold px-2 py-1">
-      {{rol}}
-    </span>
-    <p-divider styleClass="m-0"></p-divider>
-  </ng-container>
-</div>
+<p-scrollPanel [style]="{ width: '100%', height: '80vh' }">
+  <div class="flex flex-column gap-2 p-4">
+    <ng-container *ngFor="let rol of roles">
+      <p-fieldset [toggleable]="true" [collapsed]="true">
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center text-primary">
+            <span class="pi pi-user mr-2"></span>
+            <span class="font-bold text-lg">{{rol.name}}</span>
+          </div>
+        </ng-template>
+        <ng-container *ngIf="allowedChangePermissions[rol.type]; else elseTemplate">
+          <div class="w-full flex flex-row align-items-center gap-2">
+            <p-button label="Restablecer cambios" icon="pi pi-refresh" (onClick)="refresh(rol)"></p-button>
+            <p-button label="Guardar cambios" icon="pi pi-tags" (onClick)="saveChanges(rol)"></p-button>
+          </div>
+
+          <div class="w-full flex flex-column gap-2 pt-4">
+            <span class="font-semibold text-xl">Tablas</span>
+            <p-checkbox name="tables" label="Permitir descargar información de tablas" [(ngModel)]="rol.permissions.download_tables" [binary]="true"></p-checkbox>
+
+            <span class="font-semibold text-xl">Vista de sección</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="startups" label="Startups" [(ngModel)]="rol.permissions.view_startups" [binary]="true"></p-checkbox>
+              <p-checkbox name="entrepreneurs" label="Emprendedores" [(ngModel)]="rol.permissions.view_entrepreneurs" [binary]="true"></p-checkbox>
+              <p-checkbox name="business" label="Empresas" [(ngModel)]="rol.permissions.view_business" [binary]="true"></p-checkbox>
+              <p-checkbox name="experts" label="Expertos" [(ngModel)]="rol.permissions.view_experts" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Convocatorias</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_announcement" label="Ver sección" [(ngModel)]="rol.permissions.announcements.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit" label="Permitir Crear y/o Editar" [(ngModel)]="rol.permissions.announcements.create" [binary]="true"></p-checkbox>
+              <p-checkbox name="challenges" label="Crear/Editar challenges" [(ngModel)]="rol.permissions.announcements.challenges" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Fases</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_phases" label="Ver sección" [(ngModel)]="rol.permissions.phases.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_phase" label="Permitir Crear y/o Editar fase" [(ngModel)]="rol.permissions.phases.phase_edit" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_batch" label="Permitir Crear y/o Editar batch" [(ngModel)]="rol.permissions.phases.batch_edit" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Eventos</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_events" label="Ver sección" [(ngModel)]="rol.permissions.events.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_event" label="Permitir Crear y/o Editar evento" [(ngModel)]="rol.permissions.events.edit" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Actas</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_actas" label="Ver sección" [(ngModel)]="rol.permissions.actas.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_acta" label="Permitir Crear y/o Editar acta" [(ngModel)]="rol.permissions.actas.edit" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_acta" label="Permitir Cerrar acta" [(ngModel)]="rol.permissions.actas.edit" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Formularios</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_forms" label="Ver sección" [(ngModel)]="rol.permissions.formularios.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_form" label="Permitir Crear y/o Editar acta" [(ngModel)]="rol.permissions.formularios.edit" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Comunidades</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_community" label="Ver sección" [(ngModel)]="rol.permissions.community.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_community" label="Permitir editar vista de comunidades" [(ngModel)]="rol.permissions.community.edit" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Mesa de ayuda</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_help_desk" label="Ver sección" [(ngModel)]="rol.permissions.help_desk.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_help_desk" label="Permitir acciones en tickets" [(ngModel)]="rol.permissions.help_desk.edit" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Sedes</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_sites_and_services" label="Ver sección" [(ngModel)]="rol.permissions.sites_and_services.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_sites_and_services" label="Permitir Crear y/o Editar sedes" [(ngModel)]="rol.permissions.sites_and_services.edit" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Reportes</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_reports" label="Ver sección" [(ngModel)]="rol.permissions.reports.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_reports" label="Permitir acciones en reportes" [(ngModel)]="rol.permissions.reports.edit" [binary]="true"></p-checkbox>
+            </div>
+
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <span>No se permite editar este rol</span>
+        </ng-template>
+
+      </p-fieldset>
+
+    </ng-container>
+  </div>
+</p-scrollPanel>

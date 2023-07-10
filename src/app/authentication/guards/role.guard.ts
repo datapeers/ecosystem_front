@@ -6,34 +6,40 @@ import { Store } from '@ngrx/store';
 import { Observable, first, map } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoleGuard implements CanMatch {
   constructor(
     private readonly store: Store<AppState>,
-    private readonly authService: AuthService,
+    private readonly authService: AuthService
   ) {}
 
   canMatch(
     route: Route,
     segments: UrlSegment[]
-  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
     return this.store
-    .select(state => state.auth.user)
-    .pipe(
-      first(user => user != null),
-      map(user => {
-        const validRoles = route.data?.["roles"] ?? [];
-        if(validRoles.length === 0) {
-          console.error("The selected route its protected but doesnt have roles configured");
+      .select((state) => state.auth.user)
+      .pipe(
+        first((user) => user != null),
+        map((user) => {
+          const validRoles = route.data?.['roles'] ?? [];
+          if (validRoles.length === 0) {
+            console.error(
+              "The selected route its protected but doesn't have roles configured"
+            );
+            return false;
+          }
+          if (validRoles.includes(user.rol.type)) {
+            return true;
+          }
+          this.authService.signOut();
           return false;
-        }
-        const userRoles = user?.roles?? [];
-        if(userRoles.some(role => validRoles.includes(role)))
-          return true;
-        this.authService.signOut();
-        return false;
-      })
-    )
+        })
+      );
   }
 }

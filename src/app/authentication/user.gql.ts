@@ -5,7 +5,12 @@ const fragments = {
       uid
       fullName
       email
-      roles
+      rol {
+        _id
+        name
+        type
+        permissions
+      }
       createdAt
       updatedAt
       isActive

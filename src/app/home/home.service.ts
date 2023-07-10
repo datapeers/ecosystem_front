@@ -35,7 +35,7 @@ export class HomeService {
   async getDefaultHomeMenu(user: User): Promise<IMenu> {
     const options = this.optionsMenu();
     let rolOptions: (keyof typeof options)[] = [];
-    switch (user.rol) {
+    switch (user.rol.type) {
       case 'superAdmin':
         rolOptions = [
           'init',

@@ -1,5 +1,5 @@
 <div class="px-4 py-3 h-full w-full">
-  <p-tabView styleClass="shadow-elevated overflow-hidden border-round h-full w-full surface-0 tabview-content-fit">
+  <p-tabView styleClass="shadow-elevated overflow-hidden border-round h-full w-full surface-0 tabview-content-fit" [scrollable]="true">
     <p-tabPanel header="Usuarios">
       <ng-template pTemplate="header">
         <span class="flex flex-row gap-2 align-items-center">
@@ -35,3 +35,5 @@
     </p-tabPanel>
   </p-tabView>
 </div>
+
+<p-confirmDialog key="adminConfirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

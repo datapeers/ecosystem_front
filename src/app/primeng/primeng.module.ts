@@ -46,6 +46,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AnimateModule } from 'primeng/animate';
 import { TreeTableModule } from 'primeng/treetable';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @NgModule({
   declarations: [],
@@ -94,6 +95,7 @@ import { TreeTableModule } from 'primeng/treetable';
     MultiSelectModule,
     AnimateModule,
     TreeTableModule,
+    FieldsetModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],
