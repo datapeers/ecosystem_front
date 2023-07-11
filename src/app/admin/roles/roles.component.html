@@ -29,7 +29,8 @@
             <span class="font-semibold text-xl">Convocatorias</span>
             <div class="w-full flex flex-row pt-2 gap-2">
               <p-checkbox name="view_announcement" label="Ver sección" [(ngModel)]="rol.permissions.announcements.view" [binary]="true"></p-checkbox>
-              <p-checkbox name="edit" label="Permitir Crear y/o Editar" [(ngModel)]="rol.permissions.announcements.create" [binary]="true"></p-checkbox>
+              <p-checkbox name="create" label="Permitir Crear" [(ngModel)]="rol.permissions.announcements.create" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit" label="Permitir Editar" [(ngModel)]="rol.permissions.announcements.edit" [binary]="true"></p-checkbox>
               <p-checkbox name="challenges" label="Crear/Editar challenges" [(ngModel)]="rol.permissions.announcements.challenges" [binary]="true"></p-checkbox>
             </div>
 
