@@ -61,7 +61,7 @@ export class PhasesComponent implements OnInit, OnDestroy {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     ).then((u) => {
-      (this.user = u), console.log(this.user);
+      this.user = u;
     });
   }
 

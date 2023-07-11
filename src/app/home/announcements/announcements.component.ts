@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subject, filter, takeUntil } from 'rxjs';
+import { Subject, first, firstValueFrom, takeUntil } from 'rxjs';
 import { AnnouncementsService } from './announcements.service';
 import { Announcement } from './model/announcement';
 import { Router } from '@angular/router';
@@ -75,16 +75,13 @@ export class AnnouncementsComponent {
         this.announcements = announcements;
         this.loading = false;
       });
-    this.store
-      .select((state) => state.auth.user)
-      .pipe(
-        takeUntil(this.onDestroy$),
-        filter((user) => user != null)
-      )
-      .subscribe((user) => {
-        this.user = user;
-        console.log(this.user);
-      });
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => {
+      (this.user = u), console.log(this.user);
+    });
   }
 
   ngOnInit() {}

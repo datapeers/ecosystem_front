@@ -4,9 +4,9 @@
       <span id="home-section-header" class="text-white"></span>
       <div class="flex flex-row flex-wrap gap-2 justify-content-center">
         <div class="flex flex-row gap-2 justify-content-center w-full">
-          <p-button type="button" label="Crear Convocatoria" icon="pi pi-plus" (onClick)="openMenu.toggle($event)"></p-button>
+          <p-button *ngIf="user?.rol?.permissions?.announcements?.edit" type="button" label="Crear Convocatoria" icon="pi pi-plus" (onClick)="openMenu.toggle($event)"></p-button>
           <p-tieredMenu appendTo="body" #openMenu [model]="createOpenActions" [popup]="true"></p-tieredMenu>
-          <p-button type="button" label="Crear Reto" icon="pi pi-plus" (onClick)="challengeMenu.toggle($event)"></p-button>
+          <p-button *ngIf="user?.rol?.permissions?.announcements?.challenges" type="button" label="Crear Reto" icon="pi pi-plus" (onClick)="challengeMenu.toggle($event)"></p-button>
           <p-tieredMenu appendTo="body" #challengeMenu [model]="createChallengeActions" [popup]="true"></p-tieredMenu>
         </div>
       </div>
@@ -28,7 +28,7 @@
           <div class="flex flex-row align-items-center justify-content-between">
             <div class="flex flex-row" style="gap:0.5rem;">
               <ng-container *ngFor="let action of cardActions">
-                <p-button (click)="action.command($event, item)" type="button" [label]="action.label"></p-button>
+                <p-button *ngIf="user?.rol?.permissions?.announcements?.edit" (click)="action.command($event, item)" type="button" [label]="action.label"></p-button>
               </ng-container>
             </div>
           </div>
