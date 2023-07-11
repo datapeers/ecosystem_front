@@ -79,9 +79,7 @@ export class AnnouncementsComponent {
       this.store
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
-    ).then((u) => {
-      (this.user = u), console.log(this.user);
-    });
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit() {}

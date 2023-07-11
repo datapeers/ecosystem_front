@@ -60,9 +60,7 @@ export class PhasesComponent implements OnInit, OnDestroy {
       this.store
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
-    ).then((u) => {
-      this.user = u;
-    });
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {

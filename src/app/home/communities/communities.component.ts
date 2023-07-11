@@ -14,6 +14,7 @@ import { TableActionEvent } from '@shared/components/dynamic-table/models/table-
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { CommunitiesService } from './communities.service';
 import { RowConfigColumn } from '@shared/models/row-config-column';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-communities',
@@ -34,8 +35,9 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
   listStartups = [];
   selectedStartups: [] = [];
   callbackTable;
-
+  user: User;
   constructor(
+    private store: Store<AppState>,
     private readonly toast: ToastService,
     private readonly service: CommunitiesService,
     private readonly formService: FormService
@@ -45,7 +47,7 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       download: false,
       details: true,
       summary: 'Comunidades',
-      showConfigButton: true,
+      showConfigButton: false,
       redirect: null,
       selection: true,
       actions_row: 'compress',
@@ -53,6 +55,11 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       extraColumnsTable: [],
       actionsTable: [],
     };
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {
@@ -81,6 +88,10 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       form: this.entityForm._id,
       data: {},
     };
+    if (this.user.rol.permissions?.download_tables)
+      this.optionsTable.download = true;
+    if (this.user.rol.permissions?.community?.edit)
+      this.optionsTable.showConfigButton = true;
     this.loading = false;
   }
 
