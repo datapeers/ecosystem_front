@@ -15,6 +15,7 @@ import { AppState } from '@appStore/app.reducer';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-phase-startups',
@@ -36,6 +37,7 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
   selectedStartups: [] = [];
   phase: Phase;
   callbackTable;
+  user: User;
   constructor(
     private service: PhaseStartupsService,
     private readonly startupsService: StartupsService,
@@ -63,6 +65,11 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
         },
       ],
     };
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {
@@ -99,6 +106,8 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
         phase: this.phase._id,
       },
     };
+    if (this.user.rol.permissions?.download_tables)
+      this.optionsTable.download = true;
     this.loading = false;
   }
 

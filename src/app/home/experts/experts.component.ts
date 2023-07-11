@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AppState } from '@appStore/app.reducer';
+import { User } from '@auth/models/user';
+import { Store } from '@ngrx/store';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
@@ -10,15 +13,13 @@ import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
 import { ExpertsService } from '@shared/services/experts/experts.service';
 import { ToastService } from '@shared/services/toast.service';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-experts',
   templateUrl: './experts.component.html',
   styleUrls: ['./experts.component.scss'],
-  providers: [
-    { provide: DocumentProvider, useExisting: ExpertsService }
-  ]
+  providers: [{ provide: DocumentProvider, useExisting: ExpertsService }],
 })
 export class ExpertsComponent {
   optionsTable: TableOptions;
@@ -29,16 +30,17 @@ export class ExpertsComponent {
   tableLocator: string = tableLocators.experts;
   entityForm: AppForm;
   onDestroy$: Subject<void> = new Subject();
-
+  user: User;
   constructor(
+    private store: Store<AppState>,
     private readonly formService: FormService,
-    private readonly toast: ToastService,
+    private readonly toast: ToastService
   ) {
     this.optionsTable = {
       save: true,
       download: false,
       details: true,
-      summary: "Expertos",
+      summary: 'Expertos',
       showConfigButton: true,
       redirect: null,
       selection: true,
@@ -50,10 +52,15 @@ export class ExpertsComponent {
           action: 'add',
           label: `Nuevo Experto`,
           icon: 'pi pi-plus',
-          featured: true
+          featured: true,
         },
       ],
     };
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {
@@ -66,33 +73,44 @@ export class ExpertsComponent {
   }
 
   async loadComponent() {
-    this.optionsTable.summary = "Expertos";
-    this.tableTitle = "Expertos";
+    this.optionsTable.summary = 'Expertos';
+    this.tableTitle = 'Expertos';
     this.loading = true;
-    const forms = await this.formService.getFormByCollection(FormCollections.experts);
-    if(!forms.length) { return; }
+    const forms = await this.formService.getFormByCollection(
+      FormCollections.experts
+    );
+    if (!forms.length) {
+      return;
+    }
     this.entityForm = forms.find(() => true);
     this.tableContext = {
       locator: this.tableLocator,
-      name: "Expertos",
+      name: 'Expertos',
       form: this.entityForm._id,
-    }
+    };
+    if (this.user.rol.permissions?.download_tables)
+      this.optionsTable.download = true;
     this.loading = false;
   }
 
-  async actionFromTable({ action, element, event, callbacks }: TableActionEvent) {
-    switch(action) {
+  async actionFromTable({
+    action,
+    element,
+    event,
+    callbacks,
+  }: TableActionEvent) {
+    switch (action) {
       case 'add':
         const subscription = await this.formService.createFormSubscription({
           form: this.entityForm._id,
-          reason: "Create expert",
+          reason: 'Create expert',
         });
-        const ref = this.formService.openFormFromSubscription(subscription, "Creación de experto");
-        ref.pipe(
-          take(1),
-          takeUntil(this.onDestroy$)
-        ).subscribe((doc) => {
-          if(doc) {
+        const ref = this.formService.openFormFromSubscription(
+          subscription,
+          'Creación de experto'
+        );
+        ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
+          if (doc) {
             callbacks.fullRefresh();
           }
         });

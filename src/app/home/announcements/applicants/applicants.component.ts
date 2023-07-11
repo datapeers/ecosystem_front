@@ -9,22 +9,24 @@ import { TableContext } from '@shared/components/dynamic-table/models/table-cont
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { FormService } from '@shared/form/form.service';
 import { ApplicantsService } from '@shared/services/applicants/applicants.service';
-import { Subject, take, takeUntil, firstValueFrom } from 'rxjs';
+import { Subject, take, takeUntil, firstValueFrom, first } from 'rxjs';
 import { Announcement } from '../model/announcement';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ApplicantStateEditComponent } from './applicant-state-edit/applicant-state-edit.component';
 import { Applicant } from '@shared/models/entities/applicant';
-import { ApplicationStates, applicationStatesUtilities } from '../model/application-states.enum';
+import {
+  ApplicationStates,
+  applicationStatesUtilities,
+} from '../model/application-states.enum';
 import { ActivatedRoute } from '@angular/router';
 import { ApplicantState } from '../model/applicant-state';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-applicants',
   templateUrl: './applicants.component.html',
   styleUrls: ['./applicants.component.scss'],
-  providers: [
-    { provide: DocumentProvider, useExisting: ApplicantsService }
-  ]
+  providers: [{ provide: DocumentProvider, useExisting: ApplicantsService }],
 })
 export class ApplicantsComponent {
   optionsTable: TableOptions;
@@ -38,37 +40,35 @@ export class ApplicantsComponent {
   applicantState: ApplicantState;
   currentState: ApplicationStates;
   nextState: ApplicationStates | null;
-
+  user: User;
   constructor(
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
     private readonly store: Store<AppState>,
     private readonly applicantsService: ApplicantsService,
-    route: ActivatedRoute,
+    route: ActivatedRoute
   ) {
-    route.params.subscribe(params => {
-      const state = params["state"];
+    route.params.subscribe((params) => {
+      const state = params['state'];
       this.loading = true;
       this.currentState = state;
       const nextState = applicationStatesUtilities.nextApplicationState(state);
       const rowActions = [];
       this.nextState = nextState;
-      if(nextState) {
+      if (nextState) {
         const label = applicationStatesUtilities.stateChangeLabel(state);
-        rowActions.push(
-          {
-            action: 'update',
-            label: label,
-            icon: 'pi pi-plus',
-          }
-        );
+        rowActions.push({
+          action: 'update',
+          label: label,
+          icon: 'pi pi-plus',
+        });
       }
       this.applicantState = state;
       this.optionsTable = {
         save: true,
         download: false,
         details: true,
-        summary: "Inscritos",
+        summary: 'Inscritos',
         showConfigButton: true,
         redirect: null,
         selection: true,
@@ -87,12 +87,17 @@ export class ApplicantsComponent {
             action: 'add',
             label: `Nuevo Inscrito`,
             icon: 'pi pi-plus',
-            featured: true
+            featured: true,
           },
         ],
       };
       this.loadComponent();
     });
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {
@@ -105,59 +110,78 @@ export class ApplicantsComponent {
   }
 
   async loadComponent() {
-    const announcementChanges = this.store.select(state => state.announcement.announcement);
+    const announcementChanges = this.store.select(
+      (state) => state.announcement.announcement
+    );
     this.announcement = await firstValueFrom(announcementChanges);
     this.tableLocator = `${tableLocators.applicants}${this.announcement._id}`;
-    this.optionsTable.summary = "Inscritos";
-    this.tableTitle = "Inscritos";
+    this.optionsTable.summary = 'Inscritos';
+    this.tableTitle = 'Inscritos';
     this.loading = true;
     this.tableContext = {
       locator: this.tableLocator,
-      name: "Inscritos",
+      name: 'Inscritos',
       form: this.announcement.form._id,
       data: {
         announcement: this.announcement._id,
         state: this.applicantState,
-      }
-    }
+      },
+    };
+    if (this.user.rol.permissions?.download_tables)
+      this.optionsTable.download = true;
     this.loading = false;
   }
 
-  async actionFromTable({ action, element, event, callbacks }: TableActionEvent<Applicant>) {
-    switch(action) {
+  async actionFromTable({
+    action,
+    element,
+    event,
+    callbacks,
+  }: TableActionEvent<Applicant>) {
+    switch (action) {
       case 'add':
         const subscription = await this.formService.createFormSubscription({
           form: this.announcement.form._id,
-          reason: "Create applicant",
+          reason: 'Create applicant',
         });
-        const ref = this.formService.openFormFromSubscription(subscription, "Creación de inscrito");
-        ref.pipe(
-          take(1),
-          takeUntil(this.onDestroy$)
-        ).subscribe((doc) => {
-          if(doc) {
+        const ref = this.formService.openFormFromSubscription(
+          subscription,
+          'Creación de inscrito'
+        );
+        ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
+          if (doc) {
             callbacks.fullRefresh();
           }
         });
         break;
       case 'details':
-        this.updateStateDialog("Edición de estado", element._id, this.currentState);
+        this.updateStateDialog(
+          'Edición de estado',
+          element._id,
+          this.currentState
+        );
         break;
       case 'update':
-        const header = applicationStatesUtilities.stateChangeLabel(this.currentState);
+        const header = applicationStatesUtilities.stateChangeLabel(
+          this.currentState
+        );
         this.updateStateDialog(header, element._id, this.nextState);
         break;
     }
   }
 
-  updateStateDialog(header: string, applicantId: string, state: ApplicationStates) {
+  updateStateDialog(
+    header: string,
+    applicantId: string,
+    state: ApplicationStates
+  ) {
     this.dialogService.open(ApplicantStateEditComponent, {
       header,
       data: {
         announcementId: this.announcement._id,
         id: applicantId,
-        currentState: state
-      }
+        currentState: state,
+      },
     });
   }
 }
