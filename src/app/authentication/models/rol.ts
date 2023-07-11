@@ -87,4 +87,11 @@ export interface IPermissions {
     batch_edit: boolean;
     phase_edit: boolean;
   };
+  hours: {
+    view: boolean;
+    edit_main: boolean;
+    edit_activities: boolean;
+    edit_startups: boolean;
+    edit_experts: boolean;
+  };
 }
