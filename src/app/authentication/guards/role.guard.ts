@@ -27,6 +27,7 @@ export class RoleGuard implements CanMatch {
       .pipe(
         first((user) => user != null),
         map((user) => {
+          console.log(route.data);
           const validRoles = route.data?.['roles'] ?? [];
           if (validRoles.length === 0) {
             console.error(
@@ -36,6 +37,8 @@ export class RoleGuard implements CanMatch {
           }
           if (validRoles.includes(user.rol.type)) {
             return true;
+          } else {
+            console.warn('Your rol can`t access in this route');
           }
           this.authService.signOut();
           return false;
