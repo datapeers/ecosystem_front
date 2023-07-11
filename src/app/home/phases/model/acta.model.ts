@@ -72,6 +72,8 @@ export class Acta implements IActa {
         files: acta?.extra_options?.files ?? [],
         expertHours: acta?.extra_options?.expertHours ?? undefined,
       },
+      closed: acta?.closed ?? false,
+      updatedAt: acta?.closed ? new Date(acta.updatedAt) : undefined,
     };
     return actaBody;
   }
