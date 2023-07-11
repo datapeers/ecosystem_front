@@ -15,6 +15,7 @@ import {
   faCamera,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import { User } from '@auth/models/user';
 @Injectable({
   providedIn: 'root',
 })
@@ -176,8 +177,8 @@ export class PhasesService {
     );
   }
 
-  optionsMenu(phase: IPhase) {
-    return {
+  optionsMenu(phase: IPhase, user: User) {
+    let menu = {
       returnPath: ['home', 'phases'],
       options: [
         {
@@ -204,19 +205,21 @@ export class PhasesService {
           icon: faUsers,
           type: 'single',
         },
-        {
-          label: 'Eventos',
-          rute: ['phases', phase._id, 'events'],
-          icon: faCamera,
-          type: 'single',
-        },
-        {
-          label: 'Bolsas de horas',
-          rute: ['phases', phase._id, 'bag-hours'],
-          icon: faCalendar,
-          type: 'single',
-        },
       ],
     };
+    if (user?.rol?.permissions?.events?.view)
+      menu.options.push({
+        label: 'Eventos',
+        rute: ['phases', phase._id, 'events'],
+        icon: faCamera,
+        type: 'single',
+      });
+    menu.options.push({
+      label: 'Bolsas de horas',
+      rute: ['phases', phase._id, 'bag-hours'],
+      icon: faCalendar,
+      type: 'single',
+    });
+    return menu;
   }
 }

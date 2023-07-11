@@ -4,8 +4,8 @@
             <h2>Eventos</h2>
             <div class="flex flex-row gap-2">
                 <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
-                <p-button label="Tipos de eventos" icon="pi pi-tags" (onClick)="showTypes = true"></p-button>
-                <p-button label="Evento" icon="pi pi-plus" (onClick)="showCreatorEvent = true"></p-button>
+                <p-button *ngIf="canCreate()" label="Tipos de eventos" icon="pi pi-tags" (onClick)="showTypes = true"></p-button>
+                <p-button *ngIf="user?.rol?.permissions?.events?.edit" label="Evento" icon="pi pi-plus" (onClick)="showCreatorEvent = true"></p-button>
             </div>
         </div>
         <app-datefilter [alwaysBetween]="true" [emitAll]="true" [viewOptions]="[
@@ -96,11 +96,11 @@
                                                         </p-button> -->
                                                     <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
                                     </p-button> -->
-                                                    <p-button *ngIf="showedTypesEvents[event.objectRef.type].extra_options.allow_acta" class="mx-1" type="button" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)">
+                                                    <p-button class="mx-1" type="button" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.rol?.permissions?.actas?.view">
                                                     </p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" (onClick)="openEdit(event.objectRef)">
+                                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.rol?.permissions?.events?.edit" (onClick)="openEdit(event.objectRef)">
                                                     </p-button>
-                                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)">
+                                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.rol?.permissions?.actas?.edit">
                                                     </p-button>
                                                 </div>
                                             </div>

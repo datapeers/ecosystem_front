@@ -16,7 +16,7 @@ import { PhasesCreatorComponent } from './phases-creator/phases-creator.componen
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { User } from '@auth/models/user';
-
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 @Component({
   selector: 'app-phases',
   templateUrl: './phases.component.html',
@@ -49,6 +49,7 @@ export class PhasesComponent implements OnInit, OnDestroy {
   activeIndex = 0;
 
   user: User;
+
   constructor(
     private store: Store<AppState>,
     public dialogService: DialogService,
@@ -150,5 +151,11 @@ export class PhasesComponent implements OnInit, OnDestroy {
 
   openPhaseEdit(phase: Phase) {
     this.router.navigate([`/home/phases/${phase._id}/edit`]);
+  }
+
+  canCreateBatch() {
+    return [ValidRoles.admin, ValidRoles.superAdmin].includes(
+      this.user.rol.type as ValidRoles
+    );
   }
 }

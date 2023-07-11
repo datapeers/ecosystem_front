@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ClearPhaseStoreAction, SetPhaseAction } from '../store/phase.actions';
 import { SetOtherMenuAction } from '@home/store/home.actions';
 import { RestoreMenuAction } from '@home/store/home.actions';
+import { first, firstValueFrom } from 'rxjs';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-phase-load',
@@ -14,12 +16,18 @@ import { RestoreMenuAction } from '@home/store/home.actions';
 })
 export class PhaseLoadComponent {
   phaseId: string;
+  user: User;
   constructor(
     private readonly store: Store<AppState>,
     private readonly phasesService: PhasesService,
     private readonly route: ActivatedRoute
   ) {
     this.phaseId = route.snapshot.paramMap.get('id');
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit() {
@@ -33,7 +41,7 @@ export class PhaseLoadComponent {
 
   async loadComponent() {
     const phase = await this.phasesService.getPhase(this.phaseId);
-    const menu = await this.phasesService.optionsMenu(phase);
+    const menu = await this.phasesService.optionsMenu(phase, this.user);
     this.store.dispatch(new SetPhaseAction(phase));
     this.store.dispatch(new SetOtherMenuAction(menu));
   }
