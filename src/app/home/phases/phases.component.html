@@ -5,7 +5,7 @@
             <span id="home-section-header" class="text-white"></span>
 
             <div class="flex flex-row gap-2">
-                <p-button type="button" label="Configurar fases" icon="pi pi-cog" [routerLink]="['config']"></p-button>
+                <p-button *ngIf="user?.rol?.permissions?.phases?.phase_edit" type="button" label="Configurar fases" icon="pi pi-cog" [routerLink]="['config']"></p-button>
             </div>
         </div>
 
@@ -20,7 +20,7 @@
                                         <i class="pi pi-search-plus"></i>
                                         <input type="text" pInputText (input)="dv.filter($any($event.target).value)" placeholder="Buscar" />
                                     </span>
-                                    <p-button type="button" label="batch" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
+                                    <p-button *ngIf="user?.rol?.permissions?.phases?.batch_edit" type="button" label="batch" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
                                 </div>
                             </ng-template>
                             <ng-template let-stepPhase pTemplate="gridItem">
@@ -38,7 +38,7 @@
                                     <div class="flex flex-row align-items-center justify-content-between">
                                         <div class="flex flex-row" style="gap:0.5rem;">
                                             <ng-container *ngFor="let action of actions">
-                                                <p-button [styleClass]="action.class" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})" type="button" label="{{action.label}}"></p-button>
+                                                <p-button [styleClass]="action.class" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})" type="button" label="{{action.label}}" *ngIf="user?.rol?.permissions?.phases?.batch_edit"></p-button>
                                             </ng-container>
                                         </div>
                                         <div class="flex flex-row align-items-center" style="gap: 0.5rem;">

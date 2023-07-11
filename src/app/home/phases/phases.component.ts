@@ -7,12 +7,15 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { PhasesService } from './phases.service';
-import { Subscription } from 'rxjs';
+import { Subscription, filter, first, firstValueFrom, takeUntil } from 'rxjs';
 import { Stage } from './model/stage.model';
 import { Phase } from './model/phase.model';
 import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PhasesCreatorComponent } from './phases-creator/phases-creator.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-phases',
@@ -44,12 +47,23 @@ export class PhasesComponent implements OnInit, OnDestroy {
   dialogRef;
   onCloseDialogSub$: Subscription;
   activeIndex = 0;
+
+  user: User;
   constructor(
+    private store: Store<AppState>,
     public dialogService: DialogService,
     private readonly service: PhasesService,
     private readonly toast: ToastService,
     private router: Router
-  ) {}
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => {
+      (this.user = u), console.log(this.user);
+    });
+  }
 
   ngOnInit(): void {
     this.loadComponent();
