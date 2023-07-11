@@ -7,13 +7,16 @@ import {
 } from '@angular/core';
 import { SiteManagementService } from './site-management.service';
 import { Site } from './model/site.model';
-import { Subscription, tap } from 'rxjs';
+import { Subscription, first, firstValueFrom, tap } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
 import { HttpEventType } from '@angular/common/http';
 import { StorageService } from '@shared/storage/storage.service';
 import { Map, tileLayer, marker, Marker } from 'leaflet';
 import { ConfirmationService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { User } from '@auth/models/user';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
 
 @Component({
   selector: 'app-site-management',
@@ -39,18 +42,26 @@ export class SiteManagementComponent
 
   allMarkersSites = [];
   selectedSite;
+  user: User;
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
   }
 
   constructor(
+    private store: Store<AppState>,
     private readonly router: Router,
     private confirmationService: ConfirmationService,
     private readonly service: SiteManagementService,
     private readonly storageService: StorageService,
     private readonly toast: ToastService
-  ) {}
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
+  }
 
   ngOnInit() {
     this.loadComponent();
@@ -64,10 +75,6 @@ export class SiteManagementComponent
     if (!navigator.geolocation) {
       console.log('locations is not supported');
     }
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //   const coords = position.coords;
-    //   this.latLong = [coords.latitude, coords.longitude];
-    // });
     this.initializeMainMap();
   }
 
