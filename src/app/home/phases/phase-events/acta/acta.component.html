@@ -2,7 +2,9 @@
     <div class="flex-none flex flex-column align-items-start justify-content-start m-2">
         <p-card class="w-full mb-2">
             <div class="flex flex-row align-items-center justify-content-center">
-                <p-button [label]="(acta._id ? 'Guardar cambios' : 'Crear Acta')" (onClick)="action(acta._id ? 'edit' : 'create')" [disabled]="saving"></p-button>
+                <p-button [label]="(acta._id ? 'Guardar cambios' : 'Crear Acta')" (onClick)="action(acta._id ? 'edit' : 'create')" [disabled]="saving" *ngIf="user?.rol?.permissions?.actas?.edit"></p-button>
+
+
             </div>
         </p-card>
         <p-card class="w-full">

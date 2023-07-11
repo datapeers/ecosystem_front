@@ -18,6 +18,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { configTinyMce } from '@shared/models/configTinyMce';
 import { cloneDeep } from '@apollo/client/utilities';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-acta',
@@ -40,6 +41,7 @@ export class ActaComponent implements OnInit, OnDestroy {
   configTiny = configTinyMce;
   currentExpert;
   expertsHours = {};
+  user: User;
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -49,6 +51,7 @@ export class ActaComponent implements OnInit, OnDestroy {
   ) {
     this.event = this.config.data.event;
     this.phase = this.config.data.phase;
+    this.user = this.config.data.user;
   }
 
   ngOnInit(): void {

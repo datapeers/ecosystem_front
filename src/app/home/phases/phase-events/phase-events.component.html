@@ -100,7 +100,7 @@
                                                     </p-button>
                                                     <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.rol?.permissions?.events?.edit" (onClick)="openEdit(event.objectRef)">
                                                     </p-button>
-                                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.rol?.permissions?.actas?.edit">
+                                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.rol?.permissions?.events?.edit">
                                                     </p-button>
                                                 </div>
                                             </div>

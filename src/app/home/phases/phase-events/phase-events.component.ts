@@ -565,6 +565,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       data: {
         event,
         phase: this.phase,
+        user: this.user,
       },
     });
 
@@ -580,7 +581,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   canCreate() {
     return [ValidRoles.admin, ValidRoles.superAdmin].includes(
-      this.user.rol.type as ValidRoles
+      this.user?.rol.type as ValidRoles
     );
   }
 }
