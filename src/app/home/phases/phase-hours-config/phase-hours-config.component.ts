@@ -9,6 +9,7 @@ import { AppState } from '@appStore/app.reducer';
 import { ActivitiesConfig } from '../model/activities.model';
 import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-phase-hours-config',
@@ -24,12 +25,19 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   typesActivities: TypeEvent[];
   showActivityConfig = [];
   totalActivities = 0;
+  user: User;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
     private readonly service: PhaseHourConfigService,
     private readonly activitiesTypesService: PhaseEventsService
-  ) {}
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
+  }
 
   ngOnInit() {
     this.loadComponent();

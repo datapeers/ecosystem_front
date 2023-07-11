@@ -214,12 +214,13 @@ export class PhasesService {
         icon: faCamera,
         type: 'single',
       });
-    menu.options.push({
-      label: 'Bolsas de horas',
-      rute: ['phases', phase._id, 'bag-hours'],
-      icon: faCalendar,
-      type: 'single',
-    });
+    if (user?.rol?.permissions?.hours?.view)
+      menu.options.push({
+        label: 'Bolsas de horas',
+        rute: ['phases', phase._id, 'bag-hours'],
+        icon: faCalendar,
+        type: 'single',
+      });
     return menu;
   }
 }
