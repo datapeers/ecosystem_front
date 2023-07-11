@@ -78,12 +78,10 @@ export class AuthService {
 
   authStatusListener() {
     this.fireAuth.authState.subscribe(async (credential) => {
-      console.log('a', credential);
       if (credential) {
         const userData = await this.userService.getUserByUid(credential.uid);
         this.store.dispatch(new SetUserAction(userData));
         const instanceUser = new User(userData);
-        console.log('e', instanceUser);
         if (instanceUser.isExpert) {
           this.expertDoc(instanceUser);
         }

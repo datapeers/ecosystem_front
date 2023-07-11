@@ -3,6 +3,7 @@ import { CanMatch, Route, UrlSegment, UrlTree } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
 import { Store } from '@ngrx/store';
+import { ToastService } from '@shared/services/toast.service';
 import { Observable, first, map } from 'rxjs';
 
 @Injectable({
@@ -11,6 +12,7 @@ import { Observable, first, map } from 'rxjs';
 export class RoleGuard implements CanMatch {
   constructor(
     private readonly store: Store<AppState>,
+    private readonly toast: ToastService,
     private readonly authService: AuthService
   ) {}
 
@@ -27,7 +29,6 @@ export class RoleGuard implements CanMatch {
       .pipe(
         first((user) => user != null),
         map((user) => {
-          console.log(route.data);
           const validRoles = route.data?.['roles'] ?? [];
           if (validRoles.length === 0) {
             console.error(
@@ -37,10 +38,13 @@ export class RoleGuard implements CanMatch {
           }
           if (validRoles.includes(user.rol.type)) {
             return true;
-          } else {
-            console.warn('Your rol can`t access in this route');
           }
-          this.authService.signOut();
+          this.toast.alert({
+            summary: 'Rol invalido',
+            detail:
+              'La sección que esta tratando de ver no esta permitida para su rol actual',
+          });
+          console.warn('Your rol can`t access in this route');
           return false;
         })
       );
