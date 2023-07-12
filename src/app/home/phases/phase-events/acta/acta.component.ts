@@ -72,7 +72,6 @@ export class ActaComponent implements OnInit, OnDestroy {
         this.acta = acta
           ? Acta.newActa(this.phase, this.event, cloneDeep(acta))
           : Acta.newActa(this.phase, this.event);
-        console.log(this.acta);
         for (const fileDoc of this.acta.extra_options.files) {
           this.selectedFiles.push(fileDoc);
         }

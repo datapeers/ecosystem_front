@@ -101,10 +101,14 @@ export class PhasesComponent implements OnInit, OnDestroy {
             const phasesBase = phasesList.filter((i) => i.basePhase);
             this.list = [];
             for (const iterator of phasesBase) {
+              const docs = phasesList.filter(
+                (i) => i.childrenOf === iterator._id
+              );
+
               this.list.push({
                 base: iterator,
                 label: iterator.name,
-                docs: phasesList.filter((i) => i.childrenOf === iterator._id),
+                docs,
               });
             }
             this.loading = false;

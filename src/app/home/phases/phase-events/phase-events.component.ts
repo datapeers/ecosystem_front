@@ -235,7 +235,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   openEdit(event) {
-    this.newEvent = Event.newEvent(cloneDeep(event));
+    this.newEvent = Event.newEvent(this.phase, cloneDeep(event));
     this.editingEvent = true;
     for (const fileDoc of this.newEvent.extra_options.files) {
       this.selectedFiles.push(fileDoc);
