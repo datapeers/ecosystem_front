@@ -152,10 +152,4 @@ export class PhasesComponent implements OnInit, OnDestroy {
   openPhaseEdit(phase: Phase) {
     this.router.navigate([`/home/phases/${phase._id}/edit`]);
   }
-
-  canCreateBatch() {
-    return [ValidRoles.admin, ValidRoles.superAdmin].includes(
-      this.user.rol.type as ValidRoles
-    );
-  }
 }
