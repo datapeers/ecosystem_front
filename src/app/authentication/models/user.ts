@@ -1,5 +1,5 @@
 import { IRol, Rol } from './rol';
-import { ValidRoles, validRolName } from './valid-roles.enum';
+import { ValidRoles, validRolName, validRoles } from './valid-roles.enum';
 
 export interface IUser {
   _id: string;
@@ -45,6 +45,12 @@ export class User implements IUser {
   }
   get isUser() {
     return this.rol.type === ValidRoles.user;
+  }
+
+  get masterRol() {
+    return [ValidRoles.superAdmin, ValidRoles.admin].includes(
+      this.rol.type as ValidRoles
+    );
   }
 
   constructor(data: IUser) {

@@ -4,13 +4,17 @@ import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PhasesCreatorComponent } from '../phases-creator/phases-creator.component';
-import { Subscription } from 'rxjs';
+import { Subscription, first, firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { Phase } from '../model/phase.model';
 import { ToastService } from '@shared/services/toast.service';
 import { Stage } from '../model/stage.model';
 import { cloneDeep } from 'lodash';
 import { ConfirmationService } from 'primeng/api';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { User } from '@auth/models/user';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
 @Component({
   selector: 'app-phases-config',
   templateUrl: './phases-config.component.html',
@@ -33,14 +37,23 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   showedStages: { [s: string]: Stage } = {};
   clonedStages: { [s: string]: Stage } = {};
   stagesUsed: Set<String>;
+
+  user: User;
   constructor(
+    private store: Store<AppState>,
     private service: PhasesService,
     private router: Router,
     private _location: Location,
     public dialogService: DialogService,
     private toast: ToastService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
+  }
 
   ngOnInit() {
     this.loadComponent();

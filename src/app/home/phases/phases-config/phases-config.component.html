@@ -4,7 +4,7 @@
         </fa-icon> <span class="subheader text-white ">Configuración fases</span>
     </div>
     <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="showDialogStages()"></p-button>
-    <p-button type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button>
+    <p-button *ngIf="user.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button>
 </div>
 
 
