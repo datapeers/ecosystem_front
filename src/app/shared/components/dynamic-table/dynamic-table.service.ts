@@ -141,6 +141,21 @@ export class DynamicTableService {
     );
   }
 
+  async removeTableJoin(id: string, key: string, locator: string): Promise<DynamicTable> {
+    const mutationRef = this.graphql.refMutation(
+      tableQueries.mutation.removeTableJoin,
+      { removeTableJoinInput: { id, key } },
+      [this.cachedQueries.tables[locator]],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
+        map((request) => request.data.removeTableJoin),
+        map((config) => DynamicTable.fromJson(config))
+      )
+    );
+  }
+
   async deleteTableConfig(tableId: string, id: string): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       tableQueries.mutation.deleteTableConfig,
