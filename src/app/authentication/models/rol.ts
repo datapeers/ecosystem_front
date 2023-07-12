@@ -84,6 +84,7 @@ export interface IPermissions {
   };
   phases: {
     view: boolean;
+    batch_create: boolean;
     batch_edit: boolean;
     phase_edit: boolean;
   };
