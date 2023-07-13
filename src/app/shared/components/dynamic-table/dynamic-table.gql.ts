@@ -89,6 +89,14 @@ const mutation = {
     }
     ${fragments.tableFields}
   `,
+  removeTableJoin: `
+    mutation RemoveTableJoin($removeTableJoinInput: RemoveTableJoinInput!) {
+      removeTableJoin(removeTableJoinInput: $removeTableJoinInput) {
+        ...tableFields
+      }
+    }
+    ${fragments.tableFields}
+  `,
   deleteTableConfig: `
     mutation DeleteTableConfig($id: String!) {
       deleteTableConfig(id: $id) {

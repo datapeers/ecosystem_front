@@ -73,9 +73,10 @@ export class TableConfigComponent {
           columns: this.table.columns,
         };
         const tableColumnGroups = this.table?.columnGroups ?? [];
+        const tableExtraColumns = this.options.extraColumnsTable;
         const extraColumnsGroup: ColumnGroup = {
           name: 'Columnas Adicionales',
-          columns: this.options.extraColumnsTable,
+          columns: tableExtraColumns,
         };
         this.columnGroups = [defaultGroup];
         if(extraColumnsGroup.columns.length) {
@@ -98,6 +99,17 @@ export class TableConfigComponent {
 
   async addJoin(join: TableJoin) {
     const updatedTable = await this.dynamicTableService.addTableJoin(this.table._id, join, this.context.locator);
+    this.config$.next({
+      ...this.config,
+      data: {
+        ...this.config.data,
+        table: updatedTable,
+      }
+    });
+  }
+
+  async removeJoin(group: ColumnGroup) {
+    const updatedTable = await this.dynamicTableService.removeTableJoin(this.table._id, group.key, this.context.locator);
     this.config$.next({
       ...this.config,
       data: {

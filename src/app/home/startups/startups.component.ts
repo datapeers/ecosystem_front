@@ -127,6 +127,14 @@ export class StartupsComponent {
           name: 'Empresarios',
           key: 'entrepreneurs',
           form: entrepreneursForm._id,
+          extraColumns: [
+            {
+              label: "Rol",
+              key: "rol",
+              type: TableColumnType.data,
+              format: "string"
+            }
+          ]
         },
       ],
     };

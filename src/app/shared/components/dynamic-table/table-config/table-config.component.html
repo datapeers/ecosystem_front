@@ -22,6 +22,7 @@
                               <i tooltipPosition="top" pTooltip="Remover todas" class="cursor-pointer hover:text-500 text-sm pi pi-minus" (click)="removeColumns(group.columns)"></i>
                               <span class="font-semibold">{{group.name}}</span>
                           </span>
+                          <i *ngIf="group.key" tooltipPosition="left" pTooltip="Remover grupo" class="cursor-pointer hover:text-500 text-sm pi pi-times" (click)="removeJoin(group)"></i>
                       </div>
                       <div class="container-grid gap-2">
                       <ng-container *ngFor="let availableColumn of group.columns">
