@@ -2,7 +2,7 @@
     <div class="text-wrapper flex flex-row align-items-center text-center ">
         <span class="subheader text-white ">Administración de sedes</span>
     </div>
-    <p-button type="button" label="Añadir sede" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>
+    <p-button *ngIf="user?.rol?.permissions?.sites_and_services?.edit" type="button" label="Añadir sede" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>
 </div>
 <div class="w-full p-4">
     <p-tabView [(activeIndex)]="tabIndex" [scrollable]="true" (onChange)="changeTab($event)">
@@ -16,8 +16,8 @@
                         </div>
                         <div class="flex flex-row align-items-center justify-content-between">
                             <div class="flex flex-row" style="gap:0.5rem;">
-                                <p-button type="button" label="Ver" (onClick)="navigateToEdit(site)"></p-button>
-                                <p-button type="button" label="Eliminar" (onClick)="deleteSite(site)"></p-button>
+                                <p-button *ngIf="user?.rol?.permissions?.sites_and_services?.edit" type="button" label="Ver" (onClick)="navigateToEdit(site)"></p-button>
+                                <p-button *ngIf="user?.rol?.permissions?.sites_and_services?.edit" type="button" label="Eliminar" (onClick)="deleteSite(site)"></p-button>
                             </div>
                             <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
                             </div>

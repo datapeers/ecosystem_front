@@ -28,6 +28,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActaComponent } from './acta/acta.component';
 import { Acta } from '../model/acta.model';
 import * as moment from 'moment';
+import { User } from '@auth/models/user';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -44,6 +46,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   typesEvent$: Subscription;
 
   phase: Phase;
+  user: User;
   showCreatorEvent = false;
   newEvent = Event.newEvent(null);
   stateOptionsAssistant: any[] = [
@@ -99,7 +102,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     private readonly storageService: StorageService,
     private readonly phaseStartupsService: PhaseStartupsService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
+  }
 
   ngOnInit() {
     this.loadComponent();
@@ -226,7 +235,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   openEdit(event) {
-    this.newEvent = Event.newEvent(cloneDeep(event));
+    this.newEvent = Event.newEvent(this.phase, cloneDeep(event));
     this.editingEvent = true;
     for (const fileDoc of this.newEvent.extra_options.files) {
       this.selectedFiles.push(fileDoc);
@@ -556,6 +565,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       data: {
         event,
         phase: this.phase,
+        user: this.user,
       },
     });
 
@@ -567,5 +577,11 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  canCreate() {
+    return [ValidRoles.admin, ValidRoles.superAdmin].includes(
+      this.user?.rol.type as ValidRoles
+    );
   }
 }

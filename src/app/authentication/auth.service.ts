@@ -4,7 +4,11 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import { ClearAuthStoreAction, SetUserAction } from '@auth/store/auth.actions';
+import {
+  ClearAuthStoreAction,
+  SetProfileDocAction,
+  SetUserAction,
+} from '@auth/store/auth.actions';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import firebase from 'firebase/compat/app';
@@ -221,7 +225,9 @@ export class AuthService {
           'Debes tener una ficha de experto para operar dentro de StartUp Factory',
       });
       this.signOut();
+      return;
     }
+    this.store.dispatch(new SetProfileDocAction(doc));
     return;
   }
 
@@ -235,7 +241,9 @@ export class AuthService {
           'Debes tener una ficha de experto para operar dentro de StartUp Factory',
       });
       this.signOut();
+      return;
     }
+    this.store.dispatch(new SetProfileDocAction(doc));
     return;
   }
 }

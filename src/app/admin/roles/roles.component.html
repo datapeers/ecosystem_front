@@ -29,28 +29,39 @@
             <span class="font-semibold text-xl">Convocatorias</span>
             <div class="w-full flex flex-row pt-2 gap-2">
               <p-checkbox name="view_announcement" label="Ver sección" [(ngModel)]="rol.permissions.announcements.view" [binary]="true"></p-checkbox>
-              <p-checkbox name="edit" label="Permitir Crear y/o Editar" [(ngModel)]="rol.permissions.announcements.create" [binary]="true"></p-checkbox>
-              <p-checkbox name="challenges" label="Crear/Editar challenges" [(ngModel)]="rol.permissions.announcements.challenges" [binary]="true"></p-checkbox>
+              <p-checkbox name="create" label="Permitir Crear" [(ngModel)]="rol.permissions.announcements.create" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit" label="Permitir Editar" [(ngModel)]="rol.permissions.announcements.edit" [binary]="true"></p-checkbox>
+              <p-checkbox name="challenges" label="Crear/Editar Retos" [(ngModel)]="rol.permissions.announcements.challenges" [binary]="true"></p-checkbox>
             </div>
 
             <span class="font-semibold text-xl">Fases</span>
             <div class="w-full flex flex-row pt-2 gap-2">
               <p-checkbox name="view_phases" label="Ver sección" [(ngModel)]="rol.permissions.phases.view" [binary]="true"></p-checkbox>
-              <p-checkbox name="edit_phase" label="Permitir Crear y/o Editar fase" [(ngModel)]="rol.permissions.phases.phase_edit" [binary]="true"></p-checkbox>
-              <p-checkbox name="edit_batch" label="Permitir Crear y/o Editar batch" [(ngModel)]="rol.permissions.phases.batch_edit" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_phase" label="Permitir entrar a configuraciones fase" [(ngModel)]="rol.permissions.phases.phase_edit" [binary]="true"></p-checkbox>
+              <p-checkbox name="create_batch" label="Permitir crear batch" [(ngModel)]="rol.permissions.phases.batch_create" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_batch" label="Permitir editar batch" [(ngModel)]="rol.permissions.phases.batch_edit" [binary]="true"></p-checkbox>
             </div>
 
-            <span class="font-semibold text-xl">Eventos</span>
+            <span class="font-semibold text-xl">Eventos (batch)</span>
             <div class="w-full flex flex-row pt-2 gap-2">
               <p-checkbox name="view_events" label="Ver sección" [(ngModel)]="rol.permissions.events.view" [binary]="true"></p-checkbox>
               <p-checkbox name="edit_event" label="Permitir Crear y/o Editar evento" [(ngModel)]="rol.permissions.events.edit" [binary]="true"></p-checkbox>
             </div>
 
-            <span class="font-semibold text-xl">Actas</span>
+            <span class="font-semibold text-xl">Actas (batch)</span>
             <div class="w-full flex flex-row pt-2 gap-2">
               <p-checkbox name="view_actas" label="Ver sección" [(ngModel)]="rol.permissions.actas.view" [binary]="true"></p-checkbox>
               <p-checkbox name="edit_acta" label="Permitir Crear y/o Editar acta" [(ngModel)]="rol.permissions.actas.edit" [binary]="true"></p-checkbox>
-              <p-checkbox name="edit_acta" label="Permitir Cerrar acta" [(ngModel)]="rol.permissions.actas.edit" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_acta" label="Permitir Cerrar acta" [(ngModel)]="rol.permissions.actas.close" [binary]="true"></p-checkbox>
+            </div>
+
+            <span class="font-semibold text-xl">Bolsa de horas (batch)</span>
+            <div class="w-full flex flex-row pt-2 gap-2">
+              <p-checkbox name="view_hours" label="Ver sección" [(ngModel)]="rol.permissions.hours.view" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_hours_general" label="Permitir editar limite de horas general" [(ngModel)]="rol.permissions.hours.edit_main" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_hours_activities" label="Permitir editar limite de horas por actividad" [(ngModel)]="rol.permissions.hours.edit_activities" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_hours_startups" label="Permitir editar limite de horas por startup" [(ngModel)]="rol.permissions.hours.edit_startups" [binary]="true"></p-checkbox>
+              <p-checkbox name="edit_hours_expert" label="Permitir editar limite de horas por experto" [(ngModel)]="rol.permissions.hours.edit_experts" [binary]="true"></p-checkbox>
             </div>
 
             <span class="font-semibold text-xl">Formularios</span>

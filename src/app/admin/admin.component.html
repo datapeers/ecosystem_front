@@ -33,6 +33,17 @@
         <app-roles></app-roles>
       </ng-template>
     </p-tabPanel>
+    <p-tabPanel header="Asignaciones">
+      <ng-template pTemplate="header">
+        <span class="flex flex-row gap-2 align-items-center">
+          <fa-icon [icon]="faLink"></fa-icon>
+          <span>Asignaciones</span>
+        </span>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <app-users-assign></app-users-assign>
+      </ng-template>
+    </p-tabPanel>
   </p-tabView>
 </div>
 

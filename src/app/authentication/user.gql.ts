@@ -17,6 +17,7 @@ const fragments = {
       passwordSet
       googleIn
       profileImageUrl
+      relationsAssign
     }
   `,
 };

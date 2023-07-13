@@ -17,6 +17,7 @@ import { Phase } from '../model/phase.model';
 import { ExpertsService } from '@shared/services/experts/experts.service';
 import { StartupsService } from '@shared/services/startups/startups.service';
 import { Expert } from '@shared/models/entities/expert';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-phase-experts',
@@ -43,6 +44,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   selectedExpert = null;
   titleStartupDialog = '';
   callbackTable;
+  user: User;
   constructor(
     private service: PhaseExpertsService,
     private readonly expertsService: ExpertsService,
@@ -78,6 +80,11 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         },
       ],
     };
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {
@@ -113,6 +120,8 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         phase: this.phase._id,
       },
     };
+    if (this.user.rol.permissions?.download_tables)
+      this.optionsTable.download = true;
     this.loading = false;
   }
 

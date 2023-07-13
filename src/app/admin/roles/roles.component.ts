@@ -20,6 +20,7 @@ export class RolesComponent implements OnInit, OnDestroy {
   allowedChangePermissions = {
     host: true,
     teamCoach: true,
+    expert: true,
   };
   constructor(
     private readonly toast: ToastService,
@@ -43,7 +44,6 @@ export class RolesComponent implements OnInit, OnDestroy {
       .then((roles$) => {
         this.roles$ = roles$.subscribe((rolesList: Rol[]) => {
           this.roles = rolesList;
-          console.log(this.roles);
         });
       })
       .catch((err) => {

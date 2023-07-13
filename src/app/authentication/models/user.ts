@@ -9,6 +9,7 @@ export interface IUser {
   rol: Rol;
   isActive: boolean;
   profileImageUrl: string;
+  relationsAssign: IRelationsUser;
 }
 
 export class User implements IUser {
@@ -19,6 +20,7 @@ export class User implements IUser {
   rol: Rol;
   isActive: boolean;
   profileImageUrl: string;
+  relationsAssign: IRelationsUser;
 
   get nameInitial(): string {
     return (
@@ -28,6 +30,10 @@ export class User implements IUser {
   get rolName(): string {
     return this.rol.name;
   }
+  get rolType(): string {
+    return this.rol.type;
+  }
+
   get isSuperAdmin() {
     return this.rol.type === ValidRoles.superAdmin;
   }
@@ -44,4 +50,10 @@ export class User implements IUser {
   constructor(data: IUser) {
     Object.assign(this, data);
   }
+}
+
+interface IRelationsUser {
+  phases: { _id: string; name: string }[];
+  batches: { _id: string; name: string }[];
+  startups: { _id: string; name: string }[];
 }

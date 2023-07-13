@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '@auth/models/user';
+import { IUser, User } from '@auth/models/user';
 import { ValidRoles, rolNames } from '@auth/models/valid-roles.enum';
 import { UserService } from '@auth/user.service';
 import { InvitationService } from '@shared/services/invitation.service';
@@ -8,14 +8,20 @@ import { InvitationService } from '@shared/services/invitation.service';
   providedIn: 'root',
 })
 export class AdminService {
-
   constructor(
     private userService: UserService,
-    private invitationService: InvitationService,
+    private invitationService: InvitationService
   ) {}
 
-  async getUsers(search: string = "", roles: ValidRoles[] = []): Promise<IUser[]> {
+  async getUsers(
+    search: string = '',
+    roles: ValidRoles[] = []
+  ): Promise<IUser[]> {
     return this.userService.getUsers(search, roles);
+  }
+
+  async updateUser(id: string, data: Partial<IUser>): Promise<IUser> {
+    return this.userService.updateUser(id, data);
   }
 
   async getRoles() {
@@ -41,5 +47,4 @@ export class AdminService {
   async enableUser(uid: string) {
     return await this.userService.enableUser(uid);
   }
-
 }

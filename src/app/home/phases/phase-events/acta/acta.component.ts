@@ -18,6 +18,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { configTinyMce } from '@shared/models/configTinyMce';
 import { cloneDeep } from '@apollo/client/utilities';
+import { User } from '@auth/models/user';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-acta',
@@ -40,15 +42,18 @@ export class ActaComponent implements OnInit, OnDestroy {
   configTiny = configTinyMce;
   currentExpert;
   expertsHours = {};
+  user: User;
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private readonly service: ActaService,
     private readonly toast: ToastService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
+    private confirmationService: ConfirmationService
   ) {
     this.event = this.config.data.event;
     this.phase = this.config.data.phase;
+    this.user = this.config.data.user;
   }
 
   ngOnInit(): void {
@@ -67,7 +72,6 @@ export class ActaComponent implements OnInit, OnDestroy {
         this.acta = acta
           ? Acta.newActa(this.phase, this.event, cloneDeep(acta))
           : Acta.newActa(this.phase, this.event);
-
         for (const fileDoc of this.acta.extra_options.files) {
           this.selectedFiles.push(fileDoc);
         }
@@ -211,6 +215,41 @@ export class ActaComponent implements OnInit, OnDestroy {
           life: 12000,
         });
       });
+  }
+
+  closeActa() {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Cerrar acta',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que quiere continuar?',
+      message:
+        'Al cerrar el acta esta no se permitirá editar nunca mas, ¿Desea cerrarla?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Cerrando acta...' });
+        this.service
+          .updateActa({ _id: this.acta._id, closed: true })
+          .then((ans) => {
+            this.toast.clear();
+            this.acta = ans;
+            this.toast.success({
+              summary: 'Acta cerrada!',
+              detail: '',
+              life: 2000,
+            });
+            this.close();
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al cerrar acta',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
   }
 
   close() {

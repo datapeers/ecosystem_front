@@ -4,14 +4,14 @@ export interface IRol {
   _id?: string;
   name: string;
   type: string;
-  permissions: any;
+  permissions: IPermissions;
 }
 
 export class Rol implements IRol {
   _id?: string;
   name: string;
   type: string;
-  permissions: any;
+  permissions: IPermissions;
   backup_permissions?: any;
   constructor(rol?: IRol) {
     const previousService = cloneDeep(rol);
@@ -32,4 +32,67 @@ export class Rol implements IRol {
     });
     return obj;
   }
+}
+
+export interface IPermissions {
+  view_startups: boolean;
+  view_experts: boolean;
+  view_entrepreneurs: boolean;
+  view_business: boolean;
+  download_tables: boolean;
+  reports: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+  };
+  community: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+  };
+  formularios: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+  };
+  help_desk: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+  };
+  sites_and_services: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+  };
+  announcements: {
+    view: boolean;
+    challenges: boolean;
+    create: boolean;
+    edit: boolean;
+  };
+  events: {
+    view: boolean;
+    create: boolean;
+    edit: boolean;
+  };
+  actas: {
+    view: boolean;
+    create: boolean;
+    close: boolean;
+    edit: boolean;
+  };
+  phases: {
+    view: boolean;
+    batch_create: boolean;
+    batch_edit: boolean;
+    phase_edit: boolean;
+  };
+  hours: {
+    view: boolean;
+    edit_main: boolean;
+    edit_activities: boolean;
+    edit_startups: boolean;
+    edit_experts: boolean;
+  };
 }

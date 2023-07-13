@@ -11,6 +11,7 @@ const fragments = {
       topics_covered
       conclusions
       extra_options
+      closed
       isDeleted
       createdAt
       updatedAt

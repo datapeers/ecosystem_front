@@ -118,6 +118,7 @@ export class Event implements IEvent {
   }
 
   static newEvent(phase: Phase, event?: IEvent) {
+    console.log(event);
     const eventBody = {
       _id: event?._id ?? undefined,
       name: event?.name ?? `${phase?.name} - evento`,
@@ -135,6 +136,7 @@ export class Event implements IEvent {
         acta: event?.extra_options?.acta ?? undefined,
       },
     };
+    console.log(eventBody);
     return eventBody;
   }
 

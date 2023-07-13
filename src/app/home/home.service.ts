@@ -25,6 +25,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { IMenu, IMenuOption } from '@shared/models/menu';
 import { User } from '@auth/models/user';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -34,64 +35,24 @@ export class HomeService {
 
   async getDefaultHomeMenu(user: User): Promise<IMenu> {
     const options = this.optionsMenu();
-    let rolOptions: (keyof typeof options)[] = [];
-    switch (user.rol.type) {
-      case 'superAdmin':
-        rolOptions = [
-          'init',
-          'announcements',
-          'phases',
-          'communities',
-          'entrepreneurs',
-          'businesses',
-          'startUps',
-          'expert',
-          'helpDesk',
-          'foros',
-          'reports',
-          'settings',
-          'forms',
-        ];
-        break;
-      case 'admin':
-        rolOptions = [
-          'init',
-          'announcements',
-          'phases',
-          'communities',
-          'entrepreneurs',
-          'businesses',
-          'startUps',
-          'expert',
-          'helpDesk',
-          'foros',
-          'reports',
-          'settings',
-          'forms',
-        ];
-        break;
-      case 'user':
-        rolOptions = [
-          'home',
-          'route',
-          'toolkit',
-          // 'communities',
-          'startUp',
-          'agenda',
-          'evaluations',
-          'events',
-          'helpDesk',
-          'communities',
-          'foros',
-          'services',
-        ];
-        break;
-      // case 'investor':
-      //   rolOptions = ['init', 'startUps'];
-      //   break;
-      default:
-        break;
-    }
+    const adminOptions = [ValidRoles.superAdmin, ValidRoles.admin];
+    let rolOptions: (keyof typeof options)[] = ['init'];
+    if (user.rol.permissions.announcements?.view)
+      rolOptions.push('announcements');
+    if (user.rol.permissions.phases?.view) rolOptions.push('phases');
+    if (user.rol.permissions.community?.view) rolOptions.push('communities');
+    if (user.rol.permissions.view_entrepreneurs)
+      rolOptions.push('entrepreneurs');
+    if (user.rol.permissions.view_business) rolOptions.push('businesses');
+    if (user.rol.permissions.view_startups) rolOptions.push('startUps');
+    if (user.rol.permissions.view_experts) rolOptions.push('expert');
+    if (user.rol.permissions.help_desk?.view) rolOptions.push('helpDesk');
+    if (user.rol.permissions.sites_and_services?.view)
+      rolOptions.push('siteAndServices');
+    if (user.rol.permissions.reports?.view) rolOptions.push('reports');
+    if (adminOptions.includes(user.rol.type as ValidRoles))
+      rolOptions.push('settings');
+    if (user.rol.permissions.formularios?.view) rolOptions.push('forms');
     const outputOptions: IMenuOption[] = rolOptions.map(
       (optKey) => options[optKey] as IMenuOption
     );
@@ -227,7 +188,7 @@ export class HomeService {
         class: 'mt-4',
         icon: faCircleQuestion,
       },
-      foros: {
+      siteAndServices: {
         label: 'Administración de sedes',
         rute: '/home/site_management',
         type: 'single',
