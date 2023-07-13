@@ -16,6 +16,7 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@auth/models/user';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 @Injectable({
   providedIn: 'root',
 })
@@ -199,14 +200,20 @@ export class PhasesService {
           icon: faUsers,
           type: 'single',
         },
-        {
-          label: 'Expertos',
-          rute: ['phases', phase._id, 'experts'],
-          icon: faUsers,
-          type: 'single',
-        },
       ],
     };
+    if (
+      [ValidRoles.superAdmin, ValidRoles.admin, ValidRoles.host].includes(
+        user?.rol?.type as ValidRoles
+      )
+    ) {
+      menu.options.push({
+        label: 'Expertos',
+        rute: ['phases', phase._id, 'experts'],
+        icon: faUsers,
+        type: 'single',
+      });
+    }
     if (user?.rol?.permissions?.events?.view)
       menu.options.push({
         label: 'Eventos',

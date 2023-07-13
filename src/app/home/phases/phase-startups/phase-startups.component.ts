@@ -16,6 +16,7 @@ import { FormCollections } from '@shared/form/enums/form-collections';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { User } from '@auth/models/user';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 
 @Component({
   selector: 'app-phase-startups',
@@ -56,14 +57,7 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
       actions_row: 'compress',
       actionsPerRow: [],
       extraColumnsTable: [],
-      actionsTable: [
-        {
-          action: 'link_startup',
-          label: `Añadir startUp`,
-          icon: 'pi pi-plus',
-          featured: true,
-        },
-      ],
+      actionsTable: [],
     };
     firstValueFrom(
       this.store
@@ -108,6 +102,18 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
     };
     if (this.user.rol.permissions?.download_tables)
       this.optionsTable.download = true;
+    if (
+      [ValidRoles.admin, ValidRoles.superAdmin, ValidRoles.host].includes(
+        this.user.rolType as ValidRoles
+      )
+    )
+      this.optionsTable.actionsTable.push({
+        action: 'link_startup',
+        label: `Añadir startUp`,
+        icon: 'pi pi-plus',
+        featured: true,
+      });
+
     this.loading = false;
   }
 
