@@ -1,1 +1,15 @@
-<p>qr-view works!</p>
+<div class="flex flex-column align-items-center gap-4 p-2">
+    <div class="qr-code-wrapper">
+        <qrcode #qrElement [imageSrc]="imageSrc" [imageHeight]="imageHeight" [imageWidth]="imageWidth" [colorLight]="lightColor" [colorDark]="darkColor" [qrdata]="url" [width]="codeWidth" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+    <div class="flex flex-row gap-2">
+        <ng-container *ngIf="clipboardWriteSupport">
+            <p-button pTooltip="Copiar imagen QR" tooltipPosition="top" styleClass="p-button-text" [icon]="copied['image'] ? 'pi pi-check': 'pi pi-images'" (onClick)="handleImageCopy()">
+            </p-button>
+        </ng-container>
+        <p-button pTooltip="Copiar link" tooltipPosition="top" styleClass="p-button-text" [icon]="copied['link'] ? 'pi pi-check': 'pi pi-link'" (onClick)="handleLinkCopy()">
+        </p-button>
+        <p-button pTooltip="Descargar QR" tooltipPosition="top" styleClass="p-button-text" icon="pi pi-download" (onClick)="handleDownload()">
+        </p-button>
+    </div>
+</div>

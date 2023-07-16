@@ -44,7 +44,8 @@ import { CommunitiesComponent } from './communities/communities.component';
 import { SiteManagementComponent } from './site-management/site-management.component';
 import { SiteServicesManagementComponent } from './site-management/site-services-management/site-services-management.component';
 import { ValidateParticipationComponent } from './phases/phase-events/validate-participation/validate-participation.component';
-
+import { QRCodeModule } from 'angularx-qrcode';
+import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -81,6 +82,7 @@ import { ValidateParticipationComponent } from './phases/phase-events/validate-p
     SiteManagementComponent,
     SiteServicesManagementComponent,
     ValidateParticipationComponent,
+    QrViewComponent,
   ],
   imports: [
     CommonModule,
@@ -97,6 +99,7 @@ import { ValidateParticipationComponent } from './phases/phase-events/validate-p
     }),
     StorageModule,
     AppSharedModule,
+    QRCodeModule,
   ],
 })
 export class HomeModule {}

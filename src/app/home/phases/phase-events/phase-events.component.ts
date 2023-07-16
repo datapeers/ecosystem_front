@@ -30,6 +30,7 @@ import { Acta } from '../model/acta.model';
 import * as moment from 'moment';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -583,5 +584,19 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     return [ValidRoles.admin, ValidRoles.superAdmin].includes(
       this.user?.rol.type as ValidRoles
     );
+  }
+
+  openQrWindow(event: Event) {
+    const data = {
+      title: `Registrar participación`,
+      url: `${location.origin}/participation/${event._id}`,
+    };
+    const ref = this.dialogService.open(QrViewComponent, {
+      header: '',
+      data,
+    });
+    const subscription$ = ref.onClose.subscribe((_data) => {
+      subscription$?.unsubscribe();
+    });
   }
 }

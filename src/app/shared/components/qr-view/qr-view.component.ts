@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-qr-view',

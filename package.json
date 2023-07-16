@@ -30,6 +30,7 @@
     "@ngrx/effects": "^15.4.0",
     "@ngrx/store": "^15.4.0",
     "@ngrx/store-devtools": "^15.4.0",
+    "angularx-qrcode": "^15.0.1",
     "apollo-angular": "^4.2.1",
     "date-fns": "^2.30.0",
     "file-saver": "^2.0.5",
