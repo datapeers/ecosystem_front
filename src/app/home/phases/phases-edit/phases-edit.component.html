@@ -2,7 +2,16 @@
   <div class="p-4">
     <div class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
       <div class="flex flex-row w-full gap-4">
-        <app-avatar-uploader [imageUrl]="phase.thumbnail" (onUpload)="uploadImage($event, phase)" (onRemove)="removeImage(phase)"></app-avatar-uploader>
+        <ng-container *ngIf="user.allowed(userPermission.phases_batch_edit) else noChangeThubnail">
+          <app-avatar-uploader [imageUrl]="phase.thumbnail" (onUpload)="uploadImage($event, phase)" (onRemove)="removeImage(phase)"></app-avatar-uploader>
+        </ng-container>
+        <ng-template #noChangeThubnail>
+          <div class="w-12rem h-12rem border-circle relative shadow-border hover-panel">
+            <p-avatar shape="circle" [image]="phase.thumbnail" styleClass="w-full h-full"></p-avatar>
+          </div>
+        </ng-template>
+
+
         <div class="flex flex-column gap-1 justify-content-center">
           <span class="text-xl font-semibold">{{phase.name}}</span>
           <ng-container *ngIf="phase.basePhase; else normalPhase">
@@ -30,7 +39,7 @@
         </ng-container>
         <ng-template #showDescription>
           <div class="flex flex-column align-items-baseline w-full inline-flex gap-2">
-            <span class="text-xl font-semibold">Descripción <i class="pi pi-pencil pl-2 cursor-pointer" pTooltip="Editar" style="color: 'var(--primary-color)'" (click)="openEdit('description')"></i></span>
+            <span class="text-xl font-semibold">Descripción <i class="pi pi-pencil pl-2 cursor-pointer" pTooltip="Editar" style="color: 'var(--primary-color)'" (click)="openEdit('description')" *ngIf="user.allowed(userPermission.phases_batch_edit)"></i></span>
             <span>{{phase.description}}</span>
           </div>
         </ng-template>
@@ -53,7 +62,7 @@
       </ng-container>
       <ng-template #showLanding>
         <div class="flex flex-column align-items-baseline w-full inline-flex gap-2">
-          <span class="text-xl font-semibold">Landing <i class="pi pi-pencil pl-2 cursor-pointer" pTooltip="Editar" style="color: 'var(--primary-color)'" (click)="openEdit('landing')"></i></span>
+          <span class="text-xl font-semibold">Landing <i class="pi pi-pencil pl-2 cursor-pointer" pTooltip="Editar" style="color: 'var(--primary-color)'" (click)="openEdit('landing')" *ngIf="user.allowed(userPermission.phases_batch_edit)"></i></span>
           <div *ngIf="phase.landing" class="w-full" [innerHtml]="(phase.landing | safe:'html')"></div>
 
         </div>

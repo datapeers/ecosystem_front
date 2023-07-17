@@ -189,23 +189,25 @@ export class PhasesService {
           type: 'single',
           icon: faClipboard,
         },
-        {
-          label: 'Contenidos',
-          icon: faList,
-          rute: ['phases', phase._id, 'content'],
-          type: 'single',
-        },
-        {
-          label: 'StartUps',
-          rute: ['phases', phase._id, 'startups'],
-          icon: faUsers,
-          type: 'single',
-        },
       ],
     };
+    if (user?.allowed(Permission.phases_batch_edit)) {
+      menu.options.push({
+        label: 'Contenidos',
+        icon: faList,
+        rute: ['phases', phase._id, 'content'],
+        type: 'single',
+      });
+    }
+    menu.options.push({
+      label: 'StartUps',
+      rute: ['phases', phase._id, 'startups'],
+      icon: faUsers,
+      type: 'single',
+    });
     if (
       [ValidRoles.superAdmin, ValidRoles.admin, ValidRoles.host].includes(
-        user?.rol?.type as ValidRoles
+        user?.rolType as ValidRoles
       )
     ) {
       menu.options.push({

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Phase } from '../model/phase.model';
 import { PhasesService } from '../phases.service';
 import { HttpEventType } from '@angular/common/http';
-import { Subscription, tap } from 'rxjs';
+import { Subscription, first, firstValueFrom, tap } from 'rxjs';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { SetPhaseAction, UpdatePhaseImageAction } from '../store/phase.actions';
@@ -10,6 +10,8 @@ import { ToastService } from '@shared/services/toast.service';
 import { cloneDeep } from 'lodash';
 import { configTinyMce } from '@shared/models/configTinyMce';
 import { StorageService } from '@shared/storage/storage.service';
+import { Permission } from '@auth/models/permissions.enum';
+import { User } from '@auth/models/user';
 
 @Component({
   selector: 'app-phases-edit',
@@ -21,6 +23,10 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
   phase$: Subscription;
   clonedEdit: { [s: string]: Phase } = {};
   configTiny = configTinyMce;
+  user: User;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
   constructor(
     private readonly service: PhasesService,
     private readonly store: Store<AppState>,
@@ -32,6 +38,11 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
       .subscribe((phase) => {
         this.phase = cloneDeep(phase);
       });
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit() {}
