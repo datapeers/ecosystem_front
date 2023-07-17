@@ -18,6 +18,7 @@ import { ExpertsService } from '@shared/services/experts/experts.service';
 import { StartupsService } from '@shared/services/startups/startups.service';
 import { Expert } from '@shared/models/entities/expert';
 import { User } from '@auth/models/user';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-phase-experts',
@@ -120,7 +121,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         phase: this.phase._id,
       },
     };
-    if (this.user.rol.permissions?.download_tables)
+    if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
     this.loading = false;
   }

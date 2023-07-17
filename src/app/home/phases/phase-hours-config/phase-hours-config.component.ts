@@ -10,6 +10,7 @@ import { ActivitiesConfig } from '../model/activities.model';
 import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
 import { User } from '@auth/models/user';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-phase-hours-config',
@@ -26,6 +27,9 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   showActivityConfig = [];
   totalActivities = 0;
   user: User;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,

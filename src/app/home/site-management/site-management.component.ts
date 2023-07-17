@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-site-management',
@@ -43,11 +44,15 @@ export class SiteManagementComponent
   allMarkersSites = [];
   selectedSite;
   user: User;
+
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
   }
-
   constructor(
     private store: Store<AppState>,
     private readonly router: Router,

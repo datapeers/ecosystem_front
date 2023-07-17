@@ -10,11 +10,15 @@ import { IServiceSite, ServiceSite, Site } from '../model/site.model';
 import { HttpEventType } from '@angular/common/http';
 import { StorageService } from '@shared/storage/storage.service';
 import { ToastService } from '@shared/services/toast.service';
-import { tap } from 'rxjs';
+import { first, firstValueFrom, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { Map, tileLayer, Marker, Icon } from 'leaflet';
+import { User } from '@auth/models/user';
+import { Permission } from '@auth/models/permissions.enum';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
 
 @Component({
   selector: 'app-site-services-management',
@@ -41,11 +45,18 @@ export class SiteServicesManagementComponent implements OnInit, OnDestroy {
 
   listMarkersServices = [];
   iconServiceMap;
+
+  user: User;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
   }
   constructor(
+    private store: Store<AppState>,
     private _location: Location,
     private routeOpt: ActivatedRoute,
     private service: SiteManagementService,
@@ -58,6 +69,11 @@ export class SiteServicesManagementComponent implements OnInit, OnDestroy {
       iconAnchor: [13, 0],
       iconUrl: '../../../../assets/leaf-orange.png',
     });
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit() {

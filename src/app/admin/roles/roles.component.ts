@@ -4,9 +4,8 @@ import { RolesService } from './roles.service';
 import { Subscription } from 'rxjs';
 import { Rol } from '@auth/models/rol';
 import { ToastService } from '@shared/services/toast.service';
-import { ValidRoles, rolNames } from '@auth/models/valid-roles.enum';
-import { cloneDeep } from '@apollo/client/utilities';
-import { ConfirmationService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { PermissionsComponent } from '../permissions/permissions.component';
 
 @Component({
   selector: 'app-roles',
@@ -26,7 +25,7 @@ export class RolesComponent implements OnInit, OnDestroy {
     private readonly toast: ToastService,
     private readonly service: RolesService,
     private readonly adminService: AdminService,
-    private confirmationService: ConfirmationService
+    public dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -57,34 +56,16 @@ export class RolesComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
-  refresh(rol: Rol) {
-    this.confirmationService.confirm({
-      key: 'adminConfirmDialog',
-      acceptLabel: 'Descartar',
-      rejectLabel: 'Cancelar',
-      header: '¿Está seguro de que quiere descartar los cambios hechos?',
-      message:
-        'Al descartar cambios se restablecerán los permisos de la ultima version, ¿Desea continuar?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: async () => {
-        rol.permissions = { ...cloneDeep(rol.backup_permissions) };
-      },
+  editPermissions(rol: Rol) {
+    const ref = this.dialogService.open(PermissionsComponent, {
+      header: 'Permisos',
+      data: { rol },
     });
-  }
-
-  saveChanges(rol: Rol) {
-    this.confirmationService.confirm({
-      key: 'adminConfirmDialog',
-      acceptLabel: 'Guardar',
-      rejectLabel: 'Cancelar',
-      header: '¿Está seguro de continuar?',
-      message:
-        'Al guardar cambios, estos serán inmediatos para todos los usuarios con esté rol',
-      icon: 'pi pi-exclamation-triangle',
-      accept: async () => {
+    const subscription$ = ref.onClose.subscribe((data) => {
+      if (data) {
         this.toast.info({ detail: '', summary: 'Guardando...' });
         this.service
-          .updateRol(rol._id, { permissions: rol.permissions })
+          .updateRol(rol._id, { permissions: data })
           .then((ans) => {
             this.toast.clear();
           })
@@ -96,7 +77,8 @@ export class RolesComponent implements OnInit, OnDestroy {
               life: 12000,
             });
           });
-      },
+      }
+      subscription$?.unsubscribe();
     });
   }
 }

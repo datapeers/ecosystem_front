@@ -15,6 +15,7 @@ import { DocumentProvider } from '@shared/components/dynamic-table/models/docume
 import { CommunitiesService } from './communities.service';
 import { RowConfigColumn } from '@shared/models/row-config-column';
 import { User } from '@auth/models/user';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-communities',
@@ -88,9 +89,9 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       form: this.entityForm._id,
       data: {},
     };
-    if (this.user.rol.permissions?.download_tables)
+    if (this.user?.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
-    if (this.user.rol.permissions?.community?.edit)
+    if (this.user?.allowed(Permission.community_edit))
       this.optionsTable.showConfigButton = true;
     this.loading = false;
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Subject, first, firstValueFrom, takeUntil } from 'rxjs';
 import { AnnouncementsService } from './announcements.service';
 import { Announcement } from './model/announcement';
@@ -12,6 +12,7 @@ import { MenuItem } from 'primeng/api';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-announcements',
@@ -62,6 +63,9 @@ export class AnnouncementsComponent {
       },
     },
   ];
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
 
   constructor(
     private store: Store<AppState>,

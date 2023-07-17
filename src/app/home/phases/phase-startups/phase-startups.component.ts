@@ -17,6 +17,7 @@ import { TableActionEvent } from '@shared/components/dynamic-table/models/table-
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-phase-startups',
@@ -100,7 +101,7 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
         phase: this.phase._id,
       },
     };
-    if (this.user.rol.permissions?.download_tables)
+    if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
     if (
       [ValidRoles.admin, ValidRoles.superAdmin, ValidRoles.host].includes(

@@ -21,6 +21,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ApplicantState } from '../model/applicant-state';
 import { User } from '@auth/models/user';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-applicants',
@@ -127,7 +128,7 @@ export class ApplicantsComponent {
         state: this.applicantState,
       },
     };
-    if (this.user.rol.permissions?.download_tables)
+    if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
     this.loading = false;
   }

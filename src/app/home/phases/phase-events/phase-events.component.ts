@@ -31,6 +31,7 @@ import * as moment from 'moment';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
+import { Permission } from '@auth/models/permissions.enum';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -94,6 +95,10 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dataTableRef: Table;
+
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,

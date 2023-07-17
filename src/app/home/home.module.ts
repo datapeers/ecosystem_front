@@ -46,6 +46,7 @@ import { SiteServicesManagementComponent } from './site-management/site-services
 import { ValidateParticipationComponent } from './phases/phase-events/validate-participation/validate-participation.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
+
 @NgModule({
   declarations: [
     HomeComponent,

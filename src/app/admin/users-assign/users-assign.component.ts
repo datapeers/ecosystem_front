@@ -7,7 +7,6 @@ import { PhasesService } from '@home/phases/phases.service';
 import { StartupsService } from '@shared/services/startups/startups.service';
 import { UserAssign } from './model/user-to-assign';
 import { ConfirmationService, MenuItem } from 'primeng/api';
-import { validRoles } from '../../authentication/models/valid-roles.enum';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({

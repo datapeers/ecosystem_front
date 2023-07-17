@@ -2,10 +2,14 @@
     <div class="flex-none flex flex-column align-items-start justify-content-start m-2">
         <p-card class="w-full mb-2">
             <div class="flex flex-column align-items-center justify-content-center gap-2">
-                <p-button [label]="(acta._id ? 'Guardar cambios' : 'Crear Acta')" (onClick)="action(acta._id ? 'edit' : 'create')" [disabled]="saving" *ngIf="!acta.closed && user?.rol?.permissions?.actas?.edit"></p-button>
+                <ng-container *ngIf="acta._id; else createButtonActa">
+                    <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving" *ngIf="!acta.closed && user?.allowed(userPermission.actas_edit)"></p-button>
+                </ng-container>
+                <ng-template #createButtonActa>
+                    <p-button label="Crear Acta" (onClick)="action('create')" [disabled]="saving" *ngIf="!acta.closed && user?.allowed(userPermission.actas_create)"></p-button>
+                </ng-template>
 
-                <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!acta.closed && acta._id && user?.rol?.permissions?.actas?.close" (onClick)="closeActa()"></p-button>
-
+                <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!acta.closed && acta._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>
                 <span *ngIf="acta.closed">Acta cerrada el {{acta.updatedAt | date}}</span>
             </div>
         </p-card>

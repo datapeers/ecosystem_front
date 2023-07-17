@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InvitationsComponent } from './invitations/invitations.component';
 import { RolesComponent } from './roles/roles.component';
 import { UsersAssignComponent } from './users-assign/users-assign.component';
+import { PermissionsComponent } from './permissions/permissions.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { UsersAssignComponent } from './users-assign/users-assign.component';
     InvitationsComponent,
     RolesComponent,
     UsersAssignComponent,
+    PermissionsComponent,
   ],
   imports: [
     CommonModule,

@@ -20,6 +20,7 @@ import { configTinyMce } from '@shared/models/configTinyMce';
 import { cloneDeep } from '@apollo/client/utilities';
 import { User } from '@auth/models/user';
 import { ConfirmationService } from 'primeng/api';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-acta',
@@ -43,6 +44,9 @@ export class ActaComponent implements OnInit, OnDestroy {
   currentExpert;
   expertsHours = {};
   user: User;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,

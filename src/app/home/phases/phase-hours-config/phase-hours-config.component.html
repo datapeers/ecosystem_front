@@ -9,7 +9,7 @@
     </div>
 
     <p-tabView styleClass="ml-4 mr-4">
-        <p-tabPanel header="General" *ngIf="user?.rol?.permissions?.hours?.edit_main">
+        <p-tabPanel header="General" *ngIf="user?.allowed(userPermission.hours_edit_main)">
             <div class="p-4 border-round">
                 <div class="flex-auto p-4 bg-white w-full">
                     <label for="limitHours">Limite de horas global</label>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Actividades" *ngIf="user?.rol?.permissions?.hours?.edit_activities">
+        <p-tabPanel header="Actividades" *ngIf="user?.allowed(userPermission.hours_edit_activities)">
             <div class="p-4 border-round">
                 <div class="flex flex-row justify-content-between">
                     <p class="font-bold">Horas disponibles {{activitiesConfig.limit - totalActivities}}</p>
@@ -32,13 +32,13 @@
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.rol?.permissions?.hours?.edit_experts">
+        <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">
             <p>
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
                 qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
             </p>
         </p-tabPanel>
-        <p-tabPanel header="StartUps" *ngIf="!phase.basePhase && user?.rol?.permissions?.hours?.edit_startups">
+        <p-tabPanel header="StartUps" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">
             <p>
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
                 qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.

@@ -26,6 +26,7 @@ import {
 import { IMenu, IMenuOption } from '@shared/models/menu';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -37,22 +38,22 @@ export class HomeService {
     const options = this.optionsMenu();
     const adminOptions = [ValidRoles.superAdmin, ValidRoles.admin];
     let rolOptions: (keyof typeof options)[] = ['init'];
-    if (user.rol.permissions.announcements?.view)
+    if (user.allowed(Permission.announcements_view))
       rolOptions.push('announcements');
-    if (user.rol.permissions.phases?.view) rolOptions.push('phases');
-    if (user.rol.permissions.community?.view) rolOptions.push('communities');
-    if (user.rol.permissions.view_entrepreneurs)
+    if (user.allowed(Permission.phases_batch_access)) rolOptions.push('phases');
+    if (user.allowed(Permission.community_view)) rolOptions.push('communities');
+    if (user.allowed(Permission.view_entrepreneurs))
       rolOptions.push('entrepreneurs');
-    if (user.rol.permissions.view_business) rolOptions.push('businesses');
-    if (user.rol.permissions.view_startups) rolOptions.push('startUps');
-    if (user.rol.permissions.view_experts) rolOptions.push('expert');
-    if (user.rol.permissions.help_desk?.view) rolOptions.push('helpDesk');
-    if (user.rol.permissions.sites_and_services?.view)
+    if (user.allowed(Permission.view_business)) rolOptions.push('businesses');
+    if (user.allowed(Permission.view_startups)) rolOptions.push('startUps');
+    if (user.allowed(Permission.view_experts)) rolOptions.push('expert');
+    if (user.allowed(Permission.help_desk_view)) rolOptions.push('helpDesk');
+    if (user.allowed(Permission.sites_and_services_view))
       rolOptions.push('siteAndServices');
-    if (user.rol.permissions.reports?.view) rolOptions.push('reports');
+    if (user.allowed(Permission.reports_view)) rolOptions.push('reports');
     if (adminOptions.includes(user.rol.type as ValidRoles))
       rolOptions.push('settings');
-    if (user.rol.permissions.formularios?.view) rolOptions.push('forms');
+    if (user.allowed(Permission.form_view)) rolOptions.push('forms');
     const outputOptions: IMenuOption[] = rolOptions.map(
       (optKey) => options[optKey] as IMenuOption
     );
@@ -189,7 +190,7 @@ export class HomeService {
         icon: faCircleQuestion,
       },
       siteAndServices: {
-        label: 'Administración de sedes',
+        label: 'Sedes y servicios',
         rute: '/home/site_management',
         type: 'single',
         icon: faComments,

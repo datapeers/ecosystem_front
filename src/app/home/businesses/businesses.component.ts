@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
+import { Permission } from '@auth/models/permissions.enum';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
@@ -110,7 +111,7 @@ export class BusinessesComponent {
         },
       ],
     };
-    if (this.user.rol.permissions?.download_tables)
+    if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
     this.loading = false;
   }

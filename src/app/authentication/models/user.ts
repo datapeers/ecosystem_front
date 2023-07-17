@@ -1,5 +1,6 @@
+import { Permission } from './permissions.enum';
 import { IRol, Rol } from './rol';
-import { ValidRoles, validRolName, validRoles } from './valid-roles.enum';
+import { ValidRoles } from './valid-roles.enum';
 
 export interface IUser {
   _id: string;
@@ -10,6 +11,7 @@ export interface IUser {
   isActive: boolean;
   profileImageUrl: string;
   relationsAssign: IRelationsUser;
+  permissions: Permission[];
 }
 
 export class User implements IUser {
@@ -21,6 +23,7 @@ export class User implements IUser {
   isActive: boolean;
   profileImageUrl: string;
   relationsAssign: IRelationsUser;
+  permissions: Permission[];
 
   get nameInitial(): string {
     return (
@@ -51,6 +54,12 @@ export class User implements IUser {
     return [ValidRoles.superAdmin, ValidRoles.admin].includes(
       this.rol.type as ValidRoles
     );
+  }
+
+  allowed(permission: Permission) {
+    return this.permissions?.length !== 0
+      ? this.permissions?.includes(permission)
+      : this.rol.permissions?.includes(permission);
   }
 
   constructor(data: IUser) {

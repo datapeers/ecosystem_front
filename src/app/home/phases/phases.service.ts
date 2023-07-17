@@ -17,6 +17,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { Permission } from '@auth/models/permissions.enum';
 @Injectable({
   providedIn: 'root',
 })
@@ -214,14 +215,14 @@ export class PhasesService {
         type: 'single',
       });
     }
-    if (user?.rol?.permissions?.events?.view)
+    if (user?.allowed(Permission.events_view))
       menu.options.push({
         label: 'Eventos',
         rute: ['phases', phase._id, 'events'],
         icon: faCamera,
         type: 'single',
       });
-    if (user?.rol?.permissions?.hours?.view)
+    if (user?.allowed(Permission.hours_view))
       menu.options.push({
         label: 'Bolsas de horas',
         rute: ['phases', phase._id, 'bag-hours'],

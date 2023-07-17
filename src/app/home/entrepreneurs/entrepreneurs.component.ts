@@ -21,6 +21,7 @@ import { RowConfigColumn } from '@shared/models/row-config-column';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
+import { Permission } from '@auth/models/permissions.enum';
 
 @Component({
   selector: 'app-entrepreneurs',
@@ -126,7 +127,7 @@ export class EntrepreneursComponent {
         },
       ],
     };
-    if (this.user.rol.permissions?.download_tables)
+    if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
     this.loading = false;
   }

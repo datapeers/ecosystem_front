@@ -1,27 +1,26 @@
 import { cloneDeep } from 'lodash';
+import { Permission, list_of_permissions } from './permissions.enum';
+import { ValidRoles } from './valid-roles.enum';
 
 export interface IRol {
   _id?: string;
   name: string;
   type: string;
-  permissions: IPermissions;
+  permissions: Permission[];
 }
 
 export class Rol implements IRol {
   _id?: string;
   name: string;
   type: string;
-  permissions: IPermissions;
-  backup_permissions?: any;
+  permissions: Permission[];
+  showPermission: any;
   constructor(rol?: IRol) {
     const previousService = cloneDeep(rol);
     this._id = previousService?._id ?? undefined;
     this.name = previousService?.name ?? '';
     this.type = previousService?.type ?? '';
-    this.permissions = previousService?.permissions ?? {};
-    this.backup_permissions = previousService?.permissions
-      ? cloneDeep(previousService?.permissions)
-      : {};
+    this.permissions = previousService?.permissions ?? [];
   }
 
   static fromJson(data: IRol): Rol {
@@ -34,65 +33,14 @@ export class Rol implements IRol {
   }
 }
 
-export interface IPermissions {
-  view_startups: boolean;
-  view_experts: boolean;
-  view_entrepreneurs: boolean;
-  view_business: boolean;
-  download_tables: boolean;
-  reports: {
-    view: boolean;
-    create: boolean;
-    edit: boolean;
-  };
-  community: {
-    view: boolean;
-    create: boolean;
-    edit: boolean;
-  };
-  formularios: {
-    view: boolean;
-    create: boolean;
-    edit: boolean;
-  };
-  help_desk: {
-    view: boolean;
-    create: boolean;
-    edit: boolean;
-  };
-  sites_and_services: {
-    view: boolean;
-    create: boolean;
-    edit: boolean;
-  };
-  announcements: {
-    view: boolean;
-    challenges: boolean;
-    create: boolean;
-    edit: boolean;
-  };
-  events: {
-    view: boolean;
-    create: boolean;
-    edit: boolean;
-  };
-  actas: {
-    view: boolean;
-    create: boolean;
-    close: boolean;
-    edit: boolean;
-  };
-  phases: {
-    view: boolean;
-    batch_create: boolean;
-    batch_edit: boolean;
-    phase_edit: boolean;
-  };
-  hours: {
-    view: boolean;
-    edit_main: boolean;
-    edit_activities: boolean;
-    edit_startups: boolean;
-    edit_experts: boolean;
-  };
+export function permissionsUI(permissions: Permission[] = []) {
+  const list = cloneDeep(list_of_permissions);
+  let activated = [];
+  for (const iterator of list) {
+    iterator.activated = permissions.includes(iterator.key);
+    if (iterator.activated) {
+      activated.push(iterator);
+    }
+  }
+  return [list, activated];
 }

@@ -18,6 +18,7 @@ const fragments = {
       googleIn
       profileImageUrl
       relationsAssign
+      permissions
     }
   `,
 };
