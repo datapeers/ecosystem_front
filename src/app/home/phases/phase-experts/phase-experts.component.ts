@@ -19,6 +19,7 @@ import { StartupsService } from '@shared/services/startups/startups.service';
 import { Expert } from '@shared/models/entities/expert';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
+import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
 
 @Component({
   selector: 'app-phase-experts',
@@ -49,7 +50,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   constructor(
     private service: PhaseExpertsService,
     private readonly expertsService: ExpertsService,
-    private readonly startupsService: StartupsService,
+    private readonly startupsService: PhaseStartupsService,
     private readonly formService: FormService,
     private readonly toast: ToastService,
     private store: Store<AppState>
@@ -152,16 +153,18 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         this.showAddExpert = true;
         break;
       case 'expert_startup_link':
-        const listStartups = (await this.startupsService.getDocuments({})).map(
-          (doc) => {
-            return {
-              _id: doc._id,
-              name: doc.item.nombre,
-            };
-          }
-        );
+        const listStartups = (
+          await this.startupsService.getDocuments({ phase: this.phase._id })
+        ).map((doc) => {
+          return {
+            _id: doc._id,
+            name: doc.item.nombre,
+          };
+        });
         let startupsWithExpert = new Set();
+        this.selectedExpert = rawDataTable.find((i) => i._id === element._id);
         for (const expert of rawDataTable) {
+          if (this.selectedExpert._id === expert._id) continue;
           const expertPhase = expert['phases'].find(
             (i) => i._id === this.phase._id
           );
@@ -169,11 +172,20 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
             startupsWithExpert.add(iterator._id);
           }
         }
+        this.listStartups = [];
         for (const iterator of listStartups) {
           if (startupsWithExpert.has(iterator._id)) continue;
           this.listStartups.push(iterator);
         }
-        this.selectedExpert = rawDataTable.find((i) => i._id === element._id);
+
+        const phaseProfile = this.selectedExpert.phases.find(
+          (i) => i._id === this.phase._id
+        );
+        this.selectedStartups = [
+          ...phaseProfile.startUps
+            .filter((i) => listStartups.map((o) => o._id).includes(i._id))
+            .map(({ __typename, ...rest }) => rest),
+        ];
         this.titleStartupDialog = `Agregar startups para ${this.selectedExpert['item']['nombre']}`;
         this.callbackTable = callbacks;
         this.showAddStartups = true;
@@ -214,7 +226,6 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
     );
     this.service
       .linkStartups(this.selectedExpert._id, this.phase._id, [
-        ...expertPhase.startUps.map(({ __typename, ...rest }) => rest),
         ...this.selectedStartups,
       ])
       .then((ans) => {
