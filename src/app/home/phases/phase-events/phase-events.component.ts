@@ -587,7 +587,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   canCreate() {
     return [ValidRoles.admin, ValidRoles.superAdmin].includes(
-      this.user?.rol.type as ValidRoles
+      this.user?.rolType as ValidRoles
     );
   }
 

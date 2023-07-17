@@ -36,7 +36,7 @@ export class RoleGuard implements CanMatch {
             );
             return false;
           }
-          if (validRoles.includes(user.rol.type)) {
+          if (validRoles.includes(user.rolType)) {
             return true;
           }
           this.toast.alert({

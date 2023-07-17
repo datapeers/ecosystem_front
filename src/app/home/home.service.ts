@@ -51,7 +51,7 @@ export class HomeService {
     if (user.allowed(Permission.sites_and_services_view))
       rolOptions.push('siteAndServices');
     if (user.allowed(Permission.reports_view)) rolOptions.push('reports');
-    if (adminOptions.includes(user.rol.type as ValidRoles))
+    if (adminOptions.includes(user.rolType as ValidRoles))
       rolOptions.push('settings');
     if (user.allowed(Permission.form_view)) rolOptions.push('forms');
     const outputOptions: IMenuOption[] = rolOptions.map(

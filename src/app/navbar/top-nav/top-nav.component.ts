@@ -104,7 +104,7 @@ export class TopNavComponent {
       .subscribe(async (user) => {
         this.user = user;
         this.items = this.availableItems.filter((item) => {
-          return item.roles?.some((rol) => rol === user.rol.type) ?? true;
+          return item.roles?.some((rol) => rol === user.rolType) ?? true;
         });
       });
   }

@@ -49,6 +49,9 @@
       <td>
         <span class="white-space-nowrap">{{userRow.uid}}</span>
       </td>
+      <td style="width: 3rem" class="frozen-column" (click)="$event.stopPropagation();" *ngIf="editPermission.includes(userRow.rolType)">
+        <i class="pi pi-ellipsis-v text-primary cursor-pointer" pTooltip="Opciones" tooltipPosition="left" style="font-size: 1rem" (click)="menuOptUser.toggle($event); rowInteract = userRow"></i>
+      </td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">
@@ -57,3 +60,6 @@
     </tr>
   </ng-template>
 </p-table>
+
+
+<p-menu #menuOptUser [model]="menuUser" [popup]="true" appendTo="body"></p-menu>

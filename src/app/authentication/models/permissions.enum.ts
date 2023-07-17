@@ -133,8 +133,8 @@ export const permissionDescriptions: Record<Permission, string> = {
 
   // Sites
   [Permission.sites_and_services_view]: 'Ver sección Sedes y servicios',
-  [Permission.sites_and_services_create]: 'Crear sede',
-  [Permission.sites_and_services_edit]: 'Editar sede',
+  [Permission.sites_and_services_create]: 'Crear sede y servicios',
+  [Permission.sites_and_services_edit]: 'Editar sede y servicios',
 
   // Announcements
   [Permission.announcements_view]: 'Ver sección convocatorias',
