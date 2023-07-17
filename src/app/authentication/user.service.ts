@@ -8,14 +8,13 @@ import { StoragePaths } from '@shared/storage/storage.constants';
 import userQueries from './user.gql';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
   constructor(
     private readonly graphql: GraphqlService,
-    private readonly storageService: StorageService,
-  ) { }
+    private readonly storageService: StorageService
+  ) {}
 
   // Queries
   async getUserByUid(uid: string): Promise<User> {
@@ -26,27 +25,28 @@ export class UserService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql
-        .query(queryRef)
-        .pipe(map((request) => request.data.user))
+      this.graphql.query(queryRef).pipe(map((request) => request.data.user))
     );
   }
 
-  async getUsers(search: string = "", roles: ValidRoles[] = []): Promise<IUser[]> {
+  async getUsers(
+    search: string = '',
+    roles: ValidRoles[] = [],
+    relationsAssign: any = null
+  ): Promise<IUser[]> {
     const queryRef = this.graphql.refQuery(
       userQueries.query.users,
       { search, roles },
       'cache-first',
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .query(queryRef)
-      .pipe(map((request) => request.data.users))
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(map((request) => request.data.users))
     );
   }
 
   // Mutations
-  async createUser(user: Omit<IUser,'_id'>): Promise<User> {
+  async createUser(user: Omit<IUser, '_id'>): Promise<User> {
     const mutationRef = this.graphql.refMutation(
       userQueries.mutation.createUser,
       { createUserInput: user },
@@ -81,9 +81,8 @@ export class UserService {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutRef)
-      .pipe(map((request) => request.data))
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(map((request) => request.data))
     );
   }
 
@@ -94,9 +93,8 @@ export class UserService {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutRef)
-      .pipe(map((request) => request.data))
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(map((request) => request.data))
     );
   }
 
@@ -108,9 +106,10 @@ export class UserService {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutRef)
-      .pipe(map((request) => request.data.updateUser))
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(map((request) => request.data.updateUser))
     );
   }
 
@@ -119,12 +118,13 @@ export class UserService {
       type: file.type,
       lastModified: file.lastModified,
     });
-    return this.storageService.uploadFile(StoragePaths.profileImages, renamedFile);
+    return this.storageService.uploadFile(
+      StoragePaths.profileImages,
+      renamedFile
+    );
   }
 
   removeProfileImage(user: User) {
     return this.storageService.deleteFile(StoragePaths.profileImages, user.uid);
   }
-
-  
 }

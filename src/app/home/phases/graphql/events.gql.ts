@@ -12,6 +12,10 @@ const fragments = {
         _id
         name
       }
+      teamCoaches {
+        _id
+        name
+      }
       participants {
         _id
         name

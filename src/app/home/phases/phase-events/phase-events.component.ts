@@ -32,6 +32,7 @@ import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
 import { Permission } from '@auth/models/permissions.enum';
+import { UserService } from '@auth/user.service';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -65,10 +66,12 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   expertsList = [];
   startupsList = [];
   entrepreneurList = [];
+  teamCoachList = [];
 
   selectedExperts = [];
   selectedParticipants = [];
   selectedStartups = [];
+  selectedTeamCoach = [];
 
   currentExpert;
   //Limits
@@ -99,6 +102,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   public get userPermission(): typeof Permission {
     return Permission;
   }
+
+  typesNeeded = [
+    '646f941ac2305c411d73f6c7',
+    '646f943cc2305c411d73f6d0',
+    '646f9538c2305c411d73f6fb',
+    '646f953cc2305c411d73f700',
+  ];
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -107,6 +117,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     private readonly expertsServices: PhaseExpertsService,
     private readonly storageService: StorageService,
     private readonly phaseStartupsService: PhaseStartupsService,
+    private readonly userService: UserService,
     private confirmationService: ConfirmationService
   ) {
     firstValueFrom(
@@ -172,6 +183,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       });
     await this.loadExperts();
     await this.loadStartUps();
+    await this.loadTeamCoaches();
   }
 
   preloadTableItems() {
@@ -238,6 +250,22 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
       }
     }
+  }
+
+  async loadTeamCoaches() {
+    const teamCoachRequest = await this.userService.getUsers(
+      '',
+      [ValidRoles.teamCoach],
+      { batches: this.phase._id }
+    );
+    this.teamCoachList = [];
+    for (const teamCoach of teamCoachRequest) {
+      this.teamCoachList.push({
+        _id: teamCoach._id,
+        name: teamCoach.fullName,
+      });
+    }
+    console.log(this.teamCoachList);
   }
 
   openEdit(event) {
@@ -457,6 +485,22 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   removeExpert(id: string) {
     this.newEvent.experts = this.newEvent.experts.filter((r) => r._id != id);
+  }
+
+  addTeamCoach() {
+    for (let res of this.selectedTeamCoach) {
+      if (this.newEvent.teamCoaches.find((i) => i._id === res._id)) {
+        continue;
+      }
+      this.newEvent.teamCoaches.push(res);
+    }
+    this.selectedTeamCoach = [];
+  }
+
+  removeTeamCoach(id: string) {
+    this.newEvent.teamCoaches = this.newEvent.teamCoaches.filter(
+      (r) => r._id != id
+    );
   }
 
   addParticipant() {

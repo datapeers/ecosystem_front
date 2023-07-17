@@ -73,6 +73,7 @@ export interface IEvent {
   phase: string;
   experts: { _id: string; name: string; __typename?: string }[];
   participants: { _id: string; name: string; __typename?: string }[];
+  teamCoaches: { _id: string; name: string; __typename?: string }[];
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -94,6 +95,7 @@ export class Event implements IEvent {
   phase: string;
   experts: { _id: string; name: string }[];
   participants: { _id: string; name: string }[];
+  teamCoaches: { _id: string; name: string }[];
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -112,6 +114,7 @@ export class Event implements IEvent {
         ...data?.extra_options,
       },
       experts: data.experts.map(({ __typename, ...rest }) => rest),
+      teamCoaches: data.teamCoaches.map(({ __typename, ...rest }) => rest),
       participants: data.participants.map(({ __typename, ...rest }) => rest),
     });
     return obj;
@@ -126,6 +129,7 @@ export class Event implements IEvent {
       endAt: event?.endAt ?? moment(new Date()).add(1, 'hours').toDate(),
       phase: phase?._id,
       experts: event?.experts ?? [],
+      teamCoaches: event?.teamCoaches ?? [],
       participants: event?.participants ?? [],
       extra_options: {
         assistant: event?.extra_options?.assistant ?? 'onsite',
@@ -147,6 +151,7 @@ export class Event implements IEvent {
       endAt: this.endAt,
       isDeleted: this.isDeleted,
       experts: this.experts,
+      teamCoaches: this.teamCoaches,
       participants: this.participants,
     };
   }
