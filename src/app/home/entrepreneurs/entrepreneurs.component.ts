@@ -17,7 +17,6 @@ import { EntrepreneursService } from '@shared/services/entrepreneurs/entrepreneu
 import { DialogService } from 'primeng/dynamicdialog';
 import { take, takeUntil, Subject, firstValueFrom, first } from 'rxjs';
 import { StartupSelectTableComponent } from '@shared/components/dynamic-table/table-select-dialog/providers/startup-select-table/startup-select-table.component';
-import { RowConfigColumn } from '@shared/models/row-config-column';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
@@ -47,7 +46,7 @@ export class EntrepreneursComponent {
   ) {
     this.optionsTable = {
       save: true,
-      download: false,
+      download: true,
       details: true,
       summary: 'Emprendedores',
       showConfigButton: true,

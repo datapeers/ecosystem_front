@@ -1,4 +1,4 @@
 export enum TableExportFormats {
-  csv,
-  xlsx
+  csv = "csv",
+  xlsx = "xlsx"
 }

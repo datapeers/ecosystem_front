@@ -67,7 +67,7 @@ export class ApplicantsComponent {
       this.applicantState = state;
       this.optionsTable = {
         save: true,
-        download: false,
+        download: true,
         details: true,
         summary: 'Inscritos',
         showConfigButton: true,

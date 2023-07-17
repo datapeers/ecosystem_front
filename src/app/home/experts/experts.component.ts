@@ -39,7 +39,7 @@ export class ExpertsComponent {
   ) {
     this.optionsTable = {
       save: true,
-      download: false,
+      download: true,
       details: true,
       summary: 'Expertos',
       showConfigButton: true,

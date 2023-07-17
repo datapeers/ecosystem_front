@@ -13,6 +13,8 @@ import { jsonUtils } from '@shared/utils/json.utils';
 import { UpdateResultPayload } from '@shared/models/graphql/update-result-payload';
 import { ToastService } from '../toast.service';
 import { tap } from 'rxjs/operators';
+import { DownloadRequest } from '@shared/components/dynamic-table/models/download-request';
+import { DownloadResult } from '@shared/components/dynamic-table/models/download-result';
 
 @Injectable({
   providedIn: 'root',
@@ -217,6 +219,20 @@ export class EntrepreneursService implements DocumentProvider {
       .pipe(
         map((request) => request.data.linkEntrepreneursWithStartups),
       )
+    );
+  }
+
+  async requestDownload(downloadRequest: DownloadRequest): Promise<DownloadResult> {
+    const queryRef = this.graphql.refQuery(
+      entrepreneurQueries.query.entrepreneursDownload,
+      { ...downloadRequest },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.entrepreneursDownload))
     );
   }
 }

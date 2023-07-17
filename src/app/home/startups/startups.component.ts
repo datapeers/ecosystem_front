@@ -18,7 +18,6 @@ import { EntrepreneurSelectTableComponent } from '@shared/components/dynamic-tab
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
-import { RowConfigColumn } from '@shared/models/row-config-column';
 import { StartupsService } from '@shared/services/startups/startups.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
@@ -48,7 +47,7 @@ export class StartupsComponent {
   ) {
     this.optionsTable = {
       save: true,
-      download: false,
+      download: true,
       details: true,
       summary: 'Startups',
       showConfigButton: true,

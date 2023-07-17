@@ -45,7 +45,7 @@ export class BusinessesComponent {
   ) {
     this.optionsTable = {
       save: true,
-      download: false,
+      download: true,
       details: true,
       summary: 'Empresas',
       showConfigButton: true,

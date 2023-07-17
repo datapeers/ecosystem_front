@@ -10,7 +10,7 @@ import {
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { BehaviorSubject, Subject, debounceTime, filter, first, firstValueFrom, lastValueFrom, skip, take, takeUntil, combineLatest } from 'rxjs';
+import { BehaviorSubject, Subject, debounceTime, filter, firstValueFrom, skip, take, takeUntil } from 'rxjs';
 import { DynamicTableService } from './dynamic-table.service';
 import { TableExportFormats } from './models/table-export-formats.enum';
 import { TableAction, TableActionEvent } from './models/table-action';
@@ -25,6 +25,7 @@ import { TableConfigComponent } from './table-config/table-config.component';
 import { TableContext } from './models/table-context';
 import { requestUtilities } from '@shared/utils/request.utils';
 import { PageRequest } from '@shared/models/requests/page-request';
+import { ExcelService } from '../../services/excel.service';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -98,7 +99,8 @@ export class DynamicTableComponent {
   constructor(
     public dialogService: DialogService,
     private readonly service: DynamicTableService,
-    private readonly documentProvider: DocumentProvider
+    private readonly documentProvider: DocumentProvider,
+    private readonly excelService: ExcelService
   ) {
     // Table Config
     this.onConfigChange.pipe(
@@ -497,7 +499,55 @@ export class DynamicTableComponent {
   }
 
   exportData(format: TableExportFormats) {
-    //TODO: Handle export
+    const shouldDownloadFromServer = this.lazy && this.selected.length == 0;
+    if (shouldDownloadFromServer) {
+      return this.handleServerDownload(format);
+    }
+    return this.handleLocalDownload(format);
+  }
+
+  async handleServerDownload(format: TableExportFormats) {
+    if(!this.documentProvider.requestDownload) return;
+    const result = await this.documentProvider.requestDownload({
+      request: this.onPageRequest$.value,
+      configId: this.config._id,
+      format: format,
+    });
+    window.open(result.url, "_blank");
+  }
+
+  handleLocalDownload(format: TableExportFormats) {
+    
+    //Preparing data for download
+    this.downloading = true;
+    let toExport = this.selected.length > 0 ? this.selected : this.dt.filteredValue ?? this.data;
+    if (!this.config.columns.find((i) => i.key === '_id')) {
+      toExport = toExport.map((i) => {
+        const newItem = { ...i };
+        delete newItem._id;
+        return newItem;
+      });
+    }
+
+    /* Select only desired fields based on the table config */
+    const rows = toExport.map((data) =>
+      this.config.columns.map((col) => data[col.key])
+    );
+    /* Get the columns to be used for the file header */
+    const columns = this.config.columns.map((col) => {
+      return { header: col.label, width: col.label.length + 3 };
+    });
+    //----------------------------------------
+
+    const fileName = `${this.title}_table`;
+    this.excelService
+      .downloadFromData(fileName, columns, rows, format)
+      .catch((reason) => {
+        console.error(reason);
+      })
+      .finally(() => {
+        this.downloading = false;
+      });
   }
 
   onSelectAll(event: { originalEvent: PointerEvent; checked: boolean }) {

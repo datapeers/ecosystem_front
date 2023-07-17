@@ -7,6 +7,8 @@ import { UpdateResultPayload } from '@shared/models/graphql/update-result-payloa
 import { PageRequest } from '@shared/models/requests/page-request';
 import { PaginatedResult } from '@shared/models/requests/paginated-result';
 import { jsonUtils } from '@shared/utils/json.utils';
+import { DownloadRequest } from '@shared/components/dynamic-table/models/download-request';
+import { DownloadResult } from '@shared/components/dynamic-table/models/download-result';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +73,20 @@ export class InvestorsService {
       .pipe(
         map((request) => request.data.deleteInvestors),
       )
+    );
+  }
+
+  async requestDownload(downloadRequest: DownloadRequest): Promise<DownloadResult> {
+    const queryRef = this.graphql.refQuery(
+      investorQueries.query.investorsDownload,
+      { ...downloadRequest },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.investorsDownload))
     );
   }
 }

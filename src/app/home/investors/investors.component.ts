@@ -32,7 +32,7 @@ export class InvestorsComponent {
   constructor(private readonly formService: FormService) {
     this.optionsTable = {
       save: true,
-      download: false,
+      download: true,
       details: true,
       summary: 'Inversores',
       showConfigButton: true,

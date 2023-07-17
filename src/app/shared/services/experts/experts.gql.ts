@@ -1,3 +1,4 @@
+import { downloadResultFields } from '@shared/models/graphql/download-result';
 import { paginatedResultFields } from '@shared/models/graphql/paginated-result';
 import { updateResultPayloadFields } from '@shared/models/graphql/update-result-payload';
 
@@ -59,6 +60,14 @@ const query = {
     }
     ${fragments.expertFields}
   `,
+  expertsDownload: `
+    query ExpertsDownload($request: PageRequest!, $configId: String!, $format: TableExportFormats!) {
+      expertsDownload(request: $request, configId: $configId, format: $format) {
+        ...downloadResultFields
+      }
+    }
+    ${downloadResultFields}
+  `
 };
 
 const mutation = {

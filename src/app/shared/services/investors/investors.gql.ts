@@ -1,3 +1,4 @@
+import { downloadResultFields } from "@shared/models/graphql/download-result";
 import { paginatedResultFields } from "@shared/models/graphql/paginated-result";
 import { updateResultPayloadFields } from "@shared/models/graphql/update-result-payload";
 
@@ -27,6 +28,14 @@ const query = {
     }
     ${paginatedResultFields}
   `,
+  investorsDownload: `
+    query InvestorsDownload($request: PageRequest!, $configId: String!, $format: TableExportFormats!) {
+      investorsDownload(request: $request, configId: $configId, format: $format) {
+        ...downloadResultFields
+      }
+    }
+    ${downloadResultFields}
+  `
 };
 
 const mutation = {
