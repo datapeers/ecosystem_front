@@ -46,6 +46,7 @@ import { SiteServicesManagementComponent } from './site-management/site-services
 import { ValidateParticipationComponent } from './phases/phase-events/validate-participation/validate-participation.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
+import { AssignHoursComponent } from './phases/phase-hours-config/assign-hours/assign-hours.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
     SiteServicesManagementComponent,
     ValidateParticipationComponent,
     QrViewComponent,
+    AssignHoursComponent,
   ],
   imports: [
     CommonModule,

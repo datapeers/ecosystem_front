@@ -67,7 +67,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
       actionsPerRow: [
         {
           action: 'expert_startup_link',
-          label: `Adjuntar startUp`,
+          label: `Vincular startUps`,
           icon: 'pi pi-link',
           featured: true,
         },
@@ -186,7 +186,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
             .filter((i) => listStartups.map((o) => o._id).includes(i._id))
             .map(({ __typename, ...rest }) => rest),
         ];
-        this.titleStartupDialog = `Agregar startups para ${this.selectedExpert['item']['nombre']}`;
+        this.titleStartupDialog = `Modificar startups para ${this.selectedExpert['item']['nombre']}`;
         this.callbackTable = callbacks;
         this.showAddStartups = true;
         break;

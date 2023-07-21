@@ -11,6 +11,9 @@ import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
+import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
+import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
+import { UserService } from '@auth/user.service';
 
 @Component({
   selector: 'app-phase-hours-config',
@@ -27,13 +30,26 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   showActivityConfig = [];
   totalActivities = 0;
   user: User;
+
+  expertsHours = 0;
+  assignedHoursExpert = 0;
+
+  teamCoachesHours = 0;
+  assignedHoursTeamCoaches = 0;
+
+  idActivityTeamCoaches = '646f953cc2305c411d73f700';
+  teamCoachActivityIndex;
+
   public get userPermission(): typeof Permission {
     return Permission;
   }
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
+    private readonly userService: UserService,
     private readonly service: PhaseHourConfigService,
+    private readonly expertsService: PhaseExpertsService,
+    private readonly phaseStartupsService: PhaseStartupsService,
     private readonly activitiesTypesService: PhaseEventsService
   ) {
     firstValueFrom(
@@ -64,11 +80,12 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     /// console.log(this.typesActivities);
     this.watchConfig$ = (
       await this.service.watchConfig(this.phase._id)
-    ).subscribe((i) => {
+    ).subscribe(async (i) => {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
       this.showActivityConfig = [];
       this.totalActivities = 0;
+      let index = 0;
       for (const iterator of this.typesActivities) {
         const prevConfig = this.activitiesConfig.activities.find(
           (i) => i.idActivity === iterator._id
@@ -82,8 +99,16 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         };
         delete configActivity['__typename'];
         this.showActivityConfig.push(configActivity);
+        if (configActivity.idActivity === this.idActivityTeamCoaches)
+          this.teamCoachActivityIndex = index;
         this.totalActivities += configActivity.limit;
+        index++;
       }
+
+      // Set for Expert page
+      this.expertsHours = this.activitiesConfig.calcHoursExperts.expertHours;
+      this.assignedHoursExpert =
+        this.activitiesConfig.calcHoursExperts.hoursLeftToOthersExperts;
       this.loaded = true;
     });
   }
@@ -94,11 +119,26 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   }
 
   async updateConfig() {
+    console.log(cloneDeep(this.activitiesConfig));
     if (this.activitiesConfig.limit - this.totalActivities < 0) {
       this.toast.alert({
         summary: 'Configuración inválida',
         detail:
           'La cantidad de horas asignadas a las actividades supera el límite total de horas permitidas para esta fase',
+        life: 3000,
+      });
+      return;
+    }
+
+    let hoursExpert = 0;
+    this.activitiesConfig.calcHoursExperts.list.forEach(
+      (i) => (hoursExpert += i.limit)
+    );
+    if (this.expertsHours - hoursExpert < 0) {
+      this.toast.alert({
+        summary: 'Configuración inválida',
+        detail:
+          'La cantidad de horas asignadas entre los expertos no coincide con el numero de horas de las actividades',
         life: 3000,
       });
       return;
@@ -109,6 +149,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
           delete i['activityName'];
           return i;
         }),
+        experts: this.activitiesConfig.experts,
         limit: this.activitiesConfig.limit,
       })
       .then((res) => {
@@ -133,8 +174,12 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
 
   async updateCalcHours() {
     this.totalActivities = 0;
+    let hoursTeamCoaches = 0;
     for (const configActivity of this.showActivityConfig) {
       this.totalActivities += configActivity.limit;
+      if (configActivity.idActivity === this.idActivityTeamCoaches)
+        hoursTeamCoaches = configActivity.limit;
     }
+    this.expertsHours = this.totalActivities - hoursTeamCoaches;
   }
 }

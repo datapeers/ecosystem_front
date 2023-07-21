@@ -1,0 +1,68 @@
+<div class="flex flex-row justify-content-between">
+    <p class="font-bold">Horas libres {{limit - globalHours}}</p>
+    <!-- <p-button *ngIf="activitiesConfig" label="Guardar cambios" (click)="updateConfig()"></p-button> -->
+    <p></p>
+</div>
+<p-table [value]="list" [tableStyle]="{'min-width': '70vw'}" dataKey="from">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 5rem"></th>
+            <th style="width:85%">Nombre</th>
+            <th style="width:10%">Horas</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-expanded="expanded">
+        <tr>
+            <td>
+                <button type="button" pButton pRipple [pRowToggler]="item" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+            <td>{{item.nameFrom}}</td>
+            <td [pEditableColumn]="item.limit" pEditableColumnField="limit">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="number" [(ngModel)]="item.limit" (ngModelChange)="updateCalcHours()" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{item.limit}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-item>
+        <tr>
+            <td colspan="3">
+                <div class="p-3">
+                    <p-table [value]="item.to" dataKey="id">
+                        <ng-template pTemplate="header">
+        <tr>
+            <th>Nombre startup</th>
+            <th>Horas</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-innerItem>
+        <tr>
+            <td>{{ innerItem.name }}</td>
+            <td [pEditableColumn]="innerItem.limit" pEditableColumnField="limit">
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="number" [(ngModel)]="innerItem.limit" (ngModelChange)="updateCalcHours()" />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{innerItem.limit}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="6">No hay startups vinculadas</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>

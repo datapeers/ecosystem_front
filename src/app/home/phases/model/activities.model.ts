@@ -2,12 +2,27 @@ export interface IActivitiesConfig {
   _id: string;
   limit: number;
   totalLimit: number;
-  availability: any[];
   activities: IActivityConfig[];
+  experts: IAssignHoursConfig[];
+  teamCoaches: IAssignHoursConfig[];
+  startups: { id: string; limit: number; __typename?: any }[];
   phase: string;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
+  calcHoursExperts: {
+    expertHours: number;
+    hoursLeftToOthersExperts: number;
+    list: IAssignItem[];
+  };
+}
+
+export interface IAssignItem {
+  from: string;
+  limit: number;
+  nameFrom: string;
+  to: { id: string; limit: number; name: string }[];
+  expanded: boolean;
 }
 
 export interface IActivityConfig {
@@ -16,35 +31,40 @@ export interface IActivityConfig {
   options: any;
 }
 
+export interface IAssignHoursConfig {
+  from: string;
+  limit: number;
+  __typename?: any;
+}
+
 export class ActivitiesConfig implements IActivitiesConfig {
   _id: string;
   limit: number;
   totalLimit: number;
-  availability: any[];
   activities: IActivityConfig[];
+  experts: IAssignHoursConfig[];
+  teamCoaches: IAssignHoursConfig[];
+  startups: { id: string; limit: number }[];
   phase: string;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
-
+  calcHoursExperts: {
+    expertHours: number;
+    hoursLeftToOthersExperts: number;
+    list: IAssignItem[];
+  };
   private constructor() {}
 
   static fromJson(data: IActivitiesConfig): ActivitiesConfig {
     const content = new ActivitiesConfig();
     Object.assign(content, {
       ...data,
+      experts: data.experts.map(({ __typename, ...rest }) => rest),
+      teamCoaches: data.teamCoaches.map(({ __typename, ...rest }) => rest),
+      startups: data.startups.map(({ __typename, ...rest }) => rest),
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
-      availability: data.availability?.map(({ start, end }) => {
-        const now = new Date();
-        const then = new Date();
-        now.setUTCHours(start.hour, start.minute, 0);
-        then.setUTCHours(end.hour, end.minute, 0);
-        return {
-          start: now,
-          end: then,
-        };
-      }),
     });
     return content;
   }

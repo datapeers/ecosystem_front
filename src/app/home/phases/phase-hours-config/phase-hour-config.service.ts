@@ -14,7 +14,7 @@ export class PhaseHourConfigService {
     const activitiesConfigPhase = this.graphql.refQuery(
       activitiesConfigQueries.query.getConfig,
       { phase },
-      'cache-first',
+      'network-only',
       { auth: true }
     );
     return this.graphql.watch_query(activitiesConfigPhase).valueChanges.pipe(

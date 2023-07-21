@@ -3,6 +3,7 @@
         <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
             <h2>Configuración bolsa de horas</h2>
             <div class="flex flex-row gap-2">
+
                 <p-button *ngIf="activitiesConfig" label="Guardar cambios" (click)="updateConfig()"></p-button>
             </div>
         </div>
@@ -18,9 +19,9 @@
             </div>
         </p-tabPanel>
         <p-tabPanel header="Actividades" *ngIf="user?.allowed(userPermission.hours_edit_activities)">
-            <div class="p-4 border-round">
+            <div class="px-4 pb-4 border-round">
                 <div class="flex flex-row justify-content-between">
-                    <p class="font-bold">Horas disponibles {{activitiesConfig.limit - totalActivities}}</p>
+                    <p class="font-bold">Horas libres {{activitiesConfig.limit - totalActivities}}</p>
                 </div>
                 <div class="flex flex-wrap gap-3 p-fluid">
                     <ng-container *ngFor="let item of showActivityConfig">
@@ -33,16 +34,10 @@
             </div>
         </p-tabPanel>
         <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">
-            <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-            </p>
+            <app-assign-hours [assignedHours]="assignedHoursExpert" [list]="activitiesConfig.calcHoursExperts.list" [activitiesConfig]="activitiesConfig" [limit]="expertsHours" [property]="'experts'"></app-assign-hours>
         </p-tabPanel>
         <p-tabPanel header="StartUps" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">
-            <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-                qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-            </p>
+            <!-- <app-assign-hours></app-assign-hours> -->
         </p-tabPanel>
     </p-tabView>
 

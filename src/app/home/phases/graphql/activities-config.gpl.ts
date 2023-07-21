@@ -9,9 +9,22 @@ const fragments = {
         limit
         options
       }
+      experts {
+        from
+        limit
+      }
+      teamCoaches {
+        from
+        limit
+      }
+      startups {
+        id
+        limit
+      }
       isDeleted
       createdAt
       updatedAt
+      calcHoursExperts
     }
   `,
 };
