@@ -36,7 +36,7 @@
                                     </div>
                                     <!-- <p class="body-copy">{{space.descripcion | date}} - {{'2023-06-08' | date}}</p> -->
                                     <div class="flex flex-row align-items-center justify-content-between">
-                                        <div class="flex flex-row" style="gap:0.5rem;">
+                                        <div class="flex flex-row" style="gap:0.5rem;" *ngIf="user?.allowed(userPermission.phases_batch_edit)">
                                             <ng-container *ngFor="let action of actions">
                                                 <p-button [styleClass]="action.class" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})" type="button" label="{{action.label}}"></p-button>
                                             </ng-container>

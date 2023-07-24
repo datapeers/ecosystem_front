@@ -19,6 +19,7 @@ const fragments = {
       }
       startups {
         id
+        from
         limit
       }
       isDeleted

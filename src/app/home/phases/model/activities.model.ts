@@ -5,7 +5,7 @@ export interface IActivitiesConfig {
   activities: IActivityConfig[];
   experts: IAssignHoursConfig[];
   teamCoaches: IAssignHoursConfig[];
-  startups: { id: string; limit: number; __typename?: any }[];
+  startups: { id: string; from: string; limit: number; __typename?: any }[];
   phase: string;
   isDeleted: boolean;
   createdAt: Date;
@@ -21,8 +21,15 @@ export interface IAssignItem {
   from: string;
   limit: number;
   nameFrom: string;
-  to: { id: string; limit: number; name: string }[];
+  to: IStartupAssign[];
   expanded: boolean;
+}
+
+export interface IStartupAssign {
+  id: string;
+  limit: number;
+  name: string;
+  modified: boolean;
 }
 
 export interface IActivityConfig {
@@ -44,7 +51,7 @@ export class ActivitiesConfig implements IActivitiesConfig {
   activities: IActivityConfig[];
   experts: IAssignHoursConfig[];
   teamCoaches: IAssignHoursConfig[];
-  startups: { id: string; limit: number }[];
+  startups: { id: string; from: string; limit: number }[];
   phase: string;
   isDeleted: boolean;
   createdAt: Date;

@@ -28,7 +28,7 @@
           <div class="flex flex-row align-items-center justify-content-between">
             <div class="flex flex-row" style="gap:0.5rem;">
               <ng-container *ngFor="let action of cardActions">
-                <p-button *ngIf="user?.allowed(userPermission.announcements_edit)" (click)="action.command($event, item)" type="button" [label]="action.label"></p-button>
+                <p-button *ngIf="allowEdit(item)" (click)="action.command($event, item)" type="button" [label]="action.label"></p-button>
               </ng-container>
             </div>
           </div>

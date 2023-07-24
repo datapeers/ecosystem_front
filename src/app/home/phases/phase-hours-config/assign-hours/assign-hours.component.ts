@@ -3,6 +3,7 @@ import {
   ActivitiesConfig,
   IAssignHoursConfig,
   IAssignItem,
+  IStartupAssign,
 } from '@home/phases/model/activities.model';
 
 @Component({
@@ -20,10 +21,18 @@ export class AssignHoursComponent implements OnInit, OnChanges {
   globalHours = 0;
   hoursOneByOne = 0;
 
+  previousHoursStartups = {};
+  startupsModified = {};
+
+  loading = false;
+
   ngOnInit() {
+    this.loading = true;
     const hoursTotalFrom = this.list.map((i) => i.limit);
     this.globalHours = hoursTotalFrom.reduce((ac, cv) => ac + cv, 0);
     this.hoursOneByOne = this.assignedHours;
+    this.setPreviousHoursStartups();
+    this.loading = false;
   }
 
   ngOnChanges() {
@@ -39,7 +48,17 @@ export class AssignHoursComponent implements OnInit, OnChanges {
     this.setVars();
   }
 
+  setPreviousHoursStartups() {
+    for (const item of this.list) {
+      for (const startup of item.to) {
+        this.previousHoursStartups[startup.id] = startup.limit;
+      }
+    }
+  }
+
   updateCalcHours() {
+    if (this.loading) return;
+    this.loading = true;
     let index = 0;
     const pendingIndexItems = [];
     const previousHoursOneByOne = this.hoursOneByOne;
@@ -64,13 +83,66 @@ export class AssignHoursComponent implements OnInit, OnChanges {
     this.activitiesConfig[this.property] = [];
     index = 0;
     for (const iterator of this.list) {
-      if (!pendingIndexItems.includes(index))
+      if (!pendingIndexItems.includes(index)) {
         this.activitiesConfig[this.property].push({
           from: iterator.from,
           limit: iterator.limit,
           to: [],
         });
+      }
+      if (iterator.to.length) {
+        this.setHoursStartup(iterator);
+      }
       index++;
+    }
+    this.setPreviousHoursStartups();
+    this.loading = false;
+  }
+
+  setHoursStartup(item: IAssignItem) {
+    let limitHoursStartups = item.limit;
+    let pendingStartups = [];
+    let indexStartup = 0;
+    for (const startup of item.to) {
+      const previousConfig = this.activitiesConfig.startups.find(
+        (i) => i.id === startup.id
+      );
+      if (
+        previousConfig &&
+        this.previousHoursStartups[startup.id] === previousConfig.limit
+      ) {
+        limitHoursStartups -= previousConfig.limit;
+      } else {
+        if (this.previousHoursStartups[startup.id] !== startup.limit) {
+          // this.replaceOrSetStartupHours(startup, item);
+          limitHoursStartups -= startup.limit;
+        } else {
+          pendingStartups.push(indexStartup);
+        }
+      }
+      indexStartup++;
+    }
+    let hoursForOthersStartups = Math.round(
+      limitHoursStartups / pendingStartups.length
+    );
+    for (const indexPendingStartup of pendingStartups) {
+      item.to[indexPendingStartup].limit = hoursForOthersStartups;
+    }
+  }
+
+  replaceOrSetStartupHours(item: IStartupAssign, parent: IAssignItem) {
+    const previousConfig = this.activitiesConfig.startups.find(
+      (i) => i.id === item.id && i.from === parent.from
+    );
+    if (previousConfig) {
+      previousConfig.limit = item.limit;
+    } else {
+      console.log('b');
+      this.activitiesConfig.startups.push({
+        id: item.id,
+        from: parent.from,
+        limit: item.limit,
+      });
     }
   }
 }

@@ -15,6 +15,7 @@ import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
+import { Permission } from '@auth/models/permissions.enum';
 @Component({
   selector: 'app-phases-config',
   templateUrl: './phases-config.component.html',
@@ -39,6 +40,9 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   stagesUsed: Set<String>;
 
   user: User;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
   constructor(
     private store: Store<AppState>,
     private service: PhasesService,

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Subject, first, firstValueFrom, takeUntil } from 'rxjs';
 import { AnnouncementsService } from './announcements.service';
-import { Announcement } from './model/announcement';
+import { Announcement, IAnnouncement } from './model/announcement';
 import { Router } from '@angular/router';
 import { AnnouncementTypes } from './model/announcement-types.enum';
 import {
@@ -78,6 +78,7 @@ export class AnnouncementsComponent {
       .subscribe((announcements) => {
         this.announcements = announcements;
         this.loading = false;
+        console.log(this.announcements);
       });
     firstValueFrom(
       this.store
@@ -102,5 +103,16 @@ export class AnnouncementsComponent {
 
   navigateToEdit(id: string) {
     this.router.navigate([`/home/announcements/${id}/edit`]);
+  }
+
+  allowEdit(announcement: IAnnouncement) {
+    switch (announcement.type) {
+      case AnnouncementTypes.challenge:
+        return this.user.allowed(Permission.announcements_edit_challenge);
+      case AnnouncementTypes.open:
+        return this.user.allowed(Permission.announcements_edit);
+      default:
+        return false;
+    }
   }
 }

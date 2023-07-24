@@ -18,7 +18,7 @@
                 </div>
                 <div class="flex flex-row align-items-center justify-content-between">
                     <div class="flex flex-row" style="gap:0.5rem;">
-                        <p-button type="button" label="Configurar" (onClick)="openPhaseEdit(item)"></p-button>
+                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)"></p-button>
                     </div>
                     <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
                     </div>

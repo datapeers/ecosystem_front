@@ -29,7 +29,6 @@ export class PermissionsComponent {
 
   setPermission() {
     this.loading = true;
-    console.log(this.config.data?.user);
     [this.permissions, this.selectedPermissions] = permissionsUI(
       this.config.data?.user?.permissions &&
         this.config.data?.user?.permissions.length !== 0
