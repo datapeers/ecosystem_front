@@ -74,15 +74,15 @@ export class TableSelectDialogComponent {
   }
 
   async loadComponent() {
-    this.optionsTable.summary = "Emprendedores";
-    this.tableTitle = "Emprendedores";
+    this.optionsTable.summary = this.tableTitle;
+    this.tableTitle = this.tableTitle;
     this.loading = true;
     const forms = await this.formService.getFormByCollection(this.formCollection);
     if(!forms.length) { return; }
     this.entityForm = forms.find(() => true);
     this.tableContext = {
       locator: this.tableLocator,
-      name: "Emprendedores",
+      name: this.tableTitle,
       form: this.entityForm._id,
     }
     this.loading = false;
