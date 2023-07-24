@@ -73,19 +73,7 @@ export class StartupsComponent {
           },
         },
       ],
-      actionsTable: [
-        {
-          action: 'add',
-          label: `Nueva Startup`,
-          icon: 'pi pi-plus',
-          featured: true,
-        },
-        {
-          action: 'linkWithEntrepreneurs',
-          label: `Vincular a empresarios`,
-          icon: 'pi pi-user',
-        },
-      ],
+      actionsTable: [],
     };
     firstValueFrom(
       this.store
@@ -140,7 +128,24 @@ export class StartupsComponent {
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
+    this.actionsTableOptions();
     this.loading = false;
+  }
+
+  actionsTableOptions() {
+    if (this.user.allowed(Permission.create_startups))
+      this.optionsTable.actionsTable.push({
+        action: 'add',
+        label: `Nueva Startup`,
+        icon: 'pi pi-plus',
+        featured: true,
+      });
+    if (this.user.allowed(Permission.edit_startups))
+      this.optionsTable.actionsTable.push({
+        action: 'linkWithEntrepreneurs',
+        label: `Vincular a empresarios`,
+        icon: 'pi pi-user',
+      });
   }
 
   async actionFromTable({

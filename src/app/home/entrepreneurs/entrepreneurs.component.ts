@@ -55,24 +55,7 @@ export class EntrepreneursComponent {
       actions_row: 'compress',
       actionsPerRow: [],
       extraColumnsTable: [],
-      actionsTable: [
-        {
-          action: 'add',
-          label: `Nuevo Emprendedor`,
-          icon: 'pi pi-plus',
-          featured: true,
-        },
-        {
-          action: 'linkWithBusinesses',
-          label: `Vincular a negocios`,
-          icon: 'pi pi-building',
-        },
-        {
-          action: 'linkWithStartups',
-          label: `Vincular a startup`,
-          icon: 'pi pi-bolt',
-        },
-      ],
+      actionsTable: [],
     };
     firstValueFrom(
       this.store
@@ -128,7 +111,31 @@ export class EntrepreneursComponent {
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
+    this.actionsTableOptions();
     this.loading = false;
+  }
+
+  actionsTableOptions() {
+    if (this.user.allowed(Permission.create_entrepreneurs))
+      this.optionsTable.actionsTable.push({
+        action: 'add',
+        label: `Nuevo Emprendedor`,
+        icon: 'pi pi-plus',
+        featured: true,
+      });
+    if (this.user.allowed(Permission.edit_entrepreneurs))
+      this.optionsTable.actionsTable.push(
+        {
+          action: 'linkWithBusinesses',
+          label: `Vincular a negocios`,
+          icon: 'pi pi-building',
+        },
+        {
+          action: 'linkWithStartups',
+          label: `Vincular a startup`,
+          icon: 'pi pi-bolt',
+        }
+      );
   }
 
   async actionFromTable({

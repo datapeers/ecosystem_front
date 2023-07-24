@@ -48,14 +48,7 @@ export class ExpertsComponent {
       actions_row: 'compress',
       actionsPerRow: [],
       extraColumnsTable: [],
-      actionsTable: [
-        {
-          action: 'add',
-          label: `Nuevo Experto`,
-          icon: 'pi pi-plus',
-          featured: true,
-        },
-      ],
+      actionsTable: [],
     };
     firstValueFrom(
       this.store
@@ -91,7 +84,18 @@ export class ExpertsComponent {
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
+    this.actionsTableOptions();
     this.loading = false;
+  }
+
+  actionsTableOptions() {
+    if (this.user.allowed(Permission.create_experts))
+      this.optionsTable.actionsTable.push({
+        action: 'add',
+        label: `Nuevo Experto`,
+        icon: 'pi pi-plus',
+        featured: true,
+      });
   }
 
   async actionFromTable({
