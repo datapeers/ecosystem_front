@@ -26,6 +26,7 @@ const fragments = {
       createdAt
       updatedAt
       calcHoursExperts
+      calcHoursTeamCoaches
     }
   `,
 };

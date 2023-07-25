@@ -36,7 +36,7 @@ export class AssignHoursComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.updateCalcHours();
+    this.updateCalcHours(null);
   }
 
   setVars() {
@@ -56,8 +56,9 @@ export class AssignHoursComponent implements OnInit, OnChanges {
     }
   }
 
-  updateCalcHours() {
+  updateCalcHours(modifiedItem: IAssignItem | IStartupAssign) {
     if (this.loading) return;
+    if (modifiedItem && modifiedItem.limit === null) modifiedItem.limit = 0;
     this.loading = true;
     let index = 0;
     const pendingIndexItems = [];
@@ -87,11 +88,10 @@ export class AssignHoursComponent implements OnInit, OnChanges {
         this.activitiesConfig[this.property].push({
           from: iterator.from,
           limit: iterator.limit,
-          to: [],
         });
       }
       if (iterator.to.length) {
-        this.setHoursStartup(iterator);
+        this.setHoursStartup(iterator, modifiedItem);
       }
       index++;
     }
@@ -99,7 +99,10 @@ export class AssignHoursComponent implements OnInit, OnChanges {
     this.loading = false;
   }
 
-  setHoursStartup(item: IAssignItem) {
+  setHoursStartup(
+    item: IAssignItem,
+    modifiedItem: IAssignItem | IStartupAssign
+  ) {
     let limitHoursStartups = item.limit;
     let pendingStartups = [];
     let indexStartup = 0;
@@ -114,7 +117,7 @@ export class AssignHoursComponent implements OnInit, OnChanges {
         limitHoursStartups -= previousConfig.limit;
       } else {
         if (this.previousHoursStartups[startup.id] !== startup.limit) {
-          // this.replaceOrSetStartupHours(startup, item);
+          this.replaceOrSetStartupHours(startup, item, modifiedItem);
           limitHoursStartups -= startup.limit;
         } else {
           pendingStartups.push(indexStartup);
@@ -130,19 +133,27 @@ export class AssignHoursComponent implements OnInit, OnChanges {
     }
   }
 
-  replaceOrSetStartupHours(item: IStartupAssign, parent: IAssignItem) {
+  replaceOrSetStartupHours(
+    item: IStartupAssign,
+    parent: IAssignItem,
+    modifiedItem: IAssignItem | IStartupAssign
+  ) {
+    if (!modifiedItem) return;
     const previousConfig = this.activitiesConfig.startups.find(
       (i) => i.id === item.id && i.from === parent.from
     );
     if (previousConfig) {
       previousConfig.limit = item.limit;
     } else {
-      console.log('b');
       this.activitiesConfig.startups.push({
         id: item.id,
         from: parent.from,
         limit: item.limit,
       });
     }
+  }
+
+  getSumStartupHours(item: IAssignItem) {
+    return item.to.reduce((ac, cv) => ac + cv.limit, 0);
   }
 }

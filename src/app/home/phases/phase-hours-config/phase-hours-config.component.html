@@ -37,7 +37,7 @@
             <app-assign-hours [assignedHours]="assignedHoursExpert" [list]="activitiesConfig.calcHoursExperts.list" [activitiesConfig]="activitiesConfig" [limit]="expertsHours" [property]="'experts'"></app-assign-hours>
         </p-tabPanel>
         <p-tabPanel header="StartUps" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">
-            <!-- <app-assign-hours></app-assign-hours> -->
+            <app-assign-hours [assignedHours]="assignedHoursTeamCoaches" [list]="activitiesConfig.calcHoursTeamCoaches.list" [activitiesConfig]="activitiesConfig" [limit]="teamCoachesHours" [property]="'teamCoaches'"></app-assign-hours>
         </p-tabPanel>
     </p-tabView>
 

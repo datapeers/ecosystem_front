@@ -61,6 +61,11 @@ export class ActivitiesConfig implements IActivitiesConfig {
     hoursLeftToOthersExperts: number;
     list: IAssignItem[];
   };
+  calcHoursTeamCoaches: {
+    teamCoachHours: number;
+    hoursLeftToOthersTeamCoaches: number;
+    list: IAssignItem[];
+  };
   private constructor() {}
 
   static fromJson(data: IActivitiesConfig): ActivitiesConfig {

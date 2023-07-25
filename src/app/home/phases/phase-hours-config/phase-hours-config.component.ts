@@ -46,10 +46,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
-    private readonly userService: UserService,
     private readonly service: PhaseHourConfigService,
-    private readonly expertsService: PhaseExpertsService,
-    private readonly phaseStartupsService: PhaseStartupsService,
     private readonly activitiesTypesService: PhaseEventsService
   ) {
     firstValueFrom(
@@ -109,6 +106,11 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       this.expertsHours = this.activitiesConfig.calcHoursExperts.expertHours;
       this.assignedHoursExpert =
         this.activitiesConfig.calcHoursExperts.hoursLeftToOthersExperts;
+      // Set for Team Coach page
+      this.teamCoachesHours =
+        this.activitiesConfig.calcHoursTeamCoaches.teamCoachHours;
+      this.assignedHoursTeamCoaches =
+        this.activitiesConfig.calcHoursTeamCoaches.hoursLeftToOthersTeamCoaches;
       this.loaded = true;
     });
   }
@@ -119,7 +121,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   }
 
   async updateConfig() {
-    console.log(cloneDeep(this.activitiesConfig));
     if (this.activitiesConfig.limit - this.totalActivities < 0) {
       this.toast.alert({
         summary: 'Configuración inválida',
@@ -129,7 +130,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       });
       return;
     }
-
     let hoursExpert = 0;
     this.activitiesConfig.calcHoursExperts.list.forEach(
       (i) => (hoursExpert += i.limit)
@@ -143,6 +143,19 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       });
       return;
     }
+    let hoursTeamCoach = 0;
+    this.activitiesConfig.calcHoursTeamCoaches.list.forEach(
+      (i) => (hoursExpert += i.limit)
+    );
+    if (this.teamCoachesHours - hoursTeamCoach < 0) {
+      this.toast.alert({
+        summary: 'Configuración inválida',
+        detail:
+          'La cantidad de horas asignadas entre los team coach no coincide con el numero de horas de las actividades',
+        life: 3000,
+      });
+      return;
+    }
     this.service
       .updateConfig(this.activitiesConfig._id, {
         activities: this.showActivityConfig.map((i) => {
@@ -150,6 +163,8 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
           return i;
         }),
         experts: this.activitiesConfig.experts,
+        teamCoaches: this.activitiesConfig.teamCoaches,
+        startups: this.activitiesConfig.startups,
         limit: this.activitiesConfig.limit,
       })
       .then((res) => {
@@ -181,5 +196,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         hoursTeamCoaches = configActivity.limit;
     }
     this.expertsHours = this.totalActivities - hoursTeamCoaches;
+    this.teamCoachesHours = hoursTeamCoaches;
   }
 }

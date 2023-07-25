@@ -32,11 +32,15 @@ export class UserService {
   async getUsers(
     search: string = '',
     roles: ValidRoles[] = [],
-    relationsAssign: any = null
+    relationsAssign: {
+      phases?: string;
+      batches?: string;
+      startups?: string;
+    } = null
   ): Promise<IUser[]> {
     const queryRef = this.graphql.refQuery(
       userQueries.query.users,
-      { search, roles },
+      { search, roles, relationsAssign },
       'cache-first',
       { auth: true }
     );

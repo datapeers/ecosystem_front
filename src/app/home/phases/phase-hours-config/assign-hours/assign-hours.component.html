@@ -1,7 +1,7 @@
 <div class="flex flex-row justify-content-between">
-    <p class="font-bold">Horas libres {{limit - globalHours}}</p>
-    <!-- <p-button *ngIf="activitiesConfig" label="Guardar cambios" (click)="updateConfig()"></p-button> -->
-    <p></p>
+    <p class="font-medium"> Horas libres {{limit - globalHours}}</p>
+    <p class="font-medium">Horas esperadas {{limit}}</p>
+
 </div>
 <p-table [value]="list" [tableStyle]="{'min-width': '70vw'}" dataKey="from">
     <ng-template pTemplate="header">
@@ -20,10 +20,11 @@
             <td [pEditableColumn]="item.limit" pEditableColumnField="limit">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="number" [(ngModel)]="item.limit" (ngModelChange)="updateCalcHours()" />
+                        <p-inputNumber type="number" [(ngModel)]="item.limit" [min]="0" [max]="limit - list.length" (ngModelChange)="updateCalcHours(item)" suffix=" hora(s)" [showButtons]="true" />
+
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{item.limit}}
+                        {{item.limit}} hora(s)
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -46,10 +47,11 @@
             <td [pEditableColumn]="innerItem.limit" pEditableColumnField="limit">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="number" [(ngModel)]="innerItem.limit" (ngModelChange)="updateCalcHours()" />
+                        <p-inputNumber type="number" [(ngModel)]="innerItem.limit" [min]="0" [max]="item.limit - item.to.length" (ngModelChange)="updateCalcHours(innerItem)" suffix=" hora(s)" [showButtons]="true" />
+
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{innerItem.limit}}
+                        {{innerItem.limit}} hora(s)
                     </ng-template>
                 </p-cellEditor>
             </td>
