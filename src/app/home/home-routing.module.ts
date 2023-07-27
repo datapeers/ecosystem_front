@@ -28,6 +28,7 @@ import { CommunitiesComponent } from './communities/communities.component';
 import { SiteManagementComponent } from './site-management/site-management.component';
 import { SiteServicesManagementComponent } from './site-management/site-services-management/site-services-management.component';
 import { ValidateParticipationComponent } from './phases/phase-events/validate-participation/validate-participation.component';
+import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-evaluations.component';
 
 const routes: Routes = [
   {
@@ -163,6 +164,10 @@ const routes: Routes = [
               {
                 path: 'startups',
                 component: PhaseStartupsComponent,
+              },
+              {
+                path: 'evaluations',
+                component: PhaseEvaluationsComponent,
               },
             ],
           },

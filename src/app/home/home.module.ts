@@ -47,6 +47,7 @@ import { ValidateParticipationComponent } from './phases/phase-events/validate-p
 import { QRCodeModule } from 'angularx-qrcode';
 import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
 import { AssignHoursComponent } from './phases/phase-hours-config/assign-hours/assign-hours.component';
+import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-evaluations.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { AssignHoursComponent } from './phases/phase-hours-config/assign-hours/a
     ValidateParticipationComponent,
     QrViewComponent,
     AssignHoursComponent,
+    PhaseEvaluationsComponent,
   ],
   imports: [
     CommonModule,
