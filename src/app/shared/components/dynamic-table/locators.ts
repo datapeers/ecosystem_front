@@ -4,5 +4,8 @@ export const tableLocators = {
   startups: "startups",
   experts: "experts",
   investors: "investors",
-  applicants: "applicants"
+  applicants: "applicants",
+  entrepreneursProspects: "entrepreneursProspects",
+  startupsProspects: "startupsProspects",
+  expertsProspects: "expertsProspects",
 }

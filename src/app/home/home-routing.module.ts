@@ -57,6 +57,10 @@ const routes: Routes = [
         component: EntrepreneursComponent,
       },
       {
+        path: 'entrepreneursProspects',
+        component: EntrepreneursComponent,
+      },
+      {
         path: 'businesses',
         component: BusinessesComponent,
       },
@@ -65,11 +69,19 @@ const routes: Routes = [
         component: StartupsComponent,
       },
       {
+        path: 'startupsProspects',
+        component: StartupsComponent,
+      },
+      {
         path: 'investors',
         component: InvestorsComponent,
       },
       {
         path: 'experts',
+        component: ExpertsComponent,
+      },
+      {
+        path: 'expertsProspects',
         component: ExpertsComponent,
       },
       {

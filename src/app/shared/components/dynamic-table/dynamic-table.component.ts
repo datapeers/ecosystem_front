@@ -134,7 +134,13 @@ export class DynamicTableComponent {
 
   handleLazyLoadChange(lazyLoadEvent: LazyLoadEvent) {
     if(!this.config) return;
-    this.lastLazyEvent = cloneDeep(lazyLoadEvent);
+    this.lastLazyEvent = cloneDeep({
+      ...lazyLoadEvent,
+      filters: {
+        ...lazyLoadEvent.filters,
+        ...this.context.defaultFilters,
+      }
+    });
     Object.freeze(this.lastLazyEvent);
     this.onLazyLoad.emit(this.lastLazyEvent);
     this.setupTable();

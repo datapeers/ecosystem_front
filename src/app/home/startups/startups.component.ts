@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
 import { User } from '@auth/models/user';
@@ -8,10 +9,12 @@ import { DocumentProvider } from '@shared/components/dynamic-table/models/docume
 import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
 import {
+  TableColumn,
   TableColumnType,
   TableConfig,
 } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
+import { TableFilters } from '@shared/components/dynamic-table/models/table-filters';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { TableSelection } from '@shared/components/dynamic-table/models/table-selection';
 import { EntrepreneurSelectTableComponent } from '@shared/components/dynamic-table/table-select-dialog/providers/entrepreneur-select-table/entrepreneur-select-table.component';
@@ -39,42 +42,52 @@ export class StartupsComponent {
   entityForm: AppForm;
   onDestroy$: Subject<void> = new Subject();
   user: User;
+  defaultFilters: TableFilters;
   constructor(
     private store: Store<AppState>,
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
-    private readonly service: StartupsService
+    private readonly service: StartupsService,
+    private readonly route: ActivatedRoute,
   ) {
-    this.optionsTable = {
-      save: true,
-      download: true,
-      details: true,
-      summary: 'Startups',
-      showConfigButton: true,
-      redirect: null,
-      selection: true,
-      actions_row: 'compress',
-      actionsPerRow: [],
-      extraColumnsTable: [
-        {
-          label: 'Fases',
-          key: 'phases; name',
-          type: TableColumnType.data,
-          format: 'string',
-        },
-        {
-          label: 'Prospecto',
-          key: 'isProspect',
-          type: TableColumnType.data,
-          format: 'boolean',
-          booleanText: {
-            true: 'Si',
-            false: 'No',
+    this.route.queryParamMap
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params) => {
+        const filterProspects = !!params.get("prospects");
+        const extraColumnsTable: TableColumn[] = [
+          {
+            label: 'Fases',
+            key: 'phases; name',
+            type: TableColumnType.data,
+            format: 'string',
           },
-        },
-      ],
-      actionsTable: [],
-    };
+        ];
+        if(!filterProspects) {
+          this.tableLocator = tableLocators.startups;
+          this.defaultFilters = {
+            "isProspect": [{ matchMode: "equals", operator: "and", value: false }]
+          }
+        } else {
+          this.tableLocator = tableLocators.startupsProspects;
+          this.defaultFilters = {
+            "isProspect": [{ matchMode: "equals", operator: "and", value: true }]
+          }
+        }
+        this.optionsTable = {
+          save: true,
+          download: false,
+          details: true,
+          summary: 'Startups',
+          showConfigButton: true,
+          redirect: null,
+          selection: true,
+          actions_row: 'compress',
+          actionsPerRow: [],
+          extraColumnsTable: extraColumnsTable,
+          actionsTable: [],
+        };
+        this.loadComponent();
+      });
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)

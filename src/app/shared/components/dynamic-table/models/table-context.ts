@@ -1,4 +1,5 @@
 import { TableJoin } from "./table-join";
+import { TableFilters } from "./table-filters";
 
 export type TableContext = {
   locator: string;
@@ -6,4 +7,5 @@ export type TableContext = {
   name: string;
   data?: any;
   joins?: TableJoin[];
+  defaultFilters?: TableFilters;
 }

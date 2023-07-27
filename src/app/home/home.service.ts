@@ -15,6 +15,7 @@ import {
   faMagnifyingGlass,
   faRoad,
   faRocket,
+  faSearch,
   faSeedling,
   faSync,
   faUser,
@@ -138,10 +139,24 @@ export class HomeService {
       },
       entrepreneurs: {
         label: 'Emprendedores',
-        rute: '/home/entrepreneurs',
-        type: 'single',
+        type: 'dropdown',
         class: 'mt-4',
         icon: faUser,
+        children: [
+          {
+            label: 'Emprendedores',
+            rute: '/home/entrepreneurs',
+            type: 'single',
+            icon: faUser,
+          },
+          {
+            label: 'Prospectos',
+            rute: '/home/entrepreneursProspects',
+            type: 'single',
+            icon: faSearch,
+            queryParamsRute: { prospects: true },
+          },
+        ]
       },
       businesses: {
         label: 'Empresas',
@@ -151,15 +166,43 @@ export class HomeService {
       },
       startUps: {
         label: 'StartUps',
-        rute: '/home/startups',
-        type: 'single',
+        type: 'dropdown',
         icon: faRocket,
+        children: [
+          {
+            label: 'StartUps',
+            rute: '/home/startups',
+            type: 'single',
+            icon: faRocket,
+          },
+          {
+            label: 'Prospectos',
+            rute: '/home/startupsProspects',
+            type: 'single',
+            icon: faSearch,
+            queryParamsRute: { prospects: true },
+          }
+        ]
       },
       expert: {
         label: 'Expertos',
-        rute: '/home/experts',
-        type: 'single',
+        type: 'dropdown',
         icon: faUsers,
+        children: [
+          {
+            label: 'Expertos',
+            rute: '/home/experts',
+            type: 'single',
+            icon: faUsers,
+          },
+          {
+            label: 'Prospectos',
+            rute: '/home/expertsProspects',
+            type: 'single',
+            icon: faSearch,
+            queryParamsRute: { prospects: true },
+          }
+        ]
       },
       prospects: {
         label: 'Prospectos',

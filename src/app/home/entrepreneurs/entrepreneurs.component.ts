@@ -21,6 +21,8 @@ import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TableFilters } from '@shared/components/dynamic-table/models/table-filters';
 
 @Component({
   selector: 'app-entrepreneurs',
@@ -38,36 +40,14 @@ export class EntrepreneursComponent {
   entityForm: AppForm;
   onDestroy$: Subject<void> = new Subject();
   user: User;
+  defaultFilters: TableFilters = {};
   constructor(
     private store: Store<AppState>,
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
-    private readonly service: EntrepreneursService
+    private readonly service: EntrepreneursService,
+    private readonly route: ActivatedRoute,
   ) {
-    this.optionsTable = {
-      save: true,
-      download: false,
-      details: true,
-      summary: 'Emprendedores',
-      showConfigButton: true,
-      redirect: null,
-      selection: true,
-      actions_row: 'compress',
-      actionsPerRow: [],
-      extraColumnsTable: [
-        {
-          label: 'Prospecto',
-          key: 'isProspect',
-          type: TableColumnType.data,
-          format: 'boolean',
-          booleanText: {
-            true: 'Si',
-            false: 'No',
-          },
-        },
-      ],
-      actionsTable: [],
-    };
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)
@@ -76,7 +56,37 @@ export class EntrepreneursComponent {
   }
 
   ngOnInit(): void {
-    this.loadComponent();
+    this.route.queryParamMap
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params) => {
+        const filterProspects = !!params.get("prospects");
+        const extraColumnsTable = [];
+        if(!filterProspects) {
+          this.tableLocator = tableLocators.entrepreneurs;
+          this.defaultFilters = {
+            "isProspect": [{ matchMode: "equals", operator: "and", value: false }]
+          }
+        } else {
+          this.tableLocator = tableLocators.entrepreneursProspects;
+          this.defaultFilters = {
+            "isProspect": [{ matchMode: "equals", operator: "and", value: true }]
+          }
+        }
+        this.optionsTable = {
+          save: true,
+          download: false,
+          details: true,
+          summary: 'Emprendedores',
+          showConfigButton: true,
+          redirect: null,
+          selection: true,
+          actions_row: 'compress',
+          actionsPerRow: [],
+          extraColumnsTable: extraColumnsTable,
+          actionsTable: [],
+        };
+        this.loadComponent();
+      });
   }
 
   ngOnDestroy() {
@@ -119,6 +129,7 @@ export class EntrepreneursComponent {
           form: startupsForm._id,
         },
       ],
+      defaultFilters: this.defaultFilters,
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;

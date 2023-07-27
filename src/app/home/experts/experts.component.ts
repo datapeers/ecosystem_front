@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
 import { User } from '@auth/models/user';
@@ -8,6 +9,7 @@ import { DocumentProvider } from '@shared/components/dynamic-table/models/docume
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
 import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
+import { TableFilters } from '@shared/components/dynamic-table/models/table-filters';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
@@ -32,24 +34,44 @@ export class ExpertsComponent {
   entityForm: AppForm;
   onDestroy$: Subject<void> = new Subject();
   user: User;
+  defaultFilters: TableFilters;
   constructor(
     private store: Store<AppState>,
     private readonly formService: FormService,
-    private readonly toast: ToastService
+    private readonly toast: ToastService,
+    private readonly route: ActivatedRoute,
   ) {
-    this.optionsTable = {
-      save: true,
-      download: true,
-      details: true,
-      summary: 'Expertos',
-      showConfigButton: true,
-      redirect: null,
-      selection: true,
-      actions_row: 'compress',
-      actionsPerRow: [],
-      extraColumnsTable: [],
-      actionsTable: [],
-    };
+    this.route.queryParamMap
+    .pipe(takeUntil(this.onDestroy$))
+    .subscribe((params) => {
+      const filterProspects = !!params.get("prospects");
+      const extraColumnsTable = [];
+      if(!filterProspects) {
+        this.tableLocator = tableLocators.experts;
+        this.defaultFilters = {
+          "isProspect": [{ matchMode: "equals", operator: "and", value: false }]
+        }
+      } else {
+        this.tableLocator = tableLocators.expertsProspects;
+        this.defaultFilters = {
+          "isProspect": [{ matchMode: "equals", operator: "and", value: true }]
+        }
+      }
+      this.optionsTable = {
+        save: true,
+        download: false,
+        details: true,
+        summary: 'Expertos',
+        showConfigButton: true,
+        redirect: null,
+        selection: true,
+        actions_row: 'compress',
+        actionsPerRow: [],
+        extraColumnsTable: extraColumnsTable,
+        actionsTable: [],
+      };
+      this.loadComponent();
+    });
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)
@@ -58,7 +80,7 @@ export class ExpertsComponent {
   }
 
   ngOnInit(): void {
-    this.loadComponent();
+
   }
 
   ngOnDestroy() {
