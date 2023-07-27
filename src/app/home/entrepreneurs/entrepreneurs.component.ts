@@ -46,7 +46,7 @@ export class EntrepreneursComponent {
   ) {
     this.optionsTable = {
       save: true,
-      download: true,
+      download: false,
       details: true,
       summary: 'Emprendedores',
       showConfigButton: true,
@@ -54,7 +54,18 @@ export class EntrepreneursComponent {
       selection: true,
       actions_row: 'compress',
       actionsPerRow: [],
-      extraColumnsTable: [],
+      extraColumnsTable: [
+        {
+          label: 'Prospecto',
+          key: 'isProspect',
+          type: TableColumnType.data,
+          format: 'boolean',
+          booleanText: {
+            true: 'Si',
+            false: 'No',
+          },
+        },
+      ],
       actionsTable: [],
     };
     firstValueFrom(

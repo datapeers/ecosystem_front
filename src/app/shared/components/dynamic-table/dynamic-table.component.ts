@@ -133,6 +133,7 @@ export class DynamicTableComponent {
   }
 
   handleLazyLoadChange(lazyLoadEvent: LazyLoadEvent) {
+    if(!this.config) return;
     this.lastLazyEvent = cloneDeep(lazyLoadEvent);
     Object.freeze(this.lastLazyEvent);
     this.onLazyLoad.emit(this.lastLazyEvent);
