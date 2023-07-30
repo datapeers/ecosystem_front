@@ -14,6 +14,7 @@ import {
   faList,
   faCamera,
   faUsers,
+  faPenRuler,
 } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
@@ -229,6 +230,13 @@ export class PhasesService {
         label: 'Bolsas de horas',
         rute: ['phases', phase._id, 'bag-hours'],
         icon: faCalendar,
+        type: 'single',
+      });
+    if (user?.allowed(Permission.evaluation_view))
+      menu.options.push({
+        label: 'Evaluaciones',
+        rute: ['phases', phase._id, 'evaluations'],
+        icon: faPenRuler,
         type: 'single',
       });
     return menu;

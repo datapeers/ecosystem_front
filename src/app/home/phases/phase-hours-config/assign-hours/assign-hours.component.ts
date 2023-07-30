@@ -73,8 +73,9 @@ export class AssignHoursComponent implements OnInit, OnChanges {
       index++;
     }
     if (pendingIndexItems.length !== 0) {
-      this.hoursOneByOne = Math.round(
-        (this.limit - this.globalHours) / pendingIndexItems.length
+      this.hoursOneByOne = this.getHoursForOthers(
+        this.limit - this.globalHours,
+        pendingIndexItems.length
       );
       for (const iterator of pendingIndexItems) {
         this.list[iterator].limit = this.hoursOneByOne;
@@ -125,11 +126,15 @@ export class AssignHoursComponent implements OnInit, OnChanges {
       }
       indexStartup++;
     }
-    let hoursForOthersStartups = Math.round(
-      limitHoursStartups / pendingStartups.length
-    );
-    for (const indexPendingStartup of pendingStartups) {
-      item.to[indexPendingStartup].limit = hoursForOthersStartups;
+    if (pendingStartups.length) {
+      let hoursForOthersStartups = this.getHoursForOthers(
+        limitHoursStartups,
+        pendingStartups.length
+      );
+
+      for (const indexPendingStartup of pendingStartups) {
+        item.to[indexPendingStartup].limit = hoursForOthersStartups;
+      }
     }
   }
 
@@ -155,5 +160,13 @@ export class AssignHoursComponent implements OnInit, OnChanges {
 
   getSumStartupHours(item: IAssignItem) {
     return item.to.reduce((ac, cv) => ac + cv.limit, 0);
+  }
+
+  getHoursForOthers(limit: number, pending: number) {
+    let hoursForOthersStartups = Math.round(limit / pending);
+    if (hoursForOthersStartups * pending > limit) {
+      return this.getHoursForOthers(limit - 1, pending);
+    }
+    return hoursForOthersStartups;
   }
 }
