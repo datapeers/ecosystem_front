@@ -218,6 +218,13 @@ export class PhasesService {
         type: 'single',
       });
     }
+    if (user?.allowed(Permission.evaluation_view))
+      menu.options.push({
+        label: 'Evaluaciones',
+        rute: ['phases', phase._id, 'evaluations'],
+        icon: faPenRuler,
+        type: 'single',
+      });
     if (user?.allowed(Permission.events_view))
       menu.options.push({
         label: 'Eventos',
@@ -232,13 +239,7 @@ export class PhasesService {
         icon: faCalendar,
         type: 'single',
       });
-    if (user?.allowed(Permission.evaluation_view))
-      menu.options.push({
-        label: 'Evaluaciones',
-        rute: ['phases', phase._id, 'evaluations'],
-        icon: faPenRuler,
-        type: 'single',
-      });
+
     return menu;
   }
 }

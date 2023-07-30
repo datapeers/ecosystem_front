@@ -51,6 +51,16 @@ export class ToastService {
       detail: 'Solo se permite visualizar a las cuentas que no sean usuarios',
     });
   }
+
+  loading() {
+    this.messageService.add({
+      severity: 'info',
+      key: this.key,
+      summary: 'Cargando....',
+      detail: '',
+      life: 20000,
+    });
+  }
 }
 
 export interface IToastMessage {

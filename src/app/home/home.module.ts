@@ -48,6 +48,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
 import { AssignHoursComponent } from './phases/phase-hours-config/assign-hours/assign-hours.component';
 import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-evaluations.component';
+import { EvaluationTablesComponent } from './phases/phase-evaluations/evaluation-tables/evaluation-tables.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-eval
     QrViewComponent,
     AssignHoursComponent,
     PhaseEvaluationsComponent,
+    EvaluationTablesComponent,
   ],
   imports: [
     CommonModule,

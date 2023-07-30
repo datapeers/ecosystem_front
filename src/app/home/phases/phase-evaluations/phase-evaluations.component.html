@@ -1,1 +1,137 @@
-<p>phase-evaluations works!</p>
+<ng-container *ngIf="loaded; else loadingTemplate">
+    <div class="p-4">
+        <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
+            <h2>Evaluaciones</h2>
+            <div class="flex flex-row gap-2">
+                <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
+                <p-button *ngIf="user?.allowed(userPermission.evaluation_create)" label="Crear evaluación" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
+            </div>
+        </div>
+        <p-accordion [activeIndex]="0">
+            <p-accordionTab *ngFor="let item of configEvaluationList">
+                <ng-template pTemplate="header">
+                    <div class="w-full flex flex-row align-items-center justify-content-between">
+                        <div class="flex align-items-center">
+                            <i class="pi pi-calendar mr-2"></i>
+                            <span class="vertical-align-middle">{{item.title}}</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <p-button *ngIf="user?.allowed(userPermission.evaluation_edit)" icon="pi pi-pencil" styleClass="p-button-rounded p-button-text p-button-raised" (onClick)="openCreator(item)" pTooltip="Editar evaluación"></p-button>
+                            <p-button *ngIf="user?.allowed(userPermission.evaluation_edit)" icon="pi pi-trash" styleClass="p-button-rounded p-button-danger p-button-raised" (onClick)="deleteConfig(item)" pTooltip="Borrar evaluación"></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-evaluation-tables *ngIf="item" [config]="item"></app-evaluation-tables>
+                </ng-template>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+</ng-container>
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>
+
+<p-dialog [header]="newConfigEvaluation.get('_id').value ? 'Editar evaluación' : 'Crear evaluación'" [(visible)]="showCreatorEvaluation" [style]="{ width: '80vw', 'max-height': '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
+    <div style="height: 1.5rem;"></div>
+    <form [formGroup]="newConfigEvaluation" class="formgrid grid pt-2">
+        <div class="field col-12 md:col-6">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-tag"></i>
+                </span>
+                <span class="p-float-label">
+                    <input pInputText type="text" formControlName="title" placeholder="Nombre" required>
+                    <label for="name">Nombre</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="field col-12 md:col-6">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-id-card"></i>
+                </span>
+                <span class="p-float-label" style="width: 100%">
+                    <p-dropdown styleClass="w-full" id="formSelector" [options]="forms" formControlName="form" optionLabel="label" optionValue="id" [style]="{ width: '100%' }" appendTo="body" [autoDisplayFirst]="false" [readonly]="newConfigEvaluation.get('_id').value"></p-dropdown>
+                    <label for="formSelector">Formulario</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="field col-12 md:col-6 pt-4">
+            <div class="flex">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user-edit"></i>
+                </span>
+                <span class="p-float-label" style="width: 100%">
+                    <p-dropdown styleClass="w-full" id="reviewers" [options]="reviewers" formControlName="reviewer" optionLabel="name" optionValue="value" [style]="{ width: '100%' }" appendTo="body" [autoDisplayFirst]="false" [ngClass]="{'ng-invalid ng-dirty': newConfigEvaluation.hasError('avoidMatchValidator')}" [readonly]="newConfigEvaluation.get('_id').value"></p-dropdown>
+                    <label for="reviewers">Quienes evalúan</label>
+                </span>
+            </div>
+            <div [hidden]="newConfigEvaluation.valid || !newConfigEvaluation.dirty" class="alert alert-danger">
+                <small *ngIf="newConfigEvaluation.hasError('avoidMatchValidator')" class="error-message">Quienes evalúan no pueden ser igual a quienes son evaluados</small>
+            </div>
+        </div>
+
+        <div class="field col-12 md:col-6 pt-4">
+            <div class="flex">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-users"></i>
+                </span>
+                <span class="p-float-label" style="width: 100%">
+                    <p-dropdown styleClass="w-full" id="evaluated" [options]="evaluated" formControlName="evaluated" optionLabel="name" optionValue="value" [style]="{ width: '100%' }" appendTo="body" [autoDisplayFirst]="false" [ngClass]="{'ng-invalid ng-dirty': newConfigEvaluation.hasError('avoidMatchValidator')}" [readonly]="newConfigEvaluation.get('_id').value"></p-dropdown>
+                    <label for="evaluated">Quienes son evaluados</label>
+                </span>
+            </div>
+            <div [hidden]="newConfigEvaluation.valid || !newConfigEvaluation.dirty" class="alert alert-danger">
+                <small *ngIf="newConfigEvaluation.hasError('avoidMatchValidator')" class="error-message">Quienes evalúan no pueden ser igual a quienes son evaluados</small>
+            </div>
+        </div>
+
+        <div class="field col-6 pt-3 md:col-6">
+            <div class="flex">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-calendar-times"></i>
+                </span>
+                <span class="p-float-label" style="width: 100%">
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt" [showTime]="true"></p-calendar>
+                    <label for="calendar-first">Inicia</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="field col-6 pt-3 md:col-6">
+            <div class="flex">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-calendar-times"></i>
+                </span>
+                <span class="p-float-label" style="width: 100%">
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt" [showTime]="true" [minDate]="newConfigEvaluation.get('startAt').value"></p-calendar>
+                    <label for="calendar-first">Termina</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="field col-12 pt-3 md:col-12 ">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-align-left"></i>
+                </span>
+                <span class="p-float-label">
+                    <textarea id="descEvent" rows="3" style="width: 100%;" formControlName="description" pInputTextarea></textarea>
+                    <label for="descEvent">Descripción</label>
+                </span>
+            </div>
+        </div>
+        <div style="height: 1rem;"></div>
+    </form>
+    <ng-container *ngIf="!newConfigEvaluation.get('_id').value; else editButton">
+        <p-button type="submit" label="Crear" (onClick)="createConfig()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving || newConfigEvaluation.invalid"></p-button>
+    </ng-container>
+    <ng-template #editButton>
+        <p-button type="submit" label="Guardar cambios" (onClick)="saveEditConfig()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving || newConfigEvaluation.invalid"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

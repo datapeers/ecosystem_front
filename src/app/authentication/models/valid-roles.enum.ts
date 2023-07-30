@@ -40,3 +40,16 @@ export const validRoles = Object.entries(rolNames).map(([key, value]) => {
     value: key as ValidRoles,
   };
 });
+
+export const rolesListApp = Object.entries(rolNames).map(([key, value]) => {
+  if (key === ValidRoles.user) {
+    return {
+      name: 'Startups',
+      value: key,
+    };
+  }
+  return {
+    name: value,
+    value: key as ValidRoles,
+  };
+});

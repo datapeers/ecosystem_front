@@ -265,7 +265,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         name: teamCoach.fullName,
       });
     }
-    console.log(this.teamCoachList);
   }
 
   openEdit(event) {
