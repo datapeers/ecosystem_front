@@ -29,6 +29,7 @@ import { SiteManagementComponent } from './site-management/site-management.compo
 import { SiteServicesManagementComponent } from './site-management/site-services-management/site-services-management.component';
 import { ValidateParticipationComponent } from './phases/phase-events/validate-participation/validate-participation.component';
 import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-evaluations.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,10 @@ const routes: Routes = [
       {
         path: 'communities',
         component: CommunitiesComponent,
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent,
       },
       {
         path: 'site_management',

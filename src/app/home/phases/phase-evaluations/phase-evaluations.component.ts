@@ -56,12 +56,6 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
     this.newConfigEvaluation = newConfigEvaluation(null);
-    this.reviewers = rolesListApp.filter((i) =>
-      this.canBeReviewer.includes(i.value)
-    );
-    this.evaluated = rolesListApp.filter((i) =>
-      this.canBeEvaluated.includes(i.value)
-    );
   }
 
   ngOnInit(): void {
@@ -213,5 +207,13 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
         ];
         break;
     }
+    this.canBeEvaluated = [...this.canBeEvaluated];
+    this.canBeReviewer = [...this.canBeReviewer];
+    this.reviewers = rolesListApp.filter((i) =>
+      this.canBeReviewer.includes(i.value)
+    );
+    this.evaluated = rolesListApp.filter((i) =>
+      this.canBeEvaluated.includes(i.value)
+    );
   }
 }

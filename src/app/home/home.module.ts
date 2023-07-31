@@ -49,6 +49,7 @@ import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
 import { AssignHoursComponent } from './phases/phase-hours-config/assign-hours/assign-hours.component';
 import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-evaluations.component';
 import { EvaluationTablesComponent } from './phases/phase-evaluations/evaluation-tables/evaluation-tables.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { EvaluationTablesComponent } from './phases/phase-evaluations/evaluation
     AssignHoursComponent,
     PhaseEvaluationsComponent,
     EvaluationTablesComponent,
+    CalendarComponent,
   ],
   imports: [
     CommonModule,

@@ -30,6 +30,7 @@ import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { BackgroundComponent } from './shared/components/layout/background/background.component';
 import { LandingComponent } from './public/landing/landing.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 registerLocaleData(localeEs);
 @NgModule({
@@ -59,6 +60,7 @@ registerLocaleData(localeEs);
     GraphQLModule,
     HttpClientModule,
     AppSharedModule,
+    FullCalendarModule,
   ],
   providers: [
     AuthService,
