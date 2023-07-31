@@ -182,7 +182,8 @@ export const permissionDescriptions: Record<Permission, string> = {
     'Permitir crear una configuración para evaluaciones',
   [Permission.evaluation_edit]:
     'Permitir editar las configuraciones de una evaluación',
-  [Permission.evaluation_edit_docs]: 'Permitir editar las evaluaciones',
+  [Permission.evaluation_edit_docs]:
+    'Permitir evaluar en cualquiera de las evaluaciones',
 };
 
 export const permissionDescription = (permission: Permission) => {
