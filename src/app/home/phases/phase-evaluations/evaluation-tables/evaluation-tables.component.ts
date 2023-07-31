@@ -23,7 +23,7 @@ import { DocumentProvider } from '@shared/components/dynamic-table/models/docume
 import { PhaseEvaluationsService } from '../phase-evaluations.service';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { IEvaluation } from '../models/evaluation';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-evaluation-tables',
   templateUrl: './evaluation-tables.component.html',
@@ -132,6 +132,7 @@ export class EvaluationTablesComponent {
   }: TableActionEvent) {
     switch (action) {
       case 'evaluated':
+        if (!this.validDate()) return;
         const item: IEvaluation = rawDataTable.find(
           (i) => i._id === element._id
         );
@@ -163,5 +164,30 @@ export class EvaluationTablesComponent {
     if ([ValidRoles.admin, ValidRoles.superAdmin].includes(rol)) return true;
     if (rol === this.config.reviewer) return true;
     return false;
+  }
+
+  validDate() {
+    // if (this.user.masterRol) {
+    //   return true;
+    // }
+    if (moment(new Date()).isBefore(this.config.startAt)) {
+      this.toast.alert({
+        summary: 'Aun no se puede evaluar',
+        detail: `Las evaluaciones comienzan el ${moment(
+          this.config.endAt
+        ).format('DD-M-yy, h:mm a')}`,
+      });
+      return false;
+    }
+    if (moment(new Date()).isAfter(this.config.endAt)) {
+      this.toast.alert({
+        summary: 'Las evaluaciones han terminado',
+        detail: `Las evaluaciones terminaron el ${moment(
+          this.config.endAt
+        ).format('DD-M-yy, h:mm a')}`,
+      });
+      return false;
+    }
+    return true;
   }
 }

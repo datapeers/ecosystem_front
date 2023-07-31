@@ -31,8 +31,8 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
   showCreatorEvaluation = false;
   newConfigEvaluation: FormGroup;
 
-  canBeEvaluated = [ValidRoles.user, ValidRoles.teamCoach, ValidRoles.expert];
-  canBeReviewer = [ValidRoles.host, ValidRoles.teamCoach, ValidRoles.expert];
+  canBeEvaluated = [];
+  canBeReviewer = [];
 
   forms = [];
   reviewers = [];
@@ -79,6 +79,7 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
+    this.setCanBeReviewerAndEvaluated();
     this.newConfigEvaluation = newConfigEvaluation(this.phase._id);
     this.service
       .watchConfigsEvaluations(this.phase._id)
@@ -97,28 +98,6 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
         });
         this.configEvaluationList = [];
       });
-    // this.phase = await firstValueFrom(
-    //   this.store
-    //     .select((store) => store.phase.phase)
-    //     .pipe(first((i) => i !== null))
-    // );
-    // this.newEvent = Event.newEvent(this.phase);
-    // this.service
-    //   .watchEvents(this.phase._id)
-    //   .then((events$) => {
-    //     this.events$ = events$.subscribe((eventList: Event[]) => {
-    //       this.events = eventList;
-    //       this.preloadTableItems();
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     this.toast.alert({
-    //       summary: 'Error al cargar eventos',
-    //       detail: err,
-    //       life: 12000,
-    //     });
-    //     this.typesEvents = [];
-    //   });
   }
 
   async openCreator(config?: ConfigEvaluation) {
@@ -209,5 +188,30 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
           });
       },
     });
+  }
+
+  setCanBeReviewerAndEvaluated() {
+    switch (this.user.rolType) {
+      case ValidRoles.teamCoach:
+        this.canBeEvaluated = [ValidRoles.user];
+        this.canBeReviewer = [ValidRoles.teamCoach];
+        break;
+      case ValidRoles.expert:
+        this.canBeEvaluated = [ValidRoles.user];
+        this.canBeReviewer = [ValidRoles.expert];
+        break;
+      default:
+        this.canBeEvaluated = [
+          ValidRoles.user,
+          ValidRoles.teamCoach,
+          ValidRoles.expert,
+        ];
+        this.canBeReviewer = [
+          ValidRoles.host,
+          ValidRoles.teamCoach,
+          ValidRoles.expert,
+        ];
+        break;
+    }
   }
 }
