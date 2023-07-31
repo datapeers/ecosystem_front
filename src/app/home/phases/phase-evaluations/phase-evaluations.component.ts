@@ -86,7 +86,6 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
         this.configEvaluations$ = configEvaluations$.subscribe(
           (configList: ConfigEvaluation[]) => {
             this.configEvaluationList = configList.filter((x) => !x.isDeleted);
-            console.log(this.configEvaluationList);
           }
         );
       })

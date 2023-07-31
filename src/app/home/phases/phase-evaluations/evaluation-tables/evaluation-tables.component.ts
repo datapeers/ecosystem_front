@@ -5,18 +5,24 @@ import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import {
+  TableColumn,
+  TableColumnType,
+  TableConfig,
+} from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
 import { ToastService } from '@shared/services/toast.service';
-import { Subject, first, firstValueFrom } from 'rxjs';
+import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
 import { ConfigEvaluation } from '../models/evaluation-config';
 import { Phase } from '@home/phases/model/phase.model';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { PhaseEvaluationsService } from '../phase-evaluations.service';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { IEvaluation } from '../models/evaluation';
 
 @Component({
   selector: 'app-evaluation-tables',
@@ -35,14 +41,6 @@ export class EvaluationTablesComponent {
   configTable: TableConfig;
   entityForm: AppForm;
   onDestroy$: Subject<void> = new Subject();
-  showAddExpert = false;
-  listExperts = [];
-  selectedExperts = [];
-  showAddStartups = false;
-  listStartups = [];
-  selectedStartups = [];
-  selectedExpert = null;
-  titleStartupDialog = '';
   callbackTable;
   user: User;
   phase: Phase;
@@ -56,6 +54,14 @@ export class EvaluationTablesComponent {
     private readonly toast: ToastService,
     private store: Store<AppState>
   ) {
+    const extraColumnsTable: TableColumn[] = [
+      // {
+      //   label: 'Evaluado el',
+      //   key: 'createdAt',
+      //   type: TableColumnType.data,
+      //   format: 'date',
+      // },
+    ];
     this.optionsTable = {
       save: true,
       download: false,
@@ -66,7 +72,7 @@ export class EvaluationTablesComponent {
       selection: true,
       actions_row: 'compress',
       actionsPerRow: [],
-      extraColumnsTable: [],
+      extraColumnsTable: extraColumnsTable,
       actionsTable: [],
     };
     firstValueFrom(
@@ -95,7 +101,7 @@ export class EvaluationTablesComponent {
     this.tableTitle = this.config.title;
     this.loading = true;
     this.tableContext = {
-      locator: `evaluations ${this.config._id}`,
+      locator: `evaluation ${this.config._id}`,
       name: `Evaluation ${this.config._id}`,
       form: this.config.form,
       data: {
@@ -104,6 +110,16 @@ export class EvaluationTablesComponent {
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
+    if (
+      this.user.allowed(Permission.evaluation_edit_docs) ||
+      this.allowEvaluate(this.user.rolType)
+    )
+      this.optionsTable.actionsPerRow.push({
+        action: 'evaluated',
+        label: `Evaluación`,
+        icon: 'pi pi-book',
+        featured: true,
+      });
     this.loading = false;
   }
 
@@ -115,10 +131,37 @@ export class EvaluationTablesComponent {
     rawDataTable,
   }: TableActionEvent) {
     switch (action) {
-      case 'link_expert':
-        break;
-      case 'expert_startup_link':
+      case 'evaluated':
+        const item: IEvaluation = rawDataTable.find(
+          (i) => i._id === element._id
+        );
+        const subscription = await this.formService.createFormSubscription({
+          form: this.config.form,
+          reason: 'Evaluar',
+          data: {
+            evaluated: item.evaluated,
+            reviewer: this.user._id,
+            config: this.config._id,
+            form: this.config.form,
+          },
+          doc: item.state === 'pendiente' ? undefined : item._id,
+        });
+        const ref = this.formService.openFormFromSubscription(
+          subscription,
+          'Evaluar'
+        );
+        ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
+          if (doc) {
+            callbacks.fullRefresh();
+          }
+        });
         break;
     }
+  }
+
+  allowEvaluate(rol: ValidRoles) {
+    if ([ValidRoles.admin, ValidRoles.superAdmin].includes(rol)) return true;
+    if (rol === this.config.reviewer) return true;
+    return false;
   }
 }

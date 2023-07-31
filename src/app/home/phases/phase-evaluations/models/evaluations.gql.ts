@@ -2,11 +2,12 @@ const fragments = {
   evaluationFields: `
     fragment evaluationFields on Evaluation {
       _id
+      evaluatedName
       config
       createdAt
       evaluated
       form
-      phase
+      config
       isDeleted
       item
       reviewer

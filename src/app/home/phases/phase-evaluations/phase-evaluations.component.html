@@ -7,7 +7,7 @@
                 <p-button *ngIf="user?.allowed(userPermission.evaluation_create)" label="Crear evaluación" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
             </div>
         </div>
-        <p-accordion [activeIndex]="0">
+        <p-accordion class="w-full h-full">
             <p-accordionTab *ngFor="let item of configEvaluationList">
                 <ng-template pTemplate="header">
                     <div class="w-full flex flex-row align-items-center justify-content-between">

@@ -33,8 +33,8 @@ export class User implements IUser {
   get rolName(): string {
     return this.rol.name;
   }
-  get rolType(): string {
-    return this.rol.type;
+  get rolType(): ValidRoles {
+    return this.rol.type as ValidRoles;
   }
 
   get isSuperAdmin() {
