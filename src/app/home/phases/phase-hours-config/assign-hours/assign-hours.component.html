@@ -20,7 +20,7 @@
             <td [pEditableColumn]="item.limit" pEditableColumnField="limit">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <p-inputNumber type="number" [(ngModel)]="item.limit" [min]="0" [max]="limit - list.length" (ngModelChange)="updateCalcHours(item)" suffix=" hora(s)" [showButtons]="true" />
+                        <p-inputNumber type="number" [(ngModel)]="item.limit" [min]="0" [max]="limit" (ngModelChange)="updateCalcHours(item)" suffix=" hora(s)" [showButtons]="true" />
 
                     </ng-template>
                     <ng-template pTemplate="output">
@@ -47,7 +47,7 @@
             <td [pEditableColumn]="innerItem.limit" pEditableColumnField="limit">
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <p-inputNumber type="number" [(ngModel)]="innerItem.limit" [min]="0" [max]="item.limit - item.to.length" (ngModelChange)="updateCalcHours(innerItem)" suffix=" hora(s)" [showButtons]="true" />
+                        <p-inputNumber type="number" [(ngModel)]="innerItem.limit" [min]="0" [max]="item.limit" (ngModelChange)="updateCalcHours(innerItem)" suffix=" hora(s)" [showButtons]="true" />
 
                     </ng-template>
                     <ng-template pTemplate="output">
