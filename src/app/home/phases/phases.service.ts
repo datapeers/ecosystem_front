@@ -192,7 +192,7 @@ export class PhasesService {
         },
       ],
     };
-    if (user?.allowed(Permission.phases_batch_edit)) {
+    if (phase.basePhase || user?.allowed(Permission.phases_batch_edit)) {
       menu.options.push({
         label: 'Contenidos',
         icon: faList,
@@ -200,13 +200,15 @@ export class PhasesService {
         type: 'single',
       });
     }
-    menu.options.push({
-      label: 'StartUps',
-      rute: ['phases', phase._id, 'startups'],
-      icon: faUsers,
-      type: 'single',
-    });
+    if (!phase.basePhase)
+      menu.options.push({
+        label: 'StartUps',
+        rute: ['phases', phase._id, 'startups'],
+        icon: faUsers,
+        type: 'single',
+      });
     if (
+      !phase.basePhase &&
       [ValidRoles.superAdmin, ValidRoles.admin, ValidRoles.host].includes(
         user?.rolType as ValidRoles
       )
@@ -218,14 +220,14 @@ export class PhasesService {
         type: 'single',
       });
     }
-    if (user?.allowed(Permission.evaluation_view))
+    if (!phase.basePhase && user?.allowed(Permission.evaluation_view))
       menu.options.push({
         label: 'Evaluaciones',
         rute: ['phases', phase._id, 'evaluations'],
         icon: faPenRuler,
         type: 'single',
       });
-    if (user?.allowed(Permission.events_view))
+    if (!phase.basePhase && user?.allowed(Permission.events_view))
       menu.options.push({
         label: 'Eventos',
         rute: ['phases', phase._id, 'events'],

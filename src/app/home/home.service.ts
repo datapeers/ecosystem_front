@@ -51,6 +51,7 @@ export class HomeService {
     if (user.allowed(Permission.help_desk_view)) rolOptions.push('helpDesk');
     if (user.allowed(Permission.sites_and_services_view))
       rolOptions.push('siteAndServices');
+    rolOptions.push('agenda');
     if (user.allowed(Permission.reports_view)) rolOptions.push('reports');
     if (adminOptions.includes(user.rolType as ValidRoles))
       rolOptions.push('settings');
@@ -99,7 +100,7 @@ export class HomeService {
       agenda: {
         label: 'Agenda',
         icon: faCalendar,
-        rute: '/home/agenda',
+        rute: '/home/calendar',
         queryParamsRute: {},
         type: 'single',
       },
@@ -156,7 +157,7 @@ export class HomeService {
             icon: faSearch,
             queryParamsRute: { prospects: true },
           },
-        ]
+        ],
       },
       businesses: {
         label: 'Empresas',
@@ -181,8 +182,8 @@ export class HomeService {
             type: 'single',
             icon: faSearch,
             queryParamsRute: { prospects: true },
-          }
-        ]
+          },
+        ],
       },
       expert: {
         label: 'Expertos',
@@ -201,8 +202,8 @@ export class HomeService {
             type: 'single',
             icon: faSearch,
             queryParamsRute: { prospects: true },
-          }
-        ]
+          },
+        ],
       },
       prospects: {
         label: 'Prospectos',

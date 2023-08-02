@@ -1,1 +1,93 @@
-<p>calendar works!</p>
+<ng-container *ngIf="!loadingComponent; else loadingTemplate">
+    <div class="flex flex-column gap-3 px-4 py-4 text-white agenda-container">
+        <div class="flex flex-row justify-content-end align-items-center">
+            <!--<span>
+                Se han agendado {{currentEventCount}} eventos para un total de {{currentLimit}} definidos para la fase actual.
+            </span>-->
+            <p-button label="Agendar" styleClass="p-button-raised p-button-secondary"></p-button>
+        </div>
+        <p-tabView class="shadow-elevated border-round overflow-hidden" (onChange)="reorderSizes()">
+
+            <p-tabPanel [header]="'Calendario'" *ngIf="!showDifferentDesign">
+                <!-- <div class="flex flex-row justify-content-around align-items-center p-2" *ngIf="showGraphs">
+                    <div>
+                        <p-chart type="pie" [data]="dataAsesoria" [options]="optionsAsesoria" [width]="withGraphs" [height]="heightGraphs" appendTo="body"></p-chart>
+
+                        Has consumido 15h de 21h de tu tiempo para asesorias
+                    </div>
+                    <div>
+                        <p-chart type="pie" [data]="dataMentoria" [options]="optionsMentoria" [width]="withGraphs" [height]="heightGraphs" appendTo="body"></p-chart>Has consumido 10h de 22h de tu tiempo para mentorias
+                    </div>
+                </div> -->
+                <div class="shadow-elevated border-round overflow-hidden surface-0 pb-3">
+                    <full-calendar #calendar [options]="calendarOptions" [events]="events" [deepChangeDetection]="true" class="pr-6 pl-6 pt-3"></full-calendar>
+                    <!-- <full-calendar [options]="calendarOptions" [events]="events" [deepChangeDetection]="true" class="pr-6 pl-6 pt-3"></full-calendar> -->
+                </div>
+            </p-tabPanel>
+            <p-tabPanel [header]="'Agenda'">
+                <div>
+                    <div class="flex flex-row align-items-center justify-content-end p-2">
+                        <p-button label="Descargar agenda detallada" icon="pi pi-file" iconPos="right" styleClass="p-button-raised p-button-secondary"></p-button>
+                    </div>
+                    <p-table [value]="events" responsiveLayout="scroll" styleClass="shadow-elevated border-round overflow-hidden surface-0" [tableStyle]="{'min-width': '30rem', 'max-width': '30rem'}">
+                        <ng-template pTemplate="caption">
+                            <div class="flex flex-row justify-content-between align-items-center">
+                                <span class="font-semibold">Acompañamientos</span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" class="white-space-nowrap">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                                <th>
+                                    Acta
+                                </th>
+                                <th>
+                                    Herramientas
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-event>
+                            <tr>
+                                <td>{{event.title}}</td>
+                                <td>{{event.start | date}}</td>
+                                <td>{{event?.extendedProps?.tipo?.name}}</td>
+                                <td>{{event?.extendedProps?.responsible?.name}}</td>
+                                <td>{{event?.extendedProps?.requestDate | date}}</td>
+                                <td>{{event?.extendedProps?.state}}</td>
+                                <td>
+                                    <ng-container *ngIf="event?.extendedProps?.state === 'Completado'; else noActa">
+                                        <!-- <p-button (onClick)="downloadActa()" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Descargar"></p-button> -->
+                                    </ng-container>
+                                    <ng-template #noActa>
+                                        Acta no disponible
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <span class="flex flex-row gap-2">
+                                        <!-- <p-button (onClick)="viewFiles(event)" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button> -->
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td [attr.colspan]="6">
+                                    <div class="w-full flex flex-row justify-content-center align-items-center flex-wrap">
+                                        <span>No hay eventos disponibles</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</ng-container>
+
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>

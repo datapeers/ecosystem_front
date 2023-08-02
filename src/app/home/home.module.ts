@@ -50,7 +50,7 @@ import { AssignHoursComponent } from './phases/phase-hours-config/assign-hours/a
 import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-evaluations.component';
 import { EvaluationTablesComponent } from './phases/phase-evaluations/evaluation-tables/evaluation-tables.component';
 import { CalendarComponent } from './calendar/calendar.component';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -109,6 +109,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     StorageModule,
     AppSharedModule,
     QRCodeModule,
+    FullCalendarModule,
   ],
 })
 export class HomeModule {}
