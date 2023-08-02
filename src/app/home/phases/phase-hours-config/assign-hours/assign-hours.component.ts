@@ -37,6 +37,7 @@ export class AssignHoursComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.updateCalcHours(null);
+    // console.log('limite', this.limit);
   }
 
   setVars() {
@@ -113,7 +114,8 @@ export class AssignHoursComponent implements OnInit, OnChanges {
       );
       if (
         previousConfig &&
-        this.previousHoursStartups[startup.id] === previousConfig.limit
+        this.previousHoursStartups[startup.id] === previousConfig.limit &&
+        previousConfig.limit === startup.limit
       ) {
         limitHoursStartups -= previousConfig.limit;
       } else {
