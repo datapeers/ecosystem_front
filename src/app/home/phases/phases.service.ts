@@ -176,7 +176,8 @@ export class PhasesService {
   removePhaseThumbnail(phase: Phase) {
     return this.storageService.deleteFile(
       `phases/${phase._id}/thumbnail`,
-      phase._id
+      phase._id,
+      true
     );
   }
 

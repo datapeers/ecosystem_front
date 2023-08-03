@@ -52,6 +52,14 @@ const query = {
     }
     ${fragments.eventFields}
   `,
+  getEventsUser: `
+    query EventsUser {
+      eventsUser {
+        ...eventFields
+      }
+    }
+    ${fragments.eventFields}
+  `,
 };
 
 const mutation = {

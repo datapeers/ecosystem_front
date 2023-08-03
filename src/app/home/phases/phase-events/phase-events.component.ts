@@ -133,6 +133,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.typesEvent$?.unsubscribe();
+    this.events$?.unsubscribe();
     this.ref?.close();
   }
 

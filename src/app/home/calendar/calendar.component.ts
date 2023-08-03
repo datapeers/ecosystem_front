@@ -23,6 +23,9 @@ import { cloneDeep } from 'lodash';
 import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CalendarService } from './calendar.service';
+import { PhaseEventsService } from '@home/phases/phase-events/phase-events.service';
+import { Event, TypeEvent } from '@home/phases/model/events.model';
+import { ICalendarItem } from './models/item-calendar';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -106,7 +109,7 @@ export class CalendarComponent {
   //   initialView: 'dayGridMonth',
   //   plugins: [dayGridPlugin],
   // };
-  events: any[] = [];
+  events: ICalendarItem[] = [];
 
   dataAsesoria;
   optionsAsesoria;
@@ -127,11 +130,16 @@ export class CalendarComponent {
   }
 
   showDifferentDesign = false;
-
+  loaded = false;
+  typesEvents: TypeEvent[] = [];
+  showedTypesEvents: { [s: string]: TypeEvent } = {};
+  typesEvent$: Subscription;
+  events$: Subscription;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
     private dialogService: DialogService,
+    private eventService: PhaseEventsService,
     private service: CalendarService
   ) {
     this.setGraph();
@@ -139,14 +147,15 @@ export class CalendarComponent {
 
   ngOnInit(): void {
     this.loadingComponent = false;
-    setTimeout(() => {
-      this.resizeCalendar();
-    }, 500);
+    this.loadComponent();
   }
 
   ngOnDestroy() {
     this.onDestroy$.next(true);
     this.onDestroy$.complete();
+    this.typesEvent$?.unsubscribe();
+    this.events$?.unsubscribe();
+    // this.ref?.close();
   }
 
   resizeCalendar() {
@@ -222,5 +231,69 @@ export class CalendarComponent {
       this.resizeCalendar();
       this.setSizeGraphs();
     }, 300);
+  }
+
+  loadComponent() {
+    this.loaded = true;
+    this.eventService
+      .watchTypesEvents()
+      .then((typesEvent$) => {
+        this.typesEvent$ = typesEvent$.subscribe(
+          (typeEventList: TypeEvent[]) => {
+            this.typesEvents = typeEventList.filter((x) => !x.isDeleted);
+            for (const iterator of this.typesEvents)
+              this.showedTypesEvents[iterator._id] = iterator;
+            console.log(this.showedTypesEvents);
+          }
+        );
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar tipo de eventos',
+          detail: err,
+          life: 12000,
+        });
+        this.typesEvents = [];
+      });
+    this.service
+      .watchEvents()
+      .then((events$) => {
+        this.events$ = events$.subscribe((eventList: Event[]) => {
+          // this.events = eventList;
+          this.events = [];
+          for (const iterator of eventList) {
+            this.assignItem(iterator);
+          }
+          this.resizeCalendar();
+          console.log(this.events);
+        });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar eventos',
+          detail: err,
+          life: 12000,
+        });
+        this.typesEvents = [];
+      });
+  }
+
+  assignItem(event: Event) {
+    this.events.push({
+      id: event._id,
+      title: event.name,
+      start: event.startAt,
+      end: event.endAt,
+      extendedProps: {
+        participants: event.participants,
+        participantsName: event.participants.map((i) => i.name).join(', '),
+        teamCoaches: event.teamCoaches,
+        teamCoachesName: event.teamCoaches.map((i) => i.name).join(', '),
+        experts: event.experts,
+        expertsName: event.experts.map((i) => i.name).join(', '),
+        batch: event.phase,
+        type: this.showedTypesEvents[event.type]?.name,
+      },
+    });
   }
 }

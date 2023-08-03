@@ -43,13 +43,14 @@ export class StorageService {
 
   deleteFile(
     filePath: string,
-    fileName: string
+    fileName: string,
+    publicFile?: boolean
   ): Observable<HttpEvent<HttpEventType>> {
     const headers = new HttpHeaders();
     headers.set('Content-type', 'application/json');
     const request = this.http.post<{ url: string }>(
       this.apiUrl,
-      { name: `${filePath}/${fileName}` },
+      { name: `${filePath}/${fileName}`, publicFile },
       { headers: headers }
     );
     return request.pipe(
