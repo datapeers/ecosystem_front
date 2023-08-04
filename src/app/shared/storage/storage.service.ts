@@ -25,7 +25,7 @@ export class StorageService {
     // Get a presigned URL for uploading the file
     const headers = new HttpHeaders();
     headers.set('Content-type', 'application/json');
-    const key = `${filePath}/${file.name}`;
+    const key = `${filePath}/${file.name}-${Date.now()}`;
     const request = this.http.post<{ url: string }>(
       this.apiUrl,
       { name: key, publicFile },

@@ -24,7 +24,7 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
   clonedEdit: { [s: string]: Phase } = {};
   configTiny = configTinyMce;
   user: User;
-  showThumbnail = true;
+  thumbnail;
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -38,7 +38,7 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
       .select((state) => state.phase.phase)
       .subscribe((phase) => {
         this.phase = cloneDeep(phase);
-        console.log(this.phase);
+        this.thumbnail = this.phase?.thumbnail;
       });
     firstValueFrom(
       this.store
@@ -82,6 +82,7 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
       detail: 'Por favor espere',
       life: 10000,
     });
+    this.thumbnail = 'assets/noPic.jpg';
     this.service
       .updatePhaseThumbnail(phase, fileToUpload)
       .pipe(
@@ -100,17 +101,20 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
             .then((phase) => {
               this.toast.clear();
               this.successChange('thumbnail', phase);
-              this.showThumbnail = false;
-              setTimeout(() => {
-                this.showThumbnail = true;
-              }, 300);
             })
             .catch((err) => {
               this.toast.clear();
               this.failChange(err);
+            })
+            .finally(() => {
+              this.thumbnail = this.phase.thumbnail;
             });
         }
       });
+  }
+
+  returnUrlThumbnail(): string {
+    return this.thumbnail;
   }
 
   removeImage(phase: Phase) {
