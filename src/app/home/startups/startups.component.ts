@@ -95,10 +95,6 @@ export class StartupsComponent {
     ).then((u) => (this.user = u));
   }
 
-  ngOnInit(): void {
-    this.loadComponent();
-  }
-
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
