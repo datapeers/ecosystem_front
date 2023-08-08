@@ -70,9 +70,21 @@ export class InvitationsComponent implements OnInit {
 
   async createInvitation(email: string, rol: ValidRoles) {
     this.hideInvitationDialog();
+    this.toast.info({ summary: 'Enviando...', detail: '', life: 20000 });
     const invitation = await this.service.createInvitation(email, rol);
     if (invitation) {
+      this.toast.clear();
+      this.toast.success({
+        summary: 'Invitación enviada',
+        detail: 'La invitación ha sido enviada al correo electrónico.',
+      });
       await this.loadInvitations();
+    } else {
+      this.toast.clear();
+      this.toast.error({
+        summary: 'Invitación invalida',
+        detail: 'Ha ocurrido un error en el envió de la invitación.',
+      });
     }
   }
 
