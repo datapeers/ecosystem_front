@@ -44,6 +44,14 @@ const query = {
     }
     ${fragments.actaFields}
   `,
+  getActaEventsList: `
+    query ActaEventsList($events: [String!]!) {
+      actaEventsList(events: $events) {
+        ...actaFields
+      }
+    }
+    ${fragments.actaFields}
+  `,
 };
 
 const mutation = {

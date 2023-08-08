@@ -69,4 +69,18 @@ export class ActaService {
       )
     );
   }
+
+  getActasByEvents(events: string[]) {
+    this._getActa = this.graphql.refQuery(
+      actasQueries.query.getActaEventsList,
+      { events },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(this._getActa)
+        .pipe(map((request) => request.data.actaEventsList))
+    );
+  }
 }

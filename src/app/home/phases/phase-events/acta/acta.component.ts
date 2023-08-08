@@ -70,6 +70,7 @@ export class ActaComponent implements OnInit, OnDestroy {
     this.loaded = false;
     if (!this.event) this.close();
     if (!this.phase) this.close();
+    console.log(this.event);
     this.service
       .getActa(this.event._id)
       .then((acta) => {

@@ -21,11 +21,16 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { cloneDeep } from 'lodash';
 import { ToastService } from '@shared/services/toast.service';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CalendarService } from './calendar.service';
 import { PhaseEventsService } from '@home/phases/phase-events/phase-events.service';
 import { Event, TypeEvent } from '@home/phases/model/events.model';
 import { ICalendarItem } from './models/item-calendar';
+import { ActaService } from '@home/phases/phase-events/acta/acta.service';
+import { Acta, IActa } from '@home/phases/model/acta.model';
+import { StorageService } from '@shared/storage/storage.service';
+import { ActaComponent } from '@home/phases/phase-events/acta/acta.component';
+import { PhasesService } from '@home/phases/phases.service';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -39,12 +44,13 @@ export class CalendarComponent {
   activities: any[];
   currentLimit: number = 0;
   currentEventCount: number = 0;
-  phase: Phase;
   user: User;
-  // selectedEvent: CalendarEvent;
+
+  selectedEvent: ICalendarItem;
   openEventDialog: boolean = false;
   openActaDialog: boolean = false;
   openFilesDialog: boolean = false;
+
   userRequests: any[] = [];
   onDestroy$: Subject<boolean> = new Subject();
   participantId?: string;
@@ -68,14 +74,6 @@ export class CalendarComponent {
     {
       header: 'Responsable',
       field: 'extendedProps.responsible.name',
-    },
-    {
-      header: 'Fecha solicitud',
-      field: 'extendedProps.requestDate',
-    },
-    {
-      header: 'Estado',
-      field: 'extendedProps.state',
     },
   ];
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
@@ -135,12 +133,19 @@ export class CalendarComponent {
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   typesEvent$: Subscription;
   events$: Subscription;
+  actas: IActa[] = [];
+  phases: Phase[] = [];
+  originalEvents: Event[] = [];
+  ref: DynamicDialogRef | undefined;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
     private dialogService: DialogService,
-    private eventService: PhaseEventsService,
-    private service: CalendarService
+    private readonly actasService: ActaService,
+    private readonly eventService: PhaseEventsService,
+    private readonly service: CalendarService,
+    private readonly phaseService: PhasesService,
+    private readonly storageService: StorageService
   ) {
     this.setGraph();
   }
@@ -233,7 +238,7 @@ export class CalendarComponent {
     }, 300);
   }
 
-  loadComponent() {
+  async loadComponent() {
     this.loaded = true;
     this.eventService
       .watchTypesEvents()
@@ -243,7 +248,6 @@ export class CalendarComponent {
             this.typesEvents = typeEventList.filter((x) => !x.isDeleted);
             for (const iterator of this.typesEvents)
               this.showedTypesEvents[iterator._id] = iterator;
-            console.log(this.showedTypesEvents);
           }
         );
       })
@@ -257,15 +261,21 @@ export class CalendarComponent {
       });
     this.service
       .watchEvents()
-      .then((events$) => {
-        this.events$ = events$.subscribe((eventList: Event[]) => {
+      .then(async (events$) => {
+        this.events$ = events$.subscribe(async (eventList: Event[]) => {
           // this.events = eventList;
+          this.actas = await this.actasService.getActasByEvents(
+            eventList.map((i) => i._id)
+          );
+          this.phases = await this.phaseService.getPhases();
           this.events = [];
+          this.originalEvents = eventList;
+          console.log(this.originalEvents);
           for (const iterator of eventList) {
             this.assignItem(iterator);
           }
-          this.resizeCalendar();
           console.log(this.events);
+          this.resizeCalendar();
         });
       })
       .catch((err) => {
@@ -293,7 +303,49 @@ export class CalendarComponent {
         expertsName: event.experts.map((i) => i.name).join(', '),
         batch: event.phase,
         type: this.showedTypesEvents[event.type]?.name,
+        acta: this.actas.find((i) => i.event === event._id),
+        files: event.extra_options?.files,
       },
+    });
+  }
+
+  viewFiles(evt: ICalendarItem) {
+    this.selectedEvent = evt;
+    this.openFilesDialog = true;
+  }
+
+  async downloadFile(urlFile: string) {
+    const key = this.storageService.getKey(urlFile);
+    const url = await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      window.open(url, '_blank');
+    }
+  }
+
+  showActa(eventCalendar: ICalendarItem) {
+    const event = this.originalEvents.find((i) => i._id === eventCalendar.id);
+    this.ref = this.dialogService.open(ActaComponent, {
+      header: 'Acta',
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      data: {
+        event,
+        phase: this.phases.find(
+          (i) => i._id === eventCalendar.extendedProps.batch
+        ),
+        user: this.user,
+      },
+    });
+
+    this.ref.onClose.subscribe((acta: Acta) => {
+      if (acta?._id && !event.extra_options.acta) {
+        this.eventService.updateEvent({
+          _id: event._id,
+          extra_options: { ...event.extra_options, acta: acta._id },
+        });
+      }
     });
   }
 }
