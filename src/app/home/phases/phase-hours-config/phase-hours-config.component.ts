@@ -6,7 +6,7 @@ import { Subscription, first, firstValueFrom, filter } from 'rxjs';
 import { Phase } from '../model/phase.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import { ActivitiesConfig } from '../model/activities.model';
+import { ActivitiesConfig, IAssignItem } from '../model/activities.model';
 import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
 import { User } from '@auth/models/user';
@@ -156,6 +156,28 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       });
       return;
     }
+    if (
+      this.hoursStartupsInvalid(this.activitiesConfig.calcHoursExperts.list)
+    ) {
+      this.toast.alert({
+        summary: 'Configuración inválida',
+        detail:
+          'La cantidad de horas asignadas a las startups por experto no coinciden',
+        life: 3000,
+      });
+      return;
+    }
+    if (
+      this.hoursStartupsInvalid(this.activitiesConfig.calcHoursTeamCoaches.list)
+    ) {
+      this.toast.alert({
+        summary: 'Configuración inválida',
+        detail:
+          'La cantidad de horas asignadas a las startups por team coach no coinciden',
+        life: 3000,
+      });
+      return;
+    }
     this.service
       .updateConfig(this.activitiesConfig._id, {
         activities: this.showActivityConfig.map((i) => {
@@ -197,5 +219,24 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     }
     this.expertsHours = this.totalActivities - hoursTeamCoaches;
     this.teamCoachesHours = hoursTeamCoaches;
+  }
+
+  hoursStartupsInvalid(list: IAssignItem[]) {
+    for (const iterator of list) {
+      const limit = iterator.limit;
+      let countHoursStartups = 0;
+      for (const startup of iterator.to) {
+        const previousConfig = this.activitiesConfig.startups.find(
+          (i) => i.id === startup.id && i.from === iterator.from
+        );
+        countHoursStartups += previousConfig
+          ? previousConfig.limit
+          : startup.limit;
+      }
+      if (limit < countHoursStartups) {
+        return true;
+      }
+    }
+    return false;
   }
 }

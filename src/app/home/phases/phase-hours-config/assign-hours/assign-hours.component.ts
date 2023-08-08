@@ -110,7 +110,7 @@ export class AssignHoursComponent implements OnInit, OnChanges {
     let indexStartup = 0;
     for (const startup of item.to) {
       const previousConfig = this.activitiesConfig.startups.find(
-        (i) => i.id === startup.id
+        (i) => i.id === startup.id && i.from === item.from
       );
       if (
         previousConfig &&
