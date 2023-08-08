@@ -41,7 +41,10 @@ export class ExpertsService implements DocumentProvider {
     );
   }
 
-  async getDocumentsPage(_: any, request: PageRequest): Promise<PaginatedResult<Expert>> {
+  async getDocumentsPage(
+    _: any,
+    request: PageRequest
+  ): Promise<PaginatedResult<Expert>> {
     const queryRef = this.graphql.refQuery(
       expertsQueries.query.expertsPage,
       { request },
@@ -50,7 +53,7 @@ export class ExpertsService implements DocumentProvider {
     );
     request = jsonUtils.sortObjectKeys(request);
     const requestKey = `expertsPage(${JSON.stringify({ request })})`;
-    if(!this.cachedQueries.some(queryKey => queryKey === requestKey)) {
+    if (!this.cachedQueries.some((queryKey) => queryKey === requestKey)) {
       this.cachedQueries.push(requestKey);
     }
     return firstValueFrom(
@@ -126,15 +129,30 @@ export class ExpertsService implements DocumentProvider {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.deleteExperts),
-      )
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.deleteExperts))
     );
   }
 
-  async requestDownload(downloadRequest: DownloadRequest): Promise<DownloadResult> {
+  async updateExpert(updateExpertInput: any): Promise<Expert> {
+    const mutationRef = this.graphql.refMutation(
+      expertsQueries.mutation.updateExpert,
+      { updateExpertInput },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.updateExpert))
+    );
+  }
+
+  async requestDownload(
+    downloadRequest: DownloadRequest
+  ): Promise<DownloadResult> {
     const queryRef = this.graphql.refQuery(
       expertsQueries.query.expertsDownload,
       { ...downloadRequest },

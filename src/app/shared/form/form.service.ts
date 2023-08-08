@@ -17,8 +17,8 @@ import { Announcement } from '@home/announcements/model/announcement';
 
 const formUrls = {
   renderer: `${environment.forms}form/renderer`,
-  announcement: `${environment.forms}form/announcement`
-}
+  announcement: `${environment.forms}form/announcement`,
+};
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +28,7 @@ export class FormService {
     private readonly graphql: GraphqlService,
     private readonly dialogService: DialogService,
     private readonly toast: ToastService,
-    private readonly authCodeService: AuthCodeService,
+    private readonly authCodeService: AuthCodeService
   ) {}
 
   getForm(id: string): Promise<AppForm> {
@@ -39,8 +39,7 @@ export class FormService {
       { auth: false }
     );
     return firstValueFrom(
-      this.graphql.query(refQuery)
-      .pipe(
+      this.graphql.query(refQuery).pipe(
         map((request) => request.data.form),
         map((form) => AppForm.fromJson(form))
       )
@@ -55,14 +54,14 @@ export class FormService {
       { auth: false }
     );
     return firstValueFrom(
-      this.graphql.query(refQuery)
-      .pipe(
+      this.graphql.query(refQuery).pipe(
         map((request) => request.data.forms),
-        map((forms) => forms.map(form => AppForm.fromJson(form))),
-        tap(forms => {
-          if(forms.length === 0) {
+        map((forms) => forms.map((form) => AppForm.fromJson(form))),
+        tap((forms) => {
+          if (forms.length === 0) {
             return this.toast.alert({
-              detail: "No se encontró un formulario definido para esta colección."
+              detail:
+                'No se encontró un formulario definido para esta colección.',
             });
           }
         })
@@ -80,29 +79,29 @@ export class FormService {
       formQueries.mutation.updateForm,
       { updateFormInput: data },
       [],
-      { auth: true },
+      { auth: true }
     );
     return firstValueFrom(
-      this.graphql.mutation(refMutation)
-      .pipe(
+      this.graphql.mutation(refMutation).pipe(
         map((request) => request.data.updateForm),
         map((form) => AppForm.fromJson(form))
       )
     );
   }
 
-  createFormSubscription(args: CreateSubscriptionInput): Promise<IFormSubscription> {
+  createFormSubscription(
+    args: CreateSubscriptionInput
+  ): Promise<IFormSubscription> {
     const refMutation = this.graphql.refMutation(
       formQueries.mutation.createFormSubscription,
       { createFormSubscriptionInput: args },
       [],
-      { auth: true },
+      { auth: true }
     );
     return firstValueFrom(
-      this.graphql.mutation(refMutation)
-      .pipe(
-        map((request) => request.data.createFormSubscription),
-      )
+      this.graphql
+        .mutation(refMutation)
+        .pipe(map((request) => request.data.createFormSubscription))
     );
   }
 
@@ -114,34 +113,47 @@ export class FormService {
       { auth: false }
     );
     return firstValueFrom(
-      this.graphql.mutation(refMutation)
-      .pipe(
-        map((request) => request.data.closeFormSubscription),
-      )
+      this.graphql
+        .mutation(refMutation)
+        .pipe(map((request) => request.data.closeFormSubscription))
     );
   }
 
   listenFormSubscription(id: string): Observable<IFormSubscription> {
-    return this.graphql.subscribeRequest(formQueries.subscription.listenFormSubscription, { id })
-    .pipe(
-      map((request) => request.data.listenFormSubscription),
+    return this.graphql
+      .subscribeRequest(formQueries.subscription.listenFormSubscription, { id })
+      .pipe(map((request) => request.data.listenFormSubscription));
+  }
+
+  openAnnouncementFromSubscription(
+    announcement: Announcement,
+    participantId: string,
+    subscription?: IFormSubscription
+  ) {
+    let frameUrl = `${formUrls.announcement}/${announcement._id}/${participantId}`;
+    if (subscription) {
+      frameUrl = frameUrl.concat(`?sub=${subscription._id}`);
+    }
+    window.open(frameUrl, '_blank');
+  }
+
+  openFormFromSubscription(
+    formSubscription: IFormSubscription,
+    title: string = 'Formulario'
+  ) {
+    const frameUrl = `${formUrls.renderer}/${formSubscription._id}`;
+    return this.openFormFromSubscriptionDialog(
+      formSubscription,
+      title,
+      frameUrl
     );
   }
 
-  openAnnouncementFromSubscription(announcement: Announcement, participantId: string, subscription?: IFormSubscription) {
-    let frameUrl = `${formUrls.announcement}/${announcement._id}/${participantId}`;
-    if(subscription) {
-      frameUrl = frameUrl.concat(`?sub=${subscription._id}`);
-    }
-    window.open(frameUrl, "_blank");
-  }
-
-  openFormFromSubscription(formSubscription: IFormSubscription, title: string = "Formulario") {
-    const frameUrl = `${formUrls.renderer}/${formSubscription._id}`;
-    return this.openFormFromSubscriptionDialog(formSubscription, title, frameUrl);
-  }
-
-  openFormFromSubscriptionDialog(formSubscription: IFormSubscription, title: string, frameUrl: string): Observable<string | null> {
+  openFormFromSubscriptionDialog(
+    formSubscription: IFormSubscription,
+    title: string,
+    frameUrl: string
+  ): Observable<string | null> {
     const idSubscription: string = formSubscription._id;
     const isEdit: boolean = !!formSubscription.doc;
     const ref = this.dialogService.open(FormRendererComponent, {
@@ -155,13 +167,13 @@ export class FormService {
       header: title,
       showHeader: true,
     });
-    ref.onClose
-    .pipe(take(1))
-    .subscribe((doc?: string) => {
-      if(doc) {
-        const message = isEdit ? 'Documento editado con éxito' : 'Documento creado con éxito'
+    ref.onClose.pipe(take(1)).subscribe((doc?: string) => {
+      if (doc) {
+        const message = isEdit
+          ? 'Documento editado con éxito'
+          : 'Documento creado con éxito';
         this.toast.success({
-          detail: message
+          detail: message,
         });
       }
     });
@@ -185,6 +197,66 @@ export class FormService {
   async openFormApp() {
     const code = await this.authCodeService.createAuthCode();
     const formAppUrl = `${environment.forms}session/authorize?code=${code._id}`;
-    window.open(formAppUrl, "_blank");
+    window.open(formAppUrl, '_blank');
+  }
+
+  getFormComponents(formulario) {
+    return JSON.parse(formulario.formJson).components;
+  }
+
+  getInputComponents(components: any[]): any[] {
+    // const notInputComponents = ['datamap', 'editgrid', 'datagrid', 'button', 'content'];
+    // return components.filter(c => notInputComponents.includes(c.type));
+    let headers = [];
+    //TODO: TRY TO ONLY FETCH DROPDOWNS OPTIONS WHEN CREATING THE EXCEL FILES
+    //FOR DATA VALIDATION ON COMPONENTS OF TYPE SELECT
+    // const usefulComponents = components.filter((comp) => comp.type != 'button');
+    for (let index = 0; index < components.length; index++) {
+      const comp = components[index];
+      switch (comp.type) {
+        default:
+          headers.push({
+            label: comp.label,
+            key: comp.key,
+            type: comp.type,
+          });
+          break;
+        //layout non-containers components should be ignored
+        case 'button':
+        case 'content':
+          break;
+        case 'datetime':
+          headers.push({
+            label: comp.label,
+            key: comp.key,
+            config: {
+              numFmt: comp.format,
+            },
+            type: comp.type,
+          });
+          break;
+        case 'select':
+          headers.push({
+            label: comp.label,
+            key: comp.key,
+            type: comp.type,
+          });
+          break;
+        case 'datamap':
+        case 'editgrid':
+        case 'datagrid':
+          let innerHeaders = this.getInputComponents(comp.components);
+          const composedField = {
+            key: comp.key,
+            type: comp.type,
+            childs: innerHeaders,
+            label: comp.label,
+          };
+          headers.push(composedField);
+          // headers = headers.concat(innerHeaders);
+          break;
+      }
+    }
+    return headers;
   }
 }

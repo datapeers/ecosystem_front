@@ -1,24 +1,53 @@
 <ng-container *ngIf="user else loadingTemplate">
-  <div class="flex flex-column h-full w-full px-3 py-3">
-    <div class="surface-0 flex flex-column align-items-center h-full w-full border-round shadow-elevated overflow-hidden px-3 py-4">
-      <div class="flex flex-row justify-content-center flex-wrap gap-4 shadow-elevated px-3 py-2 border-round">
-        <app-avatar-uploader [imageUrl]="user.profileImageUrl | getImage | async" (onUpload)="uploadImage($event, user)" (onRemove)="removeImage(user)"></app-avatar-uploader>
-        <div class="flex flex-column gap-1 justify-content-center">
-          <span class="text-xl font-semibold">{{user.fullName}}</span>
-          <span class="font-semibold">{{user.email}}</span>
-          <span class="font-semibold">{{user.rolName}}</span>
-          <p-button label="Cambiar contraseña" (onClick)="openPasswordDialog()"></p-button>
+    <div class="flex flex-column h-full w-full px-3 py-3">
+        <div class="surface-0 flex flex-column align-items-center h-full w-full border-round shadow-elevated overflow-hidden px-3 py-4">
+            <div class="flex flex-row justify-content-center flex-wrap gap-4 shadow-elevated px-3 py-2 border-round">
+                <app-avatar-uploader [imageUrl]="user.profileImageUrl" (onUpload)="uploadImage($event, user)" [disableRemove]="true"></app-avatar-uploader>
+                <div class="flex flex-column gap-1 justify-content-center">
+                    <span class="text-xl font-semibold">{{user.fullName}}</span>
+                    <span class="font-semibold">{{user.email}}</span>
+                    <span class="font-semibold">{{user.rolName}}</span>
+                    <p-button label="Cambiar contraseña" (onClick)="openPasswordDialog()"></p-button>
+                </div>
+            </div>
+            <div class="flex flex-row align-items-center gap-2 pt-2">
+                <i class="pi pi-user"></i>
+                <b>Datos personales <i class="pi pi-pencil cursor-pointer text-primary"></i></b>
+                <!-- <div class="flex flex-row flex-wrap align-items-center gap-2 py-2">
+                    <span class="text-xl font-semibold">{{profileDoc['item']['nombre']}}</span>
+                    
+                </div> -->
+            </div>
+            <div class="flex flex-wrap w-full gap-2">
+                <!-- <ng-container *ngIf="profileDoc">
+
+                    <div class="flex flex-column p-1 gap-1">
+                        <div class="grid-container">
+                            <ng-container *ngFor="let component of formProfileFields">
+                                <ng-template [ngTemplateOutlet]="componentTemplate" [ngTemplateOutletContext]="{ component, doc: profileDoc }"></ng-template>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container> -->
+                <ng-container *ngIf="profileDoc">
+                    <ng-container *ngFor="let param of accountParams">
+                        <ng-template [ngTemplateOutlet]="editableParamCardTemplate" [ngTemplateOutletContext]="{
+                                                                    data: {
+                                                                        label: param.label,
+                                                                        value: profileDoc[param.key]
+                                                                    },
+                                                                    changeHandler: param.onChange
+                                                                }"></ng-template>
+                    </ng-container>
+                </ng-container>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </ng-container>
 
 <ng-template #loadingTemplate>
-  <app-loading></app-loading>
+    <app-loading></app-loading>
 </ng-template>
-
-
 
 <p-dialog [(visible)]="passwordDialog" header="Cambiar contraseña">
     <form (keyup)="onKeyUp($event)" class="formgrid grid mt-6 gap-3" [formGroup]="changePasswordForm">
@@ -79,3 +108,47 @@
         </div>
     </form>
 </p-dialog>
+
+<ng-template #componentTemplate let-component="component" let-doc="doc">
+    <ng-container [ngSwitch]="true">
+        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid'].includes(component.type)">
+            <!-- Skip -->
+        </ng-container>
+        <ng-container *ngSwitchCase="['datetime', 'dateAndTime', 'time'].includes(component.type)">
+            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                data: {
+                    label: component.label,
+                    value: doc['item'][component.key] ? (doc['item'][component.key] | date: component.format) : noValuePlaceholder
+                }
+            }"></ng-template>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                data: {
+                    label: component.label,
+                    value: doc['item'][component.key] ? doc['item'][component.key] : noValuePlaceholder
+                }
+            }"></ng-template>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #paramCardTemplate let-data="data">
+    <div class="info-grid-cell p-2 border-round">
+        <span class="cell-label">
+            <span [pTooltip]="data.label" tooltipPosition="top">{{data.label | uppercase}}</span>
+        </span>
+        <span class="cell-value" [pTooltip]="data.value" tooltipPosition="top">{{data.value}}</span>
+    </div>
+</ng-template>
+
+<!-- Ediable params template -->
+<ng-template #editableParamCardTemplate let-data="data" let-change="changeHandler">
+    <div class="info-grid-cell p-2 border-round">
+        <span class="cell-label">
+            <span [pTooltip]="data.label" tooltipPosition="top">{{data.label |
+                uppercase}}</span>
+        </span>
+        <input pInputText (change)="change($event)" class="cell-value p-inputtext-sm" [pTooltip]="data.value" tooltipPosition="top" value="{{data.value}}" [disabled]="!change">
+    </div>
+</ng-template>

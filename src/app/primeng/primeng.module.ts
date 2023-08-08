@@ -47,6 +47,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { AnimateModule } from 'primeng/animate';
 import { TreeTableModule } from 'primeng/treetable';
 import { FieldsetModule } from 'primeng/fieldset';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 @NgModule({
   declarations: [],
@@ -96,6 +97,7 @@ import { FieldsetModule } from 'primeng/fieldset';
     AnimateModule,
     TreeTableModule,
     FieldsetModule,
+    KeyFilterModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

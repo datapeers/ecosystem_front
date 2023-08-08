@@ -124,7 +124,8 @@ export class UserService {
     });
     return this.storageService.uploadFile(
       StoragePaths.profileImages,
-      renamedFile
+      renamedFile,
+      true
     );
   }
 

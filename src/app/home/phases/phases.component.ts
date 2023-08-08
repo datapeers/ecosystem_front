@@ -107,7 +107,6 @@ export class PhasesComponent implements OnInit, OnDestroy {
               const docs = phasesList.filter(
                 (i) => i.childrenOf === iterator._id
               );
-
               this.list.push({
                 base: iterator,
                 label: iterator.name,

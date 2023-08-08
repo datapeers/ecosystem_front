@@ -4,7 +4,7 @@ import { AuthGuard } from '@auth/guards/auth.guard';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { RoleGuard } from '@auth/guards/role.guard';
-import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { ValidRoles, validRoles } from '@auth/models/valid-roles.enum';
 import { LandingComponent } from './public/landing/landing.component';
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
         ValidRoles.expert,
         ValidRoles.teamCoach,
         ValidRoles.host,
-        // ValidRoles.investor,
+        ValidRoles.user,
       ],
     },
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),

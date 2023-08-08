@@ -15,6 +15,7 @@ const fragments = {
         }
       }
       item
+      calendlyLink
     }
   `,
 };
@@ -67,10 +68,18 @@ const query = {
       }
     }
     ${downloadResultFields}
-  `
+  `,
 };
 
 const mutation = {
+  updateExpert: `
+    mutation UpdateExpert($updateExpertInput: UpdateExpertInput!) {
+      updateExpert(updateExpertInput: $updateExpertInput) {
+        ...expertFields
+      }
+    }
+    ${fragments.expertFields}
+  `,
   deleteExperts: `
     mutation DeleteExperts($ids: [String!]!) {
       deleteExperts(ids: $ids) {

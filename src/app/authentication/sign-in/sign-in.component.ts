@@ -21,6 +21,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<void> = new Subject();
   recoverPsw = new FormControl(null, [Validators.email]);
   rememberPsw = false;
+  blockSpace: RegExp = /[^s]/;
   constructor(
     public authService: AuthService,
     private store: Store<AppState>,
