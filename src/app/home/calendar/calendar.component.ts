@@ -31,6 +31,8 @@ import { Acta, IActa } from '@home/phases/model/acta.model';
 import { StorageService } from '@shared/storage/storage.service';
 import { ActaComponent } from '@home/phases/phase-events/acta/acta.component';
 import { PhasesService } from '@home/phases/phases.service';
+import { ExpertsService } from '../../shared/services/experts/experts.service';
+import { Expert } from '@shared/models/entities/expert';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -45,6 +47,7 @@ export class CalendarComponent {
   currentLimit: number = 0;
   currentEventCount: number = 0;
   user: User;
+  profileDoc;
 
   selectedEvent: ICalendarItem;
   openEventDialog: boolean = false;
@@ -137,6 +140,9 @@ export class CalendarComponent {
   phases: Phase[] = [];
   originalEvents: Event[] = [];
   ref: DynamicDialogRef | undefined;
+  dialogSolicitude = false;
+  expertsDialog: Expert[] = [];
+  startup;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -144,10 +150,16 @@ export class CalendarComponent {
     private readonly actasService: ActaService,
     private readonly eventService: PhaseEventsService,
     private readonly service: CalendarService,
+    private readonly expertsService: ExpertsService,
     private readonly phaseService: PhasesService,
     private readonly storageService: StorageService
   ) {
     this.setGraph();
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {
@@ -270,11 +282,9 @@ export class CalendarComponent {
           this.phases = await this.phaseService.getPhases();
           this.events = [];
           this.originalEvents = eventList;
-          console.log(this.originalEvents);
           for (const iterator of eventList) {
             this.assignItem(iterator);
           }
-          console.log(this.events);
           this.resizeCalendar();
         });
       })
@@ -336,6 +346,7 @@ export class CalendarComponent {
           (i) => i._id === eventCalendar.extendedProps.batch
         ),
         user: this.user,
+        onlyView: true,
       },
     });
 
@@ -347,5 +358,23 @@ export class CalendarComponent {
         });
       }
     });
+  }
+
+  async showDialogSolicitude() {
+    this.toast.loading();
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.startup = this.profileDoc.startups[0];
+    this.expertsDialog = await this.expertsService.getExpertsByStartup(
+      this.startup._id
+    );
+    this.dialogSolicitude = true;
+  }
+
+  selectExpert(expert) {
+    window.open(expert['calendlyLink'], '_blank');
   }
 }

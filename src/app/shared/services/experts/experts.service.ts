@@ -165,4 +165,18 @@ export class ExpertsService implements DocumentProvider {
         .pipe(map((request) => request.data.expertsDownload))
     );
   }
+
+  async getExpertsByStartup(startup: string): Promise<Expert[]> {
+    const queryRef = this.graphql.refQuery(
+      expertsQueries.query.expertsStartup,
+      { startup },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.expertsStartup))
+    );
+  }
 }

@@ -44,6 +44,7 @@ export class ActaComponent implements OnInit, OnDestroy {
   currentExpert;
   expertsHours = {};
   user: User;
+  onlyView = false;
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -58,6 +59,7 @@ export class ActaComponent implements OnInit, OnDestroy {
     this.event = this.config.data.event;
     this.phase = this.config.data.phase;
     this.user = this.config.data.user;
+    this.onlyView = this.config.data.onlyView;
   }
 
   ngOnInit(): void {
@@ -70,7 +72,6 @@ export class ActaComponent implements OnInit, OnDestroy {
     this.loaded = false;
     if (!this.event) this.close();
     if (!this.phase) this.close();
-    console.log(this.event);
     this.service
       .getActa(this.event._id)
       .then((acta) => {

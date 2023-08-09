@@ -1,14 +1,20 @@
-import { downloadResultFields } from "@shared/models/graphql/download-result";
-import { paginatedResultFields } from "@shared/models/graphql/paginated-result";
-import { updateResultPayloadFields } from "@shared/models/graphql/update-result-payload";
+import { downloadResultFields } from '@shared/models/graphql/download-result';
+import { paginatedResultFields } from '@shared/models/graphql/paginated-result';
+import { updateResultPayloadFields } from '@shared/models/graphql/update-result-payload';
 
 const fragments = {
   entrepreneurFields: `
     fragment entrepreneurFields on Entrepreneur {
       _id
       item
-      businesses
-      startups
+      businesses {
+        _id
+        item
+      }
+      startups {
+        _id
+        item
+      }
     }
   `,
 };
@@ -53,7 +59,7 @@ const query = {
       }
     }
     ${downloadResultFields}
-  `
+  `,
 };
 
 const mutation = {

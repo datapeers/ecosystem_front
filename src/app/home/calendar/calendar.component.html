@@ -4,7 +4,7 @@
             <!--<span>
                 Se han agendado {{currentEventCount}} eventos para un total de {{currentLimit}} definidos para la fase actual.
             </span>-->
-            <p-button *ngIf="user?.isUser" label="Solicitud de actividad" styleClass="p-button-raised p-button-secondary"></p-button>
+            <p-button *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Solicitud de actividad" styleClass="p-button-raised p-button-secondary"></p-button>
         </div>
         <p-tabView class="shadow-elevated border-round overflow-hidden" (onChange)="reorderSizes()">
 
@@ -104,5 +104,49 @@
                 <p-button styleClass="p-button-outlined" label="Cerrar" (onClick)="openFilesDialog = false"></p-button>
             </div>
         </div>
+    </div>
+</p-dialog>
+
+<p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" header="Solicitud" [style]="{width: '50vw'}">
+    <div class="flex flex-column w-full" *ngIf="startup">
+        <span>Recuerda que al hacer la solicitud debes ingresar el nombre de tu startup o tu nombre de usuario, y el correo usando en esta plataforma.</span>
+        <div class="flex flex-row">
+            <span class="font-bold">Startup:</span>
+            <span class="pl-2">{{startup['item']['nombre']}}</span>
+        </div>
+        <div class="flex flex-row">
+            <span class="font-bold">Usuario:</span>
+            <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
+        </div>
+        <div class="flex flex-row">
+            <span class="font-bold">Email:</span>
+            <span class="pl-2">{{user['email']}}</span>
+        </div>
+    </div>
+    <label class="pt-4 font-bold">Seleccione un experto</label>
+    <div class="card-grid flex flex-wrap gap-2">
+        <ng-container *ngFor="let expert of expertsDialog">
+            <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
+                <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden">
+                    <div class="flex align-self-center">
+                        <p-avatar [label]="expert['item']['nombre']" shape="circle" styleClass="w-8rem h-8rem"></p-avatar>
+                    </div>
+                    <span class="primary-param-label" tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
+                        {{expert['item']['nombre']}}
+                    </span>
+                    <span class="secondary-param-label" tooltipPosition="top" pTooltip="aaaaaaaaaaaa">
+
+                    </span>
+                    <ng-container>
+                        <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
+                            <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
+                        </ng-container>
+                        <ng-template #noCalendly>
+                            <span class="font-bold">Sin calendly</span>
+                        </ng-template>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
     </div>
 </p-dialog>

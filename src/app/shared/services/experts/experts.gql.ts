@@ -53,6 +53,14 @@ const query = {
     }
     ${fragments.expertFields}
   `,
+  expertsStartup: `
+    query ExpertsStartup($startup: String!) {
+      expertsStartup(startup: $startup) {
+        ...expertFields
+      }
+    }
+    ${fragments.expertFields}
+  `,
   expertByAccount: `
     query ExpertsAccount($accountId: String!) {
       expertsAccount(accountId: $accountId) {
