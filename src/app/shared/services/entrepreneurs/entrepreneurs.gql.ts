@@ -13,6 +13,10 @@ const fragments = {
       }
       startups {
         _id
+        phases {
+          _id
+          name
+        }
         item
       }
     }

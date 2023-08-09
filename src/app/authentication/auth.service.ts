@@ -145,13 +145,13 @@ export class AuthService {
         break;
       case 'auth/wrong-password':
         msg =
-          'Verifique que el usuario o contraseña sean correctos o pruebe ingresando por Google/Microsoft';
-        if (email) {
-          // const user = await this.searchUserByEmail(email);
-          // if (user.logIn !== 'email/psw') {
-          msg = `La cuenta de ${email} tiene que ingresar por medio de`;
-          // }
-        }
+          'Verifique que el usuario o contraseña sean correctos o pruebe ingresando por Google';
+        // if (email) {
+        //   const user = await this.searchUserByEmail(email);
+        //   // if (user.logIn !== 'email/psw') {
+        //   msg = `La cuenta de ${email} tiene que ingresar por medio de`;
+        //   // }
+        // }
         break;
       case 'auth/user-not-found':
         msg =

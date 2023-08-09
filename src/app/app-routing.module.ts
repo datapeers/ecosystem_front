@@ -27,14 +27,6 @@ const routes: Routes = [
     },
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
-  {
-    path: 'user',
-    canMatch: [AuthGuard, RoleGuard],
-    data: {
-      roles: [ValidRoles.user],
-    },
-    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
-  },
 ];
 
 export const routingConfiguration: ExtraOptions = {
