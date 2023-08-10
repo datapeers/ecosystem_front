@@ -1,10 +1,12 @@
 import { User } from '@auth/models/user';
 import * as fromAuth from './auth.actions';
+import { Phase } from '@home/phases/model/phase.model';
 export interface IAuthState {
   user: User;
   profileDoc: any;
   loaded: boolean;
   logged: boolean;
+  currentBatch: Phase;
 }
 
 const initialState: IAuthState = {
@@ -12,6 +14,7 @@ const initialState: IAuthState = {
   profileDoc: null,
   loaded: false,
   logged: false,
+  currentBatch: null,
 };
 
 export function authReducer(

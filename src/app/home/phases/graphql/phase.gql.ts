@@ -36,6 +36,14 @@ const query = {
     }
     ${fragments.phaseFields}
   `,
+  phasesList: `
+    query PhasesList($ids: [String!]!) {
+      phasesList(ids: $ids) {
+        ...phaseFields
+      }
+    }
+    ${fragments.phaseFields}
+  `,
 };
 
 const mutation = {

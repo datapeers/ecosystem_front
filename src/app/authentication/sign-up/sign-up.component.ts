@@ -57,13 +57,7 @@ export class SignUpComponent implements OnInit {
         takeUntil(this.onDestroy$)
       )
       .subscribe(async (auth) => {
-        if (auth.logged) {
-          if (auth.user.isUser) {
-            this.router.navigate(['/user']);
-          } else {
-            this.router.navigate(['/home']);
-          }
-        }
+        if (auth.logged) this.router.navigate(['/home']);
       });
   }
 

@@ -1,5 +1,6 @@
 import { IMenu } from '@shared/models/menu';
 import * as fromHome from './home.actions';
+import { Phase } from '@home/phases/model/phase.model';
 
 export interface IHomeState {
   menuExpanded: boolean;
@@ -7,6 +8,7 @@ export interface IHomeState {
   menu: IMenu;
   otherMenu: IMenu;
   breadcrumb: string[];
+  currentBatch: Phase | 'without batch' | null;
 }
 
 const initialState: IHomeState = {
@@ -15,6 +17,7 @@ const initialState: IHomeState = {
   menu: null,
   otherMenu: null,
   breadcrumb: [],
+  currentBatch: null,
 };
 
 export function homeReducer(
@@ -34,6 +37,13 @@ export function homeReducer(
       return { ...state, breadcrumb: action.breadcrumb };
     case fromHome.RESTORE_BREADCRUMB:
       return { ...state, breadcrumb: [] };
+    case fromHome.SET_CURRENT_BATCH:
+      if (action.batch && action.batch !== 'without batch') {
+        localStorage.setItem('currentBatch', action.batch._id);
+      } else {
+        localStorage.setItem('currentBatch', '');
+      }
+      return { ...state, currentBatch: action.batch };
     default:
       return { ...state };
   }

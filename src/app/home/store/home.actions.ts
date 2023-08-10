@@ -1,3 +1,5 @@
+import { User } from '@auth/models/user';
+import { Phase } from '@home/phases/model/phase.model';
 import { Action } from '@ngrx/store';
 // import { IMenuSideBar } from '../models/menu-model';
 
@@ -8,6 +10,8 @@ export const SET_OTHER_MENU = '[HomeAction] Set other menu';
 export const RESTORE_MENU = '[HomeAction] Restore main menu';
 export const SET_BREADCRUMB = '[HomeAction] Set path of breadcrumb';
 export const RESTORE_BREADCRUMB = '[HomeAction] Restore path of breadcrumb';
+export const SEARCH_CURRENT_BATCH = '[HomeAction] Search current branch user';
+export const SET_CURRENT_BATCH = '[HomeAction] Set current batch user';
 export class ToggleMenuAction implements Action {
   readonly type = TOGGLE_MENU;
 
@@ -49,6 +53,18 @@ export class RestoreBreadcrumbAction implements Action {
   constructor() {}
 }
 
+export class SearchCurrentBatch implements Action {
+  readonly type = SEARCH_CURRENT_BATCH;
+
+  constructor(public profile: any) {}
+}
+
+export class SetCurrentBatch implements Action {
+  readonly type = SET_CURRENT_BATCH;
+
+  constructor(public batch: Phase | 'without batch' | null) {}
+}
+
 export type HomeActions =
   | ToggleMenuAction
   | SetMenuAction
@@ -56,4 +72,6 @@ export type HomeActions =
   | RestoreMenuAction
   | LoadingMenuAction
   | SetBreadcrumbAction
-  | RestoreBreadcrumbAction;
+  | RestoreBreadcrumbAction
+  | SearchCurrentBatch
+  | SetCurrentBatch;

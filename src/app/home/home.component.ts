@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil, firstValueFrom, first } from 'rxjs';
+import { SearchCurrentBatch } from './store/home.actions';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           }, menuCloseDurationMs);
         }
       });
-    this.user$ = this.store.select((storeState) => storeState.auth.user);
+    // this.user$ = this.store.select((storeState) => storeState.auth.user);
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
   ngOnInit(): void {
@@ -46,5 +52,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async loadComponent() {
     this.loading = false;
+    if (this.user.isUser) {
+      const profile = await firstValueFrom(
+        this.store
+          .select((state) => state.auth.profileDoc)
+          .pipe(first((i) => i !== null))
+      );
+      this.store.dispatch(new SearchCurrentBatch(profile));
+    }
   }
 }
