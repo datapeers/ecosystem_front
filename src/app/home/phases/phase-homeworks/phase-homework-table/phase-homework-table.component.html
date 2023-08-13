@@ -1,0 +1,61 @@
+<ng-container *ngIf="!loadingTable; else loadingTableTemplates">
+    <ng-container *ngIf="tableForm; else elseTable">
+        <div class="flex px-4 py-3 w-full" style="height: 70vh;">
+            <ng-container *ngIf="tableContext">
+                <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)">
+                </app-dynamic-table>
+            </ng-container>
+        </div>
+    </ng-container>
+    <ng-template #elseTable>
+        <p-table #dt2 [value]="tableRows" [tableStyle]="{'min-width': '60rem'}" dataKey="key" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['startup.item.nombre', 'state', 'observations']" [tableStyle]="{ 'min-width': '75rem' }">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <span>{{optionsTable.summary}}</span>
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        <div class="flex align-items-center">
+                            Nombre
+                            <p-columnFilter type="text" field="startup.item.nombre" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex align-items-center">
+                            Estado
+                            <p-columnFilter type="text" field="state" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="flex align-items-center">
+                            Observaciones
+                            <p-columnFilter type="text" field="observations" display="menu"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-itemRow>
+                <tr>
+                    <td>{{itemRow.startup.item.nombre}}</td>
+                    <td>{{itemRow.state}}</td>
+                    <td>{{itemRow.observations}}</td>
+                    <td>
+                        <p-button *ngIf="allowEvaluate(user.rolType)" label="Calificar" icon="pi pi-check" pTooltip="Calificar" (onClick)="evaluate(itemRow)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+    </ng-template>
+
+</ng-container>
+<ng-template #loadingTableTemplates>
+    <app-loading></app-loading>
+</ng-template>

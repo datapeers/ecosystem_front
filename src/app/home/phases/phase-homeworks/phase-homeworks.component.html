@@ -1,0 +1,45 @@
+<ng-container *ngIf="loaded; else loadingTemplates">
+    <div class="p-4">
+        <div class="w-full flex flex-row w-full gap-4 text-white  align-items-center ">
+            <h2>Tareas</h2>
+            <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint">
+                <ng-template let-sprint pTemplate="item">
+                    <div>{{ sprint.name }}</div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <p-accordion class="w-full h-full" *ngIf="sprintSelected">
+            <p-accordionTab *ngFor="let resourceSprint of sprintSelected.resources">
+                <ng-template pTemplate="header">
+                    <div class="w-full flex flex-row align-items-center">
+                        <div class="flex align-items-center">
+                            <i class="pi pi-file mr-2"></i>
+                            <span class="vertical-align-middle">{{resourceSprint.name}}</span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <app-phase-homework-table [resource]="resourceSprint" [sprint]="sprintSelected"></app-phase-homework-table>
+                </ng-template>
+            </p-accordionTab>
+            <ng-container *ngFor="let content of sprintSelected.childs">
+                <p-accordionTab *ngFor="let resourceContent of content.resources">
+                    <ng-template pTemplate="header">
+                        <div class="w-full flex flex-row align-items-center">
+                            <div class="flex align-items-center">
+                                <i class="pi pi-file mr-2"></i>
+                                <span class="vertical-align-middle">{{resourceContent.name}}</span>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <app-phase-homework-table [resource]="resourceContent" [sprint]="sprintSelected"></app-phase-homework-table>
+                    </ng-template>
+                </p-accordionTab>
+            </ng-container>
+        </p-accordion>
+    </div>
+</ng-container>
+<ng-template #loadingTemplates>
+    <app-loading></app-loading>
+</ng-template>
