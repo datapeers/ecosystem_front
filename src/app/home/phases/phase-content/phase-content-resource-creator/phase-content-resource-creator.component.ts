@@ -17,7 +17,10 @@ import { HttpEventType } from '@angular/common/http';
 import { FormService } from '@shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { IDropItem } from '@shared/models/dropdown-item';
-import { resourcesTypesArray } from '@home/phases/model/resources-types.model';
+import {
+  ResourcesTypes,
+  resourcesTypesArray,
+} from '@home/phases/model/resources-types.model';
 
 @Component({
   selector: 'app-phase-content-resource-creator',
@@ -217,6 +220,9 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
     for (const iterator of this.listFields) {
       switch (iterator.type) {
         case 'File':
+          if (!this.file && newResource.type === ResourcesTypes.task) {
+            continue;
+          }
           this.toast.info({
             summary: 'Subiendo archivo...',
             detail: 'Por favor espere, no cierre la ventana',

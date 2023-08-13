@@ -51,6 +51,7 @@ import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-eval
 import { EvaluationTablesComponent } from './phases/phase-evaluations/evaluation-tables/evaluation-tables.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ToolkitComponent } from './toolkit/toolkit.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -92,6 +93,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     PhaseEvaluationsComponent,
     EvaluationTablesComponent,
     CalendarComponent,
+    ToolkitComponent,
   ],
   imports: [
     CommonModule,
