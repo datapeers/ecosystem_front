@@ -181,4 +181,15 @@ export class PhaseHomeworksService {
       }
     });
   }
+
+  async downloadFileReply(reply: ResourceReply) {
+    const file = reply.item.file;
+    this.toast.info({ summary: 'Descargando', detail: '' });
+    const key = this.storageService.getKey(file);
+    const url = await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      this.toast.clear();
+      window.open(url, '_blank');
+    }
+  }
 }

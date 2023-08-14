@@ -225,16 +225,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   async downloadFileReply(reply: ResourceReply) {
-    const file = reply.item.file;
-    console.log(file);
-    this.toast.info({ summary: 'Descargando', detail: '' });
-    const key = this.storageService.getKey(file);
-    console.log(key);
-    const url = await firstValueFrom(this.storageService.getFile(key));
-    if (url) {
-      this.toast.clear();
-      window.open(url, '_blank');
-    }
+    this.phaseHomeworksService.downloadFileReply(reply);
   }
 
   async selectFile(element: HTMLInputElement, reply: ResourceReply) {

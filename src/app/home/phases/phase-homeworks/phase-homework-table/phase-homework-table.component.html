@@ -59,3 +59,37 @@
 <ng-template #loadingTableTemplates>
     <app-loading></app-loading>
 </ng-template>
+
+<p-dialog header="Evaluar" [(visible)]="showDialogEvaluation" [style]="{ width: '80vw', 'max-height': '70vh' }" [draggable]="false" [resizable]="false" [modal]="true">
+    <div style="height: 1.5rem;"></div>
+    <ng-container *ngIf="replyForEvaluated?.item?.file">
+        <div class="w-full flex align-items-center justify-content-center p-2">
+            <p-button label="Ver archivo" icon="pi pi-file" pTooltip="Archivo subido" (onClick)="downloadFileReply(replyForEvaluated)"></p-button>
+        </div>
+
+    </ng-container>
+
+    <div class="w-full flex flex-column gap-4" *ngIf="replyForEvaluated">
+        <div class="w-full flex-row">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-user-edit"></i>
+            </span>
+            <span class="p-float-label" style="width: 100%">
+                <p-dropdown styleClass="w-full" id="reviewers" [options]="possibleEvaluations" [(ngModel)]="replyForEvaluated.state" [style]="{ width: '100%' }" appendTo="body" [autoDisplayFirst]="false"></p-dropdown>
+                <label for="reviewers">Estado</label>
+            </span>
+        </div>
+        <div class="w-full">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-align-left"></i>
+                </span>
+                <span class="p-float-label">
+                    <textarea id="descEvent" rows="3" style="width: 100%;" [(ngModel)]="replyForEvaluated.observations" pInputTextarea></textarea>
+                    <label for="descEvent">Observaciones</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <p-button type="submit" label="Guardar evaluación" (onClick)="saveEvaluation()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
+</p-dialog>

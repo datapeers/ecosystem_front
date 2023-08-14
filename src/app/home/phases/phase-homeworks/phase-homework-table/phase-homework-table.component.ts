@@ -26,6 +26,7 @@ import { PhaseHomeworksService } from '../phase-homeworks.service';
 import { IResourceReply, ResourceReply } from '../model/resource-reply.model';
 import { Startup } from '@shared/models/entities/startup';
 import { ResourceReplyState } from '../model/resource-reply-states';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-phase-homework-table',
@@ -52,6 +53,16 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
   tableRows = [];
   @Input() resource: Resource;
   @Input() sprint: Content;
+
+  replyForEvaluated: ResourceReply;
+  showDialogEvaluation = false;
+  saving = false;
+  callBackTable;
+  possibleEvaluations = [
+    ResourceReplyState['Sin evaluar'],
+    ResourceReplyState.Evaluado,
+    ResourceReplyState.Aprobado,
+  ];
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -160,6 +171,7 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
   }
 
   allowEvaluate(rol: ValidRoles) {
+    if (this.resource.type === ResourcesTypes.downloadable) return false;
     if ([ValidRoles.admin, ValidRoles.superAdmin].includes(rol)) return true;
     if (this.user.allowed(Permission.homeworks_evaluate)) return true;
     return false;
@@ -174,31 +186,11 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
   }: TableActionEvent) {
     switch (action) {
       case 'evaluated':
-        // if (!this.validDate()) return;
-        // const item: IResourceReply = rawDataTable.find(
-        //   (i) => i._id === element._id
-        // );
-        // const subscription = await this.formService.createFormSubscription({
-        //   form: this.resource.extra_options.form,
-        //   reason: 'Evaluar',
-        //   data: {
-        //     startup: (item.startup as Startup)._id,
-        //     sprint: this.sprint._id,
-        //     resource: this.resource._id,
-        //     type: this.resource.type,
-        //     state: ''
-        //   },
-        //   doc: item.state === 'pendiente' ? undefined : item._id,
-        // });
-        // const ref = this.formService.openFormFromSubscription(
-        //   subscription,
-        //   'Evaluar'
-        // );
-        // ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
-        //   if (doc) {
-        //     callbacks.fullRefresh();
-        //   }
-        // });
+        const item: ResourceReply = rawDataTable.find(
+          (i) => i._id === element._id
+        );
+        this.callBackTable = callbacks;
+        this.evaluate(item);
         break;
     }
   }
@@ -228,5 +220,49 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
       });
       return;
     }
+    this.replyForEvaluated = cloneDeep(reply);
+    this.showDialogEvaluation = true;
+  }
+
+  saveEvaluation() {
+    if (moment(new Date()).isAfter(this.resource.extra_options.end)) {
+      this.toast.info({
+        summary: 'Fecha limite',
+        detail: 'Esta tarea ya supero el tiempo limite para su realización',
+      });
+      return;
+    }
+    this.service
+      .updateReply({
+        _id: this.replyForEvaluated._id,
+        state: this.replyForEvaluated.state,
+        observations: this.replyForEvaluated.observations,
+      })
+      .then((reply) => {
+        this.toast.clear();
+        this.resetDialog();
+        this.loadComponent();
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.error({
+          summary: 'Fallo al registrar archivo subido',
+          detail: err,
+        });
+        this.resetDialog();
+      });
+  }
+
+  async downloadFileReply(reply: ResourceReply) {
+    this.service.downloadFileReply(reply);
+  }
+
+  resetDialog() {
+    this.showDialogEvaluation = false;
+    if (this.callBackTable) {
+      this.callBackTable.fullRefresh();
+      this.callBackTable = undefined;
+    }
+    this.replyForEvaluated = undefined;
   }
 }
