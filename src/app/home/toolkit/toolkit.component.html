@@ -1,1 +1,57 @@
-<p>toolkit works!</p>
+<ng-container *ngIf="loaded; else loadingTemplates">
+    <div class="p-4">
+        <div class="w-full flex flex-row w-full gap-4 text-white  align-items-center ">
+            <h2>Tareas</h2>
+            <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="setCards()">
+                <ng-template let-sprint pTemplate="item">
+                    <div>{{ sprint.name }}</div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="flex flex-wrap gap-2 w-full">
+            <ng-container *ngFor="let item of cards">
+                <p-card [header]="item.resource.name" [subheader]="item.resource.extra_options.end | date" [style]="{ width: '360px' }">
+                    <ng-template pTemplate="header">
+                        <img alt="Card" [src]="item.type === 'archivo' ? 'https://images.pexels.com/photos/4792285/pexels-photo-4792285.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' : 'https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'" />
+                    </ng-template>
+                    <div>
+                        <div class="flex flex-row align-items-center w-full gap-2">
+                            <span>Estado:</span>
+                            <p [ngStyle]="{'color': (item.state === 'Pendiente' || item.state === 'Sin descargar') ? '#FFA07A' : '#32CD32'}">
+                                {{item.state}}</p>
+                        </div>
+                        <p class="w-full">{{item.observations}}</p>
+
+                    </div>
+                    <ng-template pTemplate="footer">
+                        <div class="w-full flex flex-wrap gap-2">
+                            <ng-container [ngSwitch]="item.resource.type">
+                                <ng-container *ngSwitchCase="resourcesTypes.form">
+                                    <p-button label="Formulario" (onClick)="openForm(item)" icon="pi pi-check"></p-button>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="resourcesTypes.downloadable">
+                                    <p-button label="Descargar" (onClick)="downloadFile(item)" icon="pi pi-check"></p-button>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="resourcesTypes.task">
+                                    <p-button *ngIf="item.resource.extra_options.file" label="Plantilla" (onClick)="downloadFile(item)" icon="pi pi-check"></p-button>
+                                    <p-button [label]="item.item?.file ? 'Cambiar' : 'Subir'" icon="pi pi-upload" (onClick)="fileInput.click()" styleClass="p-button-outlined"></p-button>
+                                    <ng-container *ngIf="item.state !== resourcesStates.Pendiente">
+                                        <p-button label="Ver archivo" (onClick)="downloadFileReply(item)" icon="pi pi-check"></p-button>
+                                    </ng-container>
+                                    <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, item)">
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </ng-template>
+                </p-card>
+
+
+            </ng-container>
+        </div>
+
+    </div>
+</ng-container>
+
+<ng-template #loadingTemplates>
+    <app-loading></app-loading>
+</ng-template>

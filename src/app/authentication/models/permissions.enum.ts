@@ -88,6 +88,10 @@ export enum Permission {
   evaluation_create = 'evaluation_create',
   evaluation_edit = 'evaluation_edit',
   evaluation_edit_docs = 'evaluation_edit_docs',
+
+  // Homeworks
+  homeworks_view = 'homeworks_view',
+  homeworks_evaluate = 'homeworks_evaluate',
 }
 
 export const permissionDescriptions: Record<Permission, string> = {
@@ -184,6 +188,11 @@ export const permissionDescriptions: Record<Permission, string> = {
     'Permitir editar las configuraciones de una evaluación',
   [Permission.evaluation_edit_docs]:
     'Permitir evaluar en cualquiera de las evaluaciones',
+
+  // Homeworks
+  [Permission.homeworks_view]: 'Ver sección de tareas en batch',
+  [Permission.homeworks_evaluate]:
+    'Permitir evaluar las tareas de los participantes',
 };
 
 export const permissionDescription = (permission: Permission) => {

@@ -30,6 +30,8 @@ import { SiteServicesManagementComponent } from './site-management/site-services
 import { ValidateParticipationComponent } from './phases/phase-events/validate-participation/validate-participation.component';
 import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-evaluations.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homeworks.component';
+import { ToolkitComponent } from './toolkit/toolkit.component';
 
 const routes: Routes = [
   {
@@ -134,6 +136,10 @@ const routes: Routes = [
         ],
       },
       {
+        path: 'toolkit',
+        component: ToolkitComponent,
+      },
+      {
         // TODO: Add guards or modules if required
         path: 'phases',
         children: [
@@ -185,6 +191,10 @@ const routes: Routes = [
               {
                 path: 'evaluations',
                 component: PhaseEvaluationsComponent,
+              },
+              {
+                path: 'homeworks',
+                component: PhaseHomeworksComponent,
               },
             ],
           },

@@ -171,7 +171,7 @@ export class FormService {
       if (doc) {
         const message = isEdit
           ? 'Documento editado con éxito'
-          : 'Documento creado con éxito';
+          : 'Documento diligenciado con éxito';
         this.toast.success({
           detail: message,
         });

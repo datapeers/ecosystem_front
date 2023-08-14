@@ -15,6 +15,7 @@ import {
   faCamera,
   faUsers,
   faPenRuler,
+  faBook,
 } from '@fortawesome/free-solid-svg-icons';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
@@ -257,7 +258,13 @@ export class PhasesService {
         icon: faCalendar,
         type: 'single',
       });
-
+    if (!phase.basePhase && user?.allowed(Permission.homeworks_view))
+      menu.options.push({
+        label: 'Tareas',
+        rute: ['phases', phase._id, 'homeworks'],
+        icon: faBook,
+        type: 'single',
+      });
     return menu;
   }
 }

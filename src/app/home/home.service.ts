@@ -45,20 +45,25 @@ export class HomeService {
     if (user.allowed(Permission.community_view)) rolOptions.push('communities');
     if (user.allowed(Permission.view_entrepreneurs))
       rolOptions.push('entrepreneurs');
+
     if (user.allowed(Permission.view_business)) rolOptions.push('businesses');
     if (user.allowed(Permission.view_startups)) rolOptions.push('startUps');
     if (user.allowed(Permission.view_experts)) rolOptions.push('expert');
     if (user.allowed(Permission.help_desk_view)) rolOptions.push('helpDesk');
     if (user.allowed(Permission.sites_and_services_view))
       rolOptions.push('siteAndServices');
+    if (user.isUser) rolOptions.push('contents');
+    if (user.isUser) rolOptions.push('toolkit');
     rolOptions.push('agenda');
     if (user.allowed(Permission.reports_view)) rolOptions.push('reports');
     if (adminOptions.includes(user.rolType as ValidRoles))
       rolOptions.push('settings');
     if (user.allowed(Permission.form_view)) rolOptions.push('forms');
+
     const outputOptions: IMenuOption[] = rolOptions.map(
       (optKey) => options[optKey] as IMenuOption
     );
+
     return { options: outputOptions };
   }
 
@@ -83,11 +88,16 @@ export class HomeService {
         type: 'single',
         icon: faRoad,
       },
+      contents: {
+        label: 'Contenidos',
+        rute: '/home/contentUser',
+        type: 'single',
+        icon: faRoad,
+      },
       toolkit: {
         label: 'Toolkit',
         icon: faFolderOpen,
         rute: '/home/toolkit',
-        queryParamsRute: { sprint: '3' },
         type: 'single',
       },
       startUp: {
