@@ -32,6 +32,8 @@ import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-eval
 import { CalendarComponent } from './calendar/calendar.component';
 import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homeworks.component';
 import { ToolkitComponent } from './toolkit/toolkit.component';
+import { ContentsComponent } from './contents/contents.component';
+import { InitComponent } from './init/init.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,10 @@ const routes: Routes = [
         },
         loadChildren: () =>
           import('../admin/admin.module').then((m) => m.AdminModule),
+      },
+      {
+        path: 'inicio',
+        component: InitComponent,
       },
       {
         path: 'profile',
@@ -134,6 +140,10 @@ const routes: Routes = [
             ],
           },
         ],
+      },
+      {
+        path: 'contents',
+        component: ContentsComponent,
       },
       {
         path: 'toolkit',

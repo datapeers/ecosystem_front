@@ -54,6 +54,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ToolkitComponent } from './toolkit/toolkit.component';
 import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homeworks.component';
 import { PhaseHomeworkTableComponent } from './phases/phase-homeworks/phase-homework-table/phase-homework-table.component';
+import { ContentsComponent } from './contents/contents.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -98,6 +99,7 @@ import { PhaseHomeworkTableComponent } from './phases/phase-homeworks/phase-home
     ToolkitComponent,
     PhaseHomeworksComponent,
     PhaseHomeworkTableComponent,
+    ContentsComponent,
   ],
   imports: [
     CommonModule,

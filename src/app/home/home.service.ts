@@ -90,7 +90,7 @@ export class HomeService {
       },
       contents: {
         label: 'Contenidos',
-        rute: '/home/contentUser',
+        rute: '/home/contents',
         type: 'single',
         icon: faRoad,
       },
