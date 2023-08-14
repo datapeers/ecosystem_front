@@ -2,14 +2,25 @@ import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { IResourceReply, ResourceReply } from './model/resource-reply.model';
 import resourceRepliesQueries from './model/resource-reply.gql';
-import { firstValueFrom, map } from 'rxjs';
-
+import { first, firstValueFrom, map, tap } from 'rxjs';
+import { ResourceReplyState } from './model/resource-reply-states';
+import { ResourcesTypes } from '../model/resources-types.model';
+import { Resource } from '../model/resource.model';
+import { ToastService } from '@shared/services/toast.service';
+import { HttpEventType } from '@angular/common/http';
+import { StorageService } from '@shared/storage/storage.service';
+import { User } from '@auth/models/user';
+import * as moment from 'moment';
 @Injectable({
   providedIn: 'root',
 })
 export class PhaseHomeworksService {
   _getResourceReplies;
-  constructor(private graphql: GraphqlService) {}
+  constructor(
+    private graphql: GraphqlService,
+    private toast: ToastService,
+    private storageService: StorageService
+  ) {}
 
   async getDocuments(args: {
     resource: string;
@@ -31,7 +42,35 @@ export class PhaseHomeworksService {
     );
   }
 
-  async createResourceReply(createResourcesReplyInput): Promise<ResourceReply> {
+  async getDocumentsStartup(
+    startup: string,
+    phase: string
+  ): Promise<ResourceReply[]> {
+    this._getResourceReplies = this.graphql.refQuery(
+      resourceRepliesQueries.query.getResourceRepliesByStartup,
+      { startup, phase },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(this._getResourceReplies).pipe(
+        map((request) => request.data.resourcesReplyByStartup),
+        map((dataReplies) =>
+          dataReplies.map((data) => ResourceReply.fromJson(data))
+        )
+      )
+    );
+  }
+
+  async createResourceReply(createResourcesReplyInput: {
+    item: any;
+    phase: string;
+    startup: string;
+    sprint: string;
+    resource: string;
+    type: ResourcesTypes;
+    state: ResourceReplyState;
+  }): Promise<ResourceReply> {
     delete createResourcesReplyInput['_id'];
     const mutationRef = this.graphql.refMutation(
       resourceRepliesQueries.mutation.createResourceReply,
@@ -47,7 +86,7 @@ export class PhaseHomeworksService {
     );
   }
 
-  async updateConfigsEvaluation(
+  async updateReply(
     updateResourcesReplyInput: Partial<IResourceReply>
   ): Promise<ResourceReply> {
     const mutRef = this.graphql.refMutation(
@@ -62,5 +101,84 @@ export class PhaseHomeworksService {
         map((config) => ResourceReply.fromJson(config))
       )
     );
+  }
+
+  async uploadTaskReply(fileToUpload: File, reply: ResourceReply, user: User) {
+    return new Promise(async (resolve, reject) => {
+      if (moment(new Date()).isAfter(reply.resource.extra_options.end)) {
+        this.toast.info({
+          summary: 'Fecha limite',
+          detail: 'Esta tarea ya supero el tiempo limite para su realización',
+        });
+        resolve(true);
+        return;
+      }
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB in bytes
+      if (fileToUpload.size > maxSizeInBytes) {
+        this.toast.alert({
+          summary: 'Archivo invalido',
+          detail:
+            'El archivo es demasiado grande. El tamaño máximo permitido es 5MB.',
+        });
+        resolve(true);
+        return;
+      }
+      this.toast.info({
+        summary: 'Subiendo...',
+        detail: 'Por favor espere',
+        life: 10000,
+      });
+      const fileUploaded: any = await firstValueFrom(
+        this.storageService
+          .uploadFile(
+            `phases/${reply.phase._id}/task/${reply.startup._id}/${reply.resource._id}`,
+            fileToUpload
+          )
+          .pipe(first((event) => event.type === HttpEventType.Response))
+      );
+      fileUploaded.url;
+
+      const realUrl = fileUploaded.url;
+      if (reply._id) {
+        this.updateReply({
+          _id: reply._id,
+          item: { user: user._id, file: realUrl },
+        })
+          .then((reply) => {
+            this.toast.clear();
+            resolve(true);
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.error({
+              summary: 'Fallo al registrar archivo subido',
+              detail: err,
+            });
+            resolve(true);
+          });
+      } else {
+        this.createResourceReply({
+          item: { user: user._id, file: realUrl },
+          phase: reply.phase._id,
+          startup: reply.startup._id,
+          sprint: reply.sprint._id,
+          resource: reply.resource._id,
+          type: reply.resource.type,
+          state: ResourceReplyState['Sin evaluar'],
+        })
+          .then((reply) => {
+            this.toast.clear();
+            resolve(true);
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.error({
+              summary: 'Fallo al registrar archivo subido',
+              detail: err,
+            });
+            resolve(true);
+          });
+      }
+    });
   }
 }

@@ -1,13 +1,16 @@
 import { Content } from '@home/phases/model/content.model';
+import { Phase } from '@home/phases/model/phase.model';
 import { Resource } from '@home/phases/model/resource.model';
+import { ResourcesTypes } from '@home/phases/model/resources-types.model';
 import { Startup } from '@shared/models/entities/startup';
 
 export interface IResourceReply {
   _id?: string;
   item: any;
-  startup: Startup | string;
-  resource: Resource | string;
-  sprint: Content | string;
+  startup: Startup;
+  resource: Resource;
+  sprint: Content;
+  phase: Phase;
   type: string;
   state: string;
   observations: string;
@@ -19,9 +22,10 @@ export interface IResourceReply {
 export class ResourceReply implements IResourceReply {
   _id: string;
   item: any;
-  startup: Startup | string;
-  resource: Resource | string;
-  sprint: Content | string;
+  startup: Startup;
+  resource: Resource;
+  sprint: Content;
+  phase: Phase;
   type: string;
   state: string;
   observations: string;
@@ -38,4 +42,33 @@ export class ResourceReply implements IResourceReply {
     });
     return obj;
   }
+}
+
+export function createSimpleResourceReply(
+  startup: Startup,
+  resource: Resource,
+  sprint: Content,
+  phase: Phase
+) {
+  const newReply = new ResourceReply();
+  newReply._id = undefined;
+  newReply.item = {} as any;
+  newReply.type = resource.type;
+  newReply.observations = '';
+  newReply.startup = startup;
+  newReply.sprint = sprint;
+  newReply.resource = resource;
+  newReply.phase = phase;
+  newReply.createdAt = new Date();
+  newReply.updatedAt = new Date();
+  newReply.isDeleted = false;
+  switch (resource.type) {
+    case ResourcesTypes.downloadable:
+      newReply.state = 'Sin descargar';
+      break;
+    default:
+      newReply.state = 'Pendiente';
+      break;
+  }
+  return newReply;
 }

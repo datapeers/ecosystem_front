@@ -25,6 +25,7 @@ import { DocumentProvider } from '@shared/components/dynamic-table/models/docume
 import { PhaseHomeworksService } from '../phase-homeworks.service';
 import { IResourceReply, ResourceReply } from '../model/resource-reply.model';
 import { Startup } from '@shared/models/entities/startup';
+import { ResourceReplyState } from '../model/resource-reply-states';
 
 @Component({
   selector: 'app-phase-homework-table',
@@ -216,7 +217,10 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
   }
 
   evaluate(reply: ResourceReply) {
-    if (!Object.keys(reply.item).length) {
+    if (
+      reply.state === ResourceReplyState['Sin descargar'] ||
+      reply.state === ResourceReplyState.Pendiente
+    ) {
       this.toast.info({
         summary: 'No se puede calificar',
         detail:
@@ -224,6 +228,5 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
       });
       return;
     }
-    console.log(reply);
   }
 }
