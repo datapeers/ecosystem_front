@@ -56,7 +56,6 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
-    private readonly formService: FormService,
     private storageService: StorageService,
     private phaseContentService: PhaseContentService,
     private phaseHomeworksService: PhaseHomeworksService
@@ -166,38 +165,13 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   async openForm(reply: ResourceReply) {
-    if (moment(new Date()).isAfter(reply.resource.extra_options.end)) {
-      this.toast.info({
-        summary: 'Fecha limite',
-        detail: 'Esta tarea ya supero el tiempo limite para su realización',
+    const ref = await this.phaseHomeworksService.openFormResource(reply);
+    if (ref)
+      ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
+        if (doc) {
+          this.setCards();
+        }
       });
-      return;
-    }
-    this.toast.loading();
-    const subscription = await this.formService.createFormSubscription({
-      form: reply.resource.extra_options.form,
-      reason: 'Abrir formulario recurso desde toolkit',
-      data: {
-        startup: reply.startup._id,
-        sprint: reply.sprint._id,
-        resource: reply.resource._id,
-        phase: this.currentBatch._id,
-        type: reply.resource.type,
-        state: 'Sin evaluar',
-        modified: true,
-      },
-      doc: reply._id,
-    });
-    this.toast.clear();
-    const ref = this.formService.openFormFromSubscription(
-      subscription,
-      `Diligenciar ${reply.resource.name}`
-    );
-    ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
-      if (doc) {
-        this.setCards();
-      }
-    });
   }
 
   async downloadFile(reply: ResourceReply) {

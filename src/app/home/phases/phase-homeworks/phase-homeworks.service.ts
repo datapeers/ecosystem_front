@@ -11,15 +11,17 @@ import { HttpEventType } from '@angular/common/http';
 import { StorageService } from '@shared/storage/storage.service';
 import { User } from '@auth/models/user';
 import * as moment from 'moment';
+import { FormService } from '@shared/form/form.service';
 @Injectable({
   providedIn: 'root',
 })
 export class PhaseHomeworksService {
   _getResourceReplies;
   constructor(
-    private graphql: GraphqlService,
     private toast: ToastService,
-    private storageService: StorageService
+    private graphql: GraphqlService,
+    private storageService: StorageService,
+    private readonly formService: FormService
   ) {}
 
   async getDocuments(args: {
@@ -191,5 +193,34 @@ export class PhaseHomeworksService {
       this.toast.clear();
       window.open(url, '_blank');
     }
+  }
+
+  async openFormResource(reply: ResourceReply) {
+    if (moment(new Date()).isAfter(reply.resource.extra_options.end)) {
+      this.toast.info({
+        summary: 'Fecha limite',
+        detail: 'Esta tarea ya supero el tiempo limite para su realización',
+      });
+      return null;
+    }
+    this.toast.loading();
+    const subscription = await this.formService.createFormSubscription({
+      form: reply.resource.extra_options.form,
+      reason: 'Abrir formulario recurso desde toolkit',
+      data: {
+        startup: reply.startup._id,
+        sprint: reply.sprint._id,
+        resource: reply.resource._id,
+        phase: reply.phase._id,
+        type: reply.resource.type,
+        state: 'Sin evaluar',
+      },
+      doc: reply._id,
+    });
+    this.toast.clear();
+    return this.formService.openFormFromSubscription(
+      subscription,
+      `Diligenciar ${reply.resource.name}`
+    );
   }
 }

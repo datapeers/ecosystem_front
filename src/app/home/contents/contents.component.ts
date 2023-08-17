@@ -94,6 +94,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     ).subscribe(async (i) => {
       this.loaded = false;
       this.sprints = i;
+      console.log(this.sprints);
       const previousSprint = (
         await firstValueFrom(this.route.queryParamMap)
       ).get('sprint');
@@ -131,16 +132,19 @@ export class ContentsComponent implements OnInit, OnDestroy {
     }
     this.sprintSelected = this.sprints.find((i) => i._id === sprintId);
     if (!this.sprintSelected) {
+      console.log('a');
       this.toast.alert({
         summary: 'Sprint invalido',
         detail: 'Sprint no encontrado',
       });
       return;
     }
+    console.log(this.sprintSelected);
     const menu = await this.service.optionsMenu(this.sprintSelected, this.user);
     this.store.dispatch(new SetOtherMenuAction(menu));
     this.indexContent = 0;
     this.contentSelected = this.sprintSelected.childs[0];
+    console.log(this.contentSelected);
     if (contentId) {
       const indexContent = this.sprintSelected.childs.findIndex(
         (i) => i._id === contentId
