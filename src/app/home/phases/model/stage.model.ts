@@ -1,17 +1,24 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
+
 export interface IStage {
   _id: string;
+  index: number;
   name: string;
   label: string;
   color: string;
+  icon: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export class Stage implements IStage {
   _id: string;
+  index: number;
   name: string;
   label: string;
   color: string;
+  icon: string;
   createdAt: Date;
   updatedAt: Date;
 
@@ -30,17 +37,28 @@ export class Stage implements IStage {
   toSave(): Partial<Stage> {
     return {
       _id: this._id,
+      index: this.index,
       label: this.label,
       name: this.name,
       color: this.color,
+      icon: this.icon,
     };
   }
+}
 
-  static newStage(): Partial<Stage> {
-    return {
-      label: '',
-      name: '',
-      color: '#C54927',
-    };
-  }
+export function newStage(index: number, previous?: Stage) {
+  return new FormGroup({
+    _id: new FormControl<string>(previous?._id ?? undefined),
+    index: new FormControl<number>(index, {
+      validators: [Validators.required],
+    }),
+    label: new FormControl<string>(previous?.label, {
+      validators: [Validators.required],
+    }),
+    name: new FormControl<string>(previous?.name, {
+      validators: [Validators.required],
+    }),
+    color: new FormControl<string>(previous?.color ?? '#C54927'),
+    icon: new FormControl<string>(previous?.icon ?? 'pi pi-file'),
+  });
 }

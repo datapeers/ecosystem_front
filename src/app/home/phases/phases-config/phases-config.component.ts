@@ -8,7 +8,7 @@ import { Subscription, first, firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { Phase } from '../model/phase.model';
 import { ToastService } from '@shared/services/toast.service';
-import { Stage } from '../model/stage.model';
+import { Stage, newStage } from '../model/stage.model';
 import { cloneDeep } from 'lodash';
 import { ConfirmationService } from 'primeng/api';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
@@ -16,6 +16,7 @@ import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
+import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-phases-config',
   templateUrl: './phases-config.component.html',
@@ -33,7 +34,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   loaded = false;
   showStages = false;
   showStageCreator = false;
-  newStage = Stage.newStage();
+  newStage: FormGroup;
   stages: Stage[] = [];
   showedStages: { [s: string]: Stage } = {};
   clonedStages: { [s: string]: Stage } = {};
@@ -78,6 +79,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
           this.stages = stageList;
           for (const iterator of this.stages)
             this.showedStages[iterator._id] = iterator;
+          this.newStage = newStage(this.stages.length);
         });
       })
       .catch((err) => {
@@ -125,7 +127,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
 
   resetCreator() {
     this.showStageCreator = false;
-    this.newStage = Stage.newStage();
+    this.newStage = newStage(this.stages.length);
   }
 
   openCreator() {
@@ -152,7 +154,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   createStage() {
     this.toast.info({ detail: '', summary: 'Creando' });
     this.service
-      .createStage(this.newStage)
+      .createStage(this.newStage.value)
       .then((ans) => {
         this.toast.clear();
         this.resetCreator();

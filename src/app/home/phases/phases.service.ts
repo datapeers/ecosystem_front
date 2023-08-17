@@ -45,6 +45,7 @@ export class PhasesService {
   }
 
   async createStage(createStageInput): Promise<Stage> {
+    delete createStageInput['_id'];
     const mutationRef = this.graphql.refMutation(
       stageQueries.mutation.createStage,
       { createStageInput },

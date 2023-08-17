@@ -104,11 +104,11 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   typesNeeded = [
-    '646f941ac2305c411d73f6c7',
-    '646f943cc2305c411d73f6d0',
-    '646f9538c2305c411d73f6fb',
-    '646f953cc2305c411d73f700',
+    '646f943cc2305c411d73f6d0', // Mentoría
+    '646f9538c2305c411d73f6fb', // Asesorías
+    '646f953cc2305c411d73f700', // Team coach
   ];
+
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,

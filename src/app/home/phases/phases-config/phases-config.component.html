@@ -4,7 +4,7 @@
         </fa-icon> <span class="subheader text-white ">Configuración fases</span>
     </div>
     <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="showDialogStages()"></p-button>
-    <p-button *ngIf="user.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button>
+    <p-button *ngIf="user?.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button>
 </div>
 
 
@@ -92,25 +92,25 @@
 <ng-template #loadingTemplate>
     <app-loading></app-loading>
 </ng-template>
-
+a
 <p-dialog header="Crear etapa" [(visible)]="showStageCreator" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
-    <div class="flex flex-column justify-content-between h-full w-full ">
-        <div class="flex flex-wrap gap-3 p-fluid">
+    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newStage">
+        <form [formGroup]="newStage" class="flex flex-wrap gap-3 p-fluid">
             <div class="flex-auto">
                 <label for="stageName">Nombre</label>
-                <input inputId="stageName" pInputText type="text" [(ngModel)]="newStage.name" required>
+                <input inputId="stageName" pInputText type="text" formControlName="name" required>
             </div>
             <div class="flex-auto">
                 <label for="stageLabel">Etiqueta</label>
-                <input pInputText type="text" [(ngModel)]="newStage.label" required>
+                <input pInputText type="text" formControlName="label" required>
             </div>
             <div class="flex-auto">
-                <p-colorPicker [(ngModel)]="newStage.color" [inline]="true" appendTo="body"></p-colorPicker>
+                <p-colorPicker formControlName="color" [inline]="true" appendTo="body"></p-colorPicker>
             </div>
             <div style="height: 1rem;"></div>
 
-        </div>
-        <p-button type="submit" label="Crear" (onClick)="createStage()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+        </form>
+        <p-button type="submit" label="Crear" (onClick)="createStage()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="newStage.invalid"></p-button>
 
     </div>
 

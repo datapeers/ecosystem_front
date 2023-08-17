@@ -2,9 +2,11 @@ const fragments = {
   stageFields: `
   fragment stageFields on Stage {
       _id
+      index
       name
       label
       color
+      icon
       createdAt
       updatedAt
     }
