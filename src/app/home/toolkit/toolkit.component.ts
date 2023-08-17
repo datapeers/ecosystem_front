@@ -184,6 +184,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
         phase: this.currentBatch._id,
         type: reply.resource.type,
         state: 'Sin evaluar',
+        modified: true,
       },
       doc: reply._id,
     });

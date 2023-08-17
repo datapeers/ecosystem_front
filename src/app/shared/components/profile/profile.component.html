@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </ng-container> -->
-                <ng-container *ngIf="profileDoc">
+                <ng-container *ngIf="profileDoc && user?.isExpert">
                     <ng-container *ngFor="let param of accountParams">
                         <ng-template [ngTemplateOutlet]="editableParamCardTemplate" [ngTemplateOutletContext]="{
                                                                     data: {

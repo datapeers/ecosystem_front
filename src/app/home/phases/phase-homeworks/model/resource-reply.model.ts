@@ -14,6 +14,7 @@ export interface IResourceReply {
   type: string;
   state: string;
   observations: string;
+  modified: boolean;
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -29,6 +30,7 @@ export class ResourceReply implements IResourceReply {
   type: string;
   state: string;
   observations: string;
+  modified: boolean;
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -62,6 +64,7 @@ export function createSimpleResourceReply(
   newReply.createdAt = new Date();
   newReply.updatedAt = new Date();
   newReply.isDeleted = false;
+  newReply.modified = false;
   switch (resource.type) {
     case ResourcesTypes.downloadable:
       newReply.state = 'Sin descargar';

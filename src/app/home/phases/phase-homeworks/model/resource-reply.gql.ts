@@ -22,6 +22,7 @@ const fragments = {
       type
       state
       observations
+      modified
       createdAt
       updatedAt
       isDeleted

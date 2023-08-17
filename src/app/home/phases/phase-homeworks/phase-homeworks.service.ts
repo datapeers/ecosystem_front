@@ -142,7 +142,7 @@ export class PhaseHomeworksService {
       if (reply._id) {
         this.updateReply({
           _id: reply._id,
-          item: { user: user._id, file: realUrl },
+          item: { user: user._id, file: realUrl, modified: true },
         })
           .then((reply) => {
             this.toast.clear();

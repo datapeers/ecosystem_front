@@ -32,7 +32,7 @@
                             <p-columnFilter type="text" field="state" display="menu"></p-columnFilter>
                         </div>
                     </th>
-                    <th>
+                    <th *ngIf="resource.type !== resourcesTypes.downloadable">
                         <div class="flex align-items-center">
                             Observaciones
                             <p-columnFilter type="text" field="observations" display="menu"></p-columnFilter>
@@ -45,9 +45,13 @@
                 <tr>
                     <td>{{itemRow.startup.item.nombre}}</td>
                     <td>{{itemRow.state}}</td>
-                    <td>{{itemRow.observations}}</td>
-                    <td>
-                        <p-button *ngIf="allowEvaluate(user.rolType)" label="Calificar" icon="pi pi-check" pTooltip="Calificar" (onClick)="evaluate(itemRow)"></p-button>
+                    <td *ngIf="resource.type !== resourcesTypes.downloadable">{{itemRow.observations}}</td>
+                    <td class="w-full flex flex-wrap align-items-center justify-content-center gap-2">
+                        <p-button *ngIf="resource.type !== resourcesTypes.downloadable" label="Calificar" icon="pi pi-check" pTooltip="Calificar" (onClick)="evaluate(itemRow)"></p-button>
+                        <ng-container *ngIf="itemRow.modified">
+                            <p class="text-orange-600">Ha sido modificado</p>
+                        </ng-container>
+
                     </td>
                 </tr>
             </ng-template>

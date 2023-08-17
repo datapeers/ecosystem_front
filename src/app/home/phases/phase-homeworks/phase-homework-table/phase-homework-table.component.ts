@@ -67,6 +67,10 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
     return Permission;
   }
 
+  public get resourcesTypes(): typeof ResourcesTypes {
+    return ResourcesTypes;
+  }
+
   constructor(
     private store: Store<AppState>,
     private service: PhaseHomeworksService,
@@ -237,6 +241,7 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
         _id: this.replyForEvaluated._id,
         state: this.replyForEvaluated.state,
         observations: this.replyForEvaluated.observations,
+        modified: false,
       })
       .then((reply) => {
         this.toast.clear();
