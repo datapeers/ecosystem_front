@@ -8,7 +8,14 @@ import { PhaseHomeworksService } from '@home/phases/phase-homeworks/phase-homewo
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
 import { ToastService } from '@shared/services/toast.service';
-import { firstValueFrom, first, Subscription } from 'rxjs';
+import {
+  firstValueFrom,
+  first,
+  Subscription,
+  take,
+  takeUntil,
+  Subject,
+} from 'rxjs';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -16,8 +23,12 @@ import {
   SetOtherMenuAction,
 } from '@home/store/home.actions';
 import { ContentsService } from './contents.service';
-import { Resource } from '@home/phases/model/resource.model';
-import { cloneDeep } from 'lodash';
+import { ResourceReply } from '@home/phases/phase-homeworks/model/resource-reply.model';
+import { ResourceReplyState } from '@home/phases/phase-homeworks/model/resource-reply-states';
+import {
+  ResourcesTypes,
+  resourcesTypesNames,
+} from '@home/phases/model/resources-types.model';
 
 @Component({
   selector: 'app-contents',
@@ -32,6 +43,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   currentBatch: Phase;
   dialogRef;
   onCloseDialogSub$: Subscription;
+  onDestroy$: Subject<void> = new Subject();
   sprints: Content[];
   sprintSelected: Content;
 
@@ -40,16 +52,23 @@ export class ContentsComponent implements OnInit, OnDestroy {
   indexContent = 0;
   nextContent: boolean = false;
   previousContent: boolean = false;
-  homeworks: Resource[] = [];
+  homeworks: ResourceReply[] = [];
   viewHomeworks = false;
+  resourcesTypesNames = resourcesTypesNames;
+  public get resourcesStates(): typeof ResourceReplyState {
+    return ResourceReplyState;
+  }
+
+  public get resourcesTypes(): typeof ResourcesTypes {
+    return ResourcesTypes;
+  }
+
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
     private route: ActivatedRoute,
     private router: Router,
     private service: ContentsService,
-    // private readonly formService: FormService,
-    // private storageService: StorageService,
     private phaseContentService: PhaseContentService,
     private phaseHomeworksService: PhaseHomeworksService
   ) {
@@ -67,6 +86,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onCloseDialogSub$?.unsubscribe();
     this.store.dispatch(new RestoreMenuAction());
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   async loadComponent() {
@@ -157,10 +178,17 @@ export class ContentsComponent implements OnInit, OnDestroy {
     this.previousContent = this.indexContent > 0 ? true : false;
     this.nextContent =
       this.indexContent !== this.sprintSelected.childs.length - 1;
-    if (this.sprintSelected?.resources.length)
-      this.homeworks = this.homeworks.concat(this.sprintSelected.resources);
-    if (this.contentSelected?.resources.length)
-      this.homeworks = this.homeworks.concat(this.contentSelected.resources);
+    this.loadHomeworks();
+  }
+
+  async loadHomeworks() {
+    this.homeworks = await this.phaseHomeworksService.setResourcesReplies(
+      this.startup,
+      this.currentBatch,
+      this.sprintSelected,
+      this.contentSelected
+    );
+    this.homeworks = [...this.homeworks];
   }
 
   changeContent(index: number) {
@@ -168,5 +196,49 @@ export class ContentsComponent implements OnInit, OnDestroy {
     if (nextContent) {
       this.setContentDisplay(this.sprintSelected._id, nextContent._id);
     }
+  }
+
+  async openForm(reply: ResourceReply) {
+    const ref = await this.phaseHomeworksService.openFormResource(reply);
+    if (ref)
+      ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
+        if (doc) {
+          this.loadHomeworks();
+        }
+      });
+  }
+
+  downloadFile(reply: ResourceReply) {
+    this.phaseHomeworksService
+      .downloadFileAndCheck(reply, this.user)
+      .then((updated) => {
+        if (updated) {
+          this.loadHomeworks();
+        }
+      });
+  }
+
+  async downloadFileReply(reply: ResourceReply) {
+    this.phaseHomeworksService.downloadFileReply(reply);
+  }
+
+  async selectFile(element: HTMLInputElement, reply: ResourceReply) {
+    const files = element.files;
+    if (files && files.item(0)) {
+      await this.phaseHomeworksService.uploadTaskReply(
+        files.item(0),
+        reply,
+        this.user
+      );
+      this.loadHomeworks();
+    }
+  }
+
+  alertState(reply: ResourceReply) {
+    return [
+      ResourceReplyState.Pendiente,
+      ResourceReplyState['Sin descargar'],
+      ResourceReplyState['No aprobado'],
+    ].includes(reply.state as ResourceReplyState);
   }
 }

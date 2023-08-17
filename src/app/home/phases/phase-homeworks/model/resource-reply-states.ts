@@ -5,4 +5,5 @@ export enum ResourceReplyState {
   'Descargado' = 'Descargado',
   'Evaluado' = 'Evaluado',
   'Aprobado' = 'Aprobado',
+  'No aprobado' = 'No aprobado',
 }

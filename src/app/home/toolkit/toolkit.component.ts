@@ -13,17 +13,12 @@ import {
   Subscription,
   take,
   takeUntil,
-  tap,
 } from 'rxjs';
 import { PhaseContentService } from '../phases/phase-content/phase-content.service';
 import { Content } from '@home/phases/model/content.model';
 import * as moment from 'moment';
-import {
-  ResourceReply,
-  createSimpleResourceReply,
-} from '@home/phases/phase-homeworks/model/resource-reply.model';
+import { ResourceReply } from '@home/phases/phase-homeworks/model/resource-reply.model';
 import { ResourcesTypes } from '@home/phases/model/resources-types.model';
-import { FormService } from '@shared/form/form.service';
 import { StorageService } from '@shared/storage/storage.service';
 import { ResourceReplyState } from '@home/phases/phase-homeworks/model/resource-reply-states';
 
@@ -56,7 +51,6 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
-    private storageService: StorageService,
     private phaseContentService: PhaseContentService,
     private phaseHomeworksService: PhaseHomeworksService
   ) {
@@ -123,7 +117,6 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       this.currentBatch,
       this.sprintSelected
     );
-    console.log(this.cards);
   }
 
   async openForm(reply: ResourceReply) {
@@ -140,9 +133,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
     this.phaseHomeworksService
       .downloadFileAndCheck(reply, this.user)
       .then((updated) => {
-        console.log('a', updated);
         if (updated) {
-          console.log('e');
           this.setCards();
         }
       });

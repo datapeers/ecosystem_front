@@ -114,7 +114,7 @@ export class PhaseHomeworksService {
 
   async uploadTaskReply(fileToUpload: File, reply: ResourceReply, user: User) {
     return new Promise(async (resolve, reject) => {
-      if (moment(new Date()).isAfter(reply.resource.extra_options.end)) {
+      if (moment(new Date()).isAfter(reply.resource.extra_options.expiration)) {
         this.toast.info({
           summary: 'Fecha limite',
           detail: 'Esta tarea ya supero el tiempo limite para su realización',
@@ -204,7 +204,7 @@ export class PhaseHomeworksService {
   }
 
   async openFormResource(reply: ResourceReply) {
-    if (moment(new Date()).isAfter(reply.resource.extra_options.end)) {
+    if (moment(new Date()).isAfter(reply.resource.extra_options.expiration)) {
       this.toast.info({
         summary: 'Fecha limite',
         detail: 'Esta tarea ya supero el tiempo limite para su realización',
@@ -257,7 +257,12 @@ export class PhaseHomeworksService {
     return false;
   }
 
-  async setResourcesReplies(startup: Startup, batch: Phase, sprint: Content) {
+  async setResourcesReplies(
+    startup: Startup,
+    batch: Phase,
+    sprint: Content,
+    contentSpecified?: Content
+  ): Promise<ResourceReply[]> {
     let ans = [];
     const repliesSaved = await this.getDocumentsStartup(startup._id, batch._id);
     for (const resourceSprint of sprint.resources) {
@@ -280,6 +285,7 @@ export class PhaseHomeworksService {
       });
     }
     for (const content of sprint.childs) {
+      if (contentSpecified && contentSpecified._id !== content._id) continue;
       for (const resourceContent of content.resources) {
         let reply = repliesSaved.find(
           (i) => i.resource._id === resourceContent._id
