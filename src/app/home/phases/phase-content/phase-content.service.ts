@@ -3,7 +3,7 @@ import { GraphqlService } from '@graphqlApollo/graphql.service';
 import contentQueries from '../graphql/content.gql';
 import resourceQueries from '../graphql/resource.gql';
 import { IContent, Content } from '../model/content.model';
-import { firstValueFrom, map } from 'rxjs';
+import { Observable, firstValueFrom, map } from 'rxjs';
 import { TreeNode } from 'primeng/api';
 import { IResource, Resource } from '../model/resource.model';
 import { cloneDeep } from '@apollo/client/utilities';
@@ -16,7 +16,7 @@ export class PhaseContentService {
   private _lastContent;
   constructor(private readonly graphql: GraphqlService) {}
 
-  async watchContents(phase: string) {
+  async watchContents(phase: string): Promise<Observable<Content[]>> {
     this._getContent = this.graphql.refQuery(
       contentQueries.query.getContents,
       { phase },
@@ -27,6 +27,21 @@ export class PhaseContentService {
       map((request) => request.data.allContent),
       map((allContent) =>
         allContent.map((content) => Content.fromJson(content))
+      )
+    );
+  }
+
+  async getContents(phase: string): Promise<Content[]> {
+    this._getContent = this.graphql.refQuery(
+      contentQueries.query.getContents,
+      { phase },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(this._getContent).pipe(
+        map((request) => request.data.allContent),
+        map((allContent) => allContent.map((doc) => Content.fromJson(doc)))
       )
     );
   }

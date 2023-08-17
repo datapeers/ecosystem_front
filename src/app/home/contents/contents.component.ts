@@ -16,6 +16,8 @@ import {
   SetOtherMenuAction,
 } from '@home/store/home.actions';
 import { ContentsService } from './contents.service';
+import { Resource } from '@home/phases/model/resource.model';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-contents',
@@ -28,7 +30,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
   profileDoc;
   startup: Startup;
   currentBatch: Phase;
-  watchContent$: Subscription;
   dialogRef;
   onCloseDialogSub$: Subscription;
   sprints: Content[];
@@ -39,6 +40,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
   indexContent = 0;
   nextContent: boolean = false;
   previousContent: boolean = false;
+  homeworks: Resource[] = [];
+  viewHomeworks = false;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -62,7 +65,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.watchContent$?.unsubscribe();
     this.onCloseDialogSub$?.unsubscribe();
     this.store.dispatch(new RestoreMenuAction());
   }
@@ -89,32 +91,32 @@ export class ContentsComponent implements OnInit, OnDestroy {
       return;
     }
     this.currentBatch = currentBatch;
-    this.watchContent$ = (
-      await this.phaseContentService.watchContents(this.currentBatch._id)
-    ).subscribe(async (i) => {
-      this.loaded = false;
-      this.sprints = i;
-      console.log(this.sprints);
-      const previousSprint = (
-        await firstValueFrom(this.route.queryParamMap)
-      ).get('sprint');
-      if (!previousSprint)
-        this.sprintSelected =
-          this.sprints.find((i) =>
-            moment(new Date()).isBetween(
-              i.extra_options.start,
-              i.extra_options.end
-            )
-          ) ?? this.sprints[this.sprints.length - 1];
-      this.watchContent();
-      this.changesSprint();
-      this.loaded = true;
-    });
+    this.phaseContentService
+      .getContents(this.currentBatch._id)
+      .then(async (i) => {
+        this.loaded = false;
+        this.sprints = i;
+        const previousSprint = (
+          await firstValueFrom(this.route.queryParamMap)
+        ).get('sprint');
+        if (!previousSprint) {
+          this.sprintSelected =
+            this.sprints.find((i) =>
+              moment(new Date()).isBetween(
+                i.extra_options.start,
+                i.extra_options.end
+              )
+            ) ?? this.sprints[this.sprints.length - 1];
+        }
+        this.watchContent();
+        this.changesSprint();
+        this.loaded = true;
+      });
   }
 
   changesSprint(content?: string) {
     this.router.navigate(['/home/contents'], {
-      queryParams: { sprint: this.sprintSelected._id, content },
+      queryParams: { sprint: this.sprintSelected?._id, content },
     });
   }
 
@@ -127,37 +129,38 @@ export class ContentsComponent implements OnInit, OnDestroy {
   }
 
   async setContentDisplay(sprintId: string, contentId: string) {
+    this.homeworks = [];
     if (!sprintId) {
       return;
     }
     this.sprintSelected = this.sprints.find((i) => i._id === sprintId);
     if (!this.sprintSelected) {
-      console.log('a');
       this.toast.alert({
         summary: 'Sprint invalido',
         detail: 'Sprint no encontrado',
       });
       return;
     }
-    console.log(this.sprintSelected);
     const menu = await this.service.optionsMenu(this.sprintSelected, this.user);
     this.store.dispatch(new SetOtherMenuAction(menu));
     this.indexContent = 0;
     this.contentSelected = this.sprintSelected.childs[0];
-    console.log(this.contentSelected);
     if (contentId) {
       const indexContent = this.sprintSelected.childs.findIndex(
         (i) => i._id === contentId
       );
-      if (indexContent === -1) {
-        return;
+      if (indexContent !== -1) {
+        this.contentSelected = this.sprintSelected.childs[indexContent];
+        this.indexContent = indexContent;
       }
-      this.contentSelected = this.sprintSelected.childs[indexContent];
-      this.indexContent = indexContent;
     }
-    this.previousContent = this.indexContent ? true : false;
+    this.previousContent = this.indexContent > 0 ? true : false;
     this.nextContent =
       this.indexContent !== this.sprintSelected.childs.length - 1;
+    if (this.sprintSelected?.resources.length)
+      this.homeworks = this.homeworks.concat(this.sprintSelected.resources);
+    if (this.contentSelected?.resources.length)
+      this.homeworks = this.homeworks.concat(this.contentSelected.resources);
   }
 
   changeContent(index: number) {

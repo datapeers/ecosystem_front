@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { IResourceReply, ResourceReply } from './model/resource-reply.model';
+import {
+  IResourceReply,
+  ResourceReply,
+  createSimpleResourceReply,
+} from './model/resource-reply.model';
 import resourceRepliesQueries from './model/resource-reply.gql';
 import { first, firstValueFrom, map, tap } from 'rxjs';
 import { ResourceReplyState } from './model/resource-reply-states';
@@ -12,6 +16,9 @@ import { StorageService } from '@shared/storage/storage.service';
 import { User } from '@auth/models/user';
 import * as moment from 'moment';
 import { FormService } from '@shared/form/form.service';
+import { Startup } from '@shared/models/entities/startup';
+import { Phase } from '../model/phase.model';
+import { Content } from '../model/content.model';
 @Injectable({
   providedIn: 'root',
 })
@@ -223,5 +230,75 @@ export class PhaseHomeworksService {
       subscription,
       `Diligenciar ${reply.resource.name}`
     );
+  }
+
+  async downloadFileAndCheck(reply: ResourceReply, user: User) {
+    const resource = reply.resource;
+    const file = resource?.extra_options?.file;
+    this.toast.info({ summary: 'Descargando', detail: '' });
+    const key = this.storageService.getKey(file);
+    const url = await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      this.toast.clear();
+      window.open(url, '_blank');
+      if (reply.state === ResourceReplyState['Sin descargar']) {
+        await this.createResourceReply({
+          item: { user: user._id },
+          phase: reply.phase._id,
+          startup: reply.startup._id,
+          sprint: reply.sprint._id,
+          resource: reply.resource._id,
+          type: reply.resource.type,
+          state: ResourceReplyState.Descargado,
+        });
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async setResourcesReplies(startup: Startup, batch: Phase, sprint: Content) {
+    let ans = [];
+    const repliesSaved = await this.getDocumentsStartup(startup._id, batch._id);
+    for (const resourceSprint of sprint.resources) {
+      let reply = repliesSaved.find(
+        (i) => i.resource._id === resourceSprint._id
+      );
+      if (!reply) {
+        reply = createSimpleResourceReply(
+          startup,
+          resourceSprint,
+          sprint,
+          batch
+        );
+      }
+      ans.push({
+        ...reply,
+        startup: startup,
+        sprint: sprint,
+        phase: batch,
+      });
+    }
+    for (const content of sprint.childs) {
+      for (const resourceContent of content.resources) {
+        let reply = repliesSaved.find(
+          (i) => i.resource._id === resourceContent._id
+        );
+        if (!reply)
+          reply = createSimpleResourceReply(
+            startup,
+            resourceContent,
+            sprint,
+            batch
+          );
+        ans.push({
+          ...reply,
+          startup: startup,
+          sprint: sprint,
+          phase: batch,
+        });
+      }
+    }
+    return ans;
   }
 }

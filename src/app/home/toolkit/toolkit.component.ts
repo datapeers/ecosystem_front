@@ -118,50 +118,12 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   async setCards() {
-    this.cards = [];
-    const repliesSaved = await this.phaseHomeworksService.getDocumentsStartup(
-      this.startup._id,
-      this.currentBatch._id
+    this.cards = await this.phaseHomeworksService.setResourcesReplies(
+      this.startup,
+      this.currentBatch,
+      this.sprintSelected
     );
-    for (const resourceSprint of this.sprintSelected.resources) {
-      let reply = repliesSaved.find(
-        (i) => i.resource._id === resourceSprint._id
-      );
-      if (!reply) {
-        reply = createSimpleResourceReply(
-          this.startup,
-          resourceSprint,
-          this.sprintSelected,
-          this.currentBatch
-        );
-      }
-      this.cards.push({
-        ...reply,
-        startup: this.startup,
-        sprint: this.sprintSelected,
-        phase: this.currentBatch,
-      });
-    }
-    for (const content of this.sprintSelected.childs) {
-      for (const resourceContent of content.resources) {
-        let reply = repliesSaved.find(
-          (i) => i.resource._id === resourceContent._id
-        );
-        if (!reply)
-          reply = createSimpleResourceReply(
-            this.startup,
-            resourceContent,
-            this.sprintSelected,
-            this.currentBatch
-          );
-        this.cards.push({
-          ...reply,
-          startup: this.startup,
-          sprint: this.sprintSelected,
-          phase: this.currentBatch,
-        });
-      }
-    }
+    console.log(this.cards);
   }
 
   async openForm(reply: ResourceReply) {
@@ -174,29 +136,16 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       });
   }
 
-  async downloadFile(reply: ResourceReply) {
-    const resource = reply.resource;
-    const file = resource?.extra_options?.file;
-    this.toast.info({ summary: 'Descargando', detail: '' });
-    const key = this.storageService.getKey(file);
-    const url = await firstValueFrom(this.storageService.getFile(key));
-    if (url) {
-      this.toast.clear();
-      if (reply.state === ResourceReplyState['Sin descargar']) {
-        this.phaseHomeworksService
-          .createResourceReply({
-            item: { user: this.user._id },
-            phase: reply.phase._id,
-            startup: reply.startup._id,
-            sprint: reply.sprint._id,
-            resource: reply.resource._id,
-            type: reply.resource.type,
-            state: ResourceReplyState.Descargado,
-          })
-          .then((i) => this.setCards());
-      }
-      window.open(url, '_blank');
-    }
+  downloadFile(reply: ResourceReply) {
+    this.phaseHomeworksService
+      .downloadFileAndCheck(reply, this.user)
+      .then((updated) => {
+        console.log('a', updated);
+        if (updated) {
+          console.log('e');
+          this.setCards();
+        }
+      });
   }
 
   async downloadFileReply(reply: ResourceReply) {

@@ -1,20 +1,23 @@
 <ng-container *ngIf="loaded; else loadingTemplates">
     <div class="p-4">
-        <div class="w-full flex flex-row w-full gap-2 text-white  align-items-center ">
-            <h2>{{currentBatch?.name}}</h2>
-            <h2>></h2>
-            <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="changesSprint()">
-                <ng-template let-sprint pTemplate="item">
-                    <div>{{ sprint.name }}</div>
-                </ng-template>
-            </p-dropdown>
-            <h3>{{sprintSelected?.extra_options?.start | date}}</h3>
-            <h2>-</h2>
-            <h3>{{sprintSelected?.extra_options?.end | date}}</h3>
+        <div class="w-full flex flex-row justify-content-between align-items-center">
+            <div class="header flex flex-row gap-2 text-white  align-items-center ">
+                <h2>{{currentBatch?.name}}</h2>
+                <h2>></h2>
+                <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="changesSprint()">
+                    <ng-template let-sprint pTemplate="item">
+                        <div>{{ sprint.name }}</div>
+                    </ng-template>
+                </p-dropdown>
+                <h3>{{sprintSelected?.extra_options?.start | date}}</h3>
+                <h2>-</h2>
+                <h3>{{sprintSelected?.extra_options?.end | date}}</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <p-button *ngIf="homeworks.length" iconPos="left" icon="pi pi-file" styleClass="p-button" label="Tares"></p-button>
+            </div>
         </div>
-        <div class="flex flex-wrap gap-2 w-full">
 
-        </div>
         <div class="w-full flex flex-column gap-2" *ngIf="contentSelected">
             <div class="flex flex-row flex-wrap w-full justify-content-around mb-2">
                 <p-button *ngIf="previousContent" iconPos="left" icon="pi pi-arrow-left" styleClass="p-button" label="Anterior" (onClick)="changeContent(indexContent-1)"></p-button>
