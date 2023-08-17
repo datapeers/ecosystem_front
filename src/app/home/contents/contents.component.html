@@ -33,6 +33,16 @@
                 <div *ngIf="contentSelected.content" class="p-4 w-full">
                     <div [innerHtml]="(contentSelected.content | safe:'html')"></div>
                 </div>
+
+            </div>
+            <div class="w-full flex flex-row align-items-center justify-content-end gap-2 p-2">
+                <ng-container *ngIf="contentCompleted[contentSelected._id]; else noCompleted">
+                    <span class="font-semibold text-white ">{{contentCompleted[contentSelected._id].createdAt | date:'medium'}}</span>
+                    <span class="font-bold text-white text-primary">Completado</span>
+                </ng-container>
+                <ng-template #noCompleted>
+                    <p-button iconPos="left" icon="pi pi-check" styleClass="p-button-secondary" label="Marcar como completado" (onClick)="markAsCompleted()" [disabled]="savingCompleted"></p-button>
+                </ng-template>
             </div>
         </div>
     </div>

@@ -11,12 +11,17 @@ import {
   faPenRuler,
   faBook,
 } from '@fortawesome/free-solid-svg-icons';
+import userLogsQueries from './models/user-logs.gql';
+import { GraphqlService } from '@graphqlApollo/graphql.service';
+import { Observable, map, firstValueFrom } from 'rxjs';
+import { IUserLog } from './models/user-logs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContentsService {
-  constructor() {}
+  _watchLogs;
+  constructor(private readonly graphql: GraphqlService) {}
 
   optionsMenu(sprint: Content, user: User) {
     let menu = {
@@ -33,5 +38,31 @@ export class ContentsService {
       });
     }
     return menu;
+  }
+
+  async watchLogsWithFilter(filters: {}): Promise<Observable<IUserLog[]>> {
+    this._watchLogs = this.graphql.refQuery(
+      userLogsQueries.query.getLogs,
+      { filters },
+      'cache-first',
+      { auth: true }
+    );
+    return this.graphql
+      .watch_query(this._watchLogs)
+      .valueChanges.pipe(map((request) => request.data.userLogs));
+  }
+
+  async createLog(metadata: any): Promise<IUserLog> {
+    const mutationRef = this.graphql.refMutation(
+      userLogsQueries.mutation.createUserLog,
+      { createUserLogInput: { metadata } },
+      [this._watchLogs],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.createStage))
+    );
   }
 }

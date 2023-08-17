@@ -29,6 +29,7 @@ import {
   ResourcesTypes,
   resourcesTypesNames,
 } from '@home/phases/model/resources-types.model';
+import { IUserLog } from './models/user-logs';
 
 @Component({
   selector: 'app-contents',
@@ -44,14 +45,16 @@ export class ContentsComponent implements OnInit, OnDestroy {
   dialogRef;
   onCloseDialogSub$: Subscription;
   onDestroy$: Subject<void> = new Subject();
+  logs: IUserLog[] = [];
   sprints: Content[];
   sprintSelected: Content;
-
   paramSub$: Subscription;
   contentSelected: Content;
   indexContent = 0;
   nextContent: boolean = false;
   previousContent: boolean = false;
+
+  // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
   resourcesTypesNames = resourcesTypesNames;
@@ -62,6 +65,11 @@ export class ContentsComponent implements OnInit, OnDestroy {
   public get resourcesTypes(): typeof ResourcesTypes {
     return ResourcesTypes;
   }
+
+  // logs -------------------------------------------------------
+  userLogs$: Subscription;
+  contentCompleted = {};
+  savingCompleted = false;
 
   constructor(
     private store: Store<AppState>,
@@ -85,6 +93,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.onCloseDialogSub$?.unsubscribe();
+    this.userLogs$?.unsubscribe();
     this.store.dispatch(new RestoreMenuAction());
     this.onDestroy$.next();
     this.onDestroy$.complete();
@@ -129,9 +138,32 @@ export class ContentsComponent implements OnInit, OnDestroy {
               )
             ) ?? this.sprints[this.sprints.length - 1];
         }
-        this.watchContent();
+        this.watchLogPhase(this.currentBatch, this.startup);
+        this.watchContentSelector();
         this.changesSprint();
         this.loaded = true;
+      });
+  }
+
+  watchLogPhase(currentBatch: Phase, startup: Startup) {
+    this.service
+      .watchLogsWithFilter({
+        'metadata.batch': currentBatch._id,
+        'metadata.startup': this.startup._id,
+      })
+      .then((logs$) => {
+        this.userLogs$ = logs$.subscribe((logsList) => {
+          this.logs = logsList;
+          console.log(this.logs);
+          this.setContentCompleted(this.logs);
+        });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar logs de usuario',
+          detail: err,
+          life: 12000,
+        });
       });
   }
 
@@ -141,7 +173,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  watchContent() {
+  watchContentSelector() {
     this.paramSub$ = this.route.queryParamMap.subscribe((params) => {
       const sprintId = params.get('sprint');
       const contentId = params.get('content');
@@ -240,5 +272,27 @@ export class ContentsComponent implements OnInit, OnDestroy {
       ResourceReplyState['Sin descargar'],
       ResourceReplyState['No aprobado'],
     ].includes(reply.state as ResourceReplyState);
+  }
+
+  setContentCompleted(logs: IUserLog[]) {
+    this.contentCompleted = {};
+    const logsOfContent = logs.filter((i) => i.metadata?.content);
+    for (const log of logsOfContent)
+      this.contentCompleted[log.metadata.content] = log;
+  }
+
+  markAsCompleted() {
+    this.savingCompleted = true;
+    this.service
+      .createLog({
+        batch: this.currentBatch._id,
+        startup: this.startup._id,
+        sprint: this.sprintSelected._id,
+        content: this.contentSelected._id,
+      })
+      .catch((err) =>
+        this.toast.error({ summary: 'Error!', detail: err, life: 12000 })
+      )
+      .finally(() => (this.savingCompleted = false));
   }
 }
