@@ -49,6 +49,14 @@ const mutation = {
       }
     }
   `,
+  changeIndex: `
+    ${fragments.stageFields}
+    mutation UpdateStageIndex($newIndex: Int!, $stageId: String!, $typeChange: String!) {
+      updateStageIndex(newIndex: $newIndex, stageId: $stageId, typeChange: $typeChange) {
+        ...stageFields
+      }
+    }
+  `,
   deleteStage: `
   ${fragments.stageFields}
   mutation RemoveStage($id: String!) {

@@ -140,7 +140,6 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
         basePhase: true,
       },
     });
-
     this.onCloseDialogSub$ = this.dialogRef.onClose.subscribe(async (data) => {
       this.onCloseDialogSub$.unsubscribe();
       this.dialogRef = null;
@@ -234,5 +233,41 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
           });
       },
     });
+  }
+
+  onStageUpIndex(stageToEdit: Stage, index: number) {
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.service
+      .updateStageIndex(index + 1, stageToEdit._id, 'up')
+      .then((ans) => {
+        this.toast.clear();
+        this.stages[index] = cloneDeep(ans);
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al editar etapa',
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  onStageDownIndex(stageToEdit: Stage, index: number) {
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.service
+      .updateStageIndex(index - 1, stageToEdit._id, 'down')
+      .then((ans) => {
+        this.toast.clear();
+        this.stages[index] = cloneDeep(ans);
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al editar etapa',
+          detail: err,
+          life: 12000,
+        });
+      });
   }
 }

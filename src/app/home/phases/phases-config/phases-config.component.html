@@ -78,10 +78,16 @@
                 </td>
                 <td>
                     <div class="flex align-items-center justify-content-center gap-2">
-                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onStageEditInit(stage)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash" (click)="stageDelete(stage)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onStageEditSave(stage, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onStageEditCancel(stage, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        <ng-container *ngIf="!editing; else editingActionsRow">
+                            <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onStageEditInit(stage)" class="p-button-rounded p-button-text" pTooltip="Editar etapa"></button>
+                            <button pButton pRipple type="button" icon="pi pi-trash" (click)="stageDelete(stage)" class="p-button-rounded p-button-text" pTooltip="Borrar etapa"></button>
+                        </ng-container>
+                        <ng-template #editingActionsRow>
+                            <button pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onStageEditSave(stage, ri)" class="p-button-rounded p-button-text p-button-success mr-2" pTooltip="Guardar cambios"></button>
+                            <button pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onStageEditCancel(stage, ri)" class="p-button-rounded p-button-text p-button-danger" pTooltip="Cancelar cambios"></button>
+                        </ng-template>
+                        <button pButton pRipple type="button" icon="pi pi-arrow-circle-up" (click)="onStageDownIndex(stage, ri)" class="p-button-rounded p-button-text" *ngIf="stage.index > 0"></button>
+                        <button pButton pRipple type="button" icon="pi pi-arrow-circle-down" (click)="onStageUpIndex(stage, ri)" class="p-button-rounded p-button-text" *ngIf="stage.index < stages.length - 1"></button>
                     </div>
                 </td>
             </tr>
@@ -92,7 +98,7 @@
 <ng-template #loadingTemplate>
     <app-loading></app-loading>
 </ng-template>
-a
+
 <p-dialog header="Crear etapa" [(visible)]="showStageCreator" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
     <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newStage">
         <form [formGroup]="newStage" class="flex flex-wrap gap-3 p-fluid">

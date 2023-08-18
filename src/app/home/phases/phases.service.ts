@@ -64,12 +64,31 @@ export class PhasesService {
     const mutRef = this.graphql.refMutation(
       stageQueries.mutation.updateStage,
       { updateStageInput: data },
-      [],
+      [this._getStages],
       { auth: true }
     );
     return firstValueFrom(
       this.graphql.mutation(mutRef).pipe(
         map((request) => request.data.updateStage),
+        map((stage) => Stage.fromJson(stage))
+      )
+    );
+  }
+
+  async updateStageIndex(
+    newIndex,
+    stageId,
+    typeChange: 'up' | 'down'
+  ): Promise<Stage> {
+    const mutRef = this.graphql.refMutation(
+      stageQueries.mutation.changeIndex,
+      { newIndex, stageId, typeChange },
+      [this._getStages],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.updateStageIndex),
         map((stage) => Stage.fromJson(stage))
       )
     );
