@@ -28,14 +28,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   phase: Phase;
   typesActivities: TypeEvent[];
   showActivityConfig = [];
-  totalActivities = 0;
   user: User;
-
-  expertsHours = 0;
-  assignedHoursExpert = 0;
-
-  teamCoachesHours = 0;
-  assignedHoursTeamCoaches = 0;
 
   idActivityTeamCoaches = '646f953cc2305c411d73f700';
   teamCoachActivityIndex;
@@ -73,15 +66,12 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     this.typesActivities = (
       await this.activitiesTypesService.getTypesEvents()
     ).filter((x) => !x.isDeleted);
-
-    /// console.log(this.typesActivities);
     this.watchConfig$ = (
       await this.service.watchConfig(this.phase._id)
     ).subscribe(async (i) => {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
       this.showActivityConfig = [];
-      this.totalActivities = 0;
       let index = 0;
       for (const iterator of this.typesActivities) {
         const prevConfig = this.activitiesConfig.activities.find(
@@ -98,19 +88,8 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         this.showActivityConfig.push(configActivity);
         if (configActivity.idActivity === this.idActivityTeamCoaches)
           this.teamCoachActivityIndex = index;
-        this.totalActivities += configActivity.limit;
         index++;
       }
-
-      // Set for Expert page
-      this.expertsHours = this.activitiesConfig.calcHoursExperts.expertHours;
-      this.assignedHoursExpert =
-        this.activitiesConfig.calcHoursExperts.hoursLeftToOthersExperts;
-      // Set for Team Coach page
-      this.teamCoachesHours =
-        this.activitiesConfig.calcHoursTeamCoaches.teamCoachHours;
-      this.assignedHoursTeamCoaches =
-        this.activitiesConfig.calcHoursTeamCoaches.hoursLeftToOthersTeamCoaches;
       this.loaded = true;
     });
   }
@@ -121,41 +100,10 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   }
 
   async updateConfig() {
-    if (this.activitiesConfig.limit - this.totalActivities < 0) {
-      this.toast.alert({
-        summary: 'Configuración inválida',
-        detail:
-          'La cantidad de horas asignadas a las actividades supera el límite total de horas permitidas para esta fase',
-        life: 3000,
-      });
-      return;
-    }
     let hoursExpert = 0;
     this.activitiesConfig.calcHoursExperts.list.forEach(
       (i) => (hoursExpert += i.limit)
     );
-    if (this.expertsHours - hoursExpert < 0) {
-      this.toast.alert({
-        summary: 'Configuración inválida',
-        detail:
-          'La cantidad de horas asignadas entre los expertos no coincide con el numero de horas de las actividades',
-        life: 3000,
-      });
-      return;
-    }
-    let hoursTeamCoach = 0;
-    this.activitiesConfig.calcHoursTeamCoaches.list.forEach(
-      (i) => (hoursExpert += i.limit)
-    );
-    if (this.teamCoachesHours - hoursTeamCoach < 0) {
-      this.toast.alert({
-        summary: 'Configuración inválida',
-        detail:
-          'La cantidad de horas asignadas entre los team coach no coincide con el numero de horas de las actividades',
-        life: 3000,
-      });
-      return;
-    }
     if (
       this.hoursStartupsInvalid(this.activitiesConfig.calcHoursExperts.list)
     ) {
@@ -210,15 +158,14 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   }
 
   async updateCalcHours() {
-    this.totalActivities = 0;
     let hoursTeamCoaches = 0;
+    let totalHours = 0;
     for (const configActivity of this.showActivityConfig) {
-      this.totalActivities += configActivity.limit;
+      totalHours += configActivity.limit;
       if (configActivity.idActivity === this.idActivityTeamCoaches)
         hoursTeamCoaches = configActivity.limit;
     }
-    this.expertsHours = this.totalActivities - hoursTeamCoaches;
-    this.teamCoachesHours = hoursTeamCoaches;
+    this.activitiesConfig.limit = totalHours;
   }
 
   hoursStartupsInvalid(list: IAssignItem[]) {

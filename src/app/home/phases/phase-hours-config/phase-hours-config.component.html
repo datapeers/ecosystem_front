@@ -3,7 +3,6 @@
         <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
             <h2>Configuración bolsa de horas</h2>
             <div class="flex flex-row gap-2">
-
                 <p-button *ngIf="activitiesConfig" label="Guardar cambios" (click)="updateConfig()"></p-button>
             </div>
         </div>
@@ -27,18 +26,18 @@
                     <ng-container *ngFor="let item of showActivityConfig">
                         <div class="flex-auto">
                             <label for="activityName">{{item.activityName}} </label>
-                            <p-inputNumber [(ngModel)]="item.limit" inputId="activityName" mode="decimal" [min]="0" (ngModelChange)="updateCalcHours()"> </p-inputNumber>
+                            <p-inputNumber [(ngModel)]="item.limit" inputId="activityName" mode="decimal" (ngModelChange)="updateCalcHours()"> </p-inputNumber>
                         </div>
                     </ng-container>
                 </div>
             </div>
         </p-tabPanel>
-        <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">
+        <!-- <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">
             <app-assign-hours [assignedHours]="assignedHoursExpert" [list]="activitiesConfig.calcHoursExperts.list" [activitiesConfig]="activitiesConfig" [limit]="expertsHours" [property]="'experts'" class="p-2"></app-assign-hours>
         </p-tabPanel>
         <p-tabPanel header="Team Coach" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">
             <app-assign-hours [assignedHours]="assignedHoursTeamCoaches" [list]="activitiesConfig.calcHoursTeamCoaches.list" [activitiesConfig]="activitiesConfig" [limit]="teamCoachesHours" [property]="'teamCoaches'" class="p-2"></app-assign-hours>
-        </p-tabPanel>
+        </p-tabPanel> -->
     </p-tabView>
 
 </ng-container>

@@ -136,11 +136,14 @@
     <p-table [value]="typesEvents" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '45rem'}">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:25%">Nombre</th>
-                <th style="width:25%">Permite acta</th>
-                <th style="width:25%">Permite archivos</th>
-                <th style="width:25%">
-                    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
+                <th style="width:5cqh">Nombre</th>
+                <th style="width:10%" class="text-center">Permite acta</th>
+                <th style="width:10%" class="text-center">Permite archivos</th>
+                <th style="width:20%" class="text-center">Bolsa de horas - Experto</th>
+                <th style="width:10%" class="text-center">
+                    <div class="flex align-items-center justify-content-center">
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
+                    </div>
                 </th>
             </tr>
         </ng-template>
@@ -157,24 +160,40 @@
                     </p-cellEditor>
                 </td>
                 <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" inputId="allowActa"></p-checkbox>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" [disabled]="true"></p-checkbox>
-                        </ng-template>
-                    </p-cellEditor>
+                    <div class="flex align-items-center justify-content-center">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" inputId="allowActa"></p-checkbox>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" [disabled]="true"></p-checkbox>
+                            </ng-template>
+                        </p-cellEditor>
+                    </div>
                 </td>
                 <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" inputId="allowFiles"></p-checkbox>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" [disabled]="true"></p-checkbox>
-                        </ng-template>
-                    </p-cellEditor>
+                    <div class="flex align-items-center justify-content-center">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" inputId="allowFiles"></p-checkbox>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" [disabled]="true"></p-checkbox>
+                            </ng-template>
+                        </p-cellEditor>
+                    </div>
+                </td>
+                <td>
+                    <div class="flex align-items-center justify-content-center">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" inputId="expertFocus"></p-checkbox>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" [disabled]="true"></p-checkbox>
+                            </ng-template>
+                        </p-cellEditor>
+                    </div>
                 </td>
                 <td>
                     <div class="flex align-items-center justify-content-center gap-2">
@@ -189,11 +208,12 @@
     </p-table>
 </p-dialog>
 
-<p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '30vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()">
+<p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()">
     <div class="flex flex-column gap-2 py-2">
         <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Nombre" required>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_acta" label="Permite acta" inputId="allowActa"></p-checkbox>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_files" label="Permite archivos" inputId="allowFiles"></p-checkbox>
+        <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.expertFocus" label="Bolsa de horas - Experto" inputId="expertFocus"></p-checkbox>
         <div style="height: 1rem;"></div>
         <p-button type="submit" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </div>

@@ -5,6 +5,7 @@ export interface ITypeEvent {
   _id: string;
   name: string;
   extra_options: any;
+  expertFocus: boolean;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -17,6 +18,7 @@ export class TypeEvent implements ITypeEvent {
     allow_acta: boolean;
     allow_files: boolean;
   };
+  expertFocus: boolean;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -43,6 +45,7 @@ export class TypeEvent implements ITypeEvent {
       _id: this._id,
       name: this.name,
       extra_options: this.extra_options,
+      expertFocus: this.expertFocus,
     };
   }
 
@@ -53,6 +56,7 @@ export class TypeEvent implements ITypeEvent {
         allow_acta: false,
         allow_files: false,
       },
+      expertFocus: false,
     };
   }
 }

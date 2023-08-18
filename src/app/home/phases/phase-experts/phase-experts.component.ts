@@ -174,10 +174,8 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         }
         this.listStartups = [];
         for (const iterator of listStartups) {
-          if (startupsWithExpert.has(iterator._id)) continue;
           this.listStartups.push(iterator);
         }
-
         const phaseProfile = this.selectedExpert.phases.find(
           (i) => i._id === this.phase._id
         );
