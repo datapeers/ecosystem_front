@@ -48,6 +48,7 @@ import { AnimateModule } from 'primeng/animate';
 import { TreeTableModule } from 'primeng/treetable';
 import { FieldsetModule } from 'primeng/fieldset';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [],
@@ -98,6 +99,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     TreeTableModule,
     FieldsetModule,
     KeyFilterModule,
+    ChartModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

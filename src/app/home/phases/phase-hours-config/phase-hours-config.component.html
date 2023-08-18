@@ -20,8 +20,8 @@
         </p-tabPanel> -->
         <p-tabPanel header="Actividades" *ngIf="user?.allowed(userPermission.hours_edit_activities)">
             <div class="px-4 pb-4 border-round">
-                <div class="flex flex-row justify-content-between">
-                    <p class="font-bold">Horas libres {{activitiesConfig.limit - totalActivities}}</p>
+                <div class="card flex justify-content-center">
+                    <p-knob [(ngModel)]="activitiesConfig.limit" [readonly]="true"></p-knob>
                 </div>
                 <div class="flex flex-wrap gap-3 p-fluid">
                     <ng-container *ngFor="let item of showActivityConfig">

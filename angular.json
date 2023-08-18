@@ -40,8 +40,14 @@
               "node_modules/primeflex/primeflex.css",
               "src/assets/styles/primeng-overrides.scss"
             ],
-            "allowedCommonJsDependencies": ["lodash"],
-            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "qrcode",
+              "file-saver",
+              "leaflet",
+              "moment"
+            ],
+            "scripts": ["node_modules/chart.js/dist/chart.js"],
             "stylePreprocessorOptions": {
               "includePaths": ["src"]
             }
