@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanMatch, Route, Router, UrlSegment, UrlTree, } from '@angular/router';
+import { Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map, Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanMatch {
+export class AuthGuard  {
   constructor(
     private readonly afAuth: AngularFireAuth,
     private readonly router: Router,

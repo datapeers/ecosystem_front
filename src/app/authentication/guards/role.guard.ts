@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanMatch, Route, UrlSegment, UrlTree } from '@angular/router';
+import { Route, UrlSegment, UrlTree } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
 import { Store } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { Observable, first, map } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class RoleGuard implements CanMatch {
+export class RoleGuard  {
   constructor(
     private readonly store: Store<AppState>,
     private readonly toast: ToastService,
