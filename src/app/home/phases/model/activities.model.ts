@@ -10,10 +10,8 @@ export interface IActivitiesConfig {
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
-  calcHoursExperts: {
-    expertHours: number;
-    hoursLeftToOthersExperts: number;
-    list: IAssignItem[];
+  calcHours: {
+    hoursAssignStartups: IItemConfig[];
   };
 }
 
@@ -36,12 +34,19 @@ export interface IActivityConfig {
   idActivity: string;
   limit: number;
   options: any;
+  activityName?: string;
 }
 
 export interface IAssignHoursConfig {
   from: string;
   limit: number;
   __typename?: any;
+}
+
+export interface IItemConfig {
+  _id: string;
+  hours: any;
+  item: any;
 }
 
 export class ActivitiesConfig implements IActivitiesConfig {
@@ -56,16 +61,14 @@ export class ActivitiesConfig implements IActivitiesConfig {
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
-  calcHoursExperts: {
-    expertHours: number;
-    hoursLeftToOthersExperts: number;
-    list: IAssignItem[];
+  calcHours: {
+    hoursAssignStartups: IItemConfig[];
   };
-  calcHoursTeamCoaches: {
-    teamCoachHours: number;
-    hoursLeftToOthersTeamCoaches: number;
-    list: IAssignItem[];
-  };
+  // calcHoursTeamCoaches: {
+  //   teamCoachHours: number;
+  //   hoursLeftToOthersTeamCoaches: number;
+  //   list: IAssignItem[];
+  // };
   private constructor() {}
 
   static fromJson(data: IActivitiesConfig): ActivitiesConfig {

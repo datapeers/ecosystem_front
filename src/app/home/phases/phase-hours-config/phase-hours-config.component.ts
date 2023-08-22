@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { cloneDeep } from '@apollo/client/utilities';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseHourConfigService } from './phase-hour-config.service';
@@ -33,9 +40,11 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   idActivityTeamCoaches = '646f953cc2305c411d73f700';
   teamCoachActivityIndex;
 
+  listStartups = [];
   public get userPermission(): typeof Permission {
     return Permission;
   }
+
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -71,6 +80,9 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     ).subscribe(async (i) => {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
+      this.listStartups = Object.keys(
+        this.activitiesConfig.calcHours.hoursAssignStartups
+      ).map((i) => this.activitiesConfig.calcHours.hoursAssignStartups[i]);
       this.showActivityConfig = [];
       let index = 0;
       for (const iterator of this.typesActivities) {
@@ -101,31 +113,31 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
 
   async updateConfig() {
     let hoursExpert = 0;
-    this.activitiesConfig.calcHoursExperts.list.forEach(
-      (i) => (hoursExpert += i.limit)
-    );
-    if (
-      this.hoursStartupsInvalid(this.activitiesConfig.calcHoursExperts.list)
-    ) {
-      this.toast.alert({
-        summary: 'Configuración inválida',
-        detail:
-          'La cantidad de horas asignadas a las startups por experto no coinciden',
-        life: 3000,
-      });
-      return;
-    }
-    if (
-      this.hoursStartupsInvalid(this.activitiesConfig.calcHoursTeamCoaches.list)
-    ) {
-      this.toast.alert({
-        summary: 'Configuración inválida',
-        detail:
-          'La cantidad de horas asignadas a las startups por team coach no coinciden',
-        life: 3000,
-      });
-      return;
-    }
+    // this.activitiesConfig.calcHoursExperts.list.forEach(
+    //   (i) => (hoursExpert += i.limit)
+    // );
+    // if (
+    //   this.hoursStartupsInvalid(this.activitiesConfig.calcHoursExperts.list)
+    // ) {
+    //   this.toast.alert({
+    //     summary: 'Configuración inválida',
+    //     detail:
+    //       'La cantidad de horas asignadas a las startups por experto no coinciden',
+    //     life: 3000,
+    //   });
+    //   return;
+    // }
+    // if (
+    //   this.hoursStartupsInvalid(this.activitiesConfig.calcHoursTeamCoaches.list)
+    // ) {
+    //   this.toast.alert({
+    //     summary: 'Configuración inválida',
+    //     detail:
+    //       'La cantidad de horas asignadas a las startups por team coach no coinciden',
+    //     life: 3000,
+    //   });
+    //   return;
+    // }
     this.service
       .updateConfig(this.activitiesConfig._id, {
         activities: this.showActivityConfig.map((i) => {

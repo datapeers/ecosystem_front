@@ -25,8 +25,7 @@ const fragments = {
       isDeleted
       createdAt
       updatedAt
-      calcHoursExperts
-      calcHoursTeamCoaches
+      calcHours
     }
   `,
 };

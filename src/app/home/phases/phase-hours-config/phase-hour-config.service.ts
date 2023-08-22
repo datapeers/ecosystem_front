@@ -55,4 +55,13 @@ export class PhaseHourConfigService {
         .pipe(map((request) => request.data.updateActivitiesConfig))
     );
   }
+
+  getHoursForOthers(limit: number, pending: number) {
+    let hoursForOthersStartups = Math.round(limit / pending);
+    if (hoursForOthersStartups < 1) return 1;
+    if (hoursForOthersStartups * pending > limit) {
+      return this.getHoursForOthers(limit - 1, pending);
+    }
+    return hoursForOthersStartups;
+  }
 }

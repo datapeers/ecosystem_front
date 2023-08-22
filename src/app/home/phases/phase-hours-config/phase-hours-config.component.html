@@ -19,18 +19,23 @@
         </p-tabPanel> -->
         <p-tabPanel header="Actividades" *ngIf="user?.allowed(userPermission.hours_edit_activities)">
             <div class="px-4 pb-4 border-round">
-                <div class="card flex justify-content-center">
+                <div class="card w-full flex flex-column justify-content-center align-items-center">
+                    <p class="font-bold">Horas globales</p>
                     <p-knob [(ngModel)]="activitiesConfig.limit" [readonly]="true"></p-knob>
                 </div>
-                <div class="flex flex-wrap gap-3 p-fluid">
+                <div class="flex flex-wrap gap-3 p-fluid pt-2">
                     <ng-container *ngFor="let item of showActivityConfig">
                         <div class="flex-auto">
-                            <label for="activityName">{{item.activityName}} </label>
-                            <p-inputNumber [(ngModel)]="item.limit" inputId="activityName" mode="decimal" (ngModelChange)="updateCalcHours()"> </p-inputNumber>
+                            <label for="activityName" class="font-bold">{{item.activityName}} </label>
+                            <p-inputNumber [(ngModel)]="item.limit" inputId="activityName" [min]="0" suffix=" hora(s)" (ngModelChange)="updateCalcHours()" [showButtons]="true"> </p-inputNumber>
                         </div>
                     </ng-container>
                 </div>
             </div>
+        </p-tabPanel>
+        <p-tabPanel header="Startups" *ngIf="!phase.basePhase">
+            <app-assign-startups-hours class="h-full w-full" [config]="activitiesConfig" [listStartups]="listStartups" [activitiesConfig]="showActivityConfig"> </app-assign-startups-hours>
+
         </p-tabPanel>
         <!-- <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">
             <app-assign-hours [assignedHours]="assignedHoursExpert" [list]="activitiesConfig.calcHoursExperts.list" [activitiesConfig]="activitiesConfig" [limit]="expertsHours" [property]="'experts'" class="p-2"></app-assign-hours>
