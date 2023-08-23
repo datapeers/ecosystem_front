@@ -8,20 +8,20 @@ const fragments = {
         id
         limit
       }
-      experts {
-        id
+       startups {
         limit
         activityID
+        entityID
+      }
+      experts {
+        limit
+        activityID
+        entityID
       }
       teamCoaches {
-        id
         limit
         activityID
-      }
-      startups {
-        id
-        limit
-        activityID
+        entityID
       }
       createdAt
       updatedAt

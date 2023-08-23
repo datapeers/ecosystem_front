@@ -72,6 +72,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     ).subscribe(async (i) => {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
+      console.log(this.activitiesConfig);
       this.listStartups = this.activitiesConfig.calcHours.hoursAssignStartups;
       this.showActivityConfig = [];
       let index = 0;
@@ -126,6 +127,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     //   });
     //   return;
     // }
+
     this.service
       .updateConfig(this.activitiesConfig._id, {
         activities: this.showActivityConfig.map((i) => {

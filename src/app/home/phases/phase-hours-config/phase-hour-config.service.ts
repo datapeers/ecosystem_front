@@ -25,7 +25,7 @@ export class PhaseHourConfigService {
     );
     return this.graphql.watch_query(activitiesConfigPhase).valueChanges.pipe(
       map((request) => request.data.activitiesConfigPhase),
-      map((content) => ActivitiesConfig.fromJson(content))
+      map((activitiesConfig) => ActivitiesConfig.fromJson(activitiesConfig))
     );
   }
 
@@ -78,10 +78,10 @@ export class PhaseHourConfigService {
     changes: IAssign[]
   ): IAssign {
     const previousConfig = config.startups.findIndex(
-      (i) => i.id === startupConfig._id && i.activityID === activity.id
+      (i) => i.entityID === startupConfig._id && i.activityID === activity.id
     );
     const previousChange = changes.findIndex(
-      (i) => i.id === startupConfig._id && i.activityID === activity.id
+      (i) => i.entityID === startupConfig._id && i.activityID === activity.id
     );
     if (previousChange !== -1) {
       if (changes[previousChange].limit !== startupConfig.hours[activity.id]) {
@@ -95,9 +95,9 @@ export class PhaseHourConfigService {
         startupConfig.hours[activity.id]
       ) {
         changes.push({
-          id: startupConfig._id,
           limit: startupConfig.hours[activity.id],
           activityID: activity.id,
+          entityID: startupConfig._id,
         });
         return changes[changes.length - 1];
       }

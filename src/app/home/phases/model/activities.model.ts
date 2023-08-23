@@ -1,3 +1,5 @@
+import { IConfigStartup } from '../phase-hours-config/models/config-startup';
+
 export interface IActivitiesConfig {
   _id: string;
   limit: number;
@@ -6,7 +8,7 @@ export interface IActivitiesConfig {
   experts: IAssign[];
   teamCoaches: IAssign[];
   calcHours: {
-    hoursAssignStartups: IItemConfig[];
+    hoursAssignStartups: IConfigStartup[];
   };
   createdAt: Date;
   updatedAt: Date;
@@ -23,9 +25,9 @@ export interface IActivityConfigInput extends IActivityConfig {
 }
 
 export interface IAssign {
-  id: string;
   limit: number;
   activityID: string;
+  entityID: string;
   __typename?: any;
 }
 
@@ -38,7 +40,7 @@ export class ActivitiesConfig implements IActivitiesConfig {
   experts: IAssign[];
   teamCoaches: IAssign[];
   calcHours: {
-    hoursAssignStartups: IItemConfig[];
+    hoursAssignStartups: IConfigStartup[];
   };
   createdAt: Date;
   updatedAt: Date;
@@ -58,25 +60,4 @@ export class ActivitiesConfig implements IActivitiesConfig {
     });
     return content;
   }
-}
-
-// export interface IAssignItem {
-//   from: string;
-//   limit: number;
-//   nameFrom: string;
-//   to: IStartupAssign[];
-//   expanded: boolean;
-// }
-
-// export interface IStartupAssign {
-//   id: string;
-//   limit: number;
-//   name: string;
-//   modified: boolean;
-// }
-
-export interface IItemConfig {
-  _id: string;
-  hours: any;
-  item: any;
 }

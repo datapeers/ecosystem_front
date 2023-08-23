@@ -2,13 +2,11 @@ import {
   Component,
   ViewChild,
   Input,
-  ElementRef,
   HostListener,
   OnChanges,
 } from '@angular/core';
 import {
   ActivitiesConfig,
-  IActivityConfig,
   IActivityConfigInput,
   IAssign,
 } from '@home/phases/model/activities.model';
@@ -16,7 +14,6 @@ import { Table } from 'primeng/table';
 import { PhaseHourConfigService } from '../phase-hour-config.service';
 import { IConfigStartup } from '../models/config-startup';
 import { Message } from 'primeng/api';
-import { cloneDeep } from '@apollo/client/utilities';
 
 @Component({
   selector: 'app-assign-startups-hours',
@@ -52,7 +49,6 @@ export class AssignStartupsHoursComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    console.log('llama?');
     this.updateAllValues();
   }
 
@@ -93,7 +89,7 @@ export class AssignStartupsHoursComponent implements OnChanges {
           limitHours -= item.hours[activity.id];
           totalHours += item.hours[activity.id];
           this.changes.push({
-            id: item._id,
+            entityID: item._id,
             activityID: activity.id,
             limit: item.hours[activity.id],
           });
