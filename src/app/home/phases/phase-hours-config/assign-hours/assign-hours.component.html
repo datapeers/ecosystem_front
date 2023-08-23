@@ -11,9 +11,9 @@
             </tr>
             <tr>
                 <ng-container *ngFor="let activity of activitiesConfig">
-                    <th>Horas asignadas</th>
-                    <th>Horas donadas</th>
-                    <th>Horas realizadas</th>
+                    <ng-container *ngFor="let columnHour of columnsHours">
+                        <th>{{columnHour.label}}</th>
+                    </ng-container>
                 </ng-container>
             </tr>
         </ng-template>
@@ -24,19 +24,17 @@
                 </td>
                 <td>{{item.item.nombre}}</td>
                 <ng-container *ngFor="let activity of activitiesConfig">
-                    <td [pEditableColumn]="item.hours[activity.id].allocated" [pEditableColumnField]="'hours.' +activity.id + '.allocated'">
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-inputNumber type="number" [(ngModel)]="item.hours[activity.id].allocated" [min]="0" suffix=" hora(s)" [showButtons]="true" />
+                    <ng-container *ngFor="let columnHour of columnsHours">
+                        <ng-container *ngIf="columnHour.canEdit; else onlyDisplayValue">
+                            <td>
+                                <p-inputNumber type="number" [(ngModel)]="item.hours[activity.id][columnHour.property]" [min]="0" [max]="activity.limit" suffix=" hora(s)" [showButtons]="true" (ngModelChange)="updateValuesActivity(activity, {item, column: columnHour})" [id]="activity.id + item._id" />
+                            </td>
+                        </ng-container>
+                        <ng-template #onlyDisplayValue>
+                            <td>{{item.hours[activity.id][columnHour.property]}} hora(s)</td>
+                        </ng-template>
 
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{item.hours[activity.id].allocated}} hora(s)
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td>{{item.hours[activity.id].donated}} hora(s)</td>
-                    <td>{{item.hours[activity.id].done}} hora(s)</td>
+                    </ng-container>
                 </ng-container>
             </tr>
         </ng-template>

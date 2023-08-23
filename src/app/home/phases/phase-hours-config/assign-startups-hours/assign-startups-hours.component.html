@@ -26,7 +26,7 @@
                 <td *ngFor="let activity of activitiesConfig" [pEditableColumn]="row.hours[activity.id]" pEditableColumnField="limit">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-inputNumber type="number" [(ngModel)]="row.hours[activity.id]" [min]="0" suffix=" hora(s)" [showButtons]="true" (ngModelChange)="updateValuesActivity(activity)" [id]="activity.id + row._id" />
+                            <p-inputNumber type="number" [(ngModel)]="row.hours[activity.id]" [min]="0" suffix=" hora(s)" [showButtons]="true" (ngModelChange)="updateValuesActivity(activity, row)" [id]="activity.id + row._id" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{row.hours[activity.id]}} hora(s)

@@ -11,10 +11,11 @@ import {
   IActivityConfigInput,
   IAssign,
 } from '@home/phases/model/activities.model';
-import { IConfigExpert } from '../models/config-startup';
+import { IConfigExpert, IConfigTeamCoach } from '../models/config-startup';
 import { Table } from 'primeng/table';
 import { PhaseHourConfigService } from '../phase-hour-config.service';
 import { Message } from 'primeng/api';
+import { ColumnHour, columnsHours } from '../models/columns-hours.enum';
 
 @Component({
   selector: 'app-assign-hours',
@@ -24,9 +25,11 @@ import { Message } from 'primeng/api';
 export class AssignHoursComponent implements OnChanges {
   // Inputs component
   @Input() config: ActivitiesConfig;
-  @Input() list: IConfigExpert[];
+  @Input() list: IConfigExpert[] | IConfigTeamCoach[];
   @Input() activitiesConfig: IActivityConfigInput[];
   @Input() changes: IAssign[] = []; // Variable for notice when assign hours change
+  @Input() type: 'experts' | 'teamCoaches';
+  @Input() columnsHours: ColumnHour[] = [];
   // Table vars
   scrollHeight;
   @ViewChild('dt', { static: true }) dt: Table;
@@ -51,7 +54,7 @@ export class AssignHoursComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    // this.updateAllValues();
+    this.updateAllValues();
   }
 
   validateHeight() {
@@ -72,58 +75,63 @@ export class AssignHoursComponent implements OnChanges {
     }
   }
 
-  updateValuesActivity(activity: IActivityConfigInput, item?: IConfigExpert) {
+  updateValuesActivity(
+    activity: IActivityConfigInput,
+    config?: { item: IConfigExpert | IConfigTeamCoach; column: ColumnHour }
+  ) {
     let limitHours = activity.limit;
     let totalHours = 0;
-    let startupsWithoutAssign = [];
-    // for (const startupConfig of this.listStartups) {
-    //   const previousConfig = this.service.configOrChange(
-    //     activity,
-    //     startupConfig,
-    //     this.config,
-    //     this.changes
-    //   );
-    //   if (previousConfig) {
-    //     limitHours -= previousConfig.limit;
-    //     totalHours += previousConfig.limit;
-    //   } else {
-    //     if (startupConfig._id === item?._id) {
-    //       limitHours -= item.hours[activity.id];
-    //       totalHours += item.hours[activity.id];
-    //       this.changes.push({
-    //         entityID: item._id,
-    //         activityID: activity.id,
-    //         limit: item.hours[activity.id],
-    //       });
-    //     } else {
-    //       startupsWithoutAssign.push(startupConfig._id);
-    //     }
-    //   }
-    // }
-    // let divisionHoursNow = startupsWithoutAssign.length
-    //   ? this.service.getHoursForOthers(limitHours, startupsWithoutAssign.length)
-    //   : 0;
-    // if (limitHours < 0) divisionHoursNow = 0;
-    // for (const startup of this.listStartups) {
-    //   if (startupsWithoutAssign.includes(startup._id)) {
-    //     if (limitHours === 0) divisionHoursNow = 0;
-    //     limitHours -= divisionHoursNow;
-    //     startup.hours[activity.id] = divisionHoursNow;
-    //     totalHours += divisionHoursNow;
-    //   }
-    // }
+    for (const entityConfig of this.list) {
+      const previousConfig = this.service.configOrChangeEntity(
+        activity,
+        entityConfig,
+        this.config,
+        this.changes,
+        this.type
+      );
+      if (previousConfig) {
+        limitHours -= previousConfig.limit;
+        totalHours += previousConfig.limit;
+      } else {
+        if (entityConfig._id === config?.item._id) {
+          limitHours -= config.item.hours[activity.id][config.column.property];
+          totalHours += config.item.hours[activity.id][config.column.property];
+          this.changes.push({
+            entityID: config.item._id,
+            activityID: activity.id,
+            limit: config.item.hours[activity.id][config.column.property],
+          });
+        }
+      }
+    }
     this.flagsAlert(activity, limitHours);
   }
 
   flagsAlert(activity: IActivityConfigInput, hoursCount: number) {
     if (hoursCount < 0) {
-      if (!this.flagsActivity.find((i) => i.id === activity.id))
+      const indexFlag = this.flagsActivity.findIndex(
+        (i) => i.id === activity.id
+      );
+      if (indexFlag === -1) {
         this.flagsActivity.push({
           severity: 'warn',
           summary: 'Error:',
-          detail: `Las horas asignadas a la actividad de  ${activity.activityName} supera el limite establecido`,
+          detail: `Se ha excedido el límite de horas asignadas para la actividad '${
+            activity.activityName
+          }'. La asignación actual excede dicho límite en ${Math.abs(
+            hoursCount
+          )} hora(s).`,
           id: activity.id,
         });
+      } else {
+        this.flagsActivity[
+          indexFlag
+        ].detail = `Se ha excedido el límite de horas asignadas para la actividad '${
+          activity.activityName
+        }'. La asignación actual excede dicho límite en ${Math.abs(
+          hoursCount
+        )} hora(s).`;
+      }
     } else {
       this.flagsActivity = this.flagsActivity.filter(
         (i) => i.id !== activity.id

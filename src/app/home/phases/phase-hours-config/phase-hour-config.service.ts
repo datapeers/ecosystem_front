@@ -4,11 +4,16 @@ import {
   ActivitiesConfig,
   IActivitiesConfig,
   IActivityConfig,
+  IActivityConfigInput,
   IAssign,
 } from '../model/activities.model';
 import activitiesConfigQueries from '../graphql/activities-config.gpl';
 import { firstValueFrom, map } from 'rxjs';
-import { IConfigStartup } from './models/config-startup';
+import {
+  IConfigExpert,
+  IConfigStartup,
+  IConfigTeamCoach,
+} from './models/config-startup';
 
 @Injectable({
   providedIn: 'root',
@@ -71,7 +76,7 @@ export class PhaseHourConfigService {
     return hoursForOthersStartups;
   }
 
-  configOrChange(
+  configOrChangeStartup(
     activity: IActivityConfig,
     startupConfig: IConfigStartup,
     config: ActivitiesConfig,
@@ -104,5 +109,53 @@ export class PhaseHourConfigService {
       return config.startups[previousConfig];
     }
     return null;
+  }
+
+  configOrChangeEntity(
+    activity: IActivityConfig,
+    entityConfig: IConfigExpert | IConfigTeamCoach,
+    config: ActivitiesConfig,
+    changes: IAssign[],
+    type: 'experts' | 'teamCoaches'
+  ): IAssign {
+    const previousConfig = config[type].findIndex(
+      (i) => i.entityID === entityConfig._id && i.activityID === activity.id
+    );
+    const previousChange = changes.findIndex(
+      (i) => i.entityID === entityConfig._id && i.activityID === activity.id
+    );
+    if (previousChange !== -1) {
+      if (
+        changes[previousChange].limit !==
+        entityConfig.hours[activity.id].allocated
+      ) {
+        changes[previousChange].limit =
+          entityConfig.hours[activity.id].allocated;
+      }
+      return changes[previousChange];
+    }
+    if (previousConfig !== -1) {
+      if (
+        config.startups[previousConfig].limit !==
+        entityConfig.hours[activity.id].allocated
+      ) {
+        changes.push({
+          limit: entityConfig.hours[activity.id].allocated,
+          activityID: activity.id,
+          entityID: entityConfig._id,
+        });
+        return changes[changes.length - 1];
+      }
+      return config.startups[previousConfig];
+    }
+    return null;
+  }
+
+  setActivityToSave(activity: IActivityConfigInput): IActivityConfig {
+    let ans: IActivityConfig = {
+      id: activity.id,
+      limit: activity.limit,
+    };
+    return ans;
   }
 }

@@ -15,3 +15,17 @@ export interface IConfigExpert extends Expert {
   }; // key its activity id
   startups: Startup[];
 }
+
+export interface IConfigTeamCoach {
+  _id: string;
+  item: {
+    nombre: string;
+  };
+  hours: {
+    [key: string]: {
+      allocated: number;
+      done: number;
+    };
+  }; // key its activity id
+  startups: Startup[];
+}

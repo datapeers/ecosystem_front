@@ -15,6 +15,11 @@ import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
+import {
+  ColumnHour,
+  columnsHours,
+  columnsHoursLabels,
+} from './models/columns-hours.enum';
 
 @Component({
   selector: 'app-phase-hours-config',
@@ -36,10 +41,42 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
 
   listExperts = [];
   changesExperts = [];
+  columnsExpertsHours: ColumnHour[] = [
+    {
+      property: columnsHours.allocated,
+      label: columnsHoursLabels.allocated,
+      canEdit: true,
+    },
+    {
+      property: columnsHours.donated,
+      label: columnsHoursLabels.donated,
+      canEdit: false,
+    },
+    {
+      property: columnsHours.done,
+      label: columnsHoursLabels.done,
+      canEdit: false,
+    },
+  ];
   activitiesExpert: IActivityConfigInput[] = [];
 
+  listTeamCoaches = [];
+  changesTeamCoaches = [];
+  columnsTeamCoachesHours: ColumnHour[] = [
+    {
+      property: columnsHours.allocated,
+      label: columnsHoursLabels.allocated,
+      canEdit: true,
+    },
+    {
+      property: columnsHours.done,
+      label: columnsHoursLabels.done,
+      canEdit: false,
+    },
+  ];
   idTeamCoachActivities = ['646f953cc2305c411d73f700'];
   activitiesTeamCoach: IActivityConfigInput[] = [];
+
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -50,6 +87,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     private readonly service: PhaseHourConfigService,
     private readonly activitiesTypesService: PhaseEventsService
   ) {
+    console.log(this.columnsExpertsHours);
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)
@@ -84,12 +122,12 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       // Lists
       this.listStartups = this.activitiesConfig.calcHours.hoursAssignStartups;
       this.listExperts = this.activitiesConfig.calcHours.hoursAssignExperts;
+      this.listTeamCoaches =
+        this.activitiesConfig.calcHours.hoursAssignTeamCoaches;
 
       // Vars
       let index = 0;
-      this.showActivityConfig = [];
-      this.activitiesExpert = [];
-      this.activitiesTeamCoach = [];
+      this.setLists();
       for (const activity of this.typesActivities) {
         const prevConfig = this.activitiesConfig.activities.find(
           (i) => i.id === activity._id
@@ -113,13 +151,20 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         if (expertFocus) this.activitiesExpert.push(configActivity);
         if (teamCoachFocus) this.activitiesTeamCoach.push(configActivity);
       }
-
-      // Changes
-      this.changesStartups = [];
-      this.changesExperts = [];
-
       this.loaded = true;
     });
+  }
+
+  setLists() {
+    // Lists
+    this.showActivityConfig = [];
+    this.activitiesExpert = [];
+    this.activitiesTeamCoach = [];
+
+    // Changes
+    this.changesStartups = [];
+    this.changesExperts = [];
+    this.changesTeamCoaches = [];
   }
 
   saveConfig() {
@@ -130,12 +175,11 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   async updateConfig() {
     this.service
       .updateConfig(this.activitiesConfig._id, {
-        activities: this.showActivityConfig.map((i) => {
-          delete i['activityName'];
-          return i;
-        }),
-        experts: this.activitiesConfig.experts,
-        teamCoaches: this.activitiesConfig.teamCoaches,
+        activities: this.showActivityConfig.map((i) =>
+          this.service.setActivityToSave(i)
+        ),
+        experts: this.updateExpertAssign(),
+        teamCoaches: this.updateTeamCoachAssign(),
         startups: this.updateStartupsAssign(),
         limit: this.activitiesConfig.limit,
       })
@@ -180,11 +224,45 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     const ans: IAssign[] = [];
     for (const activity of this.showActivityConfig) {
       for (const startup of this.listStartups) {
-        const config = this.service.configOrChange(
+        const config = this.service.configOrChangeStartup(
           activity,
           startup,
           this.activitiesConfig,
           this.changesStartups
+        );
+        if (config) ans.push(config);
+      }
+    }
+    return ans;
+  }
+
+  updateExpertAssign(): IAssign[] {
+    const ans: IAssign[] = [];
+    for (const activity of this.activitiesExpert) {
+      for (const expert of this.listExperts) {
+        const config = this.service.configOrChangeEntity(
+          activity,
+          expert,
+          this.activitiesConfig,
+          this.changesExperts,
+          'experts'
+        );
+        if (config) ans.push(config);
+      }
+    }
+    return ans;
+  }
+
+  updateTeamCoachAssign(): IAssign[] {
+    const ans: IAssign[] = [];
+    for (const activity of this.activitiesTeamCoach) {
+      for (const teamCoach of this.listTeamCoaches) {
+        const config = this.service.configOrChangeEntity(
+          activity,
+          teamCoach,
+          this.activitiesConfig,
+          this.changesTeamCoaches,
+          'teamCoaches'
         );
         if (config) ans.push(config);
       }

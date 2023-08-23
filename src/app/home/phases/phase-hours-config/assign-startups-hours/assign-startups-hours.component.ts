@@ -75,7 +75,7 @@ export class AssignStartupsHoursComponent implements OnChanges {
     let totalHours = 0;
     let startupsWithoutAssign = [];
     for (const startupConfig of this.listStartups) {
-      const previousConfig = this.service.configOrChange(
+      const previousConfig = this.service.configOrChangeStartup(
         activity,
         startupConfig,
         this.config,
@@ -115,13 +115,29 @@ export class AssignStartupsHoursComponent implements OnChanges {
 
   flagsAlert(activity: IActivityConfigInput, hoursCount: number) {
     if (hoursCount < 0) {
-      if (!this.flagsActivity.find((i) => i.id === activity.id))
+      const indexFlag = this.flagsActivity.findIndex(
+        (i) => i.id === activity.id
+      );
+      if (indexFlag === -1) {
         this.flagsActivity.push({
           severity: 'warn',
           summary: 'Error:',
-          detail: `Las horas asignadas a la actividad de  ${activity.activityName} supera el limite establecido`,
+          detail: `Se ha excedido el límite de horas asignadas para la actividad '${
+            activity.activityName
+          }'. La asignación actual excede dicho límite en ${Math.abs(
+            hoursCount
+          )} hora(s).`,
           id: activity.id,
         });
+      } else {
+        this.flagsActivity[
+          indexFlag
+        ].detail = `Se ha excedido el límite de horas asignadas para la actividad '${
+          activity.activityName
+        }'. La asignación actual excede dicho límite en ${Math.abs(
+          hoursCount
+        )} hora(s).`;
+      }
     } else {
       this.flagsActivity = this.flagsActivity.filter(
         (i) => i.id !== activity.id
