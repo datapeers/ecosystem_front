@@ -16,6 +16,7 @@ import { Table } from 'primeng/table';
 import { PhaseHourConfigService } from '../phase-hour-config.service';
 import { IConfigStartup } from '../models/config-startup';
 import { Message } from 'primeng/api';
+import { cloneDeep } from '@apollo/client/utilities';
 
 @Component({
   selector: 'app-assign-startups-hours',
@@ -51,7 +52,8 @@ export class AssignStartupsHoursComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    // this.updateAllValues();
+    console.log('llama?');
+    this.updateAllValues();
   }
 
   validateHeight() {
@@ -72,23 +74,38 @@ export class AssignStartupsHoursComponent implements OnChanges {
     }
   }
 
-  updateValuesActivity(activity: IActivityConfigInput) {
-    console.log(1);
+  updateValuesActivity(activity: IActivityConfigInput, item?: IConfigStartup) {
     let limitHours = activity.limit;
     let totalHours = 0;
     let startupsWithoutAssign = [];
     for (const startupConfig of this.listStartups) {
-      const previousConfig = this.previousConfig(activity, startupConfig);
+      const previousConfig = this.service.configOrChange(
+        activity,
+        startupConfig,
+        this.config,
+        this.changes
+      );
       if (previousConfig) {
         limitHours -= previousConfig.limit;
         totalHours += previousConfig.limit;
       } else {
-        startupsWithoutAssign.push(startupConfig._id);
+        if (startupConfig._id === item?._id) {
+          limitHours -= item.hours[activity.id];
+          totalHours += item.hours[activity.id];
+          this.changes.push({
+            id: item._id,
+            activityID: activity.id,
+            limit: item.hours[activity.id],
+          });
+        } else {
+          startupsWithoutAssign.push(startupConfig._id);
+        }
       }
     }
     let divisionHoursNow = startupsWithoutAssign.length
       ? this.service.getHoursForOthers(limitHours, startupsWithoutAssign.length)
       : 0;
+    if (limitHours < 0) divisionHoursNow = 0;
     for (const startup of this.listStartups) {
       if (startupsWithoutAssign.includes(startup._id)) {
         if (limitHours === 0) divisionHoursNow = 0;
@@ -97,56 +114,23 @@ export class AssignStartupsHoursComponent implements OnChanges {
         totalHours += divisionHoursNow;
       }
     }
-    console.log('limite', limitHours, 'calculado', totalHours);
-    if (limitHours < totalHours) {
-      console.log('here');
-      this.flagsActivity.push({
-        severity: 'warn',
-        summary: 'Error:',
-        detail: `Las horas asignadas a la actividad de  ${activity.activityName} supera el limite establecido`,
-        id: activity.id,
-      });
-    } else {
-      console.log('limpia bandera');
-      this.flagsActivity = this.flagsActivity.filter(
-        (i) => i.id === activity.id
-      );
-    }
-    console.log('final');
+    this.flagsAlert(activity, limitHours);
   }
 
-  previousConfig(
-    activity: IActivityConfig,
-    startupConfig: IConfigStartup
-  ): IAssign {
-    const previousConfig = this.config.startups.findIndex(
-      (i) => i.id === startupConfig._id && i.activityID === activity.id
-    );
-    const previousChange = this.changes.findIndex(
-      (i) => i.id === startupConfig._id && i.activityID === activity.id
-    );
-    if (previousChange !== -1) {
-      if (
-        this.changes[previousChange].limit !== startupConfig.hours[activity.id]
-      ) {
-        this.changes[previousChange].limit = startupConfig.hours[activity.id];
-      }
-      return this.changes[previousChange];
-    }
-    if (previousConfig !== -1) {
-      if (
-        this.config.startups[previousConfig].limit !==
-        startupConfig.hours[activity.id]
-      ) {
-        this.changes.push({
-          id: startupConfig._id,
-          limit: startupConfig.hours[activity.id],
-          activityID: activity.id,
+  flagsAlert(activity: IActivityConfigInput, hoursCount: number) {
+    if (hoursCount < 0) {
+      if (!this.flagsActivity.find((i) => i.id === activity.id))
+        this.flagsActivity.push({
+          severity: 'warn',
+          summary: 'Error:',
+          detail: `Las horas asignadas a la actividad de  ${activity.activityName} supera el limite establecido`,
+          id: activity.id,
         });
-        return this.changes[this.changes.length - 1];
-      }
-      return this.config.startups[previousConfig];
+    } else {
+      this.flagsActivity = this.flagsActivity.filter(
+        (i) => i.id !== activity.id
+      );
     }
-    return null;
+    this.flagsActivity = [...this.flagsActivity];
   }
 }

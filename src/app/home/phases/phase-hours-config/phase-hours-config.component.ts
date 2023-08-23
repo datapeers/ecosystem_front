@@ -9,6 +9,7 @@ import { AppState } from '@appStore/app.reducer';
 import {
   ActivitiesConfig,
   IActivityConfigInput,
+  IAssign,
 } from '../model/activities.model';
 import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
@@ -88,6 +89,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         this.showActivityConfig.push(configActivity);
         index++;
       }
+      this.changesStartups = [];
       this.loaded = true;
     });
   }
@@ -132,7 +134,7 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         }),
         experts: this.activitiesConfig.experts,
         teamCoaches: this.activitiesConfig.teamCoaches,
-        startups: this.activitiesConfig.startups,
+        startups: this.updateStartupsAssign(),
         limit: this.activitiesConfig.limit,
       })
       .then((res) => {
@@ -163,6 +165,23 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       // if (configActivity.id === this.idActivityTeamCoaches)
       //   hoursTeamCoaches = configActivity.limit;
     }
+    this.showActivityConfig = [...this.showActivityConfig];
     this.activitiesConfig.limit = totalHours;
+  }
+
+  updateStartupsAssign(): IAssign[] {
+    const ans: IAssign[] = [];
+    for (const activity of this.showActivityConfig) {
+      for (const startup of this.listStartups) {
+        const config = this.service.configOrChange(
+          activity,
+          startup,
+          this.activitiesConfig,
+          this.changesStartups
+        );
+        if (config) ans.push(config);
+      }
+    }
+    return ans;
   }
 }

@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { ActivitiesConfig, IActivitiesConfig } from '../model/activities.model';
+import {
+  ActivitiesConfig,
+  IActivitiesConfig,
+  IActivityConfig,
+  IAssign,
+} from '../model/activities.model';
 import activitiesConfigQueries from '../graphql/activities-config.gpl';
 import { firstValueFrom, map } from 'rxjs';
+import { IConfigStartup } from './models/config-startup';
 
 @Injectable({
   providedIn: 'root',
@@ -63,5 +69,40 @@ export class PhaseHourConfigService {
       return this.getHoursForOthers(limit - 1, pending);
     }
     return hoursForOthersStartups;
+  }
+
+  configOrChange(
+    activity: IActivityConfig,
+    startupConfig: IConfigStartup,
+    config: ActivitiesConfig,
+    changes: IAssign[]
+  ): IAssign {
+    const previousConfig = config.startups.findIndex(
+      (i) => i.id === startupConfig._id && i.activityID === activity.id
+    );
+    const previousChange = changes.findIndex(
+      (i) => i.id === startupConfig._id && i.activityID === activity.id
+    );
+    if (previousChange !== -1) {
+      if (changes[previousChange].limit !== startupConfig.hours[activity.id]) {
+        changes[previousChange].limit = startupConfig.hours[activity.id];
+      }
+      return changes[previousChange];
+    }
+    if (previousConfig !== -1) {
+      if (
+        config.startups[previousConfig].limit !==
+        startupConfig.hours[activity.id]
+      ) {
+        changes.push({
+          id: startupConfig._id,
+          limit: startupConfig.hours[activity.id],
+          activityID: activity.id,
+        });
+        return changes[changes.length - 1];
+      }
+      return config.startups[previousConfig];
+    }
+    return null;
   }
 }
