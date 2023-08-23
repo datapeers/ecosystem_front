@@ -5,24 +5,24 @@ const fragments = {
       limit
       phase
       activities {
-        idActivity
+        id
         limit
-        options
       }
       experts {
-        from
+        id
         limit
+        activityID
       }
       teamCoaches {
-        from
+        id
         limit
+        activityID
       }
       startups {
         id
-        from
         limit
+        activityID
       }
-      isDeleted
       createdAt
       updatedAt
       calcHours

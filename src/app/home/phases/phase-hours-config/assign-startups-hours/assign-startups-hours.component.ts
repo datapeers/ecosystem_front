@@ -9,9 +9,13 @@ import {
 import {
   ActivitiesConfig,
   IActivityConfig,
+  IActivityConfigInput,
+  IAssign,
 } from '@home/phases/model/activities.model';
 import { Table } from 'primeng/table';
 import { PhaseHourConfigService } from '../phase-hour-config.service';
+import { IConfigStartup } from '../models/config-startup';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-assign-startups-hours',
@@ -20,10 +24,10 @@ import { PhaseHourConfigService } from '../phase-hour-config.service';
 })
 export class AssignStartupsHoursComponent implements OnChanges {
   // Inputs component
-  @Input() config: ActivitiesConfig = null;
-  @Input() listStartups = [];
-  @Input() activitiesConfig: IActivityConfig[] = [];
-  @Input() changes = [];
+  @Input() config: ActivitiesConfig;
+  @Input() listStartups: IConfigStartup[];
+  @Input() activitiesConfig: IActivityConfigInput[];
+  @Input() changes: IAssign[] = []; // Variable for notice when assign hours change
   // Table vars
   scrollHeight;
   @ViewChild('dt', { static: true }) dt: Table;
@@ -39,14 +43,14 @@ export class AssignStartupsHoursComponent implements OnChanges {
     this.validateHeight();
   }
 
-  // Vars to calculate
+  // Vars
+  flagsActivity: Message[] = [];
 
   constructor(private service: PhaseHourConfigService) {
     this.validateHeight();
   }
 
   ngOnChanges() {
-    console.log(this.listStartups);
     // this.updateAllValues();
   }
 
@@ -68,20 +72,17 @@ export class AssignStartupsHoursComponent implements OnChanges {
     }
   }
 
-  updateValuesActivity(activity: IActivityConfig, item?) {
+  updateValuesActivity(activity: IActivityConfigInput) {
+    console.log(1);
     let limitHours = activity.limit;
+    let totalHours = 0;
     let startupsWithoutAssign = [];
     for (const startupConfig of this.listStartups) {
-      const previousConfig = this.config.startups.find(
-        (i) => i.id === startupConfig._id
-      );
+      const previousConfig = this.previousConfig(activity, startupConfig);
       if (previousConfig) {
         limitHours -= previousConfig.limit;
+        totalHours += previousConfig.limit;
       } else {
-        if (startupConfig._id === item?._id) {
-          limitHours -= item.limit;
-          continue;
-        }
         startupsWithoutAssign.push(startupConfig._id);
       }
     }
@@ -92,17 +93,60 @@ export class AssignStartupsHoursComponent implements OnChanges {
       if (startupsWithoutAssign.includes(startup._id)) {
         if (limitHours === 0) divisionHoursNow = 0;
         limitHours -= divisionHoursNow;
-        startup.limit = divisionHoursNow;
+        startup.hours[activity.id] = divisionHoursNow;
+        totalHours += divisionHoursNow;
       }
     }
-    if (item) {
-      const previousConfig = this.config.startups.find(
-        (i) => i.id === item._id
+    console.log('limite', limitHours, 'calculado', totalHours);
+    if (limitHours < totalHours) {
+      console.log('here');
+      this.flagsActivity.push({
+        severity: 'warn',
+        summary: 'Error:',
+        detail: `Las horas asignadas a la actividad de  ${activity.activityName} supera el limite establecido`,
+        id: activity.id,
+      });
+    } else {
+      console.log('limpia bandera');
+      this.flagsActivity = this.flagsActivity.filter(
+        (i) => i.id === activity.id
       );
-      const previousChange = this.changes.find((i) => i._id === item._id);
-      if (!previousConfig && !previousChange) this.changes.push(item);
-      if (previousConfig && previousConfig.limit !== item.limit)
-        this.changes.push(item);
     }
+    console.log('final');
+  }
+
+  previousConfig(
+    activity: IActivityConfig,
+    startupConfig: IConfigStartup
+  ): IAssign {
+    const previousConfig = this.config.startups.findIndex(
+      (i) => i.id === startupConfig._id && i.activityID === activity.id
+    );
+    const previousChange = this.changes.findIndex(
+      (i) => i.id === startupConfig._id && i.activityID === activity.id
+    );
+    if (previousChange !== -1) {
+      if (
+        this.changes[previousChange].limit !== startupConfig.hours[activity.id]
+      ) {
+        this.changes[previousChange].limit = startupConfig.hours[activity.id];
+      }
+      return this.changes[previousChange];
+    }
+    if (previousConfig !== -1) {
+      if (
+        this.config.startups[previousConfig].limit !==
+        startupConfig.hours[activity.id]
+      ) {
+        this.changes.push({
+          id: startupConfig._id,
+          limit: startupConfig.hours[activity.id],
+          activityID: activity.id,
+        });
+        return this.changes[this.changes.length - 1];
+      }
+      return this.config.startups[previousConfig];
+    }
+    return null;
   }
 }

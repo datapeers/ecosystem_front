@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { cloneDeep } from '@apollo/client/utilities';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseHourConfigService } from './phase-hour-config.service';
@@ -13,14 +6,14 @@ import { Subscription, first, firstValueFrom, filter } from 'rxjs';
 import { Phase } from '../model/phase.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import { ActivitiesConfig, IAssignItem } from '../model/activities.model';
+import {
+  ActivitiesConfig,
+  IActivityConfigInput,
+} from '../model/activities.model';
 import { PhaseEventsService } from '../phase-events/phase-events.service';
 import { TypeEvent } from '../model/events.model';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
-import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
-import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
-import { UserService } from '@auth/user.service';
 
 @Component({
   selector: 'app-phase-hours-config',
@@ -34,13 +27,11 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   watchConfig$: Subscription;
   phase: Phase;
   typesActivities: TypeEvent[];
-  showActivityConfig = [];
+  showActivityConfig: IActivityConfigInput[] = [];
   user: User;
 
-  idActivityTeamCoaches = '646f953cc2305c411d73f700';
-  teamCoachActivityIndex;
-
   listStartups = [];
+  changesStartups = [];
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -80,26 +71,21 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     ).subscribe(async (i) => {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
-      this.listStartups = Object.keys(
-        this.activitiesConfig.calcHours.hoursAssignStartups
-      ).map((i) => this.activitiesConfig.calcHours.hoursAssignStartups[i]);
+      this.listStartups = this.activitiesConfig.calcHours.hoursAssignStartups;
       this.showActivityConfig = [];
       let index = 0;
       for (const iterator of this.typesActivities) {
         const prevConfig = this.activitiesConfig.activities.find(
-          (i) => i.idActivity === iterator._id
+          (i) => i.id === iterator._id
         );
-        const configActivity = {
-          idActivity: iterator._id,
+        const configActivity: IActivityConfigInput = {
+          id: iterator._id,
           limit: 0,
-          options: {},
           ...prevConfig,
           activityName: iterator.name,
         };
         delete configActivity['__typename'];
         this.showActivityConfig.push(configActivity);
-        if (configActivity.idActivity === this.idActivityTeamCoaches)
-          this.teamCoachActivityIndex = index;
         index++;
       }
       this.loaded = true;
@@ -174,28 +160,9 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     let totalHours = 0;
     for (const configActivity of this.showActivityConfig) {
       totalHours += configActivity.limit;
-      if (configActivity.idActivity === this.idActivityTeamCoaches)
-        hoursTeamCoaches = configActivity.limit;
+      // if (configActivity.id === this.idActivityTeamCoaches)
+      //   hoursTeamCoaches = configActivity.limit;
     }
     this.activitiesConfig.limit = totalHours;
-  }
-
-  hoursStartupsInvalid(list: IAssignItem[]) {
-    for (const iterator of list) {
-      const limit = iterator.limit;
-      let countHoursStartups = 0;
-      for (const startup of iterator.to) {
-        const previousConfig = this.activitiesConfig.startups.find(
-          (i) => i.id === startup.id && i.from === iterator.from
-        );
-        countHoursStartups += previousConfig
-          ? previousConfig.limit
-          : startup.limit;
-      }
-      if (limit < countHoursStartups) {
-        return true;
-      }
-    }
-    return false;
   }
 }

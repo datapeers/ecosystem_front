@@ -1,52 +1,32 @@
 export interface IActivitiesConfig {
   _id: string;
   limit: number;
-  totalLimit: number;
   activities: IActivityConfig[];
-  experts: IAssignHoursConfig[];
-  teamCoaches: IAssignHoursConfig[];
-  startups: { id: string; from: string; limit: number; __typename?: any }[];
-  phase: string;
-  isDeleted: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  startups: IAssign[];
+  experts: IAssign[];
+  teamCoaches: IAssign[];
   calcHours: {
     hoursAssignStartups: IItemConfig[];
   };
-}
-
-export interface IAssignItem {
-  from: string;
-  limit: number;
-  nameFrom: string;
-  to: IStartupAssign[];
-  expanded: boolean;
-}
-
-export interface IStartupAssign {
-  id: string;
-  limit: number;
-  name: string;
-  modified: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  isDeleted: boolean;
 }
 
 export interface IActivityConfig {
-  idActivity: string;
+  id: string;
   limit: number;
-  options: any;
-  activityName?: string;
 }
 
-export interface IAssignHoursConfig {
-  from: string;
+export interface IActivityConfigInput extends IActivityConfig {
+  activityName: string;
+}
+
+export interface IAssign {
+  id: string;
   limit: number;
+  activityID: string;
   __typename?: any;
-}
-
-export interface IItemConfig {
-  _id: string;
-  hours: any;
-  item: any;
 }
 
 export class ActivitiesConfig implements IActivitiesConfig {
@@ -54,21 +34,16 @@ export class ActivitiesConfig implements IActivitiesConfig {
   limit: number;
   totalLimit: number;
   activities: IActivityConfig[];
-  experts: IAssignHoursConfig[];
-  teamCoaches: IAssignHoursConfig[];
-  startups: { id: string; from: string; limit: number }[];
-  phase: string;
-  isDeleted: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  startups: IAssign[];
+  experts: IAssign[];
+  teamCoaches: IAssign[];
   calcHours: {
     hoursAssignStartups: IItemConfig[];
   };
-  // calcHoursTeamCoaches: {
-  //   teamCoachHours: number;
-  //   hoursLeftToOthersTeamCoaches: number;
-  //   list: IAssignItem[];
-  // };
+  createdAt: Date;
+  updatedAt: Date;
+  isDeleted: boolean;
+
   private constructor() {}
 
   static fromJson(data: IActivitiesConfig): ActivitiesConfig {
@@ -83,4 +58,25 @@ export class ActivitiesConfig implements IActivitiesConfig {
     });
     return content;
   }
+}
+
+// export interface IAssignItem {
+//   from: string;
+//   limit: number;
+//   nameFrom: string;
+//   to: IStartupAssign[];
+//   expanded: boolean;
+// }
+
+// export interface IStartupAssign {
+//   id: string;
+//   limit: number;
+//   name: string;
+//   modified: boolean;
+// }
+
+export interface IItemConfig {
+  _id: string;
+  hours: any;
+  item: any;
 }

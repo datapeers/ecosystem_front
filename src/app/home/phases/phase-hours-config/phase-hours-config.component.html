@@ -26,15 +26,15 @@
                 <div class="flex flex-wrap gap-3 p-fluid pt-2">
                     <ng-container *ngFor="let item of showActivityConfig">
                         <div class="flex-auto">
-                            <label for="activityName" class="font-bold">{{item.activityName}} </label>
-                            <p-inputNumber [(ngModel)]="item.limit" inputId="activityName" [min]="0" suffix=" hora(s)" (ngModelChange)="updateCalcHours()" [showButtons]="true"> </p-inputNumber>
+                            <label [for]="'config' + item.id" class="font-bold">{{item.activityName}} </label>
+                            <p-inputNumber [(ngModel)]="item.limit" [min]="0" suffix=" hora(s)" (ngModelChange)="updateCalcHours()" [showButtons]="true" [inputId]="'config' + item.id"> </p-inputNumber>
                         </div>
                     </ng-container>
                 </div>
             </div>
         </p-tabPanel>
         <p-tabPanel header="Startups" *ngIf="!phase.basePhase">
-            <app-assign-startups-hours class="h-full w-full" [config]="activitiesConfig" [listStartups]="listStartups" [activitiesConfig]="showActivityConfig"> </app-assign-startups-hours>
+            <app-assign-startups-hours class="h-full w-full" [config]="activitiesConfig" [listStartups]="listStartups" [activitiesConfig]="showActivityConfig" [changes]="changesStartups"> </app-assign-startups-hours>
 
         </p-tabPanel>
         <!-- <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">

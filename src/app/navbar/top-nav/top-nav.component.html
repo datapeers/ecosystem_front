@@ -11,7 +11,7 @@
             <ng-template #searchButton>
                 <i class="pi pi-search"></i>
             </ng-template>
-            <input class="p-inputtext" type="text" pInputText placeholder="¿Qué buscas?" [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" style="width: 20vw" />
+            <input class="p-inputtext" type="text" pInputText placeholder="¿Qué buscas?" [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" style="width: 20vw" id="global-search-app" />
         </span>
     </div>
     <div class="right-items flex align-items-center ">
