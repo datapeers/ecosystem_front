@@ -43,7 +43,7 @@ export class AssignStartupsHoursComponent implements OnChanges {
 
   // Vars
   flagsActivity: Message[] = [];
-
+  filterFields = ['item.nombre'];
   constructor(private service: PhaseHourConfigService) {
     this.validateHeight();
   }

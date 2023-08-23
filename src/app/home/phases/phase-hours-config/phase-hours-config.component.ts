@@ -33,6 +33,13 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
 
   listStartups = [];
   changesStartups = [];
+
+  listExperts = [];
+  changesExperts = [];
+  activitiesExpert: IActivityConfigInput[] = [];
+
+  idTeamCoachActivities = ['646f953cc2305c411d73f700'];
+  activitiesTeamCoach: IActivityConfigInput[] = [];
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -73,24 +80,44 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
       console.log(this.activitiesConfig);
+
+      // Lists
       this.listStartups = this.activitiesConfig.calcHours.hoursAssignStartups;
-      this.showActivityConfig = [];
+      this.listExperts = this.activitiesConfig.calcHours.hoursAssignExperts;
+
+      // Vars
       let index = 0;
-      for (const iterator of this.typesActivities) {
+      this.showActivityConfig = [];
+      this.activitiesExpert = [];
+      this.activitiesTeamCoach = [];
+      for (const activity of this.typesActivities) {
         const prevConfig = this.activitiesConfig.activities.find(
-          (i) => i.id === iterator._id
+          (i) => i.id === activity._id
+        );
+        const expertFocus = activity.expertFocus;
+        const teamCoachFocus = this.idTeamCoachActivities.includes(
+          activity._id
         );
         const configActivity: IActivityConfigInput = {
-          id: iterator._id,
+          id: activity._id,
           limit: 0,
           ...prevConfig,
-          activityName: iterator.name,
+          activityName: activity.name,
+          expertFocus,
+          teamCoachFocus,
         };
         delete configActivity['__typename'];
         this.showActivityConfig.push(configActivity);
         index++;
+
+        if (expertFocus) this.activitiesExpert.push(configActivity);
+        if (teamCoachFocus) this.activitiesTeamCoach.push(configActivity);
       }
+
+      // Changes
       this.changesStartups = [];
+      this.changesExperts = [];
+
       this.loaded = true;
     });
   }
@@ -101,33 +128,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   }
 
   async updateConfig() {
-    let hoursExpert = 0;
-    // this.activitiesConfig.calcHoursExperts.list.forEach(
-    //   (i) => (hoursExpert += i.limit)
-    // );
-    // if (
-    //   this.hoursStartupsInvalid(this.activitiesConfig.calcHoursExperts.list)
-    // ) {
-    //   this.toast.alert({
-    //     summary: 'Configuración inválida',
-    //     detail:
-    //       'La cantidad de horas asignadas a las startups por experto no coinciden',
-    //     life: 3000,
-    //   });
-    //   return;
-    // }
-    // if (
-    //   this.hoursStartupsInvalid(this.activitiesConfig.calcHoursTeamCoaches.list)
-    // ) {
-    //   this.toast.alert({
-    //     summary: 'Configuración inválida',
-    //     detail:
-    //       'La cantidad de horas asignadas a las startups por team coach no coinciden',
-    //     life: 3000,
-    //   });
-    //   return;
-    // }
-
     this.service
       .updateConfig(this.activitiesConfig._id, {
         activities: this.showActivityConfig.map((i) => {
@@ -160,14 +160,19 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   }
 
   async updateCalcHours() {
-    let hoursTeamCoaches = 0;
     let totalHours = 0;
+    this.activitiesExpert = [];
+    this.activitiesTeamCoach = [];
     for (const configActivity of this.showActivityConfig) {
       totalHours += configActivity.limit;
-      // if (configActivity.id === this.idActivityTeamCoaches)
-      //   hoursTeamCoaches = configActivity.limit;
+      if (configActivity.expertFocus)
+        this.activitiesExpert.push(configActivity);
+      if (configActivity.teamCoachFocus)
+        this.activitiesTeamCoach.push(configActivity);
     }
     this.showActivityConfig = [...this.showActivityConfig];
+    this.activitiesExpert = [...this.activitiesExpert];
+    this.activitiesTeamCoach = [...this.activitiesTeamCoach];
     this.activitiesConfig.limit = totalHours;
   }
 

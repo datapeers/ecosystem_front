@@ -1,4 +1,7 @@
-import { IConfigStartup } from '../phase-hours-config/models/config-startup';
+import {
+  IConfigExpert,
+  IConfigStartup,
+} from '../phase-hours-config/models/config-startup';
 
 export interface IActivitiesConfig {
   _id: string;
@@ -22,6 +25,8 @@ export interface IActivityConfig {
 
 export interface IActivityConfigInput extends IActivityConfig {
   activityName: string;
+  expertFocus: boolean;
+  teamCoachFocus: boolean;
 }
 
 export interface IAssign {
@@ -41,6 +46,7 @@ export class ActivitiesConfig implements IActivitiesConfig {
   teamCoaches: IAssign[];
   calcHours: {
     hoursAssignStartups: IConfigStartup[];
+    hoursAssignExperts: IConfigExpert[];
   };
   createdAt: Date;
   updatedAt: Date;

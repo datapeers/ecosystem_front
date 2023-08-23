@@ -1,6 +1,6 @@
-<p-messages [(value)]="flagsActivity" [enableService]="true" [closable]="false"></p-messages>
+<p-messages [(value)]="flagsActivity" [enableService]="false" [closable]="false"></p-messages>
 <div #tableWrapper class="table-container overflow-hidden">
-    <p-table #dt [value]="listStartups" [tableStyle]="{'min-width': '70vw'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="['item.item.nombre']" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+    <p-table #dt [value]="listStartups" [tableStyle]="{'min-width': '70vw'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
         <ng-template pTemplate="caption">
             <div class="table-header">
                 <span class="header color-custom">Horas asignadas startups</span>
@@ -15,21 +15,21 @@
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:10%">Nombre</th>
-                <th style="width:10%" *ngFor="let item of activitiesConfig">
-                    {{item.activityName}}
+                <th style="width:10%" *ngFor="let activity of activitiesConfig">
+                    {{activity.activityName}}
                 </th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item>
+        <ng-template pTemplate="body" let-row>
             <tr>
-                <td>{{item.item.nombre}}</td>
-                <td *ngFor="let activity of activitiesConfig" [pEditableColumn]="item.hours[activity.id]" pEditableColumnField="limit">
+                <td>{{row.item.nombre}}</td>
+                <td *ngFor="let activity of activitiesConfig" [pEditableColumn]="row.hours[activity.id]" pEditableColumnField="limit">
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-inputNumber type="number" [(ngModel)]="item.hours[activity.id]" [min]="0" [max]="activity.limit" suffix=" hora(s)" [showButtons]="true" (ngModelChange)="updateValuesActivity(activity, item)" [id]="activity.id + item._id" />
+                            <p-inputNumber type="number" [(ngModel)]="row.hours[activity.id]" [min]="0" suffix=" hora(s)" [showButtons]="true" (ngModelChange)="updateValuesActivity(activity)" [id]="activity.id + row._id" />
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{item.hours[activity.id]}} hora(s)
+                            {{row.hours[activity.id]}} hora(s)
                         </ng-template>
                     </p-cellEditor>
                 </td>
