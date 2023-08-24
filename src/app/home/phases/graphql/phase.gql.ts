@@ -15,6 +15,7 @@ const fragments = {
       childrenOf
       createdAt
       updatedAt
+      calcEndDate
     }
   `,
 };

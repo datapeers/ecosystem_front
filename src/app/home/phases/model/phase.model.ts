@@ -15,6 +15,7 @@ export interface IPhase {
   childrenOf: string;
   createdAt: Date;
   updatedAt: Date;
+  calcEndDate?: Date;
 }
 
 export class Phase implements IPhase {
@@ -34,6 +35,7 @@ export class Phase implements IPhase {
   childrenOf: string;
   createdAt: Date;
   updatedAt: Date;
+  calcEndDate?: Date;
 
   private constructor() {}
 
@@ -45,6 +47,9 @@ export class Phase implements IPhase {
       endAt: new Date(data.endAt),
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
+      calcEndDate: data.calcEndDate
+        ? new Date(data.calcEndDate)
+        : new Date(data.endAt),
     });
     return phase;
   }
