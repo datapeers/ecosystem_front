@@ -14,10 +14,10 @@
                 <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
                 <label for="calendar-first">Comienza</label>
             </span>
-            <span class="p-float-label" style="width: 100%">
+            <!-- <span class="p-float-label" style="width: 100%">
                 <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt"></p-calendar>
                 <label for="calendar-last">Termina</label>
-            </span>
+            </span> -->
         </div>
         <p-dropdown [options]="stages" formControlName="stage" optionLabel="label" optionValue="_id" *ngIf="basePhase"></p-dropdown>
 

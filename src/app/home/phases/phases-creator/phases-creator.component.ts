@@ -34,7 +34,7 @@ export class PhasesCreatorComponent implements OnInit, OnDestroy {
       childrenOf: new UntypedFormControl(null),
       thumbnail: new UntypedFormControl(null),
       startAt: new UntypedFormControl(new Date(), Validators.required),
-      endAt: new UntypedFormControl(new Date(), Validators.required),
+      endAt: new UntypedFormControl(new Date()),
     });
   }
 
