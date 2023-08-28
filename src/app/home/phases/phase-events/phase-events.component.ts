@@ -414,8 +414,12 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     });
   }
 
-  dateValidToday(date: Date) {
+  dateAfterToday(date: Date) {
     return moment(date).isAfter(new Date());
+  }
+
+  dateBeforeToday(date: Date) {
+    return moment(date).isBefore(new Date());
   }
 
   openEditLink(event: Event) {

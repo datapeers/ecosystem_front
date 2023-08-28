@@ -98,9 +98,10 @@
                                     </p-button> -->
                                                     <p-button class="mx-1" type="button" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.allowed(userPermission.actas_view)">
                                                     </p-button>
+                                                    <p-button class="mx-1" type="button" icon="pi pi-paperclip" label="" pTooltip="Link" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && dateAfterToday(event.objectRef.endAt)" (onClick)="openEditLink(event.objectRef)"></p-button>
                                                     <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">
                                                     </p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-times" label="" pTooltip="Cancelar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateValidToday(event.objectRef.endAt)" (onClick)="cancelEvent(event.objectRef)">
+                                                    <p-button class="mx-1" type="button" icon="pi pi-times" label="" pTooltip="Cancelar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateAfterToday(event.objectRef.endAt)" (onClick)="cancelEvent(event.objectRef)">
                                                     </p-button>
                                                     <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.allowed(userPermission.events_edit)">
                                                     </p-button>
@@ -218,6 +219,17 @@
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.expertFocus" label="Bolsa de horas - Experto" inputId="expertFocus"></p-checkbox>
         <div style="height: 1rem;"></div>
         <p-button type="submit" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    </div>
+</p-dialog>
+
+<p-dialog header="Link" [(visible)]="showLinkEvent" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetEditLink()">
+    <div class="flex flex-column gap-2 py-2">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="linkEvent">Link</label>
+            <input pInputText id="linkEvent" aria-describedby="linkEvent-help" [(ngModel)]="linkEvent" />
+            <small id="linkEvent-help">Entre el link que desea guardar.</small>
+        </div>
+        <p-button type="submit" label="Guardar link" (onClick)="saveEditLink()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </div>
 </p-dialog>
 
