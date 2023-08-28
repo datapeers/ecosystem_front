@@ -10,9 +10,9 @@ import {
   ActivitiesConfig,
   IActivityConfigInput,
   IAssign,
-} from '../model/activities.model';
+} from './models/activities.model';
 import { PhaseEventsService } from '../phase-events/phase-events.service';
-import { TypeEvent } from '../model/events.model';
+
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
 import {
@@ -20,6 +20,7 @@ import {
   columnsHours,
   columnsHoursLabels,
 } from './models/columns-hours.enum';
+import { TypeEvent } from '../phase-events/models/types-events.model';
 
 @Component({
   selector: 'app-phase-hours-config',

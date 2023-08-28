@@ -24,15 +24,16 @@ import { ToastService } from '@shared/services/toast.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CalendarService } from './calendar.service';
 import { PhaseEventsService } from '@home/phases/phase-events/phase-events.service';
-import { Event, TypeEvent } from '@home/phases/model/events.model';
+import { Event } from '@home/phases/phase-events/models/events.model';
 import { ICalendarItem } from './models/item-calendar';
 import { ActaService } from '@home/phases/phase-events/acta/acta.service';
-import { Acta, IActa } from '@home/phases/model/acta.model';
+import { Acta, IActa } from '@home/phases/phase-events/models/acta.model';
 import { StorageService } from '@shared/storage/storage.service';
 import { ActaComponent } from '@home/phases/phase-events/acta/acta.component';
 import { PhasesService } from '@home/phases/phases.service';
 import { ExpertsService } from '../../shared/services/experts/experts.service';
 import { Expert } from '@shared/models/entities/expert';
+import { TypeEvent } from '@home/phases/phase-events/models/types-events.model';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -311,7 +312,7 @@ export class CalendarComponent {
         teamCoachesName: event.teamCoaches.map((i) => i.name).join(', '),
         experts: event.experts,
         expertsName: event.experts.map((i) => i.name).join(', '),
-        batch: event.phase,
+        batch: event.batch,
         type: this.showedTypesEvents[event.type]?.name,
         acta: this.actas.find((i) => i.event === event._id),
         files: event.extra_options?.files,

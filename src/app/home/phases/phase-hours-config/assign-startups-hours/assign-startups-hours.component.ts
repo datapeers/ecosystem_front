@@ -9,7 +9,7 @@ import {
   ActivitiesConfig,
   IActivityConfigInput,
   IAssign,
-} from '@home/phases/model/activities.model';
+} from '@home/phases/phase-hours-config/models/activities.model';
 import { Table } from 'primeng/table';
 import { PhaseHourConfigService } from '../phase-hour-config.service';
 import { IConfigStartup } from '../models/config-startup';

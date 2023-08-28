@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { Phase } from './phase.model';
+import { Phase } from '../../model/phase.model';
 import { Event } from './events.model';
 
 export interface IActa {

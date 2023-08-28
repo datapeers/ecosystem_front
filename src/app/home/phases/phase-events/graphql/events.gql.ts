@@ -4,26 +4,32 @@ const fragments = {
       _id
       name
       type
-      phase
+      attendanceType
+      description
       extra_options
       startAt
-      endAt
-      experts {
+      endAt 
+      batch
+      experts{
         _id
         name
       }
-      teamCoaches {
+      participants{
         _id
         name
       }
-      participants {
+      teamCoaches{
         _id
         name
       }
-      isDeleted
+      attendanceList{
+        _id
+        name
+        metadata
+      }
+      isCanceled
       createdAt
       updatedAt
-    }
   `,
 };
 
@@ -44,9 +50,9 @@ const query = {
     }
     ${fragments.eventFields}
   `,
-  getEventsPhase: `
-    query EventsPhase($phase: String!) {
-      eventsPhase(phase: $phase) {
+  getEventsBatch: `
+    query EventsPhase($batch: String!) {
+      eventsBatch(batch: $batch) {
         ...eventFields
       }
     }

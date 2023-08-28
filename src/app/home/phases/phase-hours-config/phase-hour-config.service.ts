@@ -6,8 +6,8 @@ import {
   IActivityConfig,
   IActivityConfigInput,
   IAssign,
-} from '../model/activities.model';
-import activitiesConfigQueries from '../graphql/activities-config.gpl';
+} from './models/activities.model';
+import activitiesConfigQueries from './graphql/activities-config.gpl';
 import { firstValueFrom, map } from 'rxjs';
 import {
   IConfigExpert,

@@ -10,6 +10,9 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PhaseContentService } from '../phase-content.service';
 import { ToastService } from '@shared/services/toast.service';
 import { configTinyMce } from '@shared/models/configTinyMce';
+import { Phase } from '@home/phases/model/phase.model';
+import { Content } from '@home/phases/model/content.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-phase-content-creator',
@@ -24,6 +27,8 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
     duration: number;
   };
   parent_content;
+  batch: Phase;
+  lastSprint: Content;
   constructor(
     public config: DynamicDialogConfig,
     private readonly service: PhaseContentService,
@@ -37,6 +42,9 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
       duration: new UntypedFormControl(7, [Validators.required]),
     });
     this.parent_content = this.config.data.content;
+    this.batch = this.config.data.batch;
+    this.lastSprint = this.config.data.lastSprint;
+    console.log(this.lastSprint);
   }
 
   ngOnInit() {
@@ -56,7 +64,7 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
     const newContent = {
       name: this.contentCreationForm.value.name,
       content: this.contentCreationForm.value.content,
-      phase: this.config.data.phase,
+      phase: this.batch._id,
       extra_options: {
         sprint: this.parent_content ? false : true,
         duration: this.parent_content
@@ -65,6 +73,19 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
         parent: this.parent_content?._id,
       },
     };
+    if (!this.batch.basePhase && newContent.extra_options.duration) {
+      let startDate = moment(
+        this.lastSprint
+          ? new Date(this.lastSprint.extra_options.end)
+          : this.batch.startAt
+      );
+      newContent.extra_options['start'] = startDate.add(1, 'days').toDate();
+      newContent.extra_options['end'] = startDate.add(
+        newContent.extra_options.duration,
+        'days'
+      );
+      delete newContent.extra_options['duration'];
+    }
     this.service
       .createContent(newContent)
       .then((content) => {

@@ -74,8 +74,11 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
       width: '75vw',
       height: '70vh',
       data: {
-        phase: this.phase._id,
+        batch: this.phase,
         content,
+        lastSprint: this.contentList.length
+          ? this.contentList[this.contentList.length - 1]
+          : undefined,
       },
     });
 

@@ -2,7 +2,7 @@ import {
   IConfigExpert,
   IConfigStartup,
   IConfigTeamCoach,
-} from '../phase-hours-config/models/config-startup';
+} from './config-startup';
 
 export interface IActivitiesConfig {
   _id: string;

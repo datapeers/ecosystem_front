@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Event, IEventFileExtended } from '@home/phases/model/events.model';
+import {
+  Event,
+  IEventFileExtended,
+} from '@home/phases/phase-events/models/events.model';
 import { Phase } from '@home/phases/model/phase.model';
-import { Acta } from '@home/phases/model/acta.model';
+import { Acta } from '@home/phases/phase-events/models/acta.model';
 import { ActaService } from './acta.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastService } from '@shared/services/toast.service';

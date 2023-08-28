@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import eventsQueries from '../phases/graphql/events.gql';
+import eventsQueries from '../phases/phase-events/graphql/events.gql';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
 import { map } from 'rxjs';
-import { Event } from '@home/phases/model/events.model';
+import { Event } from '@home/phases/phase-events/models/events.model';
 @Injectable({
   providedIn: 'root',
 })

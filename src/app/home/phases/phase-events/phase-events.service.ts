@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { Event, ITypeEvent, TypeEvent } from '../model/events.model';
-import typesEventsQueries from '../graphql/types-events.gql';
-import eventsQueries from '../graphql/events.gql';
+import { Event } from './models/events.model';
+import { ITypeEvent, TypeEvent } from './models/types-events.model';
+import typesEventsQueries from './graphql/types-events.gql';
+import eventsQueries from './graphql/events.gql';
 import { firstValueFrom, map } from 'rxjs';
 import { StorageService } from '@shared/storage/storage.service';
 
@@ -98,35 +99,47 @@ export class PhaseEventsService {
 
   // ----------------------------------------- Events ---------------------------------------
 
-  async watchEvents(phase: string) {
+  async watchEvents(batch: string) {
     this._getEvents = this.graphql.refQuery(
-      eventsQueries.query.getEventsPhase,
-      { phase },
+      eventsQueries.query.getEventsBatch,
+      { batch },
       'cache-first',
       { auth: true }
     );
     return this.graphql.watch_query(this._getEvents).valueChanges.pipe(
-      map((request) => request.data.eventsPhase),
+      map((request) => request.data.eventsBatch),
       map((events) => events.map((eventDoc) => Event.fromJson(eventDoc)))
     );
   }
 
-  async getEvents(phase: string) {
+  async getEvents(batch: string) {
     this._getEvents = this.graphql.refQuery(
-      eventsQueries.query.getEventsPhase,
-      { phase },
+      eventsQueries.query.getEventsBatch,
+      { batch },
       'cache-first',
       { auth: true }
     );
     return firstValueFrom(
       this.graphql.query(this._getEvents).pipe(
-        map((request) => request.data.eventsPhase),
+        map((request) => request.data.eventsBatch),
         map((events) => events.map((eventDoc) => Event.fromJson(eventDoc)))
       )
     );
   }
 
-  async createEvent(createEventInput): Promise<Event> {
+  async createEvent(createEventInput: {
+    name: string;
+    type: string;
+    attendanceType: string;
+    description: string;
+    startAt: Date;
+    endAt: Date;
+    extra_options: Record<string, any>;
+    batch: string;
+    experts: any[];
+    teamCoaches: any[];
+    participants: any[];
+  }): Promise<Event> {
     const mutationRef = this.graphql.refMutation(
       eventsQueries.mutation.createEvent,
       { createEventInput },
@@ -176,7 +189,7 @@ export class PhaseEventsService {
       lastModified: file.lastModified,
     });
     return this.storageService.uploadFile(
-      `phases/${event.phase}/events/${event._id}/thumbnail`,
+      `phases/${event.batch}/events/${event._id}/thumbnail`,
       renamedFile,
       true
     );
@@ -184,7 +197,7 @@ export class PhaseEventsService {
 
   removeEventThumbnail(event: Event) {
     return this.storageService.deleteFile(
-      `phases/${event.phase}/events/${event._id}/thumbnail`,
+      `phases/${event.batch}/events/${event._id}/thumbnail`,
       event._id
     );
   }

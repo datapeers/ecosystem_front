@@ -56,6 +56,7 @@ import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homework
 import { PhaseHomeworkTableComponent } from './phases/phase-homeworks/phase-homework-table/phase-homework-table.component';
 import { ContentsComponent } from './contents/contents.component';
 import { AssignStartupsHoursComponent } from './phases/phase-hours-config/assign-startups-hours/assign-startups-hours.component';
+import { EventCreatorComponent } from './phases/phase-events/event-creator/event-creator.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -102,6 +103,7 @@ import { AssignStartupsHoursComponent } from './phases/phase-hours-config/assign
     PhaseHomeworkTableComponent,
     ContentsComponent,
     AssignStartupsHoursComponent,
+    EventCreatorComponent,
   ],
   imports: [
     CommonModule,

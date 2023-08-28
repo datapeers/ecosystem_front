@@ -1,38 +1,29 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '@shared/services/toast.service';
 import { PhaseEventsService } from './phase-events.service';
-import { Event, IEventFileExtended, TypeEvent } from '../model/events.model';
+import { Event } from './models/events.model';
 import { cloneDeep } from '@apollo/client/utilities';
 import { Subscription, first, firstValueFrom } from 'rxjs';
 import { ConfirmationService } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Phase } from '../model/phase.model';
-import {
-  faClock,
-  faPaperclip,
-  faPlus,
-  faTimes,
-  faUserTie,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-import FileSaver from 'file-saver';
-import { StorageService } from '@shared/storage/storage.service';
-import { HttpEventType } from '@angular/common/http';
-import { PhaseExpertsService } from '../phase-experts/phase-experts.service';
-import { PhaseStartupsService } from '../phase-startups/phase-startups.service';
 import { Table } from 'primeng/table';
 import { ListedObject } from '@shared/components/datefilter/models/datefilter.interfaces';
 import { differenceInMinutes } from 'date-fns';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ActaComponent } from './acta/acta.component';
-import { Acta } from '../model/acta.model';
-import * as moment from 'moment';
+import { Acta } from './models/acta.model';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { QrViewComponent } from '@shared/components/qr-view/qr-view.component';
 import { Permission } from '@auth/models/permissions.enum';
-import { UserService } from '@auth/user.service';
+import { TypeEvent } from './models/types-events.model';
+import { EventCreatorComponent } from './event-creator/event-creator.component';
+import {
+  attendanceType,
+  attendanceTypeLabels,
+} from './models/assistant-type.enum';
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -50,43 +41,9 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   phase: Phase;
   user: User;
-  showCreatorEvent = false;
-  newEvent = Event.newEvent(null);
-  stateOptionsAssistant: any[] = [
-    { label: 'Presencial', value: 'onsite' },
-    { label: 'Virtual', value: 'virtual' },
-  ];
-  optionsAssistant = {
-    onsite: 'Presencial',
-    virtual: 'Virtual',
-  };
+
   events$: Subscription;
   events: Event[];
-
-  expertsList = [];
-  startupsList = [];
-  entrepreneurList = [];
-  teamCoachList = [];
-
-  selectedExperts = [];
-  selectedParticipants = [];
-  selectedStartups = [];
-  selectedTeamCoach = [];
-
-  currentExpert;
-  //Limits
-  fileSizeLimit = 1000000;
-  filesLimit = 5;
-
-  allowFiles = false;
-  selectedFiles: IEventFileExtended[] = [];
-  faPaperclip = faPaperclip;
-  faTimes = faTimes;
-  faUserTie = faUserTie;
-  faPlus = faPlus;
-  faClock = faClock;
-  faUsers = faUsers;
-  editingEvent = false;
 
   currentFilterType = 'contains';
   currentFilterField = 'item.nombre';
@@ -103,6 +60,10 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     return Permission;
   }
 
+  public get attendanceLabels(): typeof attendanceTypeLabels {
+    return attendanceTypeLabels;
+  }
+
   typesNeeded = [
     '646f943cc2305c411d73f6d0', // Mentoría
     '646f9538c2305c411d73f6fb', // Asesorías
@@ -111,13 +72,9 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
-    private readonly toast: ToastService,
     public dialogService: DialogService,
+    private readonly toast: ToastService,
     private readonly service: PhaseEventsService,
-    private readonly expertsServices: PhaseExpertsService,
-    private readonly storageService: StorageService,
-    private readonly phaseStartupsService: PhaseStartupsService,
-    private readonly userService: UserService,
     private confirmationService: ConfirmationService
   ) {
     firstValueFrom(
@@ -145,8 +102,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.typesEvent$ = typesEvent$.subscribe(
           (typeEventList: TypeEvent[]) => {
             this.typesEvents = typeEventList.filter((x) => !x.isDeleted);
-            if (this.typesEvents[0]?.extra_options?.allow_files)
-              this.allowFiles = true;
             for (const iterator of this.typesEvents)
               this.showedTypesEvents[iterator._id] = iterator;
           }
@@ -165,7 +120,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
-    this.newEvent = Event.newEvent(this.phase);
     this.service
       .watchEvents(this.phase._id)
       .then((events$) => {
@@ -182,9 +136,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
         this.typesEvents = [];
       });
-    await this.loadExperts();
-    await this.loadStartUps();
-    await this.loadTeamCoaches();
   }
 
   preloadTableItems() {
@@ -219,68 +170,9 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     });
   }
 
-  async loadExperts() {
-    this.expertsList = (
-      await this.expertsServices.getDocuments({ phase: this.phase._id })
-    ).map((doc) => {
-      return {
-        _id: doc._id,
-        name: doc.item.nombre,
-      };
-    });
-  }
-
-  async loadStartUps() {
-    const startupsPhase = await this.phaseStartupsService.getDocuments({
-      phase: this.phase._id,
-    });
-    this.entrepreneurList = [];
-    this.startupsList = [];
-    for (const startUp of startupsPhase) {
-      this.startupsList.push({
-        _id: startUp._id,
-        name: startUp.item.nombre,
-        entrepreneurs: startUp.entrepreneurs.map((entrepreneur) => {
-          return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
-        }),
-      });
-      for (const entrepreneur of startUp.entrepreneurs) {
-        this.entrepreneurList.push({
-          _id: entrepreneur._id,
-          name: entrepreneur.item.nombre,
-        });
-      }
-    }
-  }
-
-  async loadTeamCoaches() {
-    const teamCoachRequest = await this.userService.getUsers(
-      '',
-      [ValidRoles.teamCoach],
-      { batches: this.phase._id }
-    );
-    this.teamCoachList = [];
-    for (const teamCoach of teamCoachRequest) {
-      this.teamCoachList.push({
-        _id: teamCoach._id,
-        name: teamCoach.fullName,
-      });
-    }
-  }
-
-  openEdit(event) {
-    this.newEvent = Event.newEvent(this.phase, cloneDeep(event));
-    this.editingEvent = true;
-    for (const fileDoc of this.newEvent.extra_options.files) {
-      this.selectedFiles.push(fileDoc);
-    }
-    this.showCreatorEvent = true;
-  }
-
   resetCreatorEventType() {
     this.showCreatorType = false;
     this.newTypeEvent = TypeEvent.newEventType();
-    this.editingEvent = false;
   }
 
   createTypeEvent() {
@@ -360,198 +252,6 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectionType(selected) {
-    const selectedType = this.typesEvents.find((i) => i._id === selected);
-    if (selectedType && selectedType.extra_options?.allow_files) {
-      this.allowFiles = true;
-    } else {
-      this.allowFiles = false;
-      this.selectedFiles = [];
-    }
-  }
-
-  resetCreatorEvent() {
-    this.showCreatorEvent = false;
-    this.newEvent = Event.newEvent(this.phase);
-    this.selectedFiles = [];
-  }
-
-  async createEvent() {
-    if (moment(this.newEvent.endAt).isBefore(this.newEvent.startAt)) {
-      this.toast.alert({
-        summary: 'Error de fechas',
-        detail:
-          'La fecha de inicio seleccionada es posterior a la fecha de término. Por favor, ajusta las fechas para continuar correctamente.',
-      });
-      return;
-    }
-    if (this.allowFiles && this.selectedFiles.length > 0) {
-      await this.uploadFiles();
-    }
-    this.toast.clear();
-    this.toast.info({ detail: '', summary: 'Guardando...' });
-    this.newEvent.phase = this.phase._id;
-    this.service
-      .createEvent(this.newEvent)
-      .then((ans) => {
-        this.toast.clear();
-        this.resetCreatorEvent();
-      })
-      .catch((err) => {
-        this.toast.clear();
-        this.toast.alert({
-          summary: 'Error al crear evento',
-          detail: err,
-          life: 12000,
-        });
-        this.resetCreatorEvent();
-      });
-  }
-
-  async uploadFiles() {
-    this.newEvent.extra_options.files = [];
-    for (const iterator of this.selectedFiles) {
-      this.toast.clear();
-      this.toast.info({
-        summary: 'Subiendo archivo...',
-        detail: 'Por favor espere, no cierre la ventana',
-      });
-      if (iterator.file) {
-        const fileUploaded: any = await firstValueFrom(
-          this.storageService
-            .uploadFile(`phases/${this.phase._id}/events`, iterator.file)
-            .pipe(first((event) => event.type === HttpEventType.Response))
-        );
-        this.newEvent.extra_options['files'].push({
-          name: iterator.name,
-          url: fileUploaded.url,
-        });
-      } else {
-        this.newEvent.extra_options['files'].push({
-          name: iterator.name,
-          url: iterator.url,
-        });
-      }
-    }
-    this.toast.clear();
-  }
-
-  onUpload(event, target) {
-    for (let newFile of event.files as File[]) {
-      if (this.selectedFiles.length >= this.filesLimit) {
-        // console.log('file limit reached');
-        break;
-      }
-      if (!this.selectedFiles.some((f) => f.name == newFile.name)) {
-        this.selectedFiles.push({
-          file: newFile,
-          name: newFile.name,
-        });
-      }
-    }
-    target.clear();
-  }
-
-  removeFile(fileName: string) {
-    if (this.selectedFiles) {
-      this.selectedFiles = this.selectedFiles.filter((f) => f.name != fileName);
-    }
-  }
-
-  async downloadUrl(urlFile: string) {
-    const key = this.storageService.getKey(urlFile);
-    const url = await firstValueFrom(this.storageService.getFile(key));
-    if (url) {
-      window.open(url, '_blank');
-    }
-  }
-
-  async downloadFile(file: IEventFileExtended) {
-    if (file.file) {
-      FileSaver.saveAs(file.file);
-      return;
-    }
-  }
-
-  addExperts() {
-    for (let res of this.selectedExperts) {
-      if (this.newEvent.experts.find((i) => i._id === res._id)) {
-        continue;
-      }
-      this.newEvent.experts.push(res);
-    }
-    this.selectedExperts = [];
-  }
-
-  removeExpert(id: string) {
-    this.newEvent.experts = this.newEvent.experts.filter((r) => r._id != id);
-  }
-
-  addTeamCoach() {
-    for (let res of this.selectedTeamCoach) {
-      if (this.newEvent.teamCoaches.find((i) => i._id === res._id)) {
-        continue;
-      }
-      this.newEvent.teamCoaches.push(res);
-    }
-    this.selectedTeamCoach = [];
-  }
-
-  removeTeamCoach(id: string) {
-    this.newEvent.teamCoaches = this.newEvent.teamCoaches.filter(
-      (r) => r._id != id
-    );
-  }
-
-  addParticipant() {
-    for (let res of this.selectedParticipants) {
-      if (this.newEvent.participants.find((i) => i._id === res._id)) {
-        continue;
-      }
-      this.newEvent.participants.push(res);
-    }
-    this.selectedParticipants = [];
-  }
-
-  removeParticipant(id: string) {
-    this.newEvent.participants = this.newEvent.participants.filter(
-      (r) => r._id != id
-    );
-  }
-
-  addStartup() {
-    for (let startup of this.selectedStartups) {
-      for (const entrepreneur of startup.entrepreneurs) {
-        if (
-          this.newEvent.participants.find((i) => i._id === entrepreneur._id)
-        ) {
-          continue;
-        }
-        this.newEvent.participants.push(entrepreneur);
-      }
-    }
-    this.selectedStartups = [];
-  }
-
-  async eventEdit() {
-    await this.uploadFiles();
-    this.toast.info({ detail: '', summary: 'Guardando...' });
-    this.service
-      .updateEvent(this.newEvent)
-      .then((ans) => {
-        this.toast.clear();
-        this.resetCreatorEvent();
-      })
-      .catch((err) => {
-        this.toast.clear();
-        this.toast.alert({
-          summary: 'Error al editar evento',
-          detail: err,
-          life: 12000,
-        });
-      });
-  }
-
   eventDelete(event: Event) {
     this.confirmationService.confirm({
       key: 'confirmDialog',
@@ -603,6 +303,29 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         life: 2000,
       });
     }
+  }
+
+  showEvent(event?: Event) {
+    this.ref = this.dialogService.open(EventCreatorComponent, {
+      header: 'Evento',
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      data: {
+        event,
+        batch: this.phase,
+        user: this.user,
+        typesEvents: this.typesEvents,
+        extra_options: event?.extra_options ?? undefined,
+      },
+    });
+
+    this.ref.onClose.subscribe((event: Event) => {
+      if (event?._id) {
+        console.log('se creo!');
+      }
+    });
   }
 
   showActa(event: Event) {

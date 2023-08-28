@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import actasQueries from '../../graphql/acta.gql';
+import actasQueries from '../graphql/acta.gql';
 import { firstValueFrom, map } from 'rxjs';
-import { Acta, IActa } from '@home/phases/model/acta.model';
+import { Acta, IActa } from '@home/phases/phase-events/models/acta.model';
 
 @Injectable({
   providedIn: 'root',
