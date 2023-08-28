@@ -1,35 +1,34 @@
 const fragments = {
   eventFields: `
   fragment eventFields on Event {
+    _id
+    name
+    type
+    attendanceType
+    description
+    extra_options
+    startAt
+    endAt
+    isCanceled
+    isDeleted
+    createdAt
+    updatedAt
+    batch
+    experts {
       _id
       name
-      type
-      attendanceType
-      description
-      extra_options
-      startAt
-      endAt 
-      batch
-      experts{
-        _id
-        name
-      }
-      participants{
-        _id
-        name
-      }
-      teamCoaches{
-        _id
-        name
-      }
-      attendanceList{
-        _id
-        name
-        metadata
-      }
-      isCanceled
-      createdAt
-      updatedAt
+    }
+    teamCoaches {
+      _id
+      name
+    }
+    participants {
+      _id
+      name
+    }
+    createdAt
+    updatedAt
+  }
   `,
 };
 
@@ -51,7 +50,7 @@ const query = {
     ${fragments.eventFields}
   `,
   getEventsBatch: `
-    query EventsPhase($batch: String!) {
+    query EventsBatch($batch: String!) {
       eventsBatch(batch: $batch) {
         ...eventFields
       }

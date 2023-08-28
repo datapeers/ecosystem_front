@@ -129,12 +129,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         });
       })
       .catch((err) => {
+        console.log(err);
         this.toast.alert({
           summary: 'Error al cargar eventos',
           detail: err,
           life: 12000,
         });
-        this.typesEvents = [];
+        this.events = [];
       });
   }
 
@@ -316,7 +317,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         event,
         batch: this.phase,
         user: this.user,
-        typesEvents: this.typesEvents,
+        typeEvents: this.typesEvents,
         extra_options: event?.extra_options ?? undefined,
       },
     });

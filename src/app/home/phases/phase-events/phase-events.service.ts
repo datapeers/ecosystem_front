@@ -140,6 +140,7 @@ export class PhaseEventsService {
     teamCoaches: any[];
     participants: any[];
   }): Promise<Event> {
+    delete createEventInput['_id'];
     const mutationRef = this.graphql.refMutation(
       eventsQueries.mutation.createEvent,
       { createEventInput },

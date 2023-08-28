@@ -11,7 +11,11 @@ import { PhaseExpertsService } from '@home/phases/phase-experts/phase-experts.se
 import { PhaseStartupsService } from '@home/phases/phase-startups/phase-startups.service';
 import { Phase } from '@home/phases/model/phase.model';
 import { User } from '@auth/models/user';
-import { IEventFileExtended, newEvent } from '../models/events.model';
+import {
+  IEntityEvent,
+  IEventFileExtended,
+  newEvent,
+} from '../models/events.model';
 import {
   faClock,
   faPaperclip,
@@ -23,14 +27,13 @@ import {
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { TypeEvent } from '../models/types-events.model';
 import { FormGroup } from '@angular/forms';
-import { first, firstValueFrom } from 'rxjs';
+import { Subscription, first, firstValueFrom } from 'rxjs';
 import {
   attendanceType,
   stateOptionsAssistant,
 } from '../models/assistant-type.enum';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Event } from '@home/phases/phase-events/models/events.model';
-
 @Component({
   selector: 'app-event-creator',
   templateUrl: './event-creator.component.html',
@@ -41,32 +44,42 @@ export class EventCreatorComponent implements OnInit {
   loaded = false;
   batch: Phase;
   user: User;
-  event: Event;
-  typesEvents: TypeEvent[] = [];
-  newEventMain: FormGroup;
+  typeEvents: TypeEvent[] = [];
+  previousEvent: Event;
+  event: FormGroup;
   extra_options: any = {};
   editingEvent = false;
 
-  // Forms Vars
+  // ? Vars for change name
+  changeType$: Subscription;
+
+  // ? List options
   stateOptionsAssistant = stateOptionsAssistant;
-  expertsList = [];
-  startupsList = [];
-  entrepreneurList = [];
-  teamCoachList = [];
+  expertsList: IEntityEvent[] = [];
+  startupsList: IItemStartup[] = [];
+  entrepreneurList: IEntityEvent[] = [];
+  teamCoachList: IEntityEvent[] = [];
 
-  experts = [];
-  teamCoaches = [];
-  participants = [];
+  // ? Selected display
+  experts: IEntityEvent[] = [];
+  teamCoaches: IEntityEvent[] = [];
+  participants: IEntityEvent[] = [];
+  startups: IItemStartup[] = [];
 
-  selectedExperts = [];
-  selectedParticipants = [];
-  selectedStartups = [];
-  selectedTeamCoach = [];
+  // ? vars for dropdowns
+  selectedExperts: IEntityEvent[] = [];
+  selectedParticipants: IEntityEvent[] = [];
+  selectedStartups: IItemStartup[] = [];
+  selectedTeamCoach: IEntityEvent[] = [];
+
+  // ? File vars
   currentExpert;
   fileSizeLimit = 1000000;
   filesLimit = 5;
   allowFiles = false;
   selectedFiles: IEventFileExtended[] = [];
+
+  // ? Icons
   faPaperclip = faPaperclip;
   faTimes = faTimes;
   faUserTie = faUserTie;
@@ -91,35 +104,67 @@ export class EventCreatorComponent implements OnInit {
     private readonly storageService: StorageService,
     private readonly expertsServices: PhaseExpertsService,
     private readonly phaseStartupsService: PhaseStartupsService
-  ) {
-    this.batch = this.config.data.batch;
-    this.user = this.config.data.user;
-    this.typesEvents = this.config.data.typeEvents;
-    this.newEventMain = newEvent(this.batch, this.config.data.event);
-    this.extra_options = this.config.data.event
-      ? this.config.data.event.extra_options
-      : {};
-  }
+  ) {}
 
   ngOnInit(): void {
-    console.log(1);
     this.loadComponent();
   }
 
-  close() {
-    this.ref.close(this.event);
+  close(update?: boolean) {
+    this.changeType$?.unsubscribe();
+    this.ref.close(update);
   }
 
   async loadComponent() {
     this.loaded = false;
-    console.log('a');
+    this.setMainVars();
+
+    // ? vars mandatory for component
     if (!this.batch) this.close();
-    if (this.typesEvents.length === 0) this.close();
+    if (this.typeEvents.length === 0) this.close();
     await this.loadExperts();
     await this.loadStartUps();
     await this.loadTeamCoaches();
+
+    if (this.previousEvent) this.setEditVars();
+    this.subscriptionChanges();
     this.loaded = true;
-    console.log('b', this.loaded);
+  }
+
+  setMainVars() {
+    this.batch = this.config.data.batch;
+    this.user = this.config.data.user;
+    this.typeEvents = this.config.data.typeEvents;
+    this.previousEvent = this.config.data.event;
+    this.event = newEvent(this.batch, this.typeEvents, this.previousEvent);
+    this.extra_options = this.config.data.event
+      ? this.config.data.event.extra_options
+      : {
+          userCreated: this.user._id,
+        };
+  }
+
+  setEditVars() {
+    this.editingEvent = true;
+    this.event.get('type').disable();
+    this.experts = [...this.previousEvent.experts];
+    this.teamCoaches = [...this.previousEvent.teamCoaches];
+    this.participants = [...this.previousEvent.participants];
+    const startupsAdded = new Set();
+    this.startups = [];
+    for (const participant of this.selectedParticipants) {
+      const startup = this.startupsList.find((s) =>
+        s.entrepreneurs.find((e) => e._id === participant._id)
+      );
+      if (startup && !startupsAdded.has(startup._id)) {
+        this.startups.push(startup);
+        startupsAdded.add(startup._id);
+      }
+    }
+    if (this.previousEvent.extra_options.files)
+      for (const fileDoc of this.previousEvent.extra_options.files) {
+        this.selectedFiles.push(fileDoc);
+      }
   }
 
   async loadExperts() {
@@ -172,7 +217,7 @@ export class EventCreatorComponent implements OnInit {
   }
 
   selectionType(selected) {
-    const selectedType = this.typesEvents.find((i) => i._id === selected);
+    const selectedType = this.typeEvents.find((i) => i._id === selected);
     if (selectedType && selectedType.extra_options?.allow_files) {
       this.allowFiles = true;
     } else {
@@ -181,44 +226,22 @@ export class EventCreatorComponent implements OnInit {
     }
   }
 
-  async createEvent() {
-    if (
-      moment(this.newEventMain.value.endAt).isBefore(
-        this.newEventMain.value.startAt
-      )
-    ) {
-      this.toast.alert({
-        summary: 'Error de fechas',
-        detail:
-          'La fecha de inicio seleccionada es posterior a la fecha de término. Por favor, ajusta las fechas para continuar correctamente.',
-      });
-      return;
-    }
-    if (this.allowFiles && this.selectedFiles.length > 0) {
-      await this.uploadFiles();
-    }
-    this.toast.clear();
-    this.toast.info({ detail: '', summary: 'Guardando...' });
-    this.service
-      .createEvent({
-        ...this.newEventMain.value,
-        extra_options: this.extra_options,
-        batch: this.batch._id,
-        experts: this.experts,
-        teamCoaches: this.teamCoaches,
-        participants: this.participants,
-      })
-      .then((ans) => {
-        this.toast.clear();
-      })
-      .catch((err) => {
-        this.toast.clear();
-        this.toast.alert({
-          summary: 'Error al crear evento',
-          detail: err,
-          life: 12000,
-        });
-      });
+  // ? Subscription for detect changes when changes type, changes name
+  subscriptionChanges() {
+    this.changeType$ = this.event.get('type').valueChanges.subscribe((type) => {
+      const currentName = this.event.get('name').value;
+      const newType = this.typeEvents.find((i) => i._id === type);
+
+      // Construir una expresión regular dinámica para los tipos de evento
+      const typeRegex = new RegExp(
+        `\\b${this.typeEvents.map((i) => i.name).join('\\b|\\b')}\\b`,
+        'i'
+      );
+      if (typeRegex.test(currentName)) {
+        const updatedName = currentName.replace(typeRegex, newType.name);
+        this.event.get('name').setValue(updatedName);
+      }
+    });
   }
 
   async uploadFiles() {
@@ -287,12 +310,20 @@ export class EventCreatorComponent implements OnInit {
   }
 
   addStartup() {
+    const startupAdded = new Set();
+    for (const startup of this.startups) {
+      startupAdded.add(startup._id);
+    }
     for (let startup of this.selectedStartups) {
       for (const entrepreneur of startup.entrepreneurs) {
         if (this.participants.find((i) => i._id === entrepreneur._id)) {
           continue;
         }
         this.participants.push(entrepreneur);
+        if (!startupAdded.has(startup._id)) {
+          startupAdded.add(startup._id);
+          this.startups.push(startup);
+        }
       }
     }
     this.selectedStartups = [];
@@ -358,4 +389,45 @@ export class EventCreatorComponent implements OnInit {
     //     });
     //   });
   }
+
+  async createEvent() {
+    if (moment(this.event.value.endAt).isBefore(this.event.value.startAt)) {
+      this.toast.alert({
+        summary: 'Error de fechas',
+        detail:
+          'La fecha de inicio seleccionada es posterior a la fecha de término. Por favor, ajusta las fechas para continuar correctamente.',
+      });
+      return;
+    }
+    if (this.allowFiles && this.selectedFiles.length > 0) {
+      await this.uploadFiles();
+    }
+    this.toast.clear();
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.service
+      .createEvent({
+        ...this.event.value,
+        extra_options: this.extra_options,
+        batch: this.batch._id,
+        experts: this.experts,
+        teamCoaches: this.teamCoaches,
+        participants: this.participants,
+      })
+      .then((ans) => {
+        this.toast.clear();
+        this.close(true);
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al crear evento',
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+}
+
+interface IItemStartup extends IEntityEvent {
+  entrepreneurs: IEntityEvent[];
 }

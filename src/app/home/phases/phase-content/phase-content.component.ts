@@ -52,7 +52,6 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
         .select((store) => store.phase.phase)
         .pipe(first((i) => i !== null))
     );
-
     this.watchContent$ = (
       await this.service.watchContents(this.phase._id)
     ).subscribe((i) => {
@@ -69,23 +68,24 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   }
 
   openCreator(content?) {
-    this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
-      header: content ? 'Añadir contenido' : 'Añadir sprint',
-      width: '75vw',
-      height: '70vh',
-      data: {
-        batch: this.phase,
-        content,
-        lastSprint: this.contentList.length
-          ? this.contentList[this.contentList.length - 1]
-          : undefined,
-      },
-    });
+    console.log('a');
+    // this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
+    //   header: content ? 'Añadir contenido' : 'Añadir sprint',
+    //   width: '75vw',
+    //   height: '70vh',
+    //   data: {
+    //     batch: this.phase,
+    //     content,
+    //     lastSprint: this.contentList.length
+    //       ? this.contentList[this.contentList.length - 1]
+    //       : undefined,
+    //   },
+    // });
 
-    this.onCloseDialogSub$ = this.dialogRef.onClose.subscribe(async (data) => {
-      this.onCloseDialogSub$.unsubscribe();
-      this.dialogRef = null;
-    });
+    // this.onCloseDialogSub$ = this.dialogRef.onClose.subscribe(async (data) => {
+    //   this.onCloseDialogSub$.unsubscribe();
+    //   this.dialogRef = null;
+    // });
   }
 
   selectViewContent(content: Content) {

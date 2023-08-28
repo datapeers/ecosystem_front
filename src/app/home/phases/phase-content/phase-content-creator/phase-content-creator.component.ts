@@ -44,7 +44,6 @@ export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
     this.parent_content = this.config.data.content;
     this.batch = this.config.data.batch;
     this.lastSprint = this.config.data.lastSprint;
-    console.log(this.lastSprint);
   }
 
   ngOnInit() {

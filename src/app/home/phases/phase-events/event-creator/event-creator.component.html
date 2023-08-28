@@ -2,13 +2,13 @@
     <app-loading></app-loading>
 </ng-container>
 <ng-template #formTemplate>
-    <form [formGroup]="newEventMain">
+    <form [formGroup]="event">
         <div class="flex gap-2">
             <div class="field">
                 <label for="assistantType">Tipo de asistencia</label>
                 <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" formControlName="attendanceType" class="inputfield mt-2"></p-selectButton>
             </div>
-            <div class="field pt-4 pl-2" *ngIf="newEventMain.value.stateOptionsAssistant === attendanceTypes.virtual">
+            <div class="field pt-4 pl-2" *ngIf="event.value.stateOptionsAssistant === attendanceTypes.virtual">
                 <div class="flex">
                     <span class="p-inputgroup-addon">
                         <i class="pi pi-link"></i>
@@ -40,7 +40,7 @@
                         <i class="pi pi-list"></i>
                     </span>
                     <span class="p-float-label" style="width: 100%">
-                        <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typesEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" formControlName="type" (onChange)="selectionType($event.value)">
+                        <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typeEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" formControlName="type" (onChange)="selectionType($event.value)">
                         </p-dropdown>
                         <label for="typeEvent">Tipo Evento</label>
                     </span>
@@ -184,10 +184,10 @@
         </p-fileUpload>
     </ng-container>
     <ng-container *ngIf="!editingEvent; else editButton">
-        <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="newEventMain.invalid" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+        <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="event.invalid" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </ng-container>
     <ng-template #editButton>
-        <p-button type="submit" label="Guardar cambios" (onClick)="eventEdit()" [disabled]="newEventMain.invalid" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+        <p-button type="submit" label="Guardar cambios" (onClick)="eventEdit()" [disabled]="event.invalid" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </ng-template>
 </ng-template>
 

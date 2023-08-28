@@ -1,8 +1,8 @@
 import * as moment from 'moment';
 import { Phase } from '../../model/phase.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { attendanceType } from './assistant-type.enum';
-
+import { TypeEvent } from './types-events.model';
+import { attendanceType } from '../models/assistant-type.enum';
 export interface IEntityEvent {
   _id: string;
   name: string;
@@ -84,15 +84,32 @@ export interface IEventFileExtended extends IEventFile {
   file?: File;
 }
 
-export function newEvent(batch: Phase, previous?: IEvent) {
+export function newEvent(
+  batch: Phase,
+  typesEvents: TypeEvent[],
+  previous?: IEvent
+) {
+  const typeEvent = previous
+    ? typesEvents.find((i) => i._id === previous.type)
+    : typesEvents[0];
   return new FormGroup({
     _id: new FormControl<string>(previous?._id ?? undefined),
-    name: new FormControl<string>(previous?.name ?? `${batch?.name} - evento`, {
+    name: new FormControl<string>(
+      previous?.name ?? `${batch?.name} - ${typeEvent.name}`,
+      {
+        validators: [Validators.required],
+      }
+    ),
+    description: new FormControl<string>(previous?.description ?? ''),
+    type: new FormControl<string>(previous?.type ?? typeEvent._id, {
       validators: [Validators.required],
     }),
-    type: new FormControl<string>(previous?.type ?? '', {
-      validators: [Validators.required],
-    }),
+    attendanceType: new FormControl<string>(
+      previous?.attendanceType ?? attendanceType.onsite,
+      {
+        validators: [Validators.required],
+      }
+    ),
     startAt: new FormControl<Date>(previous?.startAt ?? new Date(), {
       validators: [Validators.required],
     }),
