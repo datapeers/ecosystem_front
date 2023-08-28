@@ -225,7 +225,12 @@ export class ActaComponent implements OnInit {
     this.actaDoc.extra_options['expertHours'] = this.expertsHours;
     this.toast.info({ detail: '', summary: 'Guardando...' });
     this.service
-      .updateActa(this.actaDoc)
+      .updateActa({
+        ...this.actaDoc,
+        ...this.acta.value,
+        event: this.event._id,
+        phase: this.phase._id,
+      })
       .then((ans) => {
         this.toast.clear();
         this.actaDoc = ans;

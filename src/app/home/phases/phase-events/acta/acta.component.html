@@ -2,7 +2,7 @@
     <div class="flex-none flex flex-column align-items-start justify-content-start m-2">
         <p-card class="w-full mb-2">
             <div class="flex flex-column align-items-center justify-content-center gap-2">
-                <ng-container *ngIf="!actaDoc; else createButtonActa">
+                <ng-container *ngIf="actaDoc._id; else createButtonActa">
                     <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_edit)"></p-button>
                 </ng-container>
                 <ng-template #createButtonActa>

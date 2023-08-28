@@ -41,7 +41,7 @@ export class Acta implements IActa {
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
-
+  __typename?: string;
   private constructor() {}
 
   static fromJson(data: IActa): Acta {

@@ -43,7 +43,10 @@ export class ActaService {
     );
   }
 
-  async updateActa(updateActaInput: Partial<IActa>): Promise<Acta> {
+  async updateActa(updateActaInput: Partial<Acta>): Promise<Acta> {
+    delete updateActaInput.__typename;
+    delete updateActaInput.createdAt;
+    delete updateActaInput.updatedAt;
     const mutRef = this.graphql.refMutation(
       actasQueries.mutation.updateActa,
       { updateActaInput },
