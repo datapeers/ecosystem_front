@@ -294,8 +294,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   cancelEvent(event: Event) {
     this.confirmationService.confirm({
       key: 'confirmDialog',
-      acceptLabel: 'Cancelar',
-      rejectLabel: 'Cancelar',
+      acceptLabel: 'Cancelar evento',
+      rejectLabel: 'Volver',
       header: '¿Está seguro de que desea continuar?',
       message: '¿Está seguro de que desea cancelar este evento?',
       icon: 'pi pi-exclamation-triangle',
@@ -317,7 +317,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
           .catch((err) => {
             this.toast.clear();
             this.toast.alert({
-              summary: 'Error al intentar eliminar evento',
+              summary: 'Error al intentar cancelar evento',
               detail: err,
               life: 12000,
             });
