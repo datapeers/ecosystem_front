@@ -140,6 +140,7 @@ export class EventCreatorComponent implements OnInit {
     this.extra_options = {
       userCreated: this.user._id,
     };
+    this.allowFiles = this.typeEvents[0].extra_options.allow_files;
   }
 
   setEditVars() {
@@ -150,6 +151,10 @@ export class EventCreatorComponent implements OnInit {
     this.teamCoaches = [...this.previousEvent.teamCoaches];
     this.participants = [...this.previousEvent.participants];
     this.extra_options = this.previousEvent.extra_options;
+    const type = this.typeEvents.find(
+      (i) => this.event.get('type').value === i._id
+    );
+    this.allowFiles = type.extra_options.allow_files;
     const startupsAdded = new Set();
     this.startups = [];
     for (const participant of this.selectedParticipants) {
