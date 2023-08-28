@@ -88,7 +88,7 @@
                                                     </div>
                                                 </ng-container>
                                                 <div class="flex flex-row">
-                                                    <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="Participa QR" tooltipPosition="top" (onClick)="openQrWindow(event.objectRef)">
+                                                    <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="Participa QR" tooltipPosition="top" *ngIf="!event.objectRef.isCanceled" (onClick)="openQrWindow(event.objectRef)">
                                                     </p-button>
                                                     <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
                                                             pTooltip="Notas" tooltipPosition="top"

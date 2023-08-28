@@ -52,6 +52,8 @@ export class EventCreatorComponent implements OnInit {
   extra_options: any = {};
   editingEvent = false;
   nameEvents = 'Evento';
+  allowEdit = true;
+
   // ? Vars for change name
   changeType$: Subscription;
 
@@ -180,6 +182,12 @@ export class EventCreatorComponent implements OnInit {
       for (const fileDoc of this.previousEvent.extra_options.files) {
         this.selectedFiles.push(fileDoc);
       }
+    if (this.previousEvent.isCanceled) {
+      this.allowEdit = false;
+      for (const iterator of Object.keys(this.event.value)) {
+        this.event.get(iterator).disable();
+      }
+    }
   }
 
   async loadExperts() {

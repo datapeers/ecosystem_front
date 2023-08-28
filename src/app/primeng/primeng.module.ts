@@ -49,7 +49,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { FieldsetModule } from 'primeng/fieldset';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ChartModule } from 'primeng/chart';
-
+import { RatingModule } from 'primeng/rating';
 @NgModule({
   declarations: [],
   exports: [
@@ -100,6 +100,7 @@ import { ChartModule } from 'primeng/chart';
     FieldsetModule,
     KeyFilterModule,
     ChartModule,
+    RatingModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

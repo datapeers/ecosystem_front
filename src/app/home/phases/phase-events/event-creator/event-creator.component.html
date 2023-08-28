@@ -93,7 +93,7 @@
                     <fa-icon [icon]="faUserTie"></fa-icon> {{generalConstant.teamCoach}}
                 </h3>
             </div>
-            <div class="flex flex-row align-items-center justify-content-center mb-2 cursor-pointer" (click)="opTeamCoach.toggle($event)">
+            <div class="flex flex-row align-items-center justify-content-center mb-2 cursor-pointer" (click)="opTeamCoach.toggle($event)" *ngIf="allowEdit">
                 <span>
                     <fa-icon [icon]="faPlus"></fa-icon> Añadir team coach
                 </span>
@@ -106,7 +106,7 @@
                     </span>
                     <div class="flex-grow-1"></div>
                     <fa-icon [icon]="faTimes" class="ml-1 cursor-pointer" pTooltip="Quitar team Coach" (click)="
-                                    removeTeamCoach(teamCoach._id)"></fa-icon>
+                                    removeTeamCoach(teamCoach._id)" *ngIf="allowEdit"></fa-icon>
                 </div>
             </div>
         </p-card>
@@ -118,7 +118,7 @@
                     <fa-icon [icon]="faUserTie"></fa-icon> Expertos
                 </h3>
             </div>
-            <div class="flex flex-row align-items-center justify-content-center mb-2 cursor-pointer" (click)="opExperts.toggle($event)">
+            <div class="flex flex-row align-items-center justify-content-center mb-2 cursor-pointer" (click)="opExperts.toggle($event)" *ngIf="allowEdit">
                 <span>
                     <fa-icon [icon]="faPlus"></fa-icon> Añadir experto
                 </span>
@@ -131,7 +131,7 @@
                     </span>
                     <div class="flex-grow-1"></div>
                     <fa-icon [icon]="faTimes" class="ml-1 cursor-pointer" pTooltip="Quitar experto" (click)="
-                            removeExpert(expert._id)"></fa-icon>
+                            removeExpert(expert._id)" *ngIf="allowEdit"></fa-icon>
                 </div>
             </div>
         </p-card>
@@ -143,7 +143,7 @@
                     <fa-icon [icon]="faUsers"></fa-icon> Participantes
                 </h3>
             </div>
-            <div class="flex flex-column align-items-center justify-content-center mb-2 cursor-pointer gap-2">
+            <div class="flex flex-column align-items-center justify-content-center mb-2 cursor-pointer gap-2" *ngIf="allowEdit">
                 <span (click)="opParticipants.toggle($event)">
                     <fa-icon [icon]="faPlus"></fa-icon> Añadir Participante(s)
                 </span>
@@ -159,7 +159,7 @@
                     </span>
                     <div class="flex-grow-1"></div>
                     <!-- "space_management_add_acta" "tittle_delete_participants" : "Quitar participantes", -->
-                    <fa-icon [icon]="faTimes" class="ml-1 cursor-pointer" pTooltip="Quitar participantes" (click)="removeParticipant(part._id)"></fa-icon>
+                    <fa-icon [icon]="faTimes" class="ml-1 cursor-pointer" pTooltip="Quitar participantes" (click)="removeParticipant(part._id)" *ngIf="allowEdit"></fa-icon>
                 </div>
             </div>
         </p-card>
@@ -169,9 +169,9 @@
         <!-- <div class="flex flex-row align-items-center justify-content-center">
             <h3 class="mt-0 mb-1">Archivos</h3>
         </div> -->
-        <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+        <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="!allowEdit">
             <ng-template pTemplate="toolbar">
-                <p-checkbox [binary]="true" [label]="'Se habilitará la opción para que los participantes puedan visualizar los archivos.'" [(ngModel)]="extra_options.allow_viewFiles" inputId="allowViewFiles"></p-checkbox>
+                <p-checkbox [binary]="true" [label]="'Se habilitará la opción para que los participantes puedan visualizar los archivos.'" [(ngModel)]="extra_options.allow_viewFiles" inputId="allowViewFiles" [disabled]="!allowEdit"></p-checkbox>
             </ng-template>
             <ng-template let-file pTemplate="file">
                 <div></div>
@@ -181,16 +181,16 @@
                     <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>
                     <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
                     <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
-                    <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)"></fa-icon>
+                    <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)" *ngIf="allowEdit"></fa-icon>
                 </div>
             </ng-template>
         </p-fileUpload>
     </ng-container>
     <ng-container *ngIf="!editingEvent; else editButton">
-        <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="event.invalid" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+        <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="event.invalid || !allowEdit" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </ng-container>
     <ng-template #editButton>
-        <p-button type="submit" label="Guardar cambios" (onClick)="eventEdit()" [disabled]="event.invalid" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+        <p-button type="submit" label="Guardar cambios" (onClick)="eventEdit()" [disabled]="event.invalid || !allowEdit" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </ng-template>
 </ng-template>
 
