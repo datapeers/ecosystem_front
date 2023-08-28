@@ -285,6 +285,41 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     });
   }
 
+  cancelEvent(event: Event) {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Cancelar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea continuar?',
+      message: '¿Está seguro de que desea cancelar este evento?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Cancelando...' });
+        this.service
+          .updateEvent({
+            _id: event._id,
+            isCanceled: true,
+          })
+          .then((ans) => {
+            this.toast.clear();
+            this.toast.success({
+              detail: 'El evento ha sido cancelado exitosamente',
+              summary: 'Evento eliminado!',
+              life: 2000,
+            });
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar evento',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
   filter(stringToFilter: string) {
     this.dataTableRef.filter(stringToFilter, 'name', this.currentFilterType);
   }
@@ -345,10 +380,10 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
     this.ref.onClose.subscribe((acta: Acta) => {
       if (acta?._id && !event.extra_options.acta) {
-        // this.service.updateEvent({
-        //   _id: event._id,
-        //   extra_options: { ...event.extra_options, acta: acta._id },
-        // });
+        this.service.updateEvent({
+          _id: event._id,
+          extra_options: { ...event.extra_options, acta: acta._id },
+        });
       }
     });
   }

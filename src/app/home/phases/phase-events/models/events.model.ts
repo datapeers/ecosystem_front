@@ -132,14 +132,3 @@ export interface CreateEvent extends Partial<IEvent> {
   teamCoaches: IEntityEvent[];
   participants: IEntityEvent[];
 }
-
-export interface UpdateEvent extends Partial<IEvent> {
-  name: string;
-  description: string;
-  startAt: Date;
-  endAt: Date;
-  extra_options: Record<string, any>;
-  experts: IEntityEvent[];
-  teamCoaches: IEntityEvent[];
-  participants: IEntityEvent[];
-}

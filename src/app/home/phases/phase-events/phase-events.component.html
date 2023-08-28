@@ -39,7 +39,7 @@
                                         <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
                                             <div class="flex flex-column align-items-center justify-content-start w-full h-full">
                                                 <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
-                                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.name}}</span>
+                                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.name}} {{event.objectRef.isCanceled ? 'CANCELADO' : ''}}</span>
                                                 </div>
                                                 <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
                                                     <div class="flex flex-column w-full">
@@ -99,6 +99,8 @@
                                                     <p-button class="mx-1" type="button" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.allowed(userPermission.actas_view)">
                                                     </p-button>
                                                     <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">
+                                                    </p-button>
+                                                    <p-button class="mx-1" type="button" icon="pi pi-times" label="" pTooltip="Cancelar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled" (onClick)="cancelEvent(event.objectRef)">
                                                     </p-button>
                                                     <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.allowed(userPermission.events_edit)">
                                                     </p-button>

@@ -287,6 +287,6 @@ export class ActaComponent implements OnInit {
   }
 
   close() {
-    this.ref.close(this.acta);
+    this.ref.close(this.actaDoc);
   }
 }
