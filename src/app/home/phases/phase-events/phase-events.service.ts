@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GraphqlService } from '@graphqlApollo/graphql.service';
-import { Event } from './models/events.model';
+import { CreateEvent, Event, UpdateEvent } from './models/events.model';
 import { ITypeEvent, TypeEvent } from './models/types-events.model';
 import typesEventsQueries from './graphql/types-events.gql';
 import eventsQueries from './graphql/events.gql';
@@ -127,19 +127,7 @@ export class PhaseEventsService {
     );
   }
 
-  async createEvent(createEventInput: {
-    name: string;
-    type: string;
-    attendanceType: string;
-    description: string;
-    startAt: Date;
-    endAt: Date;
-    extra_options: Record<string, any>;
-    batch: string;
-    experts: any[];
-    teamCoaches: any[];
-    participants: any[];
-  }): Promise<Event> {
+  async createEvent(createEventInput: CreateEvent): Promise<Event> {
     delete createEventInput['_id'];
     const mutationRef = this.graphql.refMutation(
       eventsQueries.mutation.createEvent,
@@ -155,10 +143,10 @@ export class PhaseEventsService {
     );
   }
 
-  async updateEvent(data: Partial<Event>): Promise<Event> {
+  async updateEvent(updateEventInput: UpdateEvent): Promise<Event> {
     const mutRef = this.graphql.refMutation(
       eventsQueries.mutation.updateEvent,
-      { updateEventInput: data },
+      { updateEventInput },
       [],
       { auth: true }
     );

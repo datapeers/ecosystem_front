@@ -118,3 +118,28 @@ export function newEvent(
     }),
   });
 }
+
+export interface CreateEvent extends Partial<IEvent> {
+  name: string;
+  type: string;
+  attendanceType: attendanceType;
+  description: string;
+  startAt: Date;
+  endAt: Date;
+  extra_options: Record<string, any>;
+  batch: string;
+  experts: IEntityEvent[];
+  teamCoaches: IEntityEvent[];
+  participants: IEntityEvent[];
+}
+
+export interface UpdateEvent extends Partial<IEvent> {
+  name: string;
+  description: string;
+  startAt: Date;
+  endAt: Date;
+  extra_options: Record<string, any>;
+  experts: IEntityEvent[];
+  teamCoaches: IEntityEvent[];
+  participants: IEntityEvent[];
+}

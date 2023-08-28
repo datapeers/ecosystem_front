@@ -137,19 +137,19 @@ export class EventCreatorComponent implements OnInit {
     this.typeEvents = this.config.data.typeEvents;
     this.previousEvent = this.config.data.event;
     this.event = newEvent(this.batch, this.typeEvents, this.previousEvent);
-    this.extra_options = this.config.data.event
-      ? this.config.data.event.extra_options
-      : {
-          userCreated: this.user._id,
-        };
+    this.extra_options = {
+      userCreated: this.user._id,
+    };
   }
 
   setEditVars() {
     this.editingEvent = true;
     this.event.get('type').disable();
+    this.event.get('attendanceType').disable();
     this.experts = [...this.previousEvent.experts];
     this.teamCoaches = [...this.previousEvent.teamCoaches];
     this.participants = [...this.previousEvent.participants];
+    this.extra_options = this.previousEvent.extra_options;
     const startupsAdded = new Set();
     this.startups = [];
     for (const participant of this.selectedParticipants) {
@@ -161,7 +161,7 @@ export class EventCreatorComponent implements OnInit {
         startupsAdded.add(startup._id);
       }
     }
-    if (this.previousEvent.extra_options.files)
+    if (this.extra_options.files)
       for (const fileDoc of this.previousEvent.extra_options.files) {
         this.selectedFiles.push(fileDoc);
       }
@@ -372,22 +372,33 @@ export class EventCreatorComponent implements OnInit {
   }
 
   async eventEdit() {
-    // await this.uploadFiles();
-    // this.toast.info({ detail: '', summary: 'Guardando...' });
-    // this.service
-    //   .updateEvent(this.newEvent)
-    //   .then((ans) => {
-    //     this.toast.clear();
-    //     this.resetCreatorEvent();
-    //   })
-    //   .catch((err) => {
-    //     this.toast.clear();
-    //     this.toast.alert({
-    //       summary: 'Error al editar evento',
-    //       detail: err,
-    //       life: 12000,
-    //     });
-    //   });
+    await this.uploadFiles();
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    const updatedItems = this.event.value;
+    delete updatedItems['type'];
+    delete updatedItems['attendanceType'];
+    delete updatedItems['batch'];
+    this.service
+      .updateEvent({
+        ...updatedItems,
+        extra_options: this.extra_options,
+        batch: this.batch._id,
+        experts: this.experts,
+        teamCoaches: this.teamCoaches,
+        participants: this.participants,
+      })
+      .then((ans) => {
+        this.toast.clear();
+        this.close(true);
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al editar evento',
+          detail: err,
+          life: 12000,
+        });
+      });
   }
 
   async createEvent() {

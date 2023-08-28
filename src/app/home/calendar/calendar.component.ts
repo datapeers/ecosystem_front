@@ -353,10 +353,10 @@ export class CalendarComponent {
 
     this.ref.onClose.subscribe((acta: Acta) => {
       if (acta?._id && !event.extra_options.acta) {
-        this.eventService.updateEvent({
-          _id: event._id,
-          extra_options: { ...event.extra_options, acta: acta._id },
-        });
+        // this.eventService.updateEvent({
+        //   _id: event._id,
+        //   extra_options: { ...event.extra_options, acta: acta._id },
+        // });
       }
     });
   }

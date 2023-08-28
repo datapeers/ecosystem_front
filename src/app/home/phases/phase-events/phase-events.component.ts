@@ -345,10 +345,10 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
     this.ref.onClose.subscribe((acta: Acta) => {
       if (acta?._id && !event.extra_options.acta) {
-        this.service.updateEvent({
-          _id: event._id,
-          extra_options: { ...event.extra_options, acta: acta._id },
-        });
+        // this.service.updateEvent({
+        //   _id: event._id,
+        //   extra_options: { ...event.extra_options, acta: acta._id },
+        // });
       }
     });
   }
