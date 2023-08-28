@@ -43,6 +43,7 @@ export class Event implements IEvent {
     publicFiles?: boolean;
     files?: { name: string; url: string }[];
     acta?: string;
+    link?: string;
   };
   startAt: Date;
   endAt: Date;
@@ -62,7 +63,7 @@ export class Event implements IEvent {
       ...data,
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
-      startAt: new Date(data.createdAt),
+      startAt: new Date(data.startAt),
       endAt: new Date(data.endAt),
       extra_options: {
         ...data?.extra_options,

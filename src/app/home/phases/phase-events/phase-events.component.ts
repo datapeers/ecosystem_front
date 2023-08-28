@@ -24,6 +24,8 @@ import {
   attendanceType,
   attendanceTypeLabels,
 } from './models/assistant-type.enum';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-phase-events',
   templateUrl: './phase-events.component.html',
@@ -55,6 +57,10 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dataTableRef: Table;
+
+  eventEditing: Event;
+  linkEvent: string = '';
+  showLinkEvent = false;
 
   public get userPermission(): typeof Permission {
     return Permission;
@@ -406,5 +412,45 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     const subscription$ = ref.onClose.subscribe((_data) => {
       subscription$?.unsubscribe();
     });
+  }
+
+  dateValidToday(date: Date) {
+    return moment(date).isAfter(new Date());
+  }
+
+  openEditLink(event: Event) {
+    this.eventEditing = event;
+    this.linkEvent = event.extra_options.link ?? '';
+    this.showLinkEvent = true;
+  }
+
+  resetEditLink() {
+    this.eventEditing = undefined;
+    this.linkEvent = '';
+    this.showLinkEvent = false;
+  }
+
+  saveEditLink() {
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.service
+      .updateEvent({
+        _id: this.eventEditing._id,
+        extra_options: {
+          ...this.eventEditing.extra_options,
+          link: this.linkEvent,
+        },
+      })
+      .then((ans) => {
+        this.toast.clear();
+        this.resetEditLink();
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al intentar guardar link',
+          detail: err,
+          life: 12000,
+        });
+      });
   }
 }
