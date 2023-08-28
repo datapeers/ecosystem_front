@@ -19,13 +19,16 @@ export class ActaService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql
-        .query(this._getActa)
-        .pipe(map((request) => request.data.actaEvent))
+      this.graphql.query(this._getActa).pipe(
+        map((request) => request.data.actaEvent),
+        map((doc) => Acta.fromJson(doc))
+      )
     );
   }
 
-  async createActa(createActaInput): Promise<Acta> {
+  async createActa(createActaInput: Partial<Acta>): Promise<Acta> {
+    delete createActaInput.createdAt;
+    delete createActaInput.updatedAt;
     const mutationRef = this.graphql.refMutation(
       actasQueries.mutation.createActa,
       { createActaInput },

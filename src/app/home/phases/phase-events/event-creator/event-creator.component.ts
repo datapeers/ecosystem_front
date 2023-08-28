@@ -34,6 +34,8 @@ import {
 } from '../models/assistant-type.enum';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Event } from '@home/phases/phase-events/models/events.model';
+import { GeneralConstant } from '@shared/constant/general.constant';
+import { PhaseEventsConstant } from '../constant/phase-events.constant';
 @Component({
   selector: 'app-event-creator',
   templateUrl: './event-creator.component.html',
@@ -49,7 +51,7 @@ export class EventCreatorComponent implements OnInit {
   event: FormGroup;
   extra_options: any = {};
   editingEvent = false;
-
+  nameEvents = 'Evento';
   // ? Vars for change name
   changeType$: Subscription;
 
@@ -93,6 +95,14 @@ export class EventCreatorComponent implements OnInit {
 
   public get attendanceTypes(): typeof attendanceType {
     return attendanceType;
+  }
+
+  public get phaseEventsConstant(): typeof PhaseEventsConstant {
+    return PhaseEventsConstant;
+  }
+
+  public get generalConstant(): typeof GeneralConstant {
+    return GeneralConstant;
   }
 
   constructor(
@@ -254,8 +264,8 @@ export class EventCreatorComponent implements OnInit {
     for (const iterator of this.selectedFiles) {
       this.toast.clear();
       this.toast.info({
-        summary: 'Subiendo archivo...',
-        detail: 'Por favor espere, no cierre la ventana',
+        summary: GeneralConstant.uploadFile,
+        detail: GeneralConstant.noCloseTooltip,
       });
       if (iterator.file) {
         const fileUploaded: any = await firstValueFrom(
@@ -378,7 +388,7 @@ export class EventCreatorComponent implements OnInit {
 
   async eventEdit() {
     await this.uploadFiles();
-    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.toast.info({ detail: '', summary: GeneralConstant.saving });
     const updatedItems = this.event.value;
     delete updatedItems['type'];
     delete updatedItems['attendanceType'];
@@ -399,7 +409,7 @@ export class EventCreatorComponent implements OnInit {
       .catch((err) => {
         this.toast.clear();
         this.toast.alert({
-          summary: 'Error al editar evento',
+          summary: `${GeneralConstant} ${this.nameEvents.toLowerCase()}`,
           detail: err,
           life: 12000,
         });
@@ -409,9 +419,8 @@ export class EventCreatorComponent implements OnInit {
   async createEvent() {
     if (moment(this.event.value.endAt).isBefore(this.event.value.startAt)) {
       this.toast.alert({
-        summary: 'Error de fechas',
-        detail:
-          'La fecha de inicio seleccionada es posterior a la fecha de término. Por favor, ajusta las fechas para continuar correctamente.',
+        summary: GeneralConstant.errorDateTooltip,
+        detail: PhaseEventsConstant.errorDates,
       });
       return;
     }
@@ -419,7 +428,7 @@ export class EventCreatorComponent implements OnInit {
       await this.uploadFiles();
     }
     this.toast.clear();
-    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.toast.info({ detail: '', summary: GeneralConstant.saving });
     this.service
       .createEvent({
         ...this.event.value,
@@ -436,7 +445,9 @@ export class EventCreatorComponent implements OnInit {
       .catch((err) => {
         this.toast.clear();
         this.toast.alert({
-          summary: 'Error al crear evento',
+          summary: `${
+            GeneralConstant.errorCreateTooltip
+          } ${this.nameEvents.toLowerCase()}`,
           detail: err,
           life: 12000,
         });

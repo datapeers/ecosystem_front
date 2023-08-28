@@ -2,15 +2,15 @@
     <div class="flex-none flex flex-column align-items-start justify-content-start m-2">
         <p-card class="w-full mb-2">
             <div class="flex flex-column align-items-center justify-content-center gap-2">
-                <ng-container *ngIf="acta._id; else createButtonActa">
-                    <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving" *ngIf="!acta.closed && user?.allowed(userPermission.actas_edit)"></p-button>
+                <ng-container *ngIf="!actaDoc; else createButtonActa">
+                    <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_edit)"></p-button>
                 </ng-container>
                 <ng-template #createButtonActa>
-                    <p-button label="Crear Acta" (onClick)="action('create')" [disabled]="saving" *ngIf="!acta.closed && user?.allowed(userPermission.actas_create)"></p-button>
+                    <p-button label="Crear Acta" (onClick)="action('create')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_create)"></p-button>
                 </ng-template>
 
-                <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!acta.closed && acta._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>
-                <span *ngIf="acta.closed">Acta cerrada el {{acta.updatedAt | date}}</span>
+                <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!actaDoc.closed && actaDoc._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>
+                <span *ngIf="actaDoc.closed">Acta cerrada el {{actaDoc.updatedAt | date}}</span>
             </div>
         </p-card>
         <p-card class="w-full">
@@ -26,7 +26,7 @@
                         {{resp.name.length>15 ? (resp.name | slice:0:15) : resp.name}}
                     </span>
                     <div class="flex-grow-1"></div>
-                    <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=resp; expertHoursOverlay.toggle($event)" *ngIf="!acta.closed && !onlyView"></fa-icon>
+                    <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=resp; expertHoursOverlay.toggle($event)" *ngIf="!actaDoc.closed && !onlyView"></fa-icon>
 
                 </div>
 
@@ -38,7 +38,7 @@
                 <h3 class="mt-0 mb-1">Evidencias</h3>
             </div>
             <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
-            <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="acta.closed || onlyView">
+            <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="actaDoc.closed || onlyView">
                 <ng-template let-file pTemplate="file">
                     <div></div>
                 </ng-template>
@@ -47,46 +47,44 @@
                         <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>
                         <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
                         <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
-                        <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)" *ngIf="acta.closed || onlyView"></fa-icon>
+                        <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)" *ngIf="actaDoc.closed || onlyView"></fa-icon>
                     </div>
                 </ng-template>
             </p-fileUpload>
         </p-card>
     </div>
-    <div class="flex-grow-1 flex flex-column align-items-start justify-content-start m-2 border-round">
+    <form [formGroup]="acta" class="flex-grow-1 flex flex-column align-items-start justify-content-start m-2 border-round">
         <p-card class="w-full py-0">
             <div class="formgrid grid">
-
-
                 <div class="field col-12">
                     <label for="inputtitulo" class="w-full text-center">
                         <b>Nombre de la sesión</b>
                     </label>
-                    <input id="inputtitulo" type="text" pInputText [(ngModel)]="acta.name" class="inputfield w-full" [readOnly]="acta.closed || onlyView">
+                    <input id="inputtitulo" type="text" pInputText formControlName="name" class="inputfield w-full">
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="time" class="w-full text-center">
                         <b>Fecha</b>
                     </label>
-                    <p-calendar class="inputfield" [showTime]="true" [(ngModel)]="acta.date" [style]="{ width: '100%' }" inputId="time" appendTo="body" [showButtonBar]="true" [disabled]="acta.closed || onlyView"></p-calendar>
+                    <p-calendar class="inputfield" [showTime]="true" formControlName="date" [style]="{ width: '100%' }" inputId="time" appendTo="body" [showButtonBar]="true"></p-calendar>
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="ojectiveField" class="w-full text-center">
                         <b>Objetivo</b>
                     </label>
-                    <input id="ojectiveField" type="text" pInputText [(ngModel)]="acta.objective" class="inputfield w-full" [readOnly]="acta.closed || onlyView">
+                    <input id="ojectiveField" type="text" pInputText formControlName="objective" class="inputfield w-full">
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="solutionField" class="w-full text-center">
                         <b>Nombre de la solución</b>
                     </label>
-                    <input id="solutionField" type="text" pInputText [(ngModel)]="acta.solution" class="inputfield w-full" [readOnly]="acta.closed || onlyView">
+                    <input id="solutionField" type="text" pInputText formControlName="solution" class="inputfield w-full">
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="conclusionField" class="w-full text-center">
                         <b>Conclusiones</b>
                     </label>
-                    <input id="conclusionField" type="text" pInputText [(ngModel)]="acta.conclusions" class="inputfield w-full" [readOnly]="acta.closed || onlyView">
+                    <input id="conclusionField" type="text" pInputText formControlName="conclusions" class="inputfield w-full">
                 </div>
             </div>
             <div class="flex flex-row align-items-center justify-content-center w-full">
@@ -95,18 +93,27 @@
                     <h3>Temas tratados</h3>
                 </label>
             </div>
-            <tinymce [(ngModel)]="acta.topics_covered" [config]="configTiny" [disabled]="acta.closed || onlyView"></tinymce>
+            <tinymce formControlName="topics_covered" [config]="configTiny"></tinymce>
         </p-card>
         <div style="height: 10px;"></div>
-    </div>
+    </form>
 </div>
 
 <p-overlayPanel #expertHoursOverlay [dismissable]="true" [style]="{'width':'100px'}">
     <ng-template pTemplate>
         <div class="flex flex-row grid align-content-center align-items-center justify-content-center">
+            <div class="flex-auto">
+                <label for="integeronly">Horas Realizadas</label>
+                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="doneHours" [(ngModel)]="expertsHours[currentExpert._id].done" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="'Horas hechas'">
+                </p-inputNumber>
+            </div>
+            <div class="flex-auto">
+                <label for="integeronly">Horas Donadas</label>
+                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="donatedHours" [(ngModel)]="expertsHours[currentExpert._id].donated" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="'Horas donadas'">
+                </p-inputNumber>
+            </div>
             <!-- "space_management_add_acta" "Hours" : "Horas",, -->
-            <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="Horas" [(ngModel)]="expertsHours[currentExpert._id]" [useGrouping]="false" [min]="0" [max]="99.0">
-            </p-inputNumber>
+
         </div>
     </ng-template>
 </p-overlayPanel>

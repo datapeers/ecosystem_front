@@ -5,7 +5,7 @@
     <form [formGroup]="event">
         <div class="flex gap-2">
             <div class="field">
-                <label for="assistantType">Tipo de asistencia</label>
+                <label for="assistantType">{{phaseEventsConstant.typesAssistant}}</label>
                 <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" formControlName="attendanceType" class="inputfield mt-2"></p-selectButton>
             </div>
             <div class="field pt-4 pl-2" *ngIf="event.value.stateOptionsAssistant === attendanceTypes.virtual">
@@ -15,7 +15,7 @@
                     </span>
                     <span class="p-float-label" style="width: 100%">
                         <input pInputText type="text" [(ngModel)]="extra_options['url']" placeholder="Url" [readOnly]="editingEvent" required>
-                        <label for="url">Url</label>
+                        <label for="url">{{generalConstant.url}}</label>
                     </span>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     </span>
                     <span class="p-float-label">
                         <input pInputText type="text" formControlName="name" placeholder="Nombre" required>
-                        <label for="name">Nombre</label>
+                        <label for="name">{{generalConstant.name}}</label>
                     </span>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                     <span class="p-float-label" style="width: 100%">
                         <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typeEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" formControlName="type" (onChange)="selectionType($event.value)">
                         </p-dropdown>
-                        <label for="typeEvent">Tipo Evento</label>
+                        <label for="typeEvent">{{phaseEventsConstant.typeEvent}}</label>
                     </span>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     </span>
                     <span class="p-float-label" style="width: 100%">
                         <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt" [showTime]="true"></p-calendar>
-                        <label for="calendar-first">Inicia</label>
+                        <label for="calendar-first">{{generalConstant.begin}}</label>
                     </span>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                     </span>
                     <span class="p-float-label" style="width: 100%">
                         <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt" [showTime]="true"></p-calendar>
-                        <label for="calendar-first">Termina</label>
+                        <label for="calendar-first">{{generalConstant.end}}</label>
                     </span>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     </span>
                     <span class="p-float-label">
                         <textarea id="descEvent" rows="3" style="width: 100%;" formControlName="description" pInputTextarea></textarea>
-                        <label for="descEvent">Descripción</label>
+                        <label for="descEvent">{{generalConstant.description}}</label>
                     </span>
                 </div>
             </div>
@@ -90,7 +90,7 @@
         <p-card class="w-">
             <div class="flex flex-row align-items-center justify-content-center">
                 <h3 class="my-2">
-                    <fa-icon [icon]="faUserTie"></fa-icon> Team Coach
+                    <fa-icon [icon]="faUserTie"></fa-icon> {{generalConstant.teamCoach}}
                 </h3>
             </div>
             <div class="flex flex-row align-items-center justify-content-center mb-2 cursor-pointer" (click)="opTeamCoach.toggle($event)">
@@ -170,6 +170,9 @@
             <h3 class="mt-0 mb-1">Archivos</h3>
         </div> -->
         <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+            <ng-template pTemplate="toolbar">
+                <p-checkbox [binary]="true" [label]="'Se habilitará la opción para que los participantes puedan visualizar los archivos.'" [(ngModel)]="extra_options.allow_viewFiles" inputId="allowViewFiles"></p-checkbox>
+            </ng-template>
             <ng-template let-file pTemplate="file">
                 <div></div>
             </ng-template>

@@ -4,7 +4,7 @@ import {
   IEventFileExtended,
 } from '@home/phases/phase-events/models/events.model';
 import { Phase } from '@home/phases/model/phase.model';
-import { Acta } from '@home/phases/phase-events/models/acta.model';
+import { Acta, newActa } from '@home/phases/phase-events/models/acta.model';
 import { ActaService } from './acta.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastService } from '@shared/services/toast.service';
@@ -24,20 +24,26 @@ import { cloneDeep } from '@apollo/client/utilities';
 import { User } from '@auth/models/user';
 import { ConfirmationService } from 'primeng/api';
 import { Permission } from '@auth/models/permissions.enum';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-acta',
   templateUrl: './acta.component.html',
   styleUrls: ['./acta.component.scss'],
 })
-export class ActaComponent implements OnInit, OnDestroy {
-  acta: Acta | any;
+export class ActaComponent implements OnInit {
+  acta: FormGroup;
+  actaDoc: Acta;
   event: Event;
   phase: Phase;
   saving = false;
-  selectedFiles: IEventFileExtended[] = [];
   loaded = false;
+
+  // Files
+  selectedFiles: IEventFileExtended[] = [];
   fileSizeLimit = 1000000;
+
+  // ? Icons
   faUserTie = faUserTie;
   faPaperclip = faPaperclip;
   faCalendar = faCalendar;
@@ -69,8 +75,6 @@ export class ActaComponent implements OnInit, OnDestroy {
     this.loadComponent();
   }
 
-  ngOnDestroy(): void {}
-
   loadComponent() {
     this.loaded = false;
     if (!this.event) this.close();
@@ -79,16 +83,10 @@ export class ActaComponent implements OnInit, OnDestroy {
       .getActa(this.event._id)
       .then((acta) => {
         this.acta = acta
-          ? Acta.newActa(this.phase, this.event, cloneDeep(acta))
-          : Acta.newActa(this.phase, this.event);
-        for (const fileDoc of this.acta.extra_options.files) {
-          this.selectedFiles.push(fileDoc);
-        }
-        for (const iterator of this.event.experts) {
-          this.expertsHours[iterator._id] = this.acta.extra_options.expertHours
-            ? this.acta.extra_options.expertHours[iterator._id]
-            : 0;
-        }
+          ? newActa(this.phase, this.event, acta)
+          : newActa(this.phase, this.event);
+        this.actaDoc = acta;
+        this.setVars();
         this.loaded = true;
       })
       .catch((err) => {
@@ -102,15 +100,37 @@ export class ActaComponent implements OnInit, OnDestroy {
       });
   }
 
+  setVars() {
+    for (const fileDoc of this.actaDoc?.extra_options.files) {
+      this.selectedFiles.push(fileDoc);
+    }
+    for (const iterator of this.event.experts) {
+      this.expertsHours[iterator._id] = this.actaDoc?.extra_options.expertHours
+        ? this.actaDoc.extra_options.expertHours[iterator._id]
+        : { done: 0, donated: 0 };
+    }
+
+    if (this.actaDoc.closed || this.onlyView) {
+      for (const keyControl of Object.keys(this.acta.value)) {
+        this.acta.get(keyControl).disable();
+      }
+    }
+  }
+
   async createActa() {
     this.saving = true;
     if (this.selectedFiles.length > 0) await this.uploadFiles();
-    this.acta.extra_options['expertHours'] = this.expertsHours;
+    this.actaDoc.extra_options['expertHours'] = this.expertsHours;
     this.toast.info({ summary: 'Guardando', detail: '' });
     this.service
-      .createActa(this.acta)
+      .createActa({
+        ...this.actaDoc,
+        ...this.acta.value,
+        event: this.event._id,
+        phase: this.phase._id,
+      })
       .then((act) => {
-        this.acta = act;
+        this.actaDoc = act;
         this.close();
       })
       .catch((err) => {
@@ -124,7 +144,7 @@ export class ActaComponent implements OnInit, OnDestroy {
   }
 
   async uploadFiles() {
-    this.acta.extra_options.files = [];
+    this.actaDoc.extra_options.files = [];
     for (const iterator of this.selectedFiles) {
       this.toast.clear();
       this.toast.info({
@@ -140,12 +160,12 @@ export class ActaComponent implements OnInit, OnDestroy {
             )
             .pipe(first((event) => event.type === HttpEventType.Response))
         );
-        this.acta.extra_options['files'].push({
+        this.actaDoc.extra_options['files'].push({
           name: iterator.name,
           url: fileUploaded.url,
         });
       } else {
-        this.acta.extra_options['files'].push({
+        this.actaDoc.extra_options['files'].push({
           name: iterator.name,
           url: iterator.url,
         });
@@ -202,13 +222,13 @@ export class ActaComponent implements OnInit, OnDestroy {
 
   async actaEdit() {
     await this.uploadFiles();
-    this.acta.extra_options['expertHours'] = this.expertsHours;
+    this.actaDoc.extra_options['expertHours'] = this.expertsHours;
     this.toast.info({ detail: '', summary: 'Guardando...' });
     this.service
-      .updateActa(this.acta)
+      .updateActa(this.actaDoc)
       .then((ans) => {
         this.toast.clear();
-        this.acta = ans;
+        this.actaDoc = ans;
         this.toast.success({
           summary: 'Cambios guardados!',
           detail: '',
@@ -238,10 +258,10 @@ export class ActaComponent implements OnInit, OnDestroy {
       accept: async () => {
         this.toast.info({ detail: '', summary: 'Cerrando acta...' });
         this.service
-          .updateActa({ _id: this.acta._id, closed: true })
+          .updateActa({ _id: this.actaDoc._id, closed: true })
           .then((ans) => {
             this.toast.clear();
-            this.acta = ans;
+            this.actaDoc = ans;
             this.toast.success({
               summary: 'Acta cerrada!',
               detail: '',
