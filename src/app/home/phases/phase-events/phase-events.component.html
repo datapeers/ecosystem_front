@@ -101,7 +101,7 @@
                                                     <p-button class="mx-1" type="button" icon="pi pi-paperclip" label="" pTooltip="Link" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && dateAfterToday(event.objectRef.endAt)" (onClick)="openEditLink(event.objectRef)"></p-button>
                                                     <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">
                                                     </p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-times" label="" pTooltip="Cancelar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateAfterToday(event.objectRef.endAt)" (onClick)="cancelEvent(event.objectRef)">
+                                                    <p-button class="mx-1" type="button" icon="pi pi-times" label="" pTooltip="Cancelar evento" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateAfterToday(event.objectRef.startAt)" (onClick)="cancelEvent(event.objectRef)">
                                                     </p-button>
                                                     <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.allowed(userPermission.events_edit)">
                                                     </p-button>
