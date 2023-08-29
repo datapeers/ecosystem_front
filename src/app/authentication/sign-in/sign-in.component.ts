@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
-import { Subject, first, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '@shared/services/toast.service';
 @Component({
   selector: 'app-sign-in',
@@ -23,10 +23,11 @@ export class SignInComponent implements OnInit, OnDestroy {
   rememberPsw = false;
   blockSpace: RegExp = /[^s]/;
   constructor(
-    public authService: AuthService,
-    private store: Store<AppState>,
     private router: Router,
-    private toast: ToastService
+    private toast: ToastService,
+    private store: Store<AppState>,
+    public authService: AuthService,
+    private routerAct: ActivatedRoute
   ) {
     this.initForm();
   }
@@ -48,7 +49,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy$)
       )
       .subscribe(async (auth) => {
-        if (auth.logged) this.router.navigate(['/home']);
+        if (auth.logged) this.verify_route();
       });
   }
 
@@ -115,6 +116,19 @@ export class SignInComponent implements OnInit, OnDestroy {
         summary: 'No se pudo enviar el email', //"email-not-sent" : "No se pudo enviar el email",
         detail: 'Es posible que este email no se encuentre registrado', // "email-not-registered" : "Es posible que este email no se encuentre registrado"
       });
+    }
+  }
+
+  async verify_route(): Promise<void> {
+    if (this.router.url.indexOf('/sign-in') !== -1) {
+      const lastRoute = await firstValueFrom(
+        this.routerAct.queryParams.pipe(take(1))
+      );
+      if (lastRoute['returnUrl']) {
+        this.router.navigateByUrl(lastRoute['returnUrl']);
+      } else {
+        this.router.navigate(['/home']);
+      }
     }
   }
 }

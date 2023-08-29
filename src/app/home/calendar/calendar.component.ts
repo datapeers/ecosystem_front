@@ -400,7 +400,8 @@ export class CalendarComponent {
     this.startup = this.profileDoc.startups[0];
     this.ref = this.dialogService.open(RatingEventComponent, {
       header: 'Calificar evento',
-      width: '50%',
+      width: '30%',
+      modal: false,
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       data: {
