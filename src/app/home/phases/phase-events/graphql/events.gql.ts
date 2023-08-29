@@ -30,6 +30,7 @@ const fragments = {
       _id
       participant
       startup
+      metadata
     }
     createdAt
     updatedAt

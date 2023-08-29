@@ -50,11 +50,12 @@
                                                             </span>
                                                             <p-button styleClass="p-button-text" icon="pi pi-eye"></p-button>
                                                         </div>
+                                                        <p-rating [(ngModel)]="event.objectRef.rating" [readonly]="true" [cancel]="false"></p-rating>
                                                     </div>
                                                     <div class="flex align-items-center w-full my-1">
                                                         <i class="pi pi-video text-base"></i>
                                                         <span class="text-base ml-2">
-                                                            {{attendanceLabels[event.objectRef.extra_options.assistant]}}
+                                                            {{attendanceLabels[event.objectRef.attendanceType]}}
                                                         </span>
                                                     </div>
                                                     <div class="flex align-items-center w-full my-1">
@@ -98,7 +99,7 @@
                                     </p-button> -->
                                                     <p-button class="mx-1" type="button" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.allowed(userPermission.actas_view)">
                                                     </p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-bars" label="" pTooltip="Participantes" tooltipPosition="top" (onClick)="openParticipation(event.objectRef)">
+                                                    <p-button class="mx-1" type="button" icon="pi pi-bars" label="" pTooltip="Participantes" tooltipPosition="top" *ngIf="todayAfter(event.objectRef.startAt)" (onClick)="openParticipation(event.objectRef)">
                                                     </p-button>
                                                     <p-button class="mx-1" type="button" icon="pi pi-paperclip" label="" pTooltip="Link" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && dateAfter(event.objectRef.endAt)" (onClick)="openEditLink(event.objectRef)"></p-button>
                                                     <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">

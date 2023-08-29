@@ -30,7 +30,7 @@ export interface IEvent {
   teamCoaches: IEntityEvent[];
   createdAt: Date;
   updatedAt: Date;
-  participation: Partial<IParticipationEvent>;
+  participation: Partial<IParticipationEvent>[];
   isCanceled: boolean;
 }
 
@@ -55,13 +55,19 @@ export class Event implements IEvent {
   teamCoaches: IEntityEvent[];
   createdAt: Date;
   updatedAt: Date;
-  participation: Partial<IParticipationEvent>;
+  participation: Partial<IParticipationEvent>[];
   isCanceled: boolean;
-
+  rating: number;
   private constructor() {}
 
   static fromJson(data: IEvent): Event {
     const obj = new Event();
+    const totalRatings = data.participation
+      .filter((i) => i.metadata.rating)
+      .reduce((sum, item) => sum + item.metadata.rating, 0);
+    const averageRating = data.participation.length
+      ? totalRatings / data.participation.length
+      : 0;
     Object.assign(obj, {
       ...data,
       createdAt: new Date(data.createdAt),
@@ -74,6 +80,7 @@ export class Event implements IEvent {
       experts: data.experts.map(({ __typename, ...rest }) => rest),
       teamCoaches: data.teamCoaches.map(({ __typename, ...rest }) => rest),
       participants: data.participants.map(({ __typename, ...rest }) => rest),
+      rating: averageRating,
     });
     return obj;
   }
