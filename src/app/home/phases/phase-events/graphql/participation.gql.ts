@@ -40,6 +40,14 @@ const mutation = {
       }
     }
   `,
+  updateParticipantEvent: `
+    ${fragments.participationEventFields}
+    mutation UpdateParticipantEvent($updateParticipationEventInput: UpdateParticipationEventInput!) {
+      updateParticipantEvent(updateParticipationEventInput: $updateParticipationEventInput) {
+        ...participationEventFields
+      }
+    }
+  `,
 };
 
 const participationEventQueries = {

@@ -42,7 +42,7 @@ export class ParticipationEvent implements IParticipationEvent {
       updatedAt: new Date(data.updatedAt),
       participantName: participant.name,
       startupName: startup.name,
-      rating: 0,
+      rating: data.metadata.rating ?? 0,
     });
     return obj;
   }

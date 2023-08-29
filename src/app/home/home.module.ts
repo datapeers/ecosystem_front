@@ -58,6 +58,7 @@ import { ContentsComponent } from './contents/contents.component';
 import { AssignStartupsHoursComponent } from './phases/phase-hours-config/assign-startups-hours/assign-startups-hours.component';
 import { EventCreatorComponent } from './phases/phase-events/event-creator/event-creator.component';
 import { ListParticipationComponent } from './phases/phase-events/list-participation/list-participation.component';
+import { RatingEventComponent } from './calendar/rating-event/rating-event.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -106,6 +107,7 @@ import { ListParticipationComponent } from './phases/phase-events/list-participa
     AssignStartupsHoursComponent,
     EventCreatorComponent,
     ListParticipationComponent,
+    RatingEventComponent,
   ],
   imports: [
     CommonModule,

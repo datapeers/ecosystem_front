@@ -34,6 +34,8 @@ import { PhasesService } from '@home/phases/phases.service';
 import { ExpertsService } from '../../shared/services/experts/experts.service';
 import { Expert } from '@shared/models/entities/expert';
 import { TypeEvent } from '@home/phases/phase-events/models/types-events.model';
+import { RatingEventComponent } from './rating-event/rating-event.component';
+import * as moment from 'moment';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -54,6 +56,7 @@ export class CalendarComponent {
   openEventDialog: boolean = false;
   openActaDialog: boolean = false;
   openFilesDialog: boolean = false;
+  openRatingDialog: boolean = false;
 
   userRequests: any[] = [];
   onDestroy$: Subject<boolean> = new Subject();
@@ -132,7 +135,6 @@ export class CalendarComponent {
   }
 
   showDifferentDesign = false;
-  loaded = false;
   typesEvents: TypeEvent[] = [];
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   typesEvent$: Subscription;
@@ -144,6 +146,7 @@ export class CalendarComponent {
   dialogSolicitude = false;
   expertsDialog: Expert[] = [];
   startup;
+
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -252,7 +255,7 @@ export class CalendarComponent {
   }
 
   async loadComponent() {
-    this.loaded = true;
+    this.loadingComponent = true;
     this.eventService
       .watchTypesEvents()
       .then((typesEvent$) => {
@@ -286,7 +289,10 @@ export class CalendarComponent {
           for (const iterator of eventList) {
             this.assignItem(iterator);
           }
-          this.resizeCalendar();
+          this.loadingComponent = false;
+          setTimeout(() => {
+            this.resizeCalendar();
+          }, 100);
         });
       })
       .catch((err) => {
@@ -353,10 +359,10 @@ export class CalendarComponent {
 
     this.ref.onClose.subscribe((acta: Acta) => {
       if (acta?._id && !event.extra_options.acta) {
-        // this.eventService.updateEvent({
-        //   _id: event._id,
-        //   extra_options: { ...event.extra_options, acta: acta._id },
-        // });
+        this.eventService.updateEvent({
+          _id: event._id,
+          extra_options: { ...event.extra_options, acta: acta._id },
+        });
       }
     });
   }
@@ -377,5 +383,35 @@ export class CalendarComponent {
 
   selectExpert(expert) {
     window.open(expert['calendlyLink'], '_blank');
+  }
+
+  async showRating(eventCalendar: ICalendarItem) {
+    const event = this.originalEvents.find((i) => i._id === eventCalendar.id);
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.startup = this.profileDoc.startups[0];
+    this.openRatingDialog = true;
+    this.ref = this.dialogService.open(RatingEventComponent, {
+      header: 'Calificar evento',
+      width: '50%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      data: {
+        event,
+        phase: this.phases.find(
+          (i) => i._id === eventCalendar.extendedProps.batch
+        ),
+        user: this.user,
+        profileDoc: this.profileDoc,
+        startup: this.startup,
+      },
+    });
+  }
+
+  todayAfter(date: Date) {
+    return moment(new Date()).isAfter(date);
   }
 }

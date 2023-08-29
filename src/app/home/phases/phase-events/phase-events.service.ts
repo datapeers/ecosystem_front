@@ -266,4 +266,26 @@ export class PhaseEventsService {
         .pipe(map((request) => request.data.createParticipationEvent))
     );
   }
+
+  updateParticipation(
+    id: string,
+    metadata?: Record<string, any>
+  ): Promise<IParticipationEvent> {
+    const mutationRef = this.graphql.refMutation(
+      participationEventQueries.mutation.updateParticipantEvent,
+      {
+        updateParticipationEventInput: {
+          _id: id,
+          metadata,
+        },
+      },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.updateParticipantEvent))
+    );
+  }
 }

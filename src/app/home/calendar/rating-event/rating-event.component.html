@@ -1,0 +1,9 @@
+<ng-container *ngIf="loaded; else ratingNoLoaded">
+    <div class="flex flex-column w-full" style="height: 5rem;">
+        <span>En una escala del 1 al 5, ¿cómo calificarías este evento?</span>
+        <p-rating class="custom-rate" [(ngModel)]="rating" (onRate)="ratingChange()" [cancel]="false" [disabled]="saving"></p-rating>
+    </div>
+</ng-container>
+<ng-template #ratingNoLoaded>
+    <app-loading></app-loading>
+</ng-template>
