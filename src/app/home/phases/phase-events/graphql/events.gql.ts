@@ -26,6 +26,11 @@ const fragments = {
       _id
       name
     }
+    participation {
+      _id
+      participant
+      startup
+    }
     createdAt
     updatedAt
   }

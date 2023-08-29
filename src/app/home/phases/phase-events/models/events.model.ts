@@ -3,6 +3,7 @@ import { Phase } from '../../model/phase.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TypeEvent } from './types-events.model';
 import { attendanceType } from '../models/assistant-type.enum';
+import { IParticipationEvent } from './participation.model';
 export interface IEntityEvent {
   _id: string;
   name: string;
@@ -29,6 +30,7 @@ export interface IEvent {
   teamCoaches: IEntityEvent[];
   createdAt: Date;
   updatedAt: Date;
+  participation: Partial<IParticipationEvent>;
   isCanceled: boolean;
 }
 
@@ -53,6 +55,7 @@ export class Event implements IEvent {
   teamCoaches: IEntityEvent[];
   createdAt: Date;
   updatedAt: Date;
+  participation: Partial<IParticipationEvent>;
   isCanceled: boolean;
 
   private constructor() {}
