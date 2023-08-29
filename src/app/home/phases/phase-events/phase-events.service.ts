@@ -4,8 +4,13 @@ import { CreateEvent, Event } from './models/events.model';
 import { ITypeEvent, TypeEvent } from './models/types-events.model';
 import typesEventsQueries from './graphql/types-events.gql';
 import eventsQueries from './graphql/events.gql';
+import participationEventQueries from './graphql/participation.gql';
 import { firstValueFrom, map } from 'rxjs';
 import { StorageService } from '@shared/storage/storage.service';
+import {
+  IParticipationEvent,
+  ParticipationEvent,
+} from './models/participation.model';
 
 @Injectable({
   providedIn: 'root',
@@ -127,6 +132,18 @@ export class PhaseEventsService {
     );
   }
 
+  async getEvent(id: string) {
+    const query = this.graphql.refQuery(
+      eventsQueries.query.getEvent,
+      { id },
+      'network-only',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(query).pipe(map((request) => request.data.event))
+    );
+  }
+
   async createEvent(createEventInput: CreateEvent): Promise<Event> {
     delete createEventInput['_id'];
     const mutationRef = this.graphql.refMutation(
@@ -188,6 +205,66 @@ export class PhaseEventsService {
     return this.storageService.deleteFile(
       `phases/${event.batch}/events/${event._id}/thumbnail`,
       event._id
+    );
+  }
+
+  // ----------------------------------------- Participation -----------------------------------
+
+  getParticipation(
+    event: string,
+    participant: string
+  ): Promise<IParticipationEvent> {
+    const query = this.graphql.refQuery(
+      participationEventQueries.query.participationEvent,
+      { event, participant },
+      'network-only',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(query)
+        .pipe(map((request) => request.data.participationEvent))
+    );
+  }
+
+  getParticipationByEvent(event: string): Promise<ParticipationEvent[]> {
+    const query = this.graphql.refQuery(
+      participationEventQueries.query.participationByEvent,
+      { event },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(query)
+        .pipe(map((request) => request.data.participationByEvent))
+    );
+  }
+
+  markParticipation(
+    event: string,
+    participant: string,
+    startup: string,
+    metadata?: Record<string, any>
+  ) {
+    const mutationRef = this.graphql.refMutation(
+      participationEventQueries.mutation.createParticipationEvent,
+      {
+        createParticipationEventInput: {
+          event,
+          participant,
+          startup,
+          metadata,
+        },
+      },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
+        map((request) => request.data.createParticipationEvent),
+        map((doc) => ParticipationEvent.fromJSON(doc))
+      )
     );
   }
 }

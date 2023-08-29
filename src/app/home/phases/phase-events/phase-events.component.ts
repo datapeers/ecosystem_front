@@ -175,6 +175,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         durationString: duration,
       });
     });
+    this.list = [...this.list];
   }
 
   resetCreatorEventType() {
@@ -278,6 +279,17 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
               summary: 'Evento eliminado!',
               life: 2000,
             });
+            // if (this.dataArray) {
+            //   for (const page of this.dataArray) {
+            //     page.array = [
+            //       ...page.array.filter((i) => i.objectRef._id !== event._id),
+            //     ];
+            //     console.log('a', page.array);
+            //   }
+            //   this.dataArray = [...this.dataArray];
+            // }
+            // this.events = [...this.events.filter((i) => i._id !== event._id)];
+            // console.log(this.events);
           })
           .catch((err) => {
             this.toast.clear();
@@ -403,7 +415,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   openQrWindow(event: Event) {
     const data = {
       title: `Registrar participación`,
-      url: `${location.origin}/participation/${event._id}`,
+      url: `${location.origin}/home/participation/${event._id}`,
     };
     const ref = this.dialogService.open(QrViewComponent, {
       header: '',
