@@ -36,6 +36,7 @@ import { Expert } from '@shared/models/entities/expert';
 import { TypeEvent } from '@home/phases/phase-events/models/types-events.model';
 import { RatingEventComponent } from './rating-event/rating-event.component';
 import * as moment from 'moment';
+import { Permission } from '@auth/models/permissions.enum';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -56,7 +57,6 @@ export class CalendarComponent {
   openEventDialog: boolean = false;
   openActaDialog: boolean = false;
   openFilesDialog: boolean = false;
-  openRatingDialog: boolean = false;
 
   userRequests: any[] = [];
   onDestroy$: Subject<boolean> = new Subject();
@@ -146,6 +146,10 @@ export class CalendarComponent {
   dialogSolicitude = false;
   expertsDialog: Expert[] = [];
   startup;
+
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
 
   constructor(
     private store: Store<AppState>,
@@ -393,7 +397,6 @@ export class CalendarComponent {
         .pipe(first((i) => i !== null))
     );
     this.startup = this.profileDoc.startups[0];
-    this.openRatingDialog = true;
     this.ref = this.dialogService.open(RatingEventComponent, {
       header: 'Calificar evento',
       width: '50%',
