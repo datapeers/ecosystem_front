@@ -136,3 +136,7 @@ export interface CreateEvent extends Partial<IEvent> {
   teamCoaches: IEntityEvent[];
   participants: IEntityEvent[];
 }
+
+export interface IItemStartup extends IEntityEvent {
+  entrepreneurs: IEntityEvent[];
+}

@@ -13,6 +13,7 @@ import { Phase } from '@home/phases/model/phase.model';
 import { User } from '@auth/models/user';
 import {
   IEntityEvent,
+  IItemStartup,
   IEventFileExtended,
   newEvent,
 } from '../models/events.model';
@@ -461,8 +462,4 @@ export class EventCreatorComponent implements OnInit {
         });
       });
   }
-}
-
-interface IItemStartup extends IEntityEvent {
-  entrepreneurs: IEntityEvent[];
 }

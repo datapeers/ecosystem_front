@@ -25,6 +25,7 @@ import {
   attendanceTypeLabels,
 } from './models/assistant-type.enum';
 import * as moment from 'moment';
+import { ListParticipationComponent } from './list-participation/list-participation.component';
 
 @Component({
   selector: 'app-phase-events',
@@ -426,11 +427,15 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
     });
   }
 
-  dateAfterToday(date: Date) {
+  todayAfter(date: Date) {
+    return moment(new Date()).isAfter(date);
+  }
+
+  dateAfter(date: Date) {
     return moment(date).isAfter(new Date());
   }
 
-  dateBeforeToday(date: Date) {
+  dateBefore(date: Date) {
     return moment(date).isBefore(new Date());
   }
 
@@ -468,5 +473,20 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
           life: 12000,
         });
       });
+  }
+
+  openParticipation(event: Event) {
+    this.ref = this.dialogService.open(ListParticipationComponent, {
+      header: 'Lista de participantes',
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      data: {
+        event,
+        batch: this.phase,
+        user: this.user,
+      },
+    });
   }
 }

@@ -246,7 +246,7 @@ export class PhaseEventsService {
     participant: string,
     startup: string,
     metadata?: Record<string, any>
-  ) {
+  ): Promise<IParticipationEvent> {
     const mutationRef = this.graphql.refMutation(
       participationEventQueries.mutation.createParticipationEvent,
       {
@@ -261,10 +261,9 @@ export class PhaseEventsService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.mutation(mutationRef).pipe(
-        map((request) => request.data.createParticipationEvent),
-        map((doc) => ParticipationEvent.fromJSON(doc))
-      )
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.createParticipationEvent))
     );
   }
 }

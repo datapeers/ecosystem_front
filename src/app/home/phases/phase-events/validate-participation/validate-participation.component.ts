@@ -104,7 +104,6 @@ export class ValidateParticipationComponent implements OnInit, OnDestroy {
       })
       .then((doc: IParticipationEvent) => {
         if (!doc) return;
-        this.participation = ParticipationEvent.fromJSON(doc);
         this.toast.clear();
         this.messages = [
           {

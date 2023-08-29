@@ -1,0 +1,39 @@
+<ng-container *ngIf="loaded; else loadingTemplateDialog">
+    <div #tableWrapper class="table-container overflow-hidden">
+        <p-table #dt [value]="list" [tableStyle]="{'min-width': '70vw'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div class="table-header">
+                    <span class="header color-custom">Horas asignadas startups</span>
+                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" id="search-startup-assign" />
+                        </span>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:40%">Nombre</th>
+                    <th style="width:40%">Startup</th>
+                    <th style="width:20%">Calificación</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>{{row.participantName}}</td>
+                    <td>{{row.startupName}}</td>
+                    <td>{{row.rating}}</td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="6">Los participantes no han marcado asistencia</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</ng-container>
+<ng-template #loadingTemplateDialog>
+    <app-loading></app-loading>
+</ng-template>
