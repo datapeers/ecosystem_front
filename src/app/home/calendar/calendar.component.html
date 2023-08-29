@@ -64,7 +64,7 @@
                                 </td>
                                 <td>
                                     <span class="flex flex-row gap-2">
-                                        <ng-container *ngIf="event?.extendedProps?.files?.length && event?.extra_options?.allow_viewFiles; else noFiles">
+                                        <ng-container *ngIf="event?.extendedProps?.files?.length && event?.extendedProps?.canViewFiles; else noFiles">
                                             <p-button (onClick)="viewFiles(event)" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
                                         </ng-container>
                                         <ng-template #noFiles>

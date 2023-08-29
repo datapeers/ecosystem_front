@@ -324,6 +324,7 @@ export class CalendarComponent {
         expertsName: event.experts.map((i) => i.name).join(', '),
         batch: event.batch,
         type: this.showedTypesEvents[event.type]?.name,
+        canViewFiles: event.extra_options.allow_viewFiles,
         acta: this.actas.find((i) => i.event === event._id),
         files: event.extra_options?.files,
       },

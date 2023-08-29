@@ -42,7 +42,7 @@ export class Event implements IEvent {
   description: string;
   extra_options: {
     url?: string;
-    publicFiles?: boolean;
+    allow_viewFiles?: boolean;
     files?: { name: string; url: string }[];
     acta?: string;
     link?: string;
