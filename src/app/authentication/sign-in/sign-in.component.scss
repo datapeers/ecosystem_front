@@ -1,20 +1,20 @@
-:host {
-  display: flex;
-  width: 100%;
-  // height: 100% !important;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  padding: 3rem;
-}
+// :host {
+//   display: flex;
+//   width: 100%;
+//   // height: 100% !important;
+//   flex-direction: column;
+//   align-items: center;
+//   align-content: center;
+//   justify-content: center;
+//   padding: 3rem;
+// }
 
-::ng-deep .login-card .p-card {
-  background-color: #ffffff;
-  min-width: 220px !important;
-  max-width: 426px !important;
-}
+// ::ng-deep .login-card .p-card {
+//   background-color: #ffffff;
+//   min-width: 220px !important;
+//   max-width: 426px !important;
+// }
 
-a {
-  text-decoration: none;
-}
+// a {
+//   text-decoration: none;
+// }
