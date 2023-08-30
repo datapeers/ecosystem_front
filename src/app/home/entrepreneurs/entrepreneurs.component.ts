@@ -46,7 +46,7 @@ export class EntrepreneursComponent {
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
     private readonly service: EntrepreneursService,
-    private readonly route: ActivatedRoute,
+    private readonly route: ActivatedRoute
   ) {
     firstValueFrom(
       this.store
@@ -59,18 +59,20 @@ export class EntrepreneursComponent {
     this.route.queryParamMap
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((params) => {
-        const filterProspects = !!params.get("prospects");
+        const filterProspects = !!params.get('prospects');
         const extraColumnsTable = [];
-        if(!filterProspects) {
+        if (!filterProspects) {
           this.tableLocator = tableLocators.entrepreneurs;
           this.defaultFilters = {
-            "isProspect": [{ matchMode: "equals", operator: "and", value: false }]
-          }
+            isProspect: [
+              { matchMode: 'equals', operator: 'and', value: false },
+            ],
+          };
         } else {
           this.tableLocator = tableLocators.entrepreneursProspects;
           this.defaultFilters = {
-            "isProspect": [{ matchMode: "equals", operator: "and", value: true }]
-          }
+            isProspect: [{ matchMode: 'equals', operator: 'and', value: true }],
+          };
         }
         this.optionsTable = {
           save: true,
@@ -186,6 +188,7 @@ export class EntrepreneursComponent {
         });
         break;
       case 'linkWithBusinesses':
+        console.log(entrepreneurIds);
         this.dialogService
           .open(BusinessSelectTableComponent, {
             modal: true,

@@ -9,11 +9,12 @@ import { TableContext } from '../models/table-context';
 import { TableOptions } from '../models/table-options';
 import { PageRequest } from '@shared/models/requests/page-request';
 import { ConfirmationService } from 'primeng/api';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-table-select-dialog',
   templateUrl: './table-select-dialog.component.html',
-  styleUrls: ['./table-select-dialog.component.scss']
+  styleUrls: ['./table-select-dialog.component.scss'],
 })
 export class TableSelectDialogComponent {
   selection: any[] = [];
@@ -31,8 +32,8 @@ export class TableSelectDialogComponent {
     private config: DynamicDialogConfig,
     private confirmationService: ConfirmationService,
     private formService: FormService,
+    private toast: ToastService
   ) {
-    const noRowsSelected = () => !this.selection.length;
     this.optionsTable = {
       save: true,
       download: false,
@@ -50,16 +51,14 @@ export class TableSelectDialogComponent {
           icon: 'pi pi-check',
           label: 'Confirmar',
           featured: true,
-          disabled: noRowsSelected(),
-          disableOn: noRowsSelected,
         },
         {
           action: 'close',
           icon: 'pi pi-times',
           label: 'Cerrar',
           featured: true,
-          class: "p-button-outlined",
-        }
+          class: 'p-button-outlined',
+        },
       ],
     };
   }
@@ -77,20 +76,38 @@ export class TableSelectDialogComponent {
     this.optionsTable.summary = this.tableTitle;
     this.tableTitle = this.tableTitle;
     this.loading = true;
-    const forms = await this.formService.getFormByCollection(this.formCollection);
-    if(!forms.length) { return; }
+    const forms = await this.formService.getFormByCollection(
+      this.formCollection
+    );
+    if (!forms.length) {
+      return;
+    }
     this.entityForm = forms.find(() => true);
     this.tableContext = {
       locator: this.tableLocator,
       name: this.tableTitle,
       form: this.entityForm._id,
-    }
+    };
     this.loading = false;
   }
 
-  async actionFromTable({ action, element, selected, event, callbacks, pageRequest }: TableActionEvent) {
-    switch(action) {
+  async actionFromTable({
+    action,
+    element,
+    selected,
+    event,
+    callbacks,
+    pageRequest,
+  }: TableActionEvent) {
+    switch (action) {
       case 'select':
+        if (!this.selection.length) {
+          this.toast.alert({
+            summary: 'Acción no permitida',
+            detail: `No ha seleccionado ningún item`,
+          });
+          return;
+        }
         this.applySelection(selected, pageRequest);
         break;
       case 'close':
@@ -98,9 +115,9 @@ export class TableSelectDialogComponent {
         break;
     }
   }
-  
+
   applySelection(selectedRows: any[], pageRequest: PageRequest) {
-    const selected = selectedRows.map(row => row._id);
+    const selected = selectedRows.map((row) => row._id);
     const outputData = { selected, pageRequest };
     this.ref.close(outputData);
   }
