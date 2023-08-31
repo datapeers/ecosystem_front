@@ -11,9 +11,40 @@ $side-nav-text-color: #0f2133;
 $side-nav-active-color: var(--side-nav-active-color);
 $side-nav-hover-color: var(--text-color);
 $text-color: #172b4d;
-$font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-$font-family-secondary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 $background-color: rgba(
   $color: #e1e1e2,
   $alpha: 0.1,
 );
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+body {
+  background-color: $background-color;
+  font-family: var(--font-family);
+  margin: 0;
+  min-height: 100vh;
+  // overflow-x: hidden;
+}
+
+.font-secondary {
+  color: var(--secondary-color);
+}
+
+.customModal {
+  max-height: 100%;
+}
+.customModal .p-dialog-content {
+  height: 100%;
+}
+
+.normal-panel {
+  background-color: #ffffff;
+  border-radius: 6%;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}

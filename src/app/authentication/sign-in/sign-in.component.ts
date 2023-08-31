@@ -5,6 +5,7 @@ import {
   Validators,
   UntypedFormControl,
   FormControl,
+  FormGroup,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
@@ -17,11 +18,16 @@ import { ToastService } from '@shared/services/toast.service';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit, OnDestroy {
-  loginForm: UntypedFormGroup;
+  loginForm: FormGroup;
   onDestroy$: Subject<void> = new Subject();
   recoverPsw = new FormControl(null, [Validators.email]);
   rememberPsw = false;
   blockSpace: RegExp = /[^s]/;
+  footerText = 'Startup factory - All rights reserved 2023 ©';
+  loading = false;
+  get formControls() {
+    return this.loginForm.controls;
+  }
   constructor(
     private router: Router,
     private toast: ToastService,
@@ -54,12 +60,12 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    this.loginForm = new UntypedFormGroup({
-      login: new UntypedFormControl('', [
+    this.loginForm = new FormGroup({
+      login: new FormControl<string>('', [
         Validators.required,
         Validators.email,
       ]),
-      password: new UntypedFormControl('', [
+      password: new FormControl<string>('', [
         Validators.required,
         Validators.minLength(6),
       ]),
@@ -68,6 +74,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   onKeyUp(evt: KeyboardEvent) {
     if (evt.key == 'Enter') {
+      evt.preventDefault();
       this.onSubmit();
     }
   }
@@ -80,6 +87,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       life: 12000,
       closable: false,
     });
+    this.loading = true;
     this.authService
       .signIn(this.loginForm.value.login, this.loginForm.value.password)
       .then(() => {
@@ -98,6 +106,11 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   logInWithGoogle() {
     return this.authService.signInGoogle();
+  }
+
+  openRecoverPsw() {
+    this.recoverPsw.setValue(this.loginForm.value.login);
+    this.rememberPsw = true;
   }
 
   async sendRememberPsw(): Promise<void> {
