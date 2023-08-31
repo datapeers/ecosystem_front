@@ -65,7 +65,14 @@ export class SignUpComponent implements OnInit {
         takeUntil(this.onDestroy$)
       )
       .subscribe(async (auth) => {
-        if (auth.logged) this.router.navigate(['/home']);
+        if (auth.logged) {
+          this.toast.info({
+            summary: 'Ya te encuentras con una cuenta logueada',
+            detail:
+              'Ya estas en la plataforma con una cuenta, desconectate si quieres registrarte con otra',
+          });
+          this.router.navigate(['/home/inicio']);
+        }
       });
   }
 

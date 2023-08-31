@@ -7,6 +7,7 @@ import { StorageModule } from '@shared/storage/storage.module';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SideNavItemComponent } from './side-nav/side-nav-item/side-nav-item.component';
+import { SublevelMenuComponent } from './side-nav/sublevel-menu.component';
 
 
 
@@ -15,6 +16,7 @@ import { SideNavItemComponent } from './side-nav/side-nav-item/side-nav-item.com
     TopNavComponent,
     SideNavComponent,
     SideNavItemComponent,
+    SublevelMenuComponent,
   ],
   imports: [
     CommonModule,

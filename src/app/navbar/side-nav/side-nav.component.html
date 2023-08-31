@@ -1,4 +1,4 @@
-<p-scrollPanel #mainsidenavcontainer styleClass="p-0" [scrollLeft]="false" class="menu-container custom-scroll-panel surface-overlay" [ngClass]="{ 'cursor-move' : isDragging }">
+<!-- <p-scrollPanel #mainsidenavcontainer styleClass="p-0" [scrollLeft]="false" class="menu-container custom-scroll-panel surface-overlay" [ngClass]="{ 'cursor-move' : isDragging }">
     <ng-container *ngIf="menu">
         <div class="w-full flex flex-row justify-content-center align-content-center pr-2 py-4">
             <img class="w-9" src="/assets/startup.png" />
@@ -53,4 +53,39 @@
             <span class="subtitle-menu">{{header.subTitle}}</span>
         </div>
     </div>
-</ng-template>
+</ng-template> -->
+
+<div class="sidenav" [ngClass]="(menuExpanded) ? '':'sidenav-collapsed'">
+    <div class="logo-container">
+        <button class="logo" @rotate (click)="toggleMenu()">A</button>
+        <div class="logo-text" @fadeInOut *ngIf="menuExpanded">Angular</div>
+        <!-- <button class="btn-close" (click)="toggleMenu()">
+            <fa-icon [icon]="menuExpanded ? faAngleDoubleLeft : faAngleDoubleRight" class="option"></fa-icon>
+        </button> -->
+    </div>
+    <div class="scrollwrap scrollwrap_delayed">
+        <ul class="sidenav-nav" *ngIf="menu">
+            <li class="sidenav-nav-item" *ngFor="let item of menu.options">
+                <ng-container *ngIf="!item.children || (item.children && item.children.length === 0); else multipleOptionsMenu">
+                    <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="getActiveClass(item)">
+                        <fa-icon class="sidenav-link-icon" [icon]="item.icon"></fa-icon>
+                        <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                            {{item.label}}
+                        </span>
+                    </a>
+                </ng-container>
+                <ng-template #multipleOptionsMenu>
+                    <a class="sidenav-nav-link" (click)="handleClick(item)" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded">
+                        <fa-icon class="sidenav-link-icon" [icon]="item.icon"></fa-icon>
+                        <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                            {{item.label}}
+                        </span>
+                        <i *ngIf="item.children && menuExpanded" class="menu-collapse-icon" [ngClass]="!item.opened ? 'pi pi-angle-down' : 'pi pi-angle-up'">
+                        </i>
+                    </a>
+                    <app-sublevel-menu [data]="item" [collapsed]="menuExpanded" [multiple]="multiple" [opened]="item.opened"></app-sublevel-menu>
+                </ng-template>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  HostListener,
+} from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
@@ -17,8 +23,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: User;
   loading: boolean = true;
   menuExpanded: boolean;
+  screenWidth = 0;
   @ViewChild('mainPanel') scrollbarPanel;
+
+  @HostListener('window:fullscreenchange', ['$event'])
+  screenChange(event) {
+    this.screenWidth = window.innerWidth;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenWidth = window.innerWidth;
+  }
+
   constructor(private store: Store<AppState>, private toast: ToastService) {
+    this.screenWidth = window.innerWidth;
     this.store
       .select((storeState) => storeState.home.menuExpanded)
       .pipe(takeUntil(this.onDestroy$))
@@ -52,7 +71,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
-    this.toast.clear();
+    -this.toast.clear();
     this.loading = false;
     if (this.user.isUser) {
       const profile = await firstValueFrom(
@@ -62,5 +81,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       );
       this.store.dispatch(new SearchCurrentBatch(profile));
     }
+  }
+
+  getBodyClass(): string {
+    let styleClass = '';
+    if (this.menuExpanded && this.screenWidth > 768) {
+      styleClass = 'body-trimmed';
+    } else if (
+      this.menuExpanded &&
+      this.screenWidth <= 768 &&
+      this.screenWidth > 0
+    ) {
+      styleClass = 'body-md-screen';
+    }
+    return styleClass;
   }
 }

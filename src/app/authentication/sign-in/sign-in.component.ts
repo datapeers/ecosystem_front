@@ -141,7 +141,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       if (lastRoute['returnUrl']) {
         this.router.navigateByUrl(lastRoute['returnUrl']);
       } else {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/inicio']);
       }
     }
   }
