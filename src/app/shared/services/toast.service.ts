@@ -61,6 +61,16 @@ export class ToastService {
       life: 20000,
     });
   }
+
+  redirecting() {
+    this.messageService.add({
+      severity: 'info',
+      key: this.key,
+      summary: 'Redireccionando',
+      detail: 'Por favor espere',
+      life: 20000,
+    });
+  }
 }
 
 export interface IToastMessage {

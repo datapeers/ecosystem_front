@@ -92,6 +92,7 @@ export class SignInComponent implements OnInit, OnDestroy {
       .signIn(this.loginForm.value.login, this.loginForm.value.password)
       .then(() => {
         this.toast.clear();
+        this.toast.redirecting();
         return;
       })
       .catch((err) => {

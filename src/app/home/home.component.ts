@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
 import { Observable, Subject, takeUntil, firstValueFrom, first } from 'rxjs';
 import { SearchCurrentBatch } from './store/home.actions';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   loading: boolean = true;
   menuExpanded: boolean;
   @ViewChild('mainPanel') scrollbarPanel;
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private toast: ToastService) {
     this.store
       .select((storeState) => storeState.home.menuExpanded)
       .pipe(takeUntil(this.onDestroy$))
@@ -51,6 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
+    this.toast.clear();
     this.loading = false;
     if (this.user.isUser) {
       const profile = await firstValueFrom(

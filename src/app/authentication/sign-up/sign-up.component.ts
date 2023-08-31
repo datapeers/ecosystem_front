@@ -101,6 +101,7 @@ export class SignUpComponent implements OnInit {
     );
     const email = result.email;
     await this.authService.signIn(email, password);
+    this.toast.redirecting();
     this.loading = false;
   }
 
