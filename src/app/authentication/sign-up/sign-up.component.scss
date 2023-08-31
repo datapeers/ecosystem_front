@@ -1,14 +1,54 @@
-// :host {
-//   display: flex;
-//   width: 100%;
-//   // height: 100% !important;
-//   flex-direction: column;
-//   align-items: center;
-//   align-content: center;
-//   justify-content: center;
-//   padding: 3rem;
-// }
+@import "src/styles.scss";
 
-// a {
-//   text-decoration: none;
-// }
+.main-body {
+  flex: 15;
+  background-image: linear-gradient(to right bottom, #ffffff 71%, #1bd4d6 100%);
+}
+
+.image-login {
+  flex: 1;
+}
+.logos-login {
+  flex: 1;
+}
+.box-login {
+  flex: 1;
+}
+
+.login-card {
+  max-width: 454px;
+}
+
+.password-input p-password {
+  width: 100% !important;
+}
+
+::ng-deep .password-input p-password .p-password {
+  width: 100% !important;
+}
+
+::ng-deep .forget-psw {
+  border-color: var(--surface-g);
+  background-color: var(--surface-g);
+  color: var(--text-alternative) !important;
+}
+
+footer {
+  flex: 1;
+}
+
+.box-primary-color {
+  flex: 20;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.box-second-color {
+  flex: 1;
+  background-color: var(--secondary-color);
+}
+
+.box-third-color {
+  flex: 1;
+  background-color: var(--tertiary-color);
+}

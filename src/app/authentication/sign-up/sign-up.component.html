@@ -1,4 +1,4 @@
-<p-card class="login-card" styleClass="p-card-shadow shadow-5 border-round-2xl p-2">
+<!-- <p-card class="login-card" styleClass="p-card-shadow shadow-5 border-round-2xl p-2">
     <div class="flex align-items-center justify-content-center">
         <img src="/assets/startup.png" alt="logo" height="auto" class="cursor-pointer" style="width: 180px !important;">
     </div>
@@ -58,4 +58,77 @@
         <img src="/assets/google.png" alt="inGoogle" height="auto" class="cursor-pointer" style="width: 80px !important;" (click)="googleAuth()">
     </div>
     <p class="text-center font-medium text-base">¿No eres miembro? <a class="link-style cursor-pointer text-purple-800" routerLink="/sign-in">Volver al login</a>.</p>
-</p-card>
+</p-card> -->
+
+<body class="flex flex-column w-full h-full justify-content-between overflow-hidden">
+    <div class="main-body flex flex-row">
+        <div class="box-login flex flex-column align-items-center justify-content-center gap-4">
+            <div class="md:hidden flex justify-content-center align-items-center">
+                <ng-container *ngTemplateOutlet="loginLogo"></ng-container>
+            </div>
+            <div class="normal-panel w-9 login-card flex flex-column p-5 ">
+                <form [formGroup]="signUpForm" class="formgrid grid mt-2" (keydown)="onKeyUp($event)">
+                    <div class="field col-12 flex flex-column align-items-center">
+                        <label htmlFor="username">Usuario</label>
+                        <input pInputText id="username" formControlName="name" placeholder="Ingresa tu correo de registro" aria-describedby="username-help" [ngClass]="{'ng-invalid ng-dirty': signUpForm.touched && formControls['name'].errors}" class="w-full" />
+                        <small id="username-help" *ngIf="signUpForm.touched && formControls['name'].errors?.['required']" class="error-message">Ingrese un nombre</small>
+                    </div>
+                    <div class="field col-12 flex flex-column align-items-center password-input">
+                        <label htmlFor="password">Clave de ingreso</label>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Ingresa tu clave" aria-describedby="password-help" [ngClass]="{'ng-invalid ng-dirty': formControls['password'].errors}"></p-password>
+                        <div [hidden]="signUpForm.valid || !signUpForm.dirty" class="alert alert-danger">
+                            <small id="password-help" *ngIf="formControls['password'].errors?.['required']" class="error-message">La
+                                clave de ingreso es obligatoria</small>
+                            <small id="password-help" *ngIf="formControls['password'].errors?.['minlength']" class="error-message">La
+                                clave de ingreso debe tener al menos 6 caracteres</small>
+                        </div>
+                    </div>
+                    <div class="field col-12 flex flex-column align-items-center password-input">
+                        <label htmlFor="passwordConfirm">Confirmar clave</label>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="confirmPassword" placeholder="Ingresa tu clave de ingreso" aria-describedby="password-help" [ngClass]="{'ng-invalid ng-dirty': formControls['confirmPassword'].errors}"></p-password>
+                        <div [hidden]="signUpForm.valid || !signUpForm.dirty" class="alert alert-danger">
+                            <small *ngIf="formControls['confirmPassword'].errors?.['required']" class="error-message">
+                                Se necesita confirmar que ambas claves sean similares
+                            </small>
+                            <small *ngIf="formControls['confirmPassword'].hasError('mismatch')" class="error-message">
+                                Ambas claves deben ser iguales
+                            </small>
+                        </div>
+
+                    </div>
+                </form>
+                <div style="height: 4rem;"></div>
+                <div class="w-full flex flex-column gap-4 mb-2">
+                    <p-button styleClass="w-full align-items-center justify-content-center" [loading]="loading" loadingIcon="pi pi-spinner" (onClick)="onSubmit()" [disabled]="signUpForm.invalid">
+                        <span class="mx-2 font-semibold	">Ingresar ahora</span>
+                    </p-button>
+                    <p-button styleClass="p-button-outlined w-full align-items-center justify-content-center surface-100 border-100	text-600" (onClick)="googleAuth()">
+                        <img alt="logoGoogle" src="/assets/googleLogo.svg" style="width: 1.5rem" />
+                        <span class="mx-2 font-semibold	">Regístrate con google</span>
+                    </p-button>
+                </div>
+            </div>
+            <div class="md:hidden flex flex-row align-items-center gap-2 justify-content-center">
+                <ng-container *ngTemplateOutlet="madeIn"></ng-container>
+            </div>
+        </div>
+    </div>
+    <footer class="flex flex-row w-full">
+        <div class="box-third-color">
+        </div>
+        <div class="box-second-color">
+        </div>
+        <div class="box-primary-color flex align-items-center justify-content-end p-2">
+            <span class="text-xs">{{footerText}}</span>
+        </div>
+    </footer>
+</body>
+
+<ng-template #loginLogo>
+    <img class="w-9" src="/assets/startup.png" />
+</ng-template>
+
+<ng-template #madeIn>
+    <img style="width: 1.5rem" src="/assets/colombia.png" />
+    <span class="text-xs">Produced in <strong>Colombia</strong> </span>
+</ng-template>
