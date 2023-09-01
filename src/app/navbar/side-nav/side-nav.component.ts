@@ -48,7 +48,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   router$: Subscription;
   lastMenu?: string = 'noLoad';
   screenWith = 0;
-  multiple: boolean = false;
+  multiple: boolean = true;
 
   subscriptions$: Subscription[] = [];
   sub$: Subscription;

@@ -1,8 +1,12 @@
 <ng-container *ngIf="!loading; else elseTemplate">
     <div class="container-home">
         <app-side-nav></app-side-nav>
+        <app-top-nav [menuExpanded]="menuExpanded" [screenWith]="screenWidth"></app-top-nav>
         <div class="router-body" [ngClass]="getBodyClass()">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, alias assumenda dolorum nostrum atque quos impedit nobis incidunt a ducimus! Quia odio quae assumenda sed at, corporis nam id doloremque?
+            <span>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, alias assumenda dolorum nostrum atque quos impedit nobis incidunt a ducimus! Quia odio quae assumenda sed at, corporis nam id doloremque?
+            </span>
+
         </div>
         <!-- <div class="router-content">
             <p-scrollPanel #mainPanel [style]="{width: '100%', height: '100%'}">

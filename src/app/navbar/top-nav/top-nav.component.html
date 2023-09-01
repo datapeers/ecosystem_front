@@ -1,4 +1,4 @@
-<div class="top-nav-container flex flex-row justify-content-between align-content-center p-2">
+<!-- <div class="top-nav-container flex flex-row justify-content-between align-content-center p-2">
     <div class="left-items flex align-items-center">
         <fa-icon *ngIf="menu$ | async" [icon]="faBars" class="hamburger-button" (click)="toggleMenu()"></fa-icon>
         <img src="assets/ministerio.jpg" height="30" />
@@ -24,5 +24,51 @@
             </p-avatar>
         </ng-template>
         <p-menu #menu [popup]="true" [model]="items" appendTo="body"></p-menu>
+    </div>
+</div> -->
+<div class="head" [ngClass]="getHeadClass()">
+    <div class="head-content">
+        <div class="head-content-left">
+            <fa-icon *ngIf="showSidenavButton()" [icon]="faBars" class="hamburger-button" (click)="toggleMenu()"></fa-icon>
+        </div>
+        <div class="head-content-mid">
+            <div class="search-container">
+                <div class="normal-search">
+                    <input type="text" class="search" name="" id="" placeholder="Buscar...">
+                    <i class="pi pi-search"></i>
+                </div>
+            </div>
+        </div>
+        <div class="head-content-right">
+            <div class="head-menu">
+                <div class="head-menu-item">
+                    <button class="head-menu-item-btn ripple">
+                        <img src="assets/colombia.png" alt="flag" class="flag">
+                    </button>
+                </div>
+                <div class="head-menu-item">
+                    <button class="head-menu-item-btn ripple">
+                        <i class="pi pi-align-justify menu-icon"></i>
+                    </button>
+                </div>
+                <div class="head-menu-item">
+                    <button class="head-menu-item-btn ripple">
+                        <i class="pi pi-bell menu-icon"></i>
+                    </button>
+                </div>
+                <div class="head-menu-item">
+                    <button class="head-menu-item-btn ripple">
+                        <i class="pi pi-comment menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="head-user-avatar-container">
+                <div class="head-user-avatar">
+                    <img [src]="user.profileImageUrl | getImage | async" alt="" class="user-avatar">
+                    <div class="circle-indicator pulse"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

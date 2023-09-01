@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
@@ -66,6 +66,9 @@ export class TopNavComponent {
   overlayVisible = false;
   overlayLoading = true;
   menuOverlay = [];
+
+  @Input() menuExpanded: boolean = true;
+  @Input() screenWith = 0;
   constructor(
     private readonly store: Store<AppState>,
     private readonly auth: AuthService
@@ -109,10 +112,6 @@ export class TopNavComponent {
       });
   }
 
-  toggleMenu() {
-    this.store.dispatch(new ToggleMenuAction());
-  }
-
   goTo(option: IMenuOption) {
     option.command();
     this.clearSearch();
@@ -123,5 +122,23 @@ export class TopNavComponent {
     this.overlayLoading = false;
     this.overlayVisible = false;
     this.searchValue = null;
+  }
+
+  toggleMenu() {
+    this.store.dispatch(new ToggleMenuAction());
+  }
+
+  getHeadClass() {
+    let styleClass = '';
+    if (this.menuExpanded && this.screenWith > 768) {
+      styleClass = 'head-trimmed';
+    } else {
+      styleClass = 'head-md-screen';
+    }
+    return styleClass;
+  }
+
+  showSidenavButton() {
+    return this.screenWith > 768 ? true : false;
   }
 }

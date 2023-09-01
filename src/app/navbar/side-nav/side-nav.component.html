@@ -67,7 +67,7 @@
         <ul class="sidenav-nav" *ngIf="menu">
             <li class="sidenav-nav-item" *ngFor="let item of menu.options">
                 <ng-container *ngIf="!item.children || (item.children && item.children.length === 0); else multipleOptionsMenu">
-                    <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="getActiveClass(item)">
+                    <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
                         <fa-icon class="sidenav-link-icon" [icon]="item.icon"></fa-icon>
                         <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
                             {{item.label}}

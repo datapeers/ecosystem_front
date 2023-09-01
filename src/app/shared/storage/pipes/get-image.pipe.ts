@@ -6,16 +6,15 @@ import { StorageService } from '../storage.service';
   name: 'getImage',
 })
 export class GetImagePipe implements PipeTransform {
-  constructor(
-    private storageService: StorageService
-  ) {}
+  constructor(private storageService: StorageService) {}
 
   async transform(url: string): Promise<string> {
-    if(url.includes("http://localhost:4566")) {
-      return url;
-    }
+    // if(url.includes("http://localhost:4566")) {
+    //   return url;
+    // }
+    if (!url) return 'assets/Favicon.png';
     const key = this.storageService.getKey(url);
-    if (key !== '') {
+    if (key && key !== '') {
       const getUrl = firstValueFrom(this.storageService.getFile(key));
       return getUrl;
     }
