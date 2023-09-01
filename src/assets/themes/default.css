@@ -4755,7 +4755,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 
 .p-divider .p-divider-content {
-  background-color: #ffffff;
+  background-color: transparent;
 }
 .p-divider.p-divider-horizontal {
   margin: 1.25rem 0;

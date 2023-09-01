@@ -106,7 +106,7 @@ body {
   background-color: $appText;
   color: $appTextThree !important;
   &:hover {
-    border-color: darken($appText, 10%) !important;
-    background-color: darken($appText, 10%) !important;
+    border-color: darken($appText, 5%) !important;
+    background-color: darken($appText, 5%) !important;
   }
 }

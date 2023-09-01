@@ -2,32 +2,39 @@
     <div class="logo-container">
         <button class="logo" @rotate (click)="toggleMenu()">A</button>
         <div class="logo-text" @fadeInOut *ngIf="menuExpanded">Angular</div>
-        <!-- <button class="btn-close" (click)="toggleMenu()">
-            <fa-icon [icon]="menuExpanded ? faAngleDoubleLeft : faAngleDoubleRight" class="option"></fa-icon>
-        </button> -->
     </div>
     <div class="scrollwrap scrollwrap_delayed">
         <ul class="sidenav-nav" *ngIf="menu">
             <li class="sidenav-nav-item" *ngFor="let item of menu.options">
-                <ng-container *ngIf="!item.children || (item.children && item.children.length === 0); else multipleOptionsMenu">
-                    <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
-                        <fa-icon class="sidenav-link-icon" [icon]="item.icon"></fa-icon>
-                        <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
-                            {{item.label}}
-                        </span>
-                    </a>
+                <ng-container [ngSwitch]="item.type">
+                    <ng-container *ngSwitchCase="'single'">
+                        <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
+                            <i-tabler class="sidenav-link-icon" [name]="item.icon"></i-tabler>
+                            <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                                {{item.label}}
+                            </span>
+                        </a>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'dropdown'">
+                        <a class="sidenav-nav-link" (click)="handleClick(item)" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded">
+                            <i-tabler class="sidenav-link-icon" [name]="item.icon"></i-tabler>
+                            <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                                {{item.label}}
+                            </span>
+                            <i *ngIf="item.children && menuExpanded" class="menu-collapse-icon" [ngClass]="!item.opened ? 'pi pi-angle-down' : 'pi pi-angle-up'">
+                            </i>
+                        </a>
+                        <app-sublevel-menu [data]="item" [collapsed]="menuExpanded" [multiple]="multiple" [opened]="item.opened"></app-sublevel-menu>
+                    </ng-container>
+                    <p *ngSwitchDefault>
+                        <p-divider align="left">
+                            <div class="inline-flex align-items-center">
+                                <i-tabler *ngIf="item.icon !== ''" class="pi pi-user mr-2" [name]="item.icon"></i-tabler>
+                                <b>{{item.label}}</b>
+                            </div>
+                        </p-divider>
+                    </p>
                 </ng-container>
-                <ng-template #multipleOptionsMenu>
-                    <a class="sidenav-nav-link" (click)="handleClick(item)" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded">
-                        <fa-icon class="sidenav-link-icon" [icon]="item.icon"></fa-icon>
-                        <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
-                            {{item.label}}
-                        </span>
-                        <i *ngIf="item.children && menuExpanded" class="menu-collapse-icon" [ngClass]="!item.opened ? 'pi pi-angle-down' : 'pi pi-angle-up'">
-                        </i>
-                    </a>
-                    <app-sublevel-menu [data]="item" [collapsed]="menuExpanded" [multiple]="multiple" [opened]="item.opened"></app-sublevel-menu>
-                </ng-template>
             </li>
         </ul>
     </div>

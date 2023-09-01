@@ -36,7 +36,18 @@ import {
   IconBookmark,
   IconWriting,
   IconSettings,
-  IconCalendar,  
+  IconCalendar,
+  IconAlbum,
+  IconBoxMultiple,
+  IconUsersGroup,
+  IconUser,
+  IconListSearch,
+  IconBuildingCommunity,
+  IconSchool,
+  IconInputSearch,
+  IconWaveSquare,
+  IconMapSearch,
+  IconBook,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 
@@ -76,11 +87,25 @@ const icons = {
   IconWriting,
   IconSettings,
   IconCalendar,
+  IconAlbum,
+  IconBoxMultiple,
+  IconUsersGroup,
+  IconUser,
+  IconListSearch,
+  IconBuildingCommunity,
+  IconSchool,
+  IconInputSearch,
+  IconWaveSquare,
+  IconMapSearch,
+  IconBook,
 };
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, TablerIconsModule.pick(icons, {ignoreWarnings: environment.production})],
+  imports: [
+    CommonModule,
+    TablerIconsModule.pick(icons, { ignoreWarnings: environment.production }),
+  ],
   exports: [TablerIconsModule],
 })
 export class IconsModule {}

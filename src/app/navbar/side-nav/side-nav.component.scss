@@ -7,7 +7,7 @@
   top: 0;
   width: 16.5625rem;
   height: 100vh;
-  background-color: var(--primary-color);
+  background-color: $appColorOne;
 
   .logo-container {
     display: flex;
@@ -15,7 +15,7 @@
     padding: 0.938rem 0.938rem 0.938rem;
     width: 100%;
     .logo {
-      background: var(--app-color-two);
+      background: $appColorTwo;
       text-align: center;
       width: 3rem;
       min-width: 3rem;
@@ -32,20 +32,7 @@
       margin-left: 1.5rem;
       font-size: 24px;
       font-weight: 800;
-      color: #fff;
-    }
-    .btn-close {
-      margin-left: auto;
-      cursor: pointer;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background-color: transparent;
-      border: none;
-      .fa-times {
-        color: #fff;
-        font-size: 24px;
-      }
+      color: $appText;
     }
   }
 }
@@ -65,12 +52,12 @@
 
   .sidenav-nav-item {
     width: 100%;
-    margin-bottom: 0.625rem;
+    // margin-bottom: 0.625rem;
     .sidenav-nav-link {
       display: flex;
       align-items: center;
       height: 3rem;
-      color: #f3f3f3;
+      color: $appText;
       text-decoration: none;
       border-radius: 0.625rem;
       transition: all 0.5s ease;
@@ -78,7 +65,7 @@
         font-size: 22px;
         width: 2rem;
         min-width: 2rem;
-        margin: 0 0.5rem;
+        margin: 0 0 0.5rem 0.5rem;
         text-align: center;
       }
       .sidenav-link-text {
@@ -88,36 +75,36 @@
   }
   .sidenav-nav-item:hover {
     .sidenav-nav-link {
-      background-color: #fff;
-      color: #000;
+      color: lighten($appColorTwo, 10%);
       .menu-collapse-icon {
-        color: #000;
+        color: lighten($appColorTwo, 10%);
       }
     }
   }
 }
 
 .active {
-  background-color: #fff;
+  background-color: darken($appColorTwo, 10%);
   .menu-collapse-icon,
   .sidenav-link-icon,
   .sidenav-link-text {
-    color: #000;
+    color: lighten($appColorTwo, 20%);
   }
 }
 
 .active-sublevel {
-  color: #f3f3f3 !important;
+  background-color: darken($appColorTwo, 10%);
+  color: lighten($appColorTwo, 10%) !important;
   opacity: 1 !important;
 }
 
 .menu-collapse-icon {
-  font-size: 25px;
+  font-size: 20px;
   width: 2rem;
   min-width: 2rem;
   margin: auto 0.5rem auto auto;
   text-align: center;
-  color: #f3f3f3;
+  color: $appText;
 }
 .sublevel-nav {
   list-style: none;
@@ -135,10 +122,10 @@
       transition: all 0.3s ease;
 
       .sublevel-link-icon {
-        font-size: 18px;
+        font-size: 16px;
         width: 2rem;
         min-width: 2rem;
-        margin: 0 0.5rem;
+        margin: 0 0 0.5rem 0.5rem;
         text-align: center;
       }
 
@@ -183,13 +170,13 @@
 }
 
 .scrollwrap::-webkit-scrollbar-thumb {
-  background-color: #556268;
+  background-color: $appColorTwo;
   border-radius: 20px;
 }
 
 .scrollwrap {
   scrollbar-width: thin;
-  scrollbar-color: #556268 transparent;
+  scrollbar-color: $appColorTwo transparent;
 }
 // .menu-container {
 //   width: 100%;
