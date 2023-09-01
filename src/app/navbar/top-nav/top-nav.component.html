@@ -30,7 +30,7 @@
     <div class="head-content">
         <div class="head-content-left">
             <div class="flex flex-row gap-4">
-                <button class="head-menu-item-btn ripple" *ngIf="showSidenavButton()" (click)="toggleMenu()">
+                <button pRipple class="head-menu-item-btn" *ngIf="showSidenavButton()" (click)="toggleMenu()">
                     <i-tabler name="align-justified" class="menu-icon"></i-tabler>
                 </button>
                 <div class="elipse-panel bg-pink-200 p-2 flex flex-row align-items-center gap-2">
@@ -56,33 +56,16 @@
         </div>
         <div class="head-content-right flex align-items-center gap-2 ">
             <div class="head-menu">
-                <div class="head-menu-item">
-                    <button class="head-menu-item-btn ripple">
-                        <img src="assets/colombia.png" alt="flag" class="flag">
-                    </button>
-                </div>
-                <div class="head-menu-item">
-                    <button class="head-menu-item-btn ripple">
-                        <i class="pi pi-align-justify menu-icon"></i>
-                    </button>
-                </div>
-                <div class="head-menu-item">
-                    <button class="head-menu-item-btn ripple">
-                        <i class="pi pi-bell menu-icon"></i>
-                    </button>
-                </div>
-                <div class="head-menu-item">
-                    <button class="head-menu-item-btn ripple">
-                        <i class="pi pi-comment menu-icon"></i>
-                    </button>
+                <div class="notificiations">
+                    <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-success"></p-button>
                 </div>
             </div>
-            <div class="head-user-avatar-container">
+            <!-- <div class="head-user-avatar-container">
                 <div class="head-user-avatar">
                     <img [src]="user.profileImageUrl | getImage | async" alt="" class="user-avatar">
                     <div class="circle-indicator pulse"></div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </div>

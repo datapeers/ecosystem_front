@@ -41,15 +41,15 @@
                 </form>
                 <div style="height: 4rem;"></div>
                 <div class="w-full flex flex-column gap-4 mb-2">
-                    <p-button styleClass="forget-psw w-full align-items-center justify-content-center hover:text-white" (onClick)="openRecoverPsw()">
-                        <span class="ml-2 font-semibold">Olvide mi clave</span>
+                    <p-button styleClass="button-yellow-second w-full align-items-center justify-content-center" (onClick)="openRecoverPsw()">
+                        <span class="mx-2 font-semibold">Olvide mi clave</span>
                     </p-button>
                     <p-button styleClass="w-full align-items-center justify-content-center" [loading]="loading" loadingIcon="pi pi-spinner" (onClick)="onSubmit()">
                         <span class="mx-2 font-semibold	">Ingresar ahora</span>
                     </p-button>
-                    <p-button styleClass="p-button-outlined w-full align-items-center justify-content-center surface-100 border-100	text-600" (onClick)="logInWithGoogle()">
+                    <p-button styleClass="button-grey w-full align-items-center justify-content-center" (onClick)="logInWithGoogle()">
                         <img alt="logoGoogle" src="/assets/googleLogo.svg" style="width: 1.5rem" />
-                        <span class="ml-2 font-semibold	">Ingresar con google</span>
+                        <span class="mx-2 font-semibold	">Ingresar con google</span>
                     </p-button>
                 </div>
             </div>

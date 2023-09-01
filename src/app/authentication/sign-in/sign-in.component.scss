@@ -27,30 +27,24 @@
   width: 100% !important;
 }
 
-::ng-deep .forget-psw {
-  border-color: var(--surface-g);
-  background-color: var(--surface-g);
-  color: var(--text-alternative) !important;
-}
-
 footer {
   flex: 1;
 }
 
 .box-primary-color {
   flex: 20;
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--app-color-one);
+  color: var(--app-color-three);
 }
 
 .box-second-color {
   flex: 1;
-  background-color: var(--secondary-color);
+  background-color: var(--app-color-three);
 }
 
 .box-third-color {
   flex: 1;
-  background-color: var(--tertiary-color);
+  background-color: var(--app-color-seven);
 }
 
 // :host {
