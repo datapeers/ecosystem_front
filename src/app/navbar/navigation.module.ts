@@ -7,6 +7,7 @@ import { StorageModule } from '@shared/storage/storage.module';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SublevelMenuComponent } from './side-nav/sublevel-menu.component';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
   declarations: [TopNavComponent, SideNavComponent, SublevelMenuComponent],
@@ -14,6 +15,7 @@ import { SublevelMenuComponent } from './side-nav/sublevel-menu.component';
     CommonModule,
     FormsModule,
     PrimengModule,
+    IconsModule,
     FontAwesomeModule,
     StorageModule,
   ],

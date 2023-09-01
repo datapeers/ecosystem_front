@@ -29,6 +29,7 @@ import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { LandingComponent } from './public/landing/landing.component';
+import { IconsModule } from './icons/icons.module';
 
 registerLocaleData(localeEs);
 @NgModule({
@@ -57,6 +58,7 @@ registerLocaleData(localeEs);
     GraphQLModule,
     HttpClientModule,
     AppSharedModule,
+    IconsModule,
   ],
   providers: [
     AuthService,

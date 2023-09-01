@@ -3,16 +3,8 @@
         <app-side-nav></app-side-nav>
         <app-top-nav [menuExpanded]="menuExpanded" [screenWith]="screenWidth"></app-top-nav>
         <div class="router-body" [ngClass]="getBodyClass()">
-            <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, alias assumenda dolorum nostrum atque quos impedit nobis incidunt a ducimus! Quia odio quae assumenda sed at, corporis nam id doloremque?
-            </span>
-
+            <router-outlet></router-outlet>
         </div>
-        <!-- <div class="router-content">
-            <p-scrollPanel #mainPanel [style]="{width: '100%', height: '100%'}">
-                <router-outlet></router-outlet>
-            </p-scrollPanel>
-        </div> -->
         <!-- <app-top-nav></app-top-nav>
         <div class="router-body overflow-hidden" [ngClass]="{ 'expand-menu' : menuExpanded, 'hide-menu' : !menuExpanded }">
             <app-side-nav></app-side-nav>
