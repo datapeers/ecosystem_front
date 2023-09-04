@@ -10,8 +10,11 @@
                     <div class="info flex flex-column mr-2">
                         <span class="font-semibold text-sm">ETAPA EARLY</span>
                         <span class="text-xs">Fase 3</span>
-                    </div>
 
+                    </div>
+                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="5" [readonly]="true" [size]="50" [valueTemplate]="'75%'">
+                        <ng-template pTemplate="text">a</ng-template>
+                    </p-knob>
                 </div>
             </div>
 

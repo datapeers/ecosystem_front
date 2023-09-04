@@ -1,7 +1,7 @@
 <body class="flex flex-column w-full h-full justify-content-between overflow-hidden">
     <div class="main-body flex flex-row">
-        <div class="image-login hidden md:flex ">
-
+        <div class="image-login hidden md:flex">
+            <img src="/assets/bannerLogin.png" class="fixed w-5 mt-8 ml-4" />
         </div>
         <div class="logos-login hidden md:flex flex-column justify-content-center align-items-center gap-7">
             <div class="w-full flex justify-content-end align-items-center">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </form>
-                <div style="height: 4rem;"></div>
+                <div style="height: 3rem;"></div>
                 <div class="w-full flex flex-column gap-4 mb-2">
                     <p-button styleClass="button-blue-second w-full align-items-center justify-content-center" (onClick)="openRecoverPsw()">
                         <span class="mx-2 font-semibold">Olvide mi clave</span>
@@ -53,7 +53,7 @@
                     </p-button>
                 </div>
             </div>
-            <div class="md:hidden flex flex-row align-items-center gap-2 justify-content-center">
+            <div class="md:hidden flex flex-row align-items-center gap-2 justify-content-center mb-2">
                 <ng-container *ngTemplateOutlet="madeIn"></ng-container>
             </div>
         </div>
@@ -70,12 +70,11 @@
 </body>
 
 <ng-template #loginLogo>
-    <img class="w-9" src="/assets/startup.png" />
+    <img class="w-9" src="/assets/identity/startup.svg" />
 </ng-template>
 
 <ng-template #madeIn>
-    <img style="width: 1.5rem" src="/assets/colombia.png" />
-    <span class="text-xs">Produced in <strong>Colombia</strong> </span>
+    <img src="/assets/identity/produced.svg" />
 </ng-template>
 
 <p-dialog header="Recuperar contraseña" [(visible)]="rememberPsw" [style]="{width: '50vw'}" (onHide)="recoverPsw.reset()">

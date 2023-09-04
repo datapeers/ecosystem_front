@@ -69,6 +69,7 @@ export class TopNavComponent {
 
   rolName = '';
   viewUserBoard = false;
+  percentCompleted = 75;
 
   constructor(
     private router: Router,
