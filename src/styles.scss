@@ -42,17 +42,30 @@ body {
   height: 100%;
 }
 
+// ? ----------------------------------------------  Panels --------------------------------------------------------
 .normal-panel {
   background-color: #ffffff;
   border-radius: 6%;
-  -webkit-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
 }
 
 .elipse-panel {
   border-radius: 40px 40px 40px 40px;
 }
+
+// ? ------------------------------------------------- Basic styles ------------------------------------------------
+
+.set-color-appTwo {
+  color: $appColorTwo;
+}
+
+.set-color-appSeven {
+  color: $appColorSeven;
+}
+
+// ? ------------------------------------------------- Buttons -----------------------------------------------------
 
 // Button blue --------------------------------------------------------------
 ::ng-deep .button-blue {
@@ -87,6 +100,9 @@ body {
     border-color: darken($appColorSeven, 10%) !important;
     background-color: darken($appColorSeven, 10%) !important;
   }
+  .p-focus {
+    border-color: $appColorSeven;
+  }
 }
 
 // Button yellow-second --------------------------------------------------------------
@@ -109,4 +125,22 @@ body {
     border-color: darken($appText, 5%) !important;
     background-color: darken($appText, 5%) !important;
   }
+}
+
+// Button green
+::ng-deep .button-app-second {
+  border-color: $appColorTwo;
+  background-color: $appColorTwo;
+  color: #ffff !important;
+  &:hover {
+    border-color: darken($appColorTwo, 5%) !important;
+    background-color: darken($appColorTwo, 5%) !important;
+  }
+}
+
+// ? ------------------------------------------------ Other components -----------------------------
+::ng-deep .border-sidebar {
+  border-radius: 2.5rem 0 0 2.5rem;
+  -webkit-border-radius: 2.5rem 0 0 2.5rem;
+  -moz-border-radius: 2.5rem 0 0 2.5rem;
 }

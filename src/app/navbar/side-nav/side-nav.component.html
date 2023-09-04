@@ -26,14 +26,17 @@
                         </a>
                         <app-sublevel-menu [data]="item" [collapsed]="menuExpanded" [multiple]="multiple" [opened]="item.opened"></app-sublevel-menu>
                     </ng-container>
-                    <p *ngSwitchDefault>
+                    <ng-container *ngSwitchDefault>
+                        <!-- <div class="text-divider">
+                            <span @fadeInOut *ngIf="menuExpanded">{{item.label}}</span>
+                        </div> -->
                         <p-divider align="left">
                             <div class="inline-flex align-items-center">
                                 <i-tabler *ngIf="item.icon !== ''" class="pi pi-user mr-2" [name]="item.icon"></i-tabler>
-                                <b>{{item.label}}</b>
+                                <b *ngIf="menuExpanded">{{item.label}}</b>
                             </div>
                         </p-divider>
-                    </p>
+                    </ng-container>
                 </ng-container>
             </li>
         </ul>
