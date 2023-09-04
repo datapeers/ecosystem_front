@@ -15,16 +15,12 @@
     padding: 0.938rem 0.938rem 0.938rem;
     width: 100%;
     .logo {
-      background: $appColorTwo;
-      text-align: center;
+      margin-top: 0.8rem;
       width: 3rem;
       min-width: 3rem;
       height: 3rem;
       min-height: 3rem;
-      border-radius: 50%;
-      padding: 0.3rem;
-      font-size: 24px;
-      font-weight: 900;
+
       cursor: pointer;
       border: none;
     }
@@ -182,11 +178,11 @@
   gap: 0.8rem;
   p {
     font-size: 0.875rem;
-    color: $appColorTwo;
+    color: lighten($appColorTwo, 20%);
   }
   .divider-line {
     flex: 1;
-    background-color: $appColorTwo;
+    background-color: lighten($appColorTwo, 20%);
     padding: 1px;
     // margin-left: 0.75rem;
   }

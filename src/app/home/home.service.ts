@@ -13,30 +13,32 @@ export class HomeService {
   async getDefaultHomeMenu(user: User): Promise<IMenu> {
     const options = this.optionsMenu();
     const adminOptions = [ValidRoles.superAdmin, ValidRoles.admin];
-    let rolOptions: (keyof typeof options)[] = ['header-admin', 'init'];
+
+    let menuItems: (keyof typeof options)[] = ['init'];
+    menuItems.unshift(user.isUser ? 'header-user' : 'header-admin');
     if (user.allowed(Permission.announcements_view))
-      rolOptions.push('announcements');
-    if (user.allowed(Permission.phases_batch_access)) rolOptions.push('phases');
-    if (user.allowed(Permission.community_view)) rolOptions.push('communities');
+      menuItems.push('announcements');
+    if (user.allowed(Permission.phases_batch_access)) menuItems.push('phases');
+    if (user.allowed(Permission.community_view)) menuItems.push('communities');
     if (user.allowed(Permission.view_entrepreneurs))
-      rolOptions.push('entrepreneurs');
+      menuItems.push('entrepreneurs');
 
-    if (user.allowed(Permission.view_business)) rolOptions.push('businesses');
-    if (user.allowed(Permission.view_startups)) rolOptions.push('startUps');
-    if (user.allowed(Permission.view_experts)) rolOptions.push('expert');
-    rolOptions.push('public-nodes');
-    if (user.allowed(Permission.help_desk_view)) rolOptions.push('helpDesk');
+    if (user.allowed(Permission.view_business)) menuItems.push('businesses');
+    if (user.allowed(Permission.view_startups)) menuItems.push('startUps');
+    if (user.allowed(Permission.view_experts)) menuItems.push('expert');
+    menuItems.push('public-nodes');
+    if (user.allowed(Permission.help_desk_view)) menuItems.push('helpDesk');
     if (user.allowed(Permission.sites_and_services_view))
-      rolOptions.push('siteAndServices');
-    if (user.isUser) rolOptions.push('contents');
-    if (user.isUser) rolOptions.push('toolkit');
-    rolOptions.push('agenda');
-    if (user.allowed(Permission.reports_view)) rolOptions.push('reports');
+      menuItems.push('siteAndServices');
+    if (user.isUser) menuItems.push('contents');
+    if (user.isUser) menuItems.push('toolkit');
+    menuItems.push('agenda');
+    if (user.allowed(Permission.reports_view)) menuItems.push('reports');
     if (adminOptions.includes(user.rolType as ValidRoles))
-      rolOptions.push('settings');
-    if (user.allowed(Permission.form_view)) rolOptions.push('forms');
+      menuItems.push('settings');
+    if (user.allowed(Permission.form_view)) menuItems.push('forms');
 
-    const outputOptions: IMenuOption[] = rolOptions.map(
+    const outputOptions: IMenuOption[] = menuItems.map(
       (optKey) => options[optKey] as IMenuOption
     );
 
@@ -46,6 +48,12 @@ export class HomeService {
   optionsMenu(): Record<string, IMenuOption> {
     return {
       'header-admin': {
+        type: 'section',
+        label: 'Gestión',
+        rute: '',
+        icon: '',
+      },
+      'header-user': {
         type: 'section',
         label: 'Ruta startup',
         rute: '',
