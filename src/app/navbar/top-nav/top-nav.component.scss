@@ -105,6 +105,12 @@
   border-radius: 50%;
   color: #ffffff;
   cursor: pointer;
+  i-tabler {
+    margin: 0.5rem;
+    height: 3rem;
+    width: 3rem;
+    padding: 0.5rem;
+  }
   &:hover {
     background-color: darken($appColorTwo, 10%);
   }
@@ -115,9 +121,9 @@
   height: 8px;
   border-radius: 50%;
   position: relative;
-  top: -45px;
-  right: 5px;
-  background: #699dfa;
+  top: -65px;
+  right: 0;
+  background: $appColorTwo;
   &.pulse {
     animation: pulse-animation 1.2s infinite;
   }
