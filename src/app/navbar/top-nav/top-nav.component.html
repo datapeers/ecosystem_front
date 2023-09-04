@@ -79,7 +79,7 @@
 
 
 <ng-template #userShow>
-    <div class="elipse-panel p-2 flex flex-column max-w-12rem ">
+    <div class="elipse-panel p-2 flex flex-column max-w-15rem ">
         <span class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
         <span class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
     </div>
@@ -98,7 +98,7 @@
 </ng-template>
 
 
-<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="w-20rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
+<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="w-22rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
     <ng-template pTemplate="header"></ng-template>
     <ng-template pTemplate="content" styleClass="m-0 p-0"><ng-container *ngTemplateOutlet="userBoard"></ng-container></ng-template>
     <ng-template pTemplate="footer"></ng-template>
@@ -109,19 +109,20 @@
         <div>
             <ng-container *ngTemplateOutlet="userShow"></ng-container>
         </div>
-        <div class="normal-panel m-2 p-4 flex flex-column gap-2 ">
+        <div class="normal-panel m-2 px-5 py-4 flex flex-column gap-2 ">
             <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>
-            <h2>'Decidir</h2>
-            <span>Contenido de Fase 3 - Etapa Early</span>
-            <p-button styleClass="button-yellow" label="Retomar ultimo contenido">
+            <span class="font-bold">'Decidir'</span>
+            <span class="text-xs">Contenido de Fase 3 - Etapa Early</span>
+            <p-button styleClass="button-yellow button-border-mid mt-3">
+                <span class="">Retomar ultimo contenido</span>
             </p-button>
         </div>
         <div class="w-full flex flex-column gap-2">
-            <p-button styleClass="w-full button-yellow-second w-full align-items-center justify-content-between " (onClick)="logOut()">
+            <p-button styleClass="w-full button-yellow-second button-border-mid w-full align-items-center justify-content-between " (onClick)="logOut()">
                 <span class="mx-2 font-semibold	">Cerrar Sesión</span>
                 <i-tabler class="sidenav-link-icon" name="door-exit"></i-tabler>
             </p-button>
-            <p-button styleClass="w-full button-grey w-full align-items-center justify-content-between " (onClick)="profileSetting()">
+            <p-button styleClass="w-full button-grey button-border-mid w-full align-items-center justify-content-between " (onClick)="profileSetting()">
                 <span class="mx-2 font-semibold	">Configuración de cuenta</span>
                 <i-tabler class="sidenav-link-icon" name="settings"></i-tabler>
             </p-button>

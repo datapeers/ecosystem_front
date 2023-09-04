@@ -32,6 +32,7 @@ body {
   font-family: var(--font-family);
   margin: 0;
   min-height: 100vh;
+  font-size: 1rem;
   // overflow-x: hidden;
 }
 
@@ -45,14 +46,14 @@ body {
 // ? ----------------------------------------------  Panels --------------------------------------------------------
 .normal-panel {
   background-color: #ffffff;
-  border-radius: 6%;
-  -webkit-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
+  border-radius: 1.5rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
 }
 
 .elipse-panel {
-  border-radius: 40px 40px 40px 40px;
+  border-radius: 2rem 2rem 2rem 2rem;
 }
 
 // ? ------------------------------------------------- Basic styles ------------------------------------------------
@@ -65,7 +66,20 @@ body {
   color: $appColorSeven;
 }
 
+.set-color-text-second {
+  color: --text-color-secondary;
+}
+
 // ? ------------------------------------------------- Buttons -----------------------------------------------------
+// Button borders -----------------------------------------------------------
+
+::ng-deep .button-border-min {
+  border-radius: 0.1rem;
+}
+
+::ng-deep .button-border-mid {
+  border-radius: 0.65rem;
+}
 
 // Button blue --------------------------------------------------------------
 ::ng-deep .button-blue {
@@ -99,9 +113,7 @@ body {
   &:hover {
     border-color: darken($appColorSeven, 10%) !important;
     background-color: darken($appColorSeven, 10%) !important;
-  }
-  .p-focus {
-    border-color: $appColorSeven;
+    color: #ffff;
   }
 }
 
@@ -113,6 +125,7 @@ body {
   &:hover {
     border-color: darken($appColorEight, 10%) !important;
     background-color: darken($appColorEight, 10%) !important;
+    color: #ffff;
   }
 }
 

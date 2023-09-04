@@ -9,18 +9,19 @@
                 <ng-container [ngSwitch]="item.type">
                     <ng-container *ngSwitchCase="'single'">
                         <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
-                            <i-tabler class="sidenav-link-icon" [name]="item.icon"></i-tabler>
-                            <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                            <i-tabler class="sidenav-link-icon flex align-items-center" [name]="item.icon"></i-tabler>
+                            <p class="sidenav-link-text font-semibold" @fadeInOut *ngIf="menuExpanded">
                                 {{item.label}}
-                            </span>
+                            </p>
+                            <div class="right-bar-selected" *ngIf="getActiveClass(item)"></div>
                         </a>
                     </ng-container>
                     <ng-container *ngSwitchCase="'dropdown'">
                         <a class="sidenav-nav-link" (click)="handleClick(item)" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded">
-                            <i-tabler class="sidenav-link-icon" [name]="item.icon"></i-tabler>
-                            <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                            <i-tabler class="sidenav-link-icon flex align-items-center" [name]="item.icon"></i-tabler>
+                            <p class="sidenav-link-text font-semibold" @fadeInOut *ngIf="menuExpanded">
                                 {{item.label}}
-                            </span>
+                            </p>
                             <i *ngIf="item.children && menuExpanded" class="menu-collapse-icon" [ngClass]="!item.opened ? 'pi pi-angle-down' : 'pi pi-angle-up'">
                             </i>
                         </a>
@@ -28,14 +29,9 @@
                     </ng-container>
                     <ng-container *ngSwitchDefault>
                         <!-- <div class="text-divider">
-                            <span @fadeInOut *ngIf="menuExpanded">{{item.label}}</span>
+                            <p @fadeInOut *ngIf="menuExpanded">{{item.label}}</p>
                         </div> -->
-                        <p-divider align="left">
-                            <div class="inline-flex align-items-center">
-                                <i-tabler *ngIf="item.icon !== ''" class="pi pi-user mr-2" [name]="item.icon"></i-tabler>
-                                <b *ngIf="menuExpanded">{{item.label}}</b>
-                            </div>
-                        </p-divider>
+
                     </ng-container>
                 </ng-container>
             </li>

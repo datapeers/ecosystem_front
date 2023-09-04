@@ -40,10 +40,13 @@ import { IMenuOption } from '@shared/models/menu';
           *ngIf="item.children && item.children.length > 0"
           [ngClass]="getActiveClass(item)"
         >
-          <i-tabler class="sublevel-link-icon" [name]="item.icon"></i-tabler>
-          <span class="sublevel-link-text" @fadeInOut *ngIf="collapsed">{{
-            item.label
-          }}</span>
+          <i-tabler
+            class="sublevel-link-icon flex align-items-center"
+            [name]="item.icon"
+          ></i-tabler>
+          <p class="sublevel-link-text" @fadeInOut *ngIf="collapsed">
+            {{ item.label }}
+          </p>
           <i
             *ngIf="item.children && collapsed"
             class="menu-collapse-icon"
@@ -61,10 +64,13 @@ import { IMenuOption } from '@shared/models/menu';
           routerLinkActive="active-sublevel"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <i-tabler class="sublevel-link-icon" [name]="item.icon"></i-tabler>
-          <span class="sublevel-link-text" fadeInOut *ngIf="collapsed">{{
-            item.label
-          }}</span>
+          <i-tabler
+            class="sublevel-link-icon flex align-items-center"
+            [name]="item.icon"
+          ></i-tabler>
+          <p class="sublevel-link-text" fadeInOut *ngIf="collapsed">
+            {{ item.label }}
+          </p>
         </a>
         <div *ngIf="item.children && item.children.length > 0">
           <app-sublevel-menu

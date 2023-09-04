@@ -43,8 +43,9 @@
 
 .sidenav-nav {
   list-style: none;
-  padding: 0.938rem;
-  margin: 0;
+  // padding: 0.938rem;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,43 +54,66 @@
   .sidenav-nav-item {
     width: 100%;
     // margin-bottom: 0.625rem;
+
     .sidenav-nav-link {
       display: flex;
       align-items: center;
       height: 3rem;
       color: $appText;
       text-decoration: none;
-      border-radius: 0.625rem;
+      // border-radius: 0.625rem;
       transition: all 0.5s ease;
       .sidenav-link-icon {
-        font-size: 22px;
-        width: 2rem;
-        min-width: 2rem;
+        // font-size: 0.75rem;
+        width: 3rem;
+        min-width: 3rem;
+        height: 100%;
+        padding: 0.5rem;
         margin: 0 0 0.5rem 0.5rem;
         text-align: center;
+        color: rgba($appColorTwo, 0.5);
       }
       .sidenav-link-text {
-        margin-left: 1rem;
+        color: rgba($appColorTwo, 0.5);
+        margin-left: 0.5rem;
+        margin-top: 0.5rem;
+        flex: 1;
+        // margin: 0 0.5rem 0 0.5rem;
       }
     }
   }
   .sidenav-nav-item:hover {
+    .sidenav-link-icon,
+    .sidenav-link-text,
     .sidenav-nav-link {
-      color: lighten($appColorTwo, 10%);
+      color: lighten($appColorTwo, 20%) !important;
       .menu-collapse-icon {
-        color: lighten($appColorTwo, 10%);
+        color: lighten($appColorTwo, 20%);
       }
     }
   }
 }
 
 .active {
-  background-color: darken($appColorTwo, 10%);
+  .sidenav-link-icon {
+    border-radius: 0.625rem;
+    background-color: darken($appColorTwo, 20%);
+  }
+
   .menu-collapse-icon,
   .sidenav-link-icon,
   .sidenav-link-text {
-    color: lighten($appColorTwo, 20%);
+    color: lighten($appColorTwo, 20%) !important;
   }
+}
+
+.right-bar-selected {
+  width: 5px;
+  height: 2rem;
+  background-color: $appColorTwo;
+  border-radius: 0.15rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .active-sublevel {
@@ -104,7 +128,7 @@
   min-width: 2rem;
   margin: auto 0.5rem auto auto;
   text-align: center;
-  color: $appText;
+  color: $appColorTwo;
 }
 .sublevel-nav {
   list-style: none;
