@@ -61,7 +61,7 @@ import { IMenuOption } from '@shared/models/menu';
           "
           [routerLink]="item.rute"
           [queryParams]="item.queryParamsRute"
-          routerLinkActive="active-sublevel"
+          routerLinkActive="active-sublevel uppercase"
           [routerLinkActiveOptions]="{ exact: true }"
         >
           <i-tabler
@@ -71,6 +71,7 @@ import { IMenuOption } from '@shared/models/menu';
           <p class="sublevel-link-text" fadeInOut *ngIf="collapsed">
             {{ item.label }}
           </p>
+          <div class="right-bar-selected"></div>
         </a>
         <div *ngIf="item.children && item.children.length > 0">
           <app-sublevel-menu
@@ -126,7 +127,7 @@ export class SublevelMenuComponent implements OnInit {
 
   getActiveClass(item: IMenuOption): string {
     return item.opened && this.router.url.includes(item.rute)
-      ? 'active-sublevel'
+      ? 'active-sublevel uppercase'
       : '';
   }
 }

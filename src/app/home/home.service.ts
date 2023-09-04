@@ -24,6 +24,7 @@ export class HomeService {
     if (user.allowed(Permission.view_business)) rolOptions.push('businesses');
     if (user.allowed(Permission.view_startups)) rolOptions.push('startUps');
     if (user.allowed(Permission.view_experts)) rolOptions.push('expert');
+    rolOptions.push('public-nodes');
     if (user.allowed(Permission.help_desk_view)) rolOptions.push('helpDesk');
     if (user.allowed(Permission.sites_and_services_view))
       rolOptions.push('siteAndServices');
@@ -47,6 +48,12 @@ export class HomeService {
       'header-admin': {
         type: 'section',
         label: 'Ruta startup',
+        rute: '',
+        icon: '',
+      },
+      'public-nodes': {
+        type: 'section',
+        label: 'Nodos Públicos',
         rute: '',
         icon: '',
       },

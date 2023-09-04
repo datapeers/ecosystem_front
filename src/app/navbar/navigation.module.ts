@@ -8,9 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SublevelMenuComponent } from './side-nav/sublevel-menu.component';
 import { IconsModule } from '../icons/icons.module';
+import { AppSharedModule } from '@shared/app-shared.module';
+import { DividerTextComponent } from '@shared/components/divider-text/divider-text.component';
 
 @NgModule({
-  declarations: [TopNavComponent, SideNavComponent, SublevelMenuComponent],
+  declarations: [
+    TopNavComponent,
+    SideNavComponent,
+    SublevelMenuComponent,
+    DividerTextComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -18,6 +25,7 @@ import { IconsModule } from '../icons/icons.module';
     IconsModule,
     FontAwesomeModule,
     StorageModule,
+    AppSharedModule,
   ],
   exports: [TopNavComponent, SideNavComponent],
 })
