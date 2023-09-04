@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, combineLatest, filter } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  Subscription,
+  combineLatest,
+  filter,
+} from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
@@ -17,12 +24,16 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import { User } from './models/user';
 import { ExpertsService } from '@shared/services/experts/experts.service';
 import { EntrepreneursService } from '@shared/services/entrepreneurs/entrepreneurs.service';
+import { NotificationService } from '../notification/notification.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   currentUser = null;
   private authStatusSub = new BehaviorSubject(this.currentUser);
+
+  notificationSubscription!: Subscription;
+
   renewToken$: Subject<void> = new Subject();
   renewTimer: any;
   constructor(
@@ -32,7 +43,8 @@ export class AuthService {
     private router: Router,
     private userService: UserService,
     private readonly expertsService: ExpertsService,
-    private readonly entrepreneursService: EntrepreneursService
+    private readonly entrepreneursService: EntrepreneursService,
+    private readonly notificationService: NotificationService
   ) {
     this.authStatusListener();
     // Renew token subscription
@@ -88,9 +100,16 @@ export class AuthService {
         if (instanceUser.isUser) {
           this.entrepreneurDoc(instanceUser);
         }
-
+        this.listenNotifications(
+          this.notificationService.listenNotificationSubscription(
+            credential.uid
+          )
+        );
         this.authStatusSub.next(true);
       } else {
+        if (this.notificationSubscription) {
+          this.notificationSubscription.unsubscribe();
+        }
         this.authStatusSub.next(null);
       }
     });
@@ -245,5 +264,12 @@ export class AuthService {
     }
     this.store.dispatch(new SetProfileDocAction(doc));
     return;
+  }
+
+  async listenNotifications(notificationSubscriptor: Observable<any>) {
+    if (this.notificationSubscription) return;
+    this.notificationSubscription = notificationSubscriptor.subscribe(
+      (notification) => console.log(notification)
+    );
   }
 }

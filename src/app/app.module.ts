@@ -30,6 +30,7 @@ import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { BackgroundComponent } from './shared/components/layout/background/background.component';
 import { LandingComponent } from './public/landing/landing.component';
+import { NotificationComponent } from './notification/notification.component';
 
 registerLocaleData(localeEs);
 @NgModule({
@@ -40,6 +41,7 @@ registerLocaleData(localeEs);
     ForgotPasswordComponent,
     BackgroundComponent,
     LandingComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
