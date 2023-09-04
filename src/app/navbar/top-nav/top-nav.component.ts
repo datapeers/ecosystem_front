@@ -18,6 +18,7 @@ import {
   takeUntil,
 } from 'rxjs';
 import { Startup } from '@shared/models/entities/startup';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-nav',
@@ -70,6 +71,7 @@ export class TopNavComponent {
   viewUserBoard = false;
 
   constructor(
+    private router: Router,
     private readonly store: Store<AppState>,
     private readonly auth: AuthService
   ) {
@@ -157,5 +159,13 @@ export class TopNavComponent {
     } else {
       this.rolName = this.user.rolName;
     }
+  }
+
+  logOut() {
+    this.auth.signOut();
+  }
+
+  profileSetting() {
+    this.router.navigate(['/home/profile']);
   }
 }
