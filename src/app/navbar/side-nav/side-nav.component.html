@@ -1,8 +1,6 @@
 <div class="sidenav" [ngClass]="(menuExpanded) ? '':'sidenav-collapsed'">
     <div class="logo-container">
         <p-avatar image="assets/identity/logo.svg" size="large" shape="circle" class="logo" @rotate (click)="toggleMenu()"></p-avatar>
-        <!-- <button class="logo" @rotate >A</button>
-        <div class="logo-text" @fadeInOut *ngIf="menuExpanded">Angular</div> -->
     </div>
     <div class="scrollwrap scrollwrap_delayed">
         <ul class="sidenav-nav" *ngIf="menu">

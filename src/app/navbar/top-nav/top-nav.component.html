@@ -1,38 +1,8 @@
-<!-- <div class="top-nav-container flex flex-row justify-content-between align-content-center p-2">
-    <div class="left-items flex align-items-center">
-        <fa-icon *ngIf="menu$ | async" [icon]="faBars" class="hamburger-button" (click)="toggleMenu()"></fa-icon>
-        <img src="assets/ministerio.jpg" height="30" />
-    </div>
-    <div class="center-items">
-        <span class="p-input-icon-right">
-            <ng-container *ngIf="searchValue; else searchButton">
-                <i class="pi pi-times" (click)="clearSearch()" pTooltip="Cancelar búsqueda"></i>
-            </ng-container>
-            <ng-template #searchButton>
-                <i class="pi pi-search"></i>
-            </ng-template>
-            <input class="p-inputtext" type="text" pInputText placeholder="¿Qué buscas?" [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" style="width: 20vw" id="global-search-app" />
-        </span>
-    </div>
-    <div class="right-items flex align-items-center ">
-        <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-            <p-avatar [label]="user.nameInitial" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
-            </p-avatar>
-        </ng-container>
-        <ng-template #imageTemplate>
-            <p-avatar [image]="user.profileImageUrl | getImage | async" shape="circle" class="flex cursor-pointer" (click)="menu.toggle($event)" pTooltip="Opciones" tooltipPosition="left" size="large">
-            </p-avatar>
-        </ng-template>
-        <p-menu #menu [popup]="true" [model]="items" appendTo="body"></p-menu>
-    </div>
-</div> -->
 <div class="head" [ngClass]="getHeadClass()">
     <div class="head-content">
         <div class="head-content-left">
             <div class="flex flex-row gap-4 align-items-center ">
-                <button pRipple class="head-menu-item-btn" *ngIf="showSidenavButton()" (click)="toggleMenu()">
-                    <i-tabler name="align-justified" class="menu-icon"></i-tabler>
-                </button>
+                <i-tabler name="align-justified" class="head-menu-item-btn menu-icon" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
                 <div class="elipse-panel bg-pink-200 p-2 flex flex-row align-items-center gap-2">
                     <div class="elipse-panel bg-pink-500 p-2">
                         <span class="font-bold text-white">3/10</span>

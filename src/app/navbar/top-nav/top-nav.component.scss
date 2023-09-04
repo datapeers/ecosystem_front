@@ -1,23 +1,5 @@
-// .top-nav-container {
-//   height: 64px;
-//   background-color: white;
-//   color: var(--secondary-color) !important;
-// }
-
-// .hamburger-button {
-//   display: none;
-// }
-
-// @media (max-width: 600px) {
-//   .hamburger-button {
-//     display: flex;
-//     cursor: pointer;
-//     margin-right: 1rem;
-//   }
-// }
-
 .panel-user {
-  background-color: --app-backgrounds;
+  background-color: var(--app-backgrounds);
 }
 
 .head {
@@ -82,24 +64,27 @@
 }
 
 .head-menu-item-btn {
-  font-size: 18px;
-  height: 34px;
-  width: 34px;
+  // font-size: 14px;
+  height: 1.5rem;
+  width: 1.5rem;
   cursor: pointer;
   border: 1px solid transparent;
   border-radius: 10%;
   outline: 0;
   color: #495057;
-  padding-right: 2px;
-  .flag {
-    height: 17px;
-    border-radius: 3px;
-    margin-top: 2px;
-  }
-  i-tabler {
-    margin-top: 2px;
-    margin-right: 2px;
-  }
+  background-color: var(--app-backgrounds);
+  border-radius: 0.15rem;
+  padding: 0.2rem;
+  // padding-right: 2px;
+  // .flag {
+  //   height: 17px;
+  //   border-radius: 3px;
+  //   margin-top: 2px;
+  // }
+  // i-tabler {
+  //   margin-top: 2px;
+  //   margin-right: 2px;
+  // }
 }
 
 .head-menu-item-btn:hover,
