@@ -28,9 +28,9 @@ import { ForgotPasswordComponent } from './authentication/forgot-password/forgot
 import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
-import { BackgroundComponent } from './shared/components/layout/background/background.component';
 import { LandingComponent } from './public/landing/landing.component';
 import { NotificationComponent } from './notification/notification.component';
+import { IconsModule } from './icons/icons.module';
 
 registerLocaleData(localeEs);
 @NgModule({
@@ -39,7 +39,6 @@ registerLocaleData(localeEs);
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    BackgroundComponent,
     LandingComponent,
     NotificationComponent,
   ],
@@ -61,6 +60,7 @@ registerLocaleData(localeEs);
     GraphQLModule,
     HttpClientModule,
     AppSharedModule,
+    IconsModule,
   ],
   providers: [
     AuthService,

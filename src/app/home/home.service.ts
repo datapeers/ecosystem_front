@@ -1,29 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  faBook,
-  faBuilding,
-  faCalendar,
-  faCalendarDays,
-  faCircleQuestion,
-  faCog,
-  faComments,
-  faFileText,
-  faFolderOpen,
-  faHandshake,
-  faHome,
-  faHouse,
-  faMagnifyingGlass,
-  faRoad,
-  faRocket,
-  faSearch,
-  faSeedling,
-  faSync,
-  faUser,
-  faUserTie,
-  faUsers,
-  faVolumeHigh,
-  faWaveSquare,
-} from '@fortawesome/free-solid-svg-icons';
 import { IMenu, IMenuOption } from '@shared/models/menu';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
@@ -38,7 +13,7 @@ export class HomeService {
   async getDefaultHomeMenu(user: User): Promise<IMenu> {
     const options = this.optionsMenu();
     const adminOptions = [ValidRoles.superAdmin, ValidRoles.admin];
-    let rolOptions: (keyof typeof options)[] = ['init'];
+    let rolOptions: (keyof typeof options)[] = ['header-admin', 'init'];
     if (user.allowed(Permission.announcements_view))
       rolOptions.push('announcements');
     if (user.allowed(Permission.phases_batch_access)) rolOptions.push('phases');
@@ -67,63 +42,62 @@ export class HomeService {
     return { options: outputOptions };
   }
 
-  optionsMenu() {
+  optionsMenu(): Record<string, IMenuOption> {
     return {
+      'header-admin': {
+        type: 'section',
+        label: 'Ruta startup',
+        rute: '',
+        icon: '',
+      },
       init: {
         label: 'Inicio',
         rute: '/home/inicio',
         type: 'single',
-        icon: faHouse,
-      },
-      home: {
-        label: 'Home',
-        icon: faHome,
-        rute: '/home/home',
-        queryParamsRute: {},
-        type: 'single',
+        icon: 'smart-home',
       },
       route: {
         label: 'Ruta',
         rute: '/home/route',
         type: 'single',
-        icon: faRoad,
+        icon: 'stairs-up',
       },
       contents: {
         label: 'Contenidos',
         rute: '/home/contents',
         type: 'single',
-        icon: faRoad,
+        icon: 'layout-board-split',
       },
       toolkit: {
         label: 'Toolkit',
-        icon: faFolderOpen,
+        icon: 'tools',
         rute: '/home/toolkit',
         type: 'single',
       },
       startUp: {
         label: 'StartUp',
-        icon: faSeedling,
+        icon: 'rocket',
         rute: '/home/startup',
         queryParamsRute: {},
         type: 'single',
       },
       agenda: {
         label: 'Agenda',
-        icon: faCalendar,
+        icon: 'calendar-event',
         rute: '/home/calendar',
         queryParamsRute: {},
         type: 'single',
       },
       evaluations: {
         label: 'Evalúanos',
-        icon: faFileText,
+        icon: 'clipboard-check',
         rute: '/home/evaluations',
         queryParamsRute: {},
         type: 'single',
       },
       events: {
         label: 'Eventos',
-        icon: faCalendarDays,
+        icon: 'calendar-time',
         rute: '/home/events',
         queryParamsRute: {},
         type: 'single',
@@ -133,38 +107,38 @@ export class HomeService {
         rute: '/home/announcements',
         type: 'single',
         // class: 'mt-4',
-        icon: faVolumeHigh,
+        icon: 'album',
       },
       phases: {
         label: 'Fases',
         rute: '/home/phases',
         type: 'single',
-        icon: faSync,
+        icon: 'box-multiple',
       },
       communities: {
         label: 'Comunidades',
         rute: '/home/communities',
         type: 'single',
         class: '',
-        icon: faUsers,
+        icon: 'social',
       },
       entrepreneurs: {
         label: 'Emprendedores',
         type: 'dropdown',
         class: 'mt-4',
-        icon: faUser,
+        icon: 'users-group',
         children: [
           {
             label: 'Emprendedores',
             rute: '/home/entrepreneurs',
             type: 'single',
-            icon: faUser,
+            icon: 'users-group',
           },
           {
             label: 'Prospectos',
             rute: '/home/entrepreneursProspects',
             type: 'single',
-            icon: faSearch,
+            icon: 'list-search',
             queryParamsRute: { prospects: true },
           },
         ],
@@ -173,24 +147,24 @@ export class HomeService {
         label: 'Empresas',
         rute: '/home/businesses',
         type: 'single',
-        icon: faBuilding,
+        icon: 'building-community',
       },
       startUps: {
         label: 'StartUps',
         type: 'dropdown',
-        icon: faRocket,
+        icon: 'rocket',
         children: [
           {
             label: 'StartUps',
             rute: '/home/startups',
             type: 'single',
-            icon: faRocket,
+            icon: 'rocket',
           },
           {
             label: 'Prospectos',
             rute: '/home/startupsProspects',
             type: 'single',
-            icon: faSearch,
+            icon: 'list-search',
             queryParamsRute: { prospects: true },
           },
         ],
@@ -198,19 +172,19 @@ export class HomeService {
       expert: {
         label: 'Expertos',
         type: 'dropdown',
-        icon: faUsers,
+        icon: 'school',
         children: [
           {
             label: 'Expertos',
             rute: '/home/experts',
             type: 'single',
-            icon: faUsers,
+            icon: 'school',
           },
           {
             label: 'Prospectos',
             rute: '/home/expertsProspects',
             type: 'single',
-            icon: faSearch,
+            icon: 'list-search',
             queryParamsRute: { prospects: true },
           },
         ],
@@ -218,20 +192,20 @@ export class HomeService {
       prospects: {
         label: 'Prospectos',
         type: 'dropdown',
-        icon: faMagnifyingGlass,
+        icon: 'input-search',
         children: [
           {
             label: 'Emprendedores',
             rute: '/home/prospectos',
             type: 'single',
-            icon: faUser,
+            icon: 'users-group',
             queryParamsRute: { type: 'entrepreneur' },
           },
           {
             label: 'StartUps',
             rute: '/home/prospectos',
             type: 'single',
-            icon: faBuilding,
+            icon: 'rocket',
             queryParamsRute: { type: 'startup' },
           },
         ],
@@ -241,37 +215,37 @@ export class HomeService {
         rute: '/home/helpdesk',
         type: 'single',
         class: 'mt-4',
-        icon: faCircleQuestion,
+        icon: 'heart-handshake',
       },
       siteAndServices: {
         label: 'Sedes y servicios',
         rute: '/home/site_management',
         type: 'single',
-        icon: faComments,
+        icon: 'map-search',
       },
       reports: {
         label: 'Reportes',
         rute: '/home/reportes',
         type: 'single',
-        icon: faWaveSquare,
+        icon: 'wave-square',
       },
       settings: {
         label: 'Ajustes',
         rute: '/home/personalizar',
         type: 'dropdown',
         class: 'mt-4',
-        icon: faCog,
+        icon: 'settings',
       },
       forms: {
         label: 'Formularios',
         rute: '/home/forms',
         type: 'single',
         class: 'mt-4',
-        icon: faBook,
+        icon: 'book',
       },
       services: {
         label: 'Servicios',
-        icon: faHandshake,
+        icon: 'file-star',
         rute: '/home/services',
         queryParamsRute: {},
         type: 'single',

@@ -1,56 +1,44 @@
-<p-scrollPanel #mainsidenavcontainer styleClass="p-0" [scrollLeft]="false" class="menu-container custom-scroll-panel surface-overlay" [ngClass]="{ 'cursor-move' : isDragging }">
-    <ng-container *ngIf="menu">
-        <div class="w-full flex flex-row justify-content-center align-content-center pr-2 py-4">
-            <img class="w-9" src="/assets/startup.png" />
-        </div>
-        <div [ngClass]="{ 'open' : menuExpanded, 'close' : !(menuExpanded)  }">
-            <ng-container *ngIf="menu.returnPath">
-                <ng-container *ngIf="(menuExpanded); else minMenu">
-                    <div class="flex w-full justify-content-center align-items-center mb-2">
-                        <button pButton pRipple type="button" [label]="'Regresar'" pTooltip="Regresar" icon="pi pi-arrow-circle-left" class="p-button-text return" (click)="return()">
-                        </button>
-                    </div>
-                </ng-container>
-                <ng-template #minMenu>
-                    <div class="flex w-full justify-content-center align-items-center mb-2">
-                        <button pButton pRipple type="button" [label]="''" pTooltip="Regresar" icon="pi pi-arrow-circle-left" class="p-button-text return" (click)="return()">
-                        </button>
-                    </div>
-                </ng-template>
-            </ng-container>
-
-            <ng-template *ngIf="menu.header" [ngTemplateOutlet]="headerTemplate" [ngTemplateOutletContext]=" { header: menu.header }"></ng-template>
-
-            <ul class="option-list">
-                <ng-container *ngFor="let item of menu.options">
-                    <app-side-nav-item [disabled]="disabled" [item]="item" [expanded]="menuExpanded"></app-side-nav-item>
-                </ng-container>
-            </ul>
-            <div class="px-3"> <p-divider styleClass="px-0 mx-0"></p-divider></div>
-            <div [pTooltip]="menuExpanded ? 'Contraer' : 'Expandir'" class="flex flex-row w-full justify-content-end cursor-pointer toggle-menu pr-5" (click)="toggleMenu()">
-                <fa-icon [icon]="menuExpanded ? faAngleDoubleLeft : faAngleDoubleRight" class="option"></fa-icon>
-            </div>
-            <div class="px-3"> <p-divider styleClass="px-0 mx-0"></p-divider></div>
-        </div>
-    </ng-container>
-</p-scrollPanel>
-
-
-
-<ng-template #headerTemplate let-header="header">
-    <div class="logo-details px-3">
-        <ng-container *ngIf="header.avatar">
-            <ng-container *ngIf="header.avatar === ''; else elseTemplate">
-                <p-avatar [label]="header.title[0]" styleClass="avatar-size cursor-pointer" (click)="toggleMenu()" [pTooltip]="header.title"></p-avatar>
-            </ng-container>
-            <ng-template #elseTemplate>
-                <img [src]="header.avatar" class="avatar-size cursor-pointer" style="object-fit: contain;" (click)="toggleMenu()" [pTooltip]="header.title">
-            </ng-template>
-        </ng-container>
-
-        <div class="logo_name">
-            <span class="title-menu" [pTooltip]="header.title" tooltipPosition="right">{{header.title}}</span>
-            <span class="subtitle-menu">{{header.subTitle}}</span>
-        </div>
+<div class="sidenav" [ngClass]="(menuExpanded) ? '':'sidenav-collapsed'">
+    <div class="logo-container">
+        <button class="logo" @rotate (click)="toggleMenu()">A</button>
+        <div class="logo-text" @fadeInOut *ngIf="menuExpanded">Angular</div>
     </div>
-</ng-template>
+    <div class="scrollwrap scrollwrap_delayed">
+        <ul class="sidenav-nav" *ngIf="menu">
+            <li class="sidenav-nav-item" *ngFor="let item of menu.options">
+                <ng-container [ngSwitch]="item.type">
+                    <ng-container *ngSwitchCase="'single'">
+                        <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
+                            <i-tabler class="sidenav-link-icon" [name]="item.icon"></i-tabler>
+                            <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                                {{item.label}}
+                            </span>
+                        </a>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'dropdown'">
+                        <a class="sidenav-nav-link" (click)="handleClick(item)" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded">
+                            <i-tabler class="sidenav-link-icon" [name]="item.icon"></i-tabler>
+                            <span class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
+                                {{item.label}}
+                            </span>
+                            <i *ngIf="item.children && menuExpanded" class="menu-collapse-icon" [ngClass]="!item.opened ? 'pi pi-angle-down' : 'pi pi-angle-up'">
+                            </i>
+                        </a>
+                        <app-sublevel-menu [data]="item" [collapsed]="menuExpanded" [multiple]="multiple" [opened]="item.opened"></app-sublevel-menu>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <!-- <div class="text-divider">
+                            <span @fadeInOut *ngIf="menuExpanded">{{item.label}}</span>
+                        </div> -->
+                        <p-divider align="left">
+                            <div class="inline-flex align-items-center">
+                                <i-tabler *ngIf="item.icon !== ''" class="pi pi-user mr-2" [name]="item.icon"></i-tabler>
+                                <b *ngIf="menuExpanded">{{item.label}}</b>
+                            </div>
+                        </p-divider>
+                    </ng-container>
+                </ng-container>
+            </li>
+        </ul>
+    </div>
+</div>

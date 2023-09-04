@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkMenuModule } from '@angular/cdk/menu';
+
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { PrimengModule } from '../primeng/primeng.module';
@@ -111,6 +114,8 @@ import { RatingEventComponent } from './calendar/rating-event/rating-event.compo
   ],
   imports: [
     CommonModule,
+    OverlayModule,
+    CdkMenuModule,
     FormsModule,
     ReactiveFormsModule,
     HomeRoutingModule,

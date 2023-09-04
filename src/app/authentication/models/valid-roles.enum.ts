@@ -6,14 +6,14 @@ export enum ValidRoles {
   // investor = 'investor',
   host = 'host',
   teamCoach = 'teamCoach',
-  challenger = 'challenger',
+  // challenger = 'challenger',
 }
 
 export const rolNames: Record<ValidRoles, string> = {
   [ValidRoles.superAdmin]: 'Super admin',
   [ValidRoles.admin]: 'Admin',
   [ValidRoles.user]: 'Usuario',
-  [ValidRoles.challenger]: 'Challenger',
+  // [ValidRoles.challenger]: 'Challenger',
   [ValidRoles.expert]: 'Experto',
   // [ValidRoles.investor]: "Inversionista",
   [ValidRoles.host]: 'Host',
@@ -27,7 +27,7 @@ export const rolValues: Record<ValidRoles, number> = {
   [ValidRoles.teamCoach]: 9,
   [ValidRoles.expert]: 3,
   [ValidRoles.user]: 2,
-  [ValidRoles.challenger]: 1,
+  // [ValidRoles.challenger]: 1,
 };
 
 export const validRolName = (rol: ValidRoles) => {

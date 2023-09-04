@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormControl,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
 import { Store } from '@ngrx/store';
 import { CustomValidators } from '@shared/forms/custom-validators';
 import { InvitationService } from '@shared/services/invitation.service';
+import { ToastService } from '@shared/services/toast.service';
 import { Subject } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
 
@@ -18,27 +24,29 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   invitationCode: string;
   onDestroy$: Subject<void> = new Subject();
+  footerText = 'Startup factory - All rights reserved 2023 ©';
+  loading = false;
+  get formControls() {
+    return this.signUpForm.controls;
+  }
   constructor(
+    private toast: ToastService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly authService: AuthService,
     private readonly invitationService: InvitationService,
-    private readonly store: Store<AppState>,
-    readonly fb: FormBuilder
+    private readonly store: Store<AppState>
   ) {
     this.invitationCode = this.route.snapshot.queryParamMap.get('code');
-    this.signUpForm = fb.group(
+    this.signUpForm = new FormGroup(
       {
-        name: fb.control<string>('', {
-          nonNullable: true,
+        name: new FormControl<string>('', {
           validators: [Validators.required],
         }),
-        password: fb.control<string>('', {
-          nonNullable: true,
+        password: new FormControl<string>('', {
           validators: [Validators.required, Validators.minLength(6)],
         }),
-        confirmPassword: fb.control<string>('', {
-          nonNullable: true,
+        confirmPassword: new FormControl<string>('', {
           validators: [Validators.required],
         }),
       },
@@ -57,7 +65,14 @@ export class SignUpComponent implements OnInit {
         takeUntil(this.onDestroy$)
       )
       .subscribe(async (auth) => {
-        if (auth.logged) this.router.navigate(['/home']);
+        if (auth.logged) {
+          this.toast.info({
+            summary: 'Ya te encuentras con una cuenta logueada',
+            detail:
+              'Ya estas en la plataforma con una cuenta, desconectate si quieres registrarte con otra',
+          });
+          this.router.navigate(['/home/inicio']);
+        }
       });
   }
 
@@ -70,12 +85,22 @@ export class SignUpComponent implements OnInit {
 
   onKeyUp(evt: KeyboardEvent) {
     if (evt.key == 'Enter') {
+      evt.preventDefault();
       this.onSubmit();
     }
   }
 
   async onSubmit() {
+    if (this.signUpForm.invalid) {
+      this.toast.alert({
+        summary: 'Falta campos',
+        detail:
+          'Es necesario diligenciar todos los campos para completar el registro',
+      });
+      return;
+    }
     const { name, password } = this.signUpForm.value;
+    this.loading = true;
     const result = await this.invitationService.acceptInvitation(
       this.invitationCode,
       name,
@@ -83,6 +108,8 @@ export class SignUpComponent implements OnInit {
     );
     const email = result.email;
     await this.authService.signIn(email, password);
+    this.toast.redirecting();
+    this.loading = false;
   }
 
   async googleAuth() {

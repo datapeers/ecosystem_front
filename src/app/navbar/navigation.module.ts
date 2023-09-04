@@ -6,26 +6,19 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { StorageModule } from '@shared/storage/storage.module';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SideNavItemComponent } from './side-nav/side-nav-item/side-nav-item.component';
-
-
+import { SublevelMenuComponent } from './side-nav/sublevel-menu.component';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
-  declarations: [
-    TopNavComponent,
-    SideNavComponent,
-    SideNavItemComponent,
-  ],
+  declarations: [TopNavComponent, SideNavComponent, SublevelMenuComponent],
   imports: [
     CommonModule,
     FormsModule,
     PrimengModule,
+    IconsModule,
     FontAwesomeModule,
     StorageModule,
   ],
-  exports: [
-    TopNavComponent,
-    SideNavComponent,
-  ]
+  exports: [TopNavComponent, SideNavComponent],
 })
-export class NavigationModule { }
+export class NavigationModule {}

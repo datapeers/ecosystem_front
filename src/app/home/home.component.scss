@@ -1,54 +1,35 @@
 .container-home {
+  position: relative;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: url(../../assets/bg2.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  background: var(--app-color-one);
+  //   display: flex;
+  //   flex-direction: column;
+  //   background-size: cover;
+  //   background-repeat: no-repeat;
+  //   background-position: center center;
 }
 
 .router-body {
-  position: relative;
+  width: calc(100% - 5rem);
   height: 100vh;
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  padding-bottom: 2.5rem;
+  margin-left: 5rem;
+  padding: 4rem 0 0 0;
+  z-index: 0;
+  position: relative;
+  top: 0;
+  transition: all 0.5s ease;
+  background: #ffff;
+  border-radius: 2.5rem 0 0 2.5rem;
+  -webkit-border-radius: 2.5rem 0 0 2.5rem;
+  -moz-border-radius: 2.5rem 0 0 2.5rem;
+}
 
-  &.expand-menu {
-    .router-content {
-      width: calc(100% - 240px);
-    }
-  }
+.body-trimmed {
+  width: calc(100% - 16.5625rem);
+  margin-left: 16.5625rem;
+}
 
-  &.hide-menu {
-    .router-content {
-      width: calc(100% - 96px);
-    }
-  }
-
-  @media (max-width: 600px) {
-    &.expand-menu {
-      .router-content {
-        width: 100%;
-      }
-      app-side-nav {
-        width: 100%;
-        position: absolute;
-        z-index: 500;
-        transition: all 0.2s ease;
-      }
-    }
-    &.hide-menu {
-      .router-content {
-        width: 100%;
-      }
-      app-side-nav {
-        width: 0%;
-        position: absolute;
-        transition: all 0.2s ease;
-      }
-    }
-  }
+.body-md-screen {
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
 }

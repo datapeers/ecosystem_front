@@ -2,40 +2,39 @@
 @import "./assets/styles/shadows.scss";
 @import url("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css");
 
-$side-nav-font-size: 14px;
-$side-nav-font-height: 38px;
-$side-nav-icon-size: 16px;
-$side-nav-font-weight: 600;
+$appColorOne: #0f2133;
+$appColorTwo: #07b9b4;
+$appColorThree: #18e4e6;
+$appColorFour: #dbffff;
+$appColorFive: #317bf4;
+$appColorSix: #e7f2ff;
+$appColorSeven: #f7af42;
+$appColorEight: #fff1dc;
+$appText: #dcdcdc;
+$appTextTwo: #aeaeae;
+$appTextThree: #6b6b6b;
+$appTextFour: #0000;
 
-$side-nav-text-color: #0f2133;
-$side-nav-active-color: var(--side-nav-active-color);
-$side-nav-hover-color: var(--text-color);
 $text-color: #172b4d;
-$font-family: "Eina01", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-$font-family-secondary: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 $background-color: rgba(
   $color: #e1e1e2,
   $alpha: 0.1,
 );
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf")
+    format("truetype");
+}
 
 body {
   background-color: $background-color;
   font-family: var(--font-family);
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
-@mixin font($font, $weight, $size, $line) {
-  font-family: $font;
-  font-weight: $weight;
-  font-size: $size;
-  line-height: $line;
-}
-
-.p-toast {
-  z-index: 99999;
-}
 .customModal {
   max-height: 100%;
 }
@@ -43,151 +42,105 @@ body {
   height: 100%;
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  cursor: pointer;
+// ? ----------------------------------------------  Panels --------------------------------------------------------
+.normal-panel {
+  background-color: #ffffff;
+  border-radius: 6%;
+  -webkit-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.15);
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.elipse-panel {
+  border-radius: 40px 40px 40px 40px;
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: silver;
-  border-radius: 8px;
-  border: 4px solid transparent;
+// ? ------------------------------------------------- Basic styles ------------------------------------------------
+
+.set-color-appTwo {
+  color: $appColorTwo;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: darkgray;
+.set-color-appSeven {
+  color: $appColorSeven;
 }
 
-.home-section-container {
-  padding: 20px 40px;
-  gap: 1rem;
+// ? ------------------------------------------------- Buttons -----------------------------------------------------
+
+// Button blue --------------------------------------------------------------
+::ng-deep .button-blue {
+  border-color: $appColorFive;
+  background-color: $appColorFive;
+  color: #ffff !important;
 }
 
-.color-custom {
-  color: $text-color !important;
+::ng-deep .button-blue:hover {
+  // border-color: darken($appColorFive, 10%);
+  // background-color: darken($appColorFive, 10%);
 }
 
-//---------- Text utils ----------//
-.text-ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.custom-scroll-panel {
-  .p-scrollpanel-content {
-    padding: 0;
-    padding-top: 1rem;
-    overflow-x: hidden;
-  }
-}
-
-.dialog-responsive {
-  min-width: min-content;
-  min-height: min-content;
-}
-
-//---------- Fixes for primeng components ----------//
-.p-dialog-mask {
-  z-index: 999;
-}
-
-.confirm-dialog {
-  min-width: 50vw;
-  max-width: 95%;
-  width: max(50vw, 24rem);
-}
-
-.subheader {
-  @include font($font-family, 600, 20px, 24px);
-}
-
-.mce-tinymce.mce-container.mce-panel {
-  border-radius: 0.25rem;
-  border: 1px solid #ced4da;
+// Button blue second --------------------------------------------------------
+::ng-deep .button-blue-second {
+  border-color: $appColorSix;
+  background-color: $appColorSix;
+  color: $appColorFive !important;
   &:hover {
-    border-color: var(--primary-color);
-  }
-  &:focus-within {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: 0 0 0 0.2rem var(--primary-shadow);
-    border-color: var(--primary-color);
+    border-color: $appColorFive;
+    background-color: $appColorFive;
+    color: #ffffff !important;
   }
 }
 
-// ------------------------------------------- Tables -----------------------------
-.table-header {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
+// Button yellow --------------------------------------------------------------
+::ng-deep .button-yellow {
+  border-color: $appColorSeven;
+  background-color: $appColorSeven;
+  color: #ffff !important;
+  &:hover {
+    border-color: darken($appColorSeven, 10%) !important;
+    background-color: darken($appColorSeven, 10%) !important;
+  }
+  .p-focus {
+    border-color: $appColorSeven;
+  }
 }
 
-.table-container {
-  height: 100%;
-  max-height: 100%;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  border-radius: 0.5rem;
-  background-color: white;
+// Button yellow-second --------------------------------------------------------------
+::ng-deep .button-yellow-second {
+  border-color: $appColorEight;
+  background-color: $appColorEight;
+  color: $appColorSeven !important;
+  &:hover {
+    border-color: darken($appColorEight, 10%) !important;
+    background-color: darken($appColorEight, 10%) !important;
+  }
 }
 
-::ng-deep .p-datatable {
-  margin: 0 !important;
-  width: 100%;
-  display: table;
-  table-layout: fixed;
+// Button grey --------------------------------------------------------------
+::ng-deep .button-grey {
+  border-color: $appText;
+  background-color: $appText;
+  color: $appTextThree !important;
+  &:hover {
+    border-color: darken($appText, 5%) !important;
+    background-color: darken($appText, 5%) !important;
+  }
 }
 
-.marked-column-red {
-  color: #ff2424;
+// Button green
+::ng-deep .button-app-second {
+  border-color: $appColorTwo;
+  background-color: $appColorTwo;
+  color: #ffff !important;
+  &:hover {
+    border-color: darken($appColorTwo, 5%) !important;
+    background-color: darken($appColorTwo, 5%) !important;
+  }
 }
 
-.marked-column-green {
-  color: green;
-}
-
-:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 2; //Found 1 to be the best value for this case
-  //Without zIndex the header may overlap with the rows
-  //And a higher zIndex will make the header highlight when the table is loading
-}
-
-.frozen-header {
-  position: -webkit-sticky;
-  position: sticky;
-  right: 0;
-  z-index: 3;
-}
-
-.frozen-column {
-  position: -webkit-sticky;
-  position: sticky;
-  z-index: 1;
-  background-color: white;
-  right: 0;
-}
-
-.fullscreen {
-  border-radius: 0;
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  z-index: 10;
+// ? ------------------------------------------------ Other components -----------------------------
+::ng-deep .border-sidebar {
+  border-radius: 2.5rem 0 0 2.5rem;
+  -webkit-border-radius: 2.5rem 0 0 2.5rem;
+  -moz-border-radius: 2.5rem 0 0 2.5rem;
 }

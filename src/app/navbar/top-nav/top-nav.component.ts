@@ -1,22 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  faBars,
-  faTh,
-  faCog,
-  faLifeRing,
-  faQuestionCircle,
-  faBell,
-} from '@fortawesome/free-solid-svg-icons';
+
 import { ToggleMenuAction } from '@home/store/home.actions';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { IMenu, IMenuOption } from '@shared/models/menu';
 import { ProtectedMenuItem } from '@shared/models/primeng/protected-menu-item';
-import { debounceTime, filter, Observable, Subject, takeUntil } from 'rxjs';
+import {
+  debounceTime,
+  filter,
+  first,
+  firstValueFrom,
+  Observable,
+  Subject,
+  takeUntil,
+} from 'rxjs';
+import { Startup } from '@shared/models/entities/startup';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-nav',
@@ -24,36 +26,31 @@ import { debounceTime, filter, Observable, Subject, takeUntil } from 'rxjs';
   styleUrls: ['./top-nav.component.scss'],
 })
 export class TopNavComponent {
-  availableItems: ProtectedMenuItem[] = [
-    {
-      label: 'Perfil',
-      icon: 'pi pi-user',
-      routerLink: ['/home/profile'],
-    },
-    {
-      label: 'Usuarios',
-      icon: 'pi pi-users',
-      routerLink: ['/home/admin'],
-      roles: [ValidRoles.superAdmin, ValidRoles.admin],
-    },
-    {
-      label: 'Salir',
-      icon: 'pi pi-sign-out',
-      command: () => {
-        this.auth.signOut();
-      },
-    },
-  ];
+  // availableItems: ProtectedMenuItem[] = [
+  //   {
+  //     label: 'Perfil',
+  //     icon: 'pi pi-user',
+  //     routerLink: ['/home/profile'],
+  //   },
+  //   {
+  //     label: 'Usuarios',
+  //     icon: 'pi pi-users',
+  //     routerLink: ['/home/admin'],
+  //     roles: [ValidRoles.superAdmin, ValidRoles.admin],
+  //   },
+  //   {
+  //     label: 'Salir',
+  //     icon: 'pi pi-sign-out',
+  //     command: () => {
+  //       this.auth.signOut();
+  //     },
+  //   },
+  // ];
 
   items: ProtectedMenuItem[];
   user: User;
-
-  faBars = faBars as IconProp;
-  faTh = faTh as IconProp;
-  faCog = faCog as IconProp;
-  faLifeRing = faLifeRing as IconProp;
-  faQuestionCircle = faQuestionCircle as IconProp;
-  faBell = faBell as IconProp;
+  profileDoc;
+  startup: Startup;
 
   menu$: Observable<IMenu>;
 
@@ -66,7 +63,15 @@ export class TopNavComponent {
   overlayVisible = false;
   overlayLoading = true;
   menuOverlay = [];
+
+  @Input() menuExpanded: boolean = true;
+  @Input() screenWith = 0;
+
+  rolName = '';
+  viewUserBoard = false;
+
   constructor(
+    private router: Router,
     private readonly store: Store<AppState>,
     private readonly auth: AuthService
   ) {
@@ -103,14 +108,8 @@ export class TopNavComponent {
       )
       .subscribe(async (user) => {
         this.user = user;
-        this.items = this.availableItems.filter((item) => {
-          return item.roles?.some((rol) => rol === user.rolType) ?? true;
-        });
+        this.setUserVars();
       });
-  }
-
-  toggleMenu() {
-    this.store.dispatch(new ToggleMenuAction());
   }
 
   goTo(option: IMenuOption) {
@@ -123,5 +122,50 @@ export class TopNavComponent {
     this.overlayLoading = false;
     this.overlayVisible = false;
     this.searchValue = null;
+  }
+
+  toggleMenu() {
+    this.store.dispatch(new ToggleMenuAction());
+  }
+
+  getHeadClass() {
+    let styleClass = '';
+    if (this.menuExpanded && this.screenWith > 768) {
+      styleClass = 'head-trimmed';
+    } else {
+      styleClass = 'head-md-screen';
+    }
+    return styleClass;
+  }
+
+  showSidenavButton() {
+    return this.screenWith > 768 ? true : false;
+  }
+
+  async setUserVars() {
+    if (this.user.isUser) {
+      this.profileDoc = await firstValueFrom(
+        this.store
+          .select((store) => store.auth.profileDoc)
+          .pipe(first((i) => i !== null))
+      );
+      console.log(this.profileDoc);
+      this.startup = this.profileDoc.startups[0];
+      const currentBatch = await firstValueFrom(
+        this.store
+          .select((store) => store.home.currentBatch)
+          .pipe(first((i) => i !== null))
+      );
+    } else {
+      this.rolName = this.user.rolName;
+    }
+  }
+
+  logOut() {
+    this.auth.signOut();
+  }
+
+  profileSetting() {
+    this.router.navigate(['/home/profile']);
   }
 }

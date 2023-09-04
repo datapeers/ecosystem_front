@@ -1,51 +1,82 @@
-<p-card class="login-card" styleClass="p-card-shadow shadow-5 border-round-2xl p-2">
-    <div class="flex align-items-center justify-content-center">
-        <img src="/assets/startup.png" alt="logo" height="auto" class="cursor-pointer" style="width: 180px !important;">
-    </div>
-    <h1 class="text-center m-0">Ingresa</h1>
-    <p class="text-center font-medium text-sm">Si necesitas ayuda haz <a href="https://www.ejemplo.com/" class="link-style">click aquí</a>.</p>
-    <form class="formgrid grid mt-6 gap-3" [formGroup]="loginForm">
-        <span class="w-full">
-            <input (keyup)="onKeyUp($event)" type="text" pInputText formControlName="login" class="inputfield w-full p-4 border-round-2xl" placeholder="Correo Electrónico">
+<body class="flex flex-column w-full h-full justify-content-between overflow-hidden">
+    <div class="main-body flex flex-row">
+        <div class="image-login hidden md:flex ">
 
-            <div class="flex align-items-center justify-content-center">
-                <div [hidden]="loginForm.controls['login'].valid || !loginForm.controls['login'].dirty" class="alert alert-danger">
-                    <small class="p-error">Escriba un email válido</small>
+        </div>
+        <div class="logos-login hidden md:flex flex-column justify-content-center align-items-center gap-7">
+            <div class="w-full flex justify-content-end align-items-center">
+                <ng-container *ngTemplateOutlet="loginLogo"></ng-container>
+            </div>
+            <span class="w-full font-bold text-lg text-right">!Ve por mas oportunidades!</span>
+            <span class="w-full font-bold text-7xl text-right">Te damos la bienvenida</span>
+            <div class=" w-full flex flex-row align-items-center justify-content-end gap-2">
+                <ng-container *ngTemplateOutlet="madeIn"></ng-container>
+            </div>
+        </div>
+        <div class="box-login flex flex-column align-items-center justify-content-center gap-4">
+            <div class="md:hidden flex justify-content-center align-items-center">
+                <ng-container *ngTemplateOutlet="loginLogo"></ng-container>
+            </div>
+            <div class="normal-panel w-9 login-card flex flex-column p-5 ">
+                <form [formGroup]="loginForm" class="formgrid grid mt-2" (keydown)="onKeyUp($event)">
+                    <div class="field col-12 flex flex-column align-items-center">
+                        <label htmlFor="username">Usuario</label>
+                        <input pInputText id="username" formControlName="login" placeholder="Ingresa tu correo de registro" aria-describedby="username-help" [ngClass]="{'ng-invalid ng-dirty': loginForm.touched && formControls['login'].errors}" class="w-full" />
+                        <div [hidden]="loginForm.valid || !loginForm.dirty" class="alert alert-danger">
+                            <small id="username-help" *ngIf="formControls['login'].errors?.['required']" class="error-message">Ingrese un email</small>
+                            <small id="username-help" *ngIf="formControls['login'].errors?.['email']" class="error-message">Ingrese un email valido</small>
+                        </div>
+
+                    </div>
+                    <div class="field col-12 flex flex-column align-items-center password-input">
+                        <label htmlFor="password">Clave de ingreso</label>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Ingresa tu clave" aria-describedby="password-help" [ngClass]="{'ng-invalid ng-dirty': formControls['login'].errors}"></p-password>
+                        <div [hidden]="loginForm.valid || !loginForm.dirty" class="alert alert-danger">
+                            <small id="password-help" *ngIf="formControls['password'].errors?.['required']" class="error-message">La
+                                contraseña es obligatoria</small>
+                            <small id="password-help" *ngIf="formControls['password'].errors?.['minlength']" class="error-message">La
+                                contraseña debe tener al menos 6 caracteres</small>
+                        </div>
+                    </div>
+                </form>
+                <div style="height: 4rem;"></div>
+                <div class="w-full flex flex-column gap-4 mb-2">
+                    <p-button styleClass="button-blue-second w-full align-items-center justify-content-center" (onClick)="openRecoverPsw()">
+                        <span class="mx-2 font-semibold">Olvide mi clave</span>
+                    </p-button>
+                    <p-button styleClass="w-full align-items-center justify-content-center" [loading]="loading" loadingIcon="pi pi-spinner" (onClick)="onSubmit()">
+                        <span class="mx-2 font-semibold	">Ingresar ahora</span>
+                    </p-button>
+                    <p-button styleClass="button-grey w-full align-items-center justify-content-center" (onClick)="logInWithGoogle()">
+                        <img alt="logoGoogle" src="/assets/googleLogo.svg" style="width: 1.5rem" />
+                        <span class="mx-2 font-semibold	">Ingresar con google</span>
+                    </p-button>
                 </div>
             </div>
-        </span>
-
-        <span class="w-full">
-            <p-password inputStyleClass="p-4 border-round-2xl w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Contraseña" styleClass="field-full"></p-password>
-
-            <div class="flex align-items-center justify-content-center">
-                <div [hidden]="loginForm.controls['password'].valid || !loginForm.controls['password'].dirty" class="alert alert-danger">
-                    <small class="p-error">Debe ingresarse una contraseña</small>
-                </div>
+            <div class="md:hidden flex flex-row align-items-center gap-2 justify-content-center">
+                <ng-container *ngTemplateOutlet="madeIn"></ng-container>
             </div>
-            <div class="flex align-items-center justify-content-center">
-                <div [hidden]="loginForm.controls['password'].valid || !loginForm.controls['password'].dirty" class="alert alert-danger">
-                    <small *ngIf="loginForm.controls['password'].errors?.['required']" class="error-message">La
-                        contraseña es obligatoria</small>
-                    <small *ngIf="loginForm.controls['password'].errors?.['minlength']" class="error-message">La
-                        contraseña debe tener al menos 6 caracteres</small>
-                </div>
-            </div>
-        </span>
-    </form>
-    <div class="flex flex-row justify-content-end ">
-        <p class="link-style cursor-pointer" (click)="rememberPsw = true">Olvidé mi contraseña</p>
+        </div>
     </div>
-    <p-button type="submit" label="Entrar" (onClick)="onSubmit()" [disabled]="loginForm.invalid" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
-    <p-divider [align]="'center'">
-        <p class="font-medium">O ingresa con tu cuenta:</p>
-    </p-divider>
-    <div class="flex flex-row align-items-center justify-content-around py-2">
-        <!-- <img src="/assets/microsoft.png" alt="inMicrosoft" height="auto" class="cursor-pointer" (click)="logInWithMicrosoft()" style="width: 120px !important;"> -->
-        <img src="/assets/google.png" alt="inGoogle" height="auto" class="cursor-pointer" style="width: 80px !important;" (click)="logInWithGoogle()">
-    </div>
-    <p class="text-center font-medium text-base">¿No eres miembro? <a class="link-style cursor-pointer text-purple-800" routerLink="/register">Regístrate</a>.</p>
-</p-card>
+    <footer class="flex flex-row w-full">
+        <div class="box-third-color">
+        </div>
+        <div class="box-second-color">
+        </div>
+        <div class="box-primary-color flex align-items-center justify-content-end p-2">
+            <span class="text-xs">{{footerText}}</span>
+        </div>
+    </footer>
+</body>
+
+<ng-template #loginLogo>
+    <img class="w-9" src="/assets/startup.png" />
+</ng-template>
+
+<ng-template #madeIn>
+    <img style="width: 1.5rem" src="/assets/colombia.png" />
+    <span class="text-xs">Produced in <strong>Colombia</strong> </span>
+</ng-template>
 
 <p-dialog header="Recuperar contraseña" [(visible)]="rememberPsw" [style]="{width: '50vw'}" (onHide)="recoverPsw.reset()">
     <div class="flex">
@@ -54,7 +85,7 @@
     <div class="p-col-12 p-md-4 pt-2">
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-envelope"></i></span>
-            <input type="text" pInputText placeholder="Correcto Electrónico" autofocus [ngClass]="{'ng-invalid ng-dirty': recoverPsw.hasError('email')}" [formControl]="recoverPsw">
+            <input type="text" pInputText placeholder="Correcto Electrónico" [ngClass]="{'ng-invalid ng-dirty': recoverPsw.hasError('email')}" [formControl]="recoverPsw">
         </div>
     </div>
     <div class="flex align-items-center justify-content-center">
