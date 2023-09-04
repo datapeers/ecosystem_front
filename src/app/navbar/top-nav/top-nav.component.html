@@ -12,6 +12,7 @@
                         <span class="text-xs">Fase 3</span>
 
                     </div>
+                    <div class="w-3rem"></div>
                     <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="5" [readonly]="true" [size]="50" [valueTemplate]="'75%'">
                         <ng-template pTemplate="text">a</ng-template>
                     </p-knob>
@@ -30,23 +31,14 @@
         <div class="head-content-right flex align-items-center gap-2 ">
             <div class="head-menu gap-2">
                 <div class="notificiations">
-                    <p-button styleClass="p-button-rounded button-app-second" icon="pi pi-bell">
-
-                    </p-button>
+                    <i-tabler name="bell" class="notify-btn" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
                     <div class="circle-indicator pulse"></div>
                 </div>
                 <div class="elipse-panel p-2 panel-user flex flex-row align-items-center gap-2">
                     <ng-container *ngTemplateOutlet="userShow"></ng-container>
                 </div>
             </div>
-            <!-- <div class="head-user-avatar-container">
-                <div class="head-user-avatar">
-                    <img [src]="user.profileImageUrl | getImage | async" alt="" class="user-avatar">
-                    
-                </div>
-            </div> -->
         </div>
-
     </div>
 </div>
 

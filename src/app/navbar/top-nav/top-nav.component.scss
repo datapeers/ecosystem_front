@@ -1,3 +1,5 @@
+@import "/src/styles.scss";
+
 .panel-user {
   background-color: var(--app-backgrounds);
 }
@@ -90,9 +92,21 @@
 
 .head-menu-item-btn:hover,
 .head-menu-item-btn:focus {
-  background: #eff2f3;
   .menu-icon {
     color: #699dfa;
+  }
+}
+
+.notify-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $appColorTwo;
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  &:hover {
+    background-color: darken($appColorTwo, 10%);
   }
 }
 
