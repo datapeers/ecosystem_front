@@ -8,24 +8,44 @@
     color: $appColorOne;
     font-weight: 700 !important;
   }
+
+  .left-side {
+    color: $appColorTwo;
+    font-weight: 600;
+  }
 }
 
 .notification-card {
   background-color: var(--app-backgrounds);
   color: $appTextThree;
   border-radius: 1rem;
+}
 
-  .notification-icon i-tabler {
-    margin: 0.5rem;
+.notification-info {
+  i-tabler {
+    border-radius: 15%;
+
+    color: white;
+    // font-size: 1rem;
+    margin: 0 0.5rem;
     height: 2.5rem !important;
     width: 2.5rem !important;
     padding: 0.4rem;
   }
 }
 
+.normal-color-icon {
+  background-color: $appColorSeven;
+}
+
+.primary-color-icon {
+  background-color: $appColorOne;
+}
+
 .blur-out-contract {
   animation: blur-out-contract 0.4s linear both;
 }
+
 @keyframes blur-out-contract {
   0% {
     transform: scale(1);

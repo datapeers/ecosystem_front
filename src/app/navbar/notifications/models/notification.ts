@@ -3,6 +3,7 @@ import { NotificationTypes } from './notification-types.enum';
 import * as moment from 'moment';
 
 export class Notification {
+  _id: string;
   text: string;
   date: Date;
   type: NotificationTypes;

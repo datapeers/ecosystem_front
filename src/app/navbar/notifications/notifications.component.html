@@ -2,17 +2,17 @@
     <p-tabView class="panel-notifications">
         <p-tabPanel header="Nuevas">
             <div class="flex flex-row align-items-center justify-content-between">
-                <div class="left-side flex flex-column">
-                    <span>4</span>
-                    <span>entradas</span>
+                <div class="left-side flex flex-row align-items-center gap-2">
+                    <span class="text-3xl">{{notificationNew.length}}</span>
+                    <span class="text-base">entradas</span>
                 </div>
                 <div class="right-side">
                     tiempo
                 </div>
             </div>
-            <div class="flex flex-column gap-3 mt-3">
+            <div class="flex flex-column gap-3 mt-5">
                 <ng-container *ngFor="let notification of notificationNew">
-                    <ng-container [ngTemplateOutlet]="cardNotification" [ngTemplateOutletContext]="{notification}">
+                    <ng-container [ngTemplateOutlet]="cardNotification" [ngTemplateOutletContext]="{notification, type: 'noRead'}">
                     </ng-container>
                 </ng-container>
             </div>
@@ -20,32 +20,53 @@
 
         </p-tabPanel>
         <p-tabPanel header="Leídas">
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
-                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-            </p>
+            <div class="flex flex-row align-items-center justify-content-between">
+                <div class="left-side flex flex-row align-items-center gap-2">
+                    <span class="text-3xl">{{notificationRead.length}}</span>
+                    <span class="text-base">entradas</span>
+                </div>
+                <div class="right-side">
+                    tiempo
+                </div>
+            </div>
+            <div class="flex flex-column gap-3 mt-5">
+                <ng-container *ngFor="let notification of notificationRead">
+                    <ng-container [ngTemplateOutlet]="cardNotification" [ngTemplateOutletContext]="{notification, type: 'read'}">
+                    </ng-container>
+                </ng-container>
+            </div>
         </p-tabPanel>
 
     </p-tabView>
 
 </div>
 
-<ng-template #cardNotification let-notification="notification">
-    <div class="notification-card w-full flex flex-column p-3">
+<ng-template #cardNotification let-notification="notification" let-type="type">
+    <div class="notification-card w-full flex flex-column p-3" [ngClass]="{'blur-out-contract': modified[notification._id]}">
         <div class="w-full flex flex-row align-items-start justify-content-between">
             <span class="capitalize text-xs">{{notification.dateString}}</span>
-            <i class="pi pi-times cursor-pointer"></i>
+            <i class="pi pi-times cursor-pointer" (click)="action(notification, type)"></i>
         </div>
-        <div class="flex flex-row mt-3">
+        <div class="notification-info flex flex-row align-items-center gap-2  mt-3">
             <ng-container [ngSwitch]="notification.type">
+                <ng-container *ngSwitchCase="notificationTypes.calendar">
+                    <i-tabler name="calendar-time" class="normal-color-icon"></i-tabler>
+                </ng-container>
+                <ng-container *ngSwitchCase="notificationTypes.notes">
+                    <i-tabler name="checklist" class="normal-color-icon"></i-tabler>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="notificationTypes.approved">
+                    <i-tabler name="checks" class="primary-color-icon"></i-tabler>
+                </ng-container>
                 <ng-container *ngSwitchCase="notificationTypes.homework">
-                    <i-tabler name="checklist" class="notification-icon"></i-tabler>
+                    <i-tabler name="clock-code" class="normal-color-icon"></i-tabler>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
-                    <i-tabler name="clock-code" class="notification-icon"></i-tabler>
+                    <i-tabler name="bell-code" class="normal-color-icon"></i-tabler>
                 </ng-container>
             </ng-container>
-            <span>{{notification.text}}</span>
+            <span class="w-9 text-sm font-semibold">{{notification.text}}</span>
         </div>
     </div>
 </ng-template>

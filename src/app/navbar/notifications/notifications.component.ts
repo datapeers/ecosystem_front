@@ -13,6 +13,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   notificationNew: Notification[] = [];
   notificationRead: Notification[] = [];
 
+  modified: Record<string, boolean> = {};
   public get notificationTypes(): typeof NotificationTypes {
     return NotificationTypes;
   }
@@ -31,8 +32,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   async loadComponent() {
     this.notificationsList = [
       new Notification({
+        _id: '1',
         text: 'Jhon Doe, tu tutor ha aprobado tu entregable',
-        type: NotificationTypes.homework,
+        type: NotificationTypes.notes,
         state: NotificationStates.pending,
         isDeleted: false,
         date: '2023-08-09T10:45:00.000Z' as any,
@@ -40,6 +42,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         updatedAt: '2023-08-22 15:06:16.295Z' as any,
       }),
       new Notification({
+        _id: '2',
         text: 'Te restan dos días para completar a tiempo la entrega de la Fase 3',
         type: NotificationTypes.homework,
         state: NotificationStates.pending,
@@ -49,8 +52,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         updatedAt: '2023-08-22 15:06:16.295Z' as any,
       }),
       new Notification({
+        _id: '3',
         text: '¡Felicidades! Has completado la Fase 2. No pierdas el ritmo',
-        type: NotificationTypes.homework,
+        type: NotificationTypes.approved,
         state: NotificationStates.pending,
         isDeleted: false,
         date: '2023-08-09T10:45:00.000Z' as any,
@@ -58,8 +62,9 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         updatedAt: '2023-08-22 15:06:16.295Z' as any,
       }),
       new Notification({
+        _id: '4',
         text: 'Tienes el evento programado para hoy: "Fortalecimiento de habilidades y aptitudes"',
-        type: NotificationTypes.homework,
+        type: NotificationTypes.calendar,
         state: NotificationStates.pending,
         isDeleted: false,
         date: '2023-08-09T10:45:00.000Z' as any,
@@ -77,5 +82,39 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.notificationRead = this.notificationsList.filter(
       (i) => i.state === NotificationStates.read
     );
+  }
+
+  action(notification: Notification, type: 'noRead' | 'read') {
+    switch (type) {
+      case 'noRead':
+        this.notificationMove(notification);
+        break;
+      case 'read':
+        this.notificationDelete(notification);
+        break;
+      default:
+        break;
+    }
+  }
+
+  notificationMove(notification: Notification) {
+    notification.state = NotificationStates.read;
+    this.triggerAnimation(notification);
+    this.setNotification();
+  }
+
+  notificationDelete(notification: Notification) {
+    this.notificationsList = this.notificationsList.filter(
+      (i) => i._id !== notification._id
+    );
+    this.triggerAnimation(notification);
+    this.setNotification();
+  }
+
+  triggerAnimation(notification: Notification) {
+    this.modified[notification._id] = true;
+    setTimeout(() => {
+      delete this.modified[notification._id];
+    }, 1000);
   }
 }
