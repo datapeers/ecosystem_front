@@ -52,11 +52,11 @@
     </div>
     <div class="info flex flex-column">
         <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-            <p-avatar [label]="user.nameInitial" shape="circle" class="avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+            <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
             </p-avatar>
         </ng-container>
         <ng-template #imageTemplate>
-            <p-avatar [label]="user.profileImageUrl" shape="circle" class="avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+            <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
             </p-avatar>
         </ng-template>
     </div>
@@ -71,14 +71,14 @@
 
 <ng-template #userBoard>
     <div class="flex flex-column w-full h-full gap-2 align-items-center justify-content-between">
-        <div class="w-full flex flex-column p-2 align-items-center gap-2">
-            <div class="flex flex-row align-items-center gap-2">
+        <div class="w-full flex flex-column p-2 gap-2">
+            <div class="w-full flex flex-row align-items-center justify-content-center gap-2">
                 <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-                    <p-avatar [label]="user.nameInitial" shape="circle" class="avatar flex cursor-pointer " pTooltip="Opciones" tooltipPosition="left" size="xlarge">
+                    <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app big-avatar flex cursor-pointer " pTooltip="Opciones" tooltipPosition="left">
                     </p-avatar>
                 </ng-container>
                 <ng-template #imageTemplate>
-                    <p-avatar [label]="user.profileImageUrl" shape="circle" class="avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="xlarge">
+                    <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app big-avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left">
                     </p-avatar>
                 </ng-template>
                 <div class="info-user w-full flex flex-column ">
