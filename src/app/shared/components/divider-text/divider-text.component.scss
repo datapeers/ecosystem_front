@@ -1,0 +1,25 @@
+@import "/src/styles.scss";
+
+.divider-app {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  p {
+    color: $appColorTwo;
+  }
+  .divider-line {
+    flex: 1;
+    background-color: $appColorTwo;
+    padding: 1px;
+    margin-left: 0.5rem;
+  }
+  // .divider-line::before,
+  // .divider-line::after {
+  //   flex: 1;
+  //   content: "";
+  //   padding: 0 10px;
+  //   background-color: $appColorTwo;
+  //   // margin: 5px;
+  //   margin-left: 0.5rem;
+  // }
+}
