@@ -67,9 +67,10 @@ export class TopNavComponent {
   @Input() menuExpanded: boolean = true;
   @Input() screenWith = 0;
 
+  percentCompleted = 75;
   rolName = '';
   viewUserBoard = false;
-  percentCompleted = 75;
+  viewNotificationBoard = false;
 
   constructor(
     private router: Router,

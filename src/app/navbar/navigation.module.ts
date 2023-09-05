@@ -10,6 +10,7 @@ import { SublevelMenuComponent } from './side-nav/sublevel-menu.component';
 import { IconsModule } from '../icons/icons.module';
 import { AppSharedModule } from '@shared/app-shared.module';
 import { DividerTextComponent } from '@shared/components/divider-text/divider-text.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DividerTextComponent } from '@shared/components/divider-text/divider-te
     SideNavComponent,
     SublevelMenuComponent,
     DividerTextComponent,
+    NotificationsComponent,
   ],
   imports: [
     CommonModule,

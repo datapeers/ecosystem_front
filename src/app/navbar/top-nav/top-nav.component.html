@@ -30,36 +30,30 @@
         <div class="head-content-right flex align-items-center gap-2 ">
             <div class="head-menu gap-4 align-items-center justify-content-center">
                 <div class="pt-2">
-                    <div class="notify-btn" *ngIf="showSidenavButton()" (click)="toggleMenu()">
+                    <div class="notify-btn" *ngIf="showSidenavButton()" (click)="viewNotificationBoard = true">
                         <i-tabler name="bell"></i-tabler>
                     </div>
                     <div class="circle-indicator pulse"></div>
                 </div>
-                <div class="elipse-panel p-2 panel-user flex flex-row align-items-center gap-2">
-                    <ng-container *ngTemplateOutlet="userShow"></ng-container>
+                <div class="panel-user elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2">
+                    <div class="p-2 flex flex-column w-9">
+                        <span class="cursor-default font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
+                        <span class="cursor-default font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
+                    </div>
+                    <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
+                        <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+                        </p-avatar>
+                    </ng-container>
+                    <ng-template #imageTemplate>
+                        <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+                        </p-avatar>
+                    </ng-template>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<ng-template #userShow>
-    <div class="p-2 flex flex-column max-w-15rem ">
-        <span class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
-        <span class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
-    </div>
-    <div class="info flex flex-column">
-        <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-            <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="xlarge" (click)="viewUserBoard = true">
-            </p-avatar>
-        </ng-container>
-        <ng-template #imageTemplate>
-            <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="xlarge" (click)="viewUserBoard = true">
-            </p-avatar>
-        </ng-template>
-    </div>
-</ng-template>
 
 
 <p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="w-25rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
@@ -95,7 +89,7 @@
             <span class="font-bold">'Decidir'</span>
             <span class="text-xs">Contenido de Fase 3 - Etapa Early</span>
             <p-button styleClass="w-full button-yellow button-border-mid mt-3">
-                <span class="">Retomar ultimo contenido</span>
+                <span class="w-full text-center">Retomar ultimo contenido</span>
             </p-button>
         </div>
         <div class="w-full flex flex-column gap-2">
@@ -111,3 +105,7 @@
     </div>
 
 </ng-template>
+
+<p-sidebar [(visible)]="viewNotificationBoard" position="right" styleClass="w-25rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
+    <app-notifications></app-notifications>
+</p-sidebar>

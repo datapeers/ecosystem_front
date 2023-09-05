@@ -1,8 +1,6 @@
 @import "/src/styles.scss";
 
-.panel-user {
-  background-color: var(--app-backgrounds);
-}
+$heightPanels: 4rem;
 
 .head {
   width: calc(100% - 5rem);
@@ -34,7 +32,7 @@
 
     .head-content-left {
       .panel-info {
-        height: 4rem;
+        height: $heightPanels;
         width: 25rem;
         .completed {
           width: 5rem;
@@ -66,24 +64,28 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        margin-left: 1.25rem;
-      }
-      .notify-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: $appColorTwo;
-        border-radius: 50%;
-        color: #ffffff;
-        cursor: pointer;
-        i-tabler {
-          margin: 0.5rem;
-          height: 3rem;
-          width: 3rem;
-          padding: 0.5rem;
+        .panel-user {
+          background-color: var(--app-backgrounds);
+          height: $heightPanels;
+          width: 16rem;
         }
-        &:hover {
-          background-color: darken($appColorTwo, 10%);
+        .notify-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $appColorTwo;
+          border-radius: 50%;
+          color: #ffffff;
+          cursor: pointer;
+          i-tabler {
+            margin: 0.5rem;
+            height: 2.5rem;
+            width: 2.5rem;
+            padding: 0.4rem;
+          }
+          &:hover {
+            background-color: darken($appColorTwo, 10%);
+          }
         }
       }
     }
@@ -115,7 +117,7 @@
   height: 8px;
   border-radius: 50%;
   position: relative;
-  top: -65px;
+  top: -60px;
   right: 0;
   background: $appColorTwo;
   &.pulse {
