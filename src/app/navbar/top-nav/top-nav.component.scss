@@ -6,7 +6,7 @@
 
 .head {
   width: calc(100% - 5rem);
-  height: 3.5rem;
+  // height: 3.5rem;
   margin-left: 5rem;
   z-index: 1;
   transition: all 0.5s ease;
@@ -19,9 +19,8 @@
     justify-content: space-between;
 
     .head-menu-item-btn {
-      // font-size: 14px;
-      height: 1.5rem;
-      width: 1.5rem;
+      height: 2.5rem;
+      width: 2.5rem;
       cursor: pointer;
       border: 1px solid transparent;
       border-radius: 10%;
@@ -31,18 +30,35 @@
       border-radius: 0.15rem;
       padding: 0.2rem;
       font-weight: 800 !important;
-      // padding-right: 2px;
-      // .flag {
-      //   height: 17px;
-      //   border-radius: 3px;
-      //   margin-top: 2px;
-      // }
-      // i-tabler {
-      //   margin-top: 2px;
-      //   margin-right: 2px;
-      // }
     }
+
+    .head-content-left {
+      .panel-info {
+        height: 4rem;
+        width: 25rem;
+        .completed {
+          width: 5rem;
+        }
+        .labels {
+          flex: 1;
+          text-align: left;
+        }
+      }
+    }
+
     .head-content-mid {
+      .search {
+        ::ng-deep .p-inputtext {
+          width: 20rem;
+          height: 3rem;
+          background-color: var(--app-backgrounds);
+          border: none;
+        }
+      }
+      ::ng-deep .p-input-icon-right > .p-icon-wrapper,
+      .p-input-icon-right > i:last-of-type {
+        color: $appTextThree;
+      }
     }
 
     .head-content-right {

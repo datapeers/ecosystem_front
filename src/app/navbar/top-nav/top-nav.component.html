@@ -1,19 +1,18 @@
 <div class="head" [ngClass]="getHeadClass()">
     <div class="head-content">
-        <div class="head-content-left">
-            <div class="flex flex-row gap-4 align-items-center ">
+        <div class="head-content-left ">
+            <div class="flex flex-row gap-4 align-items-center w-full">
                 <i-tabler name="align-justified" class="head-menu-item-btn menu-icon" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
-                <div class="elipse-panel bg-pink-200 p-2 flex flex-row align-items-center gap-2">
-                    <div class="elipse-panel bg-pink-500 p-2">
-                        <span class="font-bold text-white">3/10</span>
+                <div class="panel-info elipse-panel bg-pink-200 p-2 flex flex-row align-items-center justify-content-between gap-3">
+                    <div class="completed elipse-panel bg-pink-500 p-2 min-h-full flex align-items-center justify-content-center">
+                        <span class="font-semibold text-white text-xl">3/10</span>
                     </div>
-                    <div class="info flex flex-column mr-2">
-                        <span class="font-semibold text-sm">ETAPA EARLY</span>
-                        <span class="text-xs">Fase 3</span>
-
+                    <div class="labels flex flex-column">
+                        <span class="font-bold text-base">ETAPA EARLY</span>
+                        <div style="height: 3px;"></div>
+                        <span class="text-sm">Fase 3</span>
                     </div>
-                    <div class="w-3rem"></div>
-                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="50" [valueTemplate]="'75%'">
+                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="45" [valueTemplate]="'75%'">
                         <ng-template pTemplate="text">a</ng-template>
                     </p-knob>
                 </div>
@@ -22,7 +21,7 @@
         </div>
         <div class="head-content-mid">
             <div class="search-container">
-                <span class="p-input-icon-right">
+                <span class="p-input-icon-right search">
                     <i class="pi pi-search"></i>
                     <input type="text" pInputText [(ngModel)]="searchValue" placeholder="¿Que deseas buscar?" />
                 </span>
