@@ -52,11 +52,11 @@
     </div>
     <div class="info flex flex-column">
         <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-            <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+            <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="xlarge" (click)="viewUserBoard = true">
             </p-avatar>
         </ng-container>
         <ng-template #imageTemplate>
-            <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+            <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="xlarge" (click)="viewUserBoard = true">
             </p-avatar>
         </ng-template>
     </div>
@@ -91,11 +91,11 @@
                 <i-tabler class="sidenav-link-icon" name="rocket"></i-tabler>
             </p-button>
         </div>
-        <div class="normal-panel w-9 m-2 flex flex-column gap-2 ">
+        <div class="w-full normal-panel flex flex-column gap-2 p-5 m-2">
             <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>
             <span class="font-bold">'Decidir'</span>
             <span class="text-xs">Contenido de Fase 3 - Etapa Early</span>
-            <p-button styleClass="button-yellow button-border-mid mt-3">
+            <p-button styleClass="w-full button-yellow button-border-mid mt-3">
                 <span class="">Retomar ultimo contenido</span>
             </p-button>
         </div>
