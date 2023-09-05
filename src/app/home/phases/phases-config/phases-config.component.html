@@ -3,7 +3,7 @@
         <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
         </fa-icon> <span class="subheader text-white ">Configuración fases</span>
     </div>
-    <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="showDialogStages()"></p-button>
+    <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="openStages()"></p-button>
     <p-button *ngIf="user?.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button>
 </div>
 
@@ -28,100 +28,8 @@
     </div>
 </ng-container>
 
-
-<p-dialog header="Etapas" [(visible)]="showStages" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
-    <!-- <div class="w-full flex flex-row justify-content-end">
-        <p-button type="button" label="Etapa" icon="pi pi-plus" (onClick)="createStage()"></p-button>
-    </div> -->
-    <p-table [value]="stages" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '45rem'}">
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:25%">Nombre</th>
-                <th style="width:25%">Etiqueta</th>
-                <th style="width:25%">Color</th>
-                <th style="width:25%">
-                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="showStageCreator = true" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar etapa'"></button>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-stage let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="stage">
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="stage.name" required>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{stage.name}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="stage.label" required>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{stage.label}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <p-colorPicker [(ngModel)]="stage.color" [inline]="true" appendTo="body"></p-colorPicker>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            <p-colorPicker [(ngModel)]="stage.color" [disabled]="true"></p-colorPicker>
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center gap-2">
-                        <ng-container *ngIf="!editing; else editingActionsRow">
-                            <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onStageEditInit(stage)" class="p-button-rounded p-button-text" pTooltip="Editar etapa"></button>
-                            <button pButton pRipple type="button" icon="pi pi-trash" (click)="stageDelete(stage)" class="p-button-rounded p-button-text" pTooltip="Borrar etapa"></button>
-                        </ng-container>
-                        <ng-template #editingActionsRow>
-                            <button pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onStageEditSave(stage, ri)" class="p-button-rounded p-button-text p-button-success mr-2" pTooltip="Guardar cambios"></button>
-                            <button pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onStageEditCancel(stage, ri)" class="p-button-rounded p-button-text p-button-danger" pTooltip="Cancelar cambios"></button>
-                        </ng-template>
-                        <button pButton pRipple type="button" icon="pi pi-arrow-circle-up" (click)="onStageDownIndex(stage, ri)" class="p-button-rounded p-button-text" *ngIf="stage.index > 0"></button>
-                        <button pButton pRipple type="button" icon="pi pi-arrow-circle-down" (click)="onStageUpIndex(stage, ri)" class="p-button-rounded p-button-text" *ngIf="stage.index < stages.length - 1"></button>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</p-dialog>
-
 <ng-template #loadingTemplate>
     <app-loading></app-loading>
 </ng-template>
-
-<p-dialog header="Crear etapa" [(visible)]="showStageCreator" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
-    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newStage">
-        <form [formGroup]="newStage" class="flex flex-wrap gap-3 p-fluid">
-            <div class="flex-auto">
-                <label for="stageName">Nombre</label>
-                <input inputId="stageName" pInputText type="text" formControlName="name" required>
-            </div>
-            <div class="flex-auto">
-                <label for="stageLabel">Etiqueta</label>
-                <input pInputText type="text" formControlName="label" required>
-            </div>
-            <div class="flex-auto">
-                <p-colorPicker formControlName="color" [inline]="true" appendTo="body"></p-colorPicker>
-            </div>
-            <div style="height: 1rem;"></div>
-
-        </form>
-        <p-button type="submit" label="Crear" (onClick)="createStage()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="newStage.invalid"></p-button>
-
-    </div>
-
-
-
-</p-dialog>
 
 <p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

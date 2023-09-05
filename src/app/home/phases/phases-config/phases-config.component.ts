@@ -9,9 +9,7 @@ import { Router } from '@angular/router';
 import { Phase } from '../model/phase.model';
 import { ToastService } from '@shared/services/toast.service';
 import { Stage, newStage } from '../model/stage.model';
-import { cloneDeep } from 'lodash';
 import { ConfirmationService } from 'primeng/api';
-import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
@@ -121,13 +119,12 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     this.router.navigate([`/home/phases/${phase._id}/edit`]);
   }
 
-  return() {
-    this._location.back();
+  openStages() {
+    this.router.navigate([`/home/phases/stages`]);
   }
 
-  resetCreator() {
-    this.showStageCreator = false;
-    this.newStage = newStage(this.stages.length);
+  return() {
+    this._location.back();
   }
 
   openCreator() {
@@ -144,130 +141,5 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       this.onCloseDialogSub$.unsubscribe();
       this.dialogRef = null;
     });
-  }
-
-  async showDialogStages() {
-    this.showStages = true;
-  }
-
-  createStage() {
-    this.toast.info({ detail: '', summary: 'Creando' });
-    this.service
-      .createStage(this.newStage.value)
-      .then((ans) => {
-        this.toast.clear();
-        this.resetCreator();
-      })
-      .catch(console.warn);
-  }
-
-  onStageEditInit(stage: Stage) {
-    this.clonedStages[stage._id] = cloneDeep(stage);
-  }
-
-  onStageEditSave(stageToEdit: Stage, index: number) {
-    this.toast.info({ detail: '', summary: 'Guardando...' });
-    this.service
-      .updateStage(stageToEdit.toSave())
-      .then((ans) => {
-        this.toast.clear();
-        this.stages[index] = stageToEdit;
-        this.toast.success({
-          detail: 'La etapa se edito exitosamente',
-          summary: 'Etapa editada!',
-          life: 2000,
-        });
-      })
-      .catch((err) => {
-        this.toast.clear();
-        this.toast.alert({
-          summary: 'Error al editar etapa',
-          detail: err,
-          life: 12000,
-        });
-        this.onStageEditCancel(stageToEdit, index);
-      });
-  }
-
-  onStageEditCancel(stage: Stage, index: number) {
-    this.stages[index] = this.clonedStages[stage._id];
-    delete this.clonedStages[stage._id];
-  }
-
-  stageDelete(stage: Stage) {
-    if (this.stagesUsed.has(stage._id)) {
-      this.toast.alert({
-        summary: 'Etapa en uso',
-        detail:
-          'No se puede eliminar esta etapa, ya que una o varias fases la utilizan actualmente como etapa.',
-        life: 3000,
-      });
-      return;
-    }
-    this.confirmationService.confirm({
-      key: 'confirmDialog',
-      acceptLabel: 'Eliminar',
-      rejectLabel: 'Cancelar',
-      header: '¿Está seguro de que desea continuar?',
-      message: '¿Está seguro de que desea eliminar esta etapa?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: async () => {
-        this.toast.info({ detail: '', summary: 'Eliminado...' });
-        this.service
-          .deleteStage(stage._id)
-          .then((ans) => {
-            this.toast.clear();
-            this.toast.success({
-              detail: 'La etapa ha sido eliminado exitosamente',
-              summary: 'Etapa eliminado!',
-              life: 2000,
-            });
-          })
-          .catch((err) => {
-            this.toast.clear();
-            this.toast.alert({
-              summary: 'Error al intentar eliminar etapa',
-              detail: err,
-              life: 12000,
-            });
-          });
-      },
-    });
-  }
-
-  onStageUpIndex(stageToEdit: Stage, index: number) {
-    this.toast.info({ detail: '', summary: 'Guardando...' });
-    this.service
-      .updateStageIndex(index + 1, stageToEdit._id, 'up')
-      .then((ans) => {
-        this.toast.clear();
-        this.stages[index] = cloneDeep(ans);
-      })
-      .catch((err) => {
-        this.toast.clear();
-        this.toast.alert({
-          summary: 'Error al editar etapa',
-          detail: err,
-          life: 12000,
-        });
-      });
-  }
-
-  onStageDownIndex(stageToEdit: Stage, index: number) {
-    this.toast.info({ detail: '', summary: 'Guardando...' });
-    this.service
-      .updateStageIndex(index - 1, stageToEdit._id, 'down')
-      .then((ans) => {
-        this.toast.clear();
-        this.stages[index] = cloneDeep(ans);
-      })
-      .catch((err) => {
-        this.toast.clear();
-        this.toast.alert({
-          summary: 'Error al editar etapa',
-          detail: err,
-          life: 12000,
-        });
-      });
   }
 }

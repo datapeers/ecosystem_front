@@ -34,6 +34,7 @@ import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homework
 import { ToolkitComponent } from './toolkit/toolkit.component';
 import { ContentsComponent } from './contents/contents.component';
 import { InitComponent } from './init/init.component';
+import { StagesComponent } from './phases/stages/stages.component';
 
 const routes: Routes = [
   {
@@ -160,6 +161,10 @@ const routes: Routes = [
           {
             path: 'config',
             component: PhasesConfigComponent,
+          },
+          {
+            path: 'stages',
+            component: StagesComponent,
           },
           {
             path: ':id',

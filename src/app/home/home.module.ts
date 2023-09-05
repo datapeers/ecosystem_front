@@ -62,6 +62,7 @@ import { AssignStartupsHoursComponent } from './phases/phase-hours-config/assign
 import { EventCreatorComponent } from './phases/phase-events/event-creator/event-creator.component';
 import { ListParticipationComponent } from './phases/phase-events/list-participation/list-participation.component';
 import { RatingEventComponent } from './calendar/rating-event/rating-event.component';
+import { StagesComponent } from './phases/stages/stages.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -111,6 +112,7 @@ import { RatingEventComponent } from './calendar/rating-event/rating-event.compo
     EventCreatorComponent,
     ListParticipationComponent,
     RatingEventComponent,
+    StagesComponent,
   ],
   imports: [
     CommonModule,
