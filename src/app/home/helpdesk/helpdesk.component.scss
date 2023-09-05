@@ -1,0 +1,8 @@
+@import '../../../styles.scss';
+
+.table-dark::ng-deep .p-datatable .p-datatable-thead>tr>th {    
+    background-color: $appColorOne;
+    color: white;    
+    text-align: center;
+}
+

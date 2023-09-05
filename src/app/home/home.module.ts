@@ -54,6 +54,7 @@ import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-eval
 import { EvaluationTablesComponent } from './phases/phase-evaluations/evaluation-tables/evaluation-tables.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { TagModule } from 'primeng/tag';
 import { ToolkitComponent } from './toolkit/toolkit.component';
 import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homeworks.component';
 import { PhaseHomeworkTableComponent } from './phases/phase-homeworks/phase-homework-table/phase-homework-table.component';
@@ -124,6 +125,7 @@ import { HelpdeskComponent } from './helpdesk/helpdesk.component';
     PrimengModule,
     FontAwesomeModule,
     AvatarUploaderModule,
+    TagModule,
     DynamicTableModule,
     NavigationModule,
     NgxTinymceModule.forRoot({
