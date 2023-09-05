@@ -13,7 +13,7 @@
 
                     </div>
                     <div class="w-3rem"></div>
-                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="5" [readonly]="true" [size]="50" [valueTemplate]="'75%'">
+                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="50" [valueTemplate]="'75%'">
                         <ng-template pTemplate="text">a</ng-template>
                     </p-knob>
                 </div>
@@ -22,10 +22,10 @@
         </div>
         <div class="head-content-mid">
             <div class="search-container">
-                <div class="normal-search">
-                    <input type="text" class="search" name="" id="" placeholder="Buscar...">
+                <span class="p-input-icon-right">
                     <i class="pi pi-search"></i>
-                </div>
+                    <input type="text" pInputText [(ngModel)]="searchValue" placeholder="¿Que deseas buscar?" />
+                </span>
             </div>
         </div>
         <div class="head-content-right flex align-items-center gap-2 ">
@@ -46,26 +46,24 @@
 
 
 <ng-template #userShow>
-    <div class="elipse-panel p-2 flex flex-column max-w-15rem ">
+    <div class="p-2 flex flex-column max-w-15rem ">
         <span class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
         <span class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
     </div>
     <div class="info flex flex-column">
-        <p-avatar [label]="user.nameInitial" shape="circle" class="flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
-        </p-avatar>
-        <!-- <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-                                <p-avatar [label]="user.nameInitial" shape="circle" class="flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large">
-                                </p-avatar>
-                            </ng-container>
-                            <ng-template #imageTemplate>
-                                <p-avatar [image]="user.profileImageUrl | getImage | async" shape="circle" class="flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large">
-                                </p-avatar>
-                            </ng-template> -->
+        <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
+            <p-avatar [label]="user.nameInitial" shape="circle" class="avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+            </p-avatar>
+        </ng-container>
+        <ng-template #imageTemplate>
+            <p-avatar [label]="user.profileImageUrl" shape="circle" class="avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+            </p-avatar>
+        </ng-template>
     </div>
 </ng-template>
 
 
-<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="w-22rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
+<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="w-25rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
     <ng-template pTemplate="header"></ng-template>
     <ng-template pTemplate="content" styleClass="m-0 p-0"><ng-container *ngTemplateOutlet="userBoard"></ng-container></ng-template>
     <ng-template pTemplate="footer"></ng-template>
@@ -73,10 +71,27 @@
 
 <ng-template #userBoard>
     <div class="flex flex-column w-full h-full gap-2 align-items-center justify-content-between">
-        <div>
-            <ng-container *ngTemplateOutlet="userShow"></ng-container>
+        <div class="w-full flex flex-column p-2 align-items-center gap-2">
+            <div class="flex flex-row align-items-center gap-2">
+                <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
+                    <p-avatar [label]="user.nameInitial" shape="circle" class="avatar flex cursor-pointer " pTooltip="Opciones" tooltipPosition="left" size="xlarge">
+                    </p-avatar>
+                </ng-container>
+                <ng-template #imageTemplate>
+                    <p-avatar [label]="user.profileImageUrl" shape="circle" class="avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="xlarge">
+                    </p-avatar>
+                </ng-template>
+                <div class="info-user w-full flex flex-column ">
+                    <span class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
+                    <span class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
+                </div>
+            </div>
+            <p-button styleClass="w-full button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="profileSetting()">
+                <span class="mx-2 font-semibold	">Perfil startup</span>
+                <i-tabler class="sidenav-link-icon" name="rocket"></i-tabler>
+            </p-button>
         </div>
-        <div class="normal-panel m-2 px-5 py-4 flex flex-column gap-2 ">
+        <div class="normal-panel w-9 m-2 flex flex-column gap-2 ">
             <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>
             <span class="font-bold">'Decidir'</span>
             <span class="text-xs">Contenido de Fase 3 - Etapa Early</span>

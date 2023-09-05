@@ -178,12 +178,12 @@
   gap: 0.8rem;
   p {
     font-size: 0.875rem;
-    color: lighten($appColorTwo, 20%);
+    color: lighten($appColorTwo, 10%);
   }
   .divider-line {
     flex: 1;
-    background-color: lighten($appColorTwo, 20%);
-    padding: 1px;
+    background-color: lighten($appColorTwo, 10%);
+    padding-top: 1px;
     // margin-left: 0.75rem;
   }
 }
