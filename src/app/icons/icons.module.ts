@@ -49,6 +49,8 @@ import {
   IconMapSearch,
   IconBook,
   IconDoorExit,
+  IconChecklist,
+  IconClockCode,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 
@@ -100,6 +102,8 @@ const icons = {
   IconMapSearch,
   IconBook,
   IconDoorExit,
+  IconChecklist,
+  IconClockCode,
 };
 
 @NgModule({

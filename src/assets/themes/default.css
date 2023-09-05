@@ -4928,6 +4928,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   outline: 0 none;
   outline-offset: 0;
   box-shadow: inset 0 0 0 0.2rem #bfdbfe;
+  font-weight: 500;
 }
 .p-tabview
   .p-tabview-nav
@@ -4939,8 +4940,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   background: #ffffff;
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+  border-color: var(--app-color-two);
 }
 .p-tabview .p-tabview-left-icon {
   margin-right: 0.5rem;

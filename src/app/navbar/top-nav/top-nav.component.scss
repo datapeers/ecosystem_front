@@ -133,3 +133,11 @@ $heightPanels: 4rem;
     box-shadow: 0 0 0 13px rgba(17, 64, 126, 0);
   }
 }
+
+.notifications-header {
+  position: relative;
+  background-color: $appColorFour;
+  color: $appColorTwo;
+  font-weight: 600;
+  padding: 1rem;
+}
