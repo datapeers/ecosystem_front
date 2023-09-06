@@ -8,6 +8,7 @@ export interface IStage {
   label: string;
   color: string;
   icon: string;
+  description: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +20,7 @@ export class Stage implements IStage {
   label: string;
   color: string;
   icon: string;
+  description: string;
   createdAt: Date;
   updatedAt: Date;
 
@@ -42,6 +44,7 @@ export class Stage implements IStage {
       name: this.name,
       color: this.color,
       icon: this.icon,
+      description: this.description,
     };
   }
 }
@@ -58,6 +61,7 @@ export function newStage(index: number, previous?: Stage) {
     name: new FormControl<string>(previous?.name, {
       validators: [Validators.required],
     }),
+    description: new FormControl<string>(previous?.description),
     color: new FormControl<string>(previous?.color ?? '#C54927'),
     icon: new FormControl<string>(previous?.icon ?? 'pi pi-file'),
   });

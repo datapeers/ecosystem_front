@@ -7,11 +7,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { PhasesService } from '../phases.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, first, firstValueFrom } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
 import { cloneDeep } from 'lodash';
 import { ConfirmationService } from 'primeng/api';
-
+import { ActivateBtnReturn } from '@home/store/home.actions';
 @Component({
   selector: 'app-stages',
   templateUrl: './stages.component.html',
@@ -32,9 +32,17 @@ export class StagesComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private service: PhasesService,
     private router: Router,
+
     private toast: ToastService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    this.store.dispatch(new ActivateBtnReturn());
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
+  }
 
   ngOnInit(): void {
     this.loadComponent();
@@ -180,6 +188,8 @@ export class StagesComponent implements OnInit, OnDestroy {
         });
       });
   }
+
+  openCreator() {}
 
   resetCreator() {
     this.showStageCreator = false;

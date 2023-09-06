@@ -42,7 +42,7 @@
 </div>
 
 <ng-template #cardNotification let-notification="notification" let-type="type">
-    <div class="notification-card w-full flex flex-column p-3" [ngClass]="{'blur-out-contract': modified[notification._id]}">
+    <div @fadeInOut class="notification-card w-full flex flex-column p-3">
         <div class="w-full flex flex-row align-items-start justify-content-between">
             <span class="capitalize text-xs">{{notification.dateString}}</span>
             <i class="pi pi-times cursor-pointer" (click)="action(notification, type)"></i>

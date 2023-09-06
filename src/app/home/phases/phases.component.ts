@@ -18,6 +18,7 @@ import { AppState } from '@appStore/app.reducer';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { Permission } from '@auth/models/permissions.enum';
+import { NoBtnReturn } from '@home/store/home.actions';
 @Component({
   selector: 'app-phases',
   templateUrl: './phases.component.html',
@@ -60,6 +61,7 @@ export class PhasesComponent implements OnInit, OnDestroy {
     private readonly toast: ToastService,
     private router: Router
   ) {
+    this.store.dispatch(new NoBtnReturn());
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)

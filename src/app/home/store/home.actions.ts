@@ -12,6 +12,8 @@ export const SET_BREADCRUMB = '[HomeAction] Set path of breadcrumb';
 export const RESTORE_BREADCRUMB = '[HomeAction] Restore path of breadcrumb';
 export const SEARCH_CURRENT_BATCH = '[HomeAction] Search current branch user';
 export const SET_CURRENT_BATCH = '[HomeAction] Set current batch user';
+export const ACTIVATE_RETURN = '[HomeAction] Activate btn of return';
+export const NO_RETURN = '[HomeAction] Deactivate btn of return';
 export class ToggleMenuAction implements Action {
   readonly type = TOGGLE_MENU;
 
@@ -65,6 +67,17 @@ export class SetCurrentBatch implements Action {
   constructor(public batch: Phase | 'without batch' | null) {}
 }
 
+export class ActivateBtnReturn implements Action {
+  readonly type = ACTIVATE_RETURN;
+
+  constructor() {}
+}
+
+export class NoBtnReturn implements Action {
+  readonly type = NO_RETURN;
+
+  constructor() {}
+}
 export type HomeActions =
   | ToggleMenuAction
   | SetMenuAction
@@ -74,4 +87,6 @@ export type HomeActions =
   | SetBreadcrumbAction
   | RestoreBreadcrumbAction
   | SearchCurrentBatch
-  | SetCurrentBatch;
+  | SetCurrentBatch
+  | ActivateBtnReturn
+  | NoBtnReturn;

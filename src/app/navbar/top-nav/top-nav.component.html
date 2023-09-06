@@ -3,6 +3,7 @@
         <div class="head-content-left ">
             <div class="flex flex-row gap-4 align-items-center w-full">
                 <i-tabler name="align-justified" class="head-menu-item-btn menu-icon" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
+                <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn menu-icon" *ngIf="returnBtn$ | async" (click)="return()"></i-tabler>
                 <div class="panel-info elipse-panel bg-pink-200 p-2 flex flex-row align-items-center justify-content-between gap-3">
                     <div class="completed elipse-panel bg-pink-500 p-2 min-h-full flex align-items-center justify-content-center">
                         <span class="font-semibold text-white text-xl">3/10</span>

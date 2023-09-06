@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
 import { FormGroup } from '@angular/forms';
+import { ActivateBtnReturn } from '@home/store/home.actions';
 @Component({
   selector: 'app-phases-config',
   templateUrl: './phases-config.component.html',
@@ -51,6 +52,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
     private toast: ToastService,
     private confirmationService: ConfirmationService
   ) {
+    this.store.dispatch(new ActivateBtnReturn());
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)

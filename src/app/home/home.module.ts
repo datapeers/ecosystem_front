@@ -63,6 +63,7 @@ import { EventCreatorComponent } from './phases/phase-events/event-creator/event
 import { ListParticipationComponent } from './phases/phase-events/list-participation/list-participation.component';
 import { RatingEventComponent } from './calendar/rating-event/rating-event.component';
 import { StagesComponent } from './phases/stages/stages.component';
+import { IconsModule } from '../icons/icons.module';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -133,6 +134,7 @@ import { StagesComponent } from './phases/stages/stages.component';
     AppSharedModule,
     QRCodeModule,
     FullCalendarModule,
+    IconsModule,
   ],
 })
 export class HomeModule {}

@@ -2,11 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Notification } from './models/notification';
 import { NotificationTypes } from './models/notification-types.enum';
 import { NotificationStates } from './models/notification-states.enum';
+import { fadeInOut } from '../helper';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
+  animations: [fadeInOut],
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
   notificationsList: Notification[] = [];
@@ -99,7 +101,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   notificationMove(notification: Notification) {
     notification.state = NotificationStates.read;
-    this.triggerAnimation(notification);
+    // this.triggerAnimation(notification);
     this.setNotification();
   }
 
@@ -107,7 +109,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.notificationsList = this.notificationsList.filter(
       (i) => i._id !== notification._id
     );
-    this.triggerAnimation(notification);
+    // this.triggerAnimation(notification);
     this.setNotification();
   }
 

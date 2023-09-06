@@ -53,6 +53,8 @@ import {
   IconClockCode,
   IconChecks,
   IconBellCode,
+  IconArrowLeft,
+  IconArrowBackUp,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 
@@ -108,6 +110,8 @@ const icons = {
   IconClockCode,
   IconChecks,
   IconBellCode,
+  IconArrowLeft,
+  IconArrowBackUp,
 };
 
 @NgModule({
