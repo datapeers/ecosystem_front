@@ -7,13 +7,13 @@
 </div>
 
 <div class="flex flex-wrap align-items-center justify-content-around gap-1">
-    <ng-container *ngFor="let stage of stages">
-        <ng-container [ngTemplateOutlet]="stageCard" [ngTemplateOutletContext]="{stage}"></ng-container>
+    <ng-container *ngFor="let stage of stages; let index=index">
+        <ng-container [ngTemplateOutlet]="stageCard" [ngTemplateOutletContext]="{stage, index}"></ng-container>
     </ng-container>
 </div>
 
 
-<ng-template #stageCard let-stage="stage">
+<ng-template #stageCard let-stage="stage" let-index="index">
     <div class="normal-panel p-4 w-15rem">
         <span class="label-deleted" *ngIf="stage.isDeleted">Borrado</span>
         <div class="box-title p-3 flex flex-column align-items-center justify-content-between gap-3" [style.background]="getGradientBackground(stage)">
@@ -29,8 +29,16 @@
             </div>
         </div>
         <div class="flex flex-wrap align-items-center justify-content-center pt-3">
+
             <p-button *ngIf="user?.masterRol" styleClass="button-primary-app" type="button" [label]="stage.isDeleted ? 'Ver' : 'Configurar'" iconPos="right" [icon]="stage.isDeleted ? 'pi pi-eye' : 'pi pi-cog'" (onClick)="openCreator(stage, stage.isDeleted)">
             </p-button>
+            <div class="flex flex-row gap-2 w-full justify-content-center pt-2" *ngIf="user?.masterRol">
+                <p-button *ngIf="stage.index > 0" styleClass="button-primary-app" type="button" icon="pi pi-arrow-left" (onClick)="onStageDownIndex(stage, index)">
+                </p-button>
+                <p-button *ngIf="stage.index < stages.length - 1" styleClass="button-primary-app" type="button" icon="pi pi-arrow-right" (onClick)="onStageUpIndex(stage, index)">
+                </p-button>
+            </div>
+
         </div>
 
     </div>

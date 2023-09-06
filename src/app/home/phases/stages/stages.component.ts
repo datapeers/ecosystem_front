@@ -147,6 +147,7 @@ export class StagesComponent implements OnInit, OnDestroy {
         this.service
           .deleteStage(this.newStage.get('_id').value)
           .then((ans) => {
+            this.resetCreator();
             this.toast.clear();
             this.toast.success({
               detail: 'La etapa ha sido eliminado exitosamente',
