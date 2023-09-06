@@ -4,9 +4,11 @@ const fragments = {
       _id
       index
       name
+      description
       label
       color
       icon
+      isDeleted
       createdAt
       updatedAt
     }

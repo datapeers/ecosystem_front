@@ -10,10 +10,13 @@
 }
 
 .label-deleted {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
+  right: 5px;
+  top: 16px;
+  // left: -2rem;
   background-color: indianred;
-  border-radius: 10%;
-  height: 1rem;
+  border-radius: 0.5rem;
+  // height: 1rem;
+  color: white;
+  padding: 0.3rem;
 }

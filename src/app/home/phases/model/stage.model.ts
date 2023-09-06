@@ -9,6 +9,7 @@ export interface IStage {
   color: string;
   icon: string;
   description: string;
+  isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,6 +22,7 @@ export class Stage implements IStage {
   color: string;
   icon: string;
   description: string;
+  isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 
@@ -52,7 +54,7 @@ export class Stage implements IStage {
 export function newStage(index: number, previous?: Stage) {
   return new FormGroup({
     _id: new FormControl<string>(previous?._id ?? undefined),
-    index: new FormControl<number>(index, {
+    index: new FormControl<number>(previous ? previous.index : index, {
       validators: [Validators.required],
     }),
     label: new FormControl<string>(previous?.label, {

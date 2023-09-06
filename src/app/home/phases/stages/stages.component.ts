@@ -23,6 +23,7 @@ export class StagesComponent implements OnInit, OnDestroy {
   showStageCreator = false;
   newStage: FormGroup;
   stages: Stage[] = [];
+  stagesObj: Record<string, Stage> = {};
   listIconsStages = [
     'leaf',
     'brand-asana',
@@ -34,10 +35,14 @@ export class StagesComponent implements OnInit, OnDestroy {
     'seeding',
     'trees',
   ];
-
+  onlyReadForm = false;
   user: User;
   public get userPermission(): typeof Permission {
     return Permission;
+  }
+
+  get formControls() {
+    return this.newStage.controls;
   }
   constructor(
     private store: Store<AppState>,
@@ -70,6 +75,10 @@ export class StagesComponent implements OnInit, OnDestroy {
       .then((stages$) => {
         this.stages$ = stages$.subscribe((stageList) => {
           this.stages = stageList;
+          this.stagesObj = {};
+          for (const iterator of this.stages) {
+            this.stagesObj[iterator._id] = iterator;
+          }
           this.newStage = newStage(this.stages.length);
         });
       })
@@ -125,15 +134,6 @@ export class StagesComponent implements OnInit, OnDestroy {
   // }
 
   stageDelete() {
-    // if (this.stagesUsed.has(stage._id)) {
-    //   this.toast.alert({
-    //     summary: 'Etapa en uso',
-    //     detail:
-    //       'No se puede eliminar esta etapa, ya que una o varias fases la utilizan actualmente como etapa.',
-    //     life: 3000,
-    //   });
-    //   return;
-    // }
     this.confirmationService.confirm({
       key: 'confirmDialog',
       acceptLabel: 'Eliminar',
@@ -202,9 +202,15 @@ export class StagesComponent implements OnInit, OnDestroy {
       });
   }
 
-  openCreator(stage?: Stage) {
+  openCreator(stage?: Stage, onlyView?: boolean) {
     this.showStageCreator = true;
     this.newStage = newStage(this.stages.length, stage);
+    this.onlyReadForm = onlyView;
+    if (this.onlyReadForm) {
+      for (const keyControl of Object.keys(this.formControls)) {
+        this.newStage.get(keyControl)?.disable();
+      }
+    }
   }
 
   resetCreator() {

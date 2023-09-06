@@ -15,6 +15,7 @@
 
 <ng-template #stageCard let-stage="stage">
     <div class="normal-panel p-4 w-15rem">
+        <span class="label-deleted" *ngIf="stage.isDeleted">Borrado</span>
         <div class="box-title p-3 flex flex-column align-items-center justify-content-between gap-3" [style.background]="getGradientBackground(stage)">
             <ng-container *ngIf="stage.icon && stage.icon !== ''; else elseTemplate">
                 <i-tabler [name]="stage.icon" class="icon-stage"></i-tabler>
@@ -28,32 +29,28 @@
             </div>
         </div>
         <div class="flex flex-wrap align-items-center justify-content-center pt-3">
-            <p-button *ngIf="user?.masterRol" styleClass="button-primary-app" type="button" label="Configurar" iconPos="right" icon="pi pi-cog" (onClick)="openCreator(stage)">
-
+            <p-button *ngIf="user?.masterRol" styleClass="button-primary-app" type="button" [label]="stage.isDeleted ? 'Ver' : 'Configurar'" iconPos="right" [icon]="stage.isDeleted ? 'pi pi-eye' : 'pi pi-cog'" (onClick)="openCreator(stage, stage.isDeleted)">
             </p-button>
         </div>
+
     </div>
 </ng-template>
 
 
-<p-dialog header="Crear etapa" [(visible)]="showStageCreator" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
+<p-dialog header="Etapa" [(visible)]="showStageCreator" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
     <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newStage">
-        <form [formGroup]="newStage" class="flex flex-wrap gap-3 p-fluid">
-            <div class="flex-auto">
+        <form [formGroup]="newStage" class="formgrid grid">
+            <div class="field col-5">
                 <label for="stageName">Nombre</label>
-                <input inputId="stageName" pInputText type="text" formControlName="name" required>
+                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="name" required>
             </div>
-            <div class="flex-auto">
+            <div class="field col-5">
                 <label for="stageLabel">Etiqueta</label>
-                <input inputId="stageLabel" pInputText type="text" formControlName="label" required>
+                <input inputId="stageLabel" pInputText type="text" class="appearance-none outline-none w-full" formControlName="label" required>
             </div>
-            <div class="flex-auto flex flex-column">
-                <label for="stageColor">Color</label>
-                <p-colorPicker inputId="stageColor" formControlName="color" [inline]="true" appendTo="body"></p-colorPicker>
-            </div>
-            <div class="flex-auto">
+            <div class="field col-2">
                 <label for="stageIcon">Icono</label>
-                <p-dropdown [options]="listIconsStages" formControlName="icon">
+                <p-dropdown [options]="listIconsStages" formControlName="icon" styleClass="appearance-none outline-none w-full">
                     <ng-template pTemplate="selectedItem">
                         <div class="flex align-items-center gap-2" *ngIf="newStage.get('icon').value">
                             <i-tabler [name]="newStage.get('icon').value"></i-tabler>
@@ -66,25 +63,26 @@
                     </ng-template>
                 </p-dropdown>
             </div>
-            <span class="flex-auto">
-                <label for="textarea">Descripción - {{newStage.controls['description'].value?.length}}/120 caracteres permitidos</label>
-                <textarea maxlength="300" inputId="textarea" rows="4" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" pInputTextarea></textarea>
+            <div class="field col-4 flex flex-column align-items-center justify-content-center">
+                <label for="stageColor" class="text-center ">Color</label>
+                <p-colorPicker inputId="stageColor" formControlName="color" [inline]="true" appendTo="body"></p-colorPicker>
+            </div>
+
+            <span class="field col-8">
+                <label for="textarea">Descripción</label>
+                <textarea inputId="textarea" style="width: 100%;" rows="8" formControlName="description" pInputTextarea></textarea>
             </span>
             <div style="height: 1rem;"></div>
-
         </form>
-        <div class="actions flex flex-column gap-1">
-            <ng-container *ngIf="newStage.get('_id').value; else createBtn">
+        <div class="actions flex flex-column gap-1" *ngIf="!onlyReadForm">
+            <ng-container *ngIf="formControls['_id'].value; else createBtn">
                 <p-button type="submit" label="Guardar cambios" icon="pi pi-save" iconPos="right" (onClick)="onStageEditSave()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 "></p-button>
-                <p-button type="submit" label="Eliminar" icon="pi pi-trash" iconPos="right" (onClick)="stageDelete()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 button-grey" [disabled]="newStage.invalid"></p-button>
+                <p-button *ngIf="!stagesObj[formControls['_id'].value].isDeleted" type="submit" label="Eliminar" icon="pi pi-trash" iconPos="right" (onClick)="stageDelete()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 button-grey" [disabled]="newStage.invalid"></p-button>
             </ng-container>
             <ng-template #createBtn>
                 <p-button type="submit" label="Crear" (onClick)="createStage()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="newStage.invalid"></p-button>
             </ng-template>
         </div>
-
-
-
     </div>
 </p-dialog>
 
