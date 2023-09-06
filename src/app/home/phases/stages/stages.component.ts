@@ -23,6 +23,17 @@ export class StagesComponent implements OnInit, OnDestroy {
   showStageCreator = false;
   newStage: FormGroup;
   stages: Stage[] = [];
+  listIconsStages = [
+    'leaf',
+    'brand-asana',
+    'social',
+    'plant',
+    'tree',
+    'apple',
+    'plant-2',
+    'seeding',
+    'trees',
+  ];
 
   user: User;
   public get userPermission(): typeof Permission {
@@ -83,13 +94,14 @@ export class StagesComponent implements OnInit, OnDestroy {
       .catch(console.warn);
   }
 
-  onStageEditSave(stageToEdit: Stage, index: number) {
+  onStageEditSave() {
+    const stageChanges = Stage.fromJson(this.newStage.value);
     this.toast.info({ detail: '', summary: 'Guardando...' });
     this.service
-      .updateStage(stageToEdit.toSave())
+      .updateStage(stageChanges.toSave())
       .then((ans) => {
+        this.resetCreator();
         this.toast.clear();
-        this.stages[index] = stageToEdit;
         this.toast.success({
           detail: 'La etapa se edito exitosamente',
           summary: 'Etapa editada!',
@@ -112,7 +124,7 @@ export class StagesComponent implements OnInit, OnDestroy {
   //   delete this.clonedStages[stage._id];
   // }
 
-  stageDelete(stage: Stage) {
+  stageDelete() {
     // if (this.stagesUsed.has(stage._id)) {
     //   this.toast.alert({
     //     summary: 'Etapa en uso',
@@ -126,13 +138,14 @@ export class StagesComponent implements OnInit, OnDestroy {
       key: 'confirmDialog',
       acceptLabel: 'Eliminar',
       rejectLabel: 'Cancelar',
-      header: '¿Está seguro de que desea continuar?',
-      message: '¿Está seguro de que desea eliminar esta etapa?',
+      header: '¿Está seguro de que desea eliminar esta etapa?',
+      message:
+        '¿Está seguro de que desea eliminar esta etapa? Tenga en cuenta que, al eliminarla, se conservarán los registros de las fases anteriores y otros datos relacionados, pero no podrá utilizar esta etapa en el futuro. ¿Desea continuar?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         this.toast.info({ detail: '', summary: 'Eliminado...' });
         this.service
-          .deleteStage(stage._id)
+          .deleteStage(this.newStage.get('_id').value)
           .then((ans) => {
             this.toast.clear();
             this.toast.success({
@@ -189,10 +202,17 @@ export class StagesComponent implements OnInit, OnDestroy {
       });
   }
 
-  openCreator() {}
+  openCreator(stage?: Stage) {
+    this.showStageCreator = true;
+    this.newStage = newStage(this.stages.length, stage);
+  }
 
   resetCreator() {
     this.showStageCreator = false;
-    this.newStage = newStage(this.stages.length);
+  }
+
+  getGradientBackground(stage: Stage): string {
+    const style = `linear-gradient(90deg, ${stage.color} 0%, #ffffff 100%)`;
+    return style;
   }
 }

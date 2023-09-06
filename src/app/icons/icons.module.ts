@@ -55,6 +55,14 @@ import {
   IconBellCode,
   IconArrowLeft,
   IconArrowBackUp,
+  IconBrandAsana,
+  IconPlant,
+  IconTree,
+  IconTrees,
+  IconApple,
+  IconLeaf,
+  IconPlant2,
+  IconSeeding,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 
@@ -112,6 +120,14 @@ const icons = {
   IconBellCode,
   IconArrowLeft,
   IconArrowBackUp,
+  IconBrandAsana,
+  IconPlant,
+  IconTree,
+  IconTrees,
+  IconApple,
+  IconLeaf,
+  IconPlant2,
+  IconSeeding,
 };
 
 @NgModule({

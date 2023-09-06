@@ -63,6 +63,6 @@ export function newStage(index: number, previous?: Stage) {
     }),
     description: new FormControl<string>(previous?.description),
     color: new FormControl<string>(previous?.color ?? '#C54927'),
-    icon: new FormControl<string>(previous?.icon ?? 'pi pi-file'),
+    icon: new FormControl<string>(previous?.icon ?? 'leaf'),
   });
 }

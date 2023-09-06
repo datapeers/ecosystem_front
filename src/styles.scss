@@ -81,16 +81,21 @@ body {
   border-radius: 0.65rem;
 }
 
+::ng-deep .button-primary-app {
+  border-color: $appColorOne;
+  background-color: $appColorOne;
+  color: #ffff !important;
+  &:hover {
+    border-color: lighten($appColorOne, 10%) !important;
+    background-color: lighten($appColorOne, 10%) !important;
+  }
+}
+
 // Button blue --------------------------------------------------------------
 ::ng-deep .button-blue {
   border-color: $appColorFive;
   background-color: $appColorFive;
   color: #ffff !important;
-}
-
-::ng-deep .button-blue:hover {
-  // border-color: darken($appColorFive, 10%);
-  // background-color: darken($appColorFive, 10%);
 }
 
 // Button blue second --------------------------------------------------------
@@ -160,14 +165,6 @@ body {
 
 .cursor-default {
   cursor: default;
-}
-
-.return-icon {
-  color: #000000;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 0.5rem;
-  cursor: pointer;
 }
 
 .subheader {
