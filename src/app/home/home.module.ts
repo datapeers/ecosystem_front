@@ -64,6 +64,7 @@ import { EventCreatorComponent } from './phases/phase-events/event-creator/event
 import { ListParticipationComponent } from './phases/phase-events/list-participation/list-participation.component';
 import { RatingEventComponent } from './calendar/rating-event/rating-event.component';
 import { HelpdeskComponent } from './helpdesk/helpdesk.component';
+import { RouteComponent } from './route/route.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -114,6 +115,7 @@ import { HelpdeskComponent } from './helpdesk/helpdesk.component';
     ListParticipationComponent,
     RatingEventComponent,
     HelpdeskComponent,
+    RouteComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,39 @@
+@import '../../../styles.scss';
+
+.stage {
+    border-top: solid 0.625rem;
+    margin: 0 3px;
+    height: 8rem;
+    letter-spacing: 0.3rem;
+    font-weight: 500;
+}
+
+.onboarding {
+    background-image: linear-gradient(to bottom, rgba($appOnboarding, 0.3), #ffffff);
+    border-color: $appOnboarding;
+    color: $appOnboarding;
+}
+
+.early {
+    background-image: linear-gradient(to bottom, rgba($appEarly, 0.3), #ffffff);
+    border-color: $appEarly;
+    color: $appEarly;
+} 
+
+.growth {
+    background-image: linear-gradient(to bottom, rgba($appGrowth, 0.3), #ffffff);
+    border-color: $appGrowth;
+    color: $appGrowth;
+}
+
+.late {
+    background-image: linear-gradient(to bottom, rgba($appLate, 0.3), #ffffff);
+    border-color: $appLate;
+    color: $appLate;
+} 
+
+.launch {
+    background-image: linear-gradient(to bottom, rgba($appLaunch, 0.3), #ffffff);
+    border-color: $appLaunch;
+    color: $appLaunch;
+}
