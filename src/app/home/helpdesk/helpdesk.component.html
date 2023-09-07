@@ -44,11 +44,12 @@
             </ng-template>
             <ng-template pTemplate="body" let-ticket>
                 <tr>
-                    <td>{{ticket.category ? ticket.category.name : ''}}</td>
-                    <td>{{ticket.title}}</td>
-                    <td><p-tag [value]="ticket.status" [severity]="getSeverity(ticket.status)"></p-tag></td>
-                    <td>{{ticket.createdAt | date : 'yyyy/MM/yy'}}</td>
-                    <td></td>
+                    <td class="text-center">{{ticket.category ? ticket.category.name : ''}}</td>
+                    <td class="text-center">{{ticket.title}}</td>
+                    <td class="text-center"><p-tag [value]="ticket.status"
+                            [severity]="getSeverity(ticket.status)"></p-tag></td>
+                    <td class="text-center">{{ticket.createdAt | date : 'yyyy/MM/yy'}}</td>
+                    <td class="text-center"></td>
                 </tr>
             </ng-template>
         </p-table>
