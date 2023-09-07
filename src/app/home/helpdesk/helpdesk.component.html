@@ -32,7 +32,8 @@
     </div>
     <div class="flex h-4"></div>
     <div class="flex p-4 w-full normal-panel">
-        <p-table class="table-dark" [value]="tickets" [tableStyle]="{'min-width': '50rem'}">
+        <p-table class="table-dark" styleClass="p-datatable-striped" [value]="tickets"
+            [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Categoría</th>

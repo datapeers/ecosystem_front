@@ -19,11 +19,14 @@ import {
 } from 'rxjs';
 import { Startup } from '@shared/models/entities/startup';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { fadeInOut } from '../helper';
 
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
   styleUrls: ['./top-nav.component.scss'],
+  animations: [fadeInOut],
 })
 export class TopNavComponent {
   // availableItems: ProtectedMenuItem[] = [
@@ -53,6 +56,7 @@ export class TopNavComponent {
   startup: Startup;
 
   menu$: Observable<IMenu>;
+  returnBtn$: Observable<boolean>;
 
   @ViewChild('rightmenu') rightmenu;
 
@@ -60,23 +64,25 @@ export class TopNavComponent {
   search$: Subject<String> = new Subject<String>();
 
   onDestroy$: Subject<void> = new Subject();
-  overlayVisible = false;
-  overlayLoading = true;
-  menuOverlay = [];
 
   @Input() menuExpanded: boolean = true;
   @Input() screenWith = 0;
 
+  percentCompleted = 75;
   rolName = '';
   viewUserBoard = false;
-  percentCompleted = 75;
+  viewNotificationBoard = false;
 
   constructor(
     private router: Router,
     private readonly store: Store<AppState>,
-    private readonly auth: AuthService
+    private readonly auth: AuthService,
+    private _location: Location
   ) {
     this.menu$ = this.store.select((storeState) => storeState.home.menu);
+    this.returnBtn$ = this.store.select(
+      (storeState) => storeState.home.returnBtn
+    );
     this.search$
       .pipe(
         debounceTime(500),
@@ -119,9 +125,6 @@ export class TopNavComponent {
   }
 
   clearSearch() {
-    this.menuOverlay = [];
-    this.overlayLoading = false;
-    this.overlayVisible = false;
     this.searchValue = null;
   }
 
@@ -160,6 +163,10 @@ export class TopNavComponent {
     } else {
       this.rolName = this.user.rolName;
     }
+  }
+
+  return() {
+    this._location.back();
   }
 
   logOut() {

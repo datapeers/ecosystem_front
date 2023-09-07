@@ -1,12 +1,10 @@
 @import "/src/styles.scss";
 
-.panel-user {
-  background-color: var(--app-backgrounds);
-}
+$heightPanels: 4rem;
 
 .head {
   width: calc(100% - 5rem);
-  height: 3.5rem;
+  // height: 3.5rem;
   margin-left: 5rem;
   z-index: 1;
   transition: all 0.5s ease;
@@ -19,9 +17,8 @@
     justify-content: space-between;
 
     .head-menu-item-btn {
-      // font-size: 14px;
-      height: 1.5rem;
-      width: 1.5rem;
+      height: 2.5rem;
+      width: 2.5rem;
       cursor: pointer;
       border: 1px solid transparent;
       border-radius: 10%;
@@ -31,18 +28,35 @@
       border-radius: 0.15rem;
       padding: 0.2rem;
       font-weight: 800 !important;
-      // padding-right: 2px;
-      // .flag {
-      //   height: 17px;
-      //   border-radius: 3px;
-      //   margin-top: 2px;
-      // }
-      // i-tabler {
-      //   margin-top: 2px;
-      //   margin-right: 2px;
-      // }
     }
+
+    .head-content-left {
+      .panel-info {
+        height: $heightPanels;
+        width: 24rem;
+        .completed {
+          width: 5rem;
+        }
+        .labels {
+          flex: 1;
+          text-align: left;
+        }
+      }
+    }
+
     .head-content-mid {
+      .search {
+        ::ng-deep .p-inputtext {
+          width: 20rem;
+          height: 3rem;
+          background-color: var(--app-backgrounds);
+          border: none;
+        }
+      }
+      ::ng-deep .p-input-icon-right > .p-icon-wrapper,
+      .p-input-icon-right > i:last-of-type {
+        color: $appTextThree;
+      }
     }
 
     .head-content-right {
@@ -50,24 +64,28 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        margin-left: 1.25rem;
-      }
-      .notify-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: $appColorTwo;
-        border-radius: 50%;
-        color: #ffffff;
-        cursor: pointer;
-        i-tabler {
-          margin: 0.5rem;
-          height: 3rem;
-          width: 3rem;
-          padding: 0.5rem;
+        .panel-user {
+          background-color: var(--app-backgrounds);
+          height: $heightPanels;
+          width: 16rem;
         }
-        &:hover {
-          background-color: darken($appColorTwo, 10%);
+        .notify-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $appColorTwo;
+          border-radius: 50%;
+          color: #ffffff;
+          cursor: pointer;
+          i-tabler {
+            margin: 0.5rem;
+            height: 2.5rem;
+            width: 2.5rem;
+            padding: 0.4rem;
+          }
+          &:hover {
+            background-color: darken($appColorTwo, 10%);
+          }
         }
       }
     }
@@ -99,7 +117,7 @@
   height: 8px;
   border-radius: 50%;
   position: relative;
-  top: -65px;
+  top: -60px;
   right: 0;
   background: $appColorTwo;
   &.pulse {
@@ -114,4 +132,12 @@
   100% {
     box-shadow: 0 0 0 13px rgba(17, 64, 126, 0);
   }
+}
+
+.notifications-header {
+  position: relative;
+  background-color: $appColorFour;
+  color: $appColorTwo;
+  font-weight: 600;
+  padding: 1rem;
 }

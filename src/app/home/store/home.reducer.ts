@@ -9,6 +9,7 @@ export interface IHomeState {
   otherMenu: IMenu;
   breadcrumb: string[];
   currentBatch: Phase | 'without batch' | null;
+  returnBtn: boolean;
 }
 
 const initialState: IHomeState = {
@@ -18,6 +19,7 @@ const initialState: IHomeState = {
   otherMenu: null,
   breadcrumb: [],
   currentBatch: null,
+  returnBtn: false,
 };
 
 export function homeReducer(
@@ -44,6 +46,10 @@ export function homeReducer(
         localStorage.setItem('currentBatch', '');
       }
       return { ...state, currentBatch: action.batch };
+    case fromHome.ACTIVATE_RETURN:
+      return { ...state, returnBtn: true };
+    case fromHome.NO_RETURN:
+      return { ...state, returnBtn: false };
     default:
       return { ...state };
   }

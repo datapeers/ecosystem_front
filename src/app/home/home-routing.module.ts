@@ -36,6 +36,7 @@ import { ContentsComponent } from './contents/contents.component';
 import { InitComponent } from './init/init.component';
 import { HelpdeskComponent } from './helpdesk/helpdesk.component';
 import { RouteComponent } from './route/route.component';
+import { StagesComponent } from './phases/stages/stages.component';
 
 const routes: Routes = [
   {
@@ -170,6 +171,10 @@ const routes: Routes = [
           {
             path: 'config',
             component: PhasesConfigComponent,
+          },
+          {
+            path: 'stages',
+            component: StagesComponent,
           },
           {
             path: ':id',

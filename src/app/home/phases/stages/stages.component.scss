@@ -1,0 +1,22 @@
+.box-title {
+  border-radius: 10%;
+  color: var(--text-color);
+}
+
+.icon-stage {
+  width: 5rem;
+  height: 5rem;
+  padding-top: 1rem;
+}
+
+.label-deleted {
+  position: relative;
+  right: 5px;
+  top: 16px;
+  // left: -2rem;
+  background-color: indianred;
+  border-radius: 0.5rem;
+  // height: 1rem;
+  color: white;
+  padding: 0.3rem;
+}

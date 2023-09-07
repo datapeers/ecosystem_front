@@ -55,6 +55,69 @@ export class HelpdeskComponent {
       },
       createdAt: '2023-09-05T12:00:00Z',
     },
+    {
+      _id: '1',
+      title: 'Título 1',
+      status: 'Opened',
+      childs: [
+        {
+          body: 'Cuerpo del elemento 1',
+          attachment: ['archivo1.pdf', 'imagen1.jpg'],
+          isResposne: true,
+          answerBy: 'Usuario 1',
+        },
+      ],
+      startupId: 'startup1',
+      startupName: 'Startup A',
+      category: {
+        _id: 'cat1',
+        name: 'Categoría 1',
+        color: 'Azul',
+      },
+      createdAt: '2023-09-05T12:00:00Z',
+    },
+    {
+      _id: '1',
+      title: 'Título 1',
+      status: 'Opened',
+      childs: [
+        {
+          body: 'Cuerpo del elemento 1',
+          attachment: ['archivo1.pdf', 'imagen1.jpg'],
+          isResposne: true,
+          answerBy: 'Usuario 1',
+        },
+      ],
+      startupId: 'startup1',
+      startupName: 'Startup A',
+      category: {
+        _id: 'cat1',
+        name: 'Categoría 1',
+        color: 'Azul',
+      },
+      createdAt: '2023-09-05T12:00:00Z',
+    },
+    {
+      _id: '1',
+      title: 'Título 1',
+      status: 'Opened',
+      childs: [
+        {
+          body: 'Cuerpo del elemento 1',
+          attachment: ['archivo1.pdf', 'imagen1.jpg'],
+          isResposne: true,
+          answerBy: 'Usuario 1',
+        },
+      ],
+      startupId: 'startup1',
+      startupName: 'Startup A',
+      category: {
+        _id: 'cat1',
+        name: 'Categoría 1',
+        color: 'Azul',
+      },
+      createdAt: '2023-09-05T12:00:00Z',
+    },
   ];
 
   cols = [

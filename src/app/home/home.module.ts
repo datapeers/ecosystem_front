@@ -65,6 +65,8 @@ import { ListParticipationComponent } from './phases/phase-events/list-participa
 import { RatingEventComponent } from './calendar/rating-event/rating-event.component';
 import { HelpdeskComponent } from './helpdesk/helpdesk.component';
 import { RouteComponent } from './route/route.component';
+import { StagesComponent } from './phases/stages/stages.component';
+import { IconsModule } from '../icons/icons.module';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -116,6 +118,7 @@ import { RouteComponent } from './route/route.component';
     RatingEventComponent,
     HelpdeskComponent,
     RouteComponent,
+    StagesComponent,
   ],
   imports: [
     CommonModule,
@@ -137,6 +140,7 @@ import { RouteComponent } from './route/route.component';
     AppSharedModule,
     QRCodeModule,
     FullCalendarModule,
+    IconsModule,
   ],
 })
 export class HomeModule {}

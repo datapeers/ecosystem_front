@@ -8,6 +8,8 @@ export interface IStage {
   label: string;
   color: string;
   icon: string;
+  description: string;
+  isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +21,8 @@ export class Stage implements IStage {
   label: string;
   color: string;
   icon: string;
+  description: string;
+  isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
 
@@ -42,6 +46,7 @@ export class Stage implements IStage {
       name: this.name,
       color: this.color,
       icon: this.icon,
+      description: this.description,
     };
   }
 }
@@ -49,7 +54,7 @@ export class Stage implements IStage {
 export function newStage(index: number, previous?: Stage) {
   return new FormGroup({
     _id: new FormControl<string>(previous?._id ?? undefined),
-    index: new FormControl<number>(index, {
+    index: new FormControl<number>(previous ? previous.index : index, {
       validators: [Validators.required],
     }),
     label: new FormControl<string>(previous?.label, {
@@ -58,7 +63,8 @@ export function newStage(index: number, previous?: Stage) {
     name: new FormControl<string>(previous?.name, {
       validators: [Validators.required],
     }),
+    description: new FormControl<string>(previous?.description),
     color: new FormControl<string>(previous?.color ?? '#C54927'),
-    icon: new FormControl<string>(previous?.icon ?? 'pi pi-file'),
+    icon: new FormControl<string>(previous?.icon ?? 'leaf'),
   });
 }
