@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-route',
@@ -140,5 +140,10 @@ export class RouteComponent {
     }
 
     return 1.5 + faseOrder * 0.3;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.break = window.innerWidth < 1200;
   }
 }

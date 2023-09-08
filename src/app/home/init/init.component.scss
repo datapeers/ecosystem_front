@@ -1,0 +1,59 @@
+@import '../../../styles.scss';
+
+.stage {
+    border-radius: 1.25rem;
+    padding: 0.5rem 0.5rem;  
+    color: white;  
+}
+
+.final-panel {
+    border-radius: 3.125rem;
+    background-color: #FFF1DC;
+    padding: 0.5rem 0.5rem;
+
+    
+}
+
+.final-panel ::ng-deep .p-button {
+    border-radius: 3.125rem;
+    background-color: #F7AF42;
+    border-color: #F7AF42;
+}
+
+.avatar {
+    width: 5rem;
+    height: 5rem;
+    background-color: aqua;
+    border-radius: 100%;
+    border: solid #FFF 3px;
+    -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+}
+
+.header-statistics {
+    border-radius: 1.25rem;
+    background-color: $appColorOne;
+    padding: 2.875rem;
+    color: $appColorTwo;
+    .th2{
+        letter-spacing: 0.7px;
+    }
+}
+
+.icon-panel {    
+    border-radius: 1.25rem;
+    padding: 1rem;
+    background-color: rgba(#18E4E6, 0.2);
+
+    i-tabler {
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
+.content {    
+    max-height: calc(100vh - 102px);
+    overflow-y: auto;
+    padding: 1rem;
+}

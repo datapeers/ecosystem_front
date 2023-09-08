@@ -101,3 +101,36 @@
         width: auto; // Elimina la restricción del ancho máximo para que pueda ser mayor de 1400px si es necesario
     }
 }
+
+.tag {
+    background-color: $appColorOne;
+    color: #FFFFFF;
+    border-radius: 0.625rem;
+    padding: 0.625rem 0.9375rem;
+}
+
+.indicator {
+    background-color: $appColorOne;
+    border: solid 6px $appText;
+    border-radius: 100%;
+    height: 10rem;
+    width: 10rem;
+}
+
+.header-panel {    
+    @media (min-width: 1200px) {
+            border-radius: 1.25rem;
+                background-image: linear-gradient(to right, #DCDCDC, #FAFAFA);
+                padding: 2.5rem 3.75rem;
+        }
+}
+
+.header-panel-child {
+    @media (max-width: 1200px) {
+    border-radius: 1.25rem;
+        background-image: linear-gradient(to right, #DCDCDC, #FAFAFA);
+        padding: 0.3rem 1rem;
+        }
+ 
+        
+}

@@ -2,13 +2,21 @@
 
 $heightPanels: 4.375rem;
 $optionsSidePanel: 21.125rem;
+$heightPanels: 4rem;
+
+:host {
+  background-color: $appColorOne;
+}
+
 .head {
   width: calc(100% - 5rem);
   // height: 3.5rem;
   margin-left: 5rem;
   z-index: 1;
   transition: all 0.5s ease;
-  position: fixed;
+  //position: fixed;
+  border-radius: 3.125rem 0 0 0;
+  background-color: #ffffff;
   top: 0;
   .head-content {
     padding: 1rem 1.5rem;
