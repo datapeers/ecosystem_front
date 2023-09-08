@@ -26,13 +26,15 @@ export class HomeService {
     if (user.allowed(Permission.view_business)) menuItems.push('businesses');
     if (user.allowed(Permission.view_startups)) menuItems.push('startUps');
     if (user.allowed(Permission.view_experts)) menuItems.push('expert');
-    menuItems.push('public-nodes');
-    if (user.allowed(Permission.help_desk_view)) menuItems.push('helpDesk');
-    if (user.allowed(Permission.sites_and_services_view))
-      menuItems.push('siteAndServices');
+    if (user.isUser) menuItems.push('route');
     if (user.isUser) menuItems.push('contents');
     if (user.isUser) menuItems.push('toolkit');
     menuItems.push('agenda');
+    menuItems.push('public-nodes');
+    if (user.isUser) menuItems.push('helpDesk');
+    if (user.allowed(Permission.sites_and_services_view))
+      menuItems.push('siteAndServices');
+
     if (user.allowed(Permission.reports_view)) menuItems.push('reports');
     if (adminOptions.includes(user.rolType as ValidRoles))
       menuItems.push('settings');
@@ -66,7 +68,7 @@ export class HomeService {
         icon: '',
       },
       init: {
-        label: 'Inicio',
+        label: 'Dashboard',
         rute: '/home/inicio',
         type: 'single',
         icon: 'smart-home',

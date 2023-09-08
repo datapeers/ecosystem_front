@@ -144,7 +144,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   getActiveClass(item: IMenuOption): string {
-    return this.router.url.includes(item.rute) ? 'active uppercase' : '';
+    return this.router.url.includes(item.rute) ? 'active' : '';
   }
 
   shrinkItems(item: IMenuOption) {

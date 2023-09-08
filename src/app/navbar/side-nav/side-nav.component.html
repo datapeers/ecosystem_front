@@ -7,7 +7,7 @@
             <li class="sidenav-nav-item" *ngFor="let item of menu.options">
                 <ng-container [ngSwitch]="item.type">
                     <ng-container *ngSwitchCase="'single'">
-                        <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
+                        <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
                             <i-tabler class="sidenav-link-icon flex align-items-center" [name]="item.icon"></i-tabler>
                             <p class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
                                 {{item.label}}
