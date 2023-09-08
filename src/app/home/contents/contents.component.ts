@@ -57,6 +57,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
   marked = true;
   colorPhase = '#EA4254';
+  countContent = 0;
   // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
@@ -132,6 +133,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
         const previousSprint = (
           await firstValueFrom(this.route.queryParamMap)
         ).get('sprint');
+
         if (!previousSprint) {
           this.sprintSelected =
             this.sprints.find((i) =>
@@ -198,6 +200,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
       return;
     }
     const menu = await this.service.optionsMenu(this.sprintSelected, this.user);
+    console.log(this.sprints);
     // this.store.dispatch(new SetOtherMenuAction(menu));
     this.indexContent = 0;
     this.contentSelected = this.sprintSelected.childs[0];
@@ -311,5 +314,23 @@ export class ContentsComponent implements OnInit, OnDestroy {
     const colorRgb = hexToRgb(color);
     const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
     return style;
+  }
+
+  iconState(content: Content) {
+    if (content._id === '64fb4b87e309965c9ef1187d') return 'corner-down-right';
+    if (this.contentCompleted[content._id]) return 'check';
+    return '';
+  }
+
+  textState(content: Content) {
+    if (content._id === '64fb4b87e309965c9ef1187d') return 'En curso';
+    if (this.contentCompleted[content._id]) return 'completado';
+    return 'Por completar';
+  }
+
+  colorByState(content: Content) {
+    if (content._id === '64fb4b87e309965c9ef1187d') return '#f7af42';
+    if (this.contentCompleted[content._id]) return '#317bf4';
+    return '#dcdcdc';
   }
 }

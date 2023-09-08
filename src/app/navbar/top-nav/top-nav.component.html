@@ -13,7 +13,7 @@
                         <div style="height: 3px;"></div>
                         <span class="text-sm">Fase 3</span>
                     </div>
-                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="45" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
+                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
                         <ng-template pTemplate="text">a</ng-template>
                     </p-knob>
                 </div>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="circle-indicator pulse"></div>
                 </div>
-                <div class="panel-user elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2">
+                <div class="panel-user elipse-panel flex flex-row align-items-center justify-content-between gap-2">
                     <div class="p-2 flex flex-column w-9">
                         <span class="cursor-default font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
                         <span class="cursor-default font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>

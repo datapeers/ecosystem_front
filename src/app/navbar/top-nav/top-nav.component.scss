@@ -1,8 +1,7 @@
 @import "/src/styles.scss";
 
-$heightPanels: 4.375rem;
 $optionsSidePanel: 21.125rem;
-$heightPanels: 4rem;
+$heightPanels: 4.375rem;
 
 :host {
   background-color: $appColorOne;
@@ -75,9 +74,13 @@ $heightPanels: 4rem;
           background-color: var(--app-backgrounds);
           height: $heightPanels;
           width: 17.875rem;
+          padding: 0.625rem 0.625rem 0.625rem 1.875rem;
           ::ng-deep .p-avatar {
             width: 3.65rem !important;
             height: 3.65rem !important;
+            -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
           }
           .info-user {
             width: 11.5rem;
