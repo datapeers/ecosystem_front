@@ -56,10 +56,15 @@ import {
   IconChecks,
   IconChartDots,
   IconBellCode,
+  IconEye,
+  IconDownload,
+  IconUpload,
   IconArrowLeft,
   IconArrowBackUp,
   IconBrandAsana,
   IconPlant,
+  IconList,
+  IconLayoutGrid,
   IconTree,
   IconTrees,
   IconApple,
@@ -69,6 +74,7 @@ import {
   IconAward,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
+import { Icon } from 'leaflet';
 
 // Select some icons (use an object, not an array)
 const icons = {
@@ -78,8 +84,13 @@ const icons = {
   IconCamera,
   IconChartDots,
   IconHeart,
+  IconList,
+  IconLayoutGrid,
   IconListCheck,
   IconBrandGithub,
+  IconEye,
+  IconDownload,
+  IconUpload,
   IconSmartHome,
   IconStairsUp,
   IconLayoutBoardSplit,

@@ -22,7 +22,7 @@ $appTextTwo: #aeaeae;
 $appTextThree: #6b6b6b;
 $appTextFour: #0000;
 
-$greyThird: #f6f6f6;
+$grayThird: #f6f6f6;
 
 $text-color: #172b4d;
 $background-color: rgba(
@@ -178,7 +178,7 @@ body {
 // ? ----------------------------------------------- DropDown --------------------------------------
 
 ::ng-deep .p-dropdown {
-  background-color: $greyThird;
+  background-color: $grayThird;
   color: black;
   border: none;
   font-size: 1rem;

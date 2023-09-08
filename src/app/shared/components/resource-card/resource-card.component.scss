@@ -1,0 +1,52 @@
+@import "../../../../styles.scss";
+
+.container {
+    background-color: #ffffff;
+    border-radius: 1.875rem;
+    -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+    padding: 1.875rem;
+    max-width: 20rem;
+    max-height: 25rem;
+    .sh1 {
+        font-weight: 500;
+    }
+    .th1 {
+        color: $appTextTwo;
+        font-weight: 450;
+    }
+}
+
+.panel-date {
+    border-radius: 2.5rem;
+    background-color: #FFF1DC;
+    padding: 0.5rem 1rem;
+    color: $appColorSeven;
+}
+
+.color-seven {
+    color: $appColorSeven;
+}
+
+.panel-icon {
+    border-radius: 0.625rem;
+    padding: 0.625rem;
+    background-color: $grayThird;
+    color: $appTextThree;
+    i-tabler {
+        height: 1.25rem;
+        width: 1.25rem;
+    }
+}
+
+.tag {
+    border-radius: 2.5rem;
+    background-color: #E7F2FF;
+    padding: 0.625rem 1.75rem;
+    color: $appColorFive;
+    p {        
+        font-weight: 500;
+        font-size: 1.1875rem;
+    }
+}
