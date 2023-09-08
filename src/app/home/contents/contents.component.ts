@@ -30,6 +30,7 @@ import {
   resourcesTypesNames,
 } from '@home/phases/model/resources-types.model';
 import { IUserLog } from './models/user-logs';
+import { hexToRgb } from '@shared/utils/hexToRgb';
 
 @Component({
   selector: 'app-contents',
@@ -55,6 +56,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   previousContent: boolean = false;
 
   marked = true;
+  colorPhase = '#EA4254';
   // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
@@ -295,5 +297,19 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.toast.error({ summary: 'Error!', detail: err, life: 12000 })
       )
       .finally(() => (this.savingCompleted = false));
+  }
+
+  gradient() {
+    const style = `linear-gradient(180deg, ${this.withOpacity(
+      this.colorPhase,
+      0.2
+    )} 0%, #ffffff 100%)`;
+    return style;
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb = hexToRgb(color);
+    const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
+    return style;
   }
 }

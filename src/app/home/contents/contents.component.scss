@@ -9,6 +9,25 @@
   justify-content: space-between;
   // align-items: stretch;
   // align-content: stretch;
+  .phase-display {
+    border-radius: 2rem;
+
+    .title-sprint {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+    }
+
+    .icon-stage {
+      width: 5rem;
+      height: 5rem;
+      border: 1px solid transparent;
+      outline: 0;
+      color: white;
+      border-radius: 25%;
+      stroke-width: 1px;
+      padding: 1rem;
+    }
+  }
 }
 
 .navigation-panel {
@@ -55,10 +74,7 @@
     flex-direction: column;
     height: 100%;
     .navigation-controls {
-      flex: 1;
-    }
-    .phase-display {
-      flex: 9;
+      width: 6.875rem;
     }
   }
 }

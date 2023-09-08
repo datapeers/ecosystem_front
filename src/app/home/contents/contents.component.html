@@ -1,14 +1,23 @@
 <ng-container *ngIf="loaded; else loadingTemplates">
     <div class="container-component px-4 py-2 gap-4">
-        <div class="normal-panel navigation-panel flex flex-row ">
-            <div class="phase-column w-full mt-3 flex flex-row align-items-center justify-content-between">
-                <div class="navigation-controls">
+        <div class="normal-panel navigation-panel flex flex-row py-3">
+            <div class="phase-column w-full flex flex-column align-items-center justify-content-between">
+                <div class="navigation-controls flex flex-row justify-content-between">
                     <i-tabler name="chevron-left" class="direction-btn"></i-tabler>
                     <i-tabler name="chevron-right" class="direction-btn"></i-tabler>
                 </div>
-                <div class="phase-display" [style.color]="'#EA4254'"></div>
+                <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 mb-2" [style.background]="gradient()">
+                    <div class="flex flex-column align-items-center gap-3" style="padding: 1.875rem;" [style.color]="colorPhase">
+                        <span class="text-3xl font-semibold">FASE</span>
+                        <span class="text-8xl font-bold">3</span>
+                    </div>
+                    <div class="flex flex-column align-items-center gap-5">
+                        <span class="title-sprint font-semibold text-2xl " [style.color]="colorPhase">Design sprint</span>
+                        <i-tabler class="icon-stage" name="social" [style.background-color]="colorPhase"></i-tabler>
+                    </div>
+                </div>
             </div>
-            <div class="navigation-contents">
+            <div class="navigation-contents ml-3">
                 <p-button styleClass="w-full button-blue-second button-border-mid align-items-center justify-content-between">
                     <span class="font-semibold">Ver entregables de la fase</span>
                 </p-button>
