@@ -154,8 +154,9 @@ export class TopNavComponent {
           .select((store) => store.auth.profileDoc)
           .pipe(first((i) => i !== null))
       );
-      console.log(this.profileDoc);
+
       this.startup = this.profileDoc.startups[0];
+      console.log(this.startup);
       const currentBatch = await firstValueFrom(
         this.store
           .select((store) => store.home.currentBatch)
@@ -176,6 +177,10 @@ export class TopNavComponent {
 
   profileSetting() {
     this.router.navigate(['/home/profile']);
+  }
+
+  colorStageBackground() {
+    return `{background-color}`;
   }
 
   gradient() {
