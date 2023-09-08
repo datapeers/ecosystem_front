@@ -94,7 +94,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onCloseDialogSub$?.unsubscribe();
     this.userLogs$?.unsubscribe();
-    this.store.dispatch(new RestoreMenuAction());
+    // this.store.dispatch(new RestoreMenuAction());
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
@@ -154,7 +154,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
       .then((logs$) => {
         this.userLogs$ = logs$.subscribe((logsList) => {
           this.logs = logsList;
-          console.log(this.logs);
+          // console.log(this.logs);
           this.setContentCompleted(this.logs);
         });
       })
@@ -195,7 +195,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
       return;
     }
     const menu = await this.service.optionsMenu(this.sprintSelected, this.user);
-    this.store.dispatch(new SetOtherMenuAction(menu));
+    // this.store.dispatch(new SetOtherMenuAction(menu));
     this.indexContent = 0;
     this.contentSelected = this.sprintSelected.childs[0];
     if (contentId) {
