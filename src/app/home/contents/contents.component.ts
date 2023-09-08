@@ -30,6 +30,7 @@ import {
   resourcesTypesNames,
 } from '@home/phases/model/resources-types.model';
 import { IUserLog } from './models/user-logs';
+import { hexToRgb } from '@shared/utils/hexToRgb';
 
 @Component({
   selector: 'app-contents',
@@ -54,6 +55,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
   nextContent: boolean = false;
   previousContent: boolean = false;
 
+  marked = true;
+  colorPhase = '#EA4254';
   // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
@@ -94,7 +97,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onCloseDialogSub$?.unsubscribe();
     this.userLogs$?.unsubscribe();
-    this.store.dispatch(new RestoreMenuAction());
+    // this.store.dispatch(new RestoreMenuAction());
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
@@ -154,7 +157,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
       .then((logs$) => {
         this.userLogs$ = logs$.subscribe((logsList) => {
           this.logs = logsList;
-          console.log(this.logs);
+          // console.log(this.logs);
           this.setContentCompleted(this.logs);
         });
       })
@@ -195,7 +198,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
       return;
     }
     const menu = await this.service.optionsMenu(this.sprintSelected, this.user);
-    this.store.dispatch(new SetOtherMenuAction(menu));
+    // this.store.dispatch(new SetOtherMenuAction(menu));
     this.indexContent = 0;
     this.contentSelected = this.sprintSelected.childs[0];
     if (contentId) {
@@ -294,5 +297,19 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.toast.error({ summary: 'Error!', detail: err, life: 12000 })
       )
       .finally(() => (this.savingCompleted = false));
+  }
+
+  gradient() {
+    const style = `linear-gradient(180deg, ${this.withOpacity(
+      this.colorPhase,
+      0.2
+    )} 0%, #ffffff 100%)`;
+    return style;
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb = hexToRgb(color);
+    const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
+    return style;
   }
 }

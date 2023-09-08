@@ -72,6 +72,8 @@ import {
   IconPlant2,
   IconSeeding,
   IconAward,
+  IconChevronLeft,
+  IconChevronRight,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 import { Icon } from 'leaflet';
@@ -147,6 +149,8 @@ const icons = {
   IconLeaf,
   IconPlant2,
   IconSeeding,
+  IconChevronLeft,
+  IconChevronRight,
 };
 
 @NgModule({

@@ -1,0 +1,95 @@
+@import "/src/styles.scss";
+
+.container-component {
+  display: flex;
+  flex-direction: row;
+  // flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  // align-items: stretch;
+  // align-content: stretch;
+  .phase-display {
+    border-radius: 2rem;
+
+    .title-sprint {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+    }
+
+    .icon-stage {
+      width: 5rem;
+      height: 5rem;
+      border: 1px solid transparent;
+      outline: 0;
+      color: white;
+      border-radius: 25%;
+      stroke-width: 1px;
+      padding: 1rem;
+    }
+  }
+}
+
+.navigation-panel {
+  width: 32rem;
+}
+
+.display-content {
+  width: 100%;
+  .state-content {
+    width: 8.5625rem;
+    height: 2.5rem;
+  }
+
+  .completed-btn {
+    width: 16rem !important;
+    height: 3.4375rem !important;
+  }
+  ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+    border-color: $appColorSeven;
+    background-color: $appColorSeven;
+  }
+}
+
+.navigation-panel {
+  padding: 0 1.875rem;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: stretch;
+  .direction-btn {
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: 0;
+    color: #495057;
+    background-color: var(--app-backgrounds);
+    border-radius: 25%;
+    padding: 0.5625rem;
+    stroke-width: 2.5px;
+  }
+  .phase-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .navigation-controls {
+      width: 6.875rem;
+    }
+  }
+}
+
+// ? Scrollbar and visibility on hover and focus
+
+.scrollwrap {
+  overflow-y: auto;
+  visibility: hidden;
+  height: calc(100vh - 102px - 2.5rem) !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
+}
+
+.display-content,
+.scrollwrap:hover,
+.scrollwrap:focus {
+  visibility: visible;
+}

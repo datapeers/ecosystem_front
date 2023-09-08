@@ -162,6 +162,7 @@ export class TopNavComponent {
           .select((store) => store.home.currentBatch)
           .pipe(first((i) => i !== null))
       );
+      this.rolName = 'CEO Emprendia';
     } else {
       this.rolName = this.user.rolName;
     }

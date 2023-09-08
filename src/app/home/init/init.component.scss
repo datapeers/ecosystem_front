@@ -55,41 +55,17 @@
   overflow-y: auto;
   padding: 1rem;
 }
+// ? Scrollbar and visibility on hover and focus
 
 .scrollwrap {
   overflow-y: auto;
-  // visibility: hidden;
+  visibility: hidden;
   height: calc(100vh - 102px - 2.5rem) !important;
-  max-height: calc(100vh - 102px - 2.5rem) !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
 }
 
+.display-content,
 .scrollwrap:hover,
 .scrollwrap:focus {
   visibility: visible;
-}
-
-.scrollwrap_delayed {
-  transition: visibility 0.5s 0.2s;
-}
-
-.scrollwrap_delayed:hover {
-  transition: visibility 0.2s 0.2s;
-}
-
-.scrollwrap::-webkit-scrollbar {
-  width: 10px;
-}
-
-.scrollwrap::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.scrollwrap::-webkit-scrollbar-thumb {
-  background-color: $appColorTwo;
-  border-radius: 20px;
-}
-
-.scrollwrap {
-  scrollbar-width: thin;
-  scrollbar-color: $appColorTwo transparent;
 }

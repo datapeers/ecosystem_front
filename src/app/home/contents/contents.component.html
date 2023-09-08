@@ -1,52 +1,58 @@
 <ng-container *ngIf="loaded; else loadingTemplates">
-    <div class="p-4">
-        <div class="w-full flex flex-row justify-content-between align-items-center">
-            <div class="header flex flex-row gap-2 text-white align-items-center ">
-                <h2>{{currentBatch?.name}}</h2>
-                <h2>></h2>
-                <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="changesSprint()">
-                    <ng-template let-sprint pTemplate="item">
-                        <div>{{ sprint.name }}</div>
-                    </ng-template>
-                </p-dropdown>
-                <h3>{{sprintSelected?.extra_options?.start | date}}</h3>
-                <h2>-</h2>
-                <h3>{{sprintSelected?.extra_options?.end | date}}</h3>
-            </div>
-            <div class="flex flex-wrap gap-2">
-                <p-button *ngIf="homeworks.length" iconPos="left" icon="pi pi-file" styleClass="p-button" label="Tareas" (onClick)="viewHomeworks = true"></p-button>
-            </div>
-        </div>
-
-        <div class="w-full flex flex-column gap-2" *ngIf="contentSelected">
-            <div class="flex flex-row flex-wrap w-full justify-content-around mb-2">
-                <p-button *ngIf="previousContent" iconPos="left" icon="pi pi-arrow-left" styleClass="p-button" label="Anterior" (onClick)="changeContent(indexContent-1)"></p-button>
-                <p-button *ngIf="nextContent" iconPos="right" icon="pi pi-arrow-right" styleClass="p-button" label="Siguiente" (onClick)="changeContent(indexContent+1)"></p-button>
-            </div>
-            <div class="shadow-2 flex flex-column justify-content-center align-items-center my-2 p-2 bg-white border-round-xl" id="screen">
-                <p-divider align="left" class="w-full">
-                    <div class="p-d-inline-flex p-ai-center">
-                        <i class="pi pi-file p-mr-2"></i>
-                        <b class="pl-2">{{contentSelected.name}}</b>
-                    </div>
-                </p-divider>
-                <div *ngIf="contentSelected.content" class="p-4 w-full">
-                    <div [innerHtml]="(contentSelected.content | safe:'html')"></div>
+    <div class="container-component px-4 py-2 gap-4">
+        <div class="normal-panel navigation-panel flex flex-row py-3">
+            <div class="phase-column w-full flex flex-column align-items-center justify-content-between">
+                <div class="navigation-controls flex flex-row justify-content-between">
+                    <i-tabler name="chevron-left" class="direction-btn"></i-tabler>
+                    <i-tabler name="chevron-right" class="direction-btn"></i-tabler>
                 </div>
+                <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 mb-2" [style.background]="gradient()">
+                    <div class="flex flex-column align-items-center gap-3" style="padding: 1.875rem;" [style.color]="colorPhase">
+                        <span class="text-3xl font-semibold">FASE</span>
+                        <span class="text-8xl font-bold">3</span>
+                    </div>
+                    <div class="flex flex-column align-items-center gap-5">
+                        <span class="title-sprint font-semibold text-2xl " [style.color]="colorPhase">Design sprint</span>
+                        <i-tabler class="icon-stage" name="social" [style.background-color]="colorPhase"></i-tabler>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation-contents ml-3">
+                <p-button styleClass="w-full button-blue-second button-border-mid align-items-center justify-content-between">
+                    <span class="font-semibold">Ver entregables de la fase</span>
+                </p-button>
+            </div>
 
+        </div>
+        <div class="display-content scrollwrap scrollwrap_delayed flex flex-column gap-2" *ngIf="contentSelected">
+            <div class="flex flex-row justify-content-between align-items-center px-6">
+                <div class="flex flex-row gap-6">
+                    <ng-container *ngIf="contentCompleted[contentSelected._id]; else elseTemplate">
+                        <span class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">Completado</span>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <span class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">En curso</span>
+                    </ng-template>
+                    <span class="flex align-items-center justify-content-center gap-4 font-bold">
+                        <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
+                        {{contentSelected.name}}
+                    </span>
+                </div>
+                <div class="completed-btn">
+                    <ng-container *ngIf="!contentCompleted[contentSelected._id];">
+                        <p-button styleClass="w-full button-yellow-second button-border-mid align-items-center justify-content-between" (onClick)="markAsCompleted()" [disabled]="savingCompleted">
+                            <span class="font-semibold">Completar modulo</span>
+                            <p-checkbox [(ngModel)]="marked" [binary]="true" inputId="binary"></p-checkbox>
+                        </p-button>
+                    </ng-container>
+                </div>
             </div>
-            <div class="w-full flex flex-row align-items-center justify-content-end gap-2 p-2">
-                <ng-container *ngIf="contentCompleted[contentSelected._id]; else noCompleted">
-                    <span class="font-semibold text-white ">{{contentCompleted[contentSelected._id].createdAt | date:'medium'}}</span>
-                    <span class="font-bold text-white text-primary">Completado</span>
-                </ng-container>
-                <ng-template #noCompleted>
-                    <p-button iconPos="left" icon="pi pi-check" styleClass="p-button-secondary" label="Marcar como completado" (onClick)="markAsCompleted()" [disabled]="savingCompleted"></p-button>
-                </ng-template>
+            <div class="normal-panel mx-4 mt-2">
+                <div [innerHtml]="(contentSelected.content | safe:'html')" class="w-full px-4 mb-3"></div>
             </div>
+
         </div>
     </div>
-
 </ng-container>
 
 <ng-template #loadingTemplates>

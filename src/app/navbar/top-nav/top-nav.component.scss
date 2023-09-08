@@ -10,7 +10,7 @@ $heightPanels: 4rem;
 
 .head {
   width: calc(100% - 5rem);
-  // height: 3.5rem;
+  height: 100px !important;
   margin-left: 5rem;
   z-index: 1;
   transition: all 0.5s ease;
