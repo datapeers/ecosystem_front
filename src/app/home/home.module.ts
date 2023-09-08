@@ -67,6 +67,7 @@ import { HelpdeskComponent } from './helpdesk/helpdesk.component';
 import { RouteComponent } from './route/route.component';
 import { StagesComponent } from './phases/stages/stages.component';
 import { IconsModule } from '../icons/icons.module';
+import { InitComponent } from './init/init.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -105,6 +106,7 @@ import { IconsModule } from '../icons/icons.module';
     ValidateParticipationComponent,
     QrViewComponent,
     AssignHoursComponent,
+    InitComponent,
     PhaseEvaluationsComponent,
     EvaluationTablesComponent,
     CalendarComponent,

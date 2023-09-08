@@ -1,4 +1,88 @@
-<div class="w-full h-full p-2">
-    init works?
+<div class="w-full px-4">
+    <div class="flex flex-column sm:flex-row">
+        <div class="flex flex-column gap-4">
+            <div class="normal-panel justify-center align-items-center h-auto"
+                style="padding: 1.875rem; border-radius: 3.25rem">
+                <div class="flex stage" [style.background-color]="'#EA4254'">
+                    <div class="flex flex-column flex-none p-3">
+                        <p class="sh1" style="font-weight: 500;">FASE</p>
+                        <h1 class="text-center">3</h1>
+                    </div>
+                    <div class="flex align-items-end flex-grow-1 mr-8">
+                        <h3 style="font-weight:500">Desing Sprint</h3>
+                    </div>
+                    <div class="flex flex-column flex-none">
+                        <p class="text-center pt-4">EARLY</p>
+                        <i-tabler [name]="'social'"
+                            style="color: rgba(255,255,255,0.1); height:6rem; width:6rem;margin-top:-2.5rem;"></i-tabler>
+                    </div>
+                </div>
+                <div class="h-1rem"></div>
+                <div class="flex justify-center align-items-center">
+                    <div class="flex flex-wrap sh1 justify-content-center w-auto"
+                        style="font-weight: 500;color:#6B6B6B;padding:1rem 0;">
+                        Este es tu enfoque de horas de la Fase 3 en ésta semana
+                    </div>
+                </div>
+                <div class="h-1rem"></div>
+                <div class="flex justify-center align-items-center">
+                    <div class="flex w-full border border-1 border-solid h-15rem"></div>
+                </div>
+                <div class="h-2rem"></div>
+                <div class="flex final-panel w-full justify-content-between">
+                    <div class="flex align-items-center font-bold pl-4">
+                        <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
+                    </div>
+                    <div class="flex align-items-center font-bold">
+                        <p>Decidir</p>
+                    </div>
+                    <p-button label="Retomar último contenido"></p-button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flex flex-column gap-4 w-full px-4 max-h-screen">
+            <div class="flex px-4 align-items-center justify-content-center gap-4">
+                <div class="avatar"></div>
+                <h2>Hola Daniel, bienvenido a tu panel</h2>
+            </div>
+            <div class="flex flex-full header-statistics justify-content-around w-full gap-4">
+                <div class="flex gap-3">
+                    <div class="icon-panel">
+                        <i-tabler name="list-check"></i-tabler>
+                    </div>
+                    <div class="flex flex-column justify-content-center">
+                        <h2>3/10</h2>
+                        <p class="th2">Fases Completadas</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <div class="icon-panel">
+                        <i-tabler name="layout-board-split"></i-tabler>
+                    </div>
+                    <div class="flex flex-column justify-content-center">
+                        <h2>45</h2>
+                        <p class="th2">Contenidos vistos</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <div class="icon-panel">
+                        <i-tabler name="chart-dots"></i-tabler>
+                    </div>
+                    <div class="flex flex-column justify-content-center">
+                        <h2>67</h2>
+                        <p class="th2">Horas de enfoque</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="normal-panel w-full p-4">
+                contenidos
+                <div style="height:100rem"></div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
