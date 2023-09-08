@@ -68,6 +68,7 @@ import { RouteComponent } from './route/route.component';
 import { StagesComponent } from './phases/stages/stages.component';
 import { IconsModule } from '../icons/icons.module';
 import { InitComponent } from './init/init.component';
+import { ResourceCardComponent } from '../shared/components/resource-card/resource-card.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -121,6 +122,7 @@ import { InitComponent } from './init/init.component';
     HelpdeskComponent,
     RouteComponent,
     StagesComponent,
+    ResourceCardComponent,
   ],
   imports: [
     CommonModule,
