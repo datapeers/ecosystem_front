@@ -21,6 +21,7 @@ import { Startup } from '@shared/models/entities/startup';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { fadeInOut } from '../helper';
+import { hexToRgb } from '@shared/utils/hexToRgb';
 
 @Component({
   selector: 'app-top-nav',
@@ -72,7 +73,7 @@ export class TopNavComponent {
   rolName = '';
   viewUserBoard = false;
   viewNotificationBoard = false;
-
+  colorPhase = '#EA4254';
   constructor(
     private router: Router,
     private readonly store: Store<AppState>,
@@ -175,5 +176,19 @@ export class TopNavComponent {
 
   profileSetting() {
     this.router.navigate(['/home/profile']);
+  }
+
+  gradient() {
+    const style = `linear-gradient(90deg, ${this.withOpacity(
+      this.colorPhase,
+      0.2
+    )} 0%, #ffffff 100%)`;
+    return style;
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb = hexToRgb(color);
+    const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
+    return style;
   }
 }

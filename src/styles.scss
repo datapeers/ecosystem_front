@@ -10,19 +10,19 @@ $appColorFive: #317bf4;
 $appColorSix: #e7f2ff;
 $appColorSeven: #f7af42;
 $appColorEight: #fff1dc;
-$appDiscovering: #07B9B4;
-$appOnboarding: #4552A7;
-$appEarly: #EA4254;
-$appGrowth: #F8A70B;
-$appLate: #B8C53A;
-$appLaunch: #DB5F39;
+$appDiscovering: #07b9b4;
+$appOnboarding: #4552a7;
+$appEarly: #ea4254;
+$appGrowth: #f8a70b;
+$appLate: #b8c53a;
+$appLaunch: #db5f39;
 
 $appText: #dcdcdc;
 $appTextTwo: #aeaeae;
 $appTextThree: #6b6b6b;
 $appTextFour: #0000;
 
-$greyThird: #F6F6F6;
+$greyThird: #f6f6f6;
 
 $text-color: #172b4d;
 $background-color: rgba(
@@ -188,6 +188,7 @@ body {
 
 // ? ------------------------------------------------ Other components -----------------------------
 ::ng-deep .border-sidebar {
+  width: 24.875rem !important;
   border-radius: 2.5rem 0 0 2.5rem;
   -webkit-border-radius: 2.5rem 0 0 2.5rem;
   -moz-border-radius: 2.5rem 0 0 2.5rem;
@@ -201,13 +202,12 @@ body {
   background-color: var(--appColorOne);
 }
 
-
 // ? ------------------------------------ Titles ------------------------------------------------------
 
 h1 {
   font-size: 5rem;
   font-family: "Montserrat";
-  margin: 0;  
+  margin: 0;
 }
 
 h2 {

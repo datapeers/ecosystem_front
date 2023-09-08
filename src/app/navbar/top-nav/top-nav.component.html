@@ -4,8 +4,8 @@
             <div class="flex flex-row gap-4 align-items-center w-full">
                 <i-tabler name="align-justified" class="head-menu-item-btn menu-icon" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
                 <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn menu-icon" *ngIf="returnBtn$ | async" (click)="return()"></i-tabler>
-                <div class="panel-info elipse-panel bg-pink-200 p-2 flex flex-row align-items-center justify-content-between gap-3">
-                    <div class="completed elipse-panel bg-pink-500 p-2 min-h-full flex align-items-center justify-content-center">
+                <div class="panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-3" [style.background]="gradient()">
+                    <div class="completed elipse-panel p-2 min-h-full flex align-items-center justify-content-center" [style.background-color]="colorPhase">
                         <span class="font-semibold text-white text-xl">3/10</span>
                     </div>
                     <div class="labels flex flex-column">
@@ -13,7 +13,7 @@
                         <div style="height: 3px;"></div>
                         <span class="text-sm">Fase 3</span>
                     </div>
-                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="45" [valueTemplate]="'75%'">
+                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="45" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
                         <ng-template pTemplate="text">a</ng-template>
                     </p-knob>
                 </div>
@@ -57,12 +57,12 @@
 </div>
 
 
-<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="w-25rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
+<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
     <ng-template pTemplate="header"></ng-template>
     <ng-template pTemplate="content" styleClass="m-0 p-0">
         <div class="flex flex-column w-full h-full gap-2 align-items-center justify-content-between">
             <div class="w-full flex flex-column p-2 gap-2">
-                <div class="w-full flex flex-row align-items-center justify-content-center gap-2">
+                <div class="w-full flex flex-row align-items-center justify-content-center gap-3">
                     <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
                         <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app big-avatar flex cursor-pointer " pTooltip="Opciones" tooltipPosition="left">
                         </p-avatar>
@@ -71,25 +71,25 @@
                         <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app big-avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left">
                         </p-avatar>
                     </ng-template>
-                    <div class="info-user w-full flex flex-column ">
+                    <div class="info-user flex flex-column gap-2">
                         <span class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
                         <span class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
                     </div>
                 </div>
-                <p-button styleClass="w-full button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="profileSetting()">
+                <p-button styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="profileSetting()">
                     <span class="mx-2 font-semibold	">Perfil startup</span>
                     <i-tabler class="sidenav-link-icon" name="rocket"></i-tabler>
                 </p-button>
             </div>
-            <div class="w-full normal-panel flex flex-column gap-2 p-5 m-2">
+            <div class="option normal-panel flex flex-column gap-2 p-5 m-2">
                 <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>
                 <span class="font-bold">'Decidir'</span>
-                <span class="text-xs">Contenido de Fase 3 - Etapa Early</span>
+                <span class="text-xs content-description">Contenido de Fase 3 - Etapa Early</span>
                 <p-button styleClass="w-full button-yellow button-border-mid mt-3">
                     <span class="w-full text-center">Retomar ultimo contenido</span>
                 </p-button>
             </div>
-            <div class="w-full flex flex-column gap-2">
+            <div class="option flex flex-column gap-2">
                 <p-button styleClass="w-full button-yellow-second button-border-mid w-full align-items-center justify-content-between " (onClick)="logOut()">
                     <span class="mx-2 font-semibold	">Cerrar Sesión</span>
                     <i-tabler class="sidenav-link-icon" name="door-exit"></i-tabler>
@@ -104,7 +104,7 @@
     <ng-template pTemplate="footer"></ng-template>
 </p-sidebar>
 
-<p-sidebar [(visible)]="viewNotificationBoard" position="right" styleClass="w-25rem border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
+<p-sidebar [(visible)]="viewNotificationBoard" position="right" styleClass="border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
     <ng-template pTemplate="header">
         <div class="panel-info elipse-panel w-9 h-full notifications-header p-2 flex flex-row align-items-center justify-content-center gap-3">
             <i-tabler name="bell"></i-tabler>
