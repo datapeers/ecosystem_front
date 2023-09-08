@@ -156,7 +156,7 @@ export class TopNavComponent {
       );
 
       this.startup = this.profileDoc.startups[0];
-      console.log(this.startup);
+      // console.log(this.startup);
       const currentBatch = await firstValueFrom(
         this.store
           .select((store) => store.home.currentBatch)
