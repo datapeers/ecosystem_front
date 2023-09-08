@@ -1,24 +1,29 @@
 <div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
     <div class="text-wrapper flex flex-row align-items-center text-center ">
-        <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
-        </fa-icon> <span class="subheader text-white ">Configuración fases</span>
+        <span class="subheader font-semibold ">Configuración fases</span>
     </div>
-    <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="openStages()"></p-button>
-    <p-button *ngIf="user?.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()"></p-button>
+    <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="openStages()" styleClass="button-primary-app"></p-button>
+    <p-button *ngIf="user?.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()" styleClass="button-primary-app"></p-button>
 </div>
 
 
 <ng-container *ngIf="loaded; else loadingTemplate">
     <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center ">
         <ng-container *ngFor="let item of phases">
-            <div class="tour-card bg-white" style="margin:0.5rem;" (mouseenter)="selectedPhase = item;" (mouseleave)="selectedPhase = undefined;">
+            <div class="normal-panel tour-card" style="margin:0.5rem;" (mouseenter)="selectedPhase = item;" (mouseleave)="selectedPhase = undefined;">
                 <img width="100%" height="144px" [src]="item?.thumbnail ? item?.thumbnail : '/assets/noPic.jpg'" alt="">
                 <div class="title-wrapper">
+                    <div *ngIf="stagesDictionary[item.stage]" class="flex align-items-center justify-content-center gap-2" [style.color]="stagesDictionary[item.stage].color">
+                        <i-tabler [name]="stagesDictionary[item.stage].icon" class="icon-stage"></i-tabler>
+                        <span class="text-xs">{{stagesDictionary[item.stage].name}}</span>
+                    </div>
+
                     <span class="subheader-small card-title">{{item.name}}</span>
                 </div>
                 <div class="flex flex-row align-items-center justify-content-between">
                     <div class="flex flex-row" style="gap:0.5rem;">
-                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)"></p-button>
+                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)" styleClass="button-primary-app"></p-button>
+                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="openPhaseEdit(item)" pTooltip="Borrar" styleClass="button-primary-app"></p-button>
                     </div>
                     <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
                     </div>
