@@ -54,6 +54,7 @@ import { PhaseEvaluationsComponent } from './phases/phase-evaluations/phase-eval
 import { EvaluationTablesComponent } from './phases/phase-evaluations/evaluation-tables/evaluation-tables.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { TagModule } from 'primeng/tag';
 import { ToolkitComponent } from './toolkit/toolkit.component';
 import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homeworks.component';
 import { PhaseHomeworkTableComponent } from './phases/phase-homeworks/phase-homework-table/phase-homework-table.component';
@@ -62,6 +63,8 @@ import { AssignStartupsHoursComponent } from './phases/phase-hours-config/assign
 import { EventCreatorComponent } from './phases/phase-events/event-creator/event-creator.component';
 import { ListParticipationComponent } from './phases/phase-events/list-participation/list-participation.component';
 import { RatingEventComponent } from './calendar/rating-event/rating-event.component';
+import { HelpdeskComponent } from './helpdesk/helpdesk.component';
+import { RouteComponent } from './route/route.component';
 import { StagesComponent } from './phases/stages/stages.component';
 import { IconsModule } from '../icons/icons.module';
 @NgModule({
@@ -113,6 +116,8 @@ import { IconsModule } from '../icons/icons.module';
     EventCreatorComponent,
     ListParticipationComponent,
     RatingEventComponent,
+    HelpdeskComponent,
+    RouteComponent,
     StagesComponent,
   ],
   imports: [
@@ -125,6 +130,7 @@ import { IconsModule } from '../icons/icons.module';
     PrimengModule,
     FontAwesomeModule,
     AvatarUploaderModule,
+    TagModule,
     DynamicTableModule,
     NavigationModule,
     NgxTinymceModule.forRoot({

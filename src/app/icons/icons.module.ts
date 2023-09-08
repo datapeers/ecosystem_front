@@ -63,6 +63,7 @@ import {
   IconLeaf,
   IconPlant2,
   IconSeeding,
+  IconAward,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 
@@ -82,6 +83,7 @@ const icons = {
   IconCalendarEvent,
   IconClipboardCheck,
   IconCalendarTime,
+  IconAward,
   IconHeartHandshake,
   IconSocial,
   IconFileStar,

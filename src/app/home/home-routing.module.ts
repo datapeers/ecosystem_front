@@ -34,6 +34,8 @@ import { PhaseHomeworksComponent } from './phases/phase-homeworks/phase-homework
 import { ToolkitComponent } from './toolkit/toolkit.component';
 import { ContentsComponent } from './contents/contents.component';
 import { InitComponent } from './init/init.component';
+import { HelpdeskComponent } from './helpdesk/helpdesk.component';
+import { RouteComponent } from './route/route.component';
 import { StagesComponent } from './phases/stages/stages.component';
 
 const routes: Routes = [
@@ -97,6 +99,14 @@ const routes: Routes = [
       {
         path: 'communities',
         component: CommunitiesComponent,
+      },
+      {
+        path: 'route',
+        component: RouteComponent,
+      },
+      {
+        path: 'helpdesk',
+        component: HelpdeskComponent,
       },
       {
         path: 'calendar',

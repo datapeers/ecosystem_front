@@ -10,10 +10,19 @@ $appColorFive: #317bf4;
 $appColorSix: #e7f2ff;
 $appColorSeven: #f7af42;
 $appColorEight: #fff1dc;
+$appDiscovering: #07B9B4;
+$appOnboarding: #4552A7;
+$appEarly: #EA4254;
+$appGrowth: #F8A70B;
+$appLate: #B8C53A;
+$appLaunch: #DB5F39;
+
 $appText: #dcdcdc;
 $appTextTwo: #aeaeae;
 $appTextThree: #6b6b6b;
 $appTextFour: #0000;
+
+$greyThird: #F6F6F6;
 
 $text-color: #172b4d;
 $background-color: rgba(
@@ -72,6 +81,16 @@ body {
 
 // ? ------------------------------------------------- Buttons -----------------------------------------------------
 // Button borders -----------------------------------------------------------
+::ng-deep .p-button {
+  font-weight: normal;
+  font-size: 1rem;
+  background-color: $appColorFive;
+  font-family: "Montserrat";
+}
+
+::ng-deep .p-button-label {
+  font-weight: 550;
+}
 
 ::ng-deep .button-border-min {
   border-radius: 0.1rem;
@@ -156,6 +175,17 @@ body {
   }
 }
 
+// ? ----------------------------------------------- DropDown --------------------------------------
+
+::ng-deep .p-dropdown {
+  background-color: $greyThird;
+  color: black;
+  border: none;
+  font-size: 1rem;
+  font-weight: 550;
+  font-family: "Montserrat";
+}
+
 // ? ------------------------------------------------ Other components -----------------------------
 ::ng-deep .border-sidebar {
   border-radius: 2.5rem 0 0 2.5rem;
@@ -163,6 +193,54 @@ body {
   -moz-border-radius: 2.5rem 0 0 2.5rem;
 }
 
+.app-backgrounds {
+  background-color: var(--app-backgrounds);
+}
+
+.app-backgroundsOne {
+  background-color: var(--appColorOne);
+}
+
+
+// ? ------------------------------------ Titles ------------------------------------------------------
+
+h1 {
+  font-size: 5rem;
+  font-family: "Montserrat";
+  margin: 0;  
+}
+
+h2 {
+  font-size: 2.5rem;
+  line-height: 3.1rem;
+  font-family: "Montserrat";
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.9rem;
+  line-height: 2.5rem;
+  font-family: "Montserrat";
+}
+
+.sh1 {
+  font-size: 1.3rem;
+  line-height: 1.675rem;
+  font-family: "Montserrat";
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-family: "Montserrat";
+  margin: 0;
+}
+
+.th2 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-family: "Montserrat";
+}
 .cursor-default {
   cursor: default;
 }
