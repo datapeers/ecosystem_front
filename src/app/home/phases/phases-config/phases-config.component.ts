@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PhasesService } from '../phases.service';
-import { faReply } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PhasesCreatorComponent } from '../phases-creator/phases-creator.component';
@@ -8,13 +7,12 @@ import { Subscription, first, firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { Phase } from '../model/phase.model';
 import { ToastService } from '@shared/services/toast.service';
-import { Stage, newStage } from '../model/stage.model';
+import { Stage } from '../model/stage.model';
 import { ConfirmationService } from 'primeng/api';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
-import { FormGroup } from '@angular/forms';
 import { ActivateBtnReturn } from '@home/store/home.actions';
 @Component({
   selector: 'app-phases-config',
@@ -23,7 +21,6 @@ import { ActivateBtnReturn } from '@home/store/home.actions';
 })
 export class PhasesConfigComponent implements OnInit, OnDestroy {
   selectedPhase;
-  faReply = faReply;
   phases: Phase[] = [];
 
   dialogRef;
@@ -31,13 +28,9 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
   phases$: Subscription;
   stages$: Subscription;
   loaded = false;
-  showStages = false;
-  showStageCreator = false;
-  newStage: FormGroup;
+
   stages: Stage[] = [];
-  showedStages: { [s: string]: Stage } = {};
-  clonedStages: { [s: string]: Stage } = {};
-  stagesUsed: Set<String>;
+  stagesDictionary: Record<string, Stage> = {};
 
   user: User;
   public get userPermission(): typeof Permission {
@@ -77,9 +70,10 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       .then((stages$) => {
         this.stages$ = stages$.subscribe((stageList) => {
           this.stages = stageList;
-          for (const iterator of this.stages)
-            this.showedStages[iterator._id] = iterator;
-          this.newStage = newStage(this.stages.length);
+          this.stagesDictionary = {};
+          for (const iterator of this.stages) {
+            this.stagesDictionary[iterator._id] = iterator;
+          }
         });
       })
       .catch((err) => {
@@ -98,11 +92,6 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
           (this.phases$ = obsPhases$.subscribe((phasesList: Phase[]) => {
             this.loaded = false;
             this.phases = phasesList.filter((i) => i.basePhase);
-            this.stagesUsed = new Set();
-            for (const iterator of phasesList) {
-              if (!this.stagesUsed.has(iterator.stage))
-                this.stagesUsed.add(iterator.stage);
-            }
             this.loaded = true;
           }))
       )
