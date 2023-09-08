@@ -54,6 +54,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   nextContent: boolean = false;
   previousContent: boolean = false;
 
+  marked = true;
   // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
