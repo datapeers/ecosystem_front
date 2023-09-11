@@ -1,5 +1,5 @@
 <div class="flex flex-column">
-    <div class="flex flex-column xl:flex-row gap-4">
+    <div class="flex flex-none flex-column xl:flex-row gap-4">
         <div class="fex flex-column flex-grown-1 px-8">
             <h2>Tu contenido de valor</h2>
             <div style="height: 1.5rem"></div>
@@ -38,8 +38,8 @@
     </div>
     <p-divider></p-divider>
     <ng-container *ngIf="loaded; else loadingTemplates">
-        <div class="p-4">
-            <div class="flex flex-wrap gap-2 w-full gap-4">
+        <div class="flex flex-grown-1 p-4 cards-container" *ngIf="cards.length > 0">
+            <div class="flex flex-wrap gap-2 w-full justify-content-center gap-4">
                 <ng-container *ngFor="let item of cards">
                     <app-resource-card [title]="item.resource.name" [state]="item.state"
                         [date]="item.resource.extra_options.end"></app-resource-card>
@@ -92,9 +92,6 @@
             </div>
 
         </div>
-
-
-
     </ng-container>
 </div>
 <ng-template #loadingTemplates>

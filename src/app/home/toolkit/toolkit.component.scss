@@ -18,6 +18,11 @@ label {
     background-color: #FFF1DC;
     i-tabler {
         color: $appColorSeven;
-        }
-    
+        }    
+}
+
+.cards-container {
+    background-color: $grayThird;
+    border-radius: 3.125rem;
+    margin: 0 1rem;
 }

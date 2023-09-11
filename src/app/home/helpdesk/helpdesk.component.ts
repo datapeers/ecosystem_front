@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TicketContext } from './model/TicketContext.model';
+import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
+import { HelpdeskService } from './helpdesk.service';
+import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
+import { tableLocators } from '@shared/components/dynamic-table/locators';
 
 @Component({
   selector: 'app-helpdesk',
   templateUrl: './helpdesk.component.html',
   styleUrls: ['./helpdesk.component.scss'],
+  providers: [{ provide: DocumentProvider, useExisting: HelpdeskService }],
 })
 export class HelpdeskComponent {
   formFilterCategory = new FormGroup({
@@ -12,6 +18,10 @@ export class HelpdeskComponent {
   });
 
   categories = [{ name: 'Acompañamientos', code: 'AC' }];
+  ticketsContext: TicketContext;
+
+  optionsTable: TableOptions;
+
   tickets = [
     {
       _id: '1',
@@ -141,6 +151,8 @@ export class HelpdeskComponent {
   }
 
   ngOnInit() {
-    this.tickets = [...this.tickets];
+    this.initData();
   }
+
+  initData() {}
 }

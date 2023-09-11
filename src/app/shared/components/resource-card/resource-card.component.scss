@@ -2,13 +2,11 @@
 
 .container {
     background-color: #ffffff;
-    border-radius: 1.875rem;
-    -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
-    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+    border-radius: 1.875rem;    
     padding: 1.875rem;
     max-width: 20rem;
     max-height: 25rem;
+    cursor: pointer;
     .sh1 {
         font-weight: 500;
     }
@@ -16,6 +14,12 @@
         color: $appTextTwo;
         font-weight: 450;
     }
+}
+
+.container:hover {
+    -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
 }
 
 .panel-date {

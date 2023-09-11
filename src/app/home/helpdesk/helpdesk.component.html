@@ -1,39 +1,37 @@
-<div class="flex flex-column px-2 gap-2">
-    <div class="flex justify-content-around align-items-center normal-panel p-4">
-        <p-button label="+ Ticket"></p-button>
-        <div class="flex border-0 app-backgrounds border-solid border-1 border-round px-4 ">
-            <div class="flex cursor-pointer font-bold p-button-label">
-                <p>Todos</p>
-            </div>
-            <div class="flex cursor-pointer mx-2 opt-label">
-                <p>|</p>
-            </div>
-            <div class="flex cursor-pointer opt-label">
-                <p>Abiertos</p>
-            </div>
-            <div class="flex mx-2">
-                <p>|</p>
-            </div>
-            <div class="flex cursor-pointer opt-label">
-                <p>En progreso</p>
-            </div>
-            <div class="flex mx-2">
-                <p>|</p>
-            </div>
-            <div class="flex cursor-pointer opt-label">
-                <p>Cerrados</p>
+<div class="flex flex-column px-4 gap-2">
+    <div class="flex flex-column xl:flex-row gap-4">
+        <div class="fex flex-column flex-grown-1 px-8">
+            <h2>Mesa de ayuda</h2>
+            <div style="height: 1.5rem"></div>
+            <div class="flex gap-2">
+                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                <p class="th2">Cuando tenga una necesidad para tu startup, un acompañamiento específico, una sugerencia
+                    a un evento, tenes startups o expertos para recomendar o
+                    cualqueir otra cosa que nos quieras comunicar, este es el lugar indicado para hacerlo.
+                </p>
             </div>
         </div>
-        <div class="flex">
-            <form [formGroup]="formFilterCategory">
-                <p-dropdown formControlName="category" [options]="categories" optionLabel="name"></p-dropdown>
-            </form>
+        <div class="flex flex-none align-items-end gap-3 px-6 mt2">
+            <div class="flex flex-column gap-2">
+                <label>Ver por:</label>
+                <div class="flex">
+                    <form [formGroup]="formFilterCategory">
+                        <p-dropdown formControlName="category" [options]="categories" optionLabel="name"></p-dropdown>
+                    </form>
+                </div>
+            </div>
+            <div class="flex flex-column gap-2">
+                <label>Ordenar por:</label>
+                <p-dropdown optionLabel="name"></p-dropdown>
+            </div>
+            <div class="w-2"></div>
+            <p-button label="+ Ticket"></p-button>
         </div>
     </div>
+    <p-divider></p-divider>
     <div class="flex h-4"></div>
-    <div class="flex p-4 w-full normal-panel">
-        <p-table class="table-dark" styleClass="p-datatable-striped" [value]="tickets"
-            [tableStyle]="{'min-width': '50rem'}">
+    <div class="flex w-full table-container">
+        <p-table class="table-dark w-full" [value]="tickets" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Categoría</th>
