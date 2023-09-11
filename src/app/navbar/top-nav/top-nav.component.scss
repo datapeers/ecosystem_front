@@ -17,6 +17,10 @@ $heightPanels: 4.375rem;
   border-radius: 3.125rem 0 0 0;
   background-color: #ffffff;
   top: 0;
+  @media (max-width: 576px) {
+      margin-left: 0;
+      border-radius: 0 0 0 0;
+    }
   .head-content {
     padding: 1rem 1.5rem;
     display: flex;
@@ -40,6 +44,9 @@ $heightPanels: 4.375rem;
       .panel-info {
         height: $heightPanels;
         width: 24rem;
+        @media (max-width:576px) {
+          width: 33%;
+        }
         .completed {
           width: 5rem;
         }
@@ -135,6 +142,10 @@ $heightPanels: 4.375rem;
 .head-md-screen {
   width: calc(100% - 5rem);
   margin-left: 5rem;
+  @media (max-width: 576px) {
+      margin-left: 0;
+      width: 100%;
+    }
 }
 
 .circle-indicator {

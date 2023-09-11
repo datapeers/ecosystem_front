@@ -35,6 +35,9 @@
 
 .sidenav-collapsed {
   width: 5rem;
+  @media (max-width: 576px) {
+    display: none;
+  }
 }
 
 .sidenav-nav {
@@ -50,7 +53,9 @@
   .sidenav-nav-item {
     width: 100%;
     // margin-bottom: 0.625rem;
-
+  @media (max-width: 576px) {
+    font-size: 12px;
+  }
     .sidenav-nav-link {
       display: flex;
       align-items: center;
@@ -89,6 +94,12 @@
       }
     }
   }
+}
+
+.menu-icon {
+  color: $appColorTwo;
+  cursor: pointer;
+  margin: 2rem 1rem;
 }
 
 .active {

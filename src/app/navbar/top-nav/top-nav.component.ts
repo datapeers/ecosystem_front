@@ -144,7 +144,8 @@ export class TopNavComponent {
   }
 
   showSidenavButton() {
-    return this.screenWith > 768 ? true : false;
+    return true;
+    //return this.screenWith > 768 ? true : false;
   }
 
   async setUserVars() {
