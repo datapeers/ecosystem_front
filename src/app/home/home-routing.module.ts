@@ -37,6 +37,8 @@ import { InitComponent } from './init/init.component';
 import { HelpdeskComponent } from './helpdesk/helpdesk.component';
 import { RouteComponent } from './route/route.component';
 import { StagesComponent } from './phases/stages/stages.component';
+import { Startup } from '@shared/models/entities/startup';
+import { StartupProfileComponent } from './startup-profile/startup-profile.component';
 
 const routes: Routes = [
   {
@@ -103,6 +105,10 @@ const routes: Routes = [
       {
         path: 'route',
         component: RouteComponent,
+      },
+      {
+        path: 'startup-profile',
+        component: StartupProfileComponent,
       },
       {
         path: 'helpdesk',
