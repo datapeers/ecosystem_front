@@ -1,6 +1,6 @@
 <div class="flex flex-column">
     <div class="flex flex-none flex-column xl:flex-row gap-4">
-        <div class="fex flex-column flex-grown-1 px-8">
+        <div class="fex flex-column flex-grown-1 px-1 sm:px-2 md:px-8">
             <h2>Tu contenido de valor</h2>
             <div style="height: 1.5rem"></div>
             <div class="flex gap-2">
@@ -13,7 +13,7 @@
                 </p>
             </div>
         </div>
-        <div class="flex flex-none align-items-end gap-3 px-6 mt2">
+        <div class="flex flex-none align-items-end gap-3 px-1 md:px-6 mt2">
             <div class="flex flex-column gap-2">
                 <label>Ver por:</label>
                 <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true"

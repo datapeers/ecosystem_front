@@ -3,6 +3,9 @@
   min-height: 100vh;
   height: auto;
   background: var(--app-color-one);
+  @media (max-width: 576px) {
+      background: white;
+    }
   //   display: flex;
   //   flex-direction: column;
   //   background-size: cover;
@@ -24,6 +27,11 @@
   border-radius: 0 0 0 2.5rem;
   -webkit-border-radius: 0 0 0 2.5rem;
   -moz-border-radius: 0 0 0 2.5rem;
+  @media (max-width: 576px) {
+    margin-left:0;
+    width: 100%;
+    border-radius: 0 0 0 0;
+  }
 }
 
 .body-trimmed {
