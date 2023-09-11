@@ -5033,7 +5033,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 
 .p-dialog {
-  border-radius: 6px;
+  border-radius: 3.125rem !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   border: 0 none;
 }

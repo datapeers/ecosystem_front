@@ -32,11 +32,13 @@ import {
 import { IUserLog } from './models/user-logs';
 import { hexToRgb } from '@shared/utils/hexToRgb';
 import { Stage } from '@home/phases/model/stage.model';
+import { fadeInOut } from 'src/app/navbar/helper';
 
 @Component({
   selector: 'app-contents',
   templateUrl: './contents.component.html',
   styleUrls: ['./contents.component.scss'],
+  animations: [fadeInOut],
 })
 export class ContentsComponent implements OnInit, OnDestroy {
   user: User;
@@ -65,13 +67,18 @@ export class ContentsComponent implements OnInit, OnDestroy {
   // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
-  resourcesTypesNames = resourcesTypesNames;
+  indexHomework = 0;
+  homeworkDisplay: ResourceReply;
   public get resourcesStates(): typeof ResourceReplyState {
     return ResourceReplyState;
   }
 
   public get resourcesTypes(): typeof ResourcesTypes {
     return ResourcesTypes;
+  }
+
+  public get resourcesTypesNames(): typeof resourcesTypesNames {
+    return resourcesTypesNames;
   }
 
   // logs -------------------------------------------------------
@@ -156,7 +163,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
         }
         this.watchLogPhase(this.currentBatch, this.startup);
         this.watchContentSelector();
-        console.log(i);
         this.changesSprint(this.indexSprint);
         this.loaded = true;
       });
@@ -232,10 +238,15 @@ export class ContentsComponent implements OnInit, OnDestroy {
     this.homeworks = await this.phaseHomeworksService.setResourcesReplies(
       this.startup,
       this.currentBatch,
-      this.sprintSelected,
-      this.contentSelected
+      this.sprintSelected
     );
     this.homeworks = [...this.homeworks];
+    this.indexHomework = 0;
+    this.homeworkDisplay = this.homeworks.length
+      ? this.homeworks[this.indexHomework]
+      : undefined;
+
+    console.log(this.homeworks);
   }
 
   changeContent(index: number) {
@@ -243,6 +254,25 @@ export class ContentsComponent implements OnInit, OnDestroy {
     if (nextContent) {
       this.setContentDisplay(this.sprintSelected._id, nextContent._id);
     }
+  }
+
+  changeResource(type: 'next' | 'previous') {
+    switch (type) {
+      case 'next':
+        if (this.indexHomework + 1 < this.homeworks.length) {
+          this.indexHomework += 1;
+        }
+
+        break;
+      case 'previous':
+        if (this.indexHomework - 1 >= 0) {
+          this.indexHomework -= 1;
+        }
+        break;
+      default:
+        break;
+    }
+    this.homeworkDisplay = this.homeworks[this.indexHomework];
   }
 
   async openForm(reply: ResourceReply) {

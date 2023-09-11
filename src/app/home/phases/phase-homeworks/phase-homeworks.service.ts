@@ -260,8 +260,7 @@ export class PhaseHomeworksService {
   async setResourcesReplies(
     startup: Startup,
     batch: Phase,
-    sprint: Content,
-    contentSpecified?: Content
+    sprint: Content
   ): Promise<ResourceReply[]> {
     let ans = [];
     const repliesSaved = await this.getDocumentsStartup(startup._id, batch._id);
@@ -285,7 +284,6 @@ export class PhaseHomeworksService {
       });
     }
     for (const content of sprint.childs) {
-      if (contentSpecified && contentSpecified._id !== content._id) continue;
       for (const resourceContent of content.resources) {
         let reply = repliesSaved.find(
           (i) => i.resource._id === resourceContent._id
