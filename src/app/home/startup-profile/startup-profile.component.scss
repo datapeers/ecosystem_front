@@ -1,0 +1,25 @@
+.scrollwrap {
+    overflow-y: auto;
+    visibility: hidden;
+    height: calc(100vh - 102px - 2.5rem) !important;
+    // max-height: calc(100vh - 102px - 2.5rem) !important;
+}
+
+.display-content,
+.scrollwrap:hover,
+.scrollwrap:focus {
+    visibility: visible;
+}
+
+.statics-panel {
+    border-radius: 1.25rem;
+    padding: 1.875rem;
+}
+
+.bg-pastel-1 {
+    background-color: #E7F2FF;
+}
+
+.bg-pastel-2 {
+    background-color: #FFF1DC;
+}

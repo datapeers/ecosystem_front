@@ -69,6 +69,7 @@ import { StagesComponent } from './phases/stages/stages.component';
 import { IconsModule } from '../icons/icons.module';
 import { InitComponent } from './init/init.component';
 import { ResourceCardComponent } from '../shared/components/resource-card/resource-card.component';
+import { StartupProfileComponent } from './startup-profile/startup-profile.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -123,6 +124,7 @@ import { ResourceCardComponent } from '../shared/components/resource-card/resour
     RouteComponent,
     StagesComponent,
     ResourceCardComponent,
+    StartupProfileComponent,
   ],
   imports: [
     CommonModule,
