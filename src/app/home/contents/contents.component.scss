@@ -95,7 +95,7 @@
           height: 5rem;
           border-radius: 1rem;
           background-color: var(--app-backgrounds);
-
+          cursor: pointer;
           .card-state-content {
             color: $appTextThree;
           }
@@ -119,6 +119,14 @@
       border-color: $appColorSeven;
       background-color: $appColorSeven;
     }
+  }
+}
+
+.selected {
+  border: solid $appColorFive 1px;
+  background-color: lighten($appColorFive, 40%);
+  span {
+    color: $appColorFive !important;
   }
 }
 

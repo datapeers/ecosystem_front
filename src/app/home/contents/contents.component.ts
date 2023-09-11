@@ -52,6 +52,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   paramSub$: Subscription;
   contentSelected: Content;
   indexContent = 0;
+  indexSprint = 0;
   nextContent: boolean = false;
   previousContent: boolean = false;
 
@@ -142,10 +143,15 @@ export class ContentsComponent implements OnInit, OnDestroy {
                 i.extra_options.end
               )
             ) ?? this.sprints[this.sprints.length - 1];
+          console.log(this.sprintSelected);
+          this.indexSprint = this.sprints.findIndex(
+            (i) => i._id === this.sprintSelected._id
+          );
         }
         this.watchLogPhase(this.currentBatch, this.startup);
         this.watchContentSelector();
-        this.changesSprint();
+        console.log(i);
+        this.changesSprint(this.indexSprint);
         this.loaded = true;
       });
   }
@@ -159,7 +165,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
       .then((logs$) => {
         this.userLogs$ = logs$.subscribe((logsList) => {
           this.logs = logsList;
-          // console.log(this.logs);
           this.setContentCompleted(this.logs);
         });
       })
@@ -172,9 +177,10 @@ export class ContentsComponent implements OnInit, OnDestroy {
       });
   }
 
-  changesSprint(content?: string) {
+  changesSprint(index: number, content?: string) {
+    console.log(index);
     this.router.navigate(['/home/contents'], {
-      queryParams: { sprint: this.sprintSelected?._id, content },
+      queryParams: { sprint: this.sprints[index]._id, content },
     });
   }
 
@@ -191,7 +197,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
     if (!sprintId) {
       return;
     }
-    this.sprintSelected = this.sprints.find((i) => i._id === sprintId);
+    this.indexSprint = this.sprints.findIndex((i) => i._id === sprintId);
+    this.sprintSelected = this.sprints[this.indexSprint];
     if (!this.sprintSelected) {
       this.toast.alert({
         summary: 'Sprint invalido',
@@ -199,8 +206,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
       });
       return;
     }
-    const menu = await this.service.optionsMenu(this.sprintSelected, this.user);
-    console.log(this.sprints);
     // this.store.dispatch(new SetOtherMenuAction(menu));
     this.indexContent = 0;
     this.contentSelected = this.sprintSelected.childs[0];
@@ -213,9 +218,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
         this.indexContent = indexContent;
       }
     }
-    this.previousContent = this.indexContent > 0 ? true : false;
-    this.nextContent =
-      this.indexContent !== this.sprintSelected.childs.length - 1;
+    this.previousContent = this.indexSprint > 0 ? true : false;
+    this.nextContent = this.indexSprint !== this.sprints.length - 1;
     this.loadHomeworks();
   }
 
@@ -320,6 +324,11 @@ export class ContentsComponent implements OnInit, OnDestroy {
     if (content._id === '64fb4b87e309965c9ef1187d') return 'corner-down-right';
     if (this.contentCompleted[content._id]) return 'check';
     return '';
+  }
+
+  lineState(content: Content) {
+    if (this.contentCompleted[content._id]) return '#317bf4';
+    return '#dcdcdc';
   }
 
   textState(content: Content) {
