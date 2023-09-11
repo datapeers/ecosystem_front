@@ -140,7 +140,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
     [this.phaseName, this.phaseNumb] = this.getPhaseAndNumb(
       this.currentBatch.name
     );
-    console.log(this.currentBatch);
     this.phaseContentService
       .getContents(this.currentBatch._id)
       .then(async (i) => {
@@ -245,8 +244,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
     this.homeworkDisplay = this.homeworks.length
       ? this.homeworks[this.indexHomework]
       : undefined;
-
-    console.log(this.homeworks);
   }
 
   changeContent(index: number) {

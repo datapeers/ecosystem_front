@@ -19,7 +19,7 @@ export class HomeService {
     if (user.allowed(Permission.announcements_view))
       menuItems.push('announcements');
     if (user.allowed(Permission.phases_batch_access)) menuItems.push('phases');
-    if (user.allowed(Permission.community_view)) menuItems.push('communities');
+
     if (user.allowed(Permission.view_entrepreneurs))
       menuItems.push('entrepreneurs');
 
@@ -32,6 +32,8 @@ export class HomeService {
     menuItems.push('agenda');
     menuItems.push('public-nodes');
     if (user.isUser) menuItems.push('helpDesk');
+    if (user.isUser || user.allowed(Permission.community_view))
+      menuItems.push('communities');
     if (user.allowed(Permission.sites_and_services_view))
       menuItems.push('siteAndServices');
 
