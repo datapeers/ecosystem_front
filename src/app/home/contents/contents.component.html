@@ -7,13 +7,13 @@
                     <i-tabler name="chevron-right" class="direction-btn" *ngIf="nextContent" (click)="changesSprint(indexSprint + 1)"></i-tabler>
                 </div>
                 <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 p-3" [style.background]="gradient()">
-                    <div class="flex flex-column align-items-center gap-3" style="padding: 0.875rem;" [style.color]="colorPhase">
-                        <span class="text-xl font-semibold">FASE</span>
-                        <h1 style="font-weight: 600;">3</h1>
+                    <div class="flex flex-column align-items-center gap-3" style="padding: 0.875rem;" [style.color]="stage.color">
+                        <span class="text-xl font-semibold">{{phaseName}}</span>
+                        <h1 style="font-weight: 600;">{{phaseNumb}}</h1>
                     </div>
                     <div class="flex flex-column align-items-center gap-5">
-                        <span class="title-sprint font-semibold text-2xl " [style.color]="colorPhase">{{sprintSelected.name}}</span>
-                        <i-tabler class="icon-stage" name="social" [style.background-color]="colorPhase"></i-tabler>
+                        <span class="title-sprint font-semibold text-2xl " [style.color]="stage.color">{{sprintSelected.name}}</span>
+                        <i-tabler class="icon-stage" [name]="stage.icon" [style.background-color]="stage.color"></i-tabler>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
         <div class="display-content scrollwrap scrollwrap_delayed flex flex-column gap-2" *ngIf="contentSelected">
             <div class="flex flex-row justify-content-between align-items-center px-6">
                 <div class="flex flex-row gap-6">
-                    <ng-container *ngIf="contentSelected[contentSelected._id]; else elseTemplate">
+                    <ng-container *ngIf="contentCompleted[contentSelected._id]; else elseTemplate">
                         <span class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">Completado</span>
                     </ng-container>
                     <ng-template #elseTemplate>
@@ -57,7 +57,7 @@
                     </span>
                 </div>
                 <div class="completed-btn">
-                    <ng-container *ngIf="!contentSelected[contentSelected._id];">
+                    <ng-container *ngIf="!contentCompleted[contentSelected._id];">
                         <p-button styleClass="w-full button-yellow-second button-border-mid align-items-center justify-content-between" (onClick)="markAsCompleted()" [disabled]="savingCompleted">
                             <span class="font-semibold">Completar modulo</span>
                             <p-checkbox [(ngModel)]="marked" [binary]="true" inputId="binary"></p-checkbox>

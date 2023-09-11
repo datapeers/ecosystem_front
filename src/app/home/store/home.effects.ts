@@ -19,7 +19,8 @@ export class HomeEffects {
       switchMap(async (action: fromHome.SearchCurrentBatch) => {
         // TODO READ STARTUP SELECTED
         const userPhases = await this.phasesService.getPhasesList(
-          action.profile['startups'][0].phases.map((i) => i._id)
+          action.profile['startups'][0].phases.map((i) => i._id),
+          true
         );
         const batches = userPhases.filter((i) => !i.basePhase);
         const currentBatchID = localStorage.getItem('currentBatch');

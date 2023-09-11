@@ -19,6 +19,38 @@ const fragments = {
       calcEndDate
     }
   `,
+  phaseFieldsExtra: `
+  fragment phaseFields on Phase {
+      _id
+      index
+      stage
+      name
+      description
+      thumbnail
+      landing
+      startAt
+      endAt
+      isActive
+      published
+      basePhase
+      childrenOf
+      createdAt
+      updatedAt
+      calcEndDate
+      stageDoc {
+        _id
+        index
+        name
+        description
+        label
+        color
+        icon
+        isDeleted
+        createdAt
+        updatedAt
+      }
+    }
+  `,
 };
 
 const query = {
@@ -45,6 +77,14 @@ const query = {
       }
     }
     ${fragments.phaseFields}
+  `,
+  phasesListWithExtra: `
+    query PhasesList($ids: [String!]!) {
+      phasesList(ids: $ids) {
+        ...phaseFields
+      }
+    }
+    ${fragments.phaseFieldsExtra}
   `,
 };
 

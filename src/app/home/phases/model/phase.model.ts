@@ -1,3 +1,5 @@
+import { Stage } from './stage.model';
+
 export interface IPhase {
   _id: string;
   name: string;
@@ -16,6 +18,7 @@ export interface IPhase {
   createdAt: Date;
   updatedAt: Date;
   calcEndDate?: Date;
+  stageDoc?: Stage;
 }
 
 export class Phase implements IPhase {
@@ -36,7 +39,7 @@ export class Phase implements IPhase {
   createdAt: Date;
   updatedAt: Date;
   calcEndDate?: Date;
-
+  stageDoc?: Stage;
   private constructor() {}
 
   static fromJson(data: IPhase): Phase {

@@ -139,9 +139,14 @@ export class PhasesService {
     );
   }
 
-  async getPhasesList(ids: string[]): Promise<Phase[]> {
+  async getPhasesList(
+    ids: string[],
+    withExtraFields?: boolean
+  ): Promise<Phase[]> {
     const queryRef = this.graphql.refQuery(
-      phaseQueries.query.phasesList,
+      withExtraFields
+        ? phaseQueries.query.phasesListWithExtra
+        : phaseQueries.query.phasesList,
       { ids },
       'cache-first',
       { auth: true }

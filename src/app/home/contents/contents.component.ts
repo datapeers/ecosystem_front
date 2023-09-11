@@ -31,6 +31,7 @@ import {
 } from '@home/phases/model/resources-types.model';
 import { IUserLog } from './models/user-logs';
 import { hexToRgb } from '@shared/utils/hexToRgb';
+import { Stage } from '@home/phases/model/stage.model';
 
 @Component({
   selector: 'app-contents',
@@ -57,8 +58,10 @@ export class ContentsComponent implements OnInit, OnDestroy {
   previousContent: boolean = false;
 
   marked = true;
-  colorPhase = '#EA4254';
+  stage: Stage;
   countContent = 0;
+  phaseName = '';
+  phaseNumb = '';
   // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
@@ -126,6 +129,11 @@ export class ContentsComponent implements OnInit, OnDestroy {
       return;
     }
     this.currentBatch = currentBatch;
+    this.stage = this.currentBatch.stageDoc;
+    [this.phaseName, this.phaseNumb] = this.getPhaseAndNumb(
+      this.currentBatch.name
+    );
+    console.log(this.currentBatch);
     this.phaseContentService
       .getContents(this.currentBatch._id)
       .then(async (i) => {
@@ -134,7 +142,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
         const previousSprint = (
           await firstValueFrom(this.route.queryParamMap)
         ).get('sprint');
-
         if (!previousSprint) {
           this.sprintSelected =
             this.sprints.find((i) =>
@@ -143,7 +150,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
                 i.extra_options.end
               )
             ) ?? this.sprints[this.sprints.length - 1];
-          console.log(this.sprintSelected);
           this.indexSprint = this.sprints.findIndex(
             (i) => i._id === this.sprintSelected._id
           );
@@ -178,7 +184,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
   }
 
   changesSprint(index: number, content?: string) {
-    console.log(index);
     this.router.navigate(['/home/contents'], {
       queryParams: { sprint: this.sprints[index]._id, content },
     });
@@ -308,14 +313,13 @@ export class ContentsComponent implements OnInit, OnDestroy {
 
   gradient() {
     const style = `linear-gradient(180deg, ${this.withOpacity(
-      this.colorPhase,
       0.2
     )} 0%, #ffffff 100%)`;
     return style;
   }
 
-  withOpacity(color: string, opacity: number) {
-    const colorRgb = hexToRgb(color);
+  withOpacity(opacity: number) {
+    const colorRgb = hexToRgb(this.stage.color);
     const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
     return style;
   }
@@ -341,5 +345,17 @@ export class ContentsComponent implements OnInit, OnDestroy {
     if (content._id === '64fb4b87e309965c9ef1187d') return '#f7af42';
     if (this.contentCompleted[content._id]) return '#317bf4';
     return '#dcdcdc';
+  }
+
+  getPhaseAndNumb(cadena: string): [string, string] {
+    const regex = /Fase (\d+)/;
+    const matches = cadena.match(regex);
+    if (matches && matches.length === 2) {
+      const fase = 'Fase';
+      const numero = matches[1];
+      return [fase, numero];
+    } else {
+      return ['Fase', '0']; // No se encontró una coincidencia
+    }
   }
 }
