@@ -1,7 +1,10 @@
 <div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
   <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
-  <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="onConfigChange.next($event)" (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
-  <p-table [columns]="config?.columns ?? []" (onColReorder)="columnReorder($event)" [ngStyle]="{ 'height': scrollHeight + 'px'}" [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id" [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($any($event))" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true" [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords" (onRowSelect)="onRowSelected($event)" (onRowUnselect)="onRowUnselected($event)" styleClass="p-datatable-sm app-table" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($any($event))">
+  <ng-container *ngIf="configs && !options.hideMultipleFiltersTable">
+    <div style="height: 10px"></div>
+    <app-config-selector [options]="configs" [config]="config" (configChange)="onConfigChange.next($event)" (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
+  </ng-container>
+  <p-table class="dynamic-table" [columns]="config?.columns ?? []" (onColReorder)="columnReorder($event)" [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id" [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($any($event))" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true" [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords" (onRowSelect)="onRowSelected($event)" (onRowUnselect)="onRowUnselected($event)" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($any($event))">
     <ng-template pTemplate="caption">
       <div class="table-header">
         <span class="header color-custom">{{title}}</span>
@@ -163,6 +166,9 @@
           </ng-container>
         </ng-template>
       </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <span>{{paginatorRightMsg()}}</span>
     </ng-template>
   </p-table>
 

@@ -55,6 +55,7 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       actionsPerRow: [],
       extraColumnsTable: [],
       actionsTable: [],
+      hideMultipleFiltersTable: true,
     };
     firstValueFrom(
       this.store
