@@ -101,10 +101,10 @@
                     <div class="flex flew-wrap gap-2">
                         <ng-container [ngSwitch]="homeworkDisplay.resource.type">
                             <ng-container *ngSwitchCase="resourcesTypes.form">
-                                <p-button label="Formulario" (onClick)="openForm(homeworkDisplay)"></p-button>
+                                <p-button label="Ver formulario" iconPos="right" icon="pi pi-file-export" (onClick)="openForm(homeworkDisplay)"></p-button>
                             </ng-container>
                             <ng-container *ngSwitchCase="resourcesTypes.downloadable">
-                                <p-button label="Descargar" (onClick)="downloadFile(homeworkDisplay)"></p-button>
+                                <p-button label="Descargar" iconPos="right" icon="pi pi-download" (onClick)="downloadFile(homeworkDisplay)"></p-button>
                             </ng-container>
                             <ng-container *ngSwitchCase="resourcesTypes.task">
                                 <p-button *ngIf="homeworkDisplay.resource.extra_options.file" pTooltip="Plantilla" (onClick)="downloadFile(homeworkDisplay)" icon="pi pi-file"></p-button>

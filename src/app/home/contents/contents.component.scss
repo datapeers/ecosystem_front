@@ -147,9 +147,18 @@
 
 // ? Dialog homeworks
 ::ng-deep .homework-dialog {
-  border-radius: 3.125rem !important;
-  ::ng-deep .p-dialog .p-dialog-content {
-    padding: 0 0 2rem 0 !important;
+  .p-dialog .p-dialog-content {
+    padding: 0 0 2rem 0;
+  }
+
+  .p-dialog .p-dialog-header {
+    border-top-right-radius: 3.125rem;
+    border-top-left-radius: 3.125rem;
+  }
+
+  .p-dialog .p-dialog-content:last-of-type {
+    border-bottom-right-radius: 3.125rem;
+    border-bottom-left-radius: 3.125rem;
   }
 
   .info-resource {
