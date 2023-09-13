@@ -148,8 +148,8 @@
 // ? Dialog homeworks
 ::ng-deep .homework-dialog {
   border-radius: 3.125rem !important;
-  .p-dialog .p-dialog-content {
-    padding: 0 0 2rem 0;
+  ::ng-deep .p-dialog .p-dialog-content {
+    padding: 0 0 2rem 0 !important;
   }
 
   .info-resource {
