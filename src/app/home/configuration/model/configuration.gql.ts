@@ -5,6 +5,7 @@ const fragments = {
         benefactors
         contentOfInterest
         dashboard
+        verticals
         services
         createdAt
         updatedAt

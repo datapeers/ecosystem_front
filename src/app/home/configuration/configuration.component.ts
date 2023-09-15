@@ -8,6 +8,8 @@ import { ConfigurationApp } from './model/configurationApp';
 import { configTinyMce } from '@shared/models/configTinyMce';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '@shared/services/toast.service';
+import { FormGroup } from '@angular/forms';
+import { newVertical } from './model/vertical-creator';
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
@@ -19,6 +21,16 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   loaded = false;
   saving = false;
   watchConfig$: Subscription;
+
+  // Creator vertical
+  listIconsVerticals = ['leaf', 'affiliate', 'dna-2', 'replace', 'api-app'];
+  showCreatorVertical = false;
+  newVertical: FormGroup;
+  editing = false;
+
+  get formControlsVertical() {
+    return this.newVertical?.controls;
+  }
 
   public get configTiny(): typeof configTinyMce {
     return configTinyMce;
@@ -35,6 +47,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
+    this.newVertical = newVertical();
   }
 
   ngOnInit(): void {
@@ -91,5 +104,24 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
           });
       },
     });
+  }
+
+  openCreatorVertical(previous?: any) {
+    this.newVertical = newVertical(previous);
+    this.showCreatorVertical = true;
+    this.editing = previous ? true : false;
+  }
+
+  resetCreatorVertical() {
+    this.showCreatorVertical = false;
+  }
+
+  createVertical() {
+    this.config.verticals.push(this.newVertical.value);
+    this.resetCreatorVertical();
+  }
+
+  delete(index: number) {
+    this.config.verticals = this.config.verticals.splice(index, 1);
   }
 }

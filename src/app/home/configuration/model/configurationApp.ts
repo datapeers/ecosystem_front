@@ -1,6 +1,7 @@
 export interface IConfigurationApp {
   _id?: string;
   dashboard: string;
+  verticals: any[];
   services: any[];
   benefactors: any[];
   contentOfInterest: any[];
@@ -11,6 +12,7 @@ export interface IConfigurationApp {
 export class ConfigurationApp implements IConfigurationApp {
   _id?: string;
   dashboard: string;
+  verticals: any[];
   services: any[];
   benefactors: any[];
   contentOfInterest: any[];
@@ -33,6 +35,7 @@ export class ConfigurationApp implements IConfigurationApp {
     return {
       _id: this._id,
       dashboard: this.dashboard,
+      verticals: this.verticals,
     };
   }
 }

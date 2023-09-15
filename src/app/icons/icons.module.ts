@@ -81,6 +81,10 @@ import {
   IconArrowBigRight,
   IconBrandAdobe,
   IconDownloadOff,
+  IconAffiliate, // affiliate
+  IconDna2, // dna-2
+  IconReplace, // replace
+  IconApiApp, //api-app
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 import { Icon } from 'leaflet';
@@ -165,6 +169,10 @@ const icons = {
   IconArrowBigRight,
   IconBrandAdobe,
   IconDownloadOff,
+  IconAffiliate,
+  IconDna2,
+  IconReplace,
+  IconApiApp,
 };
 
 @NgModule({
