@@ -70,6 +70,7 @@ import { IconsModule } from '../icons/icons.module';
 import { InitComponent } from './init/init.component';
 import { ResourceCardComponent } from '../shared/components/resource-card/resource-card.component';
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -125,6 +126,7 @@ import { StartupProfileComponent } from './startup-profile/startup-profile.compo
     StagesComponent,
     ResourceCardComponent,
     StartupProfileComponent,
+    ConfigurationComponent,
   ],
   imports: [
     CommonModule,

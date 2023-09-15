@@ -78,7 +78,6 @@ export class AnnouncementsComponent {
       .subscribe((announcements) => {
         this.announcements = announcements;
         this.loading = false;
-        console.log(this.announcements);
       });
     firstValueFrom(
       this.store

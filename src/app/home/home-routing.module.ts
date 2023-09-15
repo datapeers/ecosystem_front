@@ -39,6 +39,7 @@ import { RouteComponent } from './route/route.component';
 import { StagesComponent } from './phases/stages/stages.component';
 import { Startup } from '@shared/models/entities/startup';
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 const routes: Routes = [
   {
@@ -117,6 +118,10 @@ const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarComponent,
+      },
+      {
+        path: 'configuration',
+        component: ConfigurationComponent,
       },
       {
         path: 'site_management',

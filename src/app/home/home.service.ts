@@ -250,7 +250,7 @@ export class HomeService {
       },
       settings: {
         label: 'Ajustes',
-        rute: '/home/personalizar',
+        rute: '/home/configuration',
         type: 'dropdown',
         class: 'mt-4',
         icon: 'settings',

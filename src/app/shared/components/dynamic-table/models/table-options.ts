@@ -13,4 +13,5 @@ export interface TableOptions {
   extraColumnsTable: TableColumn[];
   summary?: string;
   hideMultipleFiltersTable?: boolean;
+  hideCaption?: boolean;
 }
