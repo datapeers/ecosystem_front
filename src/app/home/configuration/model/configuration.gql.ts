@@ -6,6 +6,8 @@ const fragments = {
         contentOfInterest
         dashboard
         services
+        createdAt
+        updatedAt
     }
   `,
 };

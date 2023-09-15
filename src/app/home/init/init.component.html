@@ -74,9 +74,8 @@
                 </div>
             </div>
 
-            <div class="normal-panel w-full p-4">
-                contenidos
-                <div style="height:100rem"></div>
+            <div class="normal-panel w-full p-4" *ngIf="config">
+                <div [innerHtml]="(config.dashboard | safe:'html')" class="w-full " style="padding: 1.875rem;"></div>
             </div>
         </div>
     </div>

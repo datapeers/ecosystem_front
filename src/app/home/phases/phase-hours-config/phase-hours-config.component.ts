@@ -88,7 +88,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     private readonly service: PhaseHourConfigService,
     private readonly activitiesTypesService: PhaseEventsService
   ) {
-    console.log(this.columnsExpertsHours);
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)

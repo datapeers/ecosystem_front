@@ -1,1 +1,31 @@
-<p>configuration works!</p>
+<ng-container *ngIf="loaded; else noLoadedComponent">
+    <div class="flex flex-column px-4 py-3 h-full w-full h-full">
+        <div class="flex flex-column xl:flex-row gap-4 justify-content-between">
+            <div class="fex flex-column flex-grown-1 px-1 sm:px-2 md:px-4">
+                <h2>Configuración</h2>
+                <div style="height: 1.5rem"></div>
+                <div class="flex gap-2">
+                    <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                    <p class="th2">Modifica en cualquier momento el dashboard, los servicios y los contenidos de interés para los usuarios de la app.
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-none flex-column sm:flex-row align-items-end gap-3 px-6 mt2 ">
+
+                <p-button label="Guardar cambios" [disabled]="saving" (onClick)="saveChanges()"></p-button>
+            </div>
+        </div>
+        <p-divider></p-divider>
+        <div class="w-full" style="flex: 1" *ngIf="config">
+
+            <tinymce id="float-details" [(ngModel)]="config.dashboard" [config]="configTiny"></tinymce>
+
+        </div>
+
+    </div>
+</ng-container>
+<ng-template #noLoadedComponent>
+    <app-loading></app-loading>
+</ng-template>
+
+<p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>
