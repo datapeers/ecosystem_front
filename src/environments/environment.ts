@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  bucketS3: 'ecosystem-bt-colombia',
   api: 'https://vinku.net/back',
   graphQL: 'https://vinku.net/back/graphql',
   graphqlSubscription: 'wss://vinku.net/backsub/subscriptions',

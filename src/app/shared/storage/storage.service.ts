@@ -7,9 +7,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, mergeMap } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { StoragePaths } from './storage.constants';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -74,7 +73,7 @@ export class StorageService {
   }
 
   getKey(url: string) {
-    const regex = /ecosystem-bt-colombia\/(.+)\?/;
+    const regex = `${environment.bucketS3}\\/(.+)\\?`;
     const match = url.match(regex);
     if (match) {
       return match[1];

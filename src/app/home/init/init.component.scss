@@ -69,3 +69,38 @@
 .scrollwrap:focus {
   visibility: visible;
 }
+
+#mapSite {
+  height: 50vh;
+}
+
+#mapService {
+  height: 30vh;
+}
+
+.card-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 12.1875rem;
+  height: 15.375rem;
+  border-radius: 1.875rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  i-tabler {
+    width: 5rem;
+    height: 5rem;
+  }
+  span {
+    color: $appColorOne;
+  }
+  .content-vertical {
+    background-color: white;
+    border-radius: 1.875rem;
+  }
+  .separator-vertical {
+    height: 1.5rem;
+  }
+}

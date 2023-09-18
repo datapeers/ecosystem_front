@@ -63,7 +63,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
       async (i) => {
         this.loaded = false;
         this.config = i;
-        console.log(this.config);
         this.loaded = true;
       }
     );
