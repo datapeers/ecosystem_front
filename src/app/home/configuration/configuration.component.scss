@@ -27,6 +27,12 @@
   }
 }
 
+.card-benefactor {
+  border-radius: 1.875rem;
+  width: 15.625rem;
+  height: 9.375rem;
+}
+
 .scrollwrap {
   overflow-y: auto;
   height: calc(100vh - 102px - 2.5rem) !important;

@@ -176,12 +176,12 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
 
   createBenefactor() {
-    this.config.verticals.push(this.newBenefactor.value);
+    this.config.benefactors.push(this.newBenefactor.value);
     this.resetCreatorBenefactor();
   }
 
   editBenefactor() {
-    this.config.verticals[this.editing] = {
+    this.config.benefactors[this.editing] = {
       ...this.config.benefactors[this.editing],
       ...this.newBenefactor.value,
     };
@@ -195,7 +195,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   // Content interest
   openCreatorInterestContent(previousIndex?: number) {
     this.newInterestContent = newInterestContent(
-      this.config.benefactors[previousIndex]
+      this.config.contentOfInterest[previousIndex]
     );
     this.showCreatorInterestContent = true;
     this.editing = previousIndex ?? undefined;
@@ -207,12 +207,12 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
 
   createInterestContent() {
-    this.config.verticals.push(this.newInterestContent.value);
+    this.config.contentOfInterest.push(this.newInterestContent.value);
     this.resetCreatorInterestContent();
   }
 
   editInterestContent() {
-    this.config.verticals[this.editing] = {
+    this.config.contentOfInterest[this.editing] = {
       ...this.config.contentOfInterest[this.editing],
       ...this.newInterestContent.value,
     };
@@ -220,6 +220,6 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
 
   deleteInterestContent(index: number) {
-    this.config.benefactors.splice(index, 1);
+    this.config.contentOfInterest.splice(index, 1);
   }
 }

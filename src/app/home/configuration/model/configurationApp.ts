@@ -1,10 +1,14 @@
+import { IBenefactor } from './benefactor';
+import { IInterestContent } from './interest-content';
+import { IVertical } from './vertical';
+
 export interface IConfigurationApp {
   _id?: string;
   dashboard: string;
-  verticals: any[];
+  verticals: IVertical[];
   services: any[];
-  benefactors: any[];
-  contentOfInterest: any[];
+  benefactors: IBenefactor[];
+  contentOfInterest: IInterestContent[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -12,10 +16,10 @@ export interface IConfigurationApp {
 export class ConfigurationApp implements IConfigurationApp {
   _id?: string;
   dashboard: string;
-  verticals: any[];
+  verticals: IVertical[];
   services: any[];
-  benefactors: any[];
-  contentOfInterest: any[];
+  benefactors: IBenefactor[];
+  contentOfInterest: IInterestContent[];
   createdAt: Date;
   updatedAt: Date;
 
@@ -36,6 +40,8 @@ export class ConfigurationApp implements IConfigurationApp {
       _id: this._id,
       dashboard: this.dashboard,
       verticals: this.verticals,
+      benefactors: this.benefactors,
+      contentOfInterest: this.contentOfInterest,
     };
   }
 }
