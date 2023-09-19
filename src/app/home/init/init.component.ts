@@ -25,6 +25,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   mainMap: Map;
   latLong = [5.0710225, -75.4927164];
   private states;
+  responsiveOptions: any[] | undefined;
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
@@ -39,6 +40,23 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
   }
 
   ngOnInit(): void {

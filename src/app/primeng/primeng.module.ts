@@ -50,6 +50,8 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { ChartModule } from 'primeng/chart';
 import { RatingModule } from 'primeng/rating';
+import { CarouselModule } from 'primeng/carousel';
+
 @NgModule({
   declarations: [],
   exports: [
@@ -101,6 +103,7 @@ import { RatingModule } from 'primeng/rating';
     KeyFilterModule,
     ChartModule,
     RatingModule,
+    CarouselModule,
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

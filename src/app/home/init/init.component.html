@@ -105,14 +105,34 @@
                 <div class="flex flex-column w-full my-3">
                     <span class="text-3xl font-semibold">Nuestros aliados</span>
                     <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
+
+                    <p-carousel [value]="config.benefactors" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoPlayInterval="3000" [showIndicators]="false">
+                        <ng-template let-benefactor pTemplate="item">
+                            <img class="card-benefactor" [src]="benefactor.image" alt="" [pTooltip]="benefactor.name">
+                        </ng-template>
+                    </p-carousel>
+
+
                 </div>
             </div>
             <div class="normal-panel w-full p-4" *ngIf="config">
                 <div class="flex flex-column w-full my-3">
                     <span class="text-3xl font-semibold">Contenidos de interés</span>
                     <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
-                    <div class="flex align-items-center justify-content-center">
-                        <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center">
+                    <div class="flex flex-column align-items-center justify-content-center gap-3">
+                        <div class="w-full flex flex-row gap-3 justify-content-center align-items-center">
+                            <ng-container *ngFor="let interestContent of config.contentOfInterest; let i=index">
+
+                                <div class="card-interest-content flex flex-column align-items-center">
+                                    <img class="card-benefactor pt-2" [src]="interestContent.image" alt="" [pTooltip]="interestContent.name">
+                                    <div class="w-full flex flex-column p-5 gap-3">
+                                        <span class="font-semibold">{{interestContent.name}}</span>
+                                        <span class="set-color-text-third">{{interestContent.description}}</span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center mt-3">
                             <span class="w-full font-semibold text-center">Ver más contenidos</span>
                         </p-button>
                     </div>

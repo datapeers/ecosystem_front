@@ -33,6 +33,20 @@
   height: 9.375rem;
 }
 
+.card-interest-content {
+  border-radius: 1.875rem;
+  width: 16.875rem;
+  height: 25rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  img {
+    border-radius: 1.875rem;
+    width: 15.625rem;
+    height: 13.625rem;
+  }
+}
+
 .scrollwrap {
   overflow-y: auto;
   height: calc(100vh - 102px - 2.5rem) !important;

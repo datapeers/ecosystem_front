@@ -64,8 +64,22 @@
                 <p-button label="+ Contenido de interés" (onClick)="openCreatorInterestContent()"></p-button>
             </div>
             <div class="flex flex-row flex-wrap align-items-center justify-content-center px-3 py-2 gap-3">
-                <ng-container *ngFor="let vertical of config.contentOfInterest">
-                    A
+                <ng-container *ngFor="let interestContent of config.contentOfInterest; let i=index">
+                    <div class="flex flex-column">
+                        <div class="card-interest-content flex flex-column align-items-center">
+                            <img class="card-benefactor pt-2" [src]="interestContent.image" alt="" [pTooltip]="interestContent.name">
+                            <div class="w-full flex flex-column p-5 gap-3">
+                                <span class="font-semibold">{{interestContent.name}}</span>
+                                <span class="set-color-text-third">{{interestContent.description}}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-row p-3 align-items-center justify-content-between">
+                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-pencil" pTooltip="Editar" (onClick)="openCreatorInterestContent(i)">
+                            </p-button>
+                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-trash" pTooltip="Borrar" (onClick)="deleteInterestContent(i)">
+                            </p-button>
+                        </div>
+                    </div>
                 </ng-container>
             </div>
         </div>
@@ -136,6 +150,34 @@
             </ng-container>
             <ng-template #createBtn>
                 <p-button type="submit" label="Agregar aliado" (onClick)="createBenefactor()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newBenefactor.invalid"></p-button>
+            </ng-template>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Contenido de interés" [(visible)]="showCreatorInterestContent" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorInterestContent()">
+    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newInterestContent">
+        <form [formGroup]="newInterestContent" class="formgrid grid">
+            <div class="field col-6">
+                <label for="stageName">Nombre</label>
+                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="name" required>
+            </div>
+            <div class="field col-6">
+                <label for="stageName">Imagen</label>
+                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="image" required>
+            </div>
+            <span class="field col-12">
+                <label for="textarea">Descripción</label>
+                <textarea inputId="textarea" style="width: 100%;" rows="8" formControlName="description" pInputTextarea></textarea>
+            </span>
+            <div style="height: 1rem;"></div>
+        </form>
+        <div class="actions flex flex-column gap-1">
+            <ng-container *ngIf="enableBtnEdit; else createBtn">
+                <p-button type="submit" label="Cambiar" icon="pi pi-save" iconPos="right" (onClick)="editInterestContent()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newInterestContent.invalid"></p-button>
+            </ng-container>
+            <ng-template #createBtn>
+                <p-button type="submit" label="Agregar contenido" (onClick)="createInterestContent()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newInterestContent.invalid"></p-button>
             </ng-template>
         </div>
     </div>
