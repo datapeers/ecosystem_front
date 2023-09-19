@@ -68,6 +68,10 @@ const routes: Routes = [
         component: FormsComponent,
       },
       {
+        path: 'settings',
+        component: ConfigurationComponent,
+      },
+      {
         path: 'entrepreneurs',
         component: EntrepreneursComponent,
       },
@@ -119,10 +123,7 @@ const routes: Routes = [
         path: 'calendar',
         component: CalendarComponent,
       },
-      {
-        path: 'configuration',
-        component: ConfigurationComponent,
-      },
+
       {
         path: 'site_management',
         children: [

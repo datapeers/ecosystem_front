@@ -79,6 +79,9 @@ body {
   color: --text-color-secondary;
 }
 
+.set-color-text-third {
+  color: $appTextThree;
+}
 // ? ------------------------------------------------- Buttons -----------------------------------------------------
 // Button borders -----------------------------------------------------------
 ::ng-deep .p-button {

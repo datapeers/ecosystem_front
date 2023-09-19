@@ -9,7 +9,10 @@ import { configTinyMce } from '@shared/models/configTinyMce';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '@shared/services/toast.service';
 import { FormGroup } from '@angular/forms';
-import { newVertical } from './model/vertical-creator';
+import { newVertical } from './model/vertical';
+import { cloneDeep } from 'lodash';
+import { newBenefactor } from './model/benefactor';
+import { newInterestContent } from './model/interest-content';
 @Component({
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
@@ -17,19 +20,37 @@ import { newVertical } from './model/vertical-creator';
 })
 export class ConfigurationComponent implements OnInit, OnDestroy {
   user: User;
+  configBackup: ConfigurationApp;
   config: ConfigurationApp;
   loaded = false;
   saving = false;
   watchConfig$: Subscription;
 
+  editing: number = undefined;
+  enableBtnEdit = false;
   // Creator vertical
   listIconsVerticals = ['leaf', 'affiliate', 'dna-2', 'replace', 'api-app'];
   showCreatorVertical = false;
   newVertical: FormGroup;
-  editing = false;
+
+  // Creator Benefactor
+  showCreatorBenefactor = false;
+  newBenefactor: FormGroup;
+
+  // Creator content interest
+  showCreatorInterestContent = false;
+  newInterestContent: FormGroup;
 
   get formControlsVertical() {
     return this.newVertical?.controls;
+  }
+
+  get formControlsBenefactor() {
+    return this.newBenefactor?.controls;
+  }
+
+  get formControlsInterestContent() {
+    return this.newInterestContent?.controls;
   }
 
   public get configTiny(): typeof configTinyMce {
@@ -48,6 +69,8 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
     this.newVertical = newVertical();
+    this.newBenefactor = newBenefactor();
+    this.newInterestContent = newInterestContent();
   }
 
   ngOnInit(): void {
@@ -62,10 +85,15 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     this.watchConfig$ = (await this.service.watchConfig()).subscribe(
       async (i) => {
         this.loaded = false;
-        this.config = i;
+        this.config = cloneDeep(i);
+        this.configBackup = i;
         this.loaded = true;
       }
     );
+  }
+
+  revertChanges() {
+    this.config = cloneDeep(this.configBackup);
   }
 
   saveChanges() {
@@ -105,10 +133,13 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     });
   }
 
-  openCreatorVertical(previous?: any) {
-    this.newVertical = newVertical(previous);
+  // Vertical
+
+  openCreatorVertical(previousIndex?: number) {
+    this.newVertical = newVertical(this.config.verticals[previousIndex]);
     this.showCreatorVertical = true;
-    this.editing = previous ? true : false;
+    this.editing = previousIndex ?? undefined;
+    this.enableBtnEdit = previousIndex >= 0 ? true : false;
   }
 
   resetCreatorVertical() {
@@ -120,7 +151,75 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     this.resetCreatorVertical();
   }
 
-  delete(index: number) {
-    this.config.verticals = this.config.verticals.splice(index, 1);
+  editVertical() {
+    this.config.verticals[this.editing] = {
+      ...this.config.verticals[this.editing],
+      ...this.newVertical.value,
+    };
+    this.resetCreatorVertical();
+  }
+
+  deleteVertical(index: number) {
+    this.config.verticals.splice(index, 1);
+  }
+
+  // Benefactor
+  openCreatorBenefactor(previousIndex?: number) {
+    this.newBenefactor = newBenefactor(this.config.benefactors[previousIndex]);
+    this.showCreatorBenefactor = true;
+    this.editing = previousIndex ?? undefined;
+    this.enableBtnEdit = previousIndex >= 0 ? true : false;
+  }
+
+  resetCreatorBenefactor() {
+    this.showCreatorBenefactor = false;
+  }
+
+  createBenefactor() {
+    this.config.verticals.push(this.newBenefactor.value);
+    this.resetCreatorBenefactor();
+  }
+
+  editBenefactor() {
+    this.config.verticals[this.editing] = {
+      ...this.config.benefactors[this.editing],
+      ...this.newBenefactor.value,
+    };
+    this.resetCreatorBenefactor();
+  }
+
+  deleteBenefactor(index: number) {
+    this.config.benefactors.splice(index, 1);
+  }
+
+  // Content interest
+  openCreatorInterestContent(previousIndex?: number) {
+    this.newInterestContent = newInterestContent(
+      this.config.benefactors[previousIndex]
+    );
+    this.showCreatorInterestContent = true;
+    this.editing = previousIndex ?? undefined;
+    this.enableBtnEdit = previousIndex >= 0 ? true : false;
+  }
+
+  resetCreatorInterestContent() {
+    this.showCreatorInterestContent = false;
+  }
+
+  createInterestContent() {
+    this.config.verticals.push(this.newInterestContent.value);
+    this.resetCreatorInterestContent();
+  }
+
+  editInterestContent() {
+    this.config.verticals[this.editing] = {
+      ...this.config.contentOfInterest[this.editing],
+      ...this.newInterestContent.value,
+    };
+    this.resetCreatorInterestContent();
+  }
+
+  deleteInterestContent(index: number) {
+    this.config.benefactors.splice(index, 1);
   }
 }

@@ -1,8 +1,14 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-export function newVertical(previous?: any) {
+export interface IVertical {
+  name: string;
+  color: string;
+  icon: string;
+}
+
+export function newVertical(previous?: IVertical) {
   return new FormGroup({
-    name: new FormControl<number>(previous ? previous.name : '', {
+    name: new FormControl<string>(previous ? previous.name : '', {
       validators: [Validators.required],
     }),
     color: new FormControl<string>(previous?.color ?? '#C54927'),

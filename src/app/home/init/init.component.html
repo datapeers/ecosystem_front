@@ -84,8 +84,8 @@
 
             <div class="normal-panel w-full p-4" *ngIf="config">
                 <div [innerHtml]="(config.dashboard | safe:'html')" class="w-full " style="padding: 1.875rem;"></div>
-                <span class="my-3 font-2xl font-semibold">Nuestras {{config.verticals.length}} verticales</span>
-                <div class="flex flex-row flex-wrap align-items-center justify-content-center gap-3">
+                <span class="my-3 text-3xl font-semibold">Nuestras {{config.verticals.length}} verticales</span>
+                <div class="flex flex-row flex-wrap align-items-center justify-content-center gap-3 my-3">
                     <ng-container *ngFor="let vertical of config.verticals">
                         <div class="card-vertical" [style.background-color]="vertical.color">
                             <div class="w-full content-vertical flex flex-column align-items-center justify-content-center" style="flex: 1">
@@ -96,13 +96,27 @@
                         </div>
                     </ng-container>
                 </div>
-                <div class="flex flex-column w-full mt-3">
-                    <span class="font-2xl font-semibold">Conectamos ecosistemas</span>
-                    <span>Somos una red de Startup factories alrededor del mundo</span>
+                <div class="flex flex-column w-full my-3">
+                    <span class="text-3xl font-semibold">Conectamos ecosistemas</span>
+                    <span class="py-6 set-color-text-third">Somos una red de Startup factories alrededor del mundo</span>
                     <div id="mapSite" class="w-full">
                     </div>
                 </div>
-
+                <div class="flex flex-column w-full my-3">
+                    <span class="text-3xl font-semibold">Nuestros aliados</span>
+                    <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
+                </div>
+            </div>
+            <div class="normal-panel w-full p-4" *ngIf="config">
+                <div class="flex flex-column w-full my-3">
+                    <span class="text-3xl font-semibold">Contenidos de interés</span>
+                    <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
+                    <div class="flex align-items-center justify-content-center">
+                        <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center">
+                            <span class="w-full font-semibold text-center">Ver más contenidos</span>
+                        </p-button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

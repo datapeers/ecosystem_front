@@ -11,7 +11,7 @@ import { ConfigurationService } from '@home/configuration/configuration.service'
 import { ConfigurationApp } from '@home/configuration/model/configurationApp';
 import { Store } from '@ngrx/store';
 import { first, firstValueFrom } from 'rxjs';
-import { Map, tileLayer, Marker, Icon, geoJSON } from 'leaflet';
+import { Map, tileLayer, Marker, Icon, geoJSON, control } from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -58,7 +58,6 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   async loadComponent() {
     this.config = await this.serviceConfig.getConfig();
-    console.log('a');
     setTimeout(() => {
       this.initializeMainMap();
     }, 500);
@@ -78,6 +77,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   async initializeMainMap() {
     if (!this.mainMap) {
+      // shapes states
       this.states = await this.getStateShapes();
       const stateLayer = geoJSON(this.states, {
         style: (feature) => ({
@@ -88,15 +88,17 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
           fillColor: '#6DB65B',
         }),
       });
-      this.mainMap = new Map('mapSite', { zoomControl: false }).setView(
-        [0, 0],
-        1.5
-      );
-      var cartodbAttribution =
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>';
-      tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        attribution: cartodbAttribution,
-      }).addTo(this.mainMap);
+      // map
+      this.mainMap = new Map('mapSite', {
+        zoomControl: false,
+        minZoom: 2.1,
+        maxZoom: 2.1,
+      }).setView([20, 0], 0);
+      // control.scale({}).addTo(this.mainMap);
+      // this.mainMap.setZoom(1.7);
+      tileLayer(
+        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+      ).addTo(this.mainMap);
       this.mainMap.addLayer(stateLayer);
     }
   }
