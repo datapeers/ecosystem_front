@@ -29,6 +29,7 @@ import { StorageService } from '@shared/storage/storage.service';
 import { HttpEventType } from '@angular/common/http';
 import FileSaver from 'file-saver';
 import { IFileUpload, IFileUploadExtended } from '@shared/models/file';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-helpdesk',
   templateUrl: './helpdesk.component.html',
@@ -99,16 +100,12 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     private toast: ToastService,
     private store: Store<AppState>,
     private service: HelpdeskService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
+    private confirmationService: ConfirmationService
   ) {
     this.filtersTickets.valueChanges.subscribe((data) => {
       this.filterTicketsFunction(data as any);
     });
-    firstValueFrom(
-      this.store
-        .select((store) => store.auth.user)
-        .pipe(first((i) => i !== null))
-    ).then((u) => (this.user = u));
   }
 
   ngOnInit() {
@@ -121,12 +118,19 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
 
   async loadComponent() {
     this.loaded = false;
-    this.profileDoc = await firstValueFrom(
+    await firstValueFrom(
       this.store
-        .select((store) => store.auth.profileDoc)
+        .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
-    );
-    if (this.user.isUser) this.startup = this.profileDoc.startups[0];
+    ).then((u) => (this.user = u));
+    if (this.user.isUser) {
+      this.profileDoc = await firstValueFrom(
+        this.store
+          .select((store) => store.auth.profileDoc)
+          .pipe(first((i) => i !== null))
+      );
+      if (this.user.isUser) this.startup = this.profileDoc.startups[0];
+    }
     this.service
       .watchTickets({
         isDeleted: false,
@@ -155,7 +159,6 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     this.showedTickets = this.tickets.filter(
       (i) => i.category === data.category
     );
-    console.log(this.showedTickets);
     this.showedTickets = this.showedTickets.sort((ticketA, ticketB) => {
       // Comparar los estados de los tickets
       if (ticketA.status === data.status && ticketB.status !== data.status) {
@@ -288,5 +291,46 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
         console.warn(err);
         this.toast.error({ summary: 'Error al responder ticket', detail: err });
       });
+  }
+
+  async closeTicket() {}
+
+  async deleteTicket() {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '',
+      message: '¿Está seguro de que desea eliminar el ticket?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .deleteTicket(this.showTicket._id)
+          .then((ans) => {
+            this.showTicket = false;
+            this.toast.clear();
+            this.toast.success({
+              detail: 'El ticket ha sido eliminado exitosamente',
+              summary: 'Etapa eliminado!',
+              life: 2000,
+            });
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar ticket',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
+  allowDelete(ticket: Ticket) {
+    if (ticket.status === this.ticketsStates.Closed) return false;
+    if (this.user.isUser && ticket.startupId !== this.startup._id) return false;
+    return true;
   }
 }

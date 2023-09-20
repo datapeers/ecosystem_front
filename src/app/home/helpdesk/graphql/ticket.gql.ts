@@ -43,6 +43,14 @@ const mutation = {
       }
     }
   `,
+  removeHelpDesk: `
+    ${fragments.ticketFields}
+    mutation RemoveHelpDesk($removeHelpDeskId: ID!) {
+      removeHelpDesk(id: $removeHelpDeskId) {
+        ...ticketFields
+      }
+    }
+  `,
 };
 
 const ticketQueries = {

@@ -49,4 +49,18 @@ export class HelpdeskService {
         .pipe(map((request) => request.data.updateHelpDeskInput))
     );
   }
+
+  async deleteTicket(id: string): Promise<Ticket> {
+    const mutationRef = this.graphql.refMutation(
+      ticketQueries.mutation.removeHelpDesk,
+      { removeHelpDeskId: id },
+      [this._watchTickets],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.removeHelpDesk))
+    );
+  }
 }

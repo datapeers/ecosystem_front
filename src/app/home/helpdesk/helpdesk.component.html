@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="w-2"></div>
-            <p-button label="+ Ticket" (onClick)="openCreatorTicket()"></p-button>
+            <p-button label="+ Ticket" (onClick)="openCreatorTicket()" *ngIf="user?.isUser"></p-button>
         </div>
     </div>
     <p-divider></p-divider>
@@ -97,8 +97,10 @@
                 </span>
                 <div style="height: 1rem;"></div>
             </form>
-            <div class="actions flex flex-column gap-1">
-                <p-button type="submit" label="Enviar respuesta" (onClick)="sendResponse()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="response.invalid"></p-button>
+            <div class="w-full flex flex-row gap-1">
+                <p-button type="submit" label="Enviar respuesta" (onClick)="sendResponse()" styleClass="border-round-2xl my-2 p-3" [disabled]="response.invalid"></p-button>
+                <p-button type="submit" label="Cerrar ticket" (onClick)="closeTicket()" styleClass="button-yellow-second border-round-2xl my-2 p-3" *ngIf="!user.isUser && showTicket.status !== ticketsStates.Closed"></p-button>
+                <p-button type="submit" label="Borrar ticket" (onClick)="deleteTicket()" styleClass="button-grey border-round-2xl my-2 p-3" *ngIf="allowDelete(showTicket)"></p-button>
             </div>
 
         </ng-container>
