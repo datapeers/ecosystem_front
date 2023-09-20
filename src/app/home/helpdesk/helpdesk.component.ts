@@ -5,6 +5,20 @@ import { DocumentProvider } from '@shared/components/dynamic-table/models/docume
 import { HelpdeskService } from './helpdesk.service';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
+import {
+  TicketStates,
+  ticketStatesNames,
+  ticketStatesColors,
+  ticketStatesObj,
+} from './enum/ticket-status.enum';
+import {
+  TicketCategory,
+  ticketCategoryColors,
+  ticketCategoryNames,
+  ticketCategoryObj,
+} from './enum/ticket-category.enum';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
 
 @Component({
   selector: 'app-helpdesk',
@@ -14,10 +28,12 @@ import { tableLocators } from '@shared/components/dynamic-table/locators';
 })
 export class HelpdeskComponent {
   formFilterCategory = new FormGroup({
-    category: new FormControl('', [Validators.required]),
+    category: new FormControl(''),
+    status: new FormControl(''),
   });
 
-  categories = [{ name: 'Acompañamientos', code: 'AC' }];
+  categories = ticketCategoryObj;
+  status = ticketStatesObj;
   ticketsContext: TicketContext;
 
   optionsTable: TableOptions;
@@ -138,19 +154,25 @@ export class HelpdeskComponent {
   ];
 
   showTicket;
-
-  getSeverity(status: string) {
-    console.log(status);
-    switch (status) {
-      case 'Opened':
-        return 'success';
-      case 'Inprogress':
-        return 'warning';
-      case 'Closed':
-        return 'danger';
-    }
-    return '';
+  titleDialog;
+  response = {
+    body: '',
+    attachment: [],
+    isResponse: true,
+    answerBy: '',
+  };
+  public get ticketsStates(): typeof TicketStates {
+    return TicketStates;
   }
+
+  public get ticketsStatesColors(): typeof ticketStatesColors {
+    return ticketStatesColors;
+  }
+
+  constructor(
+    private store: Store<AppState>,
+    private service: HelpdeskService
+  ) {}
 
   ngOnInit() {
     this.initData();
@@ -160,5 +182,11 @@ export class HelpdeskComponent {
 
   display(thicket) {
     this.showTicket = thicket;
+    this.response = {
+      body: '',
+      attachment: [],
+      isResponse: true,
+      answerBy: '',
+    };
   }
 }

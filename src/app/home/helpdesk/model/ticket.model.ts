@@ -1,3 +1,5 @@
+import { TicketCategory } from '../enum/ticket-category.enum';
+import { TicketStates } from '../enum/ticket-status.enum';
 import { ITicketCategory } from './ticket-category.model';
 import { catchError } from 'rxjs';
 
@@ -8,7 +10,7 @@ export interface ITicket {
   childs: ITicketChild[];
   startupId: string;
   startupName: string;
-  category: ITicketCategory;
+  category: TicketCategory;
   createdAt: Date;
 }
 
@@ -29,11 +31,11 @@ export class TicketChild implements ITicketChild {
 export class Ticket implements ITicket {
   _id: string;
   title: string;
-  status: string;
+  status: TicketStates;
   childs: ITicketChild[];
   startupId: string;
   startupName: string;
-  category: ITicketCategory;
+  category: TicketCategory;
   createdAt: Date;
 
   private constructor() {}

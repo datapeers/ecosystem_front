@@ -22,7 +22,11 @@
             </div>
             <div class="flex flex-column gap-2">
                 <label>Ordenar por:</label>
-                <p-dropdown optionLabel="name"></p-dropdown>
+                <div class="flex">
+                    <form [formGroup]="formFilterCategory">
+                        <p-dropdown formControlName="status" [options]="status" optionLabel="name"></p-dropdown>
+                    </form>
+                </div>
             </div>
             <div class="w-2"></div>
             <p-button label="+ Ticket"></p-button>
@@ -45,7 +49,7 @@
                 <tr (click)="display(ticket)" class="cursor-pointer">
                     <td class="text-center">{{ticket.category ? ticket.category.name : ''}}</td>
                     <td class="text-center">{{ticket.title}}</td>
-                    <td class="text-center"><p-tag [value]="ticket.status" [severity]="getSeverity(ticket.status)"></p-tag></td>
+                    <td class="text-center"><p-tag [value]="ticket.status" [severity]="ticketsStatesColors[ticket.status]"></p-tag></td>
                     <td class="text-center">{{ticket.createdAt | date : 'yyyy/MM/yy'}}</td>
                     <td class="text-center"></td>
                 </tr>
@@ -54,12 +58,11 @@
     </div>
 </div>
 
-<p-dialog header="Ticket" [(visible)]="showTicket" [style]="{width: '50vw'}">
+<p-dialog [header]="showTicket ? showTicket.title  : ''" [(visible)]="showTicket" [style]="{width: '50vw'}">
     <div class="flex flex-column w-full p-3 gap-3 text-white" *ngIf="showTicket">
         <div class="w-full flex flex-row justify-content-start">
             <p class="w-9 card-ticket p-3 te" [style.background-color]="'#317bf4'">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                {{showTicket.body}}
             </p>
         </div>
 
@@ -68,6 +71,11 @@
                 <p class="w-9 card-ticket p-3" [style.background-color]="'#317bf4'">
                     {{item.body}}
                 </p>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="showTicket.status !== this.ticketsStates.Closed">
+            <div class="w-full flex">
+                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="response.body"></textarea>
             </div>
         </ng-container>
 

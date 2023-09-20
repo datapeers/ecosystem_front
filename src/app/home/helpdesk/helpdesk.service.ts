@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { GraphqlService } from '@graphqlApollo/graphql.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HelpdeskService {
-
-  constructor() { }
+  _watchLogs;
+  constructor(private readonly graphql: GraphqlService) {}
 }
