@@ -1,64 +1,41 @@
 const fragments = {
   ticketFields: `
-    fragment ticketFields on Ticket {
-        _id
-        title
-        status
-        childs: {
-            body
-            attachment
-            isResposne
-            answerBy
-        }
-        startupId
-        startupName
-        isDeleted
-        createdAt
-        updatedAt
+    fragment ticketFields on HelpDeskTicket {
+      _id
+      category
+      childs
+      createdAt
+      isDeleted
+      startupId
+      startupName
+      status
+      title
+      updatedAt
     }
-    `,
+  `,
 };
 
 const query = {
-  tickets: `
-  query Query($filter: HelpDeskFilterInput!) {
-        helpDeskTickets(filter: $filter) {
-            childs: {
-                body
-                attachment
-                isResposne
-                answerBy
-            }
-            createdAt
-            isDeleted
-            startupId
-            startupName
-            status
-            title
-            updatedAt
-          }
-        }`,
-  ticket: `
-    query Query($helpDeskTicketId: ID!) {
-        helpDeskTicket(id: $helpDeskTicketId) {
-            childs: {
-                body
-                attachment
-                isResposne
-                answerBy
-            }
-            createdAt
-            isDeleted
-            startupId
-            startupName
-            status
-            title
-            updatedAt
-          }
-        }`,
+  helpDeskFiltered: `
+    query HelpDeskFiltered($filters: JSON!) {
+      helpDeskFiltered(filters: $filters) {
+        ...ticketFields
+      }
+    }
+    ${fragments.ticketFields}
+  `,
 };
 
-const mutation = {};
+const mutation = {
+  createHelpDesk: `
+    ${fragments.ticketFields}
+    mutation CreateHelpDesk($createHelpDeskInput: CreateHelpDeskInput!) {
+      createHelpDesk(createHelpDeskInput: $createHelpDeskInput) {
+        ...ticketFields
+      }
+    }
+  `,
+};
 
 const ticketQueries = {
   query,

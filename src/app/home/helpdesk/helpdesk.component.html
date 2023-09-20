@@ -15,27 +15,27 @@
             <div class="flex flex-column gap-2">
                 <label>Ver por:</label>
                 <div class="flex">
-                    <form [formGroup]="formFilterCategory">
-                        <p-dropdown formControlName="category" [options]="categories" optionLabel="name"></p-dropdown>
+                    <form [formGroup]="filtersTickets">
+                        <p-dropdown formControlName="category" [options]="categories" optionLabel="name" optionValue="value"></p-dropdown>
                     </form>
                 </div>
             </div>
             <div class="flex flex-column gap-2">
                 <label>Ordenar por:</label>
                 <div class="flex">
-                    <form [formGroup]="formFilterCategory">
-                        <p-dropdown formControlName="status" [options]="status" optionLabel="name"></p-dropdown>
+                    <form [formGroup]="filtersTickets">
+                        <p-dropdown formControlName="status" [options]="status" optionLabel="name" optionValue="value"></p-dropdown>
                     </form>
                 </div>
             </div>
             <div class="w-2"></div>
-            <p-button label="+ Ticket"></p-button>
+            <p-button label="+ Ticket" (onClick)="openCreatorTicket()"></p-button>
         </div>
     </div>
     <p-divider></p-divider>
     <div class="flex h-4"></div>
     <div class="flex w-full table-container">
-        <p-table class="table-dark w-full" [value]="tickets" [tableStyle]="{'min-width': '50rem'}">
+        <p-table class="table-dark w-full" [value]="showedTickets" [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Categoría</th>
@@ -47,9 +47,9 @@
             </ng-template>
             <ng-template pTemplate="body" let-ticket>
                 <tr (click)="display(ticket)" class="cursor-pointer">
-                    <td class="text-center">{{ticket.category ? ticket.category.name : ''}}</td>
+                    <td class="text-center">{{ticketCategoryNames[ticket.category]}}</td>
                     <td class="text-center">{{ticket.title}}</td>
-                    <td class="text-center"><p-tag [value]="ticket.status" [severity]="ticketsStatesColors[ticket.status]"></p-tag></td>
+                    <td class="text-center"><p-tag [value]="ticketsStatesNames[ticket.status]" [severity]="ticketsStatesColors[ticket.status]"></p-tag></td>
                     <td class="text-center">{{ticket.createdAt | date : 'yyyy/MM/yy'}}</td>
                     <td class="text-center"></td>
                 </tr>
@@ -81,4 +81,28 @@
 
     </div>
 
+</p-dialog>
+
+<p-dialog header="Ticket" [(visible)]="showCreatorTicket" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true">
+    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newTicket">
+        <form [formGroup]="newTicket" class="formgrid grid">
+            <div class="field col-6">
+                <label for="titleTicket">Titulo</label>
+                <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" formControlName="title" required>
+            </div>
+            <div class="field col-6">
+                <label for="stageIcon">Categoría</label>
+                <p-dropdown [options]="categories" optionLabel="name" optionValue="value" formControlName="category" styleClass="appearance-none outline-none w-full">
+                </p-dropdown>
+            </div>
+            <span class="field col-12">
+                <label for="textarea">Mensaje</label>
+                <textarea inputId="textarea" style="width: 100%;" rows="8" formControlName="body" pInputTextarea></textarea>
+            </span>
+            <div style="height: 1rem;"></div>
+        </form>
+        <div class="actions flex flex-column gap-1">
+            <p-button type="submit" label="Crear ticket" (onClick)="createTicket()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newTicket.invalid"></p-button>
+        </div>
+    </div>
 </p-dialog>
