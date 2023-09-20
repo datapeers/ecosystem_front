@@ -31,7 +31,7 @@ export class HelpdeskComponent {
         {
           body: 'Cuerpo del elemento 1',
           attachment: ['archivo1.pdf', 'imagen1.jpg'],
-          isResposne: true,
+          isResponse: true,
           answerBy: 'Usuario 1',
         },
       ],
@@ -52,7 +52,7 @@ export class HelpdeskComponent {
         {
           body: 'Cuerpo del elemento 1',
           attachment: ['archivo1.pdf', 'imagen1.jpg'],
-          isResposne: true,
+          isResponse: true,
           answerBy: 'Usuario 1',
         },
       ],
@@ -73,7 +73,7 @@ export class HelpdeskComponent {
         {
           body: 'Cuerpo del elemento 1',
           attachment: ['archivo1.pdf', 'imagen1.jpg'],
-          isResposne: true,
+          isResponse: true,
           answerBy: 'Usuario 1',
         },
       ],
@@ -94,7 +94,7 @@ export class HelpdeskComponent {
         {
           body: 'Cuerpo del elemento 1',
           attachment: ['archivo1.pdf', 'imagen1.jpg'],
-          isResposne: true,
+          isResponse: true,
           answerBy: 'Usuario 1',
         },
       ],
@@ -115,7 +115,7 @@ export class HelpdeskComponent {
         {
           body: 'Cuerpo del elemento 1',
           attachment: ['archivo1.pdf', 'imagen1.jpg'],
-          isResposne: true,
+          isResponse: true,
           answerBy: 'Usuario 1',
         },
       ],
@@ -137,6 +137,8 @@ export class HelpdeskComponent {
     { field: 'createdAt', header: 'Fecha' },
   ];
 
+  showTicket;
+
   getSeverity(status: string) {
     console.log(status);
     switch (status) {
@@ -155,4 +157,8 @@ export class HelpdeskComponent {
   }
 
   initData() {}
+
+  display(thicket) {
+    this.showTicket = thicket;
+  }
 }

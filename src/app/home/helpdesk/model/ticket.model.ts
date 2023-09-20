@@ -15,14 +15,14 @@ export interface ITicket {
 export interface ITicketChild {
   body: string;
   attachment: string[];
-  isResposne: boolean;
+  isResponse: boolean;
   answerBy: string;
 }
 
 export class TicketChild implements ITicketChild {
   body: string;
   attachment: string[];
-  isResposne: boolean;
+  isResponse: boolean;
   answerBy: string;
 }
 

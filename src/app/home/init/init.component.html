@@ -115,7 +115,7 @@
 
                 </div>
             </div>
-            <div class="normal-panel w-full p-4" *ngIf="config">
+            <div class="normal-panel w-full p-4 mb-3" *ngIf="config">
                 <div class="flex flex-column w-full my-3">
                     <span class="text-3xl font-semibold">Contenidos de interés</span>
                     <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
@@ -125,7 +125,7 @@
 
                                 <div class="card-interest-content flex flex-column align-items-center">
                                     <img class="card-benefactor pt-2" [src]="interestContent.image" alt="" [pTooltip]="interestContent.name">
-                                    <div class="w-full flex flex-column p-5 gap-3">
+                                    <div class="w-full flex flex-column p-5 gap-4">
                                         <span class="font-semibold">{{interestContent.name}}</span>
                                         <span class="set-color-text-third">{{interestContent.description}}</span>
                                     </div>
