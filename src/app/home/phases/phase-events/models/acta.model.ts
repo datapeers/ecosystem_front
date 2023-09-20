@@ -2,6 +2,7 @@ import * as moment from 'moment';
 import { Phase } from '../../model/phase.model';
 import { Event } from './events.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IFileUpload } from '@shared/models/file';
 
 export interface IActa {
   _id: string;
@@ -12,7 +13,7 @@ export interface IActa {
   topics_covered: string;
   conclusions: string;
   extra_options: {
-    files?: { name: string; url: string }[];
+    files?: IFileUpload[];
     expertHours?: any;
   };
   phase: string;
@@ -32,7 +33,7 @@ export class Acta implements IActa {
   topics_covered: string;
   conclusions: string;
   extra_options: {
-    files?: { name: string; url: string }[];
+    files?: IFileUpload[];
     expertHours?: any;
   };
   phase: string;

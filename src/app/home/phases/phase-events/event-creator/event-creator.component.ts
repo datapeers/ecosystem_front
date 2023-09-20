@@ -11,12 +11,7 @@ import { PhaseExpertsService } from '@home/phases/phase-experts/phase-experts.se
 import { PhaseStartupsService } from '@home/phases/phase-startups/phase-startups.service';
 import { Phase } from '@home/phases/model/phase.model';
 import { User } from '@auth/models/user';
-import {
-  IEntityEvent,
-  IItemStartup,
-  IEventFileExtended,
-  newEvent,
-} from '../models/events.model';
+import { IEntityEvent, IItemStartup, newEvent } from '../models/events.model';
 import {
   faClock,
   faPaperclip,
@@ -37,6 +32,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Event } from '@home/phases/phase-events/models/events.model';
 import { GeneralConstant } from '@shared/constant/general.constant';
 import { PhaseEventsConstant } from '../constant/phase-events.constant';
+import { IFileUploadExtended } from '@shared/models/file';
 @Component({
   selector: 'app-event-creator',
   templateUrl: './event-creator.component.html',
@@ -82,7 +78,7 @@ export class EventCreatorComponent implements OnInit {
   fileSizeLimit = 1000000;
   filesLimit = 5;
   allowFiles = false;
-  selectedFiles: IEventFileExtended[] = [];
+  selectedFiles: IFileUploadExtended[] = [];
 
   // ? Icons
   faPaperclip = faPaperclip;
@@ -326,7 +322,7 @@ export class EventCreatorComponent implements OnInit {
     }
   }
 
-  async downloadFile(file: IEventFileExtended) {
+  async downloadFile(file: IFileUploadExtended) {
     if (file.file) {
       FileSaver.saveAs(file.file);
       return;

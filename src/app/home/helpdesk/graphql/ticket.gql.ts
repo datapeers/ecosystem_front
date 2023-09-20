@@ -35,6 +35,14 @@ const mutation = {
       }
     }
   `,
+  updateHelpDesk: `
+    ${fragments.ticketFields}
+    mutation UpdateHelpDesk($updateHelpDeskInput: UpdateHelpDeskInput!) {
+      updateHelpDesk(updateHelpDeskInput: $updateHelpDeskInput) {
+        ...ticketFields
+      }
+    }
+  `,
 };
 
 const ticketQueries = {

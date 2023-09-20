@@ -1,3 +1,4 @@
+import { IFileUpload } from '@shared/models/file';
 import { TicketCategory } from '../enum/ticket-category.enum';
 import { TicketStates } from '../enum/ticket-status.enum';
 import { ITicketCategory } from './ticket-category.model';
@@ -16,16 +17,18 @@ export interface ITicket {
 
 export interface ITicketChild {
   body: string;
-  attachment: string[];
+  attachment: IFileUpload[];
   isResponse: boolean;
   answerBy: string;
+  answerById: string;
 }
 
 export class TicketChild implements ITicketChild {
   body: string;
-  attachment: string[];
+  attachment: IFileUpload[];
   isResponse: boolean;
   answerBy: string;
+  answerById: string;
 }
 
 export class Ticket implements ITicket {

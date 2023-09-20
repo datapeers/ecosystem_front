@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TypeEvent } from './types-events.model';
 import { attendanceType } from '../models/assistant-type.enum';
 import { IParticipationEvent } from './participation.model';
+import { IFileUpload } from '@shared/models/file';
 export interface IEntityEvent {
   _id: string;
   name: string;
@@ -19,7 +20,7 @@ export interface IEvent {
   extra_options: {
     url?: string;
     publicFiles?: boolean;
-    files?: { name: string; url: string }[];
+    files?: IFileUpload[];
     acta?: string;
   };
   startAt: Date;
@@ -43,7 +44,7 @@ export class Event implements IEvent {
   extra_options: {
     url?: string;
     allow_viewFiles?: boolean;
-    files?: { name: string; url: string }[];
+    files?: IFileUpload[];
     acta?: string;
     link?: string;
   };
@@ -84,15 +85,6 @@ export class Event implements IEvent {
     });
     return obj;
   }
-}
-
-export interface IEventFile {
-  url?: string;
-  name: string;
-}
-
-export interface IEventFileExtended extends IEventFile {
-  file?: File;
 }
 
 export function newEvent(

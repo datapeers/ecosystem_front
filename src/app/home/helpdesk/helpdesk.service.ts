@@ -35,4 +35,18 @@ export class HelpdeskService {
         .pipe(map((request) => request.data.createHelpDesk))
     );
   }
+
+  async updateTicket(updateHelpDeskInput: any): Promise<Ticket> {
+    const mutationRef = this.graphql.refMutation(
+      ticketQueries.mutation.updateHelpDesk,
+      { updateHelpDeskInput },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.updateHelpDeskInput))
+    );
+  }
 }

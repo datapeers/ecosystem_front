@@ -59,24 +59,48 @@
 </div>
 
 <p-dialog [header]="showTicket ? showTicket.title  : ''" [(visible)]="showTicket" [style]="{width: '50vw'}">
-    <div class="flex flex-column w-full p-3 gap-3 text-white" *ngIf="showTicket">
-        <div class="w-full flex flex-row justify-content-start">
-            <p class="w-9 card-ticket p-3 te" [style.background-color]="'#317bf4'">
-                {{showTicket.body}}
-            </p>
-        </div>
-
+    <div class="flex flex-column w-full p-3 gap-3" *ngIf="showTicket">
         <ng-container *ngFor="let item of showTicket.childs">
-            <div class="w-full flex flex-row justify-content-end">
-                <p class="w-9 card-ticket p-3" [style.background-color]="'#317bf4'">
-                    {{item.body}}
-                </p>
+            <div class="flex flex-row w-full" [ngClass]="{'justify-content-end' : item.isResponse, 'align-items-start': !item.isResponse}">
+                <div class="text-white w-full flex flex-column card-ticket w-9 p-3 gap-2" [ngClass]="{'justify-content-end text-right' : item.isResponse, 'align-items-start': !item.isResponse}" [style.background-color]="'#317bf4'">
+                    <p style="font-weight: 600;">{{item.answerBy}}:</p>
+                    <p>
+                        {{item.body}}
+                    </p>
+                </div>
             </div>
+
         </ng-container>
         <ng-container *ngIf="showTicket.status !== this.ticketsStates.Closed">
-            <div class="w-full flex">
-                <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="response.body"></textarea>
+            <p-divider></p-divider>
+            <form [formGroup]="response" class="formgrid grid">
+                <span class="field col-12">
+                    <label for="msgResponse" class="">Mensaje</label>
+                    <textarea inputId="msgResponse" style="width: 100%;" rows="4" formControlName="body" pInputTextarea></textarea>
+                </span>
+                <span class="field col-12">
+                    <label for="filesTicket" class="">Archivos</label>
+                    <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
+                    <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+                        <ng-template let-file pTemplate="file">
+                            <div></div>
+                        </ng-template>
+                        <ng-template pTemplate="content">
+                            <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                                <i-tabler name="file-description" class="mr-1"></i-tabler>
+                                <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                                <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                                <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
+                            </div>
+                        </ng-template>
+                    </p-fileUpload>
+                </span>
+                <div style="height: 1rem;"></div>
+            </form>
+            <div class="actions flex flex-column gap-1">
+                <p-button type="submit" label="Enviar respuesta" (onClick)="sendResponse()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="response.invalid"></p-button>
             </div>
+
         </ng-container>
 
     </div>
@@ -91,13 +115,31 @@
                 <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" formControlName="title" required>
             </div>
             <div class="field col-6">
-                <label for="stageIcon">Categoría</label>
-                <p-dropdown [options]="categories" optionLabel="name" optionValue="value" formControlName="category" styleClass="appearance-none outline-none w-full">
+                <label for="categoryTicket">Categoría</label>
+                <p-dropdown inputId="categoryTicket" [options]="categories" optionLabel="name" optionValue="value" formControlName="category" styleClass="appearance-none outline-none w-full">
                 </p-dropdown>
             </div>
             <span class="field col-12">
-                <label for="textarea">Mensaje</label>
-                <textarea inputId="textarea" style="width: 100%;" rows="8" formControlName="body" pInputTextarea></textarea>
+                <label for="msgTicket">Mensaje</label>
+                <textarea inputId="msgTicket" style="width: 100%;" rows="8" formControlName="body" pInputTextarea></textarea>
+            </span>
+            <span class="field col-12">
+                <label for="filesTicket">Archivos</label>
+                <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
+                <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+                    <ng-template let-file pTemplate="file">
+                        <div></div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                            <i-tabler name="file-description" class="mr-1"></i-tabler>
+                            <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                            <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                            <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
+
+                        </div>
+                    </ng-template>
+                </p-fileUpload>
             </span>
             <div style="height: 1rem;"></div>
         </form>

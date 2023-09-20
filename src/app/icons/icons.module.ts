@@ -85,6 +85,7 @@ import {
   IconDna2, // dna-2
   IconReplace, // replace
   IconApiApp, //api-app
+  IconFileDescription, // file-description
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 import { Icon } from 'leaflet';
@@ -173,6 +174,7 @@ const icons = {
   IconDna2,
   IconReplace,
   IconApiApp,
+  IconFileDescription,
 };
 
 @NgModule({
