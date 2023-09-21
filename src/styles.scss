@@ -217,6 +217,53 @@ body {
   font-family: "Montserrat";
 }
 
+// ? ----------------------------------------------- Dialog app ------------------------------------
+::ng-deep .dialog-app {
+  .p-dialog .p-dialog-content {
+    padding: 0 0 2rem 0;
+  }
+
+  .p-dialog .p-dialog-header {
+    border-top-right-radius: 3.125rem;
+    border-top-left-radius: 3.125rem;
+  }
+
+  .p-dialog .p-dialog-content:last-of-type {
+    border-bottom-right-radius: 3.125rem;
+    border-bottom-left-radius: 3.125rem;
+  }
+
+  .info-dialog {
+    color: $appTextTwo;
+    font-weight: 600;
+  }
+  .icon-dialog {
+    width: 7.375rem !important;
+    height: 7.375rem !important;
+    padding: 2.225rem;
+    background-color: $appColorEight;
+    color: $appColorSeven;
+    border-top-right-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
+  }
+
+  .navigation-btn-dialog {
+    border-radius: 0.625rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.625rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: 0;
+    color: #495057;
+    background-color: var(--app-backgrounds);
+  }
+
+  .separator-dialog {
+    background-color: $appText;
+  }
+}
+
 // ? ------------------------------------------------ Other components -----------------------------
 ::ng-deep .border-sidebar {
   width: 24.875rem !important;

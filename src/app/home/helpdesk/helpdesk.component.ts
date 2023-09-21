@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TicketContext } from './model/TicketContext.model';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
@@ -30,6 +30,7 @@ import { HttpEventType } from '@angular/common/http';
 import FileSaver from 'file-saver';
 import { IFileUpload, IFileUploadExtended } from '@shared/models/file';
 import { ConfirmationService } from 'primeng/api';
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-helpdesk',
   templateUrl: './helpdesk.component.html',
@@ -52,7 +53,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   ticketsContext: TicketContext;
 
   optionsTable: TableOptions;
-
+  textSummary = `Mostrando {first} a {last} de {totalRecords}`;
   newTicket: FormGroup;
   showCreatorTicket = false;
 
@@ -95,7 +96,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   public get ticketCategoryNames(): typeof ticketCategoryNames {
     return ticketCategoryNames;
   }
-
+  @ViewChild('dt', { static: true }) dt: Table;
   constructor(
     private toast: ToastService,
     private store: Store<AppState>,
@@ -261,6 +262,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
 
   async downloadUrl(urlFile: string) {
     const key = this.storageService.getKey(urlFile);
+    console.log(key);
     const url = await firstValueFrom(this.storageService.getFile(key));
     if (url) {
       window.open(url, '_blank');
@@ -293,7 +295,37 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
       });
   }
 
-  async closeTicket() {}
+  async closeTicket() {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Cerrar ticket',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea cerrar el ticket?',
+      message:
+        'Al cerrar el ticket, este se archivara y no permitirá ningún cambio',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Archivando...' });
+        this.service
+          .updateTicket({
+            _id: this.showTicket._id,
+            status: this.ticketsStates.Closed,
+          })
+          .then((ans) => {
+            this.showTicket = false;
+            this.toast.clear();
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar cerrar ticket',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
 
   async deleteTicket() {
     this.confirmationService.confirm({
@@ -329,8 +361,16 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   }
 
   allowDelete(ticket: Ticket) {
+    if (!ticket) return false;
     if (ticket.status === this.ticketsStates.Closed) return false;
     if (this.user.isUser && ticket.startupId !== this.startup._id) return false;
     return true;
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }

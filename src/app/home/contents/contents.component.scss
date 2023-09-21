@@ -145,63 +145,16 @@
   visibility: visible;
 }
 
-// ? Dialog homeworks
-::ng-deep .homework-dialog {
-  .p-dialog .p-dialog-content {
-    padding: 0 0 2rem 0;
-  }
+.date-resource-display {
+  width: 10.875rem;
+  border-radius: 2.5rem;
+  background-color: $appColorEight;
+  color: $appColorSeven;
+}
 
-  .p-dialog .p-dialog-header {
-    border-top-right-radius: 3.125rem;
-    border-top-left-radius: 3.125rem;
-  }
-
-  .p-dialog .p-dialog-content:last-of-type {
-    border-bottom-right-radius: 3.125rem;
-    border-bottom-left-radius: 3.125rem;
-  }
-
-  .info-resource {
-    color: $appTextTwo;
-    font-weight: 600;
-  }
-  .icon-resource {
-    width: 7.375rem !important;
-    height: 7.375rem !important;
-    padding: 2.225rem;
-    background-color: $appColorEight;
-    color: $appColorSeven;
-    border-top-right-radius: 1.25rem;
-    border-bottom-right-radius: 1.25rem;
-  }
-
-  .date-resource-display {
-    width: 10.875rem;
-    border-radius: 2.5rem;
-    background-color: $appColorEight;
-    color: $appColorSeven;
-  }
-
-  .type-resource-display {
-    border-radius: 2.5rem;
-    padding: 0.5rem 1rem;
-    background-color: $appColorSix;
-    color: $appColorFive;
-  }
-
-  .navigation-btn-resource {
-    border-radius: 0.625rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0.625rem;
-    cursor: pointer;
-    border: 1px solid transparent;
-    outline: 0;
-    color: #495057;
-    background-color: var(--app-backgrounds);
-  }
-
-  .separator-resource {
-    background-color: $appText;
-  }
+.type-resource-display {
+  border-radius: 2.5rem;
+  padding: 0.5rem 1rem;
+  background-color: $appColorSix;
+  color: $appColorFive;
 }

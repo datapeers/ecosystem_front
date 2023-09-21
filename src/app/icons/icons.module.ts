@@ -86,10 +86,9 @@ import {
   IconReplace, // replace
   IconApiApp, //api-app
   IconFileDescription, // file-description
+  IconArrowBigRightLine, // arrow-big-right-line
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
-import { Icon } from 'leaflet';
-
 // Select some icons (use an object, not an array)
 const icons = {
   IconMenu,
@@ -175,6 +174,7 @@ const icons = {
   IconReplace,
   IconApiApp,
   IconFileDescription,
+  IconArrowBigRightLine,
 };
 
 @NgModule({

@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
-  bucketS3: 'ecosystem-bt-content',
+  bucketS3: 'ecosystem-bt-colombia',
+  //bucketS3: 'ecosystem-bt-content',
   // api: 'https://vinku.net/back',
   // graphQL: 'https://vinku.net/back/graphql',
   // graphqlSubscription: 'wss://vinku.net/backsub/subscriptions',
