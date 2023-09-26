@@ -435,4 +435,10 @@ export class CalendarComponent {
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
   }
+
+  expertRol(): string {
+    const roles = ['Mentor', 'Asesor'];
+    const indiceAleatorio = Math.floor(Math.random() * roles.length);
+    return roles[indiceAleatorio];
+  }
 }

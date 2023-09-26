@@ -124,33 +124,44 @@
     </div>
 </p-dialog>
 
-<p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" header="Solicitud" [style]="{width: '50vw'}">
-    <div class="flex flex-column w-full" *ngIf="startup">
-        <span>Recuerda que al hacer la solicitud debes ingresar el nombre de tu startup o tu nombre de usuario, y el
-            correo usando en esta plataforma.</span>
-        <div class="flex flex-row">
-            <span class="font-bold">Startup:</span>
-            <span class="pl-2">{{startup['item']['nombre']}}</span>
-        </div>
-        <div class="flex flex-row">
-            <span class="font-bold">Usuario:</span>
-            <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
-        </div>
-        <div class="flex flex-row">
-            <span class="font-bold">Email:</span>
-            <span class="pl-2">{{user['email']}}</span>
+<p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" maskStyleClass="dialog-app" [style]="{width: '50vw'}">
+    <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
+        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Solicitud</h2>
+            <span>Recuerda que al hacer la solicitud debes ingresar el nombre de tu startup o tu nombre de usuario, y el
+                correo usando en esta plataforma.</span>
+            <div class="flex flex-row">
+                <span class="font-bold">Startup:</span>
+                <span class="pl-2">{{startup['item']['nombre']}}</span>
+            </div>
+            <div class="flex flex-row">
+                <span class="font-bold">Usuario:</span>
+                <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
+            </div>
+            <div class="flex flex-row">
+                <span class="font-bold">Email:</span>
+                <span class="pl-2">{{user['email']}}</span>
+            </div>
         </div>
     </div>
-    <label class="pt-4 font-bold">Seleccione un experto</label>
-    <div class="card-grid flex flex-wrap gap-2">
+    <p-divider></p-divider>
+    <div class="flex w-full">
+        <label class="w-full text-center font-bold">Expertos</label>
+    </div>
+
+    <div class="card-grid flex flex-wrap justify-content-center p-3 gap-2">
         <ng-container *ngFor="let expert of expertsDialog">
             <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
-                <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden">
+                <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
                     <div class="flex align-self-center">
-                        <p-avatar [label]="expert['item']['nombre']" shape="circle" styleClass="w-8rem h-8rem"></p-avatar>
+                        <p-avatar [label]="expert['item']['nombre'][0]" shape="circle" styleClass="w-8rem h-8rem"></p-avatar>
                     </div>
-                    <span class="primary-param-label" tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
+                    <span class="primary-param-label " tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
                         {{expert['item']['nombre']}}
+                    </span>
+                    <span class="rol-label" tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
+                        {{expertRol()}}
                     </span>
                     <span class="secondary-param-label" tooltipPosition="top" pTooltip="aaaaaaaaaaaa">
 
