@@ -76,7 +76,7 @@ body {
 }
 
 .set-color-text-second {
-  color: --text-color-secondary;
+  color: --text-color-secondary !important;
 }
 
 .set-color-text-third {
@@ -220,7 +220,7 @@ body {
 // ? ----------------------------------------------- Dialog app ------------------------------------
 ::ng-deep .dialog-app {
   .p-dialog .p-dialog-content {
-    padding: 0 0 2rem 0;
+    padding: 0 0 2rem 0 !important;
   }
 
   .p-dialog .p-dialog-header {

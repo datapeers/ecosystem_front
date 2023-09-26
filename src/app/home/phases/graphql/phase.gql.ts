@@ -20,7 +20,7 @@ const fragments = {
     }
   `,
   phaseFieldsExtra: `
-  fragment phaseFields on Phase {
+  fragment phaseFieldsExtra on Phase {
       _id
       index
       stage
@@ -81,7 +81,7 @@ const query = {
   phasesListWithExtra: `
     query PhasesList($ids: [String!]!) {
       phasesList(ids: $ids) {
-        ...phaseFields
+        ...phaseFieldsExtra
       }
     }
     ${fragments.phaseFieldsExtra}

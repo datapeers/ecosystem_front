@@ -64,23 +64,23 @@
     </div>
 </div>
 
-<p-dialog header="" [(visible)]="showTicket" [style]="{width: '70vw', height: '90vh'}" [maximizable]="true" class="dialog-app">
+<p-dialog appendTo="body" header="" [(visible)]="showTicket" [style]="{width: '70vw', height: '90vh'}" [maximizable]="true" [modal]="true" maskStyleClass="dialog-app">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
             <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">{{showTicket?.title}}</h2>
             <div class="w-full flex flex-row gap-1">
-                <p-button type="submit" pTooltip="Cerrar ticket" icon="pi pi-sign-out" (onClick)="closeTicket()" styleClass="button-blue-second border-round-2xl my-2 p-3" *ngIf="!user.isUser && showTicket?.status !== ticketsStates.Closed"></p-button>
+                <p-button type="submit" pTooltip="Cerrar ticket" label="Cerrar ticket" icon="pi pi-sign-out" iconPos="left" (onClick)="closeTicket()" styleClass="button-blue-second border-round-2xl my-2 p-3" *ngIf="!user?.isUser && showTicket?.status !== ticketsStates.Closed"></p-button>
                 <p-button type="submit" pTooltip="Borrar ticket" icon="pi pi-trash" (onClick)="deleteTicket()" styleClass="button-grey border-round-2xl my-2 p-3" *ngIf="allowDelete(showTicket)"></p-button>
             </div>
         </div>
     </div>
     <p-divider></p-divider>
-    <div class="flex flex-column w-full p-3 gap-2" *ngIf="showTicket">
+    <div class="flex flex-column w-full p-3 gap-2 " *ngIf="showTicket">
         <ng-container *ngFor="let item of showTicket.childs">
-            <div class="flex flex-row w-full pt-2" [ngClass]="{'justify-content-end' : item.isResponse, 'align-items-start': !item.isResponse}">
-                <div class="w-full flex flex-column card-ticket w-9 p-3 gap-2" [ngClass]="{'justify-content-end text-right' : item.isResponse, 'align-items-start': !item.isResponse}" [style.border-color]="'#317bf4'">
-
+            <div class="flex flex-row w-full align-items-center pt-2 gap-2" [ngClass]="{'justify-content-end' : item.isResponse, 'align-items-start': !item.isResponse}">
+                <p-avatar [label]="item.answerBy[0]" styleClass="mr-2" size="large" shape="circle" *ngIf="!item.isResponse"></p-avatar>
+                <div class="w-full flex flex-column card-ticket w-9 p-3 gap-2" [ngClass]="{'justify-content-end text-right right-card border-none' : item.isResponse, 'align-items-start left-card text-white': !item.isResponse}" [style.background-color]="item.isResponse ? colorWithOpacity('#18e4e6', 0.5) : colorWithOpacity('#196A9F', 1)">
                     <p>
                         {{item.body}}
                     </p>
@@ -90,8 +90,9 @@
                         <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
                     </div>
                 </div>
+                <p-avatar [label]="item.answerBy[0]" styleClass="mr-2" size="large" shape="circle" *ngIf="item.isResponse"></p-avatar>
             </div>
-            <p style="font-weight: 600;" class="set-color-text-third px-4" [ngClass]="{'justify-content-end text-right' : item.isResponse, 'align-items-start': !item.isResponse}">{{item.answerBy}}</p>
+            <p class="set-color-text-third font-semibold px-8" [ngClass]="{'justify-content-end text-right' : item.isResponse, 'align-items-start': !item.isResponse}">{{item.answerBy}}</p>
         </ng-container>
         <ng-container *ngIf="showTicket.status !== this.ticketsStates.Closed">
             <p-divider></p-divider>
@@ -100,39 +101,40 @@
                     <textarea inputId="msgResponse" class="mt-4" style="width: 100%;" placeholder="Escribe aquí tu respuesta" rows="3" formControlName="body" pInputTextarea></textarea>
                 </span>
                 <div class="field col-1 p-2">
-                    <p-button type="submit" pTooltip="Enviar respuesta" (onClick)="sendResponse()" styleClass="button-yellow w-full h-full border-round-2xl my-2 p-3" [disabled]="response.invalid">
+                    <p-button type="submit" pTooltip="Enviar respuesta" (onClick)="sendResponse()" styleClass="button-blue-second w-full h-full border-round-2xl my-2 p-3" [disabled]="response.invalid">
                         <div class="flex w-full justify-content-center">
-                            <i-tabler class="icon-response" name="arrow-big-right-line"></i-tabler>
+                            <i-tabler class="icon-response" name="arrow-narrow-right"></i-tabler>
                         </div>
 
                     </p-button>
                 </div>
-                <span class="field col-12">
-                    <label for="filesTicket" class="">Archivos</label>
-                    <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
-                    <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos a la respuesta" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
-                        <ng-template let-file pTemplate="file">
-                            <div></div>
-                        </ng-template>
-                        <ng-template pTemplate="content">
-                            <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
-                                <i-tabler name="file-description" class="mr-1"></i-tabler>
-                                <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
-                                <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
-                                <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
-                            </div>
-                        </ng-template>
-                    </p-fileUpload>
-                </span>
-                <div style="height: 1rem;"></div>
             </form>
+            <div class="flex flex-row">
+                <p-toggleButton [(ngModel)]="showFileUploadUI" [offIcon]="'pi pi-link'" [onIcon]="'pi pi-link'" [onLabel]="'Subir archivos'" offLabel="Subir archivos"></p-toggleButton>
+            </div>
+            <span class="field col-12" *ngIf="showFileUploadUI">
+                <label for="filesTicket" class="">Archivos</label>
+                <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
+                <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos a la respuesta" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+                    <ng-template let-file pTemplate="file">
+                        <div></div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                            <i-tabler name="file-description" class="mr-1"></i-tabler>
+                            <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                            <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                            <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
+                        </div>
+                    </ng-template>
+                </p-fileUpload>
+            </span>
         </ng-container>
-
     </div>
-
+    <div class="panel-hide fixed bottom-0 left-0"></div>
 </p-dialog>
 
-<p-dialog header="Ticket" [(visible)]="showCreatorTicket" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" class="dialog-app">
+<p-dialog appendTo="body" header="Ticket" [(visible)]="showCreatorTicket" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
@@ -156,28 +158,32 @@
                 <label for="msgTicket">Mensaje</label>
                 <textarea inputId="msgTicket" style="width: 100%;" rows="8" formControlName="body" pInputTextarea></textarea>
             </span>
-            <span class="field col-12">
-                <label for="filesTicket">Archivos</label>
-                <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
-                <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
-                    <ng-template let-file pTemplate="file">
-                        <div></div>
-                    </ng-template>
-                    <ng-template pTemplate="content">
-                        <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
-                            <i-tabler name="file-description" class="mr-1"></i-tabler>
-                            <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
-                            <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
-                            <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
-
-                        </div>
-                    </ng-template>
-                </p-fileUpload>
-            </span>
-            <div style="height: 1rem;"></div>
         </form>
+        <div class="flex flex-row">
+            <p-toggleButton [(ngModel)]="showFileUploadUI" [offIcon]="'pi pi-link'" [onIcon]="'pi pi-link'" [onLabel]="'Subir archivos'" offLabel="Subir archivos"></p-toggleButton>
+        </div>
+        <span class="field col-12" *ngIf="showFileUploadUI">
+            <label for="filesTicket">Archivos</label>
+            <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
+            <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+                <ng-template let-file pTemplate="file">
+                    <div></div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                        <i-tabler name="file-description" class="mr-1"></i-tabler>
+                        <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                        <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                        <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
+
+                    </div>
+                </ng-template>
+            </p-fileUpload>
+        </span>
+        <div style="height: 1rem;"></div>
         <div class="actions flex flex-column gap-1">
             <p-button type="submit" label="Crear ticket" (onClick)="createTicket()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newTicket.invalid"></p-button>
         </div>
     </div>
+    <div class="panel-hide fixed bottom-0 left-0"></div>
 </p-dialog>

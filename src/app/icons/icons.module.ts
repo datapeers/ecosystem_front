@@ -87,6 +87,9 @@ import {
   IconApiApp, //api-app
   IconFileDescription, // file-description
   IconArrowBigRightLine, // arrow-big-right-line
+  IconArrowNarrowRight, //arrow-narrow-right
+  IconCalendarBolt, // calendar-bolt,
+  IconCalendarCode, // calendar-code
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -175,6 +178,9 @@ const icons = {
   IconApiApp,
   IconFileDescription,
   IconArrowBigRightLine,
+  IconArrowNarrowRight,
+  IconCalendarBolt,
+  IconCalendarCode,
 };
 
 @NgModule({

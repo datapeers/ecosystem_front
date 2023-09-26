@@ -98,11 +98,32 @@
 }
 
 .card-ticket {
-  border-radius: 1.5rem;
   border: 1px solid;
 }
 
+.left-card {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.right-card {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
 .icon-response {
-  width: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.panel-hide {
   height: 3rem;
+  background-color: white;
+  border-bottom-right-radius: 3.125rem;
+  border-bottom-left-radius: 3.125rem;
+  width: 98%;
 }

@@ -31,6 +31,7 @@ import FileSaver from 'file-saver';
 import { IFileUpload, IFileUploadExtended } from '@shared/models/file';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { hexToRgb } from '@shared/utils/hexToRgb';
 @Component({
   selector: 'app-helpdesk',
   templateUrl: './helpdesk.component.html',
@@ -70,6 +71,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   showTicket;
   response: FormGroup;
   // Files
+  showFileUploadUI = false;
   selectedFiles: { name: string; url?: string; file?: File }[] = [];
   fileSizeLimit = 500000;
 
@@ -179,6 +181,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     this.showTicket = ticket;
     this.response = newResponse(this.user, ticket);
     this.selectedFiles = [];
+    this.showFileUploadUI = false;
   }
 
   openCreatorTicket() {
@@ -186,6 +189,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     this.response = newResponse(this.user);
     this.selectedFiles = [];
     this.showCreatorTicket = true;
+    this.showFileUploadUI = false;
   }
 
   async createTicket() {
@@ -286,7 +290,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
       })
       .then((ans) => {
         this.toast.clear();
-        this.showTicket = undefined;
+        this.showTicket.childs.push({ ...this.response.value });
       })
       .catch((err) => {
         this.toast.clear();
@@ -372,5 +376,11 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
+  }
+
+  colorWithOpacity(color: string, opacity: number) {
+    const colorRgb = hexToRgb(color);
+    const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
+    return style;
   }
 }
