@@ -18,9 +18,9 @@ $heightPanels: 4.375rem;
   background-color: #ffffff;
   top: 0;
   @media (max-width: 576px) {
-      margin-left: 0;
-      border-radius: 0 0 0 0;
-    }
+    margin-left: 0;
+    border-radius: 0 0 0 0;
+  }
   .head-content {
     padding: 1rem 1.5rem;
     display: flex;
@@ -41,11 +41,14 @@ $heightPanels: 4.375rem;
     }
 
     .head-content-left {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
       .panel-info {
         height: $heightPanels;
         width: 24rem;
-        @media (max-width:576px) {
-          width: 33%;
+        .progress-label {
+          font-size: 1.25rem;
         }
         .completed {
           width: 5rem;
@@ -54,9 +57,28 @@ $heightPanels: 4.375rem;
           flex: 1;
           text-align: left;
         }
+        @media (max-width: 576px) {
+          width: 30%;
+          .progress-label {
+            font-size: 1rem;
+          }
+        }
       }
     }
-
+    .search-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--app-backgrounds);
+      border-radius: 50%;
+      cursor: pointer;
+      i-tabler {
+        // margin: 0.5rem;
+        height: 3.4375rem;
+        width: 3.4375rem;
+        padding: 0.715rem;
+      }
+    }
     .head-content-mid {
       .search {
         ::ng-deep .p-inputtext {
@@ -88,9 +110,24 @@ $heightPanels: 4.375rem;
             -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
             -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
             box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+            @media (max-width: 576px) {
+              // margin: 0 2rem 0 0;
+            }
           }
           .info-user {
             width: 11.5rem;
+          }
+          .user-name-rol {
+            display: flex;
+            flex-direction: column;
+            padding: 0 0.5rem;
+          }
+          @media (max-width: 576px) {
+            width: auto;
+            padding: 0;
+            .user-name-rol {
+              display: none !important;
+            }
           }
         }
         .notify-btn {
@@ -143,9 +180,9 @@ $heightPanels: 4.375rem;
   width: calc(100% - 5rem);
   margin-left: 5rem;
   @media (max-width: 576px) {
-      margin-left: 0;
-      width: 100%;
-    }
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 .circle-indicator {

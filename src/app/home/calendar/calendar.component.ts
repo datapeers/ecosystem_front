@@ -392,6 +392,7 @@ export class CalendarComponent {
     this.expertsDialog = await this.expertsService.getExpertsByStartup(
       this.startup._id
     );
+    this.toast.clear();
     this.dialogSolicitude = true;
   }
 

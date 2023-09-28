@@ -90,6 +90,7 @@ import {
   IconArrowNarrowRight, //arrow-narrow-right
   IconCalendarBolt, // calendar-bolt,
   IconCalendarCode, // calendar-code
+  IconSearch, // search
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -181,6 +182,7 @@ const icons = {
   IconArrowNarrowRight,
   IconCalendarBolt,
   IconCalendarCode,
+  IconSearch,
 };
 
 @NgModule({
