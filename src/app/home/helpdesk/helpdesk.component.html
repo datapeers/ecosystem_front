@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="flex flex-column sm:flex-row align-items-center sm:align-items-end justify-content-center sm:justify-content-end  gap-3 px-1 sm:px-4 md:px-8">
-            <div class="w-5 sm:w-full flex flex-column gap-2">
+            <div class="flex flex-column gap-2">
                 <label>Ver por:</label>
                 <div class="flex">
                     <form [formGroup]="filtersTickets">
@@ -20,7 +20,7 @@
                     </form>
                 </div>
             </div>
-            <div class="w-5 sm:w-full flex flex-column gap-2">
+            <div class="flex flex-column gap-2">
                 <label>Ordenar por:</label>
                 <div class="flex">
                     <form [formGroup]="filtersTickets">
@@ -34,7 +34,7 @@
     </div>
     <p-divider></p-divider>
     <div class="flex h-4"></div>
-    <div class="flex w-full table-container">
+    <div class="flex w-full table-container p-1">
         <p-table #dt class="table-dark w-full" [value]="showedTickets" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
             <ng-template pTemplate="header">
                 <tr>
