@@ -73,6 +73,7 @@ export class TopNavComponent {
   rolName = '';
   viewUserBoard = false;
   viewNotificationBoard = false;
+  viewSearchItem = false;
   colorPhase = '#EA4254';
   constructor(
     private router: Router,
