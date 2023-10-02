@@ -62,6 +62,10 @@
   visibility: hidden;
   height: calc(100vh - 102px - 2.5rem) !important;
   // max-height: calc(100vh - 102px - 2.5rem) !important;
+  @media (max-width: 576px) {
+    margin-top: 1rem;
+    height: 100vh;
+  }
 }
 
 .display-content,
@@ -109,6 +113,9 @@
   border-radius: 1.875rem;
   width: 15.625rem;
   height: 9.375rem;
+  @media (max-width: 576px) {
+    width: calc(100vw - 14rem);
+  }
 }
 
 .card-interest-content {

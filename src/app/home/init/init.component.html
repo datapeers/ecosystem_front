@@ -2,8 +2,8 @@
     <div class="flex flex-column sm:flex-row	">
         <div class="flex flex-column gap-4">
             <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
-                <div class="flex stage" [style.background-color]="'#EA4254'">
-                    <div class="flex flex-column flex-none p-3">
+                <div class="flex stage flex-column sm:flex-row" [style.background-color]="'#EA4254'">
+                    <div class="flex flex-column flex-none p-3 ">
                         <p class="sh1" style="font-weight: 500;">FASE</p>
                         <h1 class="text-center">3</h1>
                     </div>
@@ -26,8 +26,8 @@
                     <div class="flex w-full border border-1 border-solid h-15rem"></div>
                 </div>
                 <div class="h-2rem"></div>
-                <div class="flex final-panel w-full justify-content-between">
-                    <div class="flex align-items-center font-bold pl-4">
+                <div class="flex final-panel flex-column sm:flex-row w-full justify-content-center sm:justify-content-between align-items-center">
+                    <div class="flex align-items-center font-bold pl-0 sm:pl-4">
                         <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
                     </div>
                     <div class="flex align-items-center font-bold">
@@ -39,7 +39,7 @@
         </div>
 
 
-        <div class="flex flex-column gap-4 w-full px-4 display-content scrollwrap scrollwrap_delayed">
+        <div class="flex flex-column gap-4 w-full px-1 sm:px-4 display-content scrollwrap scrollwrap_delayed">
             <div class="flex px-4 align-items-center justify-content-center gap-4" *ngIf="user">
                 <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
                     <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app big-avatar flex">
@@ -51,7 +51,7 @@
                 </ng-template>
                 <h2>Hola {{user?.fullName}}, bienvenido a tu panel</h2>
             </div>
-            <div class="flex flex-full header-statistics justify-content-around w-full gap-4">
+            <div class="flex flex-column sm:flex-row header-statistics justify-content-around w-full gap-4">
                 <div class="flex gap-3">
                     <div class="icon-panel">
                         <i-tabler name="list-check"></i-tabler>
@@ -120,7 +120,7 @@
                     <span class="text-3xl font-semibold">Contenidos de interés</span>
                     <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
                     <div class="flex flex-column align-items-center justify-content-center gap-3">
-                        <div class="w-full flex flex-row gap-3 justify-content-center align-items-center">
+                        <div class="w-full flex flex-column md:flex-row gap-3 justify-content-center align-items-center">
                             <ng-container *ngFor="let interestContent of config.contentOfInterest; let i=index">
 
                                 <div class="card-interest-content flex flex-column align-items-center">
