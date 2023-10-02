@@ -93,9 +93,17 @@
   -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  @media (max-width: 860px) {
+    width: 8.53125rem;
+    height: 10.762rem;
+  }
   i-tabler {
     width: 5rem;
     height: 5rem;
+    @media (max-width: 860px) {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
   }
   span {
     color: $appColorOne;
