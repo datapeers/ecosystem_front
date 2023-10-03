@@ -1,47 +1,10 @@
 <ng-container *ngIf="loaded; else loadingTemplates">
     <div class="container-component px-4 py-2 gap-4">
-        <div class="normal-panel navigation-panel flex flex-row py-5">
-            <div class="phase-column w-full flex flex-column align-items-center justify-content-between">
-                <div class="w-full navigation-controls flex flex-row justify-content-between">
-                    <i-tabler name="chevron-left" class="direction-btn" *ngIf="previousContent" (click)="changesSprint(indexSprint - 1)"></i-tabler>
-                    <i-tabler name="chevron-right" class="direction-btn" *ngIf="nextContent" (click)="changesSprint(indexSprint + 1)"></i-tabler>
-                </div>
-                <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 p-3" [style.background]="gradient()">
-                    <div class="flex flex-column align-items-center gap-3" style="padding: 0.875rem;" [style.color]="stage.color">
-                        <span class="text-xl font-semibold">{{phaseName}}</span>
-                        <h1 style="font-weight: 600;">{{phaseNumb}}</h1>
-                    </div>
-                    <div class="flex flex-column align-items-center gap-5">
-                        <span class="title-sprint font-semibold text-2xl " [style.color]="stage.color">{{sprintSelected.name}}</span>
-                        <i-tabler class="icon-stage" [name]="stage.icon" [style.background-color]="stage.color"></i-tabler>
-                    </div>
-                </div>
-            </div>
-            <div class="navigation-contents">
-                <div class="w-full flex justify-content-end">
-                    <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center" (onClick)="viewHomeworks = true">
-                        <span class="w-full font-semibold text-center">Ver entregables</span>
-                    </p-button>
-                </div>
-
-                <div class="flex flex-column mt-4">
-                    <ng-container *ngFor="let content of sprintSelected.childs; let i = index">
-                        <div class="row flex flex-row w-full align-items-center">
-                            <i-tabler class="icon-state done-state" [name]="iconState(content)" [style.background-color]="colorByState(content)"></i-tabler>
-                            <hr class="h-line" [style.background-color]="colorByState(content)">
-                            <div class="card-content flex flex-column justify-content-center" [ngClass]="{selected: content?._id === contentSelected?._id}" (click)="changeContent(i)">
-                                <span class="" style="font-weight: 550;">{{content.name}}</span>
-                                <span class="card-state-content text-sm">{{textState(content)}}</span>
-                            </div>
-                        </div>
-                        <div class="lines-done" *ngIf="i < sprintSelected.childs.length -1" [style.border-color]="lineState(content)"></div>
-                    </ng-container>
-                </div>
-
-
-            </div>
-
+        <div class="hidden md:flex normal-panel navigation-panel py-5">
+            <ng-container [ngTemplateOutlet]="navContent">
+            </ng-container>
         </div>
+
         <div class="display-content scrollwrap scrollwrap_delayed flex flex-column gap-2" *ngIf="contentSelected">
             <div class="flex flex-row justify-content-between align-items-center px-6">
                 <div class="flex flex-row gap-6">
@@ -175,3 +138,46 @@
         </tbody>
     </table> -->
 </p-dialog>
+
+<ng-template #navContent>
+
+    <div class="phase-column w-full flex flex-column align-items-center justify-content-between">
+        <div class="w-full navigation-controls flex flex-row justify-content-between">
+            <i-tabler name="chevron-left" class="direction-btn" *ngIf="previousContent" (click)="changesSprint(indexSprint - 1)"></i-tabler>
+            <i-tabler name="chevron-right" class="direction-btn" *ngIf="nextContent" (click)="changesSprint(indexSprint + 1)"></i-tabler>
+        </div>
+        <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 p-3" [style.background]="gradient()">
+            <div class="flex flex-column align-items-center gap-3" style="padding: 0.875rem;" [style.color]="stage.color">
+                <span class="text-xl font-semibold">{{phaseName}}</span>
+                <h1 style="font-weight: 600;">{{phaseNumb}}</h1>
+            </div>
+            <div class="flex flex-column align-items-center gap-5">
+                <span class="title-sprint font-semibold text-2xl " [style.color]="stage.color">{{sprintSelected.name}}</span>
+                <i-tabler class="icon-stage " [name]="stage.icon" [style.background-color]="stage.color"></i-tabler>
+            </div>
+        </div>
+    </div>
+    <div class="navigation-contents">
+        <div class="w-full flex justify-content-end">
+            <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center" (onClick)="viewHomeworks = true">
+                <span class="w-full font-semibold text-center">Ver entregables</span>
+            </p-button>
+        </div>
+
+        <div class="flex flex-column mt-4">
+            <ng-container *ngFor="let content of sprintSelected.childs; let i = index">
+                <div class="row flex flex-row w-full align-items-center">
+                    <i-tabler class="icon-state done-state" [name]="iconState(content)" [style.background-color]="colorByState(content)"></i-tabler>
+                    <hr class="h-line" [style.background-color]="colorByState(content)">
+                    <div class="card-content flex flex-column justify-content-center" [ngClass]="{selected: content?._id === contentSelected?._id}" (click)="changeContent(i)">
+                        <span class="" style="font-weight: 550;">{{content.name}}</span>
+                        <span class="card-state-content text-sm">{{textState(content)}}</span>
+                    </div>
+                </div>
+                <div class="lines-done" *ngIf="i < sprintSelected.childs.length -1" [style.border-color]="lineState(content)"></div>
+            </ng-container>
+        </div>
+
+
+    </div>
+</ng-template>

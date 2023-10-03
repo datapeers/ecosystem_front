@@ -86,7 +86,7 @@
 
 
             <div class="normal-panel w-full p-4" *ngIf="config">
-                <div [innerHtml]="(config.dashboard | safe:'html')" class="w-full " style="padding: 1.875rem;"></div>
+                <div [innerHtml]="(config.dashboard | safe:'html')" class="w-full p-1 md:p-4"></div>
                 <span class="my-3 text-3xl font-semibold">Nuestras {{config.verticals.length}} verticales</span>
                 <div class="flex flex-row flex-wrap align-items-center justify-content-center gap-3 my-3">
                     <ng-container *ngFor="let vertical of config.verticals">
