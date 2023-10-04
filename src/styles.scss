@@ -178,6 +178,15 @@ body {
   }
 }
 
+// Other buttons
+
+.side-left-btn {
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  -webkit-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.1);
+}
+
 // ? ----------------------------------------------- Scroll ----------------------------------------
 
 .scrollwrap_delayed {
@@ -278,6 +287,13 @@ body {
 
 .app-backgroundsOne {
   background-color: var(--appColorOne);
+}
+
+::ng-deep .border-sidebar-left {
+  width: 24.875rem !important;
+  border-radius: 0 2.5rem 2.5rem 0;
+  -webkit-border-radius: 0 2.5rem 2.5rem 0;
+  -moz-border-radius: 0 2.5rem 2.5rem 0;
 }
 
 // ? ------------------------------------ Titles ------------------------------------------------------

@@ -86,6 +86,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   contentCompleted = {};
   savingCompleted = false;
 
+  viewNavMenuContent = false;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -354,7 +355,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
   iconState(content: Content) {
     if (content._id === '64fb4b87e309965c9ef1187d') return 'corner-down-right';
     if (this.contentCompleted[content._id]) return 'check';
-    return '';
+    return 'exclamation-circle';
   }
 
   lineState(content: Content) {
@@ -384,5 +385,10 @@ export class ContentsComponent implements OnInit, OnDestroy {
     } else {
       return ['Fase', '0']; // No se encontró una coincidencia
     }
+  }
+
+  openHomeworks() {
+    this.viewNavMenuContent = false;
+    this.viewHomeworks = true;
   }
 }
