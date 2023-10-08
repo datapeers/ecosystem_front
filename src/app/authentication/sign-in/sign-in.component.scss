@@ -19,6 +19,18 @@
   max-width: 454px;
 }
 
+.avatar-login {
+  width: 41%;
+  height: auto;
+  @media (max-width: 1490px) {
+    height: 65%;
+  }
+  @media (max-width: 1080px) {
+    width: 50%;
+    height: 70%;
+  }
+}
+
 .password-input p-password {
   width: 100% !important;
 }
@@ -45,6 +57,16 @@ footer {
 .box-third-color {
   flex: 1;
   background-color: var(--app-color-seven);
+}
+
+.big-text {
+  font-size: 4rem !important;
+  @media (max-width: 1490px) {
+    font-size: 3rem !important;
+  }
+  @media (max-width: 1080px) {
+    font-size: 2rem !important;
+  }
 }
 
 // :host {
