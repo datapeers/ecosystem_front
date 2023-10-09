@@ -113,7 +113,7 @@
     <ng-template pTemplate="footer"></ng-template>
 </p-sidebar>
 
-<p-sidebar [(visible)]="viewSearchItem" position="top">
+<p-sidebar [(visible)]="viewSearchItem" position="top" (onHide)="clearSearch()">
     <div class="w-full h-full flex flex-column align-content-center justify-content-center mt-2">
         <ng-container [ngTemplateOutlet]="searchBar">
         </ng-container>
@@ -121,7 +121,7 @@
 </p-sidebar>
 
 <ng-template #searchBar>
-    <div class="head-content-mid w-full">
+    <div #searchBarInput class="head-content-mid w-full">
         <span class="p-input-icon-right search">
             <i class="pi pi-search"></i>
             <input type="text" pInputText [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" placeholder="¿Que deseas buscar?" />

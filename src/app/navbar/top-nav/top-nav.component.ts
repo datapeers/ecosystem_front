@@ -152,7 +152,6 @@ export class TopNavComponent {
   }
 
   clearSearch() {
-    console.log('limpia');
     this.overlayLoading = false;
     this.overlayVisible = false;
     this.searchValue = null;
