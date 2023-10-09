@@ -126,7 +126,6 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
         ''
       );
       this.stage = this.currentBatch.stageDoc;
-      console.log(this.stage);
       this.watchLogStartup();
     }
   }

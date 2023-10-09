@@ -3,14 +3,14 @@
         <div class="flex-none head-content-left flex-row">
             <i-tabler name="align-justified" class="head-menu-item-btn app-backgrounds menu-icon" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
             <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn app-backgrounds menu-icon" *ngIf="returnBtn$ | async" (click)="return()"></i-tabler>
-            <div class="panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2 sm:gap-3" [style.background]="gradient()">
+            <div class="panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2 sm:gap-3" [style.background]="gradient()" *ngIf="stage">
                 <div class="completed elipse-panel p-2 min-h-full flex align-items-center justify-content-center" [style.background-color]="colorPhase">
-                    <span class="font-semibold text-white progress-label">3/10</span>
+                    <span class="font-semibold text-white progress-label">{{phasesUser}}/{{phasesBases}}</span>
                 </div>
                 <div class="hidden lg:flex flex-column labels" [style.color]="colorPhase">
-                    <span class="font-bold text-base">ETAPA EARLY</span>
+                    <span class="font-bold text-base">{{stage.name}}</span>
                     <div style="height: 3px;"></div>
-                    <span class="text-sm">Fase 3</span>
+                    <span class="text-sm">{{phaseName}} {{phaseNumb}}</span>
                 </div>
                 <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
                     <ng-template pTemplate="text">a</ng-template>

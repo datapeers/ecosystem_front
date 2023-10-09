@@ -23,6 +23,10 @@ import { Location } from '@angular/common';
 import { fadeInOut } from '../helper';
 import { hexToRgb } from '@shared/utils/hexToRgb';
 import { MenuItem, PrimeNGConfig, ResponsiveOverlayOptions } from 'primeng/api';
+import { PhasesService } from '@home/phases/phases.service';
+import { Phase } from '@home/phases/model/phase.model';
+import { Stage } from '@home/phases/model/stage.model';
+import { getPhaseAndNumb } from '@shared/utils/others';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -79,6 +83,14 @@ export class TopNavComponent {
   overlayLoading = true;
   mainMenu;
   overlayVisible = false;
+
+  phasesBases = 0;
+  phasesUser = 0;
+  phaseName = '';
+  phaseNumb = '';
+  currentBatch: Phase | any;
+  stage: Stage;
+
   set searchResults(results: MenuItem[]) {
     if (results) {
       this.overlayLoading = false;
@@ -92,7 +104,8 @@ export class TopNavComponent {
     private readonly store: Store<AppState>,
     private readonly auth: AuthService,
     private _location: Location,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private phasesService: PhasesService
   ) {
     const responsiveOptions: ResponsiveOverlayOptions = {
       style: 'width: 500px',
@@ -144,6 +157,30 @@ export class TopNavComponent {
           this.store.select((s) => s.home.menu).pipe(first((i) => i !== null))
         );
       });
+    if (this.user.isUser) {
+      this.profileDoc = await firstValueFrom(
+        this.store
+          .select((store) => store.auth.profileDoc)
+          .pipe(first((i) => i !== null))
+      );
+      this.startup = this.profileDoc.startups[0];
+      const userPhases = await this.phasesService.getPhasesList(
+        this.profileDoc['startups'][0].phases.map((i) => i._id),
+        true
+      );
+      const basesPhase = userPhases.filter((i) => i.basePhase);
+      this.phasesBases = basesPhase.length;
+      this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
+      this.currentBatch = await firstValueFrom(
+        this.store
+          .select((store) => store.home.currentBatch)
+          .pipe(first((i) => i !== null))
+      );
+      [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
+        this.currentBatch.name
+      );
+      this.stage = this.currentBatch.stageDoc;
+    }
   }
 
   goTo(option: IMenuOption) {
