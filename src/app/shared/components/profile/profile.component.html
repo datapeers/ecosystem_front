@@ -1,57 +1,70 @@
 <ng-container *ngIf="user else loadingTemplate">
-    <div class="flex flex-column h-full w-full px-3 py-3">
-        <div class="surface-0 flex flex-column align-items-center h-full w-full border-round shadow-elevated overflow-hidden px-3 py-4">
-            <div class="flex flex-row justify-content-center flex-wrap gap-4 shadow-elevated px-3 py-2 border-round">
-                <app-avatar-uploader [imageUrl]="user.profileImageUrl" (onUpload)="uploadImage($event, user)" [disableRemove]="true"></app-avatar-uploader>
-                <div class="flex flex-column gap-1 justify-content-center">
-                    <span class="text-xl font-semibold">{{user.fullName}}</span>
-                    <span class="font-semibold">{{user.email}}</span>
-                    <span class="font-semibold">{{user.rolName}}</span>
-                    <p-button label="Cambiar contraseña" (onClick)="openPasswordDialog()"></p-button>
-                </div>
+    <div class="mx-5">
+        <div class="surface-0 flex flex-wrap w-full h-auto align-items-center gap-3 border-round shadow-elevated overflow-hidden px-3 py-4">
+            <div class="w-full flex flex-column md:flex-row justify-content-between align-items-center">
+                <span class="font-semibold text-xl">
+                    <i-tabler name="user"></i-tabler>
+                    Perfil
+                </span>
+                <span class="font-semibold text-xl">{{user.rolName}}</span>
             </div>
-            <div class="flex flex-row align-items-center gap-2 pt-2">
-                <i class="pi pi-user"></i>
-                <b>Datos personales <i class="pi pi-pencil cursor-pointer text-primary"></i></b>
-                <!-- <div class="flex flex-row flex-wrap align-items-center gap-2 py-2">
-                    <span class="text-xl font-semibold">{{profileDoc['item']['nombre']}}</span>
-                    
-                </div> -->
+            <app-avatar-uploader [imageUrl]="user.profileImageUrl" (onUpload)="uploadImage($event, user)" [disableRemove]="true"></app-avatar-uploader>
+            <div class="flex flex-column gap-2">
+                <label htmlFor="username">Nombre de usuario</label>
+                <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="user.fullName" />
+            </div>
+            <div class="flex flex-column gap-2">
+                <label htmlFor="username">Correo</label>
+                <input class="flex-auto" pInputText id="username" aria-describedby="username-help" [(ngModel)]="user.email" readonly />
+            </div>
+            <div class="w-full flex flex-wrap gap-3 justify-content-end">
+                <p-button (onClick)="openPasswordDialog()">
+                    <i-tabler name="cloud-lock-open"></i-tabler>
+                    <div class="w-1rem"></div>
+                    <p>Cambiar contraseña</p>
+                </p-button>
+                <p-button (onClick)="saveChanges()">
+                    <i-tabler name="device-floppy"></i-tabler>
+                    <div class="w-1rem"></div>
+                    <p>Guardar cambios</p>
+                </p-button>
             </div>
             <div class="flex flex-wrap w-full gap-2">
                 <!-- <ng-container *ngIf="profileDoc">
-
-                    <div class="flex flex-column p-1 gap-1">
-                        <div class="grid-container">
-                            <ng-container *ngFor="let component of formProfileFields">
-                                <ng-template [ngTemplateOutlet]="componentTemplate" [ngTemplateOutletContext]="{ component, doc: profileDoc }"></ng-template>
-                            </ng-container>
-                        </div>
-                    </div>
-                </ng-container> -->
+        
+                            <div class="flex flex-column p-1 gap-1">
+                                <div class="grid-container">
+                                    <ng-container *ngFor="let component of formProfileFields">
+                                        <ng-template [ngTemplateOutlet]="componentTemplate" [ngTemplateOutletContext]="{ component, doc: profileDoc }"></ng-template>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container> -->
                 <ng-container *ngIf="profileDoc && user?.isExpert">
                     <ng-container *ngFor="let param of accountParams">
                         <ng-template [ngTemplateOutlet]="editableParamCardTemplate" [ngTemplateOutletContext]="{
-                                                                    data: {
-                                                                        label: param.label,
-                                                                        value: profileDoc[param.key]
-                                                                    },
-                                                                    changeHandler: param.onChange
-                                                                }"></ng-template>
+                                                                            data: {
+                                                                                label: param.label,
+                                                                                value: profileDoc[param.key]
+                                                                            },
+                                                                            changeHandler: param.onChange
+                                                                        }"></ng-template>
                     </ng-container>
                 </ng-container>
             </div>
         </div>
     </div>
+
+
 </ng-container>
 
 <ng-template #loadingTemplate>
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog [(visible)]="passwordDialog" header="Cambiar contraseña">
-    <form (keyup)="onKeyUp($event)" class="formgrid grid mt-6 gap-3" [formGroup]="changePasswordForm">
-        <span class="w-full">
+<p-dialog [(visible)]="passwordDialog" header="Cambiar contraseña" maskStyleClass="dialog-app" appendTo="body" [modal]="true">
+    <form (keyup)="onKeyUp($event)" class="formgrid grid gap-3 p-6 w-full align-items-center justify-content-center " [formGroup]="changePasswordForm">
+        <span class="w-11">
             <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="currentPassword" placeholder="Contraseña"></p-password>
 
             <div class="flex align-items-center justify-content-center">
@@ -69,7 +82,7 @@
             </div>
         </span>
 
-        <span class="w-full">
+        <span class="w-11">
             <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="newPassword" placeholder="Nueva contraseña"></p-password>
 
             <div class="flex align-items-center justify-content-center">
@@ -87,7 +100,7 @@
             </div>
         </span>
 
-        <span class="w-full">
+        <span class="w-11">
             <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="confirmNewPassword" placeholder="Confirmar contraseña"></p-password>
             <div class="flex align-items-center justify-content-center">
                 <div [hidden]="changePasswordForm.controls['confirmNewPassword'].valid || !changePasswordForm.controls['confirmNewPassword'].dirty" class="alert alert-danger">
@@ -102,7 +115,7 @@
                 </div>
             </div>
         </span>
-        <div class="flex flex-row justify-content-end gap-2 w-full">
+        <div class="flex flex-row justify-content-end gap-2 w-11">
             <p-button type="submit" label="Cambiar" (onClick)="onSubmit()" [disabled]="!changePasswordForm.valid" styleClass=""></p-button>
             <p-button label="Cancelar" (onClick)="passwordDialog = false;" styleClass="p-button-outlined"></p-button>
         </div>

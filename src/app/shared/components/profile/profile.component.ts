@@ -4,7 +4,10 @@ import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
 import { Subject, filter, takeUntil, tap } from 'rxjs';
-import { UpdateUserImageAction } from '@auth/store/auth.actions';
+import {
+  UpdateUserAction,
+  UpdateUserImageAction,
+} from '@auth/store/auth.actions';
 import { HttpEventType } from '@angular/common/http';
 import { AuthService } from '@auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +18,8 @@ import { StorageService } from '../../storage/storage.service';
 import { FormService } from '../../form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { ToastService } from '@shared/services/toast.service';
+import { AdminService } from 'src/app/admin/admin.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-profile',
@@ -45,6 +50,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private authService: AuthService,
     private store: Store<AppState>,
+    private adminService: AdminService,
     private readonly fb: FormBuilder,
     private readonly toast: ToastService,
     private readonly formService: FormService,
@@ -59,7 +65,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         filter((user) => user !== null)
       )
       .subscribe((userState) => {
-        this.user = userState;
+        this.user = cloneDeep(userState);
       });
 
     this.changePasswordForm = fb.group(
@@ -167,6 +173,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
+  saveChanges() {
+    this.toast.info({ summary: 'Guardando...', detail: '' });
+    this.adminService
+      .updateUser(this.user._id, {
+        fullName: this.user.fullName,
+      })
+      .then((ans) => {
+        this.toast.clear();
+        this.store.dispatch(new UpdateUserAction(new User(ans)));
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al guardar cambios',
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
   async saveSimpleChange(param: string) {
     try {
       if (param === 'calendlyLink') {
@@ -188,7 +214,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.toast.alert({ detail: '', summary: 'El cambio no se realizo' });
         return;
       }
-
       this.toast.success({
         detail: '',
         summary: 'Cambios guardados',

@@ -95,6 +95,8 @@ import {
   IconExclamationCircle, // exclamation-circle
   IconFence, // fence
   IconEdit, // edit
+  IconDeviceFloppy, // 'device-floppy'
+  IconCloudLockOpen, // cloud-lock-open
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -191,6 +193,8 @@ const icons = {
   IconExclamationCircle,
   IconFence,
   IconEdit,
+  IconDeviceFloppy,
+  IconCloudLockOpen,
 };
 
 @NgModule({
