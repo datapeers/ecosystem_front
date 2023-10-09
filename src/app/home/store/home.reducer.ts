@@ -13,7 +13,7 @@ export interface IHomeState {
 }
 
 const initialState: IHomeState = {
-  menuExpanded: false,
+  menuExpanded: true,
   loading: false,
   menu: null,
   otherMenu: null,

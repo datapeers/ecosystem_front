@@ -1,3 +1,5 @@
+@import "/src/styles.scss";
+
 .scrollwrap {
   overflow-y: auto;
   visibility: hidden;
@@ -27,4 +29,26 @@
 .panel-startup {
   padding: 1.875rem;
   border-radius: 3.25rem;
+}
+
+.startup-thumbnail {
+  background-color: #2196f3;
+  color: #ffffff;
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 50%;
+  padding: 1.5rem;
+}
+
+.edit-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.65rem;
+  border-radius: 0.625rem;
+  background-color: #f6f6f6;
+  color: $appTextThree;
+  &:hover {
+    border-color: darken(#f6f6f6, 5%) !important;
+    background-color: darken(#f6f6f6, 5%) !important;
+  }
 }

@@ -20,7 +20,6 @@
       min-width: 3rem;
       height: 3rem;
       min-height: 3rem;
-
       cursor: pointer;
       border: none;
     }
@@ -53,9 +52,9 @@
   .sidenav-nav-item {
     width: 100%;
     // margin-bottom: 0.625rem;
-  @media (max-width: 576px) {
-    font-size: 12px;
-  }
+    @media (max-width: 576px) {
+      font-size: 12px;
+    }
     .sidenav-nav-link {
       display: flex;
       align-items: center;

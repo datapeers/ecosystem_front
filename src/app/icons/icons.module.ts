@@ -93,6 +93,8 @@ import {
   IconCalendarCode, // calendar-code
   IconSearch, // search,
   IconExclamationCircle, // exclamation-circle
+  IconFence, // fence
+  IconEdit, // edit
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -187,6 +189,8 @@ const icons = {
   IconCalendarCode,
   IconSearch,
   IconExclamationCircle,
+  IconFence,
+  IconEdit,
 };
 
 @NgModule({
