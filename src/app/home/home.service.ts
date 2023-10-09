@@ -29,6 +29,7 @@ export class HomeService {
     if (user.isUser) menuItems.push('route');
     if (user.isUser) menuItems.push('contents');
     if (user.isUser) menuItems.push('toolkit');
+    if (user.isUser) menuItems.push('startUp');
     menuItems.push('agenda');
     menuItems.push('public-nodes');
     if (!user.isExpert) menuItems.push('helpDesk');

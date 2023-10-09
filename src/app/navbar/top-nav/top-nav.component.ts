@@ -248,7 +248,7 @@ export class TopNavComponent {
         label: menuItem.label,
         tag: 'Sección',
         command: () => {
-          this.router.navigate(menuItem.rute, {
+          this.router.navigate([menuItem.rute], {
             queryParams: menuItem.queryParamsRute,
           });
         },
@@ -285,10 +285,5 @@ export class TopNavComponent {
       // ...resourceItems,
       // ...contentItems,
     ];
-  }
-
-  handleOptionClick(option: MenuItem) {
-    // option.command();
-    this.clearSearch();
   }
 }

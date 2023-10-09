@@ -1,25 +1,30 @@
 .scrollwrap {
-    overflow-y: auto;
-    visibility: hidden;
-    height: calc(100vh - 102px - 2.5rem) !important;
-    // max-height: calc(100vh - 102px - 2.5rem) !important;
+  overflow-y: auto;
+  visibility: hidden;
+  height: 85vh !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
 }
 
 .display-content,
 .scrollwrap:hover,
 .scrollwrap:focus {
-    visibility: visible;
+  visibility: visible;
 }
 
 .statics-panel {
-    border-radius: 1.25rem;
-    padding: 1.875rem;
+  border-radius: 1.25rem;
+  padding: 1.875rem;
 }
 
 .bg-pastel-1 {
-    background-color: #E7F2FF;
+  background-color: #e7f2ff;
 }
 
 .bg-pastel-2 {
-    background-color: #FFF1DC;
+  background-color: #fff1dc;
+}
+
+.panel-startup {
+  padding: 1.875rem;
+  border-radius: 3.25rem;
 }

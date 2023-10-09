@@ -136,7 +136,7 @@
         </div>
     </ng-container>
     <ng-template #elseTemplate>
-        <p-listbox [options]="_searchResults" (onChange)="handleOptionClick($event.value)" [styleClass]="'listbox-search'">
+        <p-listbox [options]="_searchResults" (onChange)="goTo($event.value)" [styleClass]="'listbox-search'">
             <ng-template let-item pTemplate="item">
                 <div class="flex w-full">
                     <p class="font-bold text-black-alpha-90 absolute opacity-80 text-xs border-round-lg p-1">

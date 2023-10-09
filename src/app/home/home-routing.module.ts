@@ -112,7 +112,7 @@ const routes: Routes = [
         component: RouteComponent,
       },
       {
-        path: 'startup-profile',
+        path: 'startup',
         component: StartupProfileComponent,
       },
       {
