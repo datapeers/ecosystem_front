@@ -243,20 +243,40 @@ export class TopNavComponent {
     //     this.idsSpacesUser,
     //     searchValue,
     //   );
-    const sectionItems = this.mainMenu.options
-      .filter(
-        (menuItem) =>
-          menuItem.label.match(new RegExp(searchValue, 'i')) !== null
-      )
-      .map((menuItem) => ({
-        label: menuItem.label,
-        tag: 'Sección',
-        command: () => {
-          this.router.navigate([menuItem.rute], {
-            queryParams: menuItem.queryParamsRute,
-          });
-        },
-      }));
+    const sectionItems = [];
+    const optionsMenu = this.mainMenu.options;
+    for (const menuItem of optionsMenu) {
+      switch (menuItem.type) {
+        case 'single':
+          if (menuItem.label.match(new RegExp(searchValue, 'i')) !== null)
+            sectionItems.push({
+              label: menuItem.label,
+              tag: 'Sección',
+              command: () => {
+                this.router.navigate([menuItem.rute], {
+                  queryParams: menuItem.queryParamsRute,
+                });
+              },
+            });
+          break;
+        case 'dropdown':
+          for (const subItem of menuItem.children) {
+            if (subItem.label.match(new RegExp(searchValue, 'i')) !== null)
+              sectionItems.push({
+                label: subItem.label,
+                tag: 'Sección',
+                command: () => {
+                  this.router.navigate([subItem.rute], {
+                    queryParams: subItem.queryParamsRute,
+                  });
+                },
+              });
+          }
+          break;
+        default:
+          break;
+      }
+    }
     // const spaceItems = spaceList.map((space) => ({
     //   label: space.nombre,
     //   tag: space.tipoEspacio.name,
@@ -290,4 +310,6 @@ export class TopNavComponent {
       // ...contentItems,
     ];
   }
+
+  closeAll() {}
 }
