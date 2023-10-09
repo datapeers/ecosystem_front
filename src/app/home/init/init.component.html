@@ -2,23 +2,23 @@
     <div class="flex flex-column sm:flex-row	">
         <div class="flex flex-column gap-4">
             <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
-                <div class="flex stage flex-row" [style.background-color]="'#EA4254'">
+                <div class="flex stage flex-row" [style.background-color]="stage?.color ?? '#EA4254'">
                     <div class="flex flex-column flex-none p-3 ">
-                        <p class="sh1" style="font-weight: 500;">FASE</p>
-                        <h1 class="text-center">3</h1>
+                        <p class="sh1" style="font-weight: 500;">{{phaseName}}</p>
+                        <h1 class="text-center">{{phaseNumb}}</h1>
                     </div>
                     <div class="flex align-items-end flex-grow-1 mr-0 md:mr-8">
-                        <h3 style="font-weight:500">Desing Sprint</h3>
+                        <h3 style="font-weight:500">{{phaseTitle}}</h3>
                     </div>
                     <div class="flex flex-column flex-none">
-                        <p class="text-center pt-4">EARLY</p>
+                        <p class="text-center pt-4">{{stage?.name ?? 'EARLY'}}</p>
                         <i-tabler [name]="'social'" style="color: rgba(255,255,255,0.1); height:6rem; width:6rem;margin-top:-2.5rem;"></i-tabler>
                     </div>
                 </div>
                 <div class="h-1rem"></div>
                 <div class="flex justify-center align-items-center">
                     <div class="flex flex-wrap sh1 justify-content-center w-auto" style="font-weight: 500;color:#6B6B6B;padding:1rem 0;">
-                        Este es tu enfoque de horas de la Fase 3 en ésta semana
+                        Este es tu enfoque de horas de la {{phaseTitle}} en ésta semana
                     </div>
                 </div>
                 <div class="h-1rem"></div>
@@ -60,7 +60,7 @@
                         <i-tabler name="list-check"></i-tabler>
                     </div>
                     <div class="flex flex-column justify-content-center">
-                        <h2>3/10</h2>
+                        <h2>{{phasesUser}}/{{phasesBases}}</h2>
                         <p class="th2">Fases Completadas</p>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         <i-tabler name="layout-board-split"></i-tabler>
                     </div>
                     <div class="flex flex-column justify-content-center">
-                        <h2>45</h2>
+                        <h2>{{logs.length}}</h2>
                         <p class="th2">Contenidos vistos</p>
                     </div>
                 </div>

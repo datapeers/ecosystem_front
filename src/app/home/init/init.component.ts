@@ -10,9 +10,16 @@ import { User } from '@auth/models/user';
 import { ConfigurationService } from '@home/configuration/configuration.service';
 import { ConfigurationApp } from '@home/configuration/model/configurationApp';
 import { Store } from '@ngrx/store';
-import { first, firstValueFrom } from 'rxjs';
+import { first, firstValueFrom, Subscription } from 'rxjs';
 import { Map, tileLayer, Marker, Icon, geoJSON, control } from 'leaflet';
 import { HttpClient } from '@angular/common/http';
+import { Startup } from '@shared/models/entities/startup';
+import { ContentsService } from '@home/contents/contents.service';
+import { ToastService } from '@shared/services/toast.service';
+import { PhasesService } from '@home/phases/phases.service';
+import { Stage } from '@home/phases/model/stage.model';
+import { getPhaseAndNumb } from '@shared/utils/others';
+import { Phase } from '@home/phases/model/phase.model';
 
 @Component({
   selector: 'app-init',
@@ -26,13 +33,27 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   latLong = [5.0710225, -75.4927164];
   private states;
   responsiveOptions: any[] | undefined;
+  profileDoc;
+  startup: Startup;
+  userLogs$: Subscription;
+  logs = [];
+  phasesBases = 0;
+  phasesUser = 0;
+  phaseName = '';
+  phaseNumb = '';
+  phaseTitle = '';
+  stage: Stage;
+  currentBatch: Phase | any;
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
   }
   constructor(
     private http: HttpClient,
+    private toast: ToastService,
     private store: Store<AppState>,
+    private phasesService: PhasesService,
+    private contentService: ContentsService,
     private serviceConfig: ConfigurationService
   ) {
     firstValueFrom(
@@ -64,8 +85,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    this.userLogs$?.unsubscribe();
   }
 
   ngAfterViewInit(): void {
@@ -79,6 +99,36 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     setTimeout(() => {
       this.initializeMainMap();
     }, 500);
+    if (this.user.isUser) {
+      this.profileDoc = await firstValueFrom(
+        this.store
+          .select((store) => store.auth.profileDoc)
+          .pipe(first((i) => i !== null))
+      );
+      this.startup = this.profileDoc.startups[0];
+      const userPhases = await this.phasesService.getPhasesList(
+        this.profileDoc['startups'][0].phases.map((i) => i._id),
+        true
+      );
+      const basesPhase = userPhases.filter((i) => i.basePhase);
+      this.phasesBases = basesPhase.length;
+      this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
+      this.currentBatch = await firstValueFrom(
+        this.store
+          .select((store) => store.home.currentBatch)
+          .pipe(first((i) => i !== null))
+      );
+      [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
+        this.currentBatch.name
+      );
+      this.phaseTitle = this.currentBatch.name.replace(
+        `${this.phaseName} ${this.phaseNumb}: `,
+        ''
+      );
+      this.stage = this.currentBatch.stageDoc;
+      console.log(this.stage);
+      this.watchLogStartup();
+    }
   }
 
   resizeMap() {
@@ -125,5 +175,25 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     return firstValueFrom(
       this.http.get('../../../assets/data/gz_2010_us_outline_5m.json')
     );
+  }
+
+  watchLogStartup() {
+    this.contentService
+      .watchLogsWithFilter({
+        'metadata.startup': this.startup._id,
+      })
+      .then((logs$) => {
+        this.userLogs$ = logs$.subscribe((logsList) => {
+          this.logs = logsList;
+          console.log(this.logs.length);
+        });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar logs de startup',
+          detail: err,
+          life: 12000,
+        });
+      });
   }
 }

@@ -96,6 +96,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         return;
       })
       .catch((err) => {
+        this.loading = false;
         this.authService.fireAuthError(
           err.code,
           err.message,

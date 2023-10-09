@@ -33,6 +33,7 @@ import { IUserLog } from './models/user-logs';
 import { hexToRgb } from '@shared/utils/hexToRgb';
 import { Stage } from '@home/phases/model/stage.model';
 import { fadeInOut } from 'src/app/navbar/helper';
+import { getPhaseAndNumb } from '@shared/utils/others';
 
 @Component({
   selector: 'app-contents',
@@ -138,9 +139,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     }
     this.currentBatch = currentBatch;
     this.stage = this.currentBatch.stageDoc;
-    [this.phaseName, this.phaseNumb] = this.getPhaseAndNumb(
-      this.currentBatch.name
-    );
+    [this.phaseName, this.phaseNumb] = getPhaseAndNumb(this.currentBatch.name);
     this.phaseContentService
       .getContents(this.currentBatch._id)
       .then(async (i) => {
@@ -373,18 +372,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
     if (content._id === '64fb4b87e309965c9ef1187d') return '#f7af42';
     if (this.contentCompleted[content._id]) return '#317bf4';
     return '#dcdcdc';
-  }
-
-  getPhaseAndNumb(cadena: string): [string, string] {
-    const regex = /Fase (\d+)/;
-    const matches = cadena.match(regex);
-    if (matches && matches.length === 2) {
-      const fase = 'Fase';
-      const numero = matches[1];
-      return [fase, numero];
-    } else {
-      return ['Fase', '0']; // No se encontró una coincidencia
-    }
   }
 
   openHomeworks() {

@@ -159,6 +159,21 @@ export class PhasesService {
     );
   }
 
+  async getPhasesBase(): Promise<Phase[]> {
+    const queryRef = this.graphql.refQuery(
+      phaseQueries.query.phasesBases,
+      {},
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
+        map((request) => request.data.phasesBases),
+        map((phases) => phases.map((phase) => Phase.fromJson(phase)))
+      )
+    );
+  }
+
   async watchPhases() {
     this._getPhases = this.graphql.refQuery(
       phaseQueries.query.getPhases,

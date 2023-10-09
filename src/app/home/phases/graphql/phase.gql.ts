@@ -70,6 +70,14 @@ const query = {
     }
     ${fragments.phaseFields}
   `,
+  phasesBases: `
+    query PhasesBases {
+      phasesBases {
+        ...phaseFields
+      }
+    }
+    ${fragments.phaseFields}
+  `,
   phasesList: `
     query PhasesList($ids: [String!]!) {
       phasesList(ids: $ids) {
