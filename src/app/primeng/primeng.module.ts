@@ -51,6 +51,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { ChartModule } from 'primeng/chart';
 import { RatingModule } from 'primeng/rating';
 import { CarouselModule } from 'primeng/carousel';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
   declarations: [],
@@ -104,6 +105,7 @@ import { CarouselModule } from 'primeng/carousel';
     ChartModule,
     RatingModule,
     CarouselModule,
+    ListboxModule
   ],
   imports: [CommonModule],
   providers: [ConfirmationService, MessageService, DialogService],

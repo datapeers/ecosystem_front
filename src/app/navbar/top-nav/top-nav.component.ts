@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { fadeInOut } from '../helper';
 import { hexToRgb } from '@shared/utils/hexToRgb';
-
+import { MenuItem, PrimeNGConfig, ResponsiveOverlayOptions } from 'primeng/api';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -63,6 +63,7 @@ export class TopNavComponent {
 
   searchValue: string;
   search$: Subject<String> = new Subject<String>();
+  searchEnabled: boolean = false;
 
   onDestroy$: Subject<void> = new Subject();
 
@@ -75,27 +76,48 @@ export class TopNavComponent {
   viewNotificationBoard = false;
   viewSearchItem = false;
   colorPhase = '#EA4254';
+  overlayLoading = true;
+  mainMenu;
+  overlayVisible = false;
+  set searchResults(results: MenuItem[]) {
+    if (results) {
+      this.overlayLoading = false;
+    }
+    this._searchResults = results;
+  }
+  _searchResults: MenuItem[] = [];
+
   constructor(
     private router: Router,
     private readonly store: Store<AppState>,
     private readonly auth: AuthService,
-    private _location: Location
+    private _location: Location,
+    private primengConfig: PrimeNGConfig
   ) {
+    const responsiveOptions: ResponsiveOverlayOptions = {
+      style: 'width: 500px',
+      breakpoint: '640px',
+      media: '640px',
+    };
+    this.primengConfig.overlayOptions = {
+      appendTo: 'body',
+      responsive: responsiveOptions,
+    };
     this.menu$ = this.store.select((storeState) => storeState.home.menu);
     this.returnBtn$ = this.store.select(
       (storeState) => storeState.home.returnBtn
     );
     this.search$
-      .pipe(
-        debounceTime(500),
-        filter((v) => !!v?.trim()),
-        takeUntil(this.onDestroy$)
-      )
+      .pipe(debounceTime(500), takeUntil(this.onDestroy$))
       .subscribe((value: string) => {
-        if (!value) {
+        const stringSearch = value?.trim();
+        if (!stringSearch || stringSearch === '') {
           this.clearSearch();
           return;
         }
+        this.overlayLoading = true;
+        this.overlayVisible = true;
+        this.searchMethod(stringSearch);
       });
   }
 
@@ -118,6 +140,9 @@ export class TopNavComponent {
       .subscribe(async (user) => {
         this.user = user;
         this.setUserVars();
+        this.mainMenu = await firstValueFrom(
+          this.store.select((s) => s.home.menu).pipe(first((i) => i !== null))
+        );
       });
   }
 
@@ -127,7 +152,15 @@ export class TopNavComponent {
   }
 
   clearSearch() {
+    console.log('limpia');
+    this.overlayLoading = false;
+    this.overlayVisible = false;
     this.searchValue = null;
+    this.searchEnabled = false;
+  }
+
+  toggleSearch() {
+    this.searchEnabled = !this.searchEnabled;
   }
 
   toggleMenu() {
@@ -198,5 +231,65 @@ export class TopNavComponent {
     const colorRgb = hexToRgb(color);
     const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
     return style;
+  }
+
+  async searchMethod(searchValue: string) {
+    // const { spaceList, resourceList, contentList } =
+    //   await this.service.getSearchResult(
+    //     this.institute.dbName,
+    //     this.idsSpacesUser,
+    //     searchValue,
+    //   );
+    const sectionItems = this.mainMenu.options
+      .filter(
+        (menuItem) =>
+          menuItem.label.match(new RegExp(searchValue, 'i')) !== null
+      )
+      .map((menuItem) => ({
+        label: menuItem.label,
+        tag: 'Sección',
+        command: () => {
+          this.router.navigate(menuItem.rute, {
+            queryParams: menuItem.queryParamsRute,
+          });
+        },
+      }));
+    // const spaceItems = spaceList.map((space) => ({
+    //   label: space.nombre,
+    //   tag: space.tipoEspacio.name,
+    //   command: () => {
+    //     this.spaceService.goToSpace(
+    //       space,
+    //       true,
+    //       space.tipoEspacio.type,
+    //       this.idsSpacesUser,
+    //     );
+    //   },
+    // }));
+    // const resourceItems = resourceList.map((resource) => ({
+    //   label: resource.nombre,
+    //   tag: 'Recurso',
+    //   command: () => {
+    //     this.spaceService.goToSpaceResource(resource.idEspacio, resource._id);
+    //   },
+    // }));
+    // const contentItems = contentList.map((content) => ({
+    //   label: content.item.nombre,
+    //   tag: 'Contenido',
+    //   command: () => {
+    //     this.spaceService.goToSpaceContent(content.idEspacio, content._id);
+    //   },
+    // }));
+    this.searchResults = [
+      ...sectionItems,
+      // ...spaceItems,
+      // ...resourceItems,
+      // ...contentItems,
+    ];
+  }
+
+  handleOptionClick(option: MenuItem) {
+    // option.command();
+    this.clearSearch();
   }
 }

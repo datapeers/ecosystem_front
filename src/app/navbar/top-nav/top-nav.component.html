@@ -124,7 +124,31 @@
     <div class="head-content-mid w-full">
         <span class="p-input-icon-right search">
             <i class="pi pi-search"></i>
-            <input type="text" pInputText [(ngModel)]="searchValue" placeholder="¿Que deseas buscar?" />
+            <input type="text" pInputText [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" placeholder="¿Que deseas buscar?" />
         </span>
     </div>
 </ng-template>
+
+<ng-template #searchResultsTemp>
+    <ng-container *ngIf="overlayLoading; else elseTemplate">
+        <div class="flex flex-row justify-content-center align-items-center">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <p-listbox [options]="_searchResults" (onChange)="handleOptionClick($event.value)" [styleClass]="'listbox-search'">
+            <ng-template let-item pTemplate="item">
+                <div class="flex w-full">
+                    <p class="font-bold text-black-alpha-90 absolute opacity-80 text-xs border-round-lg p-1">
+                        {{item.tag}}</p>
+                    <p class="overflow-hidden text-sm mt-4 ml-2">{{item.label}}</p>
+                </div>
+            </ng-template>
+        </p-listbox>
+    </ng-template>
+</ng-template>
+
+<p-overlay styleClass="overlay-search" #overlayPanel [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom' }" (onHide)="clearSearch()" [appendTo]="'body'">
+    <ng-container [ngTemplateOutlet]="searchResultsTemp">
+    </ng-container>
+</p-overlay>
