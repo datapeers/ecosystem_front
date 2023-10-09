@@ -52,3 +52,42 @@
     background-color: darken(#f6f6f6, 5%) !important;
   }
 }
+
+.info-grid-cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cell-label {
+  color: #6b6b6b;
+  flex-shrink: 0; // Evita que el label se encoge
+  margin-right: 10px; // Espacio entre el label y el valor
+  position: relative; // Permite posicionar la línea
+  &:after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 100%; // Coloca la línea a la derecha del label
+    width: 50%; // El 50% de la pantalla para el valor
+    border-top: 1px solid #000; // Estilo de la línea
+  }
+}
+
+.cell-separator {
+  margin: 0 0 0 0;
+  border-bottom: 2px solid $appText;
+  height: auto;
+  // width: 100%;
+  z-index: 0;
+}
+
+.cell-value {
+  background-color: #f6f6f6;
+  color: black;
+  width: 50%;
+  padding: 0.65rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+}

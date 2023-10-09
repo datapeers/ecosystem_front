@@ -18,6 +18,14 @@ const fragments = {
 };
 
 const query = {
+  startup: `
+    query Startup($id: String!) {
+      startup(id: $id) {
+        ...startupFields
+      }
+    }
+    ${fragments.startupFields}
+  `,
   startups: `
     query Startups {
       startups {
@@ -57,7 +65,7 @@ const query = {
       }
     }
     ${downloadResultFields}
-  `
+  `,
 };
 
 const mutation = {

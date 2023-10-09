@@ -3,8 +3,11 @@ import { AppState } from '@appStore/app.reducer';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
+import { StartupsService } from '@shared/services/startups/startups.service';
 import { ToastService } from '@shared/services/toast.service';
 import { first, firstValueFrom } from 'rxjs';
+import { FormService } from '../../shared/form/form.service';
+import { FormCollections } from '@shared/form/enums/form-collections';
 
 @Component({
   selector: 'app-startup-profile',
@@ -16,7 +19,16 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   loaded = false;
   profileDoc;
   startup: Startup;
-  constructor(private store: Store<AppState>, private toast: ToastService) {
+  responsable;
+  formStartup;
+  formNegociosFields = [];
+  noValuePlaceholder: string = '- - - -';
+  constructor(
+    private store: Store<AppState>,
+    private toast: ToastService,
+    private startupService: StartupsService,
+    private formService: FormService
+  ) {
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)
@@ -40,9 +52,28 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
         .select((store) => store.auth.profileDoc)
         .pipe(first((i) => i !== null))
     );
-    console.log(this.profileDoc);
-    this.startup = this.profileDoc.startups[0];
+    const startup = this.profileDoc.startups[0];
+    this.startup = await this.startupService.getDocument(startup._id);
+    this.responsable = this.startup.entrepreneurs.find(
+      (i) => i.rol === 'leader'
+    );
     console.log(this.startup);
+    console.log(this.responsable);
+    const formsStartups = await this.formService.getFormByCollection(
+      FormCollections.startups
+    );
+    if (!formsStartups.length) {
+      return;
+    }
+    this.formStartup = formsStartups.find(() => true);
+    const formNegociosComponents = this.formService.getFormComponents(
+      this.formStartup
+    );
+    const ignore = ['nombre', 'descripcion'];
+    this.formNegociosFields = this.formService
+      .getInputComponents(formNegociosComponents)
+      .filter((i) => !ignore.includes(i.key));
+    console.log(this.formNegociosFields);
     this.loaded = true;
   }
 }

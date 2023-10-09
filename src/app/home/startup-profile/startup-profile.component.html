@@ -9,9 +9,9 @@
             </p>
         </ng-container>
         <ng-template #componentTemplate>
-            <div class="flex w-full flex-column md:flex-row">
-                <div class="normal-panel justify-center panel-startup align-items-center w-full md:w-4" style="height: 85vh;">
-                    <div class="flex flex-column justify-content-between">
+            <div class="flex w-full flex-column md:flex-row ">
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between" style="height: 85vh;">
+                    <div class="flex flex-column">
                         <div>
                             <div class="flex flex-row justify-content-between">
                                 <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
@@ -20,12 +20,16 @@
 
                             <div class="h-3rem"></div>
                             <h2>{{startup.item['nombre']}}</h2>
-                            <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna
-                                aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat. Duis
-                                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+                            <p class="mt-3">{{startup.item['descripcion']}}</p>
                         </div>
+                    </div>
+                    <div class="flex flex-column gap-2">
+                        <span class="text-xs">Responsable</span>
+                        <div class="flex flex-row align-items-center">
+                            <p-avatar [label]="responsable.item['nombre'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                            <p>{{responsable.item['nombre']}}</p>
+                        </div>
+
                     </div>
                 </div>
 
@@ -47,7 +51,15 @@
                         <div class="flex flex-column gap-4">
                             <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
                                 <div class="flex flex-column gap-4">
-                                    <div style="height:120rem"></div>
+                                    <div class="grid-container">
+                                        <ng-container *ngFor="let item of formNegociosFields">
+                                            <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>
+                                        </ng-container>
+
+                                        <!-- <ng-container *ngFor="let component of formNegociosFields">
+                                            <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component, doc: startup }"></ng-template>
+                                        </ng-container> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -61,3 +73,37 @@
 
 
 </div>
+
+<ng-template #fieldFormTemplate let-component="component" let-doc="doc">
+    <ng-container [ngSwitch]="true">
+        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid'].includes(component.type)">
+            <!-- Skip -->
+        </ng-container>
+        <ng-container *ngSwitchCase="['datetime', 'dateAndTime', 'time'].includes(component.type)">
+            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                        data: {
+                            label: component.label,
+                            value: doc[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder
+                        }
+                    }"></ng-template>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                        data: {
+                            label: component.label,
+                            value: doc.item[component.key] ? doc.item[component.key] : noValuePlaceholder
+                        }
+                    }"></ng-template>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #paramCardTemplate let-data="data">
+    <div class="info-grid-cell p-2 border-round">
+        <span class="cell-label">
+            <span [pTooltip]="data.label" tooltipPosition="top">{{data.label | uppercase}}</span>
+        </span>
+        <div class="cell-separator"></div>
+        <span class="cell-value" [pTooltip]="data.value" tooltipPosition="top">{{data.value}}</span>
+    </div>
+</ng-template>
