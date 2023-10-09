@@ -22,6 +22,7 @@ import { FormCollections } from '@shared/form/enums/form-collections';
 import { FormService } from '@shared/form/form.service';
 import { AppForm } from '@shared/form/models/form';
 import { StartupsService } from '@shared/services/startups/startups.service';
+import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
 
@@ -45,15 +46,16 @@ export class StartupsComponent {
   defaultFilters: TableFilters;
   constructor(
     private store: Store<AppState>,
+    private toast: ToastService,
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
     private readonly service: StartupsService,
-    private readonly route: ActivatedRoute,
+    private readonly route: ActivatedRoute
   ) {
     this.route.queryParamMap
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((params) => {
-        const filterProspects = !!params.get("prospects");
+        const filterProspects = !!params.get('prospects');
         const extraColumnsTable: TableColumn[] = [
           {
             label: 'Fases',
@@ -62,16 +64,18 @@ export class StartupsComponent {
             format: 'string',
           },
         ];
-        if(!filterProspects) {
+        if (!filterProspects) {
           this.tableLocator = tableLocators.startups;
           this.defaultFilters = {
-            "isProspect": [{ matchMode: "equals", operator: "and", value: false }]
-          }
+            isProspect: [
+              { matchMode: 'equals', operator: 'and', value: false },
+            ],
+          };
         } else {
           this.tableLocator = tableLocators.startupsProspects;
           this.defaultFilters = {
-            "isProspect": [{ matchMode: "equals", operator: "and", value: true }]
-          }
+            isProspect: [{ matchMode: 'equals', operator: 'and', value: true }],
+          };
         }
         this.optionsTable = {
           save: true,
@@ -181,6 +185,13 @@ export class StartupsComponent {
         });
         break;
       case 'linkWithEntrepreneurs':
+        if (element.length === 0) {
+          this.toast.alert({
+            summary: 'No ha seleccionado ninguna startup',
+            detail: '',
+          });
+          return;
+        }
         this.dialogService
           .open(EntrepreneurSelectTableComponent, {
             modal: true,
@@ -194,12 +205,7 @@ export class StartupsComponent {
             const entrepreneursIds = data.selected;
             if (entrepreneursIds.length) {
               await this.service.linkWithEntrepreneurs(
-                entrepreneursIds,
-                entrepreneursIds
-              );
-            } else {
-              await this.service.linkWithEntrepreneursByRequest(
-                pageRequest,
+                element.map((i) => i._id),
                 entrepreneursIds
               );
             }

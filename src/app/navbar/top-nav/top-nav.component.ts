@@ -214,6 +214,10 @@ export class TopNavComponent {
     this.router.navigate(['/home/profile']);
   }
 
+  profileStartup() {
+    this.router.navigate(['/home/startup']);
+  }
+
   colorStageBackground() {
     return `{background-color}`;
   }
