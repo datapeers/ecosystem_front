@@ -17,7 +17,8 @@ export class HomeEffects {
     this.actions$.pipe(
       ofType(fromHome.SEARCH_CURRENT_BATCH),
       switchMap(async (action: fromHome.SearchCurrentBatch) => {
-        // TODO READ STARTUP SELECTED
+        if (action.profile['startups'].length === 0)
+          return new fromHome.SetCurrentBatch('without batch');
         const userPhases = await this.phasesService.getPhasesList(
           action.profile['startups'][0].phases.map((i) => i._id),
           true
@@ -27,7 +28,7 @@ export class HomeEffects {
         let currentBatch = batches.find((i) => i._id === currentBatchID);
         if (!currentBatchID || !currentBatch)
           currentBatch = batches.find((i) =>
-            moment(i.endAt).isBefore(new Date())
+            moment(i.calcEndDate).isBefore(new Date())
           );
         if (currentBatch) return new fromHome.SetCurrentBatch(currentBatch);
         currentBatch = batches[batches.length - 1];

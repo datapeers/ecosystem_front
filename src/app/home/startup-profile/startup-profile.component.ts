@@ -42,6 +42,7 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
     );
     console.log(this.profileDoc);
     this.startup = this.profileDoc.startups[0];
+    if (!this.startup) return;
     console.log(this.startup);
     this.loaded = true;
   }
