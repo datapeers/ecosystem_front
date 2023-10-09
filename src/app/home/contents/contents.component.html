@@ -52,7 +52,7 @@
         <ng-template #showHomework>
             <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4" style="flex: 1">
                 <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-base" [style.color]="'black'">{{homeworkDisplay.resource.name}}</h2>
-                <div class="w-full flex flex-column md:flex-row justify-content-center:justify-content-between gap-2 md:gap-0 align-items-center">
+                <div class="w-full flex flex-wrap md:flex-row justify-content-center md:justify-content-between gap-2 md:gap-0 align-items-center">
                     <div class="info-dialog flex flex-column text-sm">
                         <span>Contenido de {{homeworkDisplay.phase.name}}</span>
                         <span>{{stage.name}}</span>
