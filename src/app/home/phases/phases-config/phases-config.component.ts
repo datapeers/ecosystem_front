@@ -124,7 +124,7 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       width: '75vw',
       height: '70vh',
       data: {
-        stages: this.stages,
+        stages: this.stages.filter((i) => !i.isDeleted),
         basePhase: true,
       },
     });
