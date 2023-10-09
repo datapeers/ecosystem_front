@@ -149,6 +149,7 @@ export class TopNavComponent {
   goTo(option: IMenuOption) {
     option.command();
     this.clearSearch();
+    this.closeAll();
   }
 
   clearSearch() {
@@ -204,18 +205,22 @@ export class TopNavComponent {
 
   return() {
     this._location.back();
+    this.closeAll();
   }
 
   logOut() {
     this.auth.signOut();
+    this.closeAll();
   }
 
   profileSetting() {
     this.router.navigate(['/home/profile']);
+    this.closeAll();
   }
 
   profileStartup() {
     this.router.navigate(['/home/startup']);
+    this.closeAll();
   }
 
   colorStageBackground() {
@@ -311,5 +316,10 @@ export class TopNavComponent {
     ];
   }
 
-  closeAll() {}
+  closeAll() {
+    this.viewUserBoard = false;
+    this.viewNotificationBoard = false;
+    this.viewSearchItem = false;
+    this.overlayVisible = false;
+  }
 }
