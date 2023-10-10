@@ -142,7 +142,6 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
         this.loaded = false;
         this.tickets$ = tickets$.subscribe((ticketsList) => {
           this.tickets = ticketsList.map((i) => Ticket.fromJson(i));
-          console.log(this.tickets);
           this.filterTicketsFunction(this.filtersTickets.value as any);
           this.loaded = true;
         });
@@ -209,6 +208,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
       })
       .then((ans) => {
         this.showCreatorTicket = false;
+        this.filtersTickets.get('category').setValue(ans.category);
         this.toast.clear();
       })
       .catch((err) => {
