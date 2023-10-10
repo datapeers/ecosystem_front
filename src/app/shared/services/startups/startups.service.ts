@@ -31,7 +31,7 @@ export class StartupsService implements DocumentProvider {
     const queryRef = this.graphql.refQuery(
       startupQueries.query.startup,
       { id },
-      'cache-first',
+      'no-cache',
       { auth: true }
     );
     return firstValueFrom(

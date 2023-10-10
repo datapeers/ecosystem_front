@@ -12,6 +12,7 @@ const fragments = {
         _id
         rol
         item
+        description
       }
     }
   `,

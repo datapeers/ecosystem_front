@@ -7,7 +7,7 @@
   <p-table class="dynamic-table" [columns]="config?.columns ?? []" (onColReorder)="columnReorder($event)" [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id" [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($any($event))" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true" [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords" (onRowSelect)="onRowSelected($event)" (onRowUnselect)="onRowUnselected($event)" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($any($event))">
     <ng-template pTemplate="caption" *ngIf="!options.hideCaption">
       <div class="table-header">
-        <span class="header color-custom">{{title}}</span>
+        <span class="header">{{title}}</span>
         <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>

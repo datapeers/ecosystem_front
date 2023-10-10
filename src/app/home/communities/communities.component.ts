@@ -56,7 +56,7 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       extraColumnsTable: [],
       actionsTable: [],
       hideMultipleFiltersTable: true,
-      hideCaption: true,
+      hideCaption: false,
     };
     firstValueFrom(
       this.store
@@ -75,8 +75,8 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
-    this.optionsTable.summary = 'Comunidades';
-    this.tableTitle = 'Comunidades';
+    this.optionsTable.summary = 'Lista';
+    this.tableTitle = 'Lista';
     this.loading = true;
     const forms = await this.formService.getFormByCollection(
       FormCollections.startups

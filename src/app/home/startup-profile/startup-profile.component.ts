@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
 import { StartupsService } from '@shared/services/startups/startups.service';
 import { ToastService } from '@shared/services/toast.service';
-import { first, firstValueFrom } from 'rxjs';
+import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
 import { FormService } from '../../shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
-
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-startup-profile',
   templateUrl: './startup-profile.component.html',
@@ -19,10 +19,13 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   loaded = false;
   profileDoc;
   startup: Startup;
-  responsable;
   formStartup;
   formNegociosFields = [];
   noValuePlaceholder: string = '- - - -';
+  textSummary = `Mostrando {first} a {last} de {totalRecords}`;
+  onDestroy$: Subject<void> = new Subject();
+  leaderStartup;
+  @ViewChild('dt', { static: true }) dt: Table;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -41,8 +44,8 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   async loadComponent() {
@@ -54,11 +57,9 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
     );
     const startup = this.profileDoc.startups[0];
     this.startup = await this.startupService.getDocument(startup._id);
-    this.responsable = this.startup.entrepreneurs.find(
+    this.leaderStartup = this.startup.entrepreneurs.find(
       (i) => i.rol === 'leader'
     );
-    console.log(this.startup);
-    console.log(this.responsable);
     const formsStartups = await this.formService.getFormByCollection(
       FormCollections.startups
     );
@@ -73,7 +74,33 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
     this.formNegociosFields = this.formService
       .getInputComponents(formNegociosComponents)
       .filter((i) => !ignore.includes(i.key));
-    console.log(this.formNegociosFields);
     this.loaded = true;
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
+  }
+
+  async editStartup() {
+    this.toast.loading();
+    const subscription = await this.formService.createFormSubscription({
+      form: this.formStartup._id,
+      reason: 'Editar startup',
+      data: {},
+      doc: this.startup._id,
+    });
+    this.toast.clear();
+    const ref = this.formService.openFormFromSubscription(
+      subscription,
+      'Editar startup'
+    );
+    ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe(async (doc) => {
+      if (doc) {
+        this.startup = await this.startupService.getDocument(this.startup._id);
+      }
+    });
   }
 }

@@ -15,7 +15,7 @@
                         <div>
                             <div class="flex flex-row justify-content-between">
                                 <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
-                                <i-tabler name="edit" class="edit-btn cursor-pointer"></i-tabler>
+                                <i-tabler name="edit" class="edit-btn cursor-pointer" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
                             </div>
 
                             <div class="h-3rem"></div>
@@ -26,53 +26,26 @@
                     <div class="flex flex-column gap-2">
                         <span class="text-xs">Responsable</span>
                         <div class="flex flex-row align-items-center">
-                            <p-avatar [label]="responsable.item['nombre'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                            <p>{{responsable.item['nombre']}}</p>
+                            <p-avatar [label]="leaderStartup.item['nombre'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                            <p>{{leaderStartup.item['nombre']}}</p>
                         </div>
 
                     </div>
                 </div>
 
 
-                <div class="flex flex-column gap-4 w-full md:w-8 px-4 display-content scrollwrap scrollwrap_delayed">
-                    <div class="flex flex-column gap-4">
-                        <div class="flex w-auto gap-4 mt-4">
-                            <div class="flex flex-column gap-4 w-full">
-                                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -
-                                    costos</label>
-                                <div class="statics-panel bg-pastel-1"></div>
-                            </div>
-                            <div class="flex flex-column gap-4 w-full">
-                                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte horas
-                                    invertidas</label>
-                                <div class="statics-panel bg-pastel-2"></div>
-                            </div>
-                        </div>
-                        <div class="flex flex-column gap-4">
-                            <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
-                                <div class="flex flex-column gap-4">
-                                    <div class="grid-container">
-                                        <ng-container *ngFor="let item of formNegociosFields">
-                                            <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>
-                                        </ng-container>
-
-                                        <!-- <ng-container *ngFor="let component of formNegociosFields">
-                                            <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component, doc: startup }"></ng-template>
-                                        </ng-container> -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hidden md:flex flex-column gap-4 w-full md:w-8 px-4 display-content scrollwrap scrollwrap_delayed">
+                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>
+                </div>
+                <div class="flex md:hidden flex-column gap-4 w-full md:w-8 px-4 display-content">
+                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>
                 </div>
             </div>
         </ng-template>
 
-
     </ng-template>
-
-
 </div>
+
 
 <ng-template #fieldFormTemplate let-component="component" let-doc="doc">
     <ng-container [ngSwitch]="true">
@@ -96,6 +69,64 @@
                     }"></ng-template>
         </ng-container>
     </ng-container>
+</ng-template>
+
+<ng-template #sideContent>
+    <div class="flex flex-column gap-4">
+        <div class="flex w-auto gap-4 mt-4">
+            <div class="flex flex-column gap-4 w-full">
+                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -
+                    costos</label>
+                <div class="statics-panel bg-pastel-1"></div>
+            </div>
+            <div class="flex flex-column gap-4 w-full">
+                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte horas
+                    invertidas</label>
+                <div class="statics-panel bg-pastel-2"></div>
+            </div>
+        </div>
+        <div class="flex w-full table-container p-1 normal-panel">
+            <p-table #dt class="table-dark w-full" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
+                <ng-template pTemplate="caption">
+                    <div class="table-header">
+                        <span class="header color-custom ml-3">Equipo</span>
+                        <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Emprendedor</th>
+                        <th>Rol</th>
+                        <th>Funciones</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-entrepreneur>
+                    <tr class="cursor-pointer">
+                        <td class="text-center">{{entrepreneur.item['nombre']}}</td>
+                        <td class="text-center">{{entrepreneur.item['rol']}}</td>
+                        <td class="text-center">{{entrepreneur.description}}</td>
+                        <td class="text-center"></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="paginatorright">
+                    <span>{{paginatorRightMsg()}}</span>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
+            <div class="flex flex-column gap-4">
+                <div class="grid-container">
+                    <ng-container *ngFor="let item of formNegociosFields">
+                        <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </ng-template>
 
 <ng-template #paramCardTemplate let-data="data">

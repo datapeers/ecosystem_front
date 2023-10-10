@@ -27,7 +27,7 @@
     <p-divider></p-divider>
     <div class="w-full" style="flex: 1" *ngIf="tableContext">
 
-        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)">
+        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)" [allowFullscreen]="false">
         </app-dynamic-table>
 
     </div>
