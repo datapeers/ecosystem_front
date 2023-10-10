@@ -50,7 +50,7 @@
                     <td class="text-center">{{ticketCategoryNames[ticket.category]}}</td>
                     <td class="text-center">{{ticket.title}}</td>
                     <td class="text-center"><p-tag [value]="ticketsStatesNames[ticket.status]" [severity]="ticketsStatesColors[ticket.status]"></p-tag></td>
-                    <td class="text-center">{{ticket.createdAt | date : 'yyyy/MM/yy'}}</td>
+                    <td class="text-center">{{ticket.createdAt | date : 'yyyy/MM/dd'}}</td>
                     <td class="text-center"></td>
                 </tr>
             </ng-template>

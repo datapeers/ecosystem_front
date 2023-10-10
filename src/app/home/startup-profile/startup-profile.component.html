@@ -100,10 +100,9 @@
 
 <ng-template #paramCardTemplate let-data="data">
     <div class="info-grid-cell p-2 border-round">
-        <span class="cell-label">
-            <span [pTooltip]="data.label" tooltipPosition="top">{{data.label | uppercase}}</span>
+        <span class="cell-label" [pTooltip]="data.label" tooltipPosition="top">
+            {{data.label | uppercase}}
         </span>
-        <div class="cell-separator"></div>
         <span class="cell-value" [pTooltip]="data.value" tooltipPosition="top">{{data.value}}</span>
     </div>
 </ng-template>

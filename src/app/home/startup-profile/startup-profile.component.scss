@@ -65,12 +65,13 @@
   flex-shrink: 0; // Evita que el label se encoge
   margin-right: 10px; // Espacio entre el label y el valor
   position: relative; // Permite posicionar la línea
+  width: 50%;
   &:after {
     content: "";
     position: absolute;
     top: 20%;
-    left: 100%; // Coloca la línea a la derecha del label
-    width: 50%; // El 50% de la pantalla para el valor
+    // left: 100%; // Coloca la línea a la derecha del label
+    // width: 50%; // El 50% de la pantalla para el valor
     border-top: 1px solid #000; // Estilo de la línea
   }
 }
