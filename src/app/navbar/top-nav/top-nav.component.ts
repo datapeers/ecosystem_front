@@ -176,6 +176,7 @@ export class TopNavComponent {
           .select((store) => store.home.currentBatch)
           .pipe(first((i) => i !== null))
       );
+      this.colorPhase = this.currentBatch.stageDoc.color;
       [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
         this.currentBatch.name
       );

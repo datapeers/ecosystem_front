@@ -32,51 +32,41 @@
         </div>
     </div>
     <div class="h-3rem"></div>
-    <div
-        class="flex main flex-column xl:flex-row w-full justify-content-start align-items-end xl:justify-content-center xl:align-items-end gap-1">
-        <div class="flex w-full flex-column xl:flex-row justify-content-start align-items-start xl:align-items-end"
-            [style.width.%]="widthStage(stage.fases.length)" [style.height.rem]="heightStage(stage.fases.length)"
-            *ngFor="let stage of stages; let i=index;">
-            <div class="flex w-full xl:flex-grow-1 flex-row-reverse justify-content-end xl:flex-column"
-                [style.color]="stage.color">
-                <div
-                    class="flex xl:w-full flex-column xl:flex-row py-4 xl:py-0 xl:px-4 gap-4 justify-content-center align-items-end">
-                    <div class="flex flex-row-reverse xl:flex-column w-full justify-content-end align-items-center"
-                        *ngFor="let fase of stage.fases">
-                        <div class="flex flex-row-reverse xl:flex-column align-items-center" *ngIf="true">
-                            <div class="flex fase-finished border-circle justify-content-center align-items-center"
-                                [style.background-color]="stage.color">
+    <div class="flex main flex-column xl:flex-row w-full justify-content-start align-items-end xl:justify-content-center xl:align-items-end gap-1">
+        <div class="flex w-full flex-column xl:flex-row justify-content-start align-items-start xl:align-items-end" [style.width.%]="widthStage(stage.fases.length)" [style.height.rem]="heightStage(stage.fases.length)" *ngFor="let stage of stages; let i=index;">
+            <div class="flex w-full xl:flex-grow-1 flex-row-reverse justify-content-end xl:flex-column" [style.color]="stage.color">
+                <div class="flex xl:w-full flex-column xl:flex-row py-4 xl:py-0 xl:px-4 gap-4 justify-content-center align-items-end">
+                    <div class="flex flex-row-reverse xl:flex-column w-full justify-content-end align-items-center" *ngFor="let fase of stage.fases">
+                        <div class="flex flex-row-reverse xl:flex-column align-items-center" *ngIf="stage.hasPhasesDone && fase.done && !fase.currentBatch">
+                            <div class="flex fase-finished border-circle justify-content-center align-items-center" [style.background-color]="stage.color">
                                 <i-tabler class="text-center" name="checks"></i-tabler>
                             </div>
                             <div class="fase-finished-body" [style.background-color]="withOpacity(stage.color, 0.21)">
                             </div>
                         </div>
-                        <ng-container *ngIf="false">
+                        <ng-container *ngIf="fase.done && fase.currentBatch">
                             <div class="text-white justify-center hat-current" [style.background-color]="stage.color">
                                 <p class="text-center stage-label">Retomar</p>
                             </div>
                         </ng-container>
-                        <div class="flex flex-column normal-panel fase justify-content-center align-items-center">
+                        <div class="flex flex-column normal-panel fase justify-content-center align-items-center" [style.color]="fase.done ? stage.color : '#AEAEAE'">
                             <h2 class="text-center">{{fase.number}}</h2>
                             <p class="th2">Fase {{fase.number}}</p>
                         </div>
-                        <div class="line" [style.height.rem]="dotedHeightLine(fase.number)"
-                            [style.width.rem]="dotedWidthLine(fase.number)">
+                        <div class="line" [style.height.rem]="dotedHeightLine(fase.number)" [style.width.rem]="dotedWidthLine(fase.number)">
                         </div>
                     </div>
                 </div>
-                <div class="stage justify-content-center align-items-center align-content-center"
-                    [style.border-color]="stage.color" [style.background]="gradient(stage.color)">
+                <div class="stage justify-content-center align-items-center align-content-center" [style.border-color]="stage.color" [style.background]="gradient(stage.color)">
                     <div class="flex flex-column align-items-center justify-content-center">
                         <div style="height: 0.5rem"></div>
                         <i-tabler class="text-center" [name]="stage.icon"></i-tabler>
                         <div style="height: 0.5rem"></div>
-                        <p class="text-center stage-label">{{stage.label}}</p>
+                        <p class="text-center stage-label">{{stage.label | uppercase}}</p>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-none border-white stage-medal border-circle w-3rem h-3rem justify-content-center align-items-center"
-                [style.background-color]="stage.color">
+            <div class="flex flex-none border-white stage-medal border-circle w-3rem h-3rem justify-content-center align-items-center" [style.background-color]="stage.color" *ngIf="stage.hasAllPhasesDone">
                 <i-tabler class="text-center" name="award"></i-tabler>
             </div>
         </div>

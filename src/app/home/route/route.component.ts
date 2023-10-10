@@ -1,85 +1,103 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { AppState } from '@appStore/app.reducer';
+import { Phase } from '@home/phases/model/phase.model';
+import { PhasesService } from '@home/phases/phases.service';
+import { Store } from '@ngrx/store';
+import { Startup } from '@shared/models/entities/startup';
+import { ToastService } from '@shared/services/toast.service';
+import { firstValueFrom, first, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-route',
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.scss'],
 })
-export class RouteComponent {
+export class RouteComponent implements OnInit, OnDestroy {
   minWidth = 1200;
 
   break = false;
-
-  stages = [
-    {
-      label: 'ONBOARDING',
-      icon: 'brand-asana',
-      color: '#4552A7',
-      fases: [
-        {
-          number: 1,
-        },
-        {
-          number: 2,
-        },
-      ],
-    },
-    {
-      label: 'EARLY',
-      icon: 'social',
-      color: '#EA4254',
-      fases: [
-        {
-          number: 3,
-        },
-        {
-          number: 4,
-        },
-      ],
-    },
-    {
-      label: 'GROWTH',
-      icon: 'plant',
-      color: '#F8A70B',
-      fases: [
-        {
-          number: 5,
-        },
-        {
-          number: 6,
-        },
-        {
-          number: 7,
-        },
-      ],
-    },
-    {
-      label: 'LATE',
-      icon: 'tree',
-      color: '#B8C53A',
-      fases: [
-        {
-          number: 8,
-        },
-        {
-          number: 9,
-        },
-      ],
-    },
-    {
-      label: 'LAUNCH',
-      icon: 'plant-2',
-      color: '#DB5F39',
-      fases: [
-        {
-          number: 10,
-        },
-      ],
-    },
-  ];
+  stages$: Subscription;
+  stages = [];
+  profileDoc;
+  startup: Startup;
+  phasesUser: Phase[];
+  currentBatch: Phase | any;
+  listBasesDone = [];
+  constructor(
+    private toast: ToastService,
+    private store: Store<AppState>,
+    private phasesService: PhasesService
+  ) {}
 
   ngOnInit() {
     this.checkScreen();
+    this.loadComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.stages$?.unsubscribe();
+  }
+
+  async loadComponent() {
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.startup = this.profileDoc.startups[0];
+    const userPhases = await this.phasesService.getPhasesList(
+      this.profileDoc['startups'][0].phases.map((i) => i._id),
+      true
+    );
+    this.currentBatch = await firstValueFrom(
+      this.store
+        .select((store) => store.home.currentBatch)
+        .pipe(first((i) => i !== null))
+    );
+    const basesPhase = userPhases.filter((i) => i.basePhase);
+    this.phasesUser = userPhases.filter((i) => !i.basePhase);
+    this.listBasesDone = [];
+
+    for (const iterator of this.phasesUser) {
+      this.listBasesDone.push(iterator.childrenOf);
+    }
+    this.phasesService
+      .watchStages()
+      .then((stages$) => {
+        this.stages$ = stages$.subscribe((stageList) => {
+          this.stages = [];
+          let numbPhase = 1;
+          for (const stage of stageList) {
+            if (stage.isDeleted) continue;
+            const phasesStage = basesPhase
+              .filter((i) => i.stage === stage._id)
+              .map((i) => ({
+                ...i,
+                number: numbPhase++,
+                done: this.listBasesDone.includes(i._id),
+                currentBatch: this.currentBatch.childrenOf === i._id,
+              }));
+            const phasesDone = phasesStage.filter((fase) =>
+              this.listBasesDone.includes(fase._id)
+            );
+            this.stages.push({
+              ...stage,
+              fases: phasesStage,
+              hasPhasesDone: phasesDone.length !== 0,
+              hasAllPhasesDone: phasesDone.length === phasesStage.length,
+            });
+          }
+          console.log(this.stages);
+        });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar etapas',
+          detail: err,
+          life: 12000,
+        });
+        this.stages = [];
+      });
   }
 
   checkScreen() {
