@@ -36,6 +36,16 @@
     <div class="flex h-4"></div>
     <div class="flex w-full table-container p-1">
         <p-table #dt class="table-dark w-full" [value]="showedTickets" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
+            <ng-template pTemplate="caption">
+                <div class="table-header">
+                    <span class="header color-custom ml-3">Tickets</span>
+                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+
+
+
+                    </div>
+                </div>
+            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th>Categoría</th>
@@ -61,7 +71,7 @@
     </div>
 </div>
 
-<p-dialog appendTo="body" header="" [(visible)]="showTicket" [style]="{width: '70vw', height: '90vh'}" [maximizable]="true" [modal]="true" maskStyleClass="dialog-app">
+<p-dialog appendTo="body" header="" [(visible)]="showTicket" [style]="{width: '70vw', height: '90vh'}" [maximizable]="true" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
@@ -131,7 +141,7 @@
     <div class="panel-hide fixed bottom-0 left-0"></div>
 </p-dialog>
 
-<p-dialog appendTo="body" header="Ticket" [(visible)]="showCreatorTicket" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app">
+<p-dialog appendTo="body" header="Ticket" [(visible)]="showCreatorTicket" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
@@ -160,8 +170,6 @@
             <p-toggleButton [(ngModel)]="showFileUploadUI" [offIcon]="'pi pi-link'" [onIcon]="'pi pi-link'" [onLabel]="'Subir archivos'" offLabel="Subir archivos"></p-toggleButton>
         </div>
         <span class="field col-12" *ngIf="showFileUploadUI">
-            <label for="filesTicket">Archivos</label>
-            <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
             <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
                 <ng-template let-file pTemplate="file">
                     <div></div>
@@ -181,7 +189,9 @@
         <div class="actions flex flex-column gap-1 mb-4">
             <p-button type="submit" label="Crear ticket" (onClick)="createTicket()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newTicket.invalid"></p-button>
         </div>
-
+        <div class="flex md:hidden" style="height: 30rem;">
+            <span class="text-white">aaaa</span>
+        </div>
     </div>
     <div class="panel-hide fixed bottom-0 left-0"></div>
 </p-dialog>
