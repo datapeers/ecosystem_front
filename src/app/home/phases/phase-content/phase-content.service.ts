@@ -31,6 +31,21 @@ export class PhaseContentService {
     );
   }
 
+  async getLastContent(batchId: string, startupId: string): Promise<any> {
+    const query = this.graphql.refQuery(
+      contentQueries.query.lastContent,
+      { batchId, startupId },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(query).pipe(
+        map((request) => request.data.lastContent),
+        map((allContent) => allContent)
+      )
+    );
+  }
+
   async getContents(phase: string): Promise<Content[]> {
     this._getContent = this.graphql.refQuery(
       contentQueries.query.getContents,

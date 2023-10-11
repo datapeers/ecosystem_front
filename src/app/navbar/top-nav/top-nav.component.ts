@@ -26,7 +26,7 @@ import { MenuItem, PrimeNGConfig, ResponsiveOverlayOptions } from 'primeng/api';
 import { PhasesService } from '@home/phases/phases.service';
 import { Phase } from '@home/phases/model/phase.model';
 import { Stage } from '@home/phases/model/stage.model';
-import { getPhaseAndNumb } from '@shared/utils/others';
+import { getPhaseAndNumb } from '@shared/utils/phases.utils';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',

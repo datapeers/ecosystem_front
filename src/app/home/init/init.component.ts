@@ -18,7 +18,7 @@ import { ContentsService } from '@home/contents/contents.service';
 import { ToastService } from '@shared/services/toast.service';
 import { PhasesService } from '@home/phases/phases.service';
 import { Stage } from '@home/phases/model/stage.model';
-import { getPhaseAndNumb } from '@shared/utils/others';
+import { getPhaseAndNumb } from '@shared/utils/phases.utils';
 import { Phase } from '@home/phases/model/phase.model';
 
 @Component({
@@ -184,7 +184,6 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       .then((logs$) => {
         this.userLogs$ = logs$.subscribe((logsList) => {
           this.logs = logsList;
-          console.log(this.logs.length);
         });
       })
       .catch((err) => {

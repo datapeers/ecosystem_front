@@ -71,6 +71,7 @@ import { InitComponent } from './init/init.component';
 import { ResourceCardComponent } from '../shared/components/resource-card/resource-card.component';
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { DescriptionStageRouteComponent } from './route/description-stage-route/description-stage-route.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -127,6 +128,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     ResourceCardComponent,
     StartupProfileComponent,
     ConfigurationComponent,
+    DescriptionStageRouteComponent,
   ],
   imports: [
     CommonModule,

@@ -62,6 +62,18 @@ const query = {
     }
     ${fragments.contentFields}
   `,
+  lastContent: `
+    query LastContent($batchId: String!, $startupId: String!) {
+      lastContent(batchId: $batchId, startupId: $startupId) {
+        lastContent {
+          ...contentFields
+        }
+        contentCompleted
+        numberOfContent
+      }
+    }
+    ${fragments.contentFields}
+  `,
 };
 
 const mutation = {

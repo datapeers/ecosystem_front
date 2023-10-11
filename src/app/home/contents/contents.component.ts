@@ -33,7 +33,7 @@ import { IUserLog } from './models/user-logs';
 import { hexToRgb } from '@shared/utils/hexToRgb';
 import { Stage } from '@home/phases/model/stage.model';
 import { fadeInOut } from 'src/app/navbar/helper';
-import { getPhaseAndNumb } from '@shared/utils/others';
+import { getPhaseAndNumb } from '@shared/utils/phases.utils';
 
 @Component({
   selector: 'app-contents',
@@ -140,6 +140,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     this.currentBatch = currentBatch;
     this.stage = this.currentBatch.stageDoc;
     [this.phaseName, this.phaseNumb] = getPhaseAndNumb(this.currentBatch.name);
+
     this.phaseContentService
       .getContents(this.currentBatch._id)
       .then(async (i) => {

@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { Phase } from '@home/phases/model/phase.model';
+import { PhaseContentService } from '@home/phases/phase-content/phase-content.service';
 import { PhasesService } from '@home/phases/phases.service';
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
@@ -29,7 +30,8 @@ export class RouteComponent implements OnInit, OnDestroy {
     private router: Router,
     private toast: ToastService,
     private store: Store<AppState>,
-    private phasesService: PhasesService
+    private phasesService: PhasesService,
+    private contentService: PhaseContentService
   ) {}
 
   ngOnInit() {
@@ -61,10 +63,14 @@ export class RouteComponent implements OnInit, OnDestroy {
     this.phasesUser = userPhases.filter((i) => !i.basePhase);
 
     this.listBasesDone = [];
-
     for (const iterator of this.phasesUser) {
       this.listBasesDone.push(iterator.childrenOf);
     }
+    const ans = await this.contentService.getLastContent(
+      this.currentBatch._id,
+      this.startup._id
+    );
+    console.log(ans);
     this.phasesService
       .watchStages()
       .then((stages$) => {
