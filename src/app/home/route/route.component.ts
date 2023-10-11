@@ -1,10 +1,12 @@
 import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { Phase } from '@home/phases/model/phase.model';
 import { PhasesService } from '@home/phases/phases.service';
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
 import { ToastService } from '@shared/services/toast.service';
+import { getNameBase } from '@shared/utils/phases.utils';
 import { firstValueFrom, first, Subscription } from 'rxjs';
 
 @Component({
@@ -24,6 +26,7 @@ export class RouteComponent implements OnInit, OnDestroy {
   currentBatch: Phase | any;
   listBasesDone = [];
   constructor(
+    private router: Router,
     private toast: ToastService,
     private store: Store<AppState>,
     private phasesService: PhasesService
@@ -56,6 +59,7 @@ export class RouteComponent implements OnInit, OnDestroy {
     );
     const basesPhase = userPhases.filter((i) => i.basePhase);
     this.phasesUser = userPhases.filter((i) => !i.basePhase);
+
     this.listBasesDone = [];
 
     for (const iterator of this.phasesUser) {
@@ -76,6 +80,7 @@ export class RouteComponent implements OnInit, OnDestroy {
                 number: numbPhase++,
                 done: this.listBasesDone.includes(i._id),
                 currentBatch: this.currentBatch.childrenOf === i._id,
+                nameLabel: getNameBase(i),
               }));
             const phasesDone = phasesStage.filter((fase) =>
               this.listBasesDone.includes(fase._id)
@@ -87,7 +92,7 @@ export class RouteComponent implements OnInit, OnDestroy {
               hasAllPhasesDone: phasesDone.length === phasesStage.length,
             });
           }
-          console.log(this.stages);
+          console.log(this.phasesUser);
         });
       })
       .catch((err) => {
@@ -163,5 +168,9 @@ export class RouteComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.break = window.innerWidth < 1200;
+  }
+
+  goContent() {
+    this.router.navigate(['/home/contents']);
   }
 }

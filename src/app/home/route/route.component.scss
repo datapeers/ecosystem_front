@@ -1,136 +1,151 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
 
 .stage {
-    border-top: solid 0.625rem;    
-    border-right: none;
-    height: 8rem;
-    letter-spacing: 0.3rem;
-    font-weight: 500;
+  border-top: solid 0.625rem;
+  border-right: none;
+  height: 8rem;
+  letter-spacing: 0.3rem;
+  font-weight: 500;
 
-    i-tabler {
-        height: 2.875rem;
-        width: 2.875rem;
-        stroke-width: 1.3px;
-    }
+  i-tabler {
+    height: 2.875rem;
+    width: 2.875rem;
+    stroke-width: 1.3px;
+  }
 
-    @media (max-width: 1200px) {
-        border-right: solid 0.625rem;
-        border-top: none;        
-        height: auto;
-        width: 4rem;
-        padding: 0.5rem 0;
-    }
+  @media (max-width: 1200px) {
+    border-right: solid 0.625rem;
+    border-top: none;
+    height: auto;
+    width: 4rem;
+    padding: 0.5rem 0;
+  }
 }
 
 .stage-label {
-    @media (max-width: 1200px) {
-            writing-mode: vertical-rl;
-            font-size: 0.8rem;
-        }
+  @media (max-width: 1200px) {
+    writing-mode: vertical-rl;
+    font-size: 0.8rem;
+  }
 }
 
 .stage-medal {
-    margin: 0 -1.5rem 3rem -1.5rem;
-    border: solid 4px;
-    z-index: 1;
-    color: white;
-    @media (max-width: 1200px) {        
-            margin: -1.5rem 0 -1.5rem 0.5rem;
-        }
+  margin: 0 -1.5rem 3rem -1.5rem;
+  border: solid 4px;
+  z-index: 1;
+  color: white;
+  @media (max-width: 1200px) {
+    margin: -1.5rem 0 -1.5rem 0.5rem;
+  }
 }
 
 .hat-finished {
-
 }
 
 .fase-finished {
-    margin: 0 0 -1.5rem 0;
-    width: 3rem; 
-    height: 3rem; 
-    color: white;
-    @media (max-width: 1200px) {
-            margin: 0 0 0 -1.5rem;
-        }
+  margin: 0 0 -1.5rem 0;
+  width: 3rem;
+  height: 3rem;
+  color: white;
+  @media (max-width: 1200px) {
+    margin: 0 0 0 -1.5rem;
+  }
 }
 
 .fase-finished-body {
-    height: 2.8rem;
-    width: 2.4rem;
-    @media (max-width: 1200px) {
-        height: 2.4rem;
-        width: 2.8rem;
-    }
+  height: 2.8rem;
+  width: 2.4rem;
+  @media (max-width: 1200px) {
+    height: 2.4rem;
+    width: 2.8rem;
+  }
 }
 
 .hat-current {
-    margin: 0 0 -2rem 0; 
-    width: 7rem; 
-    border-radius: 1.5rem 1.5rem 0 0;
-    height: 5rem;
-    padding-top: 0.5rem;
-    @media (max-width: 1200px) {
-            margin: 0 0 0 -2rem;            
-            border-radius: 0 1.5rem 1.5rem 0 ;
-            width: 5rem;
-            height: 7rem;
-            padding-right: 0.5rem;
-            writing-mode: vertical-rl;
-        }
+  margin: 0 0 -2rem 0;
+  width: 7rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  height: 5rem;
+  padding-top: 0.5rem;
+  @media (max-width: 1200px) {
+    margin: 0 0 0 -2rem;
+    border-radius: 0 1.5rem 1.5rem 0;
+    width: 5rem;
+    height: 7rem;
+    padding-right: 0.5rem;
+    writing-mode: vertical-rl;
+  }
+  @media (max-width: 600px) {
+    margin: 0 0 0 -1rem;
+    border-radius: 0 1.5rem 1.5rem 0;
+    width: 3rem;
+    height: 8rem;
+    padding-right: 0.5rem;
+    writing-mode: vertical-rl;
+  }
 }
 
 .fase {
-    width: 7rem;
-    height: 7rem;    
+  width: 7rem;
+  height: 7rem;
 }
 
 .line {
-    border-right: dashed 1px #000;
-    width: 1px;
-    @media (max-width: 1200px) {
-            border-top: dashed 1px #000;            
-            height: 1px;
-            width: 2rem;
-        }
+  border-right: dashed 1px #000;
+  width: 1px;
+  @media (max-width: 1200px) {
+    border-top: dashed 1px #000;
+    height: 1px;
+    width: 2rem;
+  }
 }
 
 .main {
-    width: 100%; // Por defecto, ocupa el 100% del ancho
+  width: 100%; // Por defecto, ocupa el 100% del ancho
 
-    @media (min-width: 1200px) {
-        min-width: 1400px; // Cuando la pantalla tenga al menos 1200px de ancho, establece el ancho mínimo a 1400px
-        width: auto; // Elimina la restricción del ancho máximo para que pueda ser mayor de 1400px si es necesario
-    }
+  @media (min-width: 1200px) {
+    min-width: 1400px; // Cuando la pantalla tenga al menos 1200px de ancho, establece el ancho mínimo a 1400px
+    width: auto; // Elimina la restricción del ancho máximo para que pueda ser mayor de 1400px si es necesario
+  }
 }
 
 .tag {
-    background-color: $appColorOne;
-    color: #FFFFFF;
-    border-radius: 0.625rem;
-    padding: 0.625rem 0.9375rem;
+  background-color: $appColorOne;
+  color: #ffffff;
+  border-radius: 0.625rem;
+  padding: 0.625rem 0.9375rem;
 }
 
 .indicator {
-    background-color: $appColorOne;
-    border: solid 6px $appText;
-    border-radius: 100%;
-    height: 10rem;
-    width: 10rem;
+  background-color: $appColorOne;
+  border: solid 6px $appText;
+  border-radius: 100%;
+  height: 10rem;
+  width: 10rem;
 }
 
-.header-panel {    
-    @media (min-width: 1200px) {
-            border-radius: 1.25rem;
-                background-image: linear-gradient(to right, #DCDCDC, #FAFAFA);
-                padding: 2.5rem 3.75rem;
-        }
+.header-panel {
+  @media (min-width: 1200px) {
+    border-radius: 1.25rem;
+    background-image: linear-gradient(to right, #dcdcdc, #fafafa);
+    padding: 2.5rem 3.75rem;
+  }
 }
 
 .header-panel-child {
-    @media (max-width: 1200px) {
+  @media (max-width: 1200px) {
     border-radius: 1.25rem;
-        background-image: linear-gradient(to right, #DCDCDC, #FAFAFA);
-        padding: 0.3rem 1rem;
-        }
- 
-        
+    background-image: linear-gradient(to right, #dcdcdc, #fafafa);
+    padding: 0.3rem 1rem;
+  }
+}
+
+.label-phase {
+  font-size: 0.675rem;
+  line-height: 1rem;
+  font-weight: 600;
+  @media (max-width: 576px) {
+    font-size: 0.58rem;
+    line-height: 0.5rem;
+  }
 }

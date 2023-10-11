@@ -18,14 +18,16 @@
         </div>
         <div class="flex flex-none gap-2 header-panel-child">
             <div class="flex flex-column justify-content-center align-items-center" style="width: 10rem;">
-                <div class="flex flex-none tag mt-4">Semana 4/25</div>
+                <div class="flex flex-none tag mt-4">Contenidos 4/25</div>
                 <div class="flex flex-grow-1 px-2 py-4 justify-content-end align-items-end" style="font-weight: 500;">
                     <p class="sh1" class="text-right">Progreso global de la ruta</p>
                 </div>
             </div>
             <div class="flex">
                 <div class="indicator">
-
+                    <!-- <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
+                        <ng-template pTemplate="text">a</ng-template>
+                    </p-knob> -->
                 </div>
             </div>
             <div class="flex flex-col"></div>
@@ -46,19 +48,19 @@
                         </div>
                         <ng-container *ngIf="fase.done && fase.currentBatch">
                             <div class="text-white justify-center hat-current" [style.background-color]="stage.color">
-                                <p class="text-center stage-label">Retomar</p>
+                                <p class="text-center stage-label cursor-pointer" (click)="goContent()">Retomar</p>
                             </div>
                         </ng-container>
-                        <div class="flex flex-column normal-panel fase justify-content-center align-items-center" [style.color]="fase.done ? stage.color : '#AEAEAE'">
+                        <div class="flex flex-column normal-panel fase justify-content-center align-items-center py-7" [style.color]="fase.done ? stage.color : '#AEAEAE'">
                             <h2 class="text-center">{{fase.number}}</h2>
-                            <p class="th2">Fase {{fase.number}}</p>
+                            <p class="label-phase text-center">{{fase.nameLabel}}</p>
                         </div>
                         <div class="line" [style.height.rem]="dotedHeightLine(fase.number)" [style.width.rem]="dotedWidthLine(fase.number)">
                         </div>
                     </div>
                 </div>
-                <div class="stage justify-content-center align-items-center align-content-center" [style.border-color]="stage.color" [style.background]="gradient(stage.color)">
-                    <div class="flex flex-column align-items-center justify-content-center">
+                <div class="stage justify-content-center align-items-center align-content-center cursor-pointer " [style.border-color]="stage.color" [style.background]="gradient(stage.color)">
+                    <div class="flex flex-column align-items-center justify-content-center h-full md:h-auto">
                         <div style="height: 0.5rem"></div>
                         <i-tabler class="text-center" [name]="stage.icon"></i-tabler>
                         <div style="height: 0.5rem"></div>
