@@ -1,4 +1,5 @@
 import { User } from '@auth/models/user';
+import { Content } from '@home/phases/model/content.model';
 import { Phase } from '@home/phases/model/phase.model';
 import { Action } from '@ngrx/store';
 // import { IMenuSideBar } from '../models/menu-model';
@@ -14,6 +15,9 @@ export const SEARCH_CURRENT_BATCH = '[HomeAction] Search current branch user';
 export const SET_CURRENT_BATCH = '[HomeAction] Set current batch user';
 export const ACTIVATE_RETURN = '[HomeAction] Activate btn of return';
 export const NO_RETURN = '[HomeAction] Deactivate btn of return';
+export const SET_LAST_CONTENT_REQ = '[HomeAction] Set last content in store';
+export const SET_LAST_CONTENT = '[HomeAction] Set last content in store';
+
 export class ToggleMenuAction implements Action {
   readonly type = TOGGLE_MENU;
 
@@ -78,6 +82,19 @@ export class NoBtnReturn implements Action {
 
   constructor() {}
 }
+
+export class SetLastContentRequest implements Action {
+  readonly type = SET_LAST_CONTENT_REQ;
+
+  constructor(public lastContent: any) {}
+}
+
+export class SetLastContent implements Action {
+  readonly type = SET_LAST_CONTENT;
+
+  constructor(public lastContent: Content) {}
+}
+
 export type HomeActions =
   | ToggleMenuAction
   | SetMenuAction
@@ -89,4 +106,6 @@ export type HomeActions =
   | SearchCurrentBatch
   | SetCurrentBatch
   | ActivateBtnReturn
-  | NoBtnReturn;
+  | NoBtnReturn
+  | SetLastContentRequest
+  | SetLastContent;

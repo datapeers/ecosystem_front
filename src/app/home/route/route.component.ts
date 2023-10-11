@@ -6,9 +6,10 @@ import { PhaseContentService } from '@home/phases/phase-content/phase-content.se
 import { PhasesService } from '@home/phases/phases.service';
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
+import { lastContent } from '@shared/models/lastContent';
 import { ToastService } from '@shared/services/toast.service';
 import { getNameBase } from '@shared/utils/phases.utils';
-import { firstValueFrom, first, Subscription } from 'rxjs';
+import { firstValueFrom, first, Subscription, takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-route',
@@ -23,9 +24,14 @@ export class RouteComponent implements OnInit, OnDestroy {
   stages = [];
   profileDoc;
   startup: Startup;
+  phasesBases: Phase[];
   phasesUser: Phase[];
   currentBatch: Phase | any;
   listBasesDone = [];
+  lastContent: lastContent;
+  onDestroy$: Subject<void> = new Subject();
+  completed = 0;
+  completedString = '0%';
   constructor(
     private router: Router,
     private toast: ToastService,
@@ -41,6 +47,8 @@ export class RouteComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stages$?.unsubscribe();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   async loadComponent() {
@@ -59,18 +67,17 @@ export class RouteComponent implements OnInit, OnDestroy {
         .select((store) => store.home.currentBatch)
         .pipe(first((i) => i !== null))
     );
-    const basesPhase = userPhases.filter((i) => i.basePhase);
+    this.phasesBases = userPhases.filter((i) => i.basePhase);
     this.phasesUser = userPhases.filter((i) => !i.basePhase);
 
     this.listBasesDone = [];
     for (const iterator of this.phasesUser) {
+      if (this.listBasesDone.includes(iterator.childrenOf)) continue;
       this.listBasesDone.push(iterator.childrenOf);
     }
-    const ans = await this.contentService.getLastContent(
-      this.currentBatch._id,
-      this.startup._id
-    );
-    console.log(ans);
+    this.completed = this.listBasesDone.length / this.phasesBases.length;
+    this.completedString = (this.completed * 100).toString() + '%';
+    this.lastContentSub();
     this.phasesService
       .watchStages()
       .then((stages$) => {
@@ -79,7 +86,7 @@ export class RouteComponent implements OnInit, OnDestroy {
           let numbPhase = 1;
           for (const stage of stageList) {
             if (stage.isDeleted) continue;
-            const phasesStage = basesPhase
+            const phasesStage = this.phasesBases
               .filter((i) => i.stage === stage._id)
               .map((i) => ({
                 ...i,
@@ -98,7 +105,6 @@ export class RouteComponent implements OnInit, OnDestroy {
               hasAllPhasesDone: phasesDone.length === phasesStage.length,
             });
           }
-          console.log(this.phasesUser);
         });
       })
       .catch((err) => {
@@ -178,5 +184,14 @@ export class RouteComponent implements OnInit, OnDestroy {
 
   goContent() {
     this.router.navigate(['/home/contents']);
+  }
+
+  lastContentSub() {
+    this.store
+      .select((store) => store.home.lastContent)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (i) => {
+        this.lastContent = i;
+      });
   }
 }

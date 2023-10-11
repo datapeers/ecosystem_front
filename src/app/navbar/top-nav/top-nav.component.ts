@@ -2,7 +2,10 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { AuthService } from '@auth/auth.service';
 
-import { ToggleMenuAction } from '@home/store/home.actions';
+import {
+  SetLastContentRequest,
+  ToggleMenuAction,
+} from '@home/store/home.actions';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
@@ -27,6 +30,13 @@ import { PhasesService } from '@home/phases/phases.service';
 import { Phase } from '@home/phases/model/phase.model';
 import { Stage } from '@home/phases/model/stage.model';
 import { getPhaseAndNumb } from '@shared/utils/phases.utils';
+import { PhaseContentService } from '@home/phases/phase-content/phase-content.service';
+import { lastContent } from '@shared/models/lastContent';
+import { StartupsService } from '@shared/services/startups/startups.service';
+import {
+  RolStartup,
+  rolStartupNames,
+} from '@home/startup-profile/models/rol-startup.enum';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -98,6 +108,16 @@ export class TopNavComponent {
     this._searchResults = results;
   }
   _searchResults: MenuItem[] = [];
+  lastContent: lastContent;
+  loadingLastContent = false;
+
+  public get rolStartups(): typeof RolStartup {
+    return RolStartup;
+  }
+
+  public get rolStartupsNames(): typeof rolStartupNames {
+    return rolStartupNames;
+  }
 
   constructor(
     private router: Router,
@@ -105,7 +125,9 @@ export class TopNavComponent {
     private readonly auth: AuthService,
     private _location: Location,
     private primengConfig: PrimeNGConfig,
-    private phasesService: PhasesService
+    private phasesService: PhasesService,
+    private contentService: PhaseContentService,
+    private startupService: StartupsService
   ) {
     const responsiveOptions: ResponsiveOverlayOptions = {
       style: 'width: 500px',
@@ -180,8 +202,28 @@ export class TopNavComponent {
       [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
         this.currentBatch.name
       );
+
       this.stage = this.currentBatch.stageDoc;
+      this.lastContentSub();
     }
+  }
+
+  lastContentSub() {
+    this.store
+      .select((store) => store.home.lastContent)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (i) => {
+        if (!this.lastContent && !this.loadingLastContent) {
+          this.loadingLastContent = true;
+          const req = await this.contentService.getLastContent(
+            this.currentBatch._id,
+            this.startup._id
+          );
+          this.store.dispatch(new SetLastContentRequest(req));
+          return;
+        }
+        this.lastContent = i;
+      });
   }
 
   goTo(option: IMenuOption) {
@@ -228,14 +270,18 @@ export class TopNavComponent {
           .pipe(first((i) => i !== null))
       );
 
-      this.startup = this.profileDoc.startups[0];
-      // console.log(this.startup);
+      const startup = this.profileDoc.startups[0];
+      this.startup = await this.startupService.getDocument(startup._id);
       const currentBatch = await firstValueFrom(
         this.store
           .select((store) => store.home.currentBatch)
           .pipe(first((i) => i !== null))
       );
-      this.rolName = 'CEO Emprendia';
+      console.log(this.startup);
+      const profileInStartup = this.startup.entrepreneurs.find(
+        (i) => this.profileDoc._id === i._id
+      );
+      this.rolName = this.rolStartupsNames[profileInStartup.rol];
     } else {
       this.rolName = this.user.rolName;
     }
@@ -359,5 +405,10 @@ export class TopNavComponent {
     this.viewNotificationBoard = false;
     this.viewSearchItem = false;
     this.overlayVisible = false;
+  }
+
+  goContent() {
+    this.router.navigate(['/home/contents']);
+    this.closeAll();
   }
 }

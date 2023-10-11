@@ -9,6 +9,7 @@ import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
 import { FormService } from '../../shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { Table } from 'primeng/table';
+import { RolStartup, rolStartupNames } from './models/rol-startup.enum';
 @Component({
   selector: 'app-startup-profile',
   templateUrl: './startup-profile.component.html',
@@ -26,6 +27,15 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<void> = new Subject();
   leaderStartup;
   @ViewChild('dt', { static: true }) dt: Table;
+
+  public get rolStartups(): typeof RolStartup {
+    return RolStartup;
+  }
+
+  public get rolStartupsNames(): typeof rolStartupNames {
+    return rolStartupNames;
+  }
+
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,

@@ -13,7 +13,7 @@
                     <span class="text-sm">{{phaseName}} {{phaseNumb}}</span>
                 </div>
                 <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
-                    <ng-template pTemplate="text">a</ng-template>
+
                 </p-knob>
             </div>
         </div>
@@ -79,11 +79,11 @@
                     <i-tabler class="sidenav-link-icon" name="rocket"></i-tabler>
                 </p-button>
             </div>
-            <div class="option normal-panel flex flex-column gap-2 p-5 m-2">
+            <div class="option normal-panel flex flex-column gap-2 p-5 m-2" *ngIf="lastContent">
                 <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>
-                <span class="font-bold">'Decidir'</span>
-                <span class="text-xs content-description">Contenido de Fase 3 - Etapa Early</span>
-                <p-button styleClass="w-full button-yellow button-border-mid mt-3">
+                <span class="font-bold">{{lastContent.lastContent['name']}}</span>
+                <span class="text-xs content-description">Contenido de {{phaseName}} {{phaseNumb}} - {{currentBatch.stageDoc.name}}</span>
+                <p-button styleClass="w-full button-yellow button-border-mid mt-3" (onClick)="goContent()">
                     <span class="w-full text-center">Retomar ultimo contenido</span>
                 </p-button>
             </div>

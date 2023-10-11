@@ -105,8 +105,8 @@
                 <ng-template pTemplate="body" let-entrepreneur>
                     <tr class="cursor-pointer">
                         <td class="text-center">{{entrepreneur.item['nombre']}}</td>
-                        <td class="text-center">{{entrepreneur.item['rol']}}</td>
-                        <td class="text-center">{{entrepreneur.description}}</td>
+                        <td class="text-center">{{rolStartupsNames[entrepreneur['rol']]}}</td>
+                        <td class="text-center">{{entrepreneur['description']}}</td>
                         <td class="text-center"></td>
                     </tr>
                 </ng-template>

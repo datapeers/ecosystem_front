@@ -7,6 +7,7 @@ import { Observable, firstValueFrom, map } from 'rxjs';
 import { TreeNode } from 'primeng/api';
 import { IResource, Resource } from '../model/resource.model';
 import { cloneDeep } from '@apollo/client/utilities';
+import { lastContent } from '@shared/models/lastContent';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,10 @@ export class PhaseContentService {
     );
   }
 
-  async getLastContent(batchId: string, startupId: string): Promise<any> {
+  async getLastContent(
+    batchId: string,
+    startupId: string
+  ): Promise<lastContent> {
     const query = this.graphql.refQuery(
       contentQueries.query.lastContent,
       { batchId, startupId },
