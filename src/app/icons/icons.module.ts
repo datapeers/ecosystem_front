@@ -87,6 +87,7 @@ import {
   IconApiApp, //api-app
   IconFileDescription, // file-description
   IconArrowBigRightLine, // arrow-big-right-line
+  IconArrowBigLeftLine, // arrow-big-right-line
   IconArrowNarrowRight, //arrow-narrow-right
   IconArrowNarrowLeft,
   IconCalendarBolt, // calendar-bolt,
@@ -97,6 +98,7 @@ import {
   IconEdit, // edit
   IconDeviceFloppy, // 'device-floppy'
   IconCloudLockOpen, // cloud-lock-open
+  IconPlayerPlay, // player-play
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -185,6 +187,7 @@ const icons = {
   IconApiApp,
   IconFileDescription,
   IconArrowBigRightLine,
+  IconArrowBigLeftLine,
   IconArrowNarrowRight,
   IconArrowNarrowLeft,
   IconCalendarBolt,
@@ -195,6 +198,7 @@ const icons = {
   IconEdit,
   IconDeviceFloppy,
   IconCloudLockOpen,
+  IconPlayerPlay,
 };
 
 @NgModule({

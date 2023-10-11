@@ -5,7 +5,7 @@
             <div style="height: 1.5rem"></div>
             <div class="flex gap-2">
                 <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
-                <p class="th2">Esta es la Ruta de etapas que llevas en la StartUp. Ingresa a cada una de las fases de
+                <p class="description-route">Esta es la Ruta de etapas que llevas en la StartUp. Ingresa a cada una de las fases de
                     las
                     etapas aprobadas para
                     detallar el progreso y sus contenidos. No podrás visualizar las fases posteriores a la cual estas
@@ -20,21 +20,21 @@
             <div class="flex flex-column justify-content-center align-items-center" style="width: 10rem;">
                 <div class="flex flex-none tag mt-4">Contenidos {{lastContent?.contentCompleted}}/{{lastContent?.numberOfContent}}</div>
                 <div class="flex flex-grow-1 px-2 py-4 justify-content-end align-items-end" style="font-weight: 500;">
-                    <p class="sh1" class="text-right">Progreso global de la ruta</p>
+                    <p class="titles-route" class="text-right ">Progreso global de la ruta</p>
                 </div>
             </div>
             <div class="flex">
-                <div class="indicator">
-                    <p-knob [(ngModel)]="completed" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="completedString">
+                <div class="indicator flex align-items-center justify-content-center">
+                    <!-- <p-knob [(ngModel)]="completed" [strokeWidth]="5" [readonly]="true" [size]="100" [valueTemplate]="completedString" [valueColor]="'#18E4E6'" [rangeColor]="withOpacity('#18E4E6', 0.2)" [min]="0" [max]="100">
 
-                    </p-knob>
+                    </p-knob> -->
                 </div>
             </div>
             <div class="flex flex-col"></div>
         </div>
     </div>
     <div class="h-3rem"></div>
-    <div class="flex main flex-column xl:flex-row w-full justify-content-start align-items-end xl:justify-content-center xl:align-items-end gap-1">
+    <div class="flex-grow-1 flex main flex-column xl:flex-row w-full justify-content-start align-items-end xl:justify-content-center xl:align-items-end gap-1 mt-0 md:mt-7">
         <div class="flex w-full flex-column xl:flex-row justify-content-start align-items-start xl:align-items-end" [style.width.%]="widthStage(stage.fases.length)" [style.height.rem]="heightStage(stage.fases.length)" *ngFor="let stage of stages; let i=index;">
             <div class="flex w-full xl:flex-grow-1 flex-row-reverse justify-content-end xl:flex-column" [style.color]="stage.color">
                 <div class="flex xl:w-full flex-column xl:flex-row py-4 xl:py-0 xl:px-4 gap-4 justify-content-center align-items-end">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stage justify-content-center align-items-center align-content-center cursor-pointer " [style.border-color]="stage.color" [style.background]="gradient(stage.color)">
+                <div class="stage justify-content-center align-items-center align-content-center cursor-pointer " [style.border-color]="stage.color" [style.background]="gradient(stage.color)" (click)="goToDescription(stage)">
                     <div class="flex flex-column align-items-center justify-content-center h-full md:h-auto">
                         <div style="height: 0.5rem"></div>
                         <i-tabler class="text-center" [name]="stage.icon"></i-tabler>

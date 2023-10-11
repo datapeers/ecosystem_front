@@ -1,5 +1,24 @@
 @import "../../../styles.scss";
 
+.titles-route {
+  font-size: 1.5rem;
+  line-height: 1.675rem;
+  @media (max-width: 576px) {
+    font-size: 1rem;
+    line-height: 1.31rem;
+  }
+}
+
+.description-route {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 350;
+  @media (max-width: 576px) {
+    font-size: 0.68rem;
+    line-height: 1rem;
+  }
+}
+
 .stage {
   border-top: solid 0.625rem;
   border-right: none;
@@ -125,8 +144,10 @@
   position: relative;
   p-knob {
     position: absolute;
-    top: 50;
-    left: 50;
+    width: 95%;
+    height: 95%;
+    top: 17%;
+    left: 17%;
   }
 }
 

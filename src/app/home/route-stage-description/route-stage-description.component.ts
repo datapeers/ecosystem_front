@@ -1,58 +1,62 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
+import { User } from '@auth/models/user';
 import { Phase } from '@home/phases/model/phase.model';
 import { Stage } from '@home/phases/model/stage.model';
-import { PhaseContentService } from '@home/phases/phase-content/phase-content.service';
 import { PhasesService } from '@home/phases/phases.service';
-import { NoBtnReturn } from '@home/store/home.actions';
+import { ActivateBtnReturn } from '@home/store/home.actions';
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
-import { lastContent } from '@shared/models/lastContent';
 import { ToastService } from '@shared/services/toast.service';
 import { getNameBase } from '@shared/utils/phases.utils';
-import { firstValueFrom, first, Subscription, takeUntil, Subject } from 'rxjs';
+import { first, firstValueFrom, Subject, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-route',
-  templateUrl: './route.component.html',
-  styleUrls: ['./route.component.scss'],
+  selector: 'app-route-stage-description',
+  templateUrl: './route-stage-description.component.html',
+  styleUrls: ['./route-stage-description.component.scss'],
 })
-export class RouteComponent implements OnInit, OnDestroy {
-  minWidth = 1200;
-
-  break = false;
-  stages$: Subscription;
-  stages = [];
+export class RouteStageDescriptionComponent implements OnInit, OnDestroy {
   profileDoc;
   startup: Startup;
-  phasesBases: Phase[];
-  phasesUser: Phase[];
-  currentBatch: Phase | any;
-  listBasesDone = [];
-  lastContent: lastContent;
   onDestroy$: Subject<void> = new Subject();
-  completed = 0;
-  completedString = '0%';
+  currentBatch: Phase | any;
+  phasesBases: Phase[] = [];
+  phasesUser: Phase[] = [];
+  stages: Stage[] | any[] = [];
+  listBasesDone = [];
+  stages$: Subscription;
+  paramSub$: Subscription;
+  stage: Stage | any;
+  prevStage: Stage | any;
+  nextStage: Stage | any;
+  loading = true;
+  user: User;
   constructor(
     private router: Router,
     private toast: ToastService,
     private store: Store<AppState>,
     private phasesService: PhasesService,
-    private contentService: PhaseContentService
+    private route: ActivatedRoute
   ) {
-    this.store.dispatch(new NoBtnReturn());
+    this.store.dispatch(new ActivateBtnReturn());
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
   }
 
-  ngOnInit() {
-    this.checkScreen();
+  ngOnInit(): void {
     this.loadComponent();
   }
 
   ngOnDestroy(): void {
-    this.stages$?.unsubscribe();
     this.onDestroy$.next();
     this.onDestroy$.complete();
+    this.stages$?.unsubscribe();
+    this.paramSub$?.unsubscribe();
   }
 
   async loadComponent() {
@@ -73,20 +77,16 @@ export class RouteComponent implements OnInit, OnDestroy {
     );
     this.phasesBases = userPhases.filter((i) => i.basePhase);
     this.phasesUser = userPhases.filter((i) => !i.basePhase);
-
     this.listBasesDone = [];
     for (const iterator of this.phasesUser) {
       if (this.listBasesDone.includes(iterator.childrenOf)) continue;
       this.listBasesDone.push(iterator.childrenOf);
     }
-    this.completed =
-      (this.listBasesDone.length / this.phasesBases.length) * 100;
-    this.completedString = this.completed.toString() + '%';
-    this.lastContentSub();
+
     this.phasesService
       .watchStages()
       .then((stages$) => {
-        this.stages$ = stages$.subscribe((stageList) => {
+        this.stages$ = stages$.subscribe(async (stageList) => {
           this.stages = [];
           let numbPhase = 1;
           for (const stage of stageList) {
@@ -110,6 +110,7 @@ export class RouteComponent implements OnInit, OnDestroy {
               hasAllPhasesDone: phasesDone.length === phasesStage.length,
             });
           }
+          this.watchContentSelector();
         });
       })
       .catch((err) => {
@@ -122,15 +123,39 @@ export class RouteComponent implements OnInit, OnDestroy {
       });
   }
 
-  checkScreen() {
-    this.break = window.innerWidth < 1200;
+  watchContentSelector() {
+    this.paramSub$ = this.route.queryParamMap.subscribe((params) => {
+      const stageId = params.get('stageId');
+      this.setStage(stageId);
+    });
+  }
+
+  setStage(id?: string) {
+    this.loading = true;
+    let indexStage = id ? this.stages.findIndex((i) => i._id === id) : 0;
+    if (indexStage === -1) indexStage = 0;
+    this.stage = this.stages[indexStage];
+    this.prevStage = indexStage === 0 ? undefined : this.stages[indexStage - 1];
+    this.nextStage =
+      indexStage + 1 >= this.stages.length
+        ? undefined
+        : this.stages[indexStage + 1];
+    this.loading = false;
+  }
+
+  changesStage(stage: Stage) {
+    console.log('pasa?');
+    this.router.navigate(['home/route/stage'], {
+      queryParams: { stageId: stage._id },
+    });
   }
 
   gradient(color: string) {
     const colorRgb = this.hexToRgb(color);
-    const style = `linear-gradient(${
-      this.break ? '270deg' : '180deg'
-    }, ${this.withOpacity(color, 0.3)} 0%, #ffffff 100%)`;
+    const style = `linear-gradient(180deg, ${this.withOpacity(
+      color,
+      0.3
+    )} 0%, #ffffff 100%)`;
     return style;
   }
 
@@ -149,60 +174,5 @@ export class RouteComponent implements OnInit, OnDestroy {
     const colorRgb = this.hexToRgb(color);
     const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
     return style;
-  }
-
-  heightStage(fasesNumber: number) {
-    if (this.break) {
-      return 'auto';
-    }
-
-    return `fasesNumber * 100`;
-  }
-
-  widthStage(fasesNumber: number) {
-    if (!this.break) {
-      return 'auto';
-    }
-
-    return `fasesNumber * 10rem`;
-  }
-
-  dotedHeightLine(faseOrder: number) {
-    if (this.break) {
-      return 0.0625;
-    }
-    return 1.5 + faseOrder * 0.5;
-  }
-
-  dotedWidthLine(faseOrder: number) {
-    if (!this.break) {
-      return '0.0625';
-    }
-
-    return 1.5 + faseOrder * 0.3;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    this.break = window.innerWidth < 1200;
-  }
-
-  goContent() {
-    this.router.navigate(['/home/contents']);
-  }
-
-  lastContentSub() {
-    this.store
-      .select((store) => store.home.lastContent)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe(async (i) => {
-        this.lastContent = i;
-      });
-  }
-
-  goToDescription(stage: Stage) {
-    this.router.navigate([`/home/route/stage`], {
-      queryParams: { stageId: stage._id },
-    });
   }
 }

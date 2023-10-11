@@ -1,0 +1,81 @@
+.main-card {
+  border-radius: 3.125rem;
+}
+
+.left-side {
+  border-radius: 3.125rem 0 0 3.125rem;
+  z-index: 1;
+}
+
+.right-side {
+  margin: 0 0 0 -1.5rem;
+  border-radius: 3.125rem;
+  z-index: 3;
+}
+
+.navigation-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.625rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.7rem;
+}
+
+.title-stage {
+  i-tabler {
+    width: 12.5rem;
+    height: 12.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.state-stage {
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.indicator {
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 11rem;
+  height: 11rem;
+
+  i-tabler {
+    width: 6.25rem;
+    height: 6.25rem;
+    padding: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.description-stage {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #6b6b6b;
+  @media (max-width: 800px) {
+    font-size: 0.68rem;
+    line-height: 1rem;
+  }
+}
+
+.state-content {
+  padding: 1rem 1.5rem;
+}
+
+.card-phase {
+  position: relative;
+  .numb-phase {
+    padding: 1rem;
+    border-radius: 0.625rem;
+  }
+  i-tabler {
+    position: absolute;
+    right: -0.5rem;
+    // top: -25%;
+  }
+}

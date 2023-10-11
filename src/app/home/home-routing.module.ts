@@ -40,6 +40,7 @@ import { StagesComponent } from './phases/stages/stages.component';
 import { Startup } from '@shared/models/entities/startup';
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { RouteStageDescriptionComponent } from './route-stage-description/route-stage-description.component';
 
 const routes: Routes = [
   {
@@ -109,7 +110,16 @@ const routes: Routes = [
       },
       {
         path: 'route',
-        component: RouteComponent,
+        children: [
+          {
+            path: '',
+            component: RouteComponent,
+          },
+          {
+            path: 'stage',
+            component: RouteStageDescriptionComponent,
+          },
+        ],
       },
       {
         path: 'startup',
