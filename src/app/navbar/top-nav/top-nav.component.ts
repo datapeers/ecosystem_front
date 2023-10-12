@@ -277,7 +277,6 @@ export class TopNavComponent {
           .select((store) => store.home.currentBatch)
           .pipe(first((i) => i !== null))
       );
-      console.log(this.startup);
       const profileInStartup = this.startup.entrepreneurs.find(
         (i) => this.profileDoc._id === i._id
       );

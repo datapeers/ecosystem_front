@@ -8,9 +8,10 @@ import { PhasesService } from '@home/phases/phases.service';
 import { ActivateBtnReturn } from '@home/store/home.actions';
 import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
+import { lastContent } from '@shared/models/lastContent';
 import { ToastService } from '@shared/services/toast.service';
 import { getNameBase } from '@shared/utils/phases.utils';
-import { first, firstValueFrom, Subject, Subscription } from 'rxjs';
+import { first, firstValueFrom, Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-route-stage-description',
@@ -33,6 +34,7 @@ export class RouteStageDescriptionComponent implements OnInit, OnDestroy {
   nextStage: Stage | any;
   loading = true;
   user: User;
+  lastContent: lastContent;
   constructor(
     private router: Router,
     private toast: ToastService,
@@ -82,7 +84,7 @@ export class RouteStageDescriptionComponent implements OnInit, OnDestroy {
       if (this.listBasesDone.includes(iterator.childrenOf)) continue;
       this.listBasesDone.push(iterator.childrenOf);
     }
-
+    this.lastContentSub();
     this.phasesService
       .watchStages()
       .then((stages$) => {
@@ -108,6 +110,10 @@ export class RouteStageDescriptionComponent implements OnInit, OnDestroy {
               fases: phasesStage,
               hasPhasesDone: phasesDone.length !== 0,
               hasAllPhasesDone: phasesDone.length === phasesStage.length,
+              completed: (phasesDone.length / phasesStage.length) * 100,
+              completedString: `${
+                (phasesDone.length / phasesStage.length) * 100
+              }%`,
             });
           }
           this.watchContentSelector();
@@ -179,5 +185,14 @@ export class RouteStageDescriptionComponent implements OnInit, OnDestroy {
   goTo(phase) {
     if (!phase.currentBatch) return;
     this.router.navigate(['/home/contents']);
+  }
+
+  lastContentSub() {
+    this.store
+      .select((store) => store.home.lastContent)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (i) => {
+        this.lastContent = i;
+      });
   }
 }

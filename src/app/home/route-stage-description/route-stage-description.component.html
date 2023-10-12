@@ -27,10 +27,17 @@
                         </div>
                     </div>
                     <div class="state-stage flex flex-row justify-content-center align-items-center p-6">
-                        <div class="indicator flex align-items-center justify-content-center">
-                            <i-tabler name="award" [style.background]="stage.color">
-
-                            </i-tabler>
+                        <div class="flex align-items-center justify-content-center" [ngClass]="{'progress': !stage.hasAllPhasesDone, 'indicator': stage.hasAllPhasesDone }">
+                            <ng-container *ngIf="stage.hasAllPhasesDone; else progressPhase">
+                                <i-tabler name="award" [style.background]="stage.color">
+                                </i-tabler>
+                            </ng-container>
+                            <ng-template #progressPhase>
+                                <ng-container>
+                                    <p-knob [(ngModel)]="stage.completed" [strokeWidth]="6" [readonly]="true" [size]="120" [valueTemplate]="stage.completedString" [valueColor]="stage.color" [rangeColor]="withOpacity(stage.color, 0.2)" [min]="0" [max]="100">
+                                    </p-knob>
+                                </ng-container>
+                            </ng-template>
                         </div>
                         <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-4">
                             <ng-container *ngIf="stage.hasAllPhasesDone; else pendingToComplete">
@@ -63,17 +70,17 @@
                     <ng-container *ngFor="let fase of stage.fases">
                         <div class="card-phase mx-5 pt-3">
                             <div class="p-3 normal-panel w-full flex flex-row align-items-center">
-                                <div class="numb-phase font-bold text-xl" [style.background]="withOpacity( stage.color, 0.3)" [style.color]="stage.color">
+                                <div class="numb-phase font-bold text-xl" [style.background]="fase.done ? withOpacity( stage.color, 0.3) : withOpacity( '#AEAEAE', 0.3)" [style.color]="fase.done ? stage.color : '#AEAEAE'">
                                     {{fase.number}}
                                 </div>
                                 <div class="flex flex-column ml-3">
-                                    <span>{{fase.name}}</span>
+                                    <span class="font-semibold" [style.color]="fase.done ? stage.color : '#6B6B6B'">{{fase.name}}</span>
                                 </div>
                                 <ng-container *ngIf="fase.done && !fase.currentBatch; else playBtn">
                                     <i-tabler class="phase-btn cursor-pointer" name="checks" [style.color]="'white'" [style.background-color]="'#317BF4'" (click)="goTo(fase)"></i-tabler>
                                 </ng-container>
                                 <ng-template #playBtn>
-                                    <i-tabler class="phase-btn cursor-pointer" name="player-plays" [style.color]="'#317BF4'" [style.background-color]="'#E7F2FF'" (click)="goTo(fase)"></i-tabler>
+                                    <i-tabler class="phase-btn cursor-pointer" name="player-play" [style.color]="'#317BF4'" [style.background-color]="'#E7F2FF'" (click)="goTo(fase)"></i-tabler>
                                 </ng-template>
                             </div>
                         </div>
