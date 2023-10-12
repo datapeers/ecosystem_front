@@ -175,4 +175,9 @@ export class RouteStageDescriptionComponent implements OnInit, OnDestroy {
     const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
     return style;
   }
+
+  goTo(phase) {
+    if (!phase.currentBatch) return;
+    this.router.navigate(['/home/contents']);
+  }
 }

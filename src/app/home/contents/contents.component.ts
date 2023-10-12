@@ -19,6 +19,7 @@ import {
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+  NoBtnReturn,
   RestoreMenuAction,
   SetOtherMenuAction,
 } from '@home/store/home.actions';
@@ -97,6 +98,7 @@ export class ContentsComponent implements OnInit, OnDestroy {
     private phaseContentService: PhaseContentService,
     private phaseHomeworksService: PhaseHomeworksService
   ) {
+    this.store.dispatch(new NoBtnReturn());
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)

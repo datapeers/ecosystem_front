@@ -26,15 +26,15 @@
                     <div class="flex w-full border border-1 border-solid h-15rem"></div>
                 </div>
                 <div class="h-2rem"></div>
-                <div class="flex final-panel flex-row w-full justify-content-between align-items-center">
+                <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent">
                     <div class="flex align-items-center gap-4 font-bold pl-2 sm:pl-4">
                         <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
                         <div class="flex align-items-center font-bold">
-                            <p>Decidir</p>
+                            <p>{{lastContent.lastContent.name}}</p>
                         </div>
                     </div>
 
-                    <p-button>
+                    <p-button (onClick)="goContent()">
                         <p class="text-sm">Retomar</p>
                     </p-button>
                 </div>

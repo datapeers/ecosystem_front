@@ -10,7 +10,7 @@ import { User } from '@auth/models/user';
 import { ConfigurationService } from '@home/configuration/configuration.service';
 import { ConfigurationApp } from '@home/configuration/model/configurationApp';
 import { Store } from '@ngrx/store';
-import { first, firstValueFrom, Subscription } from 'rxjs';
+import { first, firstValueFrom, Subject, Subscription, takeUntil } from 'rxjs';
 import { Map, tileLayer, Marker, Icon, geoJSON, control } from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { Startup } from '@shared/models/entities/startup';
@@ -20,6 +20,8 @@ import { PhasesService } from '@home/phases/phases.service';
 import { Stage } from '@home/phases/model/stage.model';
 import { getPhaseAndNumb } from '@shared/utils/phases.utils';
 import { Phase } from '@home/phases/model/phase.model';
+import { lastContent } from '@shared/models/lastContent';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-init',
@@ -44,11 +46,14 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   phaseTitle = '';
   stage: Stage;
   currentBatch: Phase | any;
+  lastContent: lastContent;
+  onDestroy$: Subject<void> = new Subject();
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
   }
   constructor(
+    private router: Router,
     private http: HttpClient,
     private toast: ToastService,
     private store: Store<AppState>,
@@ -86,6 +91,8 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.userLogs$?.unsubscribe();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   ngAfterViewInit(): void {
@@ -105,6 +112,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
           .select((store) => store.auth.profileDoc)
           .pipe(first((i) => i !== null))
       );
+      this.lastContentSub();
       this.startup = this.profileDoc.startups[0];
       const userPhases = await this.phasesService.getPhasesList(
         this.profileDoc['startups'][0].phases.map((i) => i._id),
@@ -193,5 +201,18 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
           life: 12000,
         });
       });
+  }
+
+  lastContentSub() {
+    this.store
+      .select((store) => store.home.lastContent)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (i) => {
+        this.lastContent = i;
+      });
+  }
+
+  goContent() {
+    this.router.navigate(['/home/contents']);
   }
 }

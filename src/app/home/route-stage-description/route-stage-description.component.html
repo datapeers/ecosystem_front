@@ -63,19 +63,21 @@
                     <ng-container *ngFor="let fase of stage.fases">
                         <div class="card-phase mx-5 pt-3">
                             <div class="p-3 normal-panel w-full flex flex-row align-items-center">
-                                <div class="numb-phase font-bold text-xl" [style.background]="withOpacity( stage.color, 0.7)" [style.color]="stage.color">
+                                <div class="numb-phase font-bold text-xl" [style.background]="withOpacity( stage.color, 0.3)" [style.color]="stage.color">
                                     {{fase.number}}
                                 </div>
-                                <div class="flex flex-column">
+                                <div class="flex flex-column ml-3">
                                     <span>{{fase.name}}</span>
                                 </div>
-
-                                <i-tabler class="text-center" [name]="fase.done && !fase.currentBatch ? 'checks' : 'player-plays'"></i-tabler>
+                                <ng-container *ngIf="fase.done && !fase.currentBatch; else playBtn">
+                                    <i-tabler class="phase-btn cursor-pointer" name="checks" [style.color]="'white'" [style.background-color]="'#317BF4'" (click)="goTo(fase)"></i-tabler>
+                                </ng-container>
+                                <ng-template #playBtn>
+                                    <i-tabler class="phase-btn cursor-pointer" name="player-plays" [style.color]="'#317BF4'" [style.background-color]="'#E7F2FF'" (click)="goTo(fase)"></i-tabler>
+                                </ng-template>
                             </div>
                         </div>
-
                     </ng-container>
-
                 </div>
             </div>
         </ng-container>
