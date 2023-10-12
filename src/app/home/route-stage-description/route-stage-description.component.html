@@ -2,9 +2,9 @@
     <div class="flex w-full h-full py-4 px-8">
         <ng-container *ngIf="stage">
             <div class="normal-panel elipse-panel w-full flex flex-row justify-content-between" [style.background]="stage.color">
-                <div class="left-side  text-white flex flex-column justify-content-between" style="flex: 4" [style.background]="stage.color" [style.border-color]="stage.color">
-                    <div class="p-6">
-                        <div class="flex flex-row w-full justify-content-between">
+                <div class="left-side  text-white flex flex-column justify-content-between" [style.background]="stage.color" [style.border-color]="stage.color">
+                    <div class="h-full w-full p-6">
+                        <div class="w-full flex flex-row w-full justify-content-between">
                             <div class="flex flex-row align-items-center gap-4">
                                 <ng-container *ngIf="prevStage">
                                     <i-tabler name="arrow-big-left-line" class="navigation-btn cursor-pointer" (click)="changesStage(prevStage)"></i-tabler>
@@ -18,11 +18,11 @@
                                 </ng-container>
                             </div>
                         </div>
-                        <div class="title-stage flex flex-row w-full align-items-center gap-3">
+                        <div class="w-full h-full title-stage flex flex-row align-items-center gap-3">
                             <i-tabler [name]="stage.icon"></i-tabler>
                             <div class="flex flex-column text-left w-full">
-                                <span class="text-4xl">Etapa</span>
-                                <span class="text-6xl">{{stage.name}}</span>
+                                <span class="text-4xl xl:text-3xl lg:text-2xl md: text-xl">Etapa</span>
+                                <span class="text-7xl xl:text-6xl lg:text-4xl md: text-2xl">{{stage.name}}</span>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                 </ng-container>
                             </ng-template>
                         </div>
-                        <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-4">
+                        <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-3">
                             <ng-container *ngIf="stage.hasAllPhasesDone; else pendingToComplete">
                                 <span class="font-semibold">¡Completada!</span>
                                 <span class="text-base">Haz finalizado esta Etapa con éxito</span>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="elipse-panel right-side bg-white  flex flex-column h-full" style="flex: 6">
+                <div class="elipse-panel right-side bg-white  flex flex-column h-full">
                     <span class="text-4xl font-semibold p-6">En hora buena {{user?.fullName}},</span>
                     <span class="description-stage py-2 px-6">{{stage.description}}</span>
                     <p-divider></p-divider>

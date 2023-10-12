@@ -5,12 +5,14 @@
 .left-side {
   border-radius: 3.125rem 0 0 3.125rem;
   z-index: 1;
+  width: 40%;
 }
 
 .right-side {
   margin: 0 0 0 -1.5rem;
   border-radius: 3.125rem;
   z-index: 3;
+  width: 60%;
 }
 
 .navigation-btn {
@@ -23,25 +25,30 @@
 
 .title-stage {
   i-tabler {
-    width: 12.5rem;
-    height: 12.5rem;
+    width: 20rem;
+    height: 20rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: rgba(255, 255, 255, 0.2);
   }
 }
 
 .state-stage {
   background-color: rgba(255, 255, 255, 0.2);
   z-index: 2;
+  width: 110%;
 }
 
 .indicator {
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
-  width: 11rem;
-  height: 11rem;
-
+  width: 10rem;
+  height: 10rem;
+  // @media (max-width: 720px) {
+  //   width: 160px;
+  //   height: 10rem;
+  // }
   i-tabler {
     width: 6.25rem;
     height: 6.25rem;
