@@ -2268,70 +2268,70 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #64748b;
 }
 
-.p-button.p-button-ternary,
-.p-buttonset.p-button-ternary > .p-button,
-.p-splitbutton.p-button-ternary > .p-button {
+.p-button.p-button-quaternary,
+.p-buttonset.p-button-quaternary > .p-button,
+.p-splitbutton.p-button-quaternary > .p-button {
   color: #ffffff;
   background: #f7af42;
   border: 1px solid #f7af42;
 }
-.p-button.p-button-ternary:enabled:hover,
-.p-buttonset.p-button-ternary > .p-button:enabled:hover,
-.p-splitbutton.p-button-ternary > .p-button:enabled:hover {
+.p-button.p-button-quaternary:enabled:hover,
+.p-buttonset.p-button-quaternary > .p-button:enabled:hover,
+.p-splitbutton.p-button-quaternary > .p-button:enabled:hover {
   background: #fff1dc;
   color: #f7af42;
   border-color: #fff1dc;
 }
-.p-button.p-button-ternary:enabled:focus,
-.p-buttonset.p-button-ternary > .p-button:enabled:focus,
-.p-splitbutton.p-button-ternary > .p-button:enabled:focus {
+.p-button.p-button-quaternary:enabled:focus,
+.p-buttonset.p-button-quaternary > .p-button:enabled:focus,
+.p-splitbutton.p-button-quaternary > .p-button:enabled:focus {
   box-shadow: 0 0 0 0.2rem #e2e8f0;
 }
-.p-button.p-button-ternary:enabled:active,
-.p-buttonset.p-button-ternary > .p-button:enabled:active,
-.p-splitbutton.p-button-ternary > .p-button:enabled:active {
+.p-button.p-button-quaternary:enabled:active,
+.p-buttonset.p-button-quaternary > .p-button:enabled:active,
+.p-splitbutton.p-button-quaternary > .p-button:enabled:active {
   background: #f7af42;
   color: #ffffff;
   border-color: #f7af42;
 }
-.p-button.p-button-ternary.p-button-outlined,
-.p-buttonset.p-button-ternary > .p-button.p-button-outlined,
-.p-splitbutton.p-button-ternary > .p-button.p-button-outlined {
+.p-button.p-button-quaternary.p-button-outlined,
+.p-buttonset.p-button-quaternary > .p-button.p-button-outlined,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-outlined {
   background-color: transparent;
   color: #f7af42;
   border: 1px solid;
 }
-.p-button.p-button-ternary.p-button-outlined:enabled:hover,
-.p-buttonset.p-button-ternary > .p-button.p-button-outlined:enabled:hover,
-.p-splitbutton.p-button-ternary > .p-button.p-button-outlined:enabled:hover {
+.p-button.p-button-quaternary.p-button-outlined:enabled:hover,
+.p-buttonset.p-button-quaternary > .p-button.p-button-outlined:enabled:hover,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-outlined:enabled:hover {
   background: rgba(100, 116, 139, 0.04);
   color: #f7af42;
   border: 1px solid;
 }
-.p-button.p-button-ternary.p-button-outlined:enabled:active,
-.p-buttonset.p-button-ternary > .p-button.p-button-outlined:enabled:active,
-.p-splitbutton.p-button-ternary > .p-button.p-button-outlined:enabled:active {
+.p-button.p-button-quaternary.p-button-outlined:enabled:active,
+.p-buttonset.p-button-quaternary > .p-button.p-button-outlined:enabled:active,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-outlined:enabled:active {
   background: rgba(100, 116, 139, 0.16);
   color: #f7af42;
   border: 1px solid;
 }
-.p-button.p-button-ternary.p-button-text,
-.p-buttonset.p-button-ternary > .p-button.p-button-text,
-.p-splitbutton.p-button-ternary > .p-button.p-button-text {
+.p-button.p-button-quaternary.p-button-text,
+.p-buttonset.p-button-quaternary > .p-button.p-button-text,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-text {
   background-color: transparent;
   color: #f7af42;
   border-color: transparent;
 }
-.p-button.p-button-ternary.p-button-text:enabled:hover,
-.p-buttonset.p-button-ternary > .p-button.p-button-text:enabled:hover,
-.p-splitbutton.p-button-ternary > .p-button.p-button-text:enabled:hover {
+.p-button.p-button-quaternary.p-button-text:enabled:hover,
+.p-buttonset.p-button-quaternary > .p-button.p-button-text:enabled:hover,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-text:enabled:hover {
   background: rgba(100, 116, 139, 0.04);
   border-color: transparent;
   color: #f7af42;
 }
-.p-button.p-button-ternary.p-button-text:enabled:active,
-.p-buttonset.p-button-ternary > .p-button.p-button-text:enabled:active,
-.p-splitbutton.p-button-ternary > .p-button.p-button-text:enabled:active {
+.p-button.p-button-quaternary.p-button-text:enabled:active,
+.p-buttonset.p-button-quaternary > .p-button.p-button-text:enabled:active,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-text:enabled:active {
   background: rgba(100, 116, 139, 0.16);
   border-color: transparent;
   color: #f7af42;

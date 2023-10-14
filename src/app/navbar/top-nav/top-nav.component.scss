@@ -39,6 +39,7 @@ $heightPanels: 4.375rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
 
     @media (max-width: 576px) {
       padding: 0.5rem 0.5rem;
@@ -104,6 +105,12 @@ $heightPanels: 4.375rem;
   justify-content: center;
   align-items: center;
   .search {
+    color: var(--surface-900);
+    font-weight: 700;
+    ::placeholder {
+      color: var(--surface-900);
+      font-weight: 700;
+    }
     width: 32.625rem;
     ::ng-deep .p-inputtext {
       width: 100%;

@@ -38,6 +38,11 @@
 
 // Utilities for icon size
 
+.size-xl {
+  height: 2rem;
+  width: 2rem;
+}
+
 .size-md {
   height: 1.5rem;
   width: 1.5rem;
@@ -59,13 +64,21 @@
 }
 
 .bg-secondary {
-  background-color: var(--app-color-five);
-}
-
-.bg-secondary-light {
-  background-color: var(--app-color-six);
+  background-color: var(--app-color-two);
 }
 
 .text-secondary {
+  color: var(--app-color-two);
+}
+
+.bg-tertiary {
+  background-color: var(--app-color-five);
+}
+
+.bg-tertiary-light {
+  background-color: var(--app-color-six);
+}
+
+.text-tertiary {
   color: var(--app-color-five);
 }
