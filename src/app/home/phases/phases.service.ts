@@ -6,20 +6,10 @@ import stageQueries from './graphql/stage.gql';
 import { IPhase, Phase } from './model/phase.model';
 import { IStage, Stage } from './model/stage.model';
 import { StorageService } from '@shared/storage/storage.service';
-import { StoragePaths } from '@shared/storage/storage.constants';
-import { IMenu } from '@shared/models/menu';
-import {
-  faCalendar,
-  faClipboard,
-  faList,
-  faCamera,
-  faUsers,
-  faPenRuler,
-  faBook,
-} from '@fortawesome/free-solid-svg-icons';
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { Permission } from '@auth/models/permissions.enum';
+import { IMenu } from '@shared/models/menu';
 @Injectable({
   providedIn: 'root',
 })
@@ -238,30 +228,33 @@ export class PhasesService {
   }
 
   optionsMenu(phase: IPhase, user: User) {
-    let menu = {
+    let menu: IMenu = {
+      header: {
+        title : "Edición",
+      },
       returnPath: ['home', 'phases'],
       options: [
         {
           label: 'Información',
-          rute: ['phases', phase._id, 'edit'],
+          rute: ['/home', 'phases', phase._id, 'edit'].join('/'),
           type: 'single',
-          icon: faClipboard,
+          icon: 'file-description',
         },
       ],
     };
     if (phase.basePhase || user?.allowed(Permission.phases_batch_edit)) {
       menu.options.push({
         label: 'Contenidos',
-        icon: faList,
-        rute: ['phases', phase._id, 'content'],
+        icon: 'layout-board-split',
+        rute: ['/home', 'phases', phase._id, 'content'].join('/'),
         type: 'single',
       });
     }
     if (!phase.basePhase)
       menu.options.push({
         label: 'StartUps',
-        rute: ['phases', phase._id, 'startups'],
-        icon: faUsers,
+        rute: ['/home', 'phases', phase._id, 'startups' ].join('/'),
+        icon: 'seeding',
         type: 'single',
       });
     if (
@@ -272,37 +265,37 @@ export class PhasesService {
     ) {
       menu.options.push({
         label: 'Expertos',
-        rute: ['phases', phase._id, 'experts'],
-        icon: faUsers,
+        rute: ['/home', 'phases', phase._id, 'experts' ].join('/'),
+        icon: 'file-description',
         type: 'single',
       });
     }
     if (!phase.basePhase && user?.allowed(Permission.evaluation_view))
       menu.options.push({
         label: 'Evaluaciones',
-        rute: ['phases', phase._id, 'evaluations'],
-        icon: faPenRuler,
+        rute: ['/home', 'phases', phase._id, 'evaluations' ].join('/'),
+        icon: 'file-description',
         type: 'single',
       });
     if (!phase.basePhase && user?.allowed(Permission.events_view))
       menu.options.push({
         label: 'Eventos',
-        rute: ['phases', phase._id, 'events'],
-        icon: faCamera,
+        rute: ['/home', 'phases', phase._id, 'events'].join('/'),
+        icon: 'file-description',
         type: 'single',
       });
     if (user?.allowed(Permission.hours_view))
       menu.options.push({
         label: 'Bolsas de horas',
-        rute: ['phases', phase._id, 'bag-hours'],
-        icon: faCalendar,
+        rute: ['/home', 'phases', phase._id, 'bag-hours'].join('/'),
+        icon: 'clock',
         type: 'single',
       });
     if (!phase.basePhase && user?.allowed(Permission.homeworks_view))
       menu.options.push({
         label: 'Tareas',
-        rute: ['phases', phase._id, 'homeworks'],
-        icon: faBook,
+        rute: ['/home', 'phases', phase._id, 'homeworks' ].join('/'),
+        icon: 'file-description',
         type: 'single',
       });
     return menu;

@@ -172,13 +172,13 @@ export class HomeService {
       startUps: {
         label: 'StartUps',
         type: 'dropdown',
-        icon: 'rocket',
+        icon: 'seeding',
         children: [
           {
             label: 'StartUps',
             rute: '/home/startups',
             type: 'single',
-            icon: 'rocket',
+            icon: 'seeding',
           },
           {
             label: 'Prospectos',

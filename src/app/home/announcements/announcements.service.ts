@@ -198,7 +198,7 @@ export class AnnouncementsService {
           label: 'Información',
           rute: ['announcements', announcement._id, 'edit'],
           type: 'single',
-          icon: faClipboard,
+          icon: 'file-description',
         },
         {
           label: 'Preinscritos',
