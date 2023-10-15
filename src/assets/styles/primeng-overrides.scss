@@ -59,3 +59,32 @@
     width: 100vw;
   }
 }
+
+.app-tabview {
+  &.p-tabview {
+    .p-tabview-panels {
+      padding: 0;
+    }
+    .p-tabview-nav {
+      justify-content: center;
+      display: flex;
+      gap: 0.375rem;
+      li {
+        position: relative;
+      }
+      li .p-tabview-nav-link {
+        padding: 0;
+        border: none;
+      }
+    }
+  }
+}
+
+// Allows active colors to be set programatically for buttons
+.p-button.p-button-tertiary.active:enabled,
+.p-buttonset.p-button-tertiary > .p-button.active:enabled,
+.p-splitbutton.p-button-tertiary > .p-button.active:enabled {
+  background: var(--app-color-five);
+  color: #ffffff;
+  border-color: var(--app-color-six);
+}

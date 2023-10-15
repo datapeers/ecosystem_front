@@ -133,7 +133,7 @@ export class HomeService {
         label: 'Fases',
         rute: '/home/phases',
         type: 'single',
-        icon: 'box-multiple',
+        icon: 'stairs',
       },
       communities: {
         label: 'Comunidades',
