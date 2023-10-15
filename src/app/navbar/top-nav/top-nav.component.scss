@@ -105,12 +105,6 @@ $heightPanels: 4.375rem;
   justify-content: center;
   align-items: center;
   .search {
-    color: var(--surface-900);
-    font-weight: 700;
-    ::placeholder {
-      color: var(--surface-900);
-      font-weight: 700;
-    }
     width: 32.625rem;
     ::ng-deep .p-inputtext {
       width: 100%;

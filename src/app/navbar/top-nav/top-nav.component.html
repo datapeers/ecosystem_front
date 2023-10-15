@@ -1,8 +1,8 @@
 <div class="head" [ngClass]="getHeadClass()">
     <div class="head-content">
         <div class="flex-none head-content-left flex-row flex-grow-1 justify-content-between max-w-12rem">
-            <i-tabler name="align-justified" class="head-menu-item-btn app-backgrounds menu-icon" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
-            <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn app-backgrounds menu-icon" *ngIf="returnBtn$ | async" (click)="return()"></i-tabler>
+            <i-tabler name="align-justified" class="head-menu-item-btn app-backgrounds menu-icon size-2xl" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
+            <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn app-backgrounds menu-icon size-2xl" *ngIf="returnBtn$ | async" (click)="return()"></i-tabler>
             <div class="panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2 sm:gap-3" [style.background]="gradient()" *ngIf="stage">
                 <div class="completed elipse-panel p-2 min-h-full flex align-items-center justify-content-center" [style.background-color]="colorPhase">
                     <span class="font-semibold text-white progress-label">{{phasesUser}}/{{phasesBases}}</span>
@@ -123,7 +123,7 @@
 
 <ng-template #searchBar>
     <div #searchBarInput class="head-content-mid w-full">
-        <span class="p-input-icon-right search">
+        <span class="p-input-icon-right search placeholder-bold">
             <i class="pi pi-search font-semibold"></i>
             <input type="text" pInputText [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" placeholder="¿Que deseas buscar?" />
         </span>
