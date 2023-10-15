@@ -2202,9 +2202,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-button.p-button-secondary,
 .p-buttonset.p-button-secondary > .p-button,
 .p-splitbutton.p-button-secondary > .p-button {
-  color: #ffffff;
-  background: #64748b;
-  border: 1px solid #64748b;
+  background: rgba(100, 116, 139, 0.16);
+  color: #64748b;
+  border: 1px solid rgba(100, 116, 139, 0.16);
 }
 .p-button.p-button-secondary:enabled:hover,
 .p-buttonset.p-button-secondary > .p-button:enabled:hover,
@@ -2267,7 +2267,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-color: transparent;
   color: #64748b;
 }
-
 
 .p-button.p-button-tertiary,
 .p-buttonset.p-button-tertiary > .p-button,
