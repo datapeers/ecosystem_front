@@ -36,6 +36,11 @@ $background-color: rgba(
     format("truetype");
 }
 
+// Center icons inside flex containers
+i-tabler {
+  vertical-align: middle;
+}
+
 body {
   background-color: $background-color;
   font-family: var(--font-family);
