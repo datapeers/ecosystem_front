@@ -20,6 +20,14 @@
   }
 }
 
+.shadow-focus-card {
+  transition: box-shadow 0.2s;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+}
+
 .shadow-focus {
   transition: box-shadow 0.2s;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
@@ -36,7 +44,27 @@
   font-size: 0.5rem;
 }
 
+.section-surface {
+  background-color: var(--surface-100);
+  border-radius: 1rem;
+}
+
+.placeholder-bold {
+  color: var(--surface-900);
+  font-weight: 700;
+  ::placeholder {
+    color: var(--surface-900);
+    font-weight: 700;
+  }
+}
+
 // Utilities for icon size
+
+.size-2xl {
+  height: 2.5rem !important;
+  width: 2.5rem !important;
+  min-width: 2.5rem !important;
+}
 
 .size-xl {
   height: 2rem !important;
@@ -86,4 +114,12 @@
 
 .text-tertiary {
   color: var(--app-color-five);
+}
+
+.bg-quaternary-light {
+  background-color: var(--app-color-eight);
+}
+
+.text-quaternary {
+  color: var(--app-color-seven);
 }

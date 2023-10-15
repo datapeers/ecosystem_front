@@ -1,76 +1,82 @@
-<ng-container *ngIf="loaded; else loadingTemplates">
-    <div class="p-4">
-        <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
-            <h2>Contenidos</h2>
-            <div class="flex flex-row gap-2">
-                <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
-                <p-button label="Sprint" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
-            </div>
-        </div>
-        <div class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
-            <p-treeTable [value]="table" selectionMode="single">
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                    <tr class="tree-row" [ngClass]="{
-                                '0': 'surface-100',
-                                '1': 'surface-0'
-                            }[(rowNode.level)%2]" [ttRow]="rowNode">
-                        <td class="relative" tooltipPosition="top" pTooltip="{{rowData?.name ?? ''}}">
-                            <div *ngIf="rowData.hide" class="flex justify-content-start align-items-start w-full h-full
-                                    absolute top-0 left-0 text-xs text-primary font-semibold p-1 border-2 border-primary bg-transparent">
-                                <span>Oculto</span>
-                            </div>
-                            <div class="row-container">
-                                <div class="flex flex-row align-items-center overflow-hidden px-1">
-                                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                                    <div class="flex flex-column gap-1 overflow-hidden">
-                                        <span class="font-bold overflow-hidden white-space-nowrap text-overflow-ellipsis">{{rowData?.name ?? ''}}</span>
-                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
-                                            <i (click)="selectContent(rowData); changeRanking.toggle($event)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
-                                            <span tooltipPosition="top" pTooltip="Valoración individual por completar el contenido, no tiene relación con la puntuación de sus recursos ni contenidos internos." class="underline">
-                                                <b>Puntuación:</b>
+<div *ngIf="loaded; else loadingTemplates" class="p-4">
+    <div class="flex flex-column gap-3 section-surface border-round-2xl">
+        <p-treeTable #tt styleClass="app-treeTable" [value]="table" selectionMode="single" [globalFilterFields]="['name']">
+            <ng-template pTemplate="caption">
+                <div class="flex p-4 gap-2 justify-content-between align-items-center">
+                    <span class="text-base text-600">Contenidos</span>
+                    <div class="p-input-icon-right placeholder-bold">
+                        <i class="pi pi-search font-semibold"></i>
+                        <input type="text" pInputText placeholder="Buscar contenido" (input)="filter(tt, $event)" />
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr class="tree-row" [ngClass]="{
+                    'nested': rowNode.level > 0,
+                    'first': rowData.first,
+                    'last': rowData.last,
+                    'not-visible': rowData.hide
+                }" [ttRow]="rowNode">
+                    <td class="surface-0 tree-row-data shadow-focus-card" tooltipPosition="top" pTooltip="{{rowData?.name ?? ''}}">
+                        <div class="flex flex-row align-items-center gap-2 justify-content-between w-full">
+                            <div class="flex flex-row flex-grow-1 gap-3 align-items-center justify-content-start px-2">
+                                <p-treeTableToggler *ngIf="rowData.hasChildren" [rowNode]="rowNode"></p-treeTableToggler>
+                                <div class="bg-quaternary-light p-5 border-round" *ngIf="rowNode.level == 0">
+                                    <i-tabler class="size-xl text-quaternary" name="layout-board-split"></i-tabler>
+                                </div>
+                                <div class="flex flex-column gap-1 overflow-hidden">
+                                    <span class="font-bold overflow-hidden white-space-nowrap text-overflow-ellipsis">{{rowData?.name ?? ''}}</span>
+                                    <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
+                                        <div class="flex flex-row gap-2 align-items-center">
+                                            <span class="text-600 text-xs" tooltipPosition="top" pTooltip="Valoración individual por completar el contenido, no tiene relación con la puntuación de sus recursos ni contenidos internos.">
+                                                Puntuación
                                             </span>
-                                            <span>{{(rowData?.extra_options?.points) ?? 100}}</span>
-                                        </div>
-                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center" *ngIf="rowData?.extra_options?.duration">
-                                            <i (click)="selectContent(rowData); changeDuration.toggle($event)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
-                                            <span tooltipPosition="top" pTooltip="Duración en días del sprint" class="underline">
-                                                <b>Duración:</b>
-                                            </span>
-                                            <span>{{rowData?.extra_options?.duration}}</span>
-                                        </div>
-                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center" *ngIf="rowData?.extra_options?.start">
-                                            <span tooltipPosition="top" pTooltip="Fechas" class="underline">
-                                                <b>Fechas</b>
-                                            </span>
-                                            <span>{{rowData?.extra_options.start | date:'dd/MM/yyyy' }} - {{rowData?.extra_options.end | date:'dd/MM/yyyy' }}</span>
-                                        </div>
-                                        <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
-                                            <span><b>Recursos:</b></span>
-                                            <span>{{(rowData?.resources?.length)?? 0}}</span>
+                                            <p-button pTooltip="Editar" (onClick)="selectContent(rowData); changeRanking.toggle($event)" styleClass="p-button-sm p-button-quaternary py-1 px-3 border-round-2xl font-semibold">
+                                                <div class="flex flex-row gap-3 align-items-center">
+                                                    <span>{{(rowData?.extra_options?.points) ?? 100}}</span>
+                                                    <i tooltipPosition="top" class="text-xs pi pi-pencil"></i>
+                                                </div>
+                                            </p-button>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="flex flex-row flex-wrap gap-1 align-items-center justify-content-end">
-
-                                    <!-- <button pButton pRipple icon="pi pi-file" class="p-button-outlined" pTooltip="Ver" tooltipPosition="top" *ngIf="!rowData?.extra_options?.sprint">
-                                    </button> -->
-                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-outlined" pTooltip="Editar" tooltipPosition="top" (click)="selectViewContent(rowData)">
-                                    </button>
-                                    <button pButton pRipple [icon]="rowData.hide ? 'pi pi-eye-slash' : 'pi pi-eye'" class="p-button-outlined p-button-help" [pTooltip]="rowData.hide ? 'Mostrar' : 'Ocultar'" tooltipPosition="top" (click)="invertHide(rowData)">
-                                    </button>
-                                    <button pButton pRipple *ngIf="rowData.levelNode < 2" icon="pi pi-plus" class="p-button-outlined" pTooltip="Agregar contenido" tooltipPosition="top" (click)="openCreator(rowData)">
-                                    </button>
-                                    <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" pTooltip="Borrar" tooltipPosition="top" (click)="deleteContent(rowData)">
-                                    </button>
+                                    <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center" *ngIf="rowData?.extra_options?.duration">
+                                        <i (click)="selectContent(rowData); changeDuration.toggle($event)" tooltipPosition="top" pTooltip="Editar" class="text-xs pi pi-pencil text-primary"></i>
+                                        <span tooltipPosition="top" pTooltip="Duración en días del sprint" class="underline">
+                                            <b>Duración:</b>
+                                        </span>
+                                        <span>{{rowData?.extra_options?.duration}}</span>
+                                    </div>
+                                    <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center" *ngIf="rowData?.extra_options?.start">
+                                        <span tooltipPosition="top" pTooltip="Fechas" class="underline">
+                                            <b>Fechas</b>
+                                        </span>
+                                        <span>{{rowData?.extra_options.start | date:'dd/MM/yyyy' }} - {{rowData?.extra_options.end | date:'dd/MM/yyyy' }}</span>
+                                    </div>
+                                    <div class="overflow-hidden white-space-nowrap text-overflow-ellipsis min-w-0 text-xs flex flex-row gap-1 align-items-center">
+                                        <span><b>Recursos:</b></span>
+                                        <span>{{(rowData?.resources?.length)?? 0}}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
-        </div>
+                            <div class="flex flex-row flex-wrap gap-2 align-items-center justify-content-end">
+                                <p-button *ngIf="rowData.hide" pRipple styleClass="p-2 flex text-sm w-min p-button-quaternary" icon="pi pi-eye" pTooltip="Mostrar" tooltipPosition="top" (onClick)="invertHide(rowData)">
+                                </p-button>
+                                <p-button *ngIf="!rowData.hide" pRipple styleClass="p-2 flex text-sm w-min p-button-secondary" icon="pi pi-eye-slash" pTooltip="Ocultar" tooltipPosition="top" (onClick)="invertHide(rowData)">
+                                </p-button>
+                                <p-button pRipple styleClass="p-2 flex text-sm w-min p-button-secondary" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" (onClick)="selectViewContent(rowData)">
+                                </p-button>
+                                <p-button pRipple styleClass="p-2 flex text-sm w-min p-button-secondary" icon="pi pi-times" pTooltip="Borrar" tooltipPosition="top" (onClick)="deleteContent(rowData)">
+                                </p-button>
+                                <p-button pRipple styleClass="p-2 flex text-sm w-min p-button-tertiary" *ngIf="rowData.levelNode < 2" icon="pi pi-plus" pTooltip="Agregar contenido" tooltipPosition="top" (onClick)="openCreator(rowData)">
+                                </p-button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
     </div>
-</ng-container>
+</div>
 
 <ng-template #loadingTemplates>
     <app-loading></app-loading>

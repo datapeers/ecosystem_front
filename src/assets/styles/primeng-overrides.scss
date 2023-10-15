@@ -38,6 +38,51 @@
   }
 }
 
+.app-treeTable {
+  &.p-treetable-hoverable-rows {
+    cursor: auto;
+    & .p-treetable-tbody {
+      cursor: auto;
+      & > tr:not(.p-highlight):hover {
+        cursor: auto;
+        background: none;
+      }
+    }
+  }
+  &.p-treetable {
+    .p-treetable-header {
+      background-color: inherit;
+      border-top: none;
+      border-bottom: 2px solid var(--surface-200);
+    }
+    .p-treetable-tbody {
+      background-color: inherit;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      tr {
+        background-color: inherit;
+        overflow: visible;
+        &:focus-within {
+          outline: none;
+        }
+        td {
+          display: flex;
+          width: 100%;
+          .p-treetable-toggler {
+            border-radius: 0.5rem;
+            background-color: var(--surface-100);
+            .p-icon {
+              width: 0.75rem;
+              height: 0.75rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .listbox-search {
   width: 16.5rem;
   height: 50vh;

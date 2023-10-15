@@ -12,6 +12,7 @@ import { AppSharedModule } from '@shared/app-shared.module';
 import { DividerTextComponent } from '@shared/components/divider-text/divider-text.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { SideNavRouteIconComponent } from './side-nav-route-icon/side-nav-route-icon.component';
+import { SubMenuComponent } from './sub-menu/sub-menu.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SideNavRouteIconComponent } from './side-nav-route-icon/side-nav-route-
     DividerTextComponent,
     NotificationsComponent,
     SideNavRouteIconComponent,
+    SubMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,6 @@ import { SideNavRouteIconComponent } from './side-nav-route-icon/side-nav-route-
     StorageModule,
     AppSharedModule,
   ],
-  exports: [TopNavComponent, SideNavComponent],
+  exports: [TopNavComponent, SideNavComponent, SubMenuComponent],
 })
 export class NavigationModule {}

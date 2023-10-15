@@ -96,17 +96,19 @@ export class PhaseContentService {
   convertContainerToNode(
     container: IContent,
     level: number = 0,
+    first: boolean = false,
+    last: boolean = false,
     father?: IContent
   ): TreeNode<IContent> {
     const levelNode = level + 1;
-    const data = { ...container, levelNode, father };
     const children = container.childs
       ? container.childs
           .filter((i) => !i.isDeleted)
-          .map((child) => {
-            return this.convertContainerToNode(child, levelNode, container);
+          .map((child, index) => {
+            return this.convertContainerToNode(child, levelNode, index == 0, index == container.childs.length - 1, container);
           })
       : [];
+    const data = { ...container, levelNode, father, first, last, hasChildren: children.length > 0 };
     return {
       data,
       expanded: true,

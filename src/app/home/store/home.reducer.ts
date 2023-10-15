@@ -8,6 +8,7 @@ export interface IHomeState {
   loading: boolean;
   menu: IMenu;
   otherMenu: IMenu;
+  subMenus: IMenu[];
   breadcrumb: string[];
   currentBatch: Phase | 'without batch' | null;
   returnBtn: boolean;
@@ -23,6 +24,7 @@ const initialState: IHomeState = {
   loading: false,
   menu: null,
   otherMenu: null,
+  subMenus: null,
   breadcrumb: [],
   currentBatch: null,
   returnBtn: false,
@@ -40,6 +42,8 @@ export function homeReducer(
       return { ...state, menu: action.newMenu };
     case fromHome.SET_OTHER_MENU:
       return { ...state, otherMenu: action.menu };
+    case fromHome.SET_SUB_MENU:
+      return { ...state, subMenus: action.menus };
     case fromHome.RESTORE_MENU:
       return { ...state, otherMenu: null };
     case fromHome.SET_BREADCRUMB:
