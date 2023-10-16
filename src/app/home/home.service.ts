@@ -133,7 +133,7 @@ export class HomeService {
         label: 'Fases',
         rute: '/home/phases',
         type: 'single',
-        icon: 'box-multiple',
+        icon: 'stairs',
       },
       communities: {
         label: 'Comunidades',
@@ -172,13 +172,13 @@ export class HomeService {
       startUps: {
         label: 'StartUps',
         type: 'dropdown',
-        icon: 'rocket',
+        icon: 'seeding',
         children: [
           {
             label: 'StartUps',
             rute: '/home/startups',
             type: 'single',
-            icon: 'rocket',
+            icon: 'seeding',
           },
           {
             label: 'Prospectos',

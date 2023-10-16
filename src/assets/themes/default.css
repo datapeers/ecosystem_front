@@ -2202,9 +2202,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-button.p-button-secondary,
 .p-buttonset.p-button-secondary > .p-button,
 .p-splitbutton.p-button-secondary > .p-button {
-  color: #ffffff;
-  background: #64748b;
-  border: 1px solid #64748b;
+  background: rgba(100, 116, 139, 0.16);
+  color: #64748b;
+  border: 1px solid rgba(100, 116, 139, 0.16);
 }
 .p-button.p-button-secondary:enabled:hover,
 .p-buttonset.p-button-secondary > .p-button:enabled:hover,
@@ -2268,73 +2268,142 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   color: #64748b;
 }
 
-.p-button.p-button-ternary,
-.p-buttonset.p-button-ternary > .p-button,
-.p-splitbutton.p-button-ternary > .p-button {
+.p-button.p-button-tertiary,
+.p-buttonset.p-button-tertiary > .p-button,
+.p-splitbutton.p-button-tertiary > .p-button {
+  background: var(--app-color-six);
+  color: var(--app-color-five);
+  border-color: var(--app-color-six);
+}
+.p-button.p-button-tertiary:enabled:hover,
+.p-buttonset.p-button-tertiary > .p-button:enabled:hover,
+.p-splitbutton.p-button-tertiary > .p-button:enabled:hover {
   color: #ffffff;
-  background: #f7af42;
-  border: 1px solid #f7af42;
+  background: var(--app-color-five);
+  border: 1px solid var(--app-color-five);
 }
-.p-button.p-button-ternary:enabled:hover,
-.p-buttonset.p-button-ternary > .p-button:enabled:hover,
-.p-splitbutton.p-button-ternary > .p-button:enabled:hover {
-  background: #fff1dc;
-  color: #f7af42;
-  border-color: #fff1dc;
-}
-.p-button.p-button-ternary:enabled:focus,
-.p-buttonset.p-button-ternary > .p-button:enabled:focus,
-.p-splitbutton.p-button-ternary > .p-button:enabled:focus {
+.p-button.p-button-tertiary:enabled:focus,
+.p-buttonset.p-button-tertiary > .p-button:enabled:focus,
+.p-splitbutton.p-button-tertiary > .p-button:enabled:focus {
   box-shadow: 0 0 0 0.2rem #e2e8f0;
 }
-.p-button.p-button-ternary:enabled:active,
-.p-buttonset.p-button-ternary > .p-button:enabled:active,
-.p-splitbutton.p-button-ternary > .p-button:enabled:active {
-  background: #f7af42;
+.p-button.p-button-tertiary:enabled:active,
+.p-buttonset.p-button-tertiary > .p-button:enabled:active,
+.p-splitbutton.p-button-tertiary > .p-button:enabled:active {
+  background: var(--app-color-five);
   color: #ffffff;
-  border-color: #f7af42;
+  border-color: var(--app-color-six);
 }
-.p-button.p-button-ternary.p-button-outlined,
-.p-buttonset.p-button-ternary > .p-button.p-button-outlined,
-.p-splitbutton.p-button-ternary > .p-button.p-button-outlined {
+.p-button.p-button-tertiary.p-button-outlined,
+.p-buttonset.p-button-tertiary > .p-button.p-button-outlined,
+.p-splitbutton.p-button-tertiary > .p-button.p-button-outlined {
   background-color: transparent;
-  color: #f7af42;
+  color: var(--app-color-five);
   border: 1px solid;
 }
-.p-button.p-button-ternary.p-button-outlined:enabled:hover,
-.p-buttonset.p-button-ternary > .p-button.p-button-outlined:enabled:hover,
-.p-splitbutton.p-button-ternary > .p-button.p-button-outlined:enabled:hover {
+.p-button.p-button-tertiary.p-button-outlined:enabled:hover,
+.p-buttonset.p-button-tertiary > .p-button.p-button-outlined:enabled:hover,
+.p-splitbutton.p-button-tertiary > .p-button.p-button-outlined:enabled:hover {
   background: rgba(100, 116, 139, 0.04);
-  color: #f7af42;
+  color: var(--app-color-five);
   border: 1px solid;
 }
-.p-button.p-button-ternary.p-button-outlined:enabled:active,
-.p-buttonset.p-button-ternary > .p-button.p-button-outlined:enabled:active,
-.p-splitbutton.p-button-ternary > .p-button.p-button-outlined:enabled:active {
+.p-button.p-button-tertiary.p-button-outlined:enabled:active,
+.p-buttonset.p-button-tertiary > .p-button.p-button-outlined:enabled:active,
+.p-splitbutton.p-button-tertiary > .p-button.p-button-outlined:enabled:active {
   background: rgba(100, 116, 139, 0.16);
-  color: #f7af42;
+  color: var(--app-color-five);
   border: 1px solid;
 }
-.p-button.p-button-ternary.p-button-text,
-.p-buttonset.p-button-ternary > .p-button.p-button-text,
-.p-splitbutton.p-button-ternary > .p-button.p-button-text {
+.p-button.p-button-tertiary.p-button-text,
+.p-buttonset.p-button-tertiary > .p-button.p-button-text,
+.p-splitbutton.p-button-tertiary > .p-button.p-button-text {
   background-color: transparent;
-  color: #f7af42;
+  color: var(--app-color-five);
   border-color: transparent;
 }
-.p-button.p-button-ternary.p-button-text:enabled:hover,
-.p-buttonset.p-button-ternary > .p-button.p-button-text:enabled:hover,
-.p-splitbutton.p-button-ternary > .p-button.p-button-text:enabled:hover {
+.p-button.p-button-tertiary.p-button-text:enabled:hover,
+.p-buttonset.p-button-tertiary > .p-button.p-button-text:enabled:hover,
+.p-splitbutton.p-button-tertiary > .p-button.p-button-text:enabled:hover {
   background: rgba(100, 116, 139, 0.04);
   border-color: transparent;
-  color: #f7af42;
+  color: var(--app-color-five);
 }
-.p-button.p-button-ternary.p-button-text:enabled:active,
-.p-buttonset.p-button-ternary > .p-button.p-button-text:enabled:active,
-.p-splitbutton.p-button-ternary > .p-button.p-button-text:enabled:active {
+.p-button.p-button-tertiary.p-button-text:enabled:active,
+.p-buttonset.p-button-tertiary > .p-button.p-button-text:enabled:active,
+.p-splitbutton.p-button-tertiary > .p-button.p-button-text:enabled:active {
   background: rgba(100, 116, 139, 0.16);
   border-color: transparent;
-  color: #f7af42;
+  color: var(--app-color-five);
+}
+
+.p-button.p-button-quaternary,
+.p-buttonset.p-button-quaternary > .p-button,
+.p-splitbutton.p-button-quaternary > .p-button {
+  background: var(--app-color-eight);
+  color: var(--app-color-seven);
+  border-color: var(--app-color-eight);
+}
+.p-button.p-button-quaternary:enabled:hover,
+.p-buttonset.p-button-quaternary > .p-button:enabled:hover,
+.p-splitbutton.p-button-quaternary > .p-button:enabled:hover {
+  color: #ffffff;
+  background: var(--app-color-seven);
+  border: 1px solid var(--app-color-seven);
+}
+.p-button.p-button-quaternary:enabled:focus,
+.p-buttonset.p-button-quaternary > .p-button:enabled:focus,
+.p-splitbutton.p-button-quaternary > .p-button:enabled:focus {
+  box-shadow: 0 0 0 0.2rem #e2e8f0;
+}
+.p-button.p-button-quaternary:enabled:active,
+.p-buttonset.p-button-quaternary > .p-button:enabled:active,
+.p-splitbutton.p-button-quaternary > .p-button:enabled:active {
+  background: var(--app-color-seven);
+  color: #ffffff;
+  border-color: var(--app-color-eight);
+}
+.p-button.p-button-quaternary.p-button-outlined,
+.p-buttonset.p-button-quaternary > .p-button.p-button-outlined,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-outlined {
+  background-color: transparent;
+  color: var(--app-color-seven);
+  border: 1px solid;
+}
+.p-button.p-button-quaternary.p-button-outlined:enabled:hover,
+.p-buttonset.p-button-quaternary > .p-button.p-button-outlined:enabled:hover,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-outlined:enabled:hover {
+  background: rgba(100, 116, 139, 0.04);
+  color: var(--app-color-seven);
+  border: 1px solid;
+}
+.p-button.p-button-quaternary.p-button-outlined:enabled:active,
+.p-buttonset.p-button-quaternary > .p-button.p-button-outlined:enabled:active,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-outlined:enabled:active {
+  background: rgba(100, 116, 139, 0.16);
+  color: var(--app-color-seven);
+  border: 1px solid;
+}
+.p-button.p-button-quaternary.p-button-text,
+.p-buttonset.p-button-quaternary > .p-button.p-button-text,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-text {
+  background-color: transparent;
+  color: var(--app-color-seven);
+  border-color: transparent;
+}
+.p-button.p-button-quaternary.p-button-text:enabled:hover,
+.p-buttonset.p-button-quaternary > .p-button.p-button-text:enabled:hover,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-text:enabled:hover {
+  background: rgba(100, 116, 139, 0.04);
+  border-color: transparent;
+  color: var(--app-color-seven);
+}
+.p-button.p-button-quaternary.p-button-text:enabled:active,
+.p-buttonset.p-button-quaternary > .p-button.p-button-text:enabled:active,
+.p-splitbutton.p-button-quaternary > .p-button.p-button-text:enabled:active {
+  background: rgba(100, 116, 139, 0.16);
+  border-color: transparent;
+  color: var(--app-color-seven);
 }
 
 .p-button.p-button-info,
@@ -5009,7 +5078,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   background: #ffffff;
-  border-color: var(--app-color-two);
+  border-color: var(--app-color-five);
 }
 .p-tabview .p-tabview-left-icon {
   margin-right: 0.5rem;

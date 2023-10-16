@@ -2,12 +2,14 @@ import { User } from '@auth/models/user';
 import { Content } from '@home/phases/model/content.model';
 import { Phase } from '@home/phases/model/phase.model';
 import { Action } from '@ngrx/store';
+import { IMenu } from '@shared/models/menu';
 // import { IMenuSideBar } from '../models/menu-model';
 
 export const TOGGLE_MENU = '[HomeAction] Toggle menu';
 export const LOADING_MENU = '[HomeAction] Change State load of a menu';
 export const SET_MENU = '[HomeAction] Set menu';
 export const SET_OTHER_MENU = '[HomeAction] Set other menu';
+export const SET_SUB_MENU = '[HomeAction] Set sub menu';
 export const RESTORE_MENU = '[HomeAction] Restore main menu';
 export const SET_BREADCRUMB = '[HomeAction] Set path of breadcrumb';
 export const RESTORE_BREADCRUMB = '[HomeAction] Restore path of breadcrumb';
@@ -39,6 +41,12 @@ export class SetOtherMenuAction implements Action {
   readonly type = SET_OTHER_MENU;
 
   constructor(public menu: any) {}
+}
+
+export class SetSubMenuAction implements Action {
+  readonly type = SET_SUB_MENU;
+
+  constructor(public menus: IMenu[]) {}
 }
 
 export class RestoreMenuAction implements Action {
@@ -99,6 +107,7 @@ export type HomeActions =
   | ToggleMenuAction
   | SetMenuAction
   | SetOtherMenuAction
+  | SetSubMenuAction
   | RestoreMenuAction
   | LoadingMenuAction
   | SetBreadcrumbAction

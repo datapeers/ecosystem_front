@@ -4,7 +4,7 @@ import { PhasesService } from '../phases.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { ClearPhaseStoreAction, SetPhaseAction } from '../store/phase.actions';
-import { SetOtherMenuAction } from '@home/store/home.actions';
+import { SetSubMenuAction } from '@home/store/home.actions';
 import { RestoreMenuAction } from '@home/store/home.actions';
 import { first, firstValueFrom } from 'rxjs';
 import { User } from '@auth/models/user';
@@ -43,6 +43,6 @@ export class PhaseLoadComponent {
     const phase = await this.phasesService.getPhase(this.phaseId);
     const menu = await this.phasesService.optionsMenu(phase, this.user);
     this.store.dispatch(new SetPhaseAction(phase));
-    this.store.dispatch(new SetOtherMenuAction(menu));
+    this.store.dispatch(new SetSubMenuAction([menu]));
   }
 }

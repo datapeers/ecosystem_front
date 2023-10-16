@@ -1,0 +1,20 @@
+.menu-option-label {
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.menu-option {
+  & > * {
+    cursor: pointer;
+    color: var(--surface-500);
+  }
+  &.active, &:hover {
+    & .menu-option-icon {
+      background-color: var(--app-color-six);
+    }
+    & > * {
+      color: var(--app-color-five);
+    }
+  }
+}

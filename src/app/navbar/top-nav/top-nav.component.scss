@@ -39,6 +39,7 @@ $heightPanels: 4.375rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
 
     @media (max-width: 576px) {
       padding: 0.5rem 0.5rem;
