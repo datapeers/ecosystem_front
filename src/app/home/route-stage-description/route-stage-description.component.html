@@ -20,25 +20,26 @@
                         </div>
                         <div class="w-full h-full title-stage flex flex-row align-items-center gap-3">
                             <i-tabler [name]="stage.icon"></i-tabler>
-                            <div class="flex flex-column text-left w-full">
+                            <div class="flex flex-column text-left w-auto">
                                 <span class="text-4xl xl:text-3xl lg:text-2xl md: text-xl">Etapa</span>
                                 <span class="text-7xl xl:text-6xl lg:text-4xl md: text-2xl">{{stage.name}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="state-stage flex flex-row justify-content-center align-items-center p-6">
-                        <div class="flex align-items-center justify-content-center" [ngClass]="{'progress': !stage.hasAllPhasesDone, 'indicator': stage.hasAllPhasesDone }">
-                            <ng-container *ngIf="stage.hasAllPhasesDone; else progressPhase">
-                                <i-tabler name="award" [style.background]="stage.color">
-                                </i-tabler>
-                            </ng-container>
-                            <ng-template #progressPhase>
-                                <ng-container>
+                        <ng-container *ngIf="stage.hasAllPhasesDone; else progressPhase">
+                            <i-tabler name="award" [style.background]="stage.color">
+                            </i-tabler>
+                        </ng-container>
+                        <ng-template #progressPhase>
+                            <ng-container>
+                                <div class="flex align-items-center justify-content-center" [ngClass]="{'progress': !stage.hasAllPhasesDone, 'indicator': stage.hasAllPhasesDone }">
                                     <p-knob [(ngModel)]="stage.completed" [strokeWidth]="6" [readonly]="true" [size]="120" [valueTemplate]="stage.completedString" [valueColor]="stage.color" [rangeColor]="withOpacity(stage.color, 0.2)" [min]="0" [max]="100">
                                     </p-knob>
-                                </ng-container>
-                            </ng-template>
-                        </div>
+                                </div>
+                            </ng-container>
+                        </ng-template>
+
                         <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-3">
                             <ng-container *ngIf="stage.hasAllPhasesDone; else pendingToComplete">
                                 <span class="font-semibold">¡Completada!</span>

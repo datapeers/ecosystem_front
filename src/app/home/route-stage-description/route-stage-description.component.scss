@@ -5,14 +5,20 @@
 .left-side {
   border-radius: 3.125rem 0 0 3.125rem;
   z-index: 1;
-  width: 40%;
+  width: 560px;
+  @media (max-width: 1680px) {
+    width: 480px;
+  }
+  @media (max-width: 1280px) {
+    width: 380px;
+  }
 }
 
 .right-side {
   margin: 0 0 0 -1.5rem;
   border-radius: 3.125rem;
   z-index: 3;
-  width: 60%;
+  width: auto;
 }
 
 .navigation-btn {
@@ -25,8 +31,9 @@
 
 .title-stage {
   i-tabler {
-    width: 20rem;
-    height: 20rem;
+    width: 20rem !important;
+    height: 20rem !important;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,9 +45,21 @@
   background-color: rgba(255, 255, 255, 0.2);
   z-index: 2;
   width: 110%;
+
+  i-tabler {
+    width: 7.25rem;
+    height: 7.25rem;
+    padding: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 20px solid rgba(255, 255, 255, 0.5);
+  }
 }
 
 .indicator {
+  position: relative;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.5);
   width: 10rem;
@@ -49,15 +68,6 @@
   //   width: 160px;
   //   height: 10rem;
   // }
-  i-tabler {
-    width: 6.25rem;
-    height: 6.25rem;
-    padding: 1.5rem;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 }
 
 .progress {
