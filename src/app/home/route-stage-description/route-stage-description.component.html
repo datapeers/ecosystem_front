@@ -1,8 +1,8 @@
 <ng-container *ngIf="!loading; else loadingTemplates">
     <div class="flex w-full h-full py-4 px-8">
         <ng-container *ngIf="stage">
-            <div class="normal-panel elipse-panel w-full flex flex-row justify-content-between" [style.background]="stage.color">
-                <div class="left-side  text-white flex flex-column justify-content-between" [style.background]="stage.color" [style.border-color]="stage.color">
+            <div class="normal-panel elipse-panel w-full main-card justify-content-between" [style.background]="stage.color">
+                <div class="left-side text-white flex flex-column justify-content-between" [style.background]="stage.color" [style.border-color]="stage.color">
                     <div class="h-full w-full p-6">
                         <div class="w-full flex flex-row w-full justify-content-between">
                             <div class="flex flex-row align-items-center gap-4">
@@ -52,41 +52,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="elipse-panel right-side bg-white  flex flex-column h-full">
-                    <span class="text-4xl font-semibold p-6">En hora buena {{user?.fullName}},</span>
-                    <span class="description-stage py-2 px-6">{{stage.description}}</span>
-                    <p-divider></p-divider>
-                    <div class="flex flex-row justify-content-between align-items-center py-2 px-6">
-                        <div class="flex flex-row align-items-center text-lg font-semibold">
-                            <span>Esta etapa consta de:</span>
-                            <span class="ml-3" [style.color]="stage.color">{{stage.fases.length}} Fases</span>
-                        </div>
-                        <ng-container *ngIf="stage.hasAllPhasesDone; else enCursoTag">
-                            <p class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">Completadas</p>
-                        </ng-container>
-                        <ng-template #enCursoTag>
-                            <p class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">En curso</p>
-                        </ng-template>
-                    </div>
-                    <ng-container *ngFor="let fase of stage.fases">
-                        <div class="card-phase mx-5 pt-3">
-                            <div class="p-3 normal-panel w-full flex flex-row align-items-center">
-                                <div class="numb-phase font-bold text-xl" [style.background]="fase.done ? withOpacity( stage.color, 0.3) : withOpacity( '#AEAEAE', 0.3)" [style.color]="fase.done ? stage.color : '#AEAEAE'">
-                                    {{fase.number}}
-                                </div>
-                                <div class="flex flex-column ml-3">
-                                    <span class="font-semibold" [style.color]="fase.done ? stage.color : '#6B6B6B'">{{fase.name}}</span>
-                                </div>
-                                <ng-container *ngIf="fase.done && !fase.currentBatch; else playBtn">
-                                    <i-tabler class="phase-btn cursor-pointer" name="checks" [style.color]="'white'" [style.background-color]="'#317BF4'" (click)="goTo(fase)"></i-tabler>
-                                </ng-container>
-                                <ng-template #playBtn>
-                                    <i-tabler class="phase-btn cursor-pointer" name="player-play" [style.color]="'#317BF4'" [style.background-color]="'#E7F2FF'" (click)="goTo(fase)"></i-tabler>
-                                </ng-template>
+                <p-scrollPanel styleClass="elipse-panel right-side" [style]="{ width: '100%', height: '100%' }">
+                    <div class="flex flex-column h-full">
+                        <span class="text-4xl font-semibold p-6">En hora buena {{user?.fullName}},</span>
+                        <span class="description-stage py-2 px-6">{{stage.description}}</span>
+                        <p-divider></p-divider>
+                        <div class="flex flex-row justify-content-between align-items-center py-2 px-6">
+                            <div class="flex flex-row align-items-center text-lg font-semibold">
+                                <span>Esta etapa consta de:</span>
+                                <span class="ml-3" [style.color]="stage.color">{{stage.fases.length}} Fases</span>
                             </div>
+                            <ng-container *ngIf="stage.hasAllPhasesDone; else enCursoTag">
+                                <p class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">Completadas</p>
+                            </ng-container>
+                            <ng-template #enCursoTag>
+                                <p class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">En curso</p>
+                            </ng-template>
                         </div>
-                    </ng-container>
-                </div>
+                        <ng-container *ngFor="let fase of stage.fases">
+                            <div class="card-phase mx-5 pt-3">
+                                <div class="p-3 normal-panel w-full flex flex-row align-items-center">
+                                    <div class="numb-phase font-bold text-xl" [style.background]="fase.done ? withOpacity( stage.color, 0.3) : withOpacity( '#AEAEAE', 0.3)" [style.color]="fase.done ? stage.color : '#AEAEAE'">
+                                        {{fase.number}}
+                                    </div>
+                                    <div class="flex flex-column ml-3">
+                                        <span class="font-semibold" [style.color]="fase.done ? stage.color : '#6B6B6B'">{{fase.name}}</span>
+                                    </div>
+                                    <ng-container *ngIf="fase.done && !fase.currentBatch; else playBtn">
+                                        <i-tabler class="phase-btn cursor-pointer" name="checks" [style.color]="'white'" [style.background-color]="'#317BF4'" (click)="goTo(fase)"></i-tabler>
+                                    </ng-container>
+                                    <ng-template #playBtn>
+                                        <i-tabler class="phase-btn cursor-pointer" name="player-play" [style.color]="'#317BF4'" [style.background-color]="'#E7F2FF'" (click)="goTo(fase)"></i-tabler>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                </p-scrollPanel>
+
             </div>
         </ng-container>
     </div>
