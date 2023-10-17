@@ -74,12 +74,17 @@
                                 <span>Esta etapa consta de:</span>
                                 <span class="ml-3" [style.color]="stage.color">{{stage.fases.length}} Fases</span>
                             </div>
-                            <ng-container *ngIf="stage.hasAllPhasesDone; else enCursoTag">
-                                <p class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">Completadas</p>
+                            <ng-container [ngSwitch]="true">
+                                <ng-container *ngSwitchCase="stage.hasAllPhasesDone">
+                                    <p class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">Completadas</p>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="!stage.hasAllPhasesDone && stage.hasPhasesDone">
+                                    <p class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">En curso</p>
+                                </ng-container>
+                                <ng-container *ngSwitchDefault>
+                                    <p class="elipse-panel button-grey state-content text-center flex align-items-center justify-content-center font-semibold">Pendiente</p>
+                                </ng-container>
                             </ng-container>
-                            <ng-template #enCursoTag>
-                                <p class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">En curso</p>
-                            </ng-template>
                         </div>
                         <ng-container *ngFor="let fase of stage.fases">
                             <div class="card-phase mx-5 pt-3">
