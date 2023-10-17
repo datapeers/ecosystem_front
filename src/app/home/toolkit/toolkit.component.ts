@@ -112,7 +112,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   async setCards() {
-    this.cards = await this.phaseHomeworksService.setResourcesReplies(
+    this.cards = await this.phaseHomeworksService.setResourcesRepliesSprint(
       this.startup,
       this.currentBatch,
       this.sprintSelected
