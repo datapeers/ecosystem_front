@@ -18,11 +18,11 @@
                                 </ng-container>
                             </div>
                         </div>
-                        <div class="w-full h-full title-stage flex flex-row align-items-center gap-3">
+                        <div class="w-full h-full title-stage flex flex-row align-items-center justify-content-center gap-3">
                             <i-tabler [name]="stage.icon"></i-tabler>
-                            <div class="flex flex-column text-left w-auto">
-                                <span class="text-4xl xl:text-3xl lg:text-2xl md: text-xl">Etapa</span>
-                                <span class="text-7xl xl:text-6xl lg:text-4xl md: text-2xl">{{stage.name}}</span>
+                            <div class="tags-stage flex flex-column text-left">
+                                <span class="tag-stage">Etapa</span>
+                                <span class="name-stage">{{stage.name}}</span>
                             </div>
                         </div>
                     </div>
@@ -33,26 +33,38 @@
                         </ng-container>
                         <ng-template #progressPhase>
                             <ng-container>
-                                <div class="flex align-items-center justify-content-center" [ngClass]="{'progress': !stage.hasAllPhasesDone, 'indicator': stage.hasAllPhasesDone }">
-                                    <p-knob [(ngModel)]="stage.completed" [strokeWidth]="6" [readonly]="true" [size]="120" [valueTemplate]="stage.completedString" [valueColor]="stage.color" [rangeColor]="withOpacity(stage.color, 0.2)" [min]="0" [max]="100">
+                                <div class="flex align-items-center justify-content-center" [ngClass]="{'progress': !stage.hasAllPhasesDone }">
+                                    <p-knob [(ngModel)]="stage.completed" [strokeWidth]="6" [readonly]="true" [size]="100" [valueTemplate]="stage.completedString" [valueColor]="stage.color" [rangeColor]="withOpacity(stage.color, 0.2)" [min]="0" [max]="100">
                                     </p-knob>
                                 </div>
                             </ng-container>
                         </ng-template>
 
-                        <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-3">
-                            <ng-container *ngIf="stage.hasAllPhasesDone; else pendingToComplete">
-                                <span class="font-semibold">¡Completada!</span>
-                                <span class="text-base">Haz finalizado esta Etapa con éxito</span>
+
+                        <span [ngSwitch]="true">
+                            <ng-container *ngSwitchCase="stage.hasAllPhasesDone">
+                                <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-3">
+                                    <span class="font-semibold">¡Completada!</span>
+                                    <span class="text-base">Haz finalizado esta Etapa con éxito</span>
+                                </div>
                             </ng-container>
-                            <ng-template #pendingToComplete>
-                                <span class="font-semibold">¡Ya pronto!</span>
-                                <span class="text-base">Este es el progreso que llevas en la etapa</span>
-                            </ng-template>
-                        </div>
+                            <ng-container *ngSwitchCase="!stage.hasAllPhasesDone && stage.hasPhasesDone">
+                                <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-3">
+                                    <span class="font-semibold">¡Ya pronto!</span>
+                                    <span class="text-base">Este es el progreso que llevas en la etapa</span>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngSwitchDefault>
+                                <div class="state-text-stage h-full p-4 flex flex-column justify-content-center gap-3">
+                                    <span class="font-semibold">¡Pronto llegaras!</span>
+                                    <span class="text-base">Aun no cursas esta etapa</span>
+                                </div>
+                            </ng-container>
+                        </span>
+
                     </div>
                 </div>
-                <p-scrollPanel styleClass="elipse-panel right-side" [style]="{ width: '100%', height: '100%' }">
+                <p-scrollPanel styleClass="elipse-panel right-side" [style]="{ width: '100%', height: '100%', flex: 1 }">
                     <div class="flex flex-column h-full">
                         <span class="text-4xl font-semibold p-6">En hora buena {{user?.fullName}},</span>
                         <span class="description-stage py-2 px-6">{{stage.description}}</span>
