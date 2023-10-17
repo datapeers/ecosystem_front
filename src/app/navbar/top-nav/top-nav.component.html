@@ -13,10 +13,11 @@
                     <span class="text-sm">{{phaseName}} {{phaseNumb}}</span>
                 </div>
                 <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
-
                 </p-knob>
             </div>
-            <app-side-nav-route-icon></app-side-nav-route-icon>
+            <ng-container *ngIf="!user.isUser">
+                <app-side-nav-route-icon></app-side-nav-route-icon>
+            </ng-container>
         </div>
         <div class="flex-grow-1">
             <div class="hidden lg:flex w-full">

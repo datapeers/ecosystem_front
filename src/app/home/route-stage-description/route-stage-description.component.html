@@ -1,17 +1,17 @@
 <ng-container *ngIf="!loading; else loadingTemplates">
-    <div class="flex w-full h-full py-4 px-8">
+    <div class="flex w-full h-full py-0 md:py-4 px-3 md:px-8">
         <ng-container *ngIf="stage">
             <div class="normal-panel elipse-panel w-full main-card justify-content-between" [style.background]="stage.color">
                 <div class="left-side text-white flex flex-column justify-content-between" [style.background]="stage.color" [style.border-color]="stage.color">
-                    <div class="h-full w-full p-6">
+                    <div class="h-full w-full p-4 md:p-6">
                         <div class="w-full flex flex-row w-full justify-content-between">
-                            <div class="flex flex-row align-items-center gap-4">
+                            <div class="flex flex-row align-items-center gap-2 md:gap-4">
                                 <ng-container *ngIf="prevStage">
                                     <i-tabler name="arrow-big-left-line" class="navigation-btn cursor-pointer" (click)="changesStage(prevStage)"></i-tabler>
                                     <span>{{prevStage.name}}</span>
                                 </ng-container>
                             </div>
-                            <div class="flex flex-row align-items-center gap-4">
+                            <div class="flex flex-row align-items-center gap-2 md:gap-4">
                                 <ng-container *ngIf="nextStage">
                                     <span>{{nextStage.name}}</span>
                                     <i-tabler name="arrow-big-right-line" class="navigation-btn cursor-pointer" (click)="changesStage(nextStage)"></i-tabler>
@@ -66,11 +66,11 @@
                 </div>
                 <p-scrollPanel styleClass="elipse-panel right-side" [style]="{ width: '100%', height: '100%', flex: 1 }">
                     <div class="flex flex-column h-full">
-                        <span class="text-4xl font-semibold p-6">En hora buena {{user?.fullName}},</span>
-                        <span class="description-stage py-2 px-6">{{stage.description}}</span>
+                        <span class="text-2xl md:text-4xl font-semibold px-3 md:px-6 pt-6 pb-3 md:pb-6">En hora buena {{user?.fullName}},</span>
+                        <span class="description-stage py-2 px-3 md:px-6">{{stage.description}}</span>
                         <p-divider></p-divider>
-                        <div class="flex flex-row justify-content-between align-items-center py-2 px-6">
-                            <div class="flex flex-row align-items-center text-lg font-semibold">
+                        <div class="title-cards-phase justify-content-between align-items-center gap-2 py-2 px-3 md:px-6">
+                            <div class="flex flex-row align-items-center text-lg font-semibold justify-content-between md:justify-content-center">
                                 <span>Esta etapa consta de:</span>
                                 <span class="ml-3" [style.color]="stage.color">{{stage.fases.length}} Fases</span>
                             </div>
@@ -105,9 +105,7 @@
                             </div>
                         </ng-container>
                     </div>
-
                 </p-scrollPanel>
-
             </div>
         </ng-container>
     </div>
