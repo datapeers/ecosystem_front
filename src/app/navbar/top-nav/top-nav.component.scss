@@ -78,7 +78,6 @@ $heightPanels: 4.375rem;
   .panel-info {
     height: $heightPanels;
     width: 24rem;
-
     .progress-label {
       font-size: 1.25rem;
     }
@@ -89,8 +88,13 @@ $heightPanels: 4.375rem;
       flex: 1;
       text-align: left;
     }
-    @media (max-width: 1280px) {
+    @media (max-width: 1580px) {
       width: auto;
+    }
+    @media (max-width: 1280px) {
+      .labels {
+        display: none !important;
+      }
     }
     @media (max-width: 576px) {
       .progress-label {
@@ -112,13 +116,11 @@ $heightPanels: 4.375rem;
       background-color: var(--app-backgrounds);
       border: none;
     }
-    @media (max-width: 1560px) {
+    @media (max-width: 1680px) {
       width: 100%;
-      margin: 0 4.5rem;
     }
     @media (max-width: 1280px) {
       width: 100%;
-      margin: 0 2.5rem;
     }
   }
   ::ng-deep .p-input-icon-right > .p-icon-wrapper,
