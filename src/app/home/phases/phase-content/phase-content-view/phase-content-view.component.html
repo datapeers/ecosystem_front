@@ -43,8 +43,8 @@
                     {{rowData ? resourcesTypesNames[rowData.type] : ''}}
                 </td>
                 <td>
-                    <button pButton pRipple icon="pi pi-chart-pie" class="p-button-outlined mr-1" pTooltip="Peso" *ngIf="rowData.type !== 'downloadable'" (click)="dialogWeight(rowData)" tooltipPosition="top">
-                    </button>
+                    <!-- <button pButton pRipple icon="pi pi-chart-pie" class="p-button-outlined mr-1" pTooltip="Peso" *ngIf="rowData.type !== 'downloadable'" (click)="dialogWeight(rowData)" tooltipPosition="top">
+                    </button> -->
                     <button pButton pRipple icon="pi pi-clone" class="p-button-outlined mr-1" pTooltip="Ver" (click)="viewResource(rowData.containerParent, rowData)" tooltipPosition="top">
                     </button>
 

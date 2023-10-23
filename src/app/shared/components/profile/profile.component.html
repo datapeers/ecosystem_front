@@ -147,7 +147,7 @@
 </ng-template>
 
 <ng-template #paramCardTemplate let-data="data">
-    <div class="info-grid-cell p-2 border-round">
+    <div class="info-grid-cell p-2 border-round gap-2">
         <span class="cell-label">
             <span [pTooltip]="data.label" tooltipPosition="top">{{data.label | uppercase}}</span>
         </span>
@@ -157,7 +157,7 @@
 
 <!-- Ediable params template -->
 <ng-template #editableParamCardTemplate let-data="data" let-change="changeHandler">
-    <div class="info-grid-cell p-2 border-round">
+    <div class="info-grid-cell p-2 border-round gap-2">
         <span class="cell-label">
             <span [pTooltip]="data.label" tooltipPosition="top">{{data.label |
                 uppercase}}</span>

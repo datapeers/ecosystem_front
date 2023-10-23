@@ -222,11 +222,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
           this.sprints.find((i) =>
             i.childs.some((o) => this.contentCompleted[o._id])
           );
-        console.log(
-          this.sprints.find((i) =>
-            i.childs.some((o) => this.contentCompleted[o._id])
-          )
-        );
         if (!sprintClose) sprintClose = this.sprints[this.sprints.length - 1];
         let indexSprint = this.sprints.findIndex(
           (i) => i._id === sprintClose._id

@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  bucketS3: 'ecosystem-bt-colombia',
+  bucketS3: 'ecosystem-bt-content',
   //bucketS3: 'ecosystem-bt-content',
   api: 'https://backend.startupfactory.com.co/api',
   graphQL: 'https://backend.startupfactory.com.co/api/graphql',

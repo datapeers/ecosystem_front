@@ -76,9 +76,13 @@
                         <span class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
                     </div>
                 </div>
-                <p-button styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="profileStartup()">
+                <p-button styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="profileStartup()" *ngIf="user.isUser">
                     <span class="mx-2 font-semibold	">Perfil startup</span>
                     <i-tabler class="sidenav-link-icon" name="rocket"></i-tabler>
+                </p-button>
+                <p-button styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="adminPanel()" *ngIf="allowAdmin">
+                    <span class="mx-2 font-semibold	">Panel admin</span>
+                    <i-tabler class="sidenav-link-icon" name="solar-panel"></i-tabler>
                 </p-button>
             </div>
             <div class="option normal-panel flex flex-column gap-2 p-5 m-2" *ngIf="lastContent">

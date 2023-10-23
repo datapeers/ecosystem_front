@@ -1,7 +1,7 @@
 <ng-container *ngIf="phase else loadingTemplate">
   <div class="p-4">
     <div class="flex flex-column w-full align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
-      <div class="flex flex-row w-full gap-4 section-surface p-3">
+      <div class="flex flex-row w-full align-items-center gap-4 section-surface p-3">
         <ng-container *ngIf="user.allowed(userPermission.phases_batch_edit) else noChangeThubnail">
           <app-avatar-uploader styleClass="w-16rem h-12rem" shape="square" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event, phase)" [disableRemove]="true"></app-avatar-uploader>
         </ng-container>
@@ -12,7 +12,7 @@
         </ng-template>
 
 
-        <div class="flex flex-column gap-1 justify-content-center">
+        <div class="flex flex-column gap-1 justify-content-center" style="flex: 1">
           <span class="text-xl font-semibold">{{phase.name}}</span>
           <ng-container *ngIf="phase.basePhase; else normalPhase">
             <span class="font-semibold">Creado el {{phase.createdAt | date}}</span>
@@ -22,6 +22,12 @@
             <span class="font-semibold">Inicia el {{phase.startAt | date}}</span>
             <span class="font-semibold">Finaliza el {{phase.calcEndDate | date}}</span>
           </ng-template>
+        </div>
+        <div>
+          <p-button styleClass="button-yellow-second button-border-mid w-full align-items-center justify-content-between mt-2 gap-4" (onClick)="closeBatch()" *ngIf="!phase.basePhase && !phase.finished && user.allowed(userPermission.phases_batch_close)">
+            <span class="mx-2 font-semibold	">Cerrar batch</span>
+            <i-tabler class="sidenav-link-icon" name="minimize"></i-tabler>
+          </p-button>
         </div>
       </div>
 
@@ -45,9 +51,7 @@
             </div>
           </div>
         </ng-template>
-
       </div>
-
 
       <p-divider styleClass="w-full"></p-divider>
       <ng-container *ngIf="clonedEdit['landing'] !== undefined; else showLanding">
@@ -68,8 +72,6 @@
           <div class="section-surface p-5 w-full">
             <div *ngIf="phase.landing" class="w-full px-5" [innerHtml]="(phase.landing | safe:'html')"></div>
           </div>
-          
-
         </div>
       </ng-template>
     </div>
@@ -81,3 +83,25 @@
 <ng-template #loadingTemplate>
   <app-loading></app-loading>
 </ng-template>
+
+<p-dialog appendTo="body" header="" [(visible)]="showClosedBatch" [style]="{ width: '70vw', height: '80vh' }" [draggable]="false" [resizable]="true" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+  <div class="w-full flex flex-row align-items-center gap-3">
+    <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+    <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4 gap-3">
+      <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Cerrar batch</h2>
+      <span>Para concluir el batch, seleccione las startups que ha aprobado. Aquellas que han completado satisfactoriamente todo el contenido y las tareas requeridas se marcarán automáticamente. Sin embargo, usted tiene la opción de editar manualmente la aprobación de cada startup según sea necesario</span>
+      <span>Al finalizar este proceso, todas las startups recibirán una solicitud para evaluar a sus respectivos team coach y expertos asignados, lo que permitirá obtener valiosos comentarios sobre la experiencia colaborativa."</span>
+    </div>
+  </div>
+  <p-divider></p-divider>
+  <div class="flex flex-column justify-content-between w-full p-3">
+    <div style="height: 1rem;"></div>
+    <div class="actions flex flex-column gap-1 mb-4">
+      <p-button type="submit" label="Crear ticket" styleClass="p-button-lg w-full border-round-2xl my-2 p-3"></p-button>
+    </div>
+    <div class="flex md:hidden" style="height: 30rem;">
+      <span class="text-white">aaaa</span>
+    </div>
+  </div>
+  <div class="panel-hide fixed bottom-0 left-0"></div>
+</p-dialog>

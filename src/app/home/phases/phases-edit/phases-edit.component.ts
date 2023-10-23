@@ -25,6 +25,7 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
   configTiny = configTinyMce;
   user: User;
   thumbnail;
+  showClosedBatch = false;
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -135,5 +136,9 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
     // this.cancelEdit(property);
     this.toast.error({ summary: 'Error al guardar cambios', detail: err });
     console.warn(err);
+  }
+
+  closeBatch() {
+    this.showClosedBatch = true;
   }
 }

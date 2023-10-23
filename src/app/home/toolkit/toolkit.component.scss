@@ -1,28 +1,83 @@
 @import "../../../styles.scss";
 
 label {
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .panel-icon {
-    border-radius: 0.625rem;
-    padding: 0.625rem;
-    background-color: $grayThird;
-    i-tabler {
-        height: 1.25rem;
-        width: 1.25rem;
-    }    
+  border-radius: 0.625rem;
+  padding: 0.625rem;
+  background-color: $grayThird;
+  i-tabler {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
 }
 
 .panel-icon-active {
-    background-color: #FFF1DC;
-    i-tabler {
-        color: $appColorSeven;
-        }    
+  background-color: #fff1dc;
+  i-tabler {
+    color: $appColorSeven;
+  }
 }
 
 .cards-container {
-    background-color: $grayThird;
-    border-radius: 3.125rem;
-    margin: 0 1rem;
+  background-color: $grayThird;
+  border-radius: 3.125rem;
+  margin: 0 1rem;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 1.875rem;
+  padding: 1.875rem;
+  cursor: pointer;
+  .sh1 {
+    font-weight: 500;
+  }
+  .th1 {
+    color: $appTextTwo;
+    font-weight: 450;
+  }
+}
+
+.container:hover {
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+}
+
+.panel-date {
+  border-radius: 2.5rem;
+  background-color: #fff1dc;
+  padding: 0.5rem 1rem;
+  color: $appColorSeven;
+}
+
+.color-seven {
+  color: $appColorSeven;
+}
+
+.panel-icon {
+  border-radius: 0.625rem;
+  padding: 0.625rem;
+  background-color: $grayThird;
+  color: $appTextThree;
+  height: 40px;
+  i-tabler {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+}
+
+.tag {
+  border-radius: 2.5rem;
+  background-color: #e7f2ff;
+  padding: 0.625rem 1.75rem;
+  color: $appColorFive;
+  height: 40px;
+  p {
+    font-weight: 500;
+    font-size: 1.1875rem;
+  }
 }

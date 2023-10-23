@@ -40,6 +40,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   sprintSelected: Content;
   cards: ResourceReply[];
   onDestroy$: Subject<void> = new Subject();
+  selected = 'grid';
   public get resourcesTypes(): typeof ResourcesTypes {
     return ResourcesTypes;
   }
@@ -117,6 +118,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       this.currentBatch,
       this.sprintSelected
     );
+    console.log(this.cards);
   }
 
   async openForm(reply: ResourceReply) {

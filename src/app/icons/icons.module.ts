@@ -101,6 +101,8 @@ import {
   IconDeviceFloppy, // 'device-floppy'
   IconCloudLockOpen, // cloud-lock-open
   IconPlayerPlay, // player-play
+  IconSolarPanel, // solar-panel
+  IconMinimize, // minimize
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -203,6 +205,8 @@ const icons = {
   IconDeviceFloppy,
   IconCloudLockOpen,
   IconPlayerPlay,
+  IconSolarPanel,
+  IconMinimize,
 };
 
 @NgModule({

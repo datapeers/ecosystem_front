@@ -43,7 +43,7 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog header="" [(visible)]="viewHomeworks" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '60vw'}" [modal]="true" class="dialog-app">
+<p-dialog header="" [(visible)]="viewHomeworks" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '60vw'}" [modal]="true" class="dialog-app" appendTo="body">
     <div class="w-full h-full flex flex-row gap-3">
         <i-tabler name="layout-board-split" class="icon-dialog"></i-tabler>
         <ng-container *ngIf="!homeworkDisplay; else showHomework">
@@ -96,50 +96,6 @@
         <span class="info-dialog text-sm">Pag {{indexHomework + 1}} - {{homeworks.length}} </span>
         <i-tabler name="arrow-big-right" class="navigation-btn-dialog" (click)="changeResource('next')"></i-tabler>
     </div>
-    <!-- <table class="table-resources w-full">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Tipo</th>
-                <th>Estado</th>
-                <th>Vencimiento</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of homeworks">
-                <td>{{ item.resource.name }}</td>
-                <td class="text-center">{{ resourcesTypesNames[item.type] }}</td>
-                <td>
-                    <div class="py-1 px-2 border-round-lg text-center text-white" [ngClass]=" {'bg-yellow-600':
-                    alertState(item), 'bg-green-600': !alertState(item)}">
-                        {{ item.state }}
-                    </div>
-                </td>
-                <td class="text-center">
-                    {{ item.resource.extra_options.expiration | date }}
-                </td>
-                <td class="flex flew-wrap align-items-center justify-content-center gap-2">
-                    <ng-container [ngSwitch]="item.resource.type">
-                        <ng-container *ngSwitchCase="resourcesTypes.form">
-                            <p-button label="Formulario" (onClick)="openForm(item)" icon="pi pi-check"></p-button>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="resourcesTypes.downloadable">
-                            <p-button label="Descargar" (onClick)="downloadFile(item)" icon="pi pi-check"></p-button>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="resourcesTypes.task">
-                            <p-button *ngIf="item.resource.extra_options.file" label="Plantilla" (onClick)="downloadFile(item)" icon="pi pi-check"></p-button>
-                            <p-button [label]="item.item?.file ? 'Cambiar' : 'Subir'" icon="pi pi-upload" (onClick)="fileInput.click()" styleClass="p-button-outlined"></p-button>
-                            <ng-container *ngIf="item.state !== resourcesStates.Pendiente">
-                                <p-button label="Ver archivo" (onClick)="downloadFileReply(item)" icon="pi pi-check"></p-button>
-                            </ng-container>
-                            <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, item)">
-                        </ng-container>
-                    </ng-container>
-                </td>
-            </tr>
-        </tbody>
-    </table> -->
 </p-dialog>
 
 <ng-template #navContent>

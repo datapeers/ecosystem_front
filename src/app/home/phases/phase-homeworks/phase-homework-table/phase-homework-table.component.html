@@ -48,7 +48,7 @@
                     <td *ngIf="resource.type !== resourcesTypes.downloadable">{{itemRow.observations}}</td>
                     <td class="w-full flex flex-wrap align-items-center justify-content-center gap-2">
                         <p-button *ngIf="resource.type !== resourcesTypes.downloadable" label="Calificar" icon="pi pi-check" pTooltip="Calificar" (onClick)="evaluate(itemRow)"></p-button>
-                        <ng-container *ngIf="itemRow.modified">
+                        <ng-container *ngIf="resource.type !== resourcesTypes.downloadable && itemRow.modified">
                             <p class="text-orange-600">Ha sido modificado</p>
                         </ng-container>
 
@@ -64,7 +64,7 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog header="Evaluar" [(visible)]="showDialogEvaluation" [style]="{ width: '80vw', 'max-height': '70vh' }" [draggable]="false" [resizable]="false" [modal]="true">
+<p-dialog header="Evaluar" [(visible)]="showDialogEvaluation" [style]="{ width: '80vw', 'max-height': '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
     <div style="height: 1.5rem;"></div>
     <ng-container *ngIf="replyForEvaluated?.item?.file">
         <div class="w-full flex align-items-center justify-content-center p-2">

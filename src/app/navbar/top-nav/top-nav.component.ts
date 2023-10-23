@@ -119,6 +119,8 @@ export class TopNavComponent {
     return rolStartupNames;
   }
 
+  allowAdmin = false;
+  rolesAdmin = [ValidRoles.superAdmin, ValidRoles.admin];
   constructor(
     private router: Router,
     private readonly store: Store<AppState>,
@@ -178,6 +180,7 @@ export class TopNavComponent {
         this.mainMenu = await firstValueFrom(
           this.store.select((s) => s.home.menu).pipe(first((i) => i !== null))
         );
+        this.allowAdmin = this.rolesAdmin.includes(this.user.rolType);
       });
     if (this.user.isUser) {
       this.profileDoc = await firstValueFrom(
@@ -303,6 +306,11 @@ export class TopNavComponent {
 
   profileStartup() {
     this.router.navigate(['/home/startup']);
+    this.closeAll();
+  }
+
+  adminPanel() {
+    this.router.navigate(['/home/admin']);
     this.closeAll();
   }
 

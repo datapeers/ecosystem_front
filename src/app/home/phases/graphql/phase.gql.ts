@@ -14,6 +14,7 @@ const fragments = {
       published
       basePhase
       childrenOf
+      finished
       createdAt
       updatedAt
       calcEndDate
@@ -36,6 +37,7 @@ const fragments = {
       childrenOf
       createdAt
       updatedAt
+      finished
       calcEndDate
       stageDoc {
         _id
