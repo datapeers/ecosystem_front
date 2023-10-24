@@ -1,23 +1,21 @@
 <div class="pt-4 h-full">
   <div class="flex flex-column gap-2 w-16rem h-full shadow-4 border-round-2xl align-items-center">
-    <ng-container *ngIf="subMenus$ | async let subMenus">
+    <ng-container *ngIf="menu">
       <div class="flex flex-row gap-2 px-2 py-3 justify-content-center">
-        <ng-container *ngFor="let subMenu of subMenus let i = index">
-          <p-button styleClass="p-button-tertiary font-semibold" (onClick)="activeIndex = i">{{subMenu.header.title}}</p-button>
+        <ng-container *ngFor="let subMenu of menu.switchTypeMenu let i = index">
+          <p-button styleClass="p-button-tertiary font-semibold" (onClick)="onChange(subMenu.type)">{{subMenu.label}}</p-button>
         </ng-container>
       </div>
-      <ng-container *ngFor="let subMenu of subMenus let i = index">
-        <div class="flex flex-column gap-2" *ngIf="i == activeIndex">
-          <ng-container *ngFor="let option of subMenu.options">
-            <div class="menu-option w-full flex flex-row gap-3 align-items-center" [routerLink]="option.rute" routerLinkActive="active" [queryParams]="option.queryParamsRute" [ngClass]="getActiveClass(option)">
-              <div class="menu-option-icon p-2 border-round">
-                <i-tabler class="size-md" [name]="option.icon"></i-tabler>
-              </div>
-              <span class="menu-option-label">{{option.label}}</span>
+      <div class="flex flex-column gap-2">
+        <ng-container *ngFor="let option of options">
+          <div class="menu-option w-full flex flex-row gap-3 align-items-center" [routerLink]="option.rute" routerLinkActive="active" [queryParams]="option.queryParamsRute" [ngClass]="getActiveClass(option)">
+            <div class="menu-option-icon p-2 border-round">
+              <i-tabler class="size-md" [name]="option.icon"></i-tabler>
             </div>
-          </ng-container>
-        </div>
-      </ng-container>
+            <span class="menu-option-label">{{option.label}}</span>
+          </div>
+        </ng-container>
+      </div>
     </ng-container>
   </div>
 </div>

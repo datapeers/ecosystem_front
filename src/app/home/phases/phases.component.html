@@ -3,7 +3,7 @@
         <div class="px-4">
             <div class="flex justify-content-between gap-2 align-items-center w-full px-3 section-header-container">
                 <span class="text-3xl font-semibold white-space-nowrap">
-                    Cohortes por fase
+                    Batch's por fase
                 </span>
                 <div class="flex flex-row flex-grow-1 justify-content-center gap-2">
                     <ng-container *ngFor="let item of list let i = index">
@@ -33,12 +33,12 @@
                             <div class="flex flex-row align-items-start w-full max-w-28rem gap-2">
                                 <i-tabler class="size-md text-secondary" name="bulb"></i-tabler>
                                 <p class="text-sm">
-                                    Estas viendo las Cohortes creadas de la Fase. Desde este panel puedes seleccionar la Fase que deseas consultar y crear una nueva Cohorte. Entra en cada cohorte para consultar su gestión, información e indicadores.
+                                    Estas viendo los Batchs creadas de la Fase. Desde este panel puedes seleccionar la Fase que deseas consultar y crear una nueva Batch. Entra en cada batch para consultar su gestión, información e indicadores.
                                 </p>
                             </div>
                             <div class="flex flex-row gap-2">
                                 <p-calendar styleClass="w-12rem"></p-calendar>
-                                <p-button *ngIf="user?.allowed(userPermission.phases_batch_create)" type="button" label="Nueva cohorte" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
+                                <p-button *ngIf="user?.allowed(userPermission.phases_batch_create)" type="button" label="Batch" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
                             </div>
                         </div>
                     </div>
@@ -48,12 +48,12 @@
                             <ng-template pTemplate="header">
                                 <div class="flex flex-wrap align-items-center justify-content-between py-2">
                                     <span class="p-input-icon-left">
-                                        <span class="font-bold">Todas las cohortes</span>
+                                        <span class="font-bold">Todos los batch</span>
                                     </span>
                                     <div class="flex flex-row gap-3">
                                         <div class="flex flex-row gap-2 align-items-center text-primary">
                                             <span class="font-semibold text-2xl">{{item.docs.length}}</span>
-                                            <span class="font-semibold">Cohorte{{item.docs.length > 1 ? 's' : ''}} </span>
+                                            <span class="font-semibold">Batch's {{item.docs.length > 1 ? 's' : ''}} </span>
                                         </div>
                                     </div>
                                 </div>
@@ -81,14 +81,14 @@
                                             <span class="text-xs font-semibold">0</span>
                                         </div>
                                         <ng-container *ngFor="let action of actions">
-                                            <p-button styleClass="p-button-quaternary" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})">Ver Cohorte</p-button>
+                                            <p-button styleClass="p-button-quaternary" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})">Ver Batch</p-button>
                                         </ng-container>
                                     </div>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="empty">
                                 <div class="flex flex-row justify-content-center align-items-center w-full h-20rem">
-                                    <span class="text-2xl text-500 font-semibold">No hay cohortes</span>
+                                    <span class="text-2xl text-500 font-semibold">No hay Batch's</span>
                                 </div>
                             </ng-template>
                         </p-dataView>

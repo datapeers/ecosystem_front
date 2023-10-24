@@ -1,5 +1,6 @@
 export interface IMenu {
   header?: IMenuHeader;
+  switchTypeMenu?: { label: string; type: string }[];
   returnPath?: string[];
   returnQueryParamsRute?: any;
   options: IMenuOption[];
@@ -23,4 +24,5 @@ export interface IMenuOption {
   children?: IMenuOption[];
   metadata?: any;
   tag?: string;
+  menuType?: 'edit' | 'manage';
 }

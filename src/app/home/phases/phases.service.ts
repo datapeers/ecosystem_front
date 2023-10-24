@@ -230,8 +230,12 @@ export class PhasesService {
   optionsMenu(phase: IPhase, user: User) {
     let menu: IMenu = {
       header: {
-        title : "Edición",
+        title: 'Edición',
       },
+      switchTypeMenu: [
+        { type: 'edit', label: 'Edición' },
+        { type: 'manage', label: 'Gestionar' },
+      ],
       returnPath: ['home', 'phases'],
       options: [
         {
@@ -239,6 +243,7 @@ export class PhasesService {
           rute: ['/home', 'phases', phase._id, 'edit'].join('/'),
           type: 'single',
           icon: 'file-description',
+          menuType: 'edit',
         },
       ],
     };
@@ -248,14 +253,16 @@ export class PhasesService {
         icon: 'layout-board-split',
         rute: ['/home', 'phases', phase._id, 'content'].join('/'),
         type: 'single',
+        menuType: 'edit',
       });
     }
     if (!phase.basePhase)
       menu.options.push({
         label: 'StartUps',
-        rute: ['/home', 'phases', phase._id, 'startups' ].join('/'),
+        rute: ['/home', 'phases', phase._id, 'startups'].join('/'),
         icon: 'seeding',
         type: 'single',
+        menuType: 'edit',
       });
     if (
       !phase.basePhase &&
@@ -265,17 +272,19 @@ export class PhasesService {
     ) {
       menu.options.push({
         label: 'Expertos',
-        rute: ['/home', 'phases', phase._id, 'experts' ].join('/'),
+        rute: ['/home', 'phases', phase._id, 'experts'].join('/'),
         icon: 'file-description',
         type: 'single',
+        menuType: 'edit',
       });
     }
     if (!phase.basePhase && user?.allowed(Permission.evaluation_view))
       menu.options.push({
         label: 'Evaluaciones',
-        rute: ['/home', 'phases', phase._id, 'evaluations' ].join('/'),
+        rute: ['/home', 'phases', phase._id, 'evaluations'].join('/'),
         icon: 'file-description',
         type: 'single',
+        menuType: 'manage',
       });
     if (!phase.basePhase && user?.allowed(Permission.events_view))
       menu.options.push({
@@ -283,6 +292,7 @@ export class PhasesService {
         rute: ['/home', 'phases', phase._id, 'events'].join('/'),
         icon: 'file-description',
         type: 'single',
+        menuType: 'manage',
       });
     if (user?.allowed(Permission.hours_view))
       menu.options.push({
@@ -290,13 +300,15 @@ export class PhasesService {
         rute: ['/home', 'phases', phase._id, 'bag-hours'].join('/'),
         icon: 'clock',
         type: 'single',
+        menuType: 'edit',
       });
     if (!phase.basePhase && user?.allowed(Permission.homeworks_view))
       menu.options.push({
         label: 'Tareas',
-        rute: ['/home', 'phases', phase._id, 'homeworks' ].join('/'),
+        rute: ['/home', 'phases', phase._id, 'homeworks'].join('/'),
         icon: 'file-description',
         type: 'single',
+        menuType: 'manage',
       });
     return menu;
   }

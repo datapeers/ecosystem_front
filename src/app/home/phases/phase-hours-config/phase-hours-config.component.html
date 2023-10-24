@@ -7,7 +7,6 @@
             </div>
         </div>
     </div>
-
     <p-tabView styleClass="ml-4 mr-4">
         <p-tabPanel header="Actividades" *ngIf="user?.allowed(userPermission.hours_edit_activities)">
             <div class="px-4 pb-4 border-round">
@@ -27,7 +26,6 @@
         </p-tabPanel>
         <p-tabPanel header="Startups" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">
             <app-assign-startups-hours class="h-full w-full" [config]="activitiesConfig" [listStartups]="listStartups" [activitiesConfig]="showActivityConfig" [changes]="changesStartups"> </app-assign-startups-hours>
-
         </p-tabPanel>
         <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">
             <app-assign-hours class="h-full w-full" [config]="activitiesConfig" [list]="listExperts" [activitiesConfig]="activitiesExpert" [changes]="changesExperts" [type]="'experts'" [columnsHours]="columnsExpertsHours"></app-assign-hours>
