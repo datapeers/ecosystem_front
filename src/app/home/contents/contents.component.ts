@@ -158,11 +158,16 @@ export class ContentsComponent implements OnInit, OnDestroy {
       true
     );
     this.phasesUser = userPhases.filter((i) => !i.basePhase);
-    const indexPhase = userPhases.findIndex(
+    const indexPhase = this.phasesUser.findIndex(
       (i) => i._id === this.currentBatch._id
     );
-    this.nextPhase = userPhases[indexPhase + 1] ?? undefined;
-    this.previousPhase = userPhases[indexPhase - 1] ?? undefined;
+    this.nextPhase =
+      indexPhase + 1 > this.phasesUser.length
+        ? undefined
+        : this.phasesUser[indexPhase + 1];
+    this.previousPhase =
+      indexPhase - 1 < 0 ? undefined : this.phasesUser[indexPhase - 1];
+
     this.phaseContentService
       .getContents(this.currentBatch._id)
       .then(async (i) => {
