@@ -12,7 +12,7 @@
                     <div style="height: 3px;"></div>
                     <span class="text-sm">{{phaseName}} {{phaseNumb}}</span>
                 </div>
-                <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
+                <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="percentCompletedString" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
                 </p-knob>
             </div>
             <ng-container *ngIf="!user.isUser">

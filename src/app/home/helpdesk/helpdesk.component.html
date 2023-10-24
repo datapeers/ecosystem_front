@@ -16,7 +16,9 @@
                 <label>Ver por:</label>
                 <div class="flex">
                     <form [formGroup]="filtersTickets">
-                        <p-dropdown formControlName="category" appendTo="body" [options]="categories" optionLabel="name" optionValue="value" styleClass="w-full"></p-dropdown>
+
+                        <p-dropdown formControlName="category" appendTo="body" [style]="{'width':'190px'}" [options]="categories" optionLabel="name" optionValue="value"></p-dropdown>
+
                     </form>
                 </div>
             </div>
@@ -24,7 +26,7 @@
                 <label>Ordenar por:</label>
                 <div class="flex">
                     <form [formGroup]="filtersTickets">
-                        <p-dropdown appendTo="body" formControlName="status" [options]="status" optionLabel="name" optionValue="value" styleClass="w-full"></p-dropdown>
+                        <p-dropdown appendTo="body" formControlName="status" [options]="status" optionLabel="name" optionValue="value" [style]="{'width':'190px'}"></p-dropdown>
                     </form>
                 </div>
             </div>

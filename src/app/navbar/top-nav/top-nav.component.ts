@@ -85,6 +85,7 @@ export class TopNavComponent {
   @Input() screenWith = 0;
 
   percentCompleted = 75;
+  percentCompletedString = '75%';
   rolName = '';
   viewUserBoard = false;
   viewNotificationBoard = false;
@@ -226,6 +227,12 @@ export class TopNavComponent {
           return;
         }
         this.lastContent = i;
+        if (this.lastContent) {
+          this.percentCompleted = Math.round(
+            (i.contentCompleted / i.numberOfContent) * 100
+          );
+          this.percentCompletedString = `${this.percentCompleted}%`;
+        }
       });
   }
 
@@ -272,7 +279,6 @@ export class TopNavComponent {
           .select((store) => store.auth.profileDoc)
           .pipe(first((i) => i !== null))
       );
-
       const startup = this.profileDoc.startups[0];
       this.startup = await this.startupService.getDocument(startup._id);
       const currentBatch = await firstValueFrom(

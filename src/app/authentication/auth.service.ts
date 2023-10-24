@@ -211,8 +211,8 @@ export class AuthService {
           .then(() => {
             // The user's password has been successfully updated
             this.toast.success({
-              summary: 'Exitó',
-              detail: 'Contraseña actualizada con exito',
+              summary: 'Éxito',
+              detail: 'Contraseña actualizada con éxito',
             });
           })
           .catch((error) => {
