@@ -1,3 +1,4 @@
+<div style="height: 1rem;"></div>
 <p-messages [(value)]="flagsActivity" [enableService]="true" [closable]="false"></p-messages>
 <div #tableWrapper class="table-container overflow-hidden">
     <p-table #dt class="table-dark w-full" [value]="list" [tableStyle]="{'min-width': '50rem'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
