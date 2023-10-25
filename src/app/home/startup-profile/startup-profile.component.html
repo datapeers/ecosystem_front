@@ -56,7 +56,7 @@
             <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
                         data: {
                             label: component.label,
-                            value: doc[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder
+                            value: doc.item[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder
                         }
                     }"></ng-template>
         </ng-container>

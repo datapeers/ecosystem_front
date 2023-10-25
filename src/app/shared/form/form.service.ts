@@ -226,6 +226,7 @@ export class FormService {
         case 'content':
           break;
         case 'datetime':
+          // console.log(comp);
           headers.push({
             label: comp.label,
             key: comp.key,
@@ -233,6 +234,7 @@ export class FormService {
               numFmt: comp.format,
             },
             type: comp.type,
+            format: comp.widget.format,
           });
           break;
         case 'select':

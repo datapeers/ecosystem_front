@@ -84,6 +84,7 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
     this.formNegociosFields = this.formService
       .getInputComponents(formNegociosComponents)
       .filter((i) => !ignore.includes(i.key));
+    // console.log(this.formNegociosFields);
     this.loaded = true;
   }
 
