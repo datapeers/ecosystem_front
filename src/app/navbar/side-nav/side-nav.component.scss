@@ -95,7 +95,7 @@
 }
 
 .menu-icon {
-  color: $appColorTwo;
+  color: $appColorTwo !important;
   cursor: pointer;
   margin: 2rem 1rem;
 }
@@ -109,8 +109,9 @@
   .menu-collapse-icon,
   .sidenav-link-icon,
   .sidenav-link-text {
-    color: lighten($appColorTwo, 20%);
+    color: lighten($appColorTwo, 20%) !important;
   }
+  opacity: 1 !important;
 }
 
 .uppercase .right-bar-selected {

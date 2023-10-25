@@ -2379,7 +2379,8 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .p-button.p-button-quaternary.p-button-outlined:enabled:active,
 .p-buttonset.p-button-quaternary > .p-button.p-button-outlined:enabled:active,
-.p-splitbutton.p-button-quaternary > .p-button.p-button-outlined:enabled:active {
+.p-splitbutton.p-button-quaternary
+  > .p-button.p-button-outlined:enabled:active {
   background: rgba(100, 116, 139, 0.16);
   color: var(--app-color-seven);
   border: 1px solid;
@@ -3539,13 +3540,13 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   border-radius: 0;
 }
 .p-dataview .p-dataview-header {
-  background: #FFFFFF;
+  background: #ffffff;
   color: #343a40;
   padding: 1rem 1rem;
   font-weight: 700;
 }
 .p-dataview .p-dataview-content {
-  background: #F6F6F6;
+  background: #f6f6f6;
   color: #495057;
   border: 0 none;
   padding: 0;
@@ -7381,7 +7382,6 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 
 .p-avatar {
-  background-color: #dee2e6;
   border-radius: 6px;
 }
 .p-avatar.p-avatar-lg {
