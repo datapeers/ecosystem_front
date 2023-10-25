@@ -22,6 +22,7 @@ import { getPhaseAndNumb } from '@shared/utils/phases.utils';
 import { Phase } from '@home/phases/model/phase.model';
 import { lastContent } from '@shared/models/lastContent';
 import { Router } from '@angular/router';
+import { AnnouncementsService } from '@home/announcements/announcements.service';
 
 @Component({
   selector: 'app-init',
@@ -48,6 +49,10 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   currentBatch: Phase | any;
   lastContent: lastContent;
   onDestroy$: Subject<void> = new Subject();
+  phases$: Subscription;
+  activesPhases = 0;
+  activesAnnouncements = 0;
+  lastPhases = [];
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
@@ -59,7 +64,8 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     private store: Store<AppState>,
     private phasesService: PhasesService,
     private contentService: ContentsService,
-    private serviceConfig: ConfigurationService
+    private serviceConfig: ConfigurationService,
+    private announcementsService: AnnouncementsService
   ) {
     firstValueFrom(
       this.store
@@ -103,10 +109,10 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   async loadComponent() {
     this.config = await this.serviceConfig.getConfig();
-    setTimeout(() => {
-      this.initializeMainMap();
-    }, 500);
     if (this.user.isUser) {
+      setTimeout(() => {
+        this.initializeMainMap();
+      }, 500);
       this.profileDoc = await firstValueFrom(
         this.store
           .select((store) => store.auth.profileDoc)
@@ -135,6 +141,38 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       );
       this.stage = this.currentBatch.stageDoc;
       this.watchLogStartup();
+    } else {
+      this.announcementsService
+        .watchAnnouncements()
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe((announcements) => {
+          this.activesAnnouncements = announcements.filter(
+            (i) => i.ended
+          ).length;
+        });
+      this.phasesService
+        .watchPhases()
+        .then(
+          (obsPhases$) =>
+            (this.phases$ = obsPhases$
+              .pipe(takeUntil(this.onDestroy$))
+              .subscribe((phasesList: Phase[]) => {
+                const phases = phasesList.filter((i) => !i.basePhase);
+                this.lastPhases = [];
+                this.activesPhases = phasesList.filter(
+                  (i) => !i.finished
+                ).length;
+                this.lastPhases = phases.sort(
+                  (a, b) =>
+                    new Date(b.updatedAt).getTime() -
+                    new Date(a.updatedAt).getTime()
+                );
+                console.log(this.lastPhases);
+              }))
+        )
+        .catch((err) => {
+          this.lastPhases = [];
+        });
     }
   }
 
@@ -214,5 +252,9 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   goContent() {
     this.router.navigate(['/home/contents']);
+  }
+
+  goPhases() {
+    this.router.navigate(['/home/phases']);
   }
 }
