@@ -12,7 +12,7 @@
                     <div style="height: 3px;"></div>
                     <span class="text-sm">{{phaseName}} {{phaseNumb}}</span>
                 </div>
-                <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="percentCompletedString" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
+                <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="percentCompletedString" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)" class="hidden sm:flex">
                 </p-knob>
             </div>
             <ng-container *ngIf="!user.isUser">
@@ -34,7 +34,7 @@
                     <div class="notify-btn icon-btn-top-nav" *ngIf="showSidenavButton()" (click)="viewNotificationBoard = true">
                         <i-tabler name="bell"></i-tabler>
                     </div>
-                    <div class="circle-indicator pulse"></div>
+                    <div class="circle-indicator pulse" *ngIf="pendingNotification"></div>
                 </div>
                 <div class="panel-user elipse-panel flex flex-row align-items-center justify-content-between gap-2">
                     <div class="user-name-rol w-8 ">

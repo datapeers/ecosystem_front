@@ -1,5 +1,14 @@
 @import "../../../styles.scss";
 
+.dpandfilters {
+  display: flex;
+  flex-direction: none;
+  @media (max-width: 1050px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .table-container {
   background-color: $grayThird;
   border-radius: 3.125rem;

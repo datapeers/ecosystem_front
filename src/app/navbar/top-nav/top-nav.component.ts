@@ -37,6 +37,10 @@ import {
   RolStartup,
   rolStartupNames,
 } from '@home/startup-profile/models/rol-startup.enum';
+import { NotificationsService } from '../notifications/notifications.service';
+import { channelsNotificationEnum } from '../notifications/models/chanels-notification.enum';
+import { NotificationTypes } from '../notifications/models/notification-types.enum';
+import { NotificationStates } from '../notifications/models/notification-states.enum';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -122,6 +126,7 @@ export class TopNavComponent {
 
   allowAdmin = false;
   rolesAdmin = [ValidRoles.superAdmin, ValidRoles.admin];
+  pendingNotification = false;
   constructor(
     private router: Router,
     private readonly store: Store<AppState>,
@@ -130,7 +135,8 @@ export class TopNavComponent {
     private primengConfig: PrimeNGConfig,
     private phasesService: PhasesService,
     private contentService: PhaseContentService,
-    private startupService: StartupsService
+    private startupService: StartupsService,
+    private notificationService: NotificationsService
   ) {
     const responsiveOptions: ResponsiveOverlayOptions = {
       style: 'width: 500px',
@@ -182,34 +188,35 @@ export class TopNavComponent {
           this.store.select((s) => s.home.menu).pipe(first((i) => i !== null))
         );
         this.allowAdmin = this.rolesAdmin.includes(this.user.rolType);
-      });
-    if (this.user.isUser) {
-      this.profileDoc = await firstValueFrom(
-        this.store
-          .select((store) => store.auth.profileDoc)
-          .pipe(first((i) => i !== null))
-      );
-      this.startup = this.profileDoc.startups[0];
-      const userPhases = await this.phasesService.getPhasesList(
-        this.profileDoc['startups'][0].phases.map((i) => i._id),
-        true
-      );
-      const basesPhase = userPhases.filter((i) => i.basePhase);
-      this.phasesBases = basesPhase.length;
-      this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
-      this.currentBatch = await firstValueFrom(
-        this.store
-          .select((store) => store.home.currentBatch)
-          .pipe(first((i) => i !== null))
-      );
-      this.colorPhase = this.currentBatch.stageDoc.color;
-      [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
-        this.currentBatch.name
-      );
+        if (this.user.isUser) {
+          this.profileDoc = await firstValueFrom(
+            this.store
+              .select((store) => store.auth.profileDoc)
+              .pipe(first((i) => i !== null))
+          );
+          this.startup = this.profileDoc.startups[0];
+          const userPhases = await this.phasesService.getPhasesList(
+            this.profileDoc['startups'][0].phases.map((i) => i._id),
+            true
+          );
+          const basesPhase = userPhases.filter((i) => i.basePhase);
+          this.phasesBases = basesPhase.length;
+          this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
+          this.currentBatch = await firstValueFrom(
+            this.store
+              .select((store) => store.home.currentBatch)
+              .pipe(first((i) => i !== null))
+          );
+          this.colorPhase = this.currentBatch.stageDoc.color;
+          [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
+            this.currentBatch.name
+          );
 
-      this.stage = this.currentBatch.stageDoc;
-      this.lastContentSub();
-    }
+          this.stage = this.currentBatch.stageDoc;
+          this.lastContentSub();
+        }
+        this.notificationSub();
+      });
   }
 
   lastContentSub() {
@@ -233,6 +240,24 @@ export class TopNavComponent {
           );
           this.percentCompletedString = `${this.percentCompleted}%`;
         }
+      });
+  }
+
+  notificationSub() {
+    this.notificationService
+      .watchNotifications([
+        `${channelsNotificationEnum.userNotification} ${this.user._id};`,
+      ])
+      .then((notifications$) => {
+        notifications$
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe((notificationList) => {
+            this.pendingNotification = notificationList.find(
+              (i) => i.state === NotificationStates.pending
+            )
+              ? true
+              : false;
+          });
       });
   }
 

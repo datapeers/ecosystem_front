@@ -11,14 +11,12 @@
                 </p>
             </div>
         </div>
-        <div class="flex flex-wrap md:flex-none align-items-center justify-content-center sm:justify-content-end  gap-3 px-1 sm:px-4 md:px-8">
+        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
             <div class="flex flex-column gap-2">
                 <label>Ver por:</label>
                 <div class="flex">
                     <form [formGroup]="filtersTickets">
-
                         <p-dropdown formControlName="category" appendTo="body" [style]="{'width':'190px'}" [options]="categories" optionLabel="name" optionValue="value"></p-dropdown>
-
                     </form>
                 </div>
             </div>
@@ -30,7 +28,6 @@
                     </form>
                 </div>
             </div>
-
             <p-button label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user?.isUser"></p-button>
         </div>
     </div>

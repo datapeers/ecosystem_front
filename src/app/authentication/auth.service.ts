@@ -100,16 +100,8 @@ export class AuthService {
         if (instanceUser.isUser) {
           this.entrepreneurDoc(instanceUser);
         }
-        this.listenNotifications(
-          this.notificationService.listenNotificationSubscription(
-            credential.uid
-          )
-        );
         this.authStatusSub.next(true);
       } else {
-        if (this.notificationSubscription) {
-          this.notificationSubscription.unsubscribe();
-        }
         this.authStatusSub.next(null);
       }
     });
