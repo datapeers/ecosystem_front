@@ -103,6 +103,11 @@ import {
   IconPlayerPlay, // player-play
   IconSolarPanel, // solar-panel
   IconMinimize, // minimize
+  IconBrandUbuntu,
+  IconPolygon,
+  IconFlag3,
+  IconForms,
+  IconChartPie,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -207,6 +212,11 @@ const icons = {
   IconPlayerPlay,
   IconSolarPanel,
   IconMinimize,
+  IconBrandUbuntu,
+  IconPolygon,
+  IconFlag3,
+  IconForms,
+  IconChartPie,
 };
 
 @NgModule({

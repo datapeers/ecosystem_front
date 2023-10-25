@@ -127,7 +127,7 @@ export class HomeService {
         rute: '/home/announcements',
         type: 'single',
         // class: 'mt-4',
-        icon: 'album',
+        icon: 'brand-ubuntu',
       },
       phases: {
         label: 'Fases',
@@ -146,13 +146,13 @@ export class HomeService {
         label: 'Emprendedores',
         type: 'dropdown',
         class: 'mt-4',
-        icon: 'users-group',
+        icon: 'flag-3',
         children: [
           {
             label: 'Emprendedores',
             rute: '/home/entrepreneurs',
             type: 'single',
-            icon: 'users-group',
+            icon: 'flag-3',
           },
           {
             label: 'Prospectos',
@@ -247,7 +247,7 @@ export class HomeService {
         label: 'Reportes',
         rute: '/home/reportes',
         type: 'single',
-        icon: 'wave-square',
+        icon: 'chart-pie',
       },
       settings: {
         label: 'Ajustes',
@@ -260,7 +260,7 @@ export class HomeService {
         rute: '/home/forms',
         type: 'single',
         class: 'mt-4',
-        icon: 'book',
+        icon: 'forms',
       },
       services: {
         label: 'Servicios',
