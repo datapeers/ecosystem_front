@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from '@auth/models/user';
@@ -8,6 +8,7 @@ import { StartupsService } from '@shared/services/startups/startups.service';
 import { UserAssign } from './model/user-to-assign';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { ToastService } from '@shared/services/toast.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-users-assign',
@@ -50,6 +51,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   rowMenuItemsHost: MenuItem[] = [];
   rowMenuItemsTeamCoach: MenuItem[] = [];
   validRoles = ValidRoles;
+  @ViewChild('dt', { static: true }) dt: Table;
   constructor(
     private toast: ToastService,
     private service: AdminService,
@@ -226,5 +228,12 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
           });
       },
     });
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }

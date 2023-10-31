@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { Subject, throttleTime } from 'rxjs';
 import { Invitation } from '@shared/models/invitation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidRoles, validRoles } from '@auth/models/valid-roles.enum';
 import { ToastService } from '@shared/services/toast.service';
-
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-invitations',
   templateUrl: './invitations.component.html',
@@ -27,6 +27,7 @@ export class InvitationsComponent implements OnInit {
   roles = validRoles;
   formInvitation: FormGroup;
   submit$: Subject<void> = new Subject();
+  @ViewChild('dt', { static: true }) dt: Table;
   constructor(
     private readonly toast: ToastService,
     private readonly service: AdminService,
@@ -93,5 +94,12 @@ export class InvitationsComponent implements OnInit {
     await this.service.cancelInvitation(invitationRow._id);
     await this.loadInvitations();
     this.toast.clear();
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from '@auth/models/user';
@@ -9,7 +9,7 @@ import { ToastService } from '@shared/services/toast.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { firstValueFrom, first } from 'rxjs';
-
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-users-panel',
   templateUrl: './users-panel.component.html',
@@ -41,6 +41,7 @@ export class UsersPanelComponent implements OnInit {
   rowInteract: User;
   menuUser: MenuItem[];
   editPermission = [ValidRoles.teamCoach, ValidRoles.host, ValidRoles.expert];
+  @ViewChild('dt', { static: true }) dt: Table;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -115,5 +116,12 @@ export class UsersPanelComponent implements OnInit {
       }
       subscription$?.unsubscribe();
     });
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }
