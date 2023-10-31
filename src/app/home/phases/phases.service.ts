@@ -312,4 +312,18 @@ export class PhasesService {
       });
     return menu;
   }
+
+  async searchInBatch(batchIds: string[], searchValue: string): Promise<any> {
+    const queryRef = this.graphql.refQuery(
+      phaseQueries.query.searchInBatchOutput,
+      { othersInput: { batchIds, searchValue } },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.searchInBatch))
+    );
+  }
 }

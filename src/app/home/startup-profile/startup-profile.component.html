@@ -73,7 +73,7 @@
 
 <ng-template #sideContent>
     <div class="flex flex-column gap-4">
-        <div class="flex w-auto gap-4 mt-4">
+        <!-- <div class="flex w-auto gap-4 mt-4">
             <div class="flex flex-column gap-4 w-full">
                 <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -
                     costos</label>
@@ -84,7 +84,7 @@
                     invertidas</label>
                 <div class="statics-panel bg-pastel-2"></div>
             </div>
-        </div>
+        </div> -->
         <div class="flex w-full table-container p-1 normal-panel">
             <p-table #dt class="table-dark w-full" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
                 <ng-template pTemplate="caption">

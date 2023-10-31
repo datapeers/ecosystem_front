@@ -226,6 +226,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
           this.toast.info({
             summary: 'Subiendo archivo...',
             detail: 'Por favor espere, no cierre la ventana',
+            life: 200000,
           });
           try {
             const fileUploaded: any = await firstValueFrom(
@@ -234,12 +235,14 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
                 .pipe(first((event) => event.type === HttpEventType.Response))
             );
             newResource.extra_options[iterator.key] = fileUploaded.url;
+            this.toast.clear();
             this.toast.info({
               summary: 'Archivo almacenado con éxito',
               detail: '',
             });
           } catch (error) {
             console.error(error);
+            this.toast.clear();
             this.toast.info({
               summary: 'Error al subir archivo',
               detail: 'Ocurrió un error al intentar subir el archivo',
@@ -264,7 +267,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
           continue;
       }
     }
-    this.toast.info({ summary: 'Guardando...', detail: '' });
+    this.toast.info({ summary: 'Guardando...', detail: '', life: 200000 });
     this.service
       .createResource(newResource)
       .then((ans) => {

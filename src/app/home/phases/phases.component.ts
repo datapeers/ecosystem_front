@@ -111,7 +111,7 @@ export class PhasesComponent implements OnInit, OnDestroy {
               );
               this.list.push({
                 base: iterator,
-                label: iterator.name.split(": ")[1],
+                label: iterator.name.split(': ')[1],
                 docs,
               });
             }

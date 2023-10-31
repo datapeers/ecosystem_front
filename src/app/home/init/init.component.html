@@ -41,12 +41,15 @@
                     </div>
                 </ng-container>
                 <ng-template #adminPanel>
-                    <div class="flex stage flex-row" [style.background-color]="'#F7AF42'">
-                        <div class="flex flex-column flex-none p-3 ">
-                            <h1 class="text-center">27/72</h1>
+                    <div class="flex stage flex-row p-3 justify-content-center align-items-center" [style.background-color]="'#FFF1DC'">
+                        <div class="flex align-items-center p-4 justify-content-center progress-admin" [style.background-color]="'#F7AF42'">
+                            <p-knob [(ngModel)]="completedT" [strokeWidth]="6" [readonly]="true" [size]="120" [valueTemplate]="completedTText" [min]="0" [max]="100" [valueColor]="'white'" [textColor]="'white'" [rangeColor]="withOpacity('#FFF1DC', 0.2)">
+                            </p-knob>
                         </div>
-                        <div class="flex align-items-end flex-grow-1 mr-0 md:mr-8">
-                            <h4 style="font-weight:500">Horas consumidas de la bolsa presupuestada</h4>
+
+                        <div class="flex flex-column p-4 ml-3" [style.color]="'#F7AF42'">
+                            <h2 class="m-0">27/72</h2>
+                            <h4 class="m-1 w-9" style="font-weight:500">Horas consumidas de la bolsa presupuestada</h4>
                         </div>
 
                     </div>

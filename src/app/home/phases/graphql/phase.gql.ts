@@ -96,6 +96,15 @@ const query = {
     }
     ${fragments.phaseFieldsExtra}
   `,
+  searchInBatchOutput: `
+    query SearchInBatch($othersInput: SearchBatchInput!) {
+      searchInBatch(OthersInput: $othersInput) {
+        ansContent
+        ansPhases
+        ansResource
+      }
+    }
+  `,
 };
 
 const mutation = {

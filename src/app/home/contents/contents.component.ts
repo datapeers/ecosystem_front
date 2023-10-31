@@ -116,25 +116,39 @@ export class ContentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadComponent();
+    this.preload();
   }
 
   ngOnDestroy(): void {
     this.onCloseDialogSub$?.unsubscribe();
     this.userLogs$?.unsubscribe();
+    this.paramSub$?.unsubscribe();
     // this.store.dispatch(new RestoreMenuAction());
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
 
-  async loadComponent(phase?: Phase) {
-    this.loaded = false;
+  async preload() {
     this.profileDoc = await firstValueFrom(
       this.store
         .select((store) => store.auth.profileDoc)
         .pipe(first((i) => i !== null))
     );
     this.startup = this.profileDoc.startups[0];
+    const userPhases = await this.phasesService.getPhasesList(
+      this.profileDoc['startups'][0].phases.map((i) => i._id),
+      true
+    );
+    this.phasesUser = userPhases.filter((i) => !i.basePhase);
+    this.paramSub$ = this.route.queryParamMap.subscribe((params) => {
+      const batchId = params.get('batch');
+      const batch = this.phasesUser.find((i) => i._id === batchId);
+      this.loadComponent(batch);
+    });
+  }
+
+  async loadComponent(phase?: Phase) {
+    this.loaded = false;
     const currentBatch =
       phase ??
       (await firstValueFrom(
@@ -153,11 +167,6 @@ export class ContentsComponent implements OnInit, OnDestroy {
     this.currentBatch = currentBatch;
     this.stage = this.currentBatch.stageDoc;
     [this.phaseName, this.phaseNumb] = getPhaseAndNumb(this.currentBatch.name);
-    const userPhases = await this.phasesService.getPhasesList(
-      this.profileDoc['startups'][0].phases.map((i) => i._id),
-      true
-    );
-    this.phasesUser = userPhases.filter((i) => !i.basePhase);
     const indexPhase = this.phasesUser.findIndex(
       (i) => i._id === this.currentBatch._id
     );

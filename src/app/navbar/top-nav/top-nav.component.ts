@@ -41,6 +41,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { channelsNotificationEnum } from '../notifications/models/chanels-notification.enum';
 import { NotificationTypes } from '../notifications/models/notification-types.enum';
 import { NotificationStates } from '../notifications/models/notification-states.enum';
+import { searchResult } from '@shared/models/common/search-result.model';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -127,6 +128,7 @@ export class TopNavComponent {
   allowAdmin = false;
   rolesAdmin = [ValidRoles.superAdmin, ValidRoles.admin];
   pendingNotification = false;
+  idsPhasesUser = [];
   constructor(
     private router: Router,
     private readonly store: Store<AppState>,
@@ -189,31 +191,7 @@ export class TopNavComponent {
         );
         this.allowAdmin = this.rolesAdmin.includes(this.user.rolType);
         if (this.user.isUser) {
-          this.profileDoc = await firstValueFrom(
-            this.store
-              .select((store) => store.auth.profileDoc)
-              .pipe(first((i) => i !== null))
-          );
-          this.startup = this.profileDoc.startups[0];
-          const userPhases = await this.phasesService.getPhasesList(
-            this.profileDoc['startups'][0].phases.map((i) => i._id),
-            true
-          );
-          const basesPhase = userPhases.filter((i) => i.basePhase);
-          this.phasesBases = basesPhase.length;
-          this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
-          this.currentBatch = await firstValueFrom(
-            this.store
-              .select((store) => store.home.currentBatch)
-              .pipe(first((i) => i !== null))
-          );
-          this.colorPhase = this.currentBatch.stageDoc.color;
-          [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
-            this.currentBatch.name
-          );
-
-          this.stage = this.currentBatch.stageDoc;
-          this.lastContentSub();
+          this.setUserOptions();
         }
         this.notificationSub();
       });
@@ -259,6 +237,36 @@ export class TopNavComponent {
               : false;
           });
       });
+  }
+
+  async setUserOptions() {
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.startup = this.profileDoc.startups[0];
+    const userPhases = await this.phasesService.getPhasesList(
+      this.profileDoc['startups'][0].phases.map((i) => i._id),
+      true
+    );
+    const basesPhase = userPhases.filter((i) => i.basePhase);
+    this.phasesBases = basesPhase.length;
+    this.idsPhasesUser = userPhases
+      .filter((i) => !i.basePhase)
+      .map((i) => i._id);
+    this.phasesUser = this.idsPhasesUser.length;
+
+    this.currentBatch = await firstValueFrom(
+      this.store
+        .select((store) => store.home.currentBatch)
+        .pipe(first((i) => i !== null))
+    );
+    this.colorPhase = this.currentBatch.stageDoc.color;
+    [this.phaseName, this.phaseNumb] = getPhaseAndNumb(this.currentBatch.name);
+
+    this.stage = this.currentBatch.stageDoc;
+    this.lastContentSub();
   }
 
   goTo(option: IMenuOption) {
@@ -365,11 +373,11 @@ export class TopNavComponent {
 
   async searchMethod(searchValue: string) {
     // const { spaceList, resourceList, contentList } =
-    //   await this.service.getSearchResult(
-    //     this.institute.dbName,
-    //     this.idsSpacesUser,
-    //     searchValue,
-    //   );
+    //   await this.service.getSearchResult(this.idsSpacesUser, searchValue);
+    const search = await this.phasesService.searchInBatch(
+      this.idsPhasesUser,
+      searchValue
+    );
     const sectionItems = [];
     const optionsMenu = this.mainMenu.options;
     for (const menuItem of optionsMenu) {
@@ -404,37 +412,32 @@ export class TopNavComponent {
           break;
       }
     }
-    // const spaceItems = spaceList.map((space) => ({
-    //   label: space.nombre,
-    //   tag: space.tipoEspacio.name,
-    //   command: () => {
-    //     this.spaceService.goToSpace(
-    //       space,
-    //       true,
-    //       space.tipoEspacio.type,
-    //       this.idsSpacesUser,
-    //     );
-    //   },
-    // }));
-    // const resourceItems = resourceList.map((resource) => ({
-    //   label: resource.nombre,
-    //   tag: 'Recurso',
-    //   command: () => {
-    //     this.spaceService.goToSpaceResource(resource.idEspacio, resource._id);
-    //   },
-    // }));
-    // const contentItems = contentList.map((content) => ({
-    //   label: content.item.nombre,
-    //   tag: 'Contenido',
-    //   command: () => {
-    //     this.spaceService.goToSpaceContent(content.idEspacio, content._id);
-    //   },
-    // }));
+    const spaceItems = search.ansPhases.map((result: searchResult) => ({
+      label: result.label,
+      tag: result.metadata['tag'],
+      command: () => {
+        this.goBatchByResult(result.metadata['_id']);
+      },
+    }));
+    const resourceItems = search.ansResource.map((result: searchResult) => ({
+      label: result.label,
+      tag: 'Recurso',
+      command: () => {
+        this.goTooltipByResult(result.metadata['batch']);
+      },
+    }));
+    const contentItems = search.ansContent.map((result: searchResult) => ({
+      label: result.label,
+      tag: 'Contenido',
+      command: () => {
+        this.goBatchByResult(result.metadata['batch']);
+      },
+    }));
     this.searchResults = [
       ...sectionItems,
-      // ...spaceItems,
-      // ...resourceItems,
-      // ...contentItems,
+      ...spaceItems,
+      ...resourceItems,
+      ...contentItems,
     ];
   }
 
@@ -447,6 +450,16 @@ export class TopNavComponent {
 
   goContent() {
     this.router.navigate(['/home/contents']);
+    this.closeAll();
+  }
+
+  goBatchByResult(batch: string) {
+    this.router.navigate(['/home/contents'], { queryParams: { batch } });
+    this.closeAll();
+  }
+
+  goTooltipByResult(batch: string) {
+    this.router.navigate(['/home/toolkit'], { queryParams: { batch } });
     this.closeAll();
   }
 }

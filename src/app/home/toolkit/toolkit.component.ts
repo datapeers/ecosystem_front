@@ -21,6 +21,8 @@ import { ResourceReply } from '@home/phases/phase-homeworks/model/resource-reply
 import { ResourcesTypes } from '@home/phases/model/resources-types.model';
 import { StorageService } from '@shared/storage/storage.service';
 import { ResourceReplyState } from '@home/phases/phase-homeworks/model/resource-reply-states';
+import { PhasesService } from '@home/phases/phases.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-toolkit',
@@ -34,6 +36,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   profileDoc;
   startup: Startup;
   watchContent$: Subscription;
+  paramSub$: Subscription;
   dialogRef;
   onCloseDialogSub$: Subscription;
   sprints: Content[];
@@ -41,6 +44,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   cards: ResourceReply[];
   onDestroy$: Subject<void> = new Subject();
   selected = 'grid';
+  phasesUser: Phase[] = [];
   public get resourcesTypes(): typeof ResourcesTypes {
     return ResourcesTypes;
   }
@@ -50,8 +54,10 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private route: ActivatedRoute,
     private store: Store<AppState>,
     private toast: ToastService,
+    private phasesService: PhasesService,
     private phaseContentService: PhaseContentService,
     private phaseHomeworksService: PhaseHomeworksService
   ) {
@@ -63,7 +69,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadComponent();
+    this.preload();
   }
 
   ngOnDestroy(): void {
@@ -71,22 +77,12 @@ export class ToolkitComponent implements OnInit, OnDestroy {
     this.onCloseDialogSub$?.unsubscribe();
     this.onDestroy$.next();
     this.onDestroy$.complete();
+    this.paramSub$?.unsubscribe();
   }
 
-  async loadComponent() {
+  async loadComponent(batch) {
     this.loaded = false;
-    this.profileDoc = await firstValueFrom(
-      this.store
-        .select((store) => store.auth.profileDoc)
-        .pipe(first((i) => i !== null))
-    );
-    this.startup = this.profileDoc.startups[0];
-    const currentBatch = await firstValueFrom(
-      this.store
-        .select((store) => store.home.currentBatch)
-        .pipe(first((i) => i !== null))
-    );
-    if (currentBatch === 'without batch') {
+    if (batch === 'without batch') {
       this.toast.info({
         summary: 'Aun no participas',
         detail: 'Tu startup aun no esta en ninguna etapa',
@@ -94,7 +90,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       this.loaded = false;
       return;
     }
-    this.currentBatch = currentBatch;
+    this.currentBatch = batch;
     this.watchContent$ = (
       await this.phaseContentService.watchContents(this.currentBatch._id)
     ).subscribe(async (i) => {
@@ -109,6 +105,32 @@ export class ToolkitComponent implements OnInit, OnDestroy {
         ) ?? this.sprints[this.sprints.length - 1];
       await this.setCards();
       this.loaded = true;
+    });
+  }
+
+  async preload() {
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.startup = this.profileDoc.startups[0];
+    const userPhases = await this.phasesService.getPhasesList(
+      this.profileDoc['startups'][0].phases.map((i) => i._id),
+      true
+    );
+    this.phasesUser = userPhases.filter((i) => !i.basePhase);
+    this.paramSub$ = this.route.queryParamMap.subscribe(async (params) => {
+      const batchId = params.get('batch');
+      let batch: any = this.phasesUser.find((i) => i._id === batchId);
+      if (!batch) {
+        batch = await firstValueFrom(
+          this.store
+            .select((store) => store.home.currentBatch)
+            .pipe(first((i) => i !== null))
+        );
+      }
+      this.loadComponent(batch);
     });
   }
 

@@ -2,7 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { PhaseContentService } from './phase-content.service';
-import { Subject, Subscription, debounceTime, first, firstValueFrom, takeUntil } from 'rxjs';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  first,
+  firstValueFrom,
+  takeUntil,
+} from 'rxjs';
 import { Phase } from '../model/phase.model';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PhaseContentCreatorComponent } from './phase-content-creator/phase-content-creator.component';
@@ -66,9 +73,14 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
       this.table = [];
       this.displayTable = false;
       this.table = this.contentList
-        .filter(content => content.isDeleted == false)
+        .filter((content) => content.isDeleted == false)
         .map((content, index, arr) => {
-          return this.service.convertContainerToNode(content, 0, index == 0, index == arr.length);
+          return this.service.convertContainerToNode(
+            content,
+            0,
+            index == 0,
+            index == arr.length
+          );
         });
       this.loaded = true;
     });
@@ -78,7 +90,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
     this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
       header: content ? 'Añadir contenido' : 'Añadir sprint',
       width: '75vw',
-      height: '70vh',
+
       data: {
         batch: this.phase,
         content,

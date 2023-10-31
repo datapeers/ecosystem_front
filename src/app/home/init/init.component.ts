@@ -53,6 +53,8 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   activesPhases = 0;
   activesAnnouncements = 0;
   lastPhases = [];
+  completedT = 75;
+  completedTText = '75%';
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
@@ -256,5 +258,22 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   goPhases() {
     this.router.navigate(['/home/phases']);
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb = this.hexToRgb(color);
+    const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
+    return style;
+  }
+
+  hexToRgb(hex: string) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
   }
 }

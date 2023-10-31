@@ -4,7 +4,7 @@ import { PhasesService } from '../phases.service';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { ClearPhaseStoreAction, SetPhaseAction } from '../store/phase.actions';
-import { SetSubMenuAction } from '@home/store/home.actions';
+import { ActivateBtnReturn, SetSubMenuAction } from '@home/store/home.actions';
 import { RestoreMenuAction } from '@home/store/home.actions';
 import { first, firstValueFrom } from 'rxjs';
 import { User } from '@auth/models/user';
@@ -28,6 +28,7 @@ export class PhaseLoadComponent {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
+    this.store.dispatch(new ActivateBtnReturn());
   }
 
   ngOnInit() {

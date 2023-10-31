@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { AppState } from '@appStore/app.reducer';
 import { HomeService } from '@home/home.service';
@@ -62,7 +68,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
     private router: Router,
     public routeOpt: ActivatedRoute,
     private store: Store<AppState>,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private renderer: Renderer2,
+    private el: ElementRef
   ) {
     this.menuSub();
     this.routeSub();
@@ -156,4 +164,16 @@ export class SideNavComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  // changeColor() {
+  //   const element = this.el.nativeElement.querySelector('.sidenav-link-icon');
+  //   // Cambia el color
+  //   this.renderer.setStyle(element, 'color', 'red');
+
+  //   // Restaura el color original después de 2 segundos
+  //   setTimeout(() => {
+  //     console.log('a');
+  //     this.renderer.removeStyle(element, 'color');
+  //   }, 2000);
+  // }
 }

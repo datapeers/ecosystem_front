@@ -23,8 +23,12 @@
                 </p-dropdown>
             </div>
             <div class="flex flex-column gap-2">
-                <label>Ordenar por:</label>
-                <p-dropdown optionLabel="name"></p-dropdown>
+                <label>Batch:</label>
+                <p-dropdown [options]="phasesUser" [(ngModel)]="currentBatch" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un batch" (onChange)="loadComponent(this.currentBatch)">
+                    <ng-template let-batch pTemplate="item">
+                        <div>{{ batch.name }}</div>
+                    </ng-template>
+                </p-dropdown>
             </div>
             <div class="w-2"></div>
             <div class="panel-icon cursor-pointer" [ngClass]="{'panel-icon-active': selected === 'list'}" (click)="selected = 'list'">
@@ -50,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="sh1" [ngClass]="{'mt-0' : selected === 'list', 'mt-5' : selected === 'grid'}">Formato del Pitch Canvas elaborado</p>
+                        <p class="sh1" [ngClass]="{'mt-0' : selected === 'list', 'mt-5' : selected === 'grid'}">{{item.resource.name}}</p>
                         <div class="flex flex-column gap-4 flex-grown-1">
                             <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-2' : selected === 'grid'}">Contenido de {{item.phase.name}} - Etapa {{item.phase.stageDoc.name}}</p>
                             <ng-container *ngIf="item.resource.type !== resourcesTypes.downloadable">
@@ -94,10 +98,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </ng-container>
             </div>
 
