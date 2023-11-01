@@ -29,7 +29,6 @@ import { AuthService } from './authentication/auth.service';
 import { appReducers } from '@appStore/app.reducer';
 import { ToastService } from '@shared/services/toast.service';
 import { LandingComponent } from './public/landing/landing.component';
-import { NotificationComponent } from './notification/notification.component';
 import { IconsModule } from './icons/icons.module';
 
 registerLocaleData(localeEs);
@@ -40,7 +39,6 @@ registerLocaleData(localeEs);
     SignUpComponent,
     ForgotPasswordComponent,
     LandingComponent,
-    NotificationComponent,
   ],
   imports: [
     BrowserModule,

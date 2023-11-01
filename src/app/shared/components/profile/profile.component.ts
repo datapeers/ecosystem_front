@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     },
   ];
   change;
+  rating = 4;
   constructor(
     private userService: UserService,
     private authService: AuthService,

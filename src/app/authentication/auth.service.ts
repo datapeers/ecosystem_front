@@ -24,7 +24,6 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import { User } from './models/user';
 import { ExpertsService } from '@shared/services/experts/experts.service';
 import { EntrepreneursService } from '@shared/services/entrepreneurs/entrepreneurs.service';
-import { NotificationService } from '../notification/notification.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -43,8 +42,7 @@ export class AuthService {
     private router: Router,
     private userService: UserService,
     private readonly expertsService: ExpertsService,
-    private readonly entrepreneursService: EntrepreneursService,
-    private readonly notificationService: NotificationService
+    private readonly entrepreneursService: EntrepreneursService
   ) {
     this.authStatusListener();
     // Renew token subscription
