@@ -11,6 +11,7 @@ import { channelsNotificationEnum } from './models/chanels-notification.enum';
 import { takeUntil } from 'rxjs/operators';
 import { User } from '@auth/models/user';
 import { ToastService } from '@shared/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -34,7 +35,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
-    private service: NotificationsService
+    private service: NotificationsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -117,5 +119,26 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       delete this.modified[notification._id];
     }, 1000);
+  }
+
+  goToNotification(notification: Notification) {
+    switch (notification.type) {
+      case 'rate':
+        if (notification.state !== NotificationStates.read)
+          this.action(notification, 'read');
+        break;
+      case 'homework':
+        break;
+      case 'approved':
+        break;
+      case 'advise':
+        break;
+      case 'notes':
+        break;
+      case 'calendar':
+        break;
+      default:
+        break;
+    }
   }
 }

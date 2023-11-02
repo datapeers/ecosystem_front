@@ -42,6 +42,8 @@ import { channelsNotificationEnum } from '../notifications/models/chanels-notifi
 import { NotificationTypes } from '../notifications/models/notification-types.enum';
 import { NotificationStates } from '../notifications/models/notification-states.enum';
 import { searchResult } from '@shared/models/common/search-result.model';
+import { FormService } from '@shared/form/form.service';
+import { Permission } from '@auth/models/permissions.enum';
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -49,27 +51,6 @@ import { searchResult } from '@shared/models/common/search-result.model';
   animations: [fadeInOut],
 })
 export class TopNavComponent {
-  // availableItems: ProtectedMenuItem[] = [
-  //   {
-  //     label: 'Perfil',
-  //     icon: 'pi pi-user',
-  //     routerLink: ['/home/profile'],
-  //   },
-  //   {
-  //     label: 'Usuarios',
-  //     icon: 'pi pi-users',
-  //     routerLink: ['/home/admin'],
-  //     roles: [ValidRoles.superAdmin, ValidRoles.admin],
-  //   },
-  //   {
-  //     label: 'Salir',
-  //     icon: 'pi pi-sign-out',
-  //     command: () => {
-  //       this.auth.signOut();
-  //     },
-  //   },
-  // ];
-
   items: ProtectedMenuItem[];
   user: User;
   profileDoc;
@@ -77,8 +58,6 @@ export class TopNavComponent {
 
   menu$: Observable<IMenu>;
   returnBtn$: Observable<boolean>;
-
-  @ViewChild('rightmenu') rightmenu;
 
   searchValue: string;
   search$: Subject<String> = new Subject<String>();
@@ -125,6 +104,10 @@ export class TopNavComponent {
     return rolStartupNames;
   }
 
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+
   allowAdmin = false;
   rolesAdmin = [ValidRoles.superAdmin, ValidRoles.admin];
   pendingNotification = false;
@@ -138,7 +121,8 @@ export class TopNavComponent {
     private phasesService: PhasesService,
     private contentService: PhaseContentService,
     private startupService: StartupsService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private readonly formService: FormService
   ) {
     const responsiveOptions: ResponsiveOverlayOptions = {
       style: 'width: 500px',
@@ -461,5 +445,9 @@ export class TopNavComponent {
   goTooltipByResult(batch: string) {
     this.router.navigate(['/home/toolkit'], { queryParams: { batch } });
     this.closeAll();
+  }
+
+  async openFormApp() {
+    this.formService.openFormApp();
   }
 }

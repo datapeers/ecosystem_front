@@ -36,6 +36,10 @@ export class AdminService {
     return await this.invitationService.createInvitation(email, rol);
   }
 
+  async resendInvitation(id: string) {
+    return await this.invitationService.resendInvitation(id);
+  }
+
   async cancelInvitation(id: string) {
     return await this.invitationService.cancelInvitation(id);
   }

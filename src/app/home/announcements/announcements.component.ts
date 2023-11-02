@@ -13,6 +13,7 @@ import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
+import { NoBtnReturn } from '@home/store/home.actions';
 
 @Component({
   selector: 'app-announcements',
@@ -72,6 +73,7 @@ export class AnnouncementsComponent {
     private readonly announcementsService: AnnouncementsService,
     private readonly router: Router
   ) {
+    this.store.dispatch(new NoBtnReturn());
     this.announcementsService
       .watchAnnouncements()
       .pipe(takeUntil(this.onDestroy$))

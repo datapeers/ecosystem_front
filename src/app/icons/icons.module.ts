@@ -83,31 +83,36 @@ import {
   IconArrowBigRight,
   IconBrandAdobe,
   IconDownloadOff,
-  IconAffiliate, // affiliate
-  IconDna2, // dna-2
-  IconReplace, // replace
-  IconApiApp, //api-app
-  IconFileDescription, // file-description
-  IconArrowBigRightLine, // arrow-big-right-line
-  IconArrowBigLeftLine, // arrow-big-right-line
-  IconArrowNarrowRight, //arrow-narrow-right
+  IconAffiliate,
+  IconDna2,
+  IconReplace,
+  IconApiApp,
+  IconFileDescription,
+  IconArrowBigRightLine,
+  IconArrowBigLeftLine,
+  IconArrowNarrowRight,
   IconArrowNarrowLeft,
-  IconCalendarBolt, // calendar-bolt,
-  IconCalendarCode, // calendar-code
-  IconSearch, // search,
-  IconExclamationCircle, // exclamation-circle
-  IconFence, // fence
-  IconEdit, // edit
-  IconDeviceFloppy, // 'device-floppy'
-  IconCloudLockOpen, // cloud-lock-open
-  IconPlayerPlay, // player-play
-  IconSolarPanel, // solar-panel
-  IconMinimize, // minimize
+  IconCalendarBolt,
+  IconCalendarCode,
+  IconSearch,
+  IconExclamationCircle,
+  IconFence,
+  IconEdit,
+  IconDeviceFloppy,
+  IconCloudLockOpen,
+  IconPlayerPlay,
+  IconSolarPanel,
+  IconMinimize,
   IconBrandUbuntu,
   IconPolygon,
   IconFlag3,
   IconForms,
   IconChartPie,
+  IconStarsFilled,
+  IconMailForward,
+  IconUserCheck,
+  IconUserBolt,
+  IconUserCode,
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -217,6 +222,11 @@ const icons = {
   IconFlag3,
   IconForms,
   IconChartPie,
+  IconStarsFilled,
+  IconMailForward,
+  IconUserCheck,
+  IconUserBolt,
+  IconUserCode,
 };
 
 @NgModule({

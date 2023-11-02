@@ -90,10 +90,17 @@ export class InvitationsComponent implements OnInit {
   }
 
   async cancelInvitation(invitationRow: Invitation) {
-    this.toast.info({ summary: 'Cancelando', detail: '' });
+    this.toast.info({ summary: 'Cancelando', detail: '', life: 20000 });
     await this.service.cancelInvitation(invitationRow._id);
     await this.loadInvitations();
     this.toast.clear();
+  }
+
+  async resendInvitation(invitationRow: Invitation) {
+    this.toast.info({ summary: 'Reenviando...', detail: '', life: 20000 });
+    await this.service.resendInvitation(invitationRow._id);
+    this.toast.clear();
+    this.toast.success({ summary: 'Invitación reenviada', detail: '' });
   }
 
   paginatorRightMsg() {

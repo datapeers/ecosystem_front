@@ -8,25 +8,29 @@ import announcementQueries from './announcements.gql';
 import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AnnouncementsCreatorComponent } from './announcements-creator/announcements-creator.component';
-import { faClipboard, faUserCheck, faUserTie, faUsers } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClipboard,
+  faUserCheck,
+  faUserTie,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import { CreateAnnouncementInput } from './model/create-announcement.input';
 import { AnnouncementTypes } from './model/announcement-types.enum';
 import { UpdateAnnouncementInput } from './model/update-announcement.input';
 import { ApplicationStates } from './model/application-states.enum';
 import { AnnouncementTargets } from './model/announcement-targets.enum';
+import { IMenu } from '@shared/models/menu';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AnnouncementsService {
   constructor(
     private readonly graphql: GraphqlService,
     private readonly storageService: StorageService,
     private readonly toast: ToastService,
-    private readonly dialogService: DialogService,
-  ) {
-    
-  }
+    private readonly dialogService: DialogService
+  ) {}
 
   cachedQueries = {
     announcements: null,
@@ -57,7 +61,11 @@ export class AnnouncementsService {
     return firstValueFrom(
       this.graphql.query(refQuery).pipe(
         map((request) => request.data.announcements),
-        map((announcements) => announcements.map((announcement) => Announcement.fromJson(announcement)))
+        map((announcements) =>
+          announcements.map((announcement) =>
+            Announcement.fromJson(announcement)
+          )
+        )
       )
     );
   }
@@ -72,11 +80,15 @@ export class AnnouncementsService {
     this.cachedQueries.announcements = refQuery;
     return this.graphql.watch_query(refQuery).valueChanges.pipe(
       map((request) => request.data.announcements),
-      map((announcements) => announcements.map((announcement) => Announcement.fromJson(announcement)))
+      map((announcements) =>
+        announcements.map((announcement) => Announcement.fromJson(announcement))
+      )
     );
   }
 
-  async createAnnouncement(data: CreateAnnouncementInput): Promise<Announcement> {
+  async createAnnouncement(
+    data: CreateAnnouncementInput
+  ): Promise<Announcement> {
     const refMutation = this.graphql.refMutation(
       announcementQueries.mutation.createAnnouncement,
       { createAnnouncementInput: data },
@@ -91,25 +103,26 @@ export class AnnouncementsService {
     );
   }
 
-  async updateAnnouncement(id: string, data: UpdateAnnouncementInput): Promise<Announcement> {
+  async updateAnnouncement(
+    id: string,
+    data: UpdateAnnouncementInput
+  ): Promise<Announcement> {
     const mutRef = this.graphql.refMutation(
       announcementQueries.mutation.updateAnnouncement,
       {
         updateAnnouncementInput: {
           ...data,
           _id: id,
-        }
+        },
       },
       [this.cachedQueries.announcements],
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql
-        .mutation(mutRef)
-        .pipe(
-          map((request) => request.data.updateAnnouncement),
-          map((announcement) => Announcement.fromJson(announcement))
-        )
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.updateAnnouncement),
+        map((announcement) => Announcement.fromJson(announcement))
+      )
     );
   }
 
@@ -121,15 +134,13 @@ export class AnnouncementsService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql
-        .mutation(mutRef)
-        .pipe(
-          map((request) => request.data.publishAnnouncement),
-          map((announcement) => Announcement.fromJson(announcement))
-        )
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.publishAnnouncement),
+        map((announcement) => Announcement.fromJson(announcement))
+      )
     );
   }
-  
+
   async unpublishAnnouncement(id: string) {
     const mutRef = this.graphql.refMutation(
       announcementQueries.mutation.unpublishAnnouncement,
@@ -138,16 +149,17 @@ export class AnnouncementsService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql
-        .mutation(mutRef)
-        .pipe(
-          map((request) => request.data.unpublishAnnouncement),
-          map((announcement) => Announcement.fromJson(announcement))
-        )
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.unpublishAnnouncement),
+        map((announcement) => Announcement.fromJson(announcement))
+      )
     );
   }
 
-  openCreateAnnouncement(type: AnnouncementTypes, target: AnnouncementTargets = AnnouncementTargets.entrepreneurs): Observable<any> {
+  openCreateAnnouncement(
+    type: AnnouncementTypes,
+    target: AnnouncementTargets = AnnouncementTargets.entrepreneurs
+  ): Observable<any> {
     const ref = this.dialogService.open(AnnouncementsCreatorComponent, {
       modal: true,
       width: '95%',
@@ -156,16 +168,14 @@ export class AnnouncementsService {
         type,
         target,
       },
-      header: "Creación de convocatoria",
+      header: 'Creación de convocatoria',
       showHeader: true,
     });
-    ref.onClose
-    .pipe(take(1))
-    .subscribe((doc?: string) => {
-      if(doc) {
+    ref.onClose.pipe(take(1)).subscribe((doc?: string) => {
+      if (doc) {
         const message = 'Documento creado con éxito';
         this.toast.success({
-          detail: message
+          detail: message,
         });
       }
     });
@@ -190,35 +200,65 @@ export class AnnouncementsService {
     );
   }
 
-  optionsMenu(announcement: Announcement) {
-    return {
+  optionsMenu(announcement: Announcement): IMenu {
+    let menu: IMenu = {
+      header: {
+        title: 'Edición',
+      },
+      switchTypeMenu: [
+        { type: 'edit', label: 'Edición' },
+        { type: 'manage', label: 'Gestionar' },
+      ],
       returnPath: ['home', 'announcements'],
       options: [
         {
           label: 'Información',
-          rute: ['announcements', announcement._id, 'edit'],
+          rute: ['/home', 'announcements', announcement._id, 'edit'].join('/'),
           type: 'single',
           icon: 'file-description',
+          menuType: 'edit',
         },
         {
           label: 'Preinscritos',
-          rute: ['announcements', announcement._id, 'applicants', ApplicationStates.enrolled],
+          rute: [
+            '/home',
+            'announcements',
+            announcement._id,
+            'applicants',
+            ApplicationStates.enrolled,
+          ].join('/'),
           type: 'single',
-          icon: faUsers,
+          icon: 'user-bolt',
+          menuType: 'manage',
         },
         {
           label: 'Inscritos',
-          rute: ['announcements', announcement._id, 'applicants', ApplicationStates.preregistered],
+          rute: [
+            '/home',
+            'announcements',
+            announcement._id,
+            'applicants',
+            ApplicationStates.preregistered,
+          ].join('/'),
           type: 'single',
-          icon: faUserTie,
+          icon: 'user-code',
+          menuType: 'manage',
         },
         {
           label: 'Seleccionados',
-          rute: ['announcements', announcement._id, 'applicants', ApplicationStates.selected],
+          rute: [
+            '/home',
+            'announcements',
+            announcement._id,
+            'applicants',
+            ApplicationStates.selected,
+          ].join('/'),
           type: 'single',
-          icon: faUserCheck,
+          icon: 'user-check',
+          menuType: 'manage',
         },
       ],
     };
+    return menu;
   }
 }

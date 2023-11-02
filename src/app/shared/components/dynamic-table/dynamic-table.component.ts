@@ -349,8 +349,11 @@ export class DynamicTableComponent {
     );
     if (this.options.showConfigButton) {
       this.featuredActions.push({
-        label: 'Configurar tabla',
+        label: '',
+        tooltip: 'Configurar tabla',
         icon: 'pi pi-cog',
+        class: 'button-grey',
+        styleClass: 'button-grey',
         command: () => {
           this.openConfigDialog();
         },
@@ -381,8 +384,11 @@ export class DynamicTableComponent {
     if (this.options.showConfigButton) {
       if (this.featuredActions.length == 0) {
         this.featuredActions.push({
-          label: 'Configurar tabla',
+          label: '',
+          tooltip: 'Configurar tabla',
           icon: 'pi pi-cog',
+          class: 'button-grey',
+          styleClass: 'button-grey',
           command: () => {
             this.openConfigDialog();
           },
@@ -391,6 +397,8 @@ export class DynamicTableComponent {
         this.actionsMenu.push({
           label: 'Configurar tabla',
           icon: 'pi pi-cog',
+          class: 'button-grey',
+          styleClass: 'button-grey',
           command: () => {
             this.openConfigDialog();
           },
@@ -400,6 +408,7 @@ export class DynamicTableComponent {
         label: '',
         tooltip: 'Guardar filtros',
         icon: 'pi pi-filter',
+        styleClass: 'button-grey',
         command: () => {
           this.saveCurrentFilters();
         },
@@ -407,6 +416,7 @@ export class DynamicTableComponent {
       const filterAction = {
         label: 'Filtros y orden',
         icon: 'pi pi-filter',
+        styleClass: 'button-grey',
         items: [
           {
             label: 'Guardar',

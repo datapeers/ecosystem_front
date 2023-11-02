@@ -46,6 +46,7 @@
           <div class="flex flex-row gap-2 align-items-center">
             <span class="white-space-nowrap">{{invitationRow.stateName}}</span>
             <i *ngIf="invitationRow.isEnabled" class="pi pi-ban cursor-pointer" [pTooltip]="'Inhabilitar invitación'" tooltipPosition="top" (click)="cancelInvitation(invitationRow)"></i>
+            <i *ngIf="invitationRow.isEnabled" class="pi pi-send cursor-pointer" [pTooltip]="'Reenviar invitación'" tooltipPosition="top" (click)="resendInvitation(invitationRow)"></i>
           </div>
         </td>
         <td>
@@ -72,15 +73,15 @@
   </p-table>
 </div>
 
-<p-dialog header="Invitación" [(visible)]="displayInvitationDialog" styleClass="confirm-dialog" [draggable]="false" appendTo="body">
-  <div class="flex flex-column gap-2">
+<p-dialog header="Invitación" [(visible)]="displayInvitationDialog" maskStyleClass="dialog-app" [draggable]="false" appendTo="body">
+  <div class="flex flex-column gap-2 p-4">
     <form [formGroup]="formInvitation">
       <div class="formgrid grid">
-        <div class="field col-12 md:col-6">
+        <div class="field col-12 md:col-12">
           <label for="email">Email</label>
           <input pInputText id="email" formControlName="email" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         </div>
-        <div class="field col-12 md:col-6">
+        <div class="field col-12 md:col-12">
           <label for="rol">Rol</label>
           <p-dropdown appendTo="body" class="w-full block" styleClass="w-full" id="rol" formControlName="rol" [options]="roles" optionLabel="name" optionValue="value"></p-dropdown>
         </div>

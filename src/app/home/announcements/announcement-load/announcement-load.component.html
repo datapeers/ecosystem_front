@@ -1,1 +1,8 @@
-<router-outlet *ngIf="announcement$ | async"></router-outlet>
+<div class="flex flex-row gap-2 px-4 h-full max-h-full">
+    <app-sub-menu></app-sub-menu>
+    <div class="flex flex-row flex-grow-1">
+        <p-scrollPanel [style]="{ width: '100%', height: '100%' }" class="w-full">
+            <router-outlet *ngIf="announcement$ | async"></router-outlet>
+        </p-scrollPanel>
+    </div>
+</div>

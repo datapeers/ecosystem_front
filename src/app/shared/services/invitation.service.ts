@@ -8,18 +8,22 @@ import { IInvitation, Invitation } from '@shared/models/invitation';
 import invitationQueries from './invitation.gql';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InvitationService {
   private readonly apiUrl: string = `${environment.api}/invitations`;
-  constructor(
-    private graphql: GraphqlService,
-    private http: HttpClient,
-  ) { }
+  constructor(private graphql: GraphqlService, private http: HttpClient) {}
 
-  async acceptInvitation(code: string, name: string, password: string): Promise<Invitation> {
+  async acceptInvitation(
+    code: string,
+    name: string,
+    password: string
+  ): Promise<Invitation> {
     const body = { code, name, password };
-    const request = this.http.post<IInvitation>(this.apiUrl.concat("/accept"), body);
+    const request = this.http.post<IInvitation>(
+      this.apiUrl.concat('/accept'),
+      body
+    );
     const data = await firstValueFrom(request);
     return Invitation.fromJSON(data);
   }
@@ -27,15 +31,16 @@ export class InvitationService {
   async getInvitations(): Promise<Invitation[]> {
     const queryRef = this.graphql.refQuery(
       invitationQueries.query.invitations,
-      { },
+      {},
       'no-cache',
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .query(queryRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
         map((request) => request.data.invitations),
-        map((invitations) => invitations.map(invitation => Invitation.fromJSON(invitation)))
+        map((invitations) =>
+          invitations.map((invitation) => Invitation.fromJSON(invitation))
+        )
       )
     );
   }
@@ -47,10 +52,24 @@ export class InvitationService {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
         map((request) => request.data),
+        map((invitation) => Invitation.fromJSON(invitation))
+      )
+    );
+  }
+
+  async resendInvitation(id: string): Promise<Invitation> {
+    const mutRef = this.graphql.refMutation(
+      invitationQueries.mutation.resendInvitation,
+      { resendInvitationId: id },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) => request.data.resendInvitation),
         map((invitation) => Invitation.fromJSON(invitation))
       )
     );
@@ -63,9 +82,8 @@ export class InvitationService {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
         map((request) => request.data),
         map((invitation) => Invitation.fromJSON(invitation))
       )

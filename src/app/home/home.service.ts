@@ -39,9 +39,11 @@ export class HomeService {
       menuItems.push('siteAndServices');
 
     if (user.allowed(Permission.reports_view)) menuItems.push('reports');
-    if (adminOptions.includes(user.rolType as ValidRoles))
+    if (adminOptions.includes(user.rolType as ValidRoles)) {
       menuItems.push('settings');
-    if (user.allowed(Permission.form_view)) menuItems.push('forms');
+      menuItems.push('adminPanel');
+    }
+    // if (user.allowed(Permission.form_view)) menuItems.push('forms');
 
     const outputOptions: IMenuOption[] = menuItems.map(
       (optKey) => options[optKey] as IMenuOption
@@ -261,6 +263,13 @@ export class HomeService {
         type: 'single',
         class: 'mt-4',
         icon: 'forms',
+      },
+      adminPanel: {
+        label: 'Admin panel',
+        rute: '/home/admin',
+        type: 'single',
+        class: 'mt-4',
+        icon: 'solar-panel',
       },
       services: {
         label: 'Servicios',

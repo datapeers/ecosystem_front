@@ -20,7 +20,7 @@
         <p-tabView styleClass="app-tabview" [(activeIndex)]="activeIndex">
             <ng-container *ngFor="let item of list let i = index">
                 <p-tabPanel>
-                    <div class="px-4 py-4">
+                    <div class="p-4">
                         <div class="flex flex-row justify-content-between p-3 gap-2 flex-wrap align-content-center align-items-center">
                             <div class="flex flex-row gap-4 align-items-center">
                                 <span class="text-tertiary font-semibold text-xl white-space-nowrap">
@@ -33,11 +33,10 @@
                             <div class="flex flex-row align-items-start w-full max-w-28rem gap-2">
                                 <i-tabler class="size-md text-secondary" name="bulb"></i-tabler>
                                 <p class="text-sm">
-                                    Estas viendo los Batchs creadas de la Fase. Desde este panel puedes seleccionar la Fase que deseas consultar y crear una nueva Batch. Entra en cada batch para consultar su gestión, información e indicadores.
+                                    Estas viendo los Batchs creadas de la Fase. Desde este panel puedes seleccionar la Fase que deseas consultar y crear una nueva Batch. Entra en cada batch para consultar su gestión e información.
                                 </p>
                             </div>
                             <div class="flex flex-row gap-2">
-                                <p-calendar styleClass="w-12rem"></p-calendar>
                                 <p-button *ngIf="user?.allowed(userPermission.phases_batch_create)" type="button" label="Batch" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
                             </div>
                         </div>

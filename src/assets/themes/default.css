@@ -2186,6 +2186,16 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
   margin-right: 0;
 }
 
+.p-inputnumber-button-up {
+  padding: 0 !important;
+  border-radius: 0 6px 0 0;
+}
+
+.p-inputnumber-button-down {
+  padding: 0 !important;
+  border-radius: 0 0 6px 0;
+}
+
 .p-fluid .p-button {
   width: 100%;
 }
