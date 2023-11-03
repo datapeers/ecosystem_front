@@ -6,7 +6,7 @@
           Convocatorias y retos
         </span>
       </div>
-      <div class="flex flex-row align-items-start w-full max-w-28rem gap-2">
+      <div class="flex flex-row align-items-center w-full max-w-28rem gap-2">
         <i-tabler class="size-md text-secondary" name="bulb"></i-tabler>
         <p class="text-sm font-normal">
           Estas viendo las Convocatorias y los retos creados hasta ahora. Desde este panel puedes seleccionar cualquiera que deses consultar y crear una nueva. Entra en cada una para consultar su gestión e información.
@@ -78,7 +78,7 @@
               <span class="text-xs font-semibold">0</span>
             </div>
             <ng-container *ngFor="let action of cardActions">
-              <p-button *ngIf="allowEdit(item)" (click)="action.command($event, item)" type="button" [label]="action.label"></p-button>
+              <p-button *ngIf="allowEdit(item)" (click)="action.command($event, item)" type="button" [label]="action.label" styleClass="p-button-quaternary"></p-button>
             </ng-container>
           </div>
         </div>
