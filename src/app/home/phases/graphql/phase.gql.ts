@@ -59,10 +59,10 @@ const query = {
   getPhase: `
     query Phase($id: String!) {
       phase(id: $id) {
-        ...phaseFields
+        ...phaseFieldsExtra
       }
     }
-    ${fragments.phaseFields}
+    ${fragments.phaseFieldsExtra}
   `,
   getPhases: `
     query Phases {

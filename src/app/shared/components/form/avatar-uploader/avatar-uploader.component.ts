@@ -14,7 +14,11 @@ export class AvatarUploaderComponent {
   @Input() styleClass?: string = 'w-12rem h-12rem';
 
   get classNames() {
-    return { 'relative hover-panel': true, 'border-circle': this.shape == 'circle', [this.styleClass]: this.styleClass };
+    return {
+      'relative hover-panel': true,
+      'border-circle': this.shape === 'circle',
+      [this.styleClass]: this.styleClass,
+    };
   }
 
   selectFile(element: HTMLInputElement) {

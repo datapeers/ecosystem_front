@@ -12,16 +12,43 @@
         </ng-template>
 
 
-        <div class="flex flex-column gap-1 justify-content-center" style="flex: 1">
-          <span class="text-xl font-semibold">{{phase.name}}</span>
-          <ng-container *ngIf="phase.basePhase; else normalPhase">
+        <div class="h-full flex flex-column gap-1 justify-content-between" style="flex: 1">
+          <span class="text-2xl font-semibold">{{phase.name}}</span>
+          <div class="flex flex-row gap-2">
+            <div class="border-round-2xl flex flex-column py-3 px-2 gap-2 text-white text-sm" [style.background-color]="phase.stageDoc.color">
+              <span>Etapa</span>
+              <div class="flex flex-row align-items-center gap-3">
+                <i-tabler [name]="phase.stageDoc.icon" style="width: 2rem; height: 2rem"></i-tabler>
+                <span>{{phase.stageDoc.name | uppercase}}</span>
+              </div>
+              <div class="flex flex-row align-items-center justify-content-between gap-2 ">
+                <span>Creación: </span>
+                <div [style.background-color]="'rgba(255, 255, 255, 0.2)'" class="py-1 pr-6 pl-3 flex flex-row align-items-center border-round-xl gap-2 ">
+                  <i-tabler name="calendar"></i-tabler>
+                  <span>{{phase.createdAt | date}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-column gap-1 border-round-2xl text-white text-sm bg-primary py-3 px-2" style="width: 8rem">
+              <i-tabler name="calendar-event" style="width: 2.5rem; height: 2.5rem"></i-tabler>
+              <span class="mt-2">Inicia</span>
+              <span>{{phase.startAt | date}}</span>
+            </div>
+            <div class="flex flex-column gap-1 border-round-2xl text-white text-sm bg-second-color py-3 px-2" style="width: 8rem">
+              <i-tabler name="calendar-event" style="width: 2.5rem; height: 2.5rem"></i-tabler>
+              <span class="mt-2">Termina</span>
+              <span>{{phase.endAt | date}}</span>
+            </div>
+          </div>
+
+          <!-- <ng-container *ngIf="phase.basePhase; else normalPhase">
             <span class="font-semibold">Creado el {{phase.createdAt | date}}</span>
             <span class="font-semibold">Actualizado el {{phase.updatedAt | date}}</span>
           </ng-container>
           <ng-template #normalPhase>
             <span class="font-semibold">Inicia el {{phase.startAt | date}}</span>
             <span class="font-semibold">Finaliza el {{phase.calcEndDate | date}}</span>
-          </ng-template>
+          </ng-template> -->
         </div>
         <div>
           <!-- <p-button styleClass="button-yellow-second button-border-mid w-full align-items-center justify-content-between mt-2 gap-4" (onClick)="closeBatch()" *ngIf="!phase.basePhase && !phase.finished && user.allowed(userPermission.phases_batch_close)">
