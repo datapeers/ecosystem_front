@@ -1,9 +1,19 @@
-<div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
-    <div class="text-wrapper flex flex-row align-items-center text-center ">
+<div class="w-full flex flex-row align-items-center pb-4 px-4">
+    <div class="text-wrapper flex flex-column justify-content-start px-4" style="flex: 1">
         <span class="subheader font-semibold ">Configuración fases</span>
+        <div class="flex flex-row gap-2 align-items-center mt-2">
+            <i-tabler class="size-md text-secondary" name="bulb"></i-tabler>
+            <p class="text-sm">
+                Estas viendo las fases. Desde este panel puedes seleccionar la Fase que deseas consultar editarla para que los posteriores batch tengan esos cambios.
+            </p>
+        </div>
+
     </div>
-    <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="openStages()" styleClass="button-primary-app"></p-button>
-    <p-button *ngIf="user?.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()" styleClass="button-primary-app"></p-button>
+    <div class="flex flex-row gap-2">
+        <p-button type="button" label="Etapas" icon="pi pi-tag" (onClick)="openStages()" styleClass="button-yellow-second"></p-button>
+        <p-button *ngIf="user?.masterRol" type="button" label="Crear fase" icon="pi pi-cog" (onClick)="openCreator()" styleClass="button-blue"></p-button>
+    </div>
+
 </div>
 
 
@@ -22,8 +32,8 @@
                 </div>
                 <div class="flex flex-row align-items-center justify-content-between">
                     <div class="flex flex-row" style="gap:0.5rem;">
-                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)" styleClass="button-primary-app"></p-button>
-                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="openPhaseEdit(item)" pTooltip="Borrar" styleClass="button-primary-app"></p-button>
+                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)" styleClass="button-blue"></p-button>
+                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="openPhaseEdit(item)" pTooltip="Borrar" styleClass="button-grey"></p-button>
                     </div>
                     <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
                     </div>

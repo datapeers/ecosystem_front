@@ -3,7 +3,7 @@
         <span class="subheader font-semibold">Configuración fases</span>
     </div>
 
-    <p-button *ngIf="user?.masterRol" styleClass="button-primary-app" type="button" label="Crear etapa" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
+    <p-button *ngIf="user?.masterRol" styleClass="button-blue" type="button" label="Crear etapa" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
 </div>
 
 <div class="flex flex-wrap align-items-center justify-content-around gap-1">
@@ -30,12 +30,12 @@
         </div>
         <div class="flex flex-wrap align-items-center justify-content-center pt-3">
 
-            <p-button *ngIf="user?.masterRol" styleClass="button-primary-app" type="button" [label]="stage.isDeleted ? 'Ver' : 'Configurar'" iconPos="right" [icon]="stage.isDeleted ? 'pi pi-eye' : 'pi pi-cog'" (onClick)="openCreator(stage, stage.isDeleted)">
+            <p-button *ngIf="user?.masterRol" styleClass="button-yellow-second" type="button" [label]="stage.isDeleted ? 'Ver' : 'Configurar'" iconPos="right" [icon]="stage.isDeleted ? 'pi pi-eye' : 'pi pi-cog'" (onClick)="openCreator(stage, stage.isDeleted)">
             </p-button>
             <div class="flex flex-row gap-2 w-full justify-content-center pt-2" *ngIf="user?.masterRol">
-                <p-button *ngIf="stage.index > 0" styleClass="button-primary-app" type="button" icon="pi pi-arrow-left" (onClick)="onStageDownIndex(stage, index)">
+                <p-button *ngIf="stage.index > 0" styleClass="button-grey" type="button" icon="pi pi-arrow-left" (onClick)="onStageDownIndex(stage, index)">
                 </p-button>
-                <p-button *ngIf="stage.index < stages.length - 1" styleClass="button-primary-app" type="button" icon="pi pi-arrow-right" (onClick)="onStageUpIndex(stage, index)">
+                <p-button *ngIf="stage.index < stages.length - 1" styleClass="button-grey" type="button" icon="pi pi-arrow-right" (onClick)="onStageUpIndex(stage, index)">
                 </p-button>
             </div>
 
