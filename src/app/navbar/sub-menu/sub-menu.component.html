@@ -3,7 +3,8 @@
     <ng-container *ngIf="menu">
       <div class="flex flex-row gap-2 px-2 py-3 justify-content-center">
         <ng-container *ngFor="let subMenu of menu.switchTypeMenu let i = index">
-          <p-button styleClass="p-button-tertiary font-semibold" (onClick)="onChange(subMenu.type)">{{subMenu.label}}</p-button>
+
+          <p-button [styleClass]="menuTypeSelected === subMenu.type ? 'button-blue font-semibold' : 'p-button-tertiary font-semibold'" (onClick)="onChange(subMenu.type)">{{subMenu.label}}</p-button>
         </ng-container>
       </div>
       <div class="flex flex-column gap-2">
