@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container-app">
   <p-table class="table-app w-full" #dt [value]="invitations" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} invitaciones" [filterDelay]="0" [globalFilterFields]="filterFields">
     <ng-template pTemplate="caption">
       <div class="flex flex-row justify-content-between align-items-center">

@@ -132,6 +132,7 @@ export class AuthService {
   }
 
   signOut() {
+    localStorage.clear();
     sessionStorage.clear();
     this.store.dispatch(new ClearAuthStoreAction());
     this.fireAuth.signOut();

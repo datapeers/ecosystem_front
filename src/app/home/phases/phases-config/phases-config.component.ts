@@ -91,7 +91,11 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
         (obsPhases$) =>
           (this.phases$ = obsPhases$.subscribe((phasesList: Phase[]) => {
             this.loaded = false;
-            this.phases = phasesList.filter((i) => i.basePhase);
+            this.phases = phasesList
+              .filter((i) => i.basePhase)
+              .map((i) => {
+                return { ...i, stageDoc: this.stagesDictionary[i.stage] };
+              });
             this.loaded = true;
           }))
       )
@@ -123,7 +127,9 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       header: 'Creador de fase',
       width: '75vw',
       height: '70vh',
+      maskStyleClass: 'dialog-app',
       data: {
+        phaseName: `Crear fase`,
         stages: this.stages.filter((i) => !i.isDeleted),
         basePhase: true,
       },
@@ -132,5 +138,22 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
       this.onCloseDialogSub$.unsubscribe();
       this.dialogRef = null;
     });
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb = this.hexToRgb(color);
+    const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
+    return style;
+  }
+
+  hexToRgb(hex: string) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
   }
 }

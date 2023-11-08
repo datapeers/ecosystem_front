@@ -32,9 +32,20 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog [header]="newConfigEvaluation.get('_id').value ? 'Editar evaluación' : 'Crear evaluación'" [(visible)]="showCreatorEvaluation" [style]="{ width: '80vw', 'max-height': '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
-    <div style="height: 1.5rem;"></div>
-    <form [formGroup]="newConfigEvaluation" class="formgrid grid pt-2">
+<p-dialog header="" [(visible)]="showCreatorEvaluation" [style]="{ width: '80vw' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-full flex flex-column justify-content-center pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">{{newConfigEvaluation.get('_id').value ? 'Editar evaluación' : 'Crear evaluación'}}</h2>
+            <div class="w-full flex flex-row gap-1">
+                <span class="text-sm text-color-other">Crea un evento para este batch</span>
+            </div>
+        </div>
+    </div>
+    <p-divider>
+
+    </p-divider>
+    <form [formGroup]="newConfigEvaluation" class="formgrid grid pt-2 px-4">
         <div class="field col-12 md:col-6">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
@@ -127,10 +138,10 @@
         <div style="height: 1rem;"></div>
     </form>
     <ng-container *ngIf="!newConfigEvaluation.get('_id').value; else editButton">
-        <p-button type="submit" label="Crear" (onClick)="createConfig()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving || newConfigEvaluation.invalid"></p-button>
+        <p-button type="submit" label="Crear" (onClick)="createConfig()" styleClass=" field col-12  p-button-lg w-11 border-round-2xl my-2 p-3 bg-primary" [disabled]="saving || newConfigEvaluation.invalid"></p-button>
     </ng-container>
     <ng-template #editButton>
-        <p-button type="submit" label="Guardar cambios" (onClick)="saveEditConfig()" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving || newConfigEvaluation.invalid"></p-button>
+        <p-button type="submit" label="Guardar cambios" (onClick)="saveEditConfig()" styleClass=" field col-12  p-button-lg w-11 border-round-2xl my-2 p-3 bg-primary" [disabled]="saving || newConfigEvaluation.invalid"></p-button>
     </ng-template>
 </p-dialog>
 

@@ -135,7 +135,7 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog header="" [(visible)]="showTypes" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+<p-dialog header="" [(visible)]="showTypes" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="bulb" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-center pb-2 pr-4">
@@ -145,11 +145,10 @@
             </div>
         </div>
     </div>
-    <p-divider>
-
+    <p-divider [style]="{width: '100%'}">
     </p-divider>
-    <div class="flex w-full table-container px-2">
-        <p-table class="table-app w-full" [value]="typesEvents" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 6, 10]">
+    <div class="flex w-full justify-content-center align-items-center">
+        <p-table class="table-container border-round-2xl table-app w-11" [value]="typesEvents" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 6, 10]">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="width:5cqh">Nombre</th>
@@ -226,7 +225,7 @@
 
 </p-dialog>
 
-<p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()">
+<p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()" appendTo="body">
     <div class="flex flex-column gap-2 py-2">
         <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Nombre" required>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_acta" label="Permite acta" inputId="allowActa"></p-checkbox>
@@ -237,7 +236,7 @@
     </div>
 </p-dialog>
 
-<p-dialog header="Link" [(visible)]="showLinkEvent" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetEditLink()">
+<p-dialog header="Link" [(visible)]="showLinkEvent" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetEditLink()" appendTo="body">
     <div class="flex flex-column gap-2 py-2">
         <div class="flex flex-column gap-2">
             <label htmlFor="linkEvent">Link</label>

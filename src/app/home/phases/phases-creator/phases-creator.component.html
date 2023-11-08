@@ -1,28 +1,43 @@
-<div class="flex flex-column justify-content-between align-items-stretch p-2 h-full">
+<div class="w-full flex flex-row gap-3">
+    <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+    <div class="content-resource w-full flex flex-column justify-content-center pb-2 pr-4">
+        <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">{{config.data.phaseName}}</h2>
+        <div class="w-full flex flex-row gap-1">
+            <span class="text-sm text-color-other"></span>
+        </div>
+    </div>
+</div>
+<p-divider></p-divider>
+<div class="flex flex-column p-2 align-items-center">
     <form (keyup)="onKeyUp($event)" class="formgrid grid gap-4" [formGroup]="phaseCreationForm">
-        <span class="w-full p-float-label mt-3">
-            <input pInputText id="namePhase" formControlName="name" class="inputfield field-full" />
-            <label htmlFor="namePhase">Nombre</label>
-            <small [hidden]="phaseCreationForm.controls['name'].valid || !phaseCreationForm.controls['name'].dirty" for="name" class="p-error field-help" *ngIf="">El nombre no es valido</small>
-        </span>
-        <span class="w-full p-float-label">
-            <textarea maxlength="300" inputId="textarea" rows="4" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" pInputTextarea></textarea>
-            <label for="textarea">Descripción - {{phaseCreationForm.controls['description'].value?.length}}/120 caracteres permitidos</label>
-        </span>
-        <div class="flex flex-row gap-2" *ngIf="!basePhase">
-            <span class="p-float-label" style="width: 100%">
-                <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
+        <ng-container class="flex flex-row gap-2" *ngIf="!basePhase">
+            <span class="w-full app-input-field" style="width: 100%">
                 <label for="calendar-first">Comienza</label>
+                <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt"></p-calendar>
             </span>
             <!-- <span class="p-float-label" style="width: 100%">
-                <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt"></p-calendar>
-                <label for="calendar-last">Termina</label>
-            </span> -->
-        </div>
-        <p-dropdown [options]="stages" formControlName="stage" optionLabel="label" optionValue="_id" *ngIf="basePhase"></p-dropdown>
+                        <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt"></p-calendar>
+                        <label for="calendar-last">Termina</label>
+                    </span> -->
+        </ng-container>
+        <span class="w-full app-input-field field-h-1">
+            <label htmlFor="namePhase">Nombre</label>
+            <input pInputText id="namePhase" formControlName="name" class="inputfield field-full" placeholder="Ingresa un nombre para el batch" />
+            <small [hidden]="phaseCreationForm.controls['name'].valid || !phaseCreationForm.controls['name'].dirty" for="name" class="p-error field-help" *ngIf="">El nombre no es valido</small>
+        </span>
+        <span class="w-full app-input-field">
+            <label for="textarea">Descripción - {{phaseCreationForm.controls['description'].value?.length}}/120 caracteres permitidos</label>
+            <textarea maxlength="300" inputId="textarea" rows="5" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" placeholder="Descripción interna breve sobre el batch" pInputTextarea></textarea>
 
-
+        </span>
+        <span class="p-float-label">
+            <p-dropdown [options]="stages" formControlName="stage" placeholder="Select a City" optionLabel="label" optionValue="_id" inputId="float-label"></p-dropdown>
+            <label for="float-label">Select a City</label>
+        </span>
+        <!-- <span class="w-full flex flex-column app-input-field" style="width: 100%" *ngIf="basePhase">
+            <label for="float-label">Etapa</label>
+            <p-dropdown [autoDisplayFirst]="true" [options]="stages" formControlName="stage" optionLabel="label" optionValue="_id" placeholder="Seleccione una etapa" appendTo="body" [style]="{ width: '100%' }"></p-dropdown>
+        </span> -->
     </form>
-
-    <p-button type="submit" label="Crear" (onClick)="onSubmit()" [disabled]="!phaseCreationForm.valid" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+    <p-button type="submit" label="Crear" (onClick)="onSubmit()" [disabled]="!phaseCreationForm.valid" styleClass="mt-3 bg-primary"></p-button>
 </div>

@@ -17,30 +17,63 @@
 </div>
 
 
-<ng-container *ngIf="loaded; else loadingTemplate">
-    <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center ">
-        <ng-container *ngFor="let item of phases">
-            <div class="normal-panel tour-card" style="margin:0.5rem;" (mouseenter)="selectedPhase = item;" (mouseleave)="selectedPhase = undefined;">
-                <img width="100%" height="144px" [src]="item?.thumbnail ? item?.thumbnail : '/assets/noPic.jpg'" alt="">
-                <div class="title-wrapper">
-                    <div *ngIf="stagesDictionary[item.stage]" class="flex align-items-center justify-content-center gap-2" [style.color]="stagesDictionary[item.stage].color">
-                        <i-tabler [name]="stagesDictionary[item.stage].icon" class="icon-stage"></i-tabler>
-                        <span class="text-xs">{{stagesDictionary[item.stage].name}}</span>
-                    </div>
 
-                    <span class="subheader-small card-title">{{item.name}}</span>
-                </div>
-                <div class="flex flex-row align-items-center justify-content-between">
-                    <div class="flex flex-row" style="gap:0.5rem;">
-                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)" styleClass="button-blue"></p-button>
-                        <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="openPhaseEdit(item)" pTooltip="Borrar" styleClass="button-grey"></p-button>
+
+<ng-container *ngIf="loaded; else loadingTemplate">
+    <p-scrollPanel [style]="{ width: '100%', height: '75vh'}" class="w-full">
+        <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center bg-off-app mx-3 border-round-3xl">
+            <ng-container *ngFor="let item of phases">
+                <!-- <div class="normal-panel tour-card" style="margin:0.5rem;" (mouseenter)="selectedPhase = item;" (mouseleave)="selectedPhase = undefined;">
+                        <img width="100%" height="144px" [src]="item?.thumbnail ? item?.thumbnail : '/assets/noPic.jpg'" alt="">
+                        <div class="title-wrapper">
+                            <div *ngIf="stagesDictionary[item.stage]" class="flex align-items-center justify-content-center gap-2" [style.color]="stagesDictionary[item.stage].color">
+                                <i-tabler [name]="stagesDictionary[item.stage].icon" class="icon-stage"></i-tabler>
+                                <span class="text-xs">{{stagesDictionary[item.stage].name}}</span>
+                            </div>
+        
+                            <span class="subheader-small card-title">{{item.name}}</span>
+                        </div>
+                        <div class="flex flex-row align-items-center justify-content-between">
+                            <div class="flex flex-row" style="gap:0.5rem;">
+                                <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)" styleClass="button-blue"></p-button>
+                                <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="openPhaseEdit(item)" pTooltip="Borrar" styleClass="button-grey"></p-button>
+                            </div>
+                            <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
+                            </div>
+                        </div>
+                    </div> -->
+                <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-18rem">
+                    <div class="flex flex-column gap-6">
+                        <div class="flex flex-row gap-1 align-items-center justify-content-between">
+                            <i-tabler class="text-center text-tertiary size-md" name="affiliate"></i-tabler>
+                            <div class="flex flex-row gap-2 align-items-center text-tertiary px-3 py-1 border-round-xl text-xs" [style.background-color]="withOpacity(item.stageDoc.color, 0.15)" [style.color]="item.stageDoc.color">
+                                <i-tabler class="text-center text-xs size-sm " name="calendar"></i-tabler>
+                                <span class="font-semibold">{{item.stageDoc.name}}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-column gap-1">
+                            <span class="font-bold">{{item.name}}</span>
+                            <div class="flex align-items-center gap-2 font-semibold">
+                                <span class="text-xs"></span>-<span class="text-xs"></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
+                    <div class="flex flex-row gap-1 justify-content-between align-items-center">
+                        <div class="flex flex-row" style="gap:0.5rem;">
+                            <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)" styleClass="button-blue"></p-button>
+                            <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="openPhaseEdit(item)" pTooltip="Borrar" styleClass="button-grey"></p-button>
+                        </div>
+                        <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
+                        </div>
+                        <!-- <p-button styleClass="p-button-quaternary" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})">Ver Batch</p-button> -->
+
                     </div>
                 </div>
-            </div>
-        </ng-container>
-    </div>
+            </ng-container>
+        </div>
+    </p-scrollPanel>
+
+
 </ng-container>
 
 <ng-template #loadingTemplate>

@@ -131,10 +131,11 @@ export class PhasesComponent implements OnInit, OnDestroy {
 
   openCreator(phase: Phase) {
     this.dialogRef = this.dialogService.open(PhasesCreatorComponent, {
-      header: `Crear batch para ${phase.name}`,
+      header: ``,
       width: '75vw',
-      height: '70vh',
+      maskStyleClass: 'dialog-app',
       data: {
+        phaseName: `Crear batch para ${phase.name}`,
         stages: this.stages,
         basePhase: false,
         childrenOf: phase._id,
