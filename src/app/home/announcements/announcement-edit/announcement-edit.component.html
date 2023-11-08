@@ -3,7 +3,7 @@
     <div class="p-4">
       <div class="flex flex-row align-items-center justify-content-between px-3">
         <div class="flex flex-row align-items-center gap-3">
-          <label class="text-xl font-semibold text-color-other text-2xl">Información</label>
+          <label class="font-semibold text-color-other text-2xl">Información</label>
           <ng-container *ngIf="!editEnabled; else saveBtn">
             <div class="button-grey cursor-pointer border-round p-1" (click)="editEnabled = true" pTooltip="Editar">
               <i-tabler name="edit"></i-tabler>

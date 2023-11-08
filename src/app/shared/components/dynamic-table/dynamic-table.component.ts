@@ -667,12 +667,13 @@ export class DynamicTableComponent {
   openConfigDialog() {
     const ref = this.dialogService.open(TableConfigComponent, {
       header: 'Configuración',
-      modal: false,
+      modal: true,
       width: '100vw',
       height: '100vh',
       //Required for drag and drop to work properly on primeng components inside dialogs
-      autoZIndex: false,
-      baseZIndex: 999,
+      // autoZIndex: false,
+      // baseZIndex: 999,
+      // appendTo: 'body',
       data: {
         table: this.entity,
         tableConfig: this.config,

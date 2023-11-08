@@ -1,6 +1,18 @@
 <ng-container *ngIf="phase else loadingTemplate">
   <div class="p-4">
     <div class="flex flex-column w-full align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
+      <div class="flex flex-row align-items-center gap-3">
+        <label class="text-xl font-semibold text-color-other text-2xl">Información</label>
+        <!-- <ng-container *ngIf="!editEnabled; else saveBtn">
+          <div class="button-grey cursor-pointer border-round p-1" pTooltip="Editar">
+            <i-tabler name="edit"></i-tabler>
+          </div>
+        </ng-container>
+        <ng-template #saveBtn>
+          <p-button icon="pi pi-save" label="Aplicar cambios"></p-button>
+          <p-button icon="pi pi-times" styleClass="p-button-outlined" label="Cancelar"></p-button>
+        </ng-template> -->
+      </div>
       <div class="flex flex-row w-full align-items-center gap-4 section-surface p-3">
         <ng-container *ngIf="user.allowed(userPermission.phases_batch_edit) else noChangeThubnail">
           <app-avatar-uploader styleClass="w-16rem h-12rem" shape="square" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event, phase)" [disableRemove]="true"></app-avatar-uploader>
@@ -13,7 +25,7 @@
 
 
         <div class="h-full flex flex-column gap-1 justify-content-between" style="flex: 1">
-          <span class="text-2xl font-semibold">{{phase.name}}</span>
+          <span class="text-xl font-semibold">{{phase.name}}</span>
           <div class="flex flex-row gap-2">
             <div class="border-round-2xl flex flex-column py-3 px-3 gap-2 text-white text-sm" [style.background-color]="phase.stageDoc.color">
               <span>Etapa</span>
@@ -74,7 +86,13 @@
         </ng-container>
         <ng-template #showDescription>
           <div class="flex flex-column align-items-baseline w-full inline-flex gap-2">
-            <span class="text-xl font-semibold">Descripción <i class="pi pi-pencil pl-2 cursor-pointer" pTooltip="Editar" style="color: 'var(--primary-color)'" (click)="openEdit('description')" *ngIf="user.allowed(userPermission.phases_batch_edit)"></i></span>
+
+            <div class="flex flex-row align-items-center gap-4">
+              <span class="font-semibold text-color-other text-2xl">Descripción </span>
+              <div class="button-grey cursor-pointer border-round p-1" pTooltip="Editar" (click)="openEdit('description')" *ngIf="user.allowed(userPermission.phases_batch_edit)">
+                <i-tabler name="edit"></i-tabler>
+              </div>
+            </div>
             <div class="section-surface p-5 w-full">
               <p class="px-5">{{phase.description}}</p>
             </div>
@@ -97,7 +115,12 @@
       </ng-container>
       <ng-template #showLanding>
         <div class="flex flex-column align-items-baseline w-full inline-flex gap-2">
-          <span class="text-xl font-semibold">Landing <i class="pi pi-pencil pl-2 cursor-pointer" pTooltip="Editar" style="color: 'var(--primary-color)'" (click)="openEdit('landing')" *ngIf="user.allowed(userPermission.phases_batch_edit)"></i></span>
+          <div class="flex flex-row align-items-center gap-4">
+            <span class="font-semibold text-color-other text-2xl">Landing </span>
+            <div class="button-grey cursor-pointer border-round p-1" pTooltip="Editar" (click)="openEdit('landing')" *ngIf="user.allowed(userPermission.phases_batch_edit)">
+              <i-tabler name="edit"></i-tabler>
+            </div>
+          </div>
           <div class="section-surface p-5 w-full">
             <div *ngIf="phase.landing" class="w-full px-5" [innerHtml]="(phase.landing | safe:'html')"></div>
           </div>

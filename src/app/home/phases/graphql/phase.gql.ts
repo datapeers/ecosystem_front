@@ -117,10 +117,10 @@ const mutation = {
     }
   `,
   updatePhase: `
-    ${fragments.phaseFields}
+    ${fragments.phaseFieldsExtra}
     mutation UpdatePhase($updatePhaseInput: UpdatePhaseInput!) {
       updatePhase(updatePhaseInput: $updatePhaseInput) {
-        ...phaseFields
+        ...phaseFieldsExtra
       }
     }
   `,

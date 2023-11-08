@@ -4,7 +4,7 @@
             <h2>Eventos</h2>
             <div class="flex flex-row gap-2">
                 <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
-                <p-button *ngIf="canCreate()" label="Tipos de eventos" icon="pi pi-tags" (onClick)="showTypes = true"></p-button>
+                <p-button *ngIf="canCreate()" label="Tipos de eventos" icon="pi pi-tags" styleClass="button-yellow-second" (onClick)="showTypes = true"></p-button>
                 <p-button *ngIf="user?.allowed(userPermission.events_create)" label="Evento" icon="pi pi-plus" (onClick)="showEvent()"></p-button>
             </div>
         </div>
@@ -135,83 +135,95 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog header="Tipo eventos" [(visible)]="showTypes" [style]="{ width: '50vw', height: '50vh' }" [draggable]="false" [resizable]="false">
-    <!-- <div class="w-full flex flex-row justify-content-end">
-        <p-button type="button" label="Etapa" icon="pi pi-plus" (onClick)="createStage()"></p-button>
-    </div> -->
-    <p-table [value]="typesEvents" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '45rem'}">
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:5cqh">Nombre</th>
-                <th style="width:10%" class="text-center">Permite acta</th>
-                <th style="width:10%" class="text-center">Permite archivos</th>
-                <th style="width:20%" class="text-center">Bolsa de horas - Experto</th>
-                <th style="width:10%" class="text-center">
-                    <div class="flex align-items-center justify-content-center">
-                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
-                    </div>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-typeEvent let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="typeEvent">
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="typeEvent.name" required>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{typeEvent.name}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center">
+<p-dialog header="" [(visible)]="showTypes" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-full flex flex-column justify-content-center pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Tipo eventos</h2>
+            <div class="w-full flex flex-row gap-1">
+                <span class="text-sm text-color-other">Lista con los posibles tipos de eventos que se pueden utilizar en la plataforma</span>
+            </div>
+        </div>
+    </div>
+    <p-divider>
+
+    </p-divider>
+    <div class="flex w-full table-container px-2">
+        <p-table class="table-app w-full" [value]="typesEvents" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 6, 10]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:5cqh">Nombre</th>
+                    <th style="width:10%" class="text-center">Permite acta</th>
+                    <th style="width:10%" class="text-center">Permite archivos</th>
+                    <th style="width:20%" class="text-center">Bolsa de horas - Experto</th>
+                    <th style="width:10%" class="text-center">
+                        <div class="flex align-items-center justify-content-center">
+                            <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-typeEvent let-editing="editing" let-ri="rowIndex">
+                <tr [pEditableRow]="typeEvent">
+                    <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" inputId="allowActa"></p-checkbox>
+                                <input pInputText type="text" [(ngModel)]="typeEvent.name" required>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" [disabled]="true"></p-checkbox>
+                                {{typeEvent.name}}
                             </ng-template>
                         </p-cellEditor>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center">
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" inputId="allowFiles"></p-checkbox>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" [disabled]="true"></p-checkbox>
-                            </ng-template>
-                        </p-cellEditor>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center">
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" inputId="expertFocus"></p-checkbox>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" [disabled]="true"></p-checkbox>
-                            </ng-template>
-                        </p-cellEditor>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center gap-2">
-                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onTypeEventEditInit(typeEvent)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="!editing && !typesNeeded.includes(typeEvent._id)" pButton pRipple type="button" icon="pi pi-trash" (click)="deleteType(typeEvent, ri)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onTypeEventEditSave(typeEvent, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onTypeEventEditCancel(typeEvent, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" inputId="allowActa"></p-checkbox>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" [disabled]="true"></p-checkbox>
+                                </ng-template>
+                            </p-cellEditor>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" inputId="allowFiles"></p-checkbox>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" [disabled]="true"></p-checkbox>
+                                </ng-template>
+                            </p-cellEditor>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" inputId="expertFocus"></p-checkbox>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" [disabled]="true"></p-checkbox>
+                                </ng-template>
+                            </p-cellEditor>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onTypeEventEditInit(typeEvent)" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="!editing && !typesNeeded.includes(typeEvent._id)" pButton pRipple type="button" icon="pi pi-trash" (click)="deleteType(typeEvent, ri)" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onTypeEventEditSave(typeEvent, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onTypeEventEditCancel(typeEvent, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
 </p-dialog>
 
 <p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()">

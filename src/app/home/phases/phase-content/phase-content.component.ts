@@ -90,7 +90,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
     this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
       header: content ? 'Añadir contenido' : 'Añadir sprint',
       width: '75vw',
-
+      maskStyleClass: 'dialog-app',
       data: {
         batch: this.phase,
         content,

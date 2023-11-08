@@ -19,3 +19,7 @@ $bottomSpacing: 1rem;
     left: 0;
   }
 }
+
+::ng-deep .app-tabview .p-dataview .p-dataview-content {
+  margin: 0 2rem 0 2rem;
+}

@@ -70,7 +70,7 @@
         padding: 0.7rem;
         // margin: 0 0 0.5rem 0.5rem;
         text-align: center;
-        color: rgba($appColorTwo, 0.5) !important;
+        color: rgba($appColorTwo, 0.5);
       }
       .sidenav-link-text {
         color: rgba($appColorTwo, 0.5);
@@ -82,16 +82,16 @@
       }
     }
   }
-  .sidenav-nav-item:hover {
-    .sidenav-link-icon,
-    .sidenav-link-text,
-    .sidenav-nav-link {
-      color: lighten($appColorTwo, 20%);
-      .menu-collapse-icon {
-        color: lighten($appColorTwo, 20%);
-      }
-    }
-  }
+  // .sidenav-nav-item:hover {
+  //   .sidenav-link-icon,
+  //   .sidenav-link-text,
+  //   .sidenav-nav-link {
+  //     color: lighten($appColorTwo, 20%);
+  //     .menu-collapse-icon {
+  //       color: lighten($appColorTwo, 20%);
+  //     }
+  //   }
+  // }
 }
 
 .menu-icon {
