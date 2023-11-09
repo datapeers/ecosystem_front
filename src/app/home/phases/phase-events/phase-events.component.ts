@@ -362,11 +362,12 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   showEvent(event?: Event) {
     this.ref = this.dialogService.open(EventCreatorComponent, {
-      header: 'Evento',
+      header: '',
       width: '70%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       maximizable: true,
+      maskStyleClass: 'dialog-app',
       data: {
         event,
         batch: this.phase,

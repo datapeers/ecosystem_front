@@ -2,85 +2,76 @@
     <app-loading></app-loading>
 </ng-container>
 <ng-template #formTemplate>
-    <form [formGroup]="event">
-        <div class="flex gap-2">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Evento</h2>
+            <div class="w-full flex flex-row gap-1">
+                <span class="text-sm text-color-other"></span>
+            </div>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <form [formGroup]="event" class="px-6">
+        <div class="flex flex-row gap-2 align-items-center">
             <div class="field">
                 <label for="assistantType">{{phaseEventsConstant.typesAssistant}}</label>
                 <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" formControlName="attendanceType" class="inputfield mt-2"></p-selectButton>
             </div>
-            <div class="field pt-4 pl-2" *ngIf="event.value.stateOptionsAssistant === attendanceTypes.virtual">
-                <div class="flex">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-link"></i>
-                    </span>
-                    <span class="p-float-label" style="width: 100%">
-                        <input pInputText type="text" [(ngModel)]="extra_options['url']" placeholder="Url" [readOnly]="editingEvent" required>
-                        <label for="url">{{generalConstant.url}}</label>
-                    </span>
-                </div>
+            <div class="field" *ngIf="event.value.attendanceType === attendanceTypes.virtual">
+
+
+                <span class="app-input-field" style="width: 100%">
+                    <label for="url">{{generalConstant.url}}</label>
+                    <input pInputText type="text" [(ngModel)]="extra_options['url']" placeholder="Url" [readOnly]="editingEvent" required>
+
+                </span>
+
             </div>
         </div>
         <div class="formgrid grid pt-2">
             <div style="height: 1rem;"></div>
             <div class="field col-12 md:col-6">
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-id-card"></i>
-                    </span>
-                    <span class="p-float-label">
-                        <input pInputText type="text" formControlName="name" placeholder="Nombre" required>
-                        <label for="name">{{generalConstant.name}}</label>
-                    </span>
-                </div>
+                <span class="app-input-field">
+                    <label for="name">{{generalConstant.name}}</label>
+                    <input pInputText type="text" formControlName="name" placeholder="Nombre" required>
+                </span>
             </div>
-
             <div class="field col-12 md:col-6">
-                <div class="flex">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-list"></i>
-                    </span>
-                    <span class="p-float-label" style="width: 100%">
-                        <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typeEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" formControlName="type" (onChange)="selectionType($event.value)">
-                        </p-dropdown>
-                        <label for="typeEvent">{{phaseEventsConstant.typeEvent}}</label>
-                    </span>
-                </div>
+                <span class="app-input-field" style="width: 100%">
+                    <label for="typeEvent">{{phaseEventsConstant.typeEvent}}</label>
+                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typeEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: '100%' }" formControlName="type" (onChange)="selectionType($event.value)">
+                    </p-dropdown>
+                </span>
             </div>
 
             <div class="field col-6 pt-3 md:col-6">
-                <div class="flex">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-calendar-times"></i>
-                    </span>
-                    <span class="p-float-label" style="width: 100%">
-                        <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt" [showTime]="true"></p-calendar>
-                        <label for="calendar-first">{{generalConstant.begin}}</label>
-                    </span>
-                </div>
+                <span class="app-input-field" style="width: 100%">
+                    <label for="calendar-first">{{generalConstant.begin}}</label>
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt" [showTime]="true"></p-calendar>
+
+                </span>
+
             </div>
 
             <div class="field col-6 pt-3 md:col-6">
-                <div class="flex">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-calendar-times"></i>
-                    </span>
-                    <span class="p-float-label" style="width: 100%">
-                        <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt" [showTime]="true"></p-calendar>
-                        <label for="calendar-first">{{generalConstant.end}}</label>
-                    </span>
-                </div>
+
+                <span class="app-input-field" style="width: 100%">
+                    <label for="calendar-first">{{generalConstant.end}}</label>
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt" [showTime]="true"></p-calendar>
+
+                </span>
+
             </div>
 
             <div class="field col-12 pt-3 md:col-12 ">
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-align-left"></i>
-                    </span>
-                    <span class="p-float-label">
-                        <textarea id="descEvent" rows="3" style="width: 100%;" formControlName="description" pInputTextarea></textarea>
-                        <label for="descEvent">{{generalConstant.description}}</label>
-                    </span>
-                </div>
+
+                <span class="app-input-field">
+                    <label for="descEvent">{{generalConstant.description}}</label>
+                    <textarea id="descEvent" rows="3" style="width: 100%;" formControlName="description" pInputTextarea></textarea>
+
+                </span>
+
             </div>
             <div style="height: 1rem;"></div>
         </div>

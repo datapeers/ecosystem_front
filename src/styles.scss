@@ -273,6 +273,24 @@ body {
   .separator-dialog {
     background-color: $appText;
   }
+
+  .p-dialog-content::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .p-dialog-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .p-dialog-content::-webkit-scrollbar-thumb {
+    background-color: $appColorTwo;
+    border-radius: 20px;
+  }
+
+  .p-dialog-content {
+    scrollbar-width: thin;
+    scrollbar-color: $appColorTwo transparent;
+  }
 }
 
 // ? ------------------------------------------------ Other components -----------------------------
