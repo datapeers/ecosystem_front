@@ -1,3 +1,5 @@
+@import "primeflex/primeflex.scss";
+
 .form-field {
   &.ng-invalid.ng-dirty,
   &.ng-invalid.ng-touched {
@@ -69,6 +71,7 @@
 }
 
 .app-input-field {
+  @include styleclass("flex flex-column gap-2");
   label {
     font-weight: 400;
     font-size: 0.875rem;
@@ -99,6 +102,13 @@
     color: var(--surface-900);
     font-weight: 700;
     font-size: 1rem;
+  }
+
+  .p-inputnumber-buttons-horizontal .p-inputnumber-button-down {
+    border-radius: 6px 0 0 6px;
+  }
+  .p-inputnumber-buttons-horizontal .p-inputnumber-button-up {
+    border-radius: 0 6px 6px 0;
   }
 }
 

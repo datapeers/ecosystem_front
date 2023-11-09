@@ -16,7 +16,7 @@
                 </div>
                 <div class="flex flex-wrap gap-3 p-fluid pt-2">
                     <ng-container *ngFor="let item of showActivityConfig">
-                        <div class="flex-auto">
+                        <div class="app-input-field">
                             <label [for]="'config' + item.id" class="font-bold">{{item.activityName}} </label>
                             <p-inputNumber [(ngModel)]="item.limit" [min]="0" suffix=" hora(s)" (ngModelChange)="updateCalcHours()" [showButtons]="true" [inputId]="'config' + item.id"> </p-inputNumber>
                         </div>

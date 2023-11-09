@@ -20,18 +20,18 @@
                         <label for="calendar-last">Termina</label>
                     </span> -->
         </ng-container>
-        <span class="w-full  flex flex-column gap-2 app-input-field field-h-1">
+        <span class="w-full  app-input-field field-h-1">
             <label htmlFor="namePhase">Nombre</label>
             <input pInputText id="namePhase" formControlName="name" class="inputfield field-full" placeholder="Ingresa un nombre para el batch" />
             <small [hidden]="phaseCreationForm.controls['name'].valid || !phaseCreationForm.controls['name'].dirty" for="name" class="p-error field-help" *ngIf="">El nombre no es valido</small>
         </span>
-        <span class="w-full  flex flex-column gap-2 app-input-field">
+        <span class="w-full  app-input-field">
             <label for="textarea">Descripción - {{phaseCreationForm.controls['description'].value?.length}}/120 caracteres permitidos</label>
             <textarea maxlength="300" inputId="textarea" rows="5" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" placeholder="Descripción interna breve sobre el batch" pInputTextarea></textarea>
 
         </span>
 
-        <span class="w-full flex flex-column gap-2 app-input-field" style="width: 100%" *ngIf="basePhase">
+        <span class="w-full app-input-field" style="width: 100%" *ngIf="basePhase">
             <label for="float-label">Etapa</label>
             <p-dropdown [autoDisplayFirst]="false" [options]="stages" formControlName="stage" dataKey="_id" optionLabel="label" optionValue="_id" placeholder="Seleccione una etapa" appendTo="body" [style]="{ width: '100%' }">
                 <!-- <ng-template pTemplate="selectedItem">

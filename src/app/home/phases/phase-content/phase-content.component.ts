@@ -88,10 +88,14 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
 
   openCreator(content?) {
     this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
-      header: content ? 'Añadir contenido' : 'Añadir sprint',
+      // header: content ? 'Añadir contenido' : 'Añadir sprint',
       width: '75vw',
       maskStyleClass: 'dialog-app',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
       data: {
+        header: content ? 'Añadir contenido' : 'Añadir sprint',
         batch: this.phase,
         content,
         lastSprint: this.contentList.length

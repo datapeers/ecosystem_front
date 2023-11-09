@@ -1,19 +1,25 @@
-<div class="flex flex-column w-full h-full px-6" *ngIf="contentCreationForm">
-    <form [formGroup]="contentCreationForm" class="formgrid grid justify-content-start">
-        <div class="field col-12 pt-4">
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">
-                    <i class="pi pi-id-card"></i>
-                </span>
-                <span class="p-float-label">
-                    <input type="text" id="name" pInputText formControlName="name" />
-                    <label for="name">Nombre</label>
-                </span>
-            </div>
+<div class="w-full flex flex-row gap-3">
+    <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+    <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+        <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">{{config.data.header}}</h2>
+        <div class="w-full flex flex-row gap-1">
+            <span class="text-sm text-color-other"></span>
+        </div>
+    </div>
+</div>
+<p-divider>
+</p-divider>
+<div class="flex flex-column w-full px-6" *ngIf="contentCreationForm">
+    <form [formGroup]="contentCreationForm" class="formgrid grid">
+        <div class="field col-12 ">
+            <span class="app-input-field">
+                <label for="name">Nombre</label>
+                <input type="text" id="name" pInputText formControlName="name" placeholder="Escriba un nombre" />
+            </span>
         </div>
 
-        <div class="flex-auto px-2" *ngIf="!parent_content">
-            <label class="mb-2 block font-bold" for="horizontal">Duración (días)</label>
+        <div class="app-input-field" *ngIf="!parent_content">
+            <label for="horizontal">Duración (días)</label>
             <p-inputNumber formControlName="duration" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
         </div>
         <div class="field col-12 md:col-12 pt-3">

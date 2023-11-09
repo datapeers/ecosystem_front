@@ -3743,7 +3743,7 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 .fc.fc-unthemed .fc-view-container .fc-divider {
   background: #f8f9fa;
-  border: 1px solid #dee2e6;
+  border: 1px solid #dcdcdc;
 }
 .fc.fc-unthemed .fc-toolbar .fc-button {
   color: #ffffff;
@@ -4901,24 +4901,28 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 }
 
 .p-divider .p-divider-content {
-  background-color: #ffffff;
+  background-color: transparent;
+  height: 1px;
 }
 .p-divider.p-divider-horizontal {
-  margin: 1.25rem 0;
-  padding: 0 1.25rem;
+  margin: 1rem 0;
+  padding: 0 1rem;
 }
 .p-divider.p-divider-horizontal:before {
-  border-top: 1px #dee2e6;
+  border-top: 1px #dcdcdc solid;
 }
+/* .p-divider-solid.p-divider-horizontal:before {
+  border-top-style: solid !important;
+} */
 .p-divider.p-divider-horizontal .p-divider-content {
   padding: 0 0.5rem;
 }
 .p-divider.p-divider-vertical {
-  margin: 0 1.25rem;
-  padding: 1.25rem 0;
+  margin: 0 1rem;
+  padding: 1rem 0;
 }
 .p-divider.p-divider-vertical:before {
-  border-left: 1px #dee2e6;
+  border-left: 1px #dcdcdc solid;
 }
 .p-divider.p-divider-vertical .p-divider-content {
   padding: 0.5rem 0;

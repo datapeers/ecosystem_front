@@ -1,7 +1,7 @@
 <div style="height: 1rem;"></div>
 <p-messages [(value)]="flagsActivity" [enableService]="true" [closable]="false"></p-messages>
 <div #tableWrapper class="table-container overflow-hidden">
-    <p-table #dt class="table-dark w-full" [value]="list" [tableStyle]="{'min-width': '50rem'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+    <p-table #dt class="table-app w-full" [value]="list" [tableStyle]="{'min-width': '50rem'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>
                 <th rowspan="2"></th>
