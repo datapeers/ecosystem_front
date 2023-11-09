@@ -124,9 +124,8 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
 
   openCreator() {
     this.dialogRef = this.dialogService.open(PhasesCreatorComponent, {
-      header: 'Creador de fase',
+      header: '',
       width: '75vw',
-      height: '70vh',
       maskStyleClass: 'dialog-app',
       data: {
         phaseName: `Crear fase`,

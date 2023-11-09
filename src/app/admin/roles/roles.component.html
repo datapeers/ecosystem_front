@@ -1,5 +1,63 @@
-<div class="flex flex-wrap flex-row gap-2 p-4">
+<!-- <div class="flex flex-wrap flex-row gap-2 p-4">
   <ng-container *ngFor="let rol of roles">
     <p-button [label]="rol.name" icon="pi pi-user" styleClass="p-button-lg" pTooltip="Editar permisos iniciales" (onClick)="editPermissions(rol)" [disabled]="!allowedChangePermissions[rol.type]"></p-button>
   </ng-container>
+</div> -->
+
+
+<div class="table-container-app">
+  <p-table class="table-app w-full" #dt [value]="roles" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} invitaciones" [filterDelay]="0" [globalFilterFields]="filterFields">
+    <ng-template pTemplate="caption">
+      <div class="flex flex-row justify-content-between align-items-center">
+        <div class="text-2xl">
+          <span class="pl-2 font-semibold">Roles</span>
+        </div>
+        <div class="flex flex-row gap-2">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+          </span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let column of columns" [pSortableColumn]="column.field">
+          <div class="flex flex-row gap-2 align-items-center">
+            <span>{{column.name}}</span>
+            <p-sortIcon style="min-width: min-content; display: flex;" [field]="column.field"></p-sortIcon>
+          </div>
+        </th>
+        <th>
+          <div class="flex flex-row gap-2 align-items-center">
+            <span>Permisos</span>
+          </div>
+        </th>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rolRow>
+      <tr class="p-selectable-row">
+        <td>
+          <div class="flex flex-row gap-2 align-items-center">
+            <span class="white-space-nowrap">{{rolRow.name}}</span>
+          </div>
+        </td>
+        <td>
+          <div class="flex flex-row gap-2 align-items-center w-full justify-content-between">
+            <span class="white-space-nowrap">{{rolRow.permissions.length}}</span>
+            <p-button *ngIf="allowedChangePermissions[rolRow.type]" icon="pi pi-file-edit" styleClass="p-button-lg" pTooltip="Editar permisos iniciales" (onClick)="editPermissions(rolRow)"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7">No hay roles.</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <span>{{paginatorRightMsg()}}</span>
+    </ng-template>
+  </p-table>
 </div>

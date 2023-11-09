@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { RolesService } from './roles.service';
 import { Subscription } from 'rxjs';
@@ -6,7 +6,7 @@ import { Rol } from '@auth/models/rol';
 import { ToastService } from '@shared/services/toast.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PermissionsComponent } from '../permissions/permissions.component';
-
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
@@ -21,6 +21,9 @@ export class RolesComponent implements OnInit, OnDestroy {
     teamCoach: true,
     expert: true,
   };
+  columns = [{ field: 'name', name: 'Nombre', tooltip: 'Nombre' }];
+  filterFields = this.columns.map((column) => column.field);
+  @ViewChild('dt', { static: true }) dt: Table;
   constructor(
     private readonly toast: ToastService,
     private readonly service: RolesService,
@@ -37,7 +40,6 @@ export class RolesComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
-    const rolesDB = await this.service.watchRoles;
     this.service
       .watchRoles()
       .then((roles$) => {
@@ -80,5 +82,12 @@ export class RolesComponent implements OnInit, OnDestroy {
       }
       subscription$?.unsubscribe();
     });
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }

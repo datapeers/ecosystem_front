@@ -30,14 +30,18 @@
             <textarea maxlength="300" inputId="textarea" rows="5" style="width: 100%; resize: none;" [maxlength]="120" formControlName="description" placeholder="Descripción interna breve sobre el batch" pInputTextarea></textarea>
 
         </span>
-        <span class="p-float-label">
-            <p-dropdown [options]="stages" formControlName="stage" placeholder="Select a City" optionLabel="label" optionValue="_id" inputId="float-label"></p-dropdown>
-            <label for="float-label">Select a City</label>
-        </span>
-        <!-- <span class="w-full flex flex-column app-input-field" style="width: 100%" *ngIf="basePhase">
+
+        <span class="w-full flex flex-column app-input-field" style="width: 100%" *ngIf="basePhase">
             <label for="float-label">Etapa</label>
-            <p-dropdown [autoDisplayFirst]="true" [options]="stages" formControlName="stage" optionLabel="label" optionValue="_id" placeholder="Seleccione una etapa" appendTo="body" [style]="{ width: '100%' }"></p-dropdown>
-        </span> -->
+            <p-dropdown [autoDisplayFirst]="false" [options]="stages" formControlName="stage" dataKey="_id" optionLabel="label" optionValue="_id" placeholder="Seleccione una etapa" appendTo="body" [style]="{ width: '100%' }">
+                <!-- <ng-template pTemplate="selectedItem">
+                    <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                        <div>{{ selectedCountry.name }}</div>
+                    </div>
+                </ng-template> -->
+            </p-dropdown>
+        </span>
     </form>
     <p-button type="submit" label="Crear" (onClick)="onSubmit()" [disabled]="!phaseCreationForm.valid" styleClass="mt-3 bg-primary"></p-button>
 </div>
