@@ -7,7 +7,7 @@
           <p-button [styleClass]="menuTypeSelected === subMenu.type ? 'button-blue font-semibold' : 'p-button-tertiary font-semibold'" (onClick)="onChange(subMenu.type)">{{subMenu.label}}</p-button>
         </ng-container>
       </div>
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-column gap-2 w-full px-4">
         <ng-container *ngFor="let option of options">
           <div class="menu-option w-full flex flex-row gap-3 align-items-center" [routerLink]="option.rute" routerLinkActive="active" [queryParams]="option.queryParamsRute" [ngClass]="getActiveClass(option)">
             <div class="menu-option-icon p-2 border-round">
