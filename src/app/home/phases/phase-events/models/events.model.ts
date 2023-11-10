@@ -11,6 +11,23 @@ export interface IEntityEvent {
   __typename?: string;
 }
 
+export class EntrepreneurItemDisplay implements IEntityEvent {
+  _id: string;
+  name: string;
+  __typename?: string;
+  startup: string;
+
+  constructor(obj: IEntityEvent, startup: string) {
+    (this._id = obj._id), (this.name = obj.name), (this.startup = startup);
+  }
+  toEntity(): IEntityEvent {
+    return {
+      _id: this._id,
+      name: this.name,
+    };
+  }
+}
+
 export interface IEvent {
   _id: string;
   name: string;
