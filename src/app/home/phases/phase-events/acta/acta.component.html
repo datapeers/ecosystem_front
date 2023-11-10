@@ -1,3 +1,13 @@
+<div class="w-full flex flex-row gap-3">
+    <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+    <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+        <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Acta</h2>
+        <div class="w-full flex flex-row gap-1">
+            <span class="text-sm text-color-other"></span>
+        </div>
+    </div>
+</div>
+<p-divider></p-divider>
 <div *ngIf="loaded" class="flex card-container overflow-hidden">
     <div class="flex-none flex flex-column align-items-start justify-content-start m-2">
         <p-card class="w-full mb-2">
@@ -56,31 +66,31 @@
     <form [formGroup]="acta" class="flex-grow-1 flex flex-column align-items-start justify-content-start m-2 border-round">
         <p-card class="w-full py-0">
             <div class="formgrid grid">
-                <div class="field col-12">
+                <div class="field col-12 app-input-field">
                     <label for="inputtitulo" class="w-full text-center">
                         <b>Nombre de la sesión</b>
                     </label>
                     <input id="inputtitulo" type="text" pInputText formControlName="name" class="inputfield w-full">
                 </div>
-                <div class="field col-12 md:col-6">
+                <div class="field col-12 md:col-6 app-input-field">
                     <label for="time" class="w-full text-center">
                         <b>Fecha</b>
                     </label>
                     <p-calendar class="inputfield" [showTime]="true" formControlName="date" [style]="{ width: '100%' }" inputId="time" appendTo="body" [showButtonBar]="true"></p-calendar>
                 </div>
-                <div class="field col-12 md:col-6">
+                <div class="field col-12 md:col-6 app-input-field">
                     <label for="ojectiveField" class="w-full text-center">
                         <b>Objetivo</b>
                     </label>
                     <input id="ojectiveField" type="text" pInputText formControlName="objective" class="inputfield w-full">
                 </div>
-                <div class="field col-12 md:col-6">
+                <div class="field col-12 md:col-6 app-input-field">
                     <label for="solutionField" class="w-full text-center">
                         <b>Nombre de la solución</b>
                     </label>
                     <input id="solutionField" type="text" pInputText formControlName="solution" class="inputfield w-full">
                 </div>
-                <div class="field col-12 md:col-6">
+                <div class="field col-12 md:col-6 app-input-field">
                     <label for="conclusionField" class="w-full text-center">
                         <b>Conclusiones</b>
                     </label>
@@ -90,7 +100,7 @@
             <div class="flex flex-row align-items-center justify-content-center w-full">
                 <!-- "space_management_add_acta" "cuerpo": "Cuerpo del acta",, -->
                 <label>
-                    <h3>Temas tratados</h3>
+                    <h3 class="my-1">Temas tratados</h3>
                 </label>
             </div>
             <tinymce formControlName="topics_covered" [config]="configTiny"></tinymce>

@@ -386,11 +386,12 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   showActa(event: Event) {
     this.ref = this.dialogService.open(ActaComponent, {
-      header: 'Acta',
+      header: '',
       width: '70%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       maximizable: true,
+      maskStyleClass: 'dialog-app',
       data: {
         event,
         phase: this.phase,
