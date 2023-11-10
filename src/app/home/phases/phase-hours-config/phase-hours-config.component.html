@@ -1,13 +1,18 @@
 <ng-container *ngIf="loaded else loadingTemplate">
-    <div class="px-4 py-2">
-        <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
-            <h2>Configuración bolsa de horas</h2>
-            <div class="flex flex-row gap-2">
-                <p-button *ngIf="activitiesConfig" label="Guardar cambios" class="mx-3" (click)="updateConfig()"></p-button>
+    <div class="flex flex-column xl:flex-row gap-4 align-items-end px-4">
+        <div class="flex flex-column gap-3 flex-grown-1 ">
+            <h3>Configuración bolsa de horas</h3>
+            <div class="flex gap-2 w-10">
+                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                <p class="th2">Asigna la cantidad de horas objetivo para cada las actividades dentro del batch, asigna horas tanto a startups como experts y team coach.
+                </p>
             </div>
         </div>
+        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3">
+            <p-button *ngIf="activitiesConfig" label="Guardar cambios" class="mx-3" (click)="updateConfig()"></p-button>
+        </div>
     </div>
-    <p-tabView styleClass="ml-4 mr-4">
+    <p-tabView styleClass="ml-4 mr-4 mt-2">
         <p-tabPanel header="Actividades" *ngIf="user?.allowed(userPermission.hours_edit_activities)">
             <div class="px-4 pb-4 border-round">
                 <div class="card w-full flex flex-column justify-content-center align-items-center">
