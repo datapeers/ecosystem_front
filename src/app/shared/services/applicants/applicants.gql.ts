@@ -1,4 +1,4 @@
-import { updateResultPayloadFields } from "@shared/models/graphql/update-result-payload";
+import { updateResultPayloadFields } from '@shared/models/graphql/update-result-payload';
 
 const fragments = {
   applicantFields: `
@@ -16,8 +16,8 @@ const fragments = {
         type
       }
     }
-  `
-}
+  `,
+};
 
 const query = {
   applicants: `
@@ -42,16 +42,16 @@ const mutation = {
   updateApplicantState: `
     mutation UpdateApplicantState($updateApplicantStateInput: UpdateApplicantStateInput!) {
       updateApplicantState(updateApplicantStateInput: $updateApplicantStateInput) {
-        ...updateResultPayloadFields
+        ...applicantFields
       }
     }
-    ${updateResultPayloadFields}
+    ${fragments.applicantFields}
   `,
 };
 
 export const applicantQueries = {
   query,
-  mutation
+  mutation,
 };
 
 export default applicantQueries;

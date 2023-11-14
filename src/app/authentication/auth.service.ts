@@ -232,7 +232,7 @@ export class AuthService {
       this.toast.alert({
         summary: 'No se puede continuar',
         detail:
-          'Debes tener una ficha de experto para operar dentro de StartUp Factory',
+          'Debes tener una ficha de experto para operar dentro de Ecosystem',
       });
       this.signOut();
       return;
@@ -248,7 +248,7 @@ export class AuthService {
       this.toast.alert({
         summary: 'No se puede continuar',
         detail:
-          'Debes tener una ficha de experto para operar dentro de StartUp Factory',
+          'Debes tener una ficha de experto para operar dentro de Ecosystem',
       });
       this.signOut();
       return;

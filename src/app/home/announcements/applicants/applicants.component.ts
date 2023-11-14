@@ -128,6 +128,11 @@ export class ApplicantsComponent {
         state: this.applicantState,
       },
     };
+    this.user = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    );
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
     this.loading = false;
@@ -144,6 +149,9 @@ export class ApplicantsComponent {
         const subscription = await this.formService.createFormSubscription({
           form: this.announcement.form._id,
           reason: 'Create applicant',
+          data: {
+            announcement: this.announcement._id,
+          },
         });
         const ref = this.formService.openFormFromSubscription(
           subscription,

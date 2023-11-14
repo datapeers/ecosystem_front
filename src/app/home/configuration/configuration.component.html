@@ -90,7 +90,6 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>
 
 <p-dialog header="Vertical" [(visible)]="showCreatorVertical" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorVertical()">
     <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newVertical">

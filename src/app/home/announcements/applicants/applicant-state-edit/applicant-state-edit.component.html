@@ -1,5 +1,5 @@
 <div class="flex flex-column gap-2" [formGroup]="form">
-  <div class="field col-12">
+  <div class="field col-12 app-input-field">
     <label for="notes">Notas u Observaciones</label>
     <textarea inputId="notes" rows="4" style="width: 100%; resize: none;" [maxlength]="maxLengthNotes" formControlName="notes" pInputTextarea></textarea>
     <small>{{form.controls["notes"].value.length}}/120 caracteres permitidos</small>

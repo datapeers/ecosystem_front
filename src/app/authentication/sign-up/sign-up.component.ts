@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   invitationCode: string;
   onDestroy$: Subject<void> = new Subject();
-  footerText = 'Startup factory - All rights reserved 2023 ©';
+  footerText = 'Ecosystem - All rights reserved 2023 ©';
   loading = false;
   get formControls() {
     return this.signUpForm.controls;
