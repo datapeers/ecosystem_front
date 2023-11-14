@@ -3,7 +3,7 @@ import { UserService } from '../../../authentication/user.service';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
-import { Subject, filter, takeUntil, tap } from 'rxjs';
+import { Subject, filter, take, takeUntil, tap } from 'rxjs';
 import {
   UpdateUserAction,
   UpdateUserImageAction,
@@ -47,6 +47,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ];
   change;
   rating = 4;
+  formEntrepreneur;
+  fieldsEntrepreneur = [];
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -168,10 +170,34 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const formDoc = await this.formService.getFormByCollection(
       FormCollections.entrepreneurs
     );
-    // const formComponents = this.formService.getFormComponents(form);
-    this.formProfileFields = this.formService.getInputComponents(
-      formDoc[0].form.components
+    this.formEntrepreneur = formDoc.find(() => true);
+    console.log(this.formEntrepreneur);
+    const formNegociosComponents = this.formService.getFormComponents(
+      this.formEntrepreneur
     );
+    this.fieldsEntrepreneur = this.formService.getInputComponents(
+      formNegociosComponents
+    );
+  }
+
+  async editEntrepreneurDoc() {
+    this.toast.loading();
+    const subscription = await this.formService.createFormSubscription({
+      form: this.formEntrepreneur._id,
+      reason: 'Editar datos de empresario',
+      data: {},
+      doc: this.profileDoc._id,
+    });
+    this.toast.clear();
+    const ref = this.formService.openFormFromSubscription(
+      subscription,
+      'Editar startup'
+    );
+    ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe(async (doc) => {
+      if (doc) {
+        this.profileDoc = await this.entrepreneursService.getUserDoc(this.user);
+      }
+    });
   }
 
   saveChanges() {

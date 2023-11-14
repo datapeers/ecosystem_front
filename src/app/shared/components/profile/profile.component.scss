@@ -1,38 +1,53 @@
-// .header-container {
-//   display: grid;
-//   gap: 0.5rem;
-//   grid-template-columns: 15rem 1fr;
-//   @media screen and (max-width: 768px) {
-//     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-//   }
-// }
+@import "../../../../styles.scss";
 
-// .grid-container {
-//   display: grid;
-//   gap: 0.5rem;
-//   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-// }
+.panel-profile {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  -webkit-box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
+}
 
-// .info-grid-cell {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   gap: 0.25rem;
-//   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-// }
+.info-grid-cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
 
-// .cell-value {
-//   font-weight: bold;
-//   white-space: nowrap;
-//   text-overflow: ellipsis;
-//   overflow: hidden;
-// }
+.cell-label {
+  color: #6b6b6b;
+  flex-basis: auto; // Deja que el ancho sea automático
+  white-space: nowrap; // Evita que el texto del label se rompa en varias líneas
+  overflow: hidden; // Oculta el exceso de texto si el label es muy largo
+  text-overflow: ellipsis; // Muestra puntos suspensivos (...) si el texto del label es muy largo
+}
 
-// .cell-label {
-//   font-weight: bold;
-//   font-size: small;
-//   opacity: 0.4;
-//   white-space: nowrap;
-//   text-overflow: ellipsis;
-//   overflow: hidden;
-// }
+.cell-line {
+  flex-grow: 1;
+  border-bottom: solid 1px #f6f6f6;
+  margin: 0 10px 3px 10px;
+}
+
+.cell-value {
+  background-color: #f6f6f6;
+  color: black;
+  padding: 0.65rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  flex-basis: 50%; // Ancho fijo del 50%
+}
+
+.edit-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.65rem;
+  border-radius: 0.625rem;
+  background-color: #f6f6f6;
+  color: $appTextThree;
+  &:hover {
+    border-color: darken(#f6f6f6, 5%) !important;
+    background-color: darken(#f6f6f6, 5%) !important;
+  }
+}

@@ -41,7 +41,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   clonedTypesEvents: { [s: string]: TypeEvent } = {};
   typesEvent$: Subscription;
-
+  currentPageReportTemplate = '{currentPage} de {totalPages}';
   phase: Phase;
   user: User;
 

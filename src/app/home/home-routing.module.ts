@@ -48,6 +48,11 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'inicio',
+        pathMatch: 'full',
+      },
+      {
         path: 'admin',
         canMatch: [RoleGuard],
         data: {
