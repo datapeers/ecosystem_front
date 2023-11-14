@@ -6,16 +6,16 @@
                     <span class="font-semibold text-xl">
                         <h3>Perfil</h3>
                     </span>
-                    <div class="w-full flex flex-wrap gap-3 justify-content-end">
-                        <p-button (onClick)="openPasswordDialog()">
-                            <i-tabler name="cloud-lock-open"></i-tabler>
-                            <div class="w-1rem"></div>
+                    <div class="w-full flex flex-wrap gap-3 justify-content-center md:justify-content-end">
+                        <p-button (onClick)="openPasswordDialog()" styleClass="button-yellow-second">
                             <p>Cambiar contraseña</p>
-                        </p-button>
-                        <p-button (onClick)="saveChanges()">
-                            <i-tabler name="device-floppy"></i-tabler>
                             <div class="w-1rem"></div>
+                            <i-tabler name="cloud-lock-open"></i-tabler>
+                        </p-button>
+                        <p-button (onClick)="saveChanges()" class="">
                             <p>Guardar cambios</p>
+                            <div class="w-1rem"></div>
+                            <i-tabler name="device-floppy"></i-tabler>
                         </p-button>
                     </div>
                 </div>
@@ -66,23 +66,23 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full panel-profile justify-center flex flex-column align-items-center gap-3" style="padding: 1.875rem; border-radius: 3.25rem">
+            <div *ngIf="viewRating" class="w-full panel-profile justify-center flex flex-column align-items-center gap-3" style="padding: 1.875rem; border-radius: 3.25rem">
                 <label for="" class="font-semibold">Calificación general por parte de los usuarios:</label>
                 <p-rating [(ngModel)]="rating" [disabled]="true" [cancel]="false"></p-rating>
+            </div>
+            <div class="card">
+                <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
             </div>
             <div style="height: 1rem;"></div>
         </div>
     </p-scrollPanel>
-
-
-
 </ng-container>
 
 <ng-template #loadingTemplate>
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog [(visible)]="passwordDialog" header="" maskStyleClass="dialog-app" appendTo="body" [modal]="true">
+<p-dialog [(visible)]="passwordDialog" header="" maskStyleClass="dialog-app" appendTo="body" [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="bulb" class="icon-dialog"></i-tabler>
         <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
@@ -147,7 +147,7 @@
         </span>
         <div class="flex flex-row justify-content-end gap-2 w-11">
             <p-button type="submit" label="Cambiar" (onClick)="onSubmit()" [disabled]="!changePasswordForm.valid" styleClass=""></p-button>
-            <p-button label="Cancelar" (onClick)="passwordDialog = false;" styleClass="p-button-outlined"></p-button>
+            <p-button label="Cancelar" (onClick)="passwordDialog = false;" styleClass="p-button-outlined button-grey"></p-button>
         </div>
     </form>
 </p-dialog>

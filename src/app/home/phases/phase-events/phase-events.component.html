@@ -28,7 +28,7 @@
             <p-tabView styleClass="page-event">
                 <ng-container *ngFor="let tableData of dataArray">
                     <p-tabPanel [header]="tableData.label">
-                        <p-table #dt id="dt" [value]="tableData.array" dataKey="_id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [loading]="!loaded" [paginator]="true">
+                        <p-table #dt id="dt" [value]="tableData.array" dataKey="_id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [loading]="!loaded" [paginator]="true" [currentPageReportTemplate]="textSummary">
                             <ng-template pTemplate="header">
                             </ng-template>
                             <ng-template pTemplate="body" let-event>

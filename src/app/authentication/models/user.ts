@@ -43,6 +43,9 @@ export class User implements IUser {
   get isAdmin() {
     return this.rol.type === ValidRoles.admin;
   }
+  get isTeamCoach() {
+    return this.rol.type === ValidRoles.teamCoach;
+  }
   get isExpert() {
     return this.rol.type === ValidRoles.expert;
   }

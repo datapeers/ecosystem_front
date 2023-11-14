@@ -59,6 +59,11 @@
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .cell-label {
@@ -67,6 +72,10 @@
   white-space: nowrap; // Evita que el texto del label se rompa en varias líneas
   overflow: hidden; // Oculta el exceso de texto si el label es muy largo
   text-overflow: ellipsis; // Muestra puntos suspensivos (...) si el texto del label es muy largo
+  @media (max-width: 576px) {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .cell-line {
