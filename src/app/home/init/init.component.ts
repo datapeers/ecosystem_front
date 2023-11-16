@@ -174,7 +174,6 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
                     new Date(b.updatedAt).getTime() -
                     new Date(a.updatedAt).getTime()
                 );
-                console.log(this.lastPhases);
               }))
         )
         .catch((err) => {

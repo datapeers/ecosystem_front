@@ -75,7 +75,7 @@
           <div class="flex flex-row gap-1 justify-content-between align-items-center">
             <div class="flex flex-row gap-2 align-items-center">
               <i-tabler class="size-md" name="users-group"></i-tabler>
-              <span class="text-xs font-semibold">0</span>
+              <span class="text-xs font-semibold">{{item.participants}}</span>
             </div>
             <ng-container *ngFor="let action of cardActions">
               <p-button *ngIf="allowEdit(item)" (click)="action.command($event, item)" type="button" [label]="action.label" styleClass="p-button-quaternary"></p-button>

@@ -18,6 +18,7 @@ const fragments = {
       createdAt
       updatedAt
       calcEndDate
+      participants
     }
   `,
   phaseFieldsExtra: `
@@ -51,6 +52,7 @@ const fragments = {
         createdAt
         updatedAt
       }
+      participants
     }
   `,
 };

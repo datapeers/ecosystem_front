@@ -1,4 +1,15 @@
-<div class="flex flex-column gap-2" [formGroup]="form">
+<div class="w-full flex flex-row gap-3">
+  <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+  <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+    <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
+      Edición de estado</h2>
+    <div class="w-full flex flex-row gap-1">
+      <span class="text-sm text-color-other"></span>
+    </div>
+  </div>
+</div>
+<p-divider></p-divider>
+<div class="flex flex-column gap-2 mx-4" [formGroup]="form">
   <div class="field col-12 app-input-field">
     <label for="notes">Notas u Observaciones</label>
     <textarea inputId="notes" rows="4" style="width: 100%; resize: none;" [maxlength]="maxLengthNotes" formControlName="notes" pInputTextarea></textarea>

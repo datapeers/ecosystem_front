@@ -185,7 +185,8 @@ export class ApplicantsComponent {
     state: ApplicationStates
   ) {
     this.dialogService.open(ApplicantStateEditComponent, {
-      header,
+      header: '',
+      maskStyleClass: 'dialog-app',
       data: {
         announcementId: this.announcement._id,
         id: applicantId,

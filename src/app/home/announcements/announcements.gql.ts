@@ -16,6 +16,7 @@ const fragments = {
       endAt
       createdAt
       updatedAt
+      participants
     }
   `,
   detailedAnnouncementFields: `
@@ -39,6 +40,7 @@ const fragments = {
       endAt
       createdAt
       updatedAt
+      participants
     }
   `,
 };

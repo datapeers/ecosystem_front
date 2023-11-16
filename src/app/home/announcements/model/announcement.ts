@@ -1,6 +1,9 @@
-import { IForm } from "@shared/form/models/form";
-import { AnnouncementTypes, announcementTypeNames } from "./announcement-types.enum";
-import { AnnouncementTargets } from "./announcement-targets.enum";
+import { IForm } from '@shared/form/models/form';
+import {
+  AnnouncementTypes,
+  announcementTypeNames,
+} from './announcement-types.enum';
+import { AnnouncementTargets } from './announcement-targets.enum';
 
 export interface IAnnouncement {
   _id: string;
@@ -24,6 +27,7 @@ export interface IAnnouncement {
   active: boolean;
   ended: boolean;
   notStarted: boolean;
+  participants: number;
 }
 
 export class Announcement implements IAnnouncement {
@@ -49,6 +53,7 @@ export class Announcement implements IAnnouncement {
   active: boolean;
   ended: boolean;
   notStarted: boolean;
+  participants: number;
 
   get typeName() {
     return announcementTypeNames[this.type];
