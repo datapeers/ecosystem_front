@@ -6,12 +6,15 @@ import { FormService } from '../../shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { Subject, firstValueFrom, map, take, takeUntil } from 'rxjs';
 import { IFormSubscription } from '@shared/form/models/form-subscription';
-import { AnnouncementTargets, announcementTargets } from '@home/announcements/model/announcement-targets.enum';
+import {
+  AnnouncementTargets,
+  announcementTargets,
+} from '@home/announcements/model/announcement-targets.enum';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent {
   id: string;
@@ -24,7 +27,7 @@ export class LandingComponent {
     businesses?: string[];
     startup?: string;
   } = {
-    businesses: []
+    businesses: [],
   };
 
   applicantStates = applicantStates;
@@ -36,7 +39,7 @@ export class LandingComponent {
     private router: Router,
     private route: ActivatedRoute,
     private announcementsService: AnnouncementsService,
-    private readonly formService: FormService,
+    private readonly formService: FormService
   ) {
     this.id = this.route.snapshot.params['id'];
   }
@@ -46,22 +49,27 @@ export class LandingComponent {
   }
 
   async loadComponent() {
-    const announcement = await this.announcementsService.getAnnouncement(this.id);
-    if(!announcement) { this.router.navigate([""]); }
+    const announcement = await this.announcementsService.getAnnouncement(
+      this.id
+    );
+    if (!announcement) {
+      this.router.navigate(['']);
+    }
     this.announcement = announcement;
     this.currentState = applicantStates.initial;
   }
 
   async registerAt() {
-    switch(this.announcement.target) {
-      case AnnouncementTargets.experts: {
-        const expertFormSubmitted = await this.requestFormExpert();
-        if(expertFormSubmitted) {
-          this.openAnnouncementForm();
-        }
+    switch (this.announcement.target) {
+      // case AnnouncementTargets.experts:
+
+      //   break;
+      case AnnouncementTargets.entrepreneurs:
+        await this.requestFormEntrepreneur();
         break;
-      }
-      case AnnouncementTargets.entrepreneurs:  await this.requestFormEntrepreneur(); break;
+      default:
+        this.openAnnouncementForm();
+        break;
     }
   }
 
@@ -75,11 +83,11 @@ export class LandingComponent {
     const submittedSuccessfully = await this.requestFormStartup({
       entrepreneur: this.applicantContext.entrepreneur,
     });
-    if(submittedSuccessfully) {
+    if (submittedSuccessfully) {
       this.openAnnouncementForm();
     }
   }
-  
+
   finishStartupRequest() {
     this.currentState = ApplicantState.withStartup;
     this.openAnnouncementForm();
@@ -90,116 +98,142 @@ export class LandingComponent {
   }
 
   async openAnnouncementForm() {
-    const subscription = await this.formService.createFormSubscription({ form: this.announcement.form._id, });
-    const subscriptionChanges = this.formService.listenFormSubscription(subscription._id);
-    subscriptionChanges.pipe(
-      take(1),
-      takeUntil(this.onDestroy$)
-    ).subscribe((formSubscription) => {
-      if(!formSubscription.opened) {
-        if(formSubscription.doc) {
-          this.currentState = ApplicantState.submitted;
-        }
-      }
+    const subscription = await this.formService.createFormSubscription({
+      form: this.announcement.form._id,
+      data: {
+        announcement: this.announcement._id,
+      },
     });
-    this.formService.openAnnouncementFromSubscription(this.announcement, this.applicantContext.id, subscription);
+    const subscriptionChanges = this.formService.listenFormSubscription(
+      subscription._id
+    );
+    subscriptionChanges
+      .pipe(take(1), takeUntil(this.onDestroy$))
+      .subscribe((formSubscription) => {
+        if (!formSubscription.opened) {
+          if (formSubscription.doc) {
+            this.currentState = ApplicantState.submitted;
+          }
+        }
+      });
+    this.formService.openAnnouncementFromSubscription(
+      this.announcement,
+      this.applicantContext.id,
+      subscription
+    );
   }
 
   async requestFormEntrepreneur(data?: any) {
-    if(this.currentSubscription$) return;
-    const forms = await this.formService.getFormByCollection(FormCollections.entrepreneurs);
+    if (this.currentSubscription$) return;
+    const forms = await this.formService.getFormByCollection(
+      FormCollections.entrepreneurs
+    );
     const entityForm = forms.find(() => true);
     const subscription = await this.formService.createFormSubscription({
       form: entityForm._id,
       data,
     });
     this.currentSubscription$ = subscription;
-    const subRef = this.formService.openFormFromSubscription(subscription, "Emprendedor");
-    subRef.pipe(
-      take(1),
-      takeUntil(this.onDestroy$)
-    ).subscribe(async (submittedDocId) => {
-      if(!submittedDocId) return;
-      this.currentSubscription$ = null;
-      this.applicantContext.entrepreneur = submittedDocId;
-      this.applicantContext.id = submittedDocId;
-      this.currentState = ApplicantState.withEntrepreneur;
-    });
+    const subRef = this.formService.openFormFromSubscription(
+      subscription,
+      'Emprendedor'
+    );
+    subRef
+      .pipe(take(1), takeUntil(this.onDestroy$))
+      .subscribe(async (submittedDocId) => {
+        if (!submittedDocId) return;
+        this.currentSubscription$ = null;
+        this.applicantContext.entrepreneur = submittedDocId;
+        this.applicantContext.id = submittedDocId;
+        this.currentState = ApplicantState.withEntrepreneur;
+      });
   }
 
   async requestFormBusiness(data?: any) {
-    if(this.currentSubscription$) return;
-    const forms = await this.formService.getFormByCollection(FormCollections.businesses);
+    if (this.currentSubscription$) return;
+    const forms = await this.formService.getFormByCollection(
+      FormCollections.businesses
+    );
     const entityForm = forms.find(() => true);
     const subscription = await this.formService.createFormSubscription({
       form: entityForm._id,
       data,
     });
     this.currentSubscription$ = subscription;
-    const subRef = this.formService.openFormFromSubscription(subscription, "Empresa");
-    subRef.pipe(
-      take(1),
-      takeUntil(this.onDestroy$)
-    ).subscribe(async (submittedDocId) => {
-      if(!submittedDocId) return;
-      this.currentSubscription$ = null;
-      this.applicantContext.businesses.push(submittedDocId);
-    });
+    const subRef = this.formService.openFormFromSubscription(
+      subscription,
+      'Empresa'
+    );
+    subRef
+      .pipe(take(1), takeUntil(this.onDestroy$))
+      .subscribe(async (submittedDocId) => {
+        if (!submittedDocId) return;
+        this.currentSubscription$ = null;
+        this.applicantContext.businesses.push(submittedDocId);
+      });
   }
 
   async requestFormStartup(data?: any) {
-    if(this.currentSubscription$) return false;
-    const forms = await this.formService.getFormByCollection(FormCollections.startups);
+    if (this.currentSubscription$) return false;
+    const forms = await this.formService.getFormByCollection(
+      FormCollections.startups
+    );
     const entityForm = forms.find(() => true);
     const subscription = await this.formService.createFormSubscription({
       form: entityForm._id,
       data,
     });
     this.currentSubscription$ = subscription;
-    const subRef = this.formService.openFormFromSubscription(subscription, "Startup");
-    subRef.pipe(
-      take(1),
-      takeUntil(this.onDestroy$)
-    ).subscribe(async (submittedDocId) => {
-      if(!submittedDocId) return;
-      this.currentSubscription$ = null;
-      this.applicantContext.startup = submittedDocId;
-      this.currentState = ApplicantState.withStartup;
-    });
-    return firstValueFrom(subRef.pipe(map(doc => !!doc)));
+    const subRef = this.formService.openFormFromSubscription(
+      subscription,
+      'Startup'
+    );
+    subRef
+      .pipe(take(1), takeUntil(this.onDestroy$))
+      .subscribe(async (submittedDocId) => {
+        if (!submittedDocId) return;
+        this.currentSubscription$ = null;
+        this.applicantContext.startup = submittedDocId;
+        this.currentState = ApplicantState.withStartup;
+      });
+    return firstValueFrom(subRef.pipe(map((doc) => !!doc)));
   }
-  
+
   async requestFormExpert(data?: any) {
-    if(this.currentSubscription$) return false;
-    const forms = await this.formService.getFormByCollection(FormCollections.experts);
+    if (this.currentSubscription$) return false;
+    const forms = await this.formService.getFormByCollection(
+      FormCollections.experts
+    );
     const entityForm = forms.find(() => true);
     const subscription = await this.formService.createFormSubscription({
       form: entityForm._id,
       data,
     });
     this.currentSubscription$ = subscription;
-    const subRef = this.formService.openFormFromSubscription(subscription, "Expert");
-    subRef.pipe(
-      take(1),
-      takeUntil(this.onDestroy$)
-    ).subscribe(async (submittedDocId) => {
-      if(!submittedDocId) return;
-      this.currentSubscription$ = null;
-      this.applicantContext.expert = submittedDocId;
-      this.applicantContext.id = submittedDocId;
-      this.currentState = ApplicantState.withExpert;
-    });
-    return subRef.pipe(map(doc => !!doc));
+    const subRef = this.formService.openFormFromSubscription(
+      subscription,
+      'Expert'
+    );
+    subRef
+      .pipe(take(1), takeUntil(this.onDestroy$))
+      .subscribe(async (submittedDocId) => {
+        if (!submittedDocId) return;
+        this.currentSubscription$ = null;
+        this.applicantContext.expert = submittedDocId;
+        this.applicantContext.id = submittedDocId;
+        this.currentState = ApplicantState.withExpert;
+      });
+    return subRef.pipe(map((doc) => !!doc));
   }
 }
 
 export enum ApplicantState {
-  initial = "initial",
-  withEntrepreneur = "withEntrepreneur",
-  withBusinesses = "withBusinesses",
-  withStartup = "withStartup",
-  withExpert = "withExpert",
-  submitted = "submitted",
+  initial = 'initial',
+  withEntrepreneur = 'withEntrepreneur',
+  withBusinesses = 'withBusinesses',
+  withStartup = 'withStartup',
+  withExpert = 'withExpert',
+  submitted = 'submitted',
 }
 
 export const applicantStates: Record<ApplicantState, ApplicantState> = {
@@ -209,4 +243,4 @@ export const applicantStates: Record<ApplicantState, ApplicantState> = {
   [ApplicantState.withStartup]: ApplicantState.withStartup,
   [ApplicantState.submitted]: ApplicantState.submitted,
   [ApplicantState.withExpert]: ApplicantState.withExpert,
-}
+};

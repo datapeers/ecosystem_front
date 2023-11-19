@@ -35,8 +35,8 @@ export class HomeService {
     if (!user.isExpert) menuItems.push('helpDesk');
     if (user.isUser || user.allowed(Permission.community_view))
       menuItems.push('communities');
-    if (user.allowed(Permission.sites_and_services_view))
-      menuItems.push('siteAndServices');
+    // if (user.allowed(Permission.sites_and_services_view))
+    //   menuItems.push('siteAndServices');
 
     if (user.allowed(Permission.reports_view)) menuItems.push('reports');
     if (adminOptions.includes(user.rolType as ValidRoles)) {
@@ -146,24 +146,26 @@ export class HomeService {
       },
       entrepreneurs: {
         label: 'Emprendedores',
-        type: 'dropdown',
-        class: 'mt-4',
+        // type: 'dropdown',
+        type: 'single',
+        class: '',
         icon: 'flag-3',
-        children: [
-          {
-            label: 'Emprendedores',
-            rute: '/home/entrepreneurs',
-            type: 'single',
-            icon: 'flag-3',
-          },
-          {
-            label: 'Prospectos',
-            rute: '/home/entrepreneursProspects',
-            type: 'single',
-            icon: 'list-search',
-            queryParamsRute: { prospects: true },
-          },
-        ],
+        rute: '/home/entrepreneurs',
+        // children: [
+        //   {
+        //     label: 'Emprendedores',
+        //     rute: '/home/entrepreneurs',
+        //     type: 'single',
+        //     icon: 'flag-3',
+        //   },
+        //   {
+        //     label: 'Prospectos',
+        //     rute: '/home/entrepreneursProspects',
+        //     type: 'single',
+        //     icon: 'list-search',
+        //     queryParamsRute: { prospects: true },
+        //   },
+        // ],
       },
       businesses: {
         label: 'Empresas',

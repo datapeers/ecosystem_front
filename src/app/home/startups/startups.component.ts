@@ -138,6 +138,7 @@ export class StartupsComponent {
           ],
         },
       ],
+      defaultFilters: this.defaultFilters,
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;

@@ -397,8 +397,8 @@ export class DynamicTableComponent {
         this.actionsMenu.push({
           label: 'Configurar tabla',
           icon: 'pi pi-cog',
-          class: 'button-grey',
-          styleClass: 'button-grey',
+          // class: 'button-grey',
+          // styleClass: 'button-grey',
           command: () => {
             this.openConfigDialog();
           },
@@ -416,7 +416,7 @@ export class DynamicTableComponent {
       const filterAction = {
         label: 'Filtros y orden',
         icon: 'pi pi-filter',
-        styleClass: 'button-grey',
+        // styleClass: 'button-grey',
         items: [
           {
             label: 'Guardar',
