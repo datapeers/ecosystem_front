@@ -128,13 +128,22 @@ export class FormService {
   openAnnouncementFromSubscription(
     announcement: Announcement,
     participantId: string,
-    subscription?: IFormSubscription
-  ) {
+    subscription?: IFormSubscription,
+    openDialog?: boolean
+  ): any {
     let frameUrl = `${formUrls.announcement}/${announcement._id}/${participantId}`;
     if (subscription) {
       frameUrl = frameUrl.concat(`?sub=${subscription._id}`);
     }
-    window.open(frameUrl, '_blank');
+    if (openDialog && subscription) {
+      return this.openFormFromSubscriptionDialog(
+        subscription,
+        'Creación de inscritoCreación de inscrito',
+        frameUrl
+      );
+    } else {
+      window.open(frameUrl, '_blank');
+    }
   }
 
   openFormFromSubscription(

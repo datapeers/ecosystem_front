@@ -4,7 +4,10 @@ import { Store } from '@ngrx/store';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import {
+  TableColumnType,
+  TableConfig,
+} from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { FormService } from '@shared/form/form.service';
@@ -22,6 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApplicantState } from '../model/applicant-state';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
+import { applicantStates } from 'src/app/public/landing/landing.component';
 
 @Component({
   selector: 'app-applicants',
@@ -92,6 +96,16 @@ export class ApplicantsComponent {
           },
         ],
       };
+      if (this.currentState === ApplicationStates.selected) {
+        this.optionsTable.extraColumnsTable = [
+          {
+            label: 'Batch seleccionado',
+            key: 'batch, nombre',
+            type: TableColumnType.data,
+            format: 'string',
+          },
+        ];
+      }
       this.loadComponent();
     });
     firstValueFrom(
@@ -115,7 +129,7 @@ export class ApplicantsComponent {
       (state) => state.announcement.announcement
     );
     this.announcement = await firstValueFrom(announcementChanges);
-    this.tableLocator = `${tableLocators.applicants}${this.announcement._id}`;
+    this.tableLocator = `${tableLocators.applicants}${this.announcement._id}${this.currentState}`;
     this.optionsTable.summary = 'Inscritos';
     this.tableTitle = 'Inscritos';
     this.loading = true;
@@ -153,9 +167,11 @@ export class ApplicantsComponent {
             announcement: this.announcement._id,
           },
         });
-        const ref = this.formService.openFormFromSubscription(
+        const ref = this.formService.openAnnouncementFromSubscription(
+          this.announcement,
+          undefined,
           subscription,
-          'Creación de inscrito'
+          true
         );
         ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
           if (doc) {

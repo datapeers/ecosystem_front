@@ -35,6 +35,7 @@ export class ExpertsComponent {
   onDestroy$: Subject<void> = new Subject();
   user: User;
   defaultFilters: TableFilters;
+  filterProspects;
   constructor(
     private store: Store<AppState>,
     private readonly formService: FormService,
@@ -44,9 +45,9 @@ export class ExpertsComponent {
     this.route.queryParamMap
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((params) => {
-        const filterProspects = !!params.get('prospects');
+        this.filterProspects = !!params.get('prospects');
         const extraColumnsTable = [];
-        if (!filterProspects) {
+        if (!this.filterProspects) {
           this.tableLocator = tableLocators.experts;
           this.defaultFilters = {
             isProspect: [
@@ -112,7 +113,7 @@ export class ExpertsComponent {
   }
 
   actionsTableOptions() {
-    if (this.user.allowed(Permission.create_experts))
+    if (this.user.allowed(Permission.create_experts) && this.filterProspects)
       this.optionsTable.actionsTable.push({
         action: 'add',
         label: `Nuevo Experto`,

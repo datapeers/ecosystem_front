@@ -44,6 +44,7 @@ export class StartupsComponent {
   onDestroy$: Subject<void> = new Subject();
   user: User;
   defaultFilters: TableFilters;
+  filterProspects;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -55,7 +56,7 @@ export class StartupsComponent {
     this.route.queryParamMap
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((params) => {
-        const filterProspects = !!params.get('prospects');
+        this.filterProspects = !!params.get('prospects');
         const extraColumnsTable: TableColumn[] = [
           {
             label: 'Fases',
@@ -64,7 +65,7 @@ export class StartupsComponent {
             format: 'string',
           },
         ];
-        if (!filterProspects) {
+        if (!this.filterProspects) {
           this.tableLocator = tableLocators.startups;
           this.defaultFilters = {
             isProspect: [
@@ -147,7 +148,7 @@ export class StartupsComponent {
   }
 
   actionsTableOptions() {
-    if (this.user.allowed(Permission.create_startups))
+    if (this.user.allowed(Permission.create_startups) && this.filterProspects)
       this.optionsTable.actionsTable.push({
         action: 'add',
         label: `Nueva Startup`,
