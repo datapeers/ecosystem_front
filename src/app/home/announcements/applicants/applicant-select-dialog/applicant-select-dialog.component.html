@@ -31,7 +31,7 @@
             </div>
         </ng-container>
         <div class="flex flex-row align-items-center justify-content-center pt-3">
-            <ng-container *ngIf="selectFields; else otherBtn">
+            <ng-container *ngIf="!selectFields; else otherBtn">
                 <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected"></p-button>
             </ng-container>
             <ng-template #otherBtn>

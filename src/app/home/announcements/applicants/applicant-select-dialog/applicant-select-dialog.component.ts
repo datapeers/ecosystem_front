@@ -88,7 +88,6 @@ export class ApplicantSelectDialogComponent implements OnInit {
       const form = await this.formService.getForm(this.announcement.form._id);
       const formComponents = this.formService.getFormComponents(form);
       this.formFields = this.formService.getInputComponents(formComponents);
-      console.log(this.formFields);
     }
     this.loaded = true;
   }
@@ -98,6 +97,15 @@ export class ApplicantSelectDialogComponent implements OnInit {
   }
 
   saveSelected() {
+    if (this.announcement.target === AnnouncementTargets.entrepreneurs) {
+      this.toastService.info({
+        summary: 'Incompleto aun...',
+        detail:
+          'Este metodo de convocatoria con empresarios an esta en desarrollo',
+        life: 30000,
+      });
+      return;
+    }
     this.saving = true;
     this.toastService.info({
       summary: 'Guardando...',
