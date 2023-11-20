@@ -15,6 +15,10 @@ const fragments = {
         }
         type
       }
+      states {
+        notes
+        type
+      }
     }
   `,
 };
@@ -42,6 +46,14 @@ const mutation = {
   updateApplicantState: `
     mutation UpdateApplicantState($updateApplicantStateInput: UpdateApplicantStateInput!) {
       updateApplicantState(updateApplicantStateInput: $updateApplicantStateInput) {
+        ...applicantFields
+      }
+    }
+    ${fragments.applicantFields}
+  `,
+  selectApplicantState: `
+    mutation SelectApplicantState($idApplicant: String!, $idBatch: String!, $nameBatch: String!, $typeApplicant: AnnouncementTargets!) {
+      selectApplicantState(idApplicant: $idApplicant, idBatch: $idBatch, nameBatch: $nameBatch, typeApplicant: $typeApplicant) {
         ...applicantFields
       }
     }

@@ -8,7 +8,7 @@ import { ApplicantState } from '@home/announcements/model/applicant-state';
 import { ApplicationStates } from '@home/announcements/model/application-states.enum';
 import { resolveStorage } from '@shared/storage/storage.constants';
 import { StorageService } from '@shared/storage/storage.service';
-import { UpdateResultPayload } from '@shared/models/graphql/update-result-payload';
+import { AnnouncementTargets } from '@home/announcements/model/announcement-targets.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -73,6 +73,30 @@ export class ApplicantsService implements DocumentProvider {
       this.graphql
         .mutation(mutationRef)
         .pipe(map((request) => request.data.updateApplicantState))
+    );
+  }
+
+  async selectApplicant(
+    idApplicant: string,
+    idBatch: string,
+    nameBatch: string,
+    typeApplicant: AnnouncementTargets
+  ): Promise<Applicant> {
+    const mutationRef = this.graphql.refMutation(
+      applicantQueries.mutation.selectApplicantState,
+      {
+        idApplicant,
+        idBatch,
+        nameBatch,
+        typeApplicant,
+      },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.selectApplicantState))
     );
   }
 

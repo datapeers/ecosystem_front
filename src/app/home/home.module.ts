@@ -72,6 +72,7 @@ import { ResourceCardComponent } from '../shared/components/resource-card/resour
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { RouteStageDescriptionComponent } from './route-stage-description/route-stage-description.component';
+import { ApplicantSelectDialogComponent } from './announcements/applicants/applicant-select-dialog/applicant-select-dialog.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -129,6 +130,7 @@ import { RouteStageDescriptionComponent } from './route-stage-description/route-
     StartupProfileComponent,
     ConfigurationComponent,
     RouteStageDescriptionComponent,
+    ApplicantSelectDialogComponent,
   ],
   imports: [
     CommonModule,

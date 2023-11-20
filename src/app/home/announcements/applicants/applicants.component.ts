@@ -26,6 +26,7 @@ import { ApplicantState } from '../model/applicant-state';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
 import { applicantStates } from 'src/app/public/landing/landing.component';
+import { ApplicantSelectDialogComponent } from './applicant-select-dialog/applicant-select-dialog.component';
 
 @Component({
   selector: 'app-applicants',
@@ -60,11 +61,17 @@ export class ApplicantsComponent {
       const nextState = applicationStatesUtilities.nextApplicationState(state);
       const rowActions = [];
       this.nextState = nextState;
-      if (nextState) {
-        const label = applicationStatesUtilities.stateChangeLabel(state);
+      if (this.currentState === ApplicationStates.enrolled) {
         rowActions.push({
           action: 'update',
-          label: label,
+          label: 'Inscribir',
+          icon: 'pi pi-plus',
+        });
+      }
+      if (this.currentState !== ApplicationStates.selected) {
+        rowActions.push({
+          action: 'selectBatch',
+          label: 'Seleccionar',
           icon: 'pi pi-plus',
         });
       }
@@ -157,6 +164,7 @@ export class ApplicantsComponent {
     element,
     event,
     callbacks,
+    rawDataTable,
   }: TableActionEvent<Applicant>) {
     switch (action) {
       case 'add':
@@ -192,6 +200,10 @@ export class ApplicantsComponent {
         );
         this.updateStateDialog(header, element._id, this.nextState);
         break;
+      case 'selectBatch':
+        const item = rawDataTable.find((i) => i._id === element._id);
+        this.selectParticipantDialog(item);
+        break;
     }
   }
 
@@ -204,9 +216,23 @@ export class ApplicantsComponent {
       header: '',
       maskStyleClass: 'dialog-app',
       data: {
+        announcement: this.announcement,
         announcementId: this.announcement._id,
         id: applicantId,
         currentState: state,
+      },
+    });
+  }
+
+  selectParticipantDialog(applicant) {
+    this.dialogService.open(ApplicantSelectDialogComponent, {
+      header: '',
+      maskStyleClass: 'dialog-app',
+      data: {
+        announcement: this.announcement,
+        announcementId: this.announcement._id,
+        id: applicant._id,
+        currentState: this.currentState,
       },
     });
   }
