@@ -17,6 +17,8 @@ import { PhasesService } from '@home/phases/phases.service';
 import { Subscription } from 'rxjs';
 import { Phase } from '@home/phases/model/phase.model';
 import { Announcement } from '@home/announcements/model/announcement';
+import { AnnouncementTargets } from '@home/announcements/model/announcement-targets.enum';
+import { FormService } from '@shared/form/form.service';
 
 @Component({
   selector: 'app-applicant-select-dialog',
@@ -33,13 +35,17 @@ export class ApplicantSelectDialogComponent implements OnInit {
   listBatch: Phase[] = [];
   batchSelected: Phase;
   saving = false;
+  selectFields = false;
+  formFields = [];
+  nameField;
+  emailField;
   constructor(
     private readonly ref: DynamicDialogRef,
     private readonly config: DynamicDialogConfig,
     private readonly applicantsService: ApplicantsService,
-    private readonly storageService: StorageService,
     private readonly toastService: ToastService,
-    private readonly phaseService: PhasesService
+    private readonly phaseService: PhasesService,
+    private readonly formService: FormService
   ) {
     const { announcement, currentState, id, announcementId } = this.config.data;
     this.applicantId = id;
@@ -76,6 +82,14 @@ export class ApplicantSelectDialogComponent implements OnInit {
     this.listBatch = (await this.phaseService.getPhases()).filter(
       (i) => !(i.basePhase || !i.isActive)
     );
+    // Load form
+    if (this.announcement.target === AnnouncementTargets.entrepreneurs) {
+      this.selectFields = true;
+      const form = await this.formService.getForm(this.announcement.form._id);
+      const formComponents = this.formService.getFormComponents(form);
+      this.formFields = this.formService.getInputComponents(formComponents);
+      console.log(this.formFields);
+    }
     this.loaded = true;
   }
 

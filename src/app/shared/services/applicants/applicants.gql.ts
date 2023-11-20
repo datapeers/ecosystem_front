@@ -19,6 +19,7 @@ const fragments = {
         notes
         type
       }
+      batch
     }
   `,
 };

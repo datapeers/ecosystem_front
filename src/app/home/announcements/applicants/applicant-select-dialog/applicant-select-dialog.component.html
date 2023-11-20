@@ -17,8 +17,26 @@
             <p-dropdown [autoDisplayFirst]="false" [options]="listBatch" [(ngModel)]="batchSelected" dataKey="_id" optionLabel="name" placeholder="Seleccione un batch" appendTo="body" [style]="{ width: '100%' }" [filter]="true" filterBy="name">
             </p-dropdown>
         </span>
+        <ng-container *ngIf="selectFields">
+            <div class="flex flex-row justify-content-between align-items-center pt-3">
+                <span class="app-input-field" style="width: 45%">
+                    <label for="nameFieldInput">Campo con el nombre</label>
+                    <p-dropdown [autoDisplayFirst]="false" [options]="formFields" [(ngModel)]="nameField" dataKey="key" optionLabel="label" optionValue="key" placeholder="Seleccione el campo que contiene el nombre" appendTo="body" [style]="{ width: '100%' }" [filter]="true" filterBy="label">
+                    </p-dropdown>
+                </span><span class="app-input-field" style="width: 45%">
+                    <label for="emailFieldInput">Campo con el email</label>
+                    <p-dropdown [autoDisplayFirst]="false" [options]="formFields" [(ngModel)]="emailField" dataKey="key" optionLabel="label" optionValue="key" placeholder="Seleccione el campo que contiene el email" appendTo="body" [style]="{ width: '100%' }" [filter]="true" filterBy="label">
+                    </p-dropdown>
+                </span>
+            </div>
+        </ng-container>
         <div class="flex flex-row align-items-center justify-content-center pt-3">
-            <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected"></p-button>
+            <ng-container *ngIf="selectFields; else otherBtn">
+                <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected"></p-button>
+            </ng-container>
+            <ng-template #otherBtn>
+                <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected || !formFields || emailField"></p-button>
+            </ng-template>
         </div>
     </div>
 

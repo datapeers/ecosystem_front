@@ -136,9 +136,10 @@ export class FormService {
       frameUrl = frameUrl.concat(`?sub=${subscription._id}`);
     }
     if (openDialog && subscription) {
+      frameUrl = frameUrl.concat(`&fromApp=true`);
       return this.openFormFromSubscriptionDialog(
         subscription,
-        'Creación de inscritoCreación de inscrito',
+        'Creación de preinscrito',
         frameUrl
       );
     } else {

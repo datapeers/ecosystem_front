@@ -172,6 +172,7 @@ export class ApplicantsComponent {
           form: this.announcement.form._id,
           reason: 'Create applicant',
           data: {
+            fromApp: true,
             announcement: this.announcement._id,
           },
         });
