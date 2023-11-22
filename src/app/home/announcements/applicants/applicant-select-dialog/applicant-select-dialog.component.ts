@@ -97,14 +97,20 @@ export class ApplicantSelectDialogComponent implements OnInit {
   }
 
   saveSelected() {
-    if (this.announcement.target === AnnouncementTargets.entrepreneurs) {
-      this.toastService.info({
-        summary: 'Incompleto aun...',
-        detail:
-          'Este metodo de convocatoria con empresarios an esta en desarrollo',
-        life: 30000,
-      });
-      return;
+    if (
+      this.announcement.target === AnnouncementTargets.entrepreneurs &&
+      this.emailField
+    ) {
+      const pattern = new RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$');
+      if (!pattern.test(this.applicant.item[this.emailField])) {
+        this.toastService.info({
+          summary: 'Email invalido',
+          detail:
+            'El email del participante es invalido, no es un correo electrónico correctamente escrito',
+          life: 30000,
+        });
+        return;
+      }
     }
     this.saving = true;
     this.toastService.info({
@@ -117,7 +123,12 @@ export class ApplicantSelectDialogComponent implements OnInit {
         this.applicant._id,
         this.batchSelected._id,
         this.batchSelected.name,
-        this.announcement.target
+        this.announcement.target,
+        {
+          nameField: this.nameField,
+          emailField: this.emailField,
+          phaseBase: this.batchSelected.childrenOf,
+        }
       )
       .then((ans) => {
         this.toastService.clear();
@@ -125,6 +136,12 @@ export class ApplicantSelectDialogComponent implements OnInit {
       })
       .catch((err) => {
         this.toastService.clear();
+        this.toastService.alert({
+          detail: err,
+          summary: 'Acción invalida',
+          life: 10000,
+        });
+        this.saving = false;
         console.warn(err);
       });
   }

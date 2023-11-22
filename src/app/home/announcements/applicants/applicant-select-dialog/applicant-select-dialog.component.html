@@ -35,7 +35,7 @@
                 <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected"></p-button>
             </ng-container>
             <ng-template #otherBtn>
-                <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected || !formFields || emailField"></p-button>
+                <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected || !nameField || !emailField"></p-button>
             </ng-template>
         </div>
     </div>

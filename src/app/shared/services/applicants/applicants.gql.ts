@@ -53,8 +53,8 @@ const mutation = {
     ${fragments.applicantFields}
   `,
   selectApplicantState: `
-    mutation SelectApplicantState($idApplicant: String!, $idBatch: String!, $nameBatch: String!, $typeApplicant: AnnouncementTargets!) {
-      selectApplicantState(idApplicant: $idApplicant, idBatch: $idBatch, nameBatch: $nameBatch, typeApplicant: $typeApplicant) {
+    mutation SelectApplicantState($idApplicant: String!, $idBatch: String!, $metadata: JSON!, $nameBatch: String!, $typeApplicant: AnnouncementTargets!) {
+      selectApplicantState(idApplicant: $idApplicant, idBatch: $idBatch, metadata: $metadata, nameBatch: $nameBatch, typeApplicant: $typeApplicant) {
         ...applicantFields
       }
     }

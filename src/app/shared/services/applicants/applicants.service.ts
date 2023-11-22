@@ -80,7 +80,8 @@ export class ApplicantsService implements DocumentProvider {
     idApplicant: string,
     idBatch: string,
     nameBatch: string,
-    typeApplicant: AnnouncementTargets
+    typeApplicant: AnnouncementTargets,
+    metadata: Record<string, any>
   ): Promise<Applicant> {
     const mutationRef = this.graphql.refMutation(
       applicantQueries.mutation.selectApplicantState,
@@ -89,6 +90,7 @@ export class ApplicantsService implements DocumentProvider {
         idBatch,
         nameBatch,
         typeApplicant,
+        metadata,
       },
       [],
       { auth: true }

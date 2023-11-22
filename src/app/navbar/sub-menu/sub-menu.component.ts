@@ -38,7 +38,12 @@ export class SubMenuComponent implements OnDestroy {
       .subscribe((menus) => {
         if (!menus) return;
         this.menu = menus[0];
-        this.onChange(this.menu.switchTypeMenu[0].type ?? undefined);
+        const urlNow = this.router.url;
+        for (const iterator of this.menu.options) {
+          if (iterator.rute === urlNow)
+            this.menuTypeSelected = iterator.menuType;
+        }
+        this.onChange(this.menuTypeSelected);
       });
   }
 

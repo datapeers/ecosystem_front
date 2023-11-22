@@ -62,7 +62,6 @@ export class LandingComponent {
   async registerAt() {
     switch (this.announcement.target) {
       // case AnnouncementTargets.experts:
-
       //   break;
       case AnnouncementTargets.entrepreneurs:
         await this.requestFormEntrepreneur();
