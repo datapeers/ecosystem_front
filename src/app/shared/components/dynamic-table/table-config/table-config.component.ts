@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ITableConfig, TableColumns, TableConfig } from '../models/table-config';
+import {
+  ITableConfig,
+  TableColumns,
+  TableConfig,
+} from '../models/table-config';
 import { DynamicTable } from '../models/dynamic-table';
 import { TableContext } from '../models/table-context';
 import { TableJoin } from '../models/table-join';
@@ -12,7 +16,7 @@ import { TableOptions } from '../models/table-options';
 @Component({
   selector: 'app-table-config',
   templateUrl: './table-config.component.html',
-  styleUrls: ['./table-config.component.scss']
+  styleUrls: ['./table-config.component.scss'],
 })
 export class TableConfigComponent {
   table: DynamicTable;
@@ -57,40 +61,38 @@ export class TableConfigComponent {
     public config: DynamicDialogConfig,
     private readonly dynamicTableService: DynamicTableService
   ) {
-    this.config$
-      .pipe(
-        takeUntil(this.onDestroy$)
-      ).subscribe(config => {
-        const { table, tableConfig, context, options } = config.data;
-        this.table = table;
-        this.tableConfig = tableConfig;
-        this.context = context;
-        this.options = options;
-        const availableJoins = this.context?.joins?.filter(join => !table.joins.some(tableJoin => tableJoin.key === join.key)) ?? [];
-        this.joins = availableJoins;
-        const defaultGroup = {
-          name: this.context.name,
-          columns: this.table.columns,
-        };
-        const tableColumnGroups = this.table?.columnGroups ?? [];
-        const tableExtraColumns = this.options.extraColumnsTable;
-        const extraColumnsGroup: ColumnGroup = {
-          name: 'Columnas Adicionales',
-          columns: tableExtraColumns,
-        };
-        this.columnGroups = [defaultGroup];
-        if(extraColumnsGroup.columns.length) {
-          this.columnGroups.push(extraColumnsGroup);
-        }
-        this.columnGroups.push(...tableColumnGroups);
-        this.selectedColumns = [...this.tableConfig.columns];
-      });
+    this.config$.pipe(takeUntil(this.onDestroy$)).subscribe((config) => {
+      const { table, tableConfig, context, options } = config.data;
+      this.table = table;
+      this.tableConfig = tableConfig;
+      this.context = context;
+      this.options = options;
+      const availableJoins =
+        this.context?.joins?.filter(
+          (join) => !table.joins.some((tableJoin) => tableJoin.key === join.key)
+        ) ?? [];
+      this.joins = availableJoins;
+      const defaultGroup = {
+        name: this.context.name,
+        columns: this.table.columns,
+      };
+      const tableColumnGroups = this.table?.columnGroups ?? [];
+      const tableExtraColumns = this.options.extraColumnsTable;
+      const extraColumnsGroup: ColumnGroup = {
+        name: 'Columnas Adicionales',
+        columns: tableExtraColumns,
+      };
+      this.columnGroups = [defaultGroup];
+      if (extraColumnsGroup.columns.length) {
+        this.columnGroups.push(extraColumnsGroup);
+      }
+      this.columnGroups.push(...tableColumnGroups);
+      this.selectedColumns = [...this.tableConfig.columns];
+    });
     this.config$.next(this.config);
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.onDestroy$.next();
@@ -98,24 +100,33 @@ export class TableConfigComponent {
   }
 
   async addJoin(join: TableJoin) {
-    const updatedTable = await this.dynamicTableService.addTableJoin(this.table._id, join, this.context.locator);
+    console.log('pasa', join, this.context.locator);
+    const updatedTable = await this.dynamicTableService.addTableJoin(
+      this.table._id,
+      join,
+      this.context.locator
+    );
     this.config$.next({
       ...this.config,
       data: {
         ...this.config.data,
         table: updatedTable,
-      }
+      },
     });
   }
 
   async removeJoin(group: ColumnGroup) {
-    const updatedTable = await this.dynamicTableService.removeTableJoin(this.table._id, group.key, this.context.locator);
+    const updatedTable = await this.dynamicTableService.removeTableJoin(
+      this.table._id,
+      group.key,
+      this.context.locator
+    );
     this.config$.next({
       ...this.config,
       data: {
         ...this.config.data,
         table: updatedTable,
-      }
+      },
     });
   }
 
@@ -124,7 +135,7 @@ export class TableConfigComponent {
       _id: this.tableConfig._id,
       name: this.tableConfig.name,
       columns: this.selectedColumns,
-    }
+    };
     this.ref.close(updatedConfig);
   }
 

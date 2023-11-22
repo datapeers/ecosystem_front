@@ -124,11 +124,13 @@ export class EntrepreneursComponent {
           name: 'Empresas',
           key: 'businesses',
           form: businessesForm._id,
+          extraColumns: [],
         },
         {
           name: 'Startups',
           key: 'startups',
           form: startupsForm._id,
+          extraColumns: [],
         },
       ],
       defaultFilters: this.defaultFilters,
