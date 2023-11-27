@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { AdminService } from '../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from '@auth/models/user';
@@ -42,12 +49,15 @@ export class UsersPanelComponent implements OnInit {
   menuUser: MenuItem[];
   editPermission = [ValidRoles.teamCoach, ValidRoles.host, ValidRoles.expert];
   @ViewChild('dt', { static: true }) dt: Table;
+  scrollHeight;
+
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
     private service: AdminService,
     public dialogService: DialogService
   ) {
+    this.scrollHeight = `${innerHeight - 400}px`;
     this.menuUser = [
       {
         label: 'Editar permisos',
@@ -66,6 +76,15 @@ export class UsersPanelComponent implements OnInit {
 
   ngOnInit() {
     this.initComponent();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 400}px`;
+    }, 250);
   }
 
   async initComponent() {

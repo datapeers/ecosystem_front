@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  HostListener,
+} from '@angular/core';
 import { AdminService } from '../admin.service';
 import { RolesService } from './roles.service';
 import { Subscription } from 'rxjs';
@@ -24,12 +30,15 @@ export class RolesComponent implements OnInit, OnDestroy {
   columns = [{ field: 'name', name: 'Nombre', tooltip: 'Nombre' }];
   filterFields = this.columns.map((column) => column.field);
   @ViewChild('dt', { static: true }) dt: Table;
+  scrollHeight;
   constructor(
     private readonly toast: ToastService,
     private readonly service: RolesService,
     private readonly adminService: AdminService,
     public dialogService: DialogService
-  ) {}
+  ) {
+    this.scrollHeight = `${innerHeight - 400}px`;
+  }
 
   ngOnInit() {
     this.loadComponent();
@@ -37,6 +46,15 @@ export class RolesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.roles$?.unsubscribe();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 400}px`;
+    }, 250);
   }
 
   async loadComponent() {

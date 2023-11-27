@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { Subject, throttleTime } from 'rxjs';
 import { Invitation } from '@shared/models/invitation';
@@ -28,11 +28,13 @@ export class InvitationsComponent implements OnInit {
   formInvitation: FormGroup;
   submit$: Subject<void> = new Subject();
   @ViewChild('dt', { static: true }) dt: Table;
+  scrollHeight;
   constructor(
     private readonly toast: ToastService,
     private readonly service: AdminService,
     readonly fb: FormBuilder
   ) {
+    this.scrollHeight = `${innerHeight - 400}px`;
     this.formInvitation = fb.group({
       email: fb.control<string>('', {
         validators: [Validators.required, Validators.email],
@@ -49,6 +51,15 @@ export class InvitationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadComponent();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 400}px`;
+    }, 250);
   }
 
   async loadComponent() {

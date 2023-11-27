@@ -239,10 +239,10 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       case ValidRoles.user:
         datasets = [
           {
-            label: 'Avance',
+            label: '% Avance',
             backgroundColor: documentStyle.getPropertyValue('--blue-500'),
             borderColor: documentStyle.getPropertyValue('--blue-500'),
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: [0, 0, 0, 3, 5, 0, 0],
           },
           // {
           //   label: 'My Second dataset',
@@ -265,7 +265,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       default:
         datasets = [
           {
-            label: 'Cuentas',
+            label: 'Usuarios interactuando',
             backgroundColor: documentStyle.getPropertyValue('--blue-500'),
             borderColor: documentStyle.getPropertyValue('--blue-500'),
             data: [4, 2, 1, 5, 3, 0, 0],
@@ -405,6 +405,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   calcularWidthGraph(resolucion: number): string {
+    const factorAtenuacion = 0.8;
     // Resolución base (1980px) y valor base de widthGraph (27rem)
     const resolucionBase = 1980;
     const widthGraphBase = 27;
@@ -412,8 +413,8 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     // Calcular la relación entre la resolución actual y la resolución base
     const relacionResolucion = resolucion / resolucionBase;
 
-    // Calcular el nuevo valor de widthGraph
-    const nuevoWidthGraph = widthGraphBase * relacionResolucion;
+    const nuevoWidthGraph =
+      widthGraphBase * Math.pow(relacionResolucion, factorAtenuacion);
 
     // Redondear el valor a dos decimales y devolverlo como cadena con "rem"
     return `${nuevoWidthGraph.toFixed(2)}rem`;

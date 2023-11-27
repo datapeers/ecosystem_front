@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AdminService } from '../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from '@auth/models/user';
@@ -52,6 +58,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   rowMenuItemsTeamCoach: MenuItem[] = [];
   validRoles = ValidRoles;
   @ViewChild('dt', { static: true }) dt: Table;
+  scrollHeight;
   constructor(
     private toast: ToastService,
     private service: AdminService,
@@ -60,6 +67,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
     public dialogService: DialogService,
     private confirmationService: ConfirmationService
   ) {
+    this.scrollHeight = `${innerHeight - 400}px`;
     this.rowMenuItemsHost = [
       {
         label: 'Asignar Fase',
@@ -101,6 +109,15 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 400}px`;
+    }, 250);
   }
 
   async initComponent() {
