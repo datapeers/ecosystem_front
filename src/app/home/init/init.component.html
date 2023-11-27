@@ -20,12 +20,12 @@
                         <div class="h-1rem"></div>
                         <div class="flex justify-center align-items-center">
                             <div class="flex flex-wrap sh1 justify-content-center w-auto" style="font-weight: 500;color:#6B6B6B;padding:1rem 0;">
-                                Este es tu enfoque de horas de la {{phaseTitle}} en ésta semana
+                                Este es tu progreso en {{phaseTitle}} durante ésta semana
                             </div>
                         </div>
                         <div class="h-1rem"></div>
                         <div class="flex justify-center align-items-center">
-                            <p-chart type="bar" [data]="basicData" [options]="basicOptions" width="auto" height="15rem"></p-chart>
+                            <p-chart #chart type="bar" [data]="data" [options]="options" [width]="widthGraphs" height="15rem"></p-chart>
                         </div>
                         <div class="h-2rem"></div>
                         <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent">
@@ -71,7 +71,7 @@
 
                             <!-- <p-chart type="bar" [data]="basicData" [options]="basicOptions" width="21rem" height="15rem"></p-chart> -->
                             <!-- <p-chart type="line" [data]="data" [options]="options" height="15rem"></p-chart> -->
-                            <p-chart type="bar" [data]="data" [options]="options" height="15rem"></p-chart>
+                            <p-chart #chart type="bar" [data]="data" [options]="options" [width]="widthGraphs" height="15rem"></p-chart>
                         </div>
                         <div class="h-2rem"></div>
                         <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent">
@@ -116,7 +116,7 @@
 
                             <!-- <p-chart type="bar" [data]="basicData" [options]="basicOptions" width="21rem" height="15rem"></p-chart> -->
                             <!-- <p-chart type="line" [data]="data" [options]="options" height="15rem"></p-chart> -->
-                            <p-chart #chart type="bar" [data]="data" [options]="options" width="27rem" height="15rem"></p-chart>
+                            <p-chart #chart type="bar" [data]="data" [options]="options" [width]="widthGraphs" height="15rem"></p-chart>
                         </div>
                         <div class="h-2rem"></div>
                         <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent">

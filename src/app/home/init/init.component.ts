@@ -58,9 +58,11 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   lastPhases = [];
   completedT = 75;
   completedTText = '75%';
+  widthGraphs = '27rem';
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.resizeMap();
+    this.widthGraphs = this.calcularWidthGraph(window.innerWidth);
   }
 
   // -----------
@@ -72,6 +74,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     return ValidRoles;
   }
   @ViewChild('chart') chart: UIChart;
+
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -399,5 +402,20 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
           b: parseInt(result[3], 16),
         }
       : null;
+  }
+
+  calcularWidthGraph(resolucion: number): string {
+    // Resolución base (1980px) y valor base de widthGraph (27rem)
+    const resolucionBase = 1980;
+    const widthGraphBase = 27;
+
+    // Calcular la relación entre la resolución actual y la resolución base
+    const relacionResolucion = resolucion / resolucionBase;
+
+    // Calcular el nuevo valor de widthGraph
+    const nuevoWidthGraph = widthGraphBase * relacionResolucion;
+
+    // Redondear el valor a dos decimales y devolverlo como cadena con "rem"
+    return `${nuevoWidthGraph.toFixed(2)}rem`;
   }
 }
