@@ -213,6 +213,7 @@ export class EntrepreneursComponent {
                 businessesIds
               );
             }
+            callbacks.fullRefresh();
           });
         break;
       case 'linkWithStartups':
@@ -238,6 +239,7 @@ export class EntrepreneursComponent {
                 businessesIds
               );
             }
+            callbacks.fullRefresh();
           });
         break;
     }

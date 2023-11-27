@@ -204,14 +204,30 @@ export class EventCreatorComponent implements OnInit {
     });
     this.entrepreneurList = [];
     this.startupsList = [];
+    let addedGeneric = undefined;
     for (const startUp of startupsPhase) {
-      this.startupsList.push({
-        _id: startUp._id,
-        name: startUp.item.nombre,
-        entrepreneurs: startUp.entrepreneurs.map((entrepreneur) => {
-          return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
-        }),
+      const entrepreneurs = startUp.entrepreneurs.map((entrepreneur) => {
+        return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
       });
+      if (startUp.item.generic) {
+        if (addedGeneric) {
+          this.startupsList[addedGeneric].entrepreneurs =
+            this.startupsList[addedGeneric].entrepreneurs.concat(entrepreneurs);
+        } else {
+          addedGeneric = this.startupsList.length;
+          this.startupsList.push({
+            _id: startUp._id,
+            name: startUp.item.nombre,
+            entrepreneurs: entrepreneurs,
+          });
+        }
+      } else {
+        this.startupsList.push({
+          _id: startUp._id,
+          name: startUp.item.nombre,
+          entrepreneurs: entrepreneurs,
+        });
+      }
       for (const entrepreneur of startUp.entrepreneurs) {
         this.entrepreneurList.push({
           _id: entrepreneur._id,

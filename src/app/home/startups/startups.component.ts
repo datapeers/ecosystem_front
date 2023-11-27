@@ -210,6 +210,7 @@ export class StartupsComponent {
                 element.map((i) => i._id),
                 entrepreneursIds
               );
+              callbacks.fullRefresh();
             }
           });
         break;

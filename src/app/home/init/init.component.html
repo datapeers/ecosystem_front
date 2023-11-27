@@ -63,8 +63,9 @@
                     <div class="flex justify-center align-items-center">
                         <!-- <div class="flex w-full border border-1 border-solid h-15rem"></div> -->
 
-                        <p-chart type="bar" [data]="basicData" [options]="basicOptions" width="21rem" height="15rem"></p-chart>
-
+                        <!-- <p-chart type="bar" [data]="basicData" [options]="basicOptions" width="21rem" height="15rem"></p-chart> -->
+                        <!-- <p-chart type="line" [data]="data" [options]="options" height="15rem"></p-chart> -->
+                        <p-chart type="bar" [data]="data" [options]="options" height="15rem"></p-chart>
                     </div>
                     <div class="h-2rem"></div>
                     <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent">

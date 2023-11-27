@@ -63,6 +63,8 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   // -----------
   basicData: any;
   basicOptions: any;
+  data;
+  options;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -201,30 +203,27 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.basicData = {
-      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+    this.data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: 'Sales',
-          data: [540, 325, 702, 620],
-          backgroundColor: [
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-          ],
-          borderColor: [
-            'rgb(255, 159, 64)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-          ],
-          borderWidth: 1,
+          label: 'My First dataset',
+          backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+          borderColor: documentStyle.getPropertyValue('--blue-500'),
+          data: [65, 59, 80, 81, 56, 55, 40],
+        },
+        {
+          label: 'My Second dataset',
+          backgroundColor: documentStyle.getPropertyValue('--pink-500'),
+          borderColor: documentStyle.getPropertyValue('--pink-500'),
+          data: [28, 48, 40, 19, 86, 27, 90],
         },
       ],
     };
 
-    this.basicOptions = {
+    this.options = {
+      indexAxis: 'y',
+      aspectRatio: 0.6,
       plugins: {
         legend: {
           labels: {
@@ -233,17 +232,20 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
         },
       },
       scales: {
-        y: {
-          beginAtZero: true,
+        x: {
           ticks: {
             color: textColorSecondary,
+            font: {
+              weight: 500,
+            },
           },
           grid: {
             color: surfaceBorder,
             drawBorder: false,
           },
         },
-        x: {
+        y: {
+          stacked: true,
           ticks: {
             color: textColorSecondary,
           },
