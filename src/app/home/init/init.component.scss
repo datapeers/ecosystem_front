@@ -144,3 +144,11 @@
   border-radius: 50%;
   border: white 0.5rem solid;
 }
+
+.show-batch {
+  display: flex;
+  flex-wrap: wrap;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+}

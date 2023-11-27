@@ -23,7 +23,10 @@ import { Phase } from '@home/phases/model/phase.model';
 import { lastContent } from '@shared/models/lastContent';
 import { Router } from '@angular/router';
 import { AnnouncementsService } from '@home/announcements/announcements.service';
-
+import { validRoles } from '@auth/models/valid-roles.enum';
+import { ValidRoles } from '../../authentication/models/valid-roles.enum';
+import { ViewChild } from '@angular/core';
+import { UIChart } from 'primeng/chart';
 @Component({
   selector: 'app-init',
   templateUrl: './init.component.html',
@@ -65,6 +68,10 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   basicOptions: any;
   data;
   options;
+  public get roles(): typeof ValidRoles {
+    return ValidRoles;
+  }
+  @ViewChild('chart') chart: UIChart;
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -118,71 +125,83 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   async loadComponent() {
     this.config = await this.serviceConfig.getConfig();
     this.loadGraph();
-    if (this.user.isUser) {
-      setTimeout(() => {
-        this.initializeMainMap();
-      }, 500);
-      this.profileDoc = await firstValueFrom(
-        this.store
-          .select((store) => store.auth.profileDoc)
-          .pipe(first((i) => i !== null))
-      );
-      this.lastContentSub();
-      this.startup = this.profileDoc.startups[0];
-      const userPhases = await this.phasesService.getPhasesList(
-        this.profileDoc['startups'][0].phases.map((i) => i._id),
-        true
-      );
-      const basesPhase = userPhases.filter((i) => i.basePhase);
-      this.phasesBases = basesPhase.length;
-      this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
-      this.currentBatch = await firstValueFrom(
-        this.store
-          .select((store) => store.home.currentBatch)
-          .pipe(first((i) => i !== null))
-      );
-      [this.phaseName, this.phaseNumb] = getPhaseAndNumb(
-        this.currentBatch.name
-      );
-      this.phaseTitle = this.currentBatch.name.replace(
-        `${this.phaseName} ${this.phaseNumb}: `,
-        ''
-      );
-      this.stage = this.currentBatch.stageDoc;
-      this.watchLogStartup();
-    } else {
-      this.announcementsService
-        .watchAnnouncements()
-        .pipe(takeUntil(this.onDestroy$))
-        .subscribe((announcements) => {
-          this.activesAnnouncements = announcements.filter(
-            (i) => i.ended
-          ).length;
-        });
-      this.phasesService
-        .watchPhases()
-        .then(
-          (obsPhases$) =>
-            (this.phases$ = obsPhases$
-              .pipe(takeUntil(this.onDestroy$))
-              .subscribe((phasesList: Phase[]) => {
-                const phases = phasesList.filter((i) => !i.basePhase);
-                this.lastPhases = [];
-                this.activesPhases = phasesList.filter(
-                  (i) => !i.finished
-                ).length;
-                this.lastPhases = phases.sort(
-                  (a, b) =>
-                    new Date(b.updatedAt).getTime() -
-                    new Date(a.updatedAt).getTime()
-                );
-              }))
-        )
-        .catch((err) => {
-          this.lastPhases = [];
-        });
+    switch (this.user.rolType) {
+      case ValidRoles.user:
+        this.setInitUser();
+        break;
+      case ValidRoles.expert:
+        this.setInitExpert();
+        break;
+      default:
+        this.setInitAdmin();
+        break;
     }
   }
+
+  async setInitUser() {
+    setTimeout(() => {
+      this.initializeMainMap();
+    }, 500);
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.lastContentSub();
+    this.startup = this.profileDoc.startups[0];
+    const userPhases = await this.phasesService.getPhasesList(
+      this.profileDoc['startups'][0].phases.map((i) => i._id),
+      true
+    );
+    const basesPhase = userPhases.filter((i) => i.basePhase);
+    this.phasesBases = basesPhase.length;
+    this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
+    this.currentBatch = await firstValueFrom(
+      this.store
+        .select((store) => store.home.currentBatch)
+        .pipe(first((i) => i !== null))
+    );
+    [this.phaseName, this.phaseNumb] = getPhaseAndNumb(this.currentBatch.name);
+    this.phaseTitle = this.currentBatch.name.replace(
+      `${this.phaseName} ${this.phaseNumb}: `,
+      ''
+    );
+    this.stage = this.currentBatch.stageDoc;
+    this.watchLogStartup();
+  }
+
+  async setInitAdmin() {
+    this.announcementsService
+      .watchAnnouncements()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((announcements) => {
+        this.activesAnnouncements = announcements.filter(
+          (i) => !i.ended
+        ).length;
+      });
+    this.phasesService
+      .watchPhases()
+      .then(
+        (obsPhases$) =>
+          (this.phases$ = obsPhases$
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe((phasesList: Phase[]) => {
+              const phases = phasesList.filter((i) => !i.basePhase);
+              this.lastPhases = [];
+              this.activesPhases = phasesList.filter((i) => !i.finished).length;
+              this.lastPhases = phases.sort(
+                (a, b) =>
+                  new Date(b.updatedAt).getTime() -
+                  new Date(a.updatedAt).getTime()
+              );
+            }))
+      )
+      .catch((err) => {
+        this.lastPhases = [];
+      });
+  }
+
+  async setInitExpert() {}
 
   resizeMap() {
     if (this.mainMap) {
@@ -195,6 +214,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
   }
+
   loadGraph() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
@@ -202,28 +222,64 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       '--text-color-secondary'
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
+    const labels = [
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+      'Domingo',
+    ];
+    let datasets = [];
+    switch (this.user.rolType) {
+      case ValidRoles.user:
+        datasets = [
+          {
+            label: 'Avance',
+            backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+            borderColor: documentStyle.getPropertyValue('--blue-500'),
+            data: [65, 59, 80, 81, 56, 55, 40],
+          },
+          // {
+          //   label: 'My Second dataset',
+          //   backgroundColor: documentStyle.getPropertyValue('--pink-500'),
+          //   borderColor: documentStyle.getPropertyValue('--pink-500'),
+          //   data: [28, 48, 40, 19, 86, 27, 90],
+          // },
+        ];
+        break;
+      case ValidRoles.expert:
+        datasets = [
+          {
+            label: 'Horas',
+            backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+            borderColor: documentStyle.getPropertyValue('--blue-500'),
+            data: [65, 59, 80, 81, 56, 55, 40],
+          },
+        ];
+        break;
+      default:
+        datasets = [
+          {
+            label: 'Cuentas',
+            backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+            borderColor: documentStyle.getPropertyValue('--blue-500'),
+            data: [4, 2, 1, 5, 3, 0, 0],
+          },
+        ];
+        break;
+        break;
+    }
     this.data = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label: 'My First dataset',
-          backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-          borderColor: documentStyle.getPropertyValue('--blue-500'),
-          data: [65, 59, 80, 81, 56, 55, 40],
-        },
-        {
-          label: 'My Second dataset',
-          backgroundColor: documentStyle.getPropertyValue('--pink-500'),
-          borderColor: documentStyle.getPropertyValue('--pink-500'),
-          data: [28, 48, 40, 19, 86, 27, 90],
-        },
-      ],
+      labels,
+      datasets,
     };
 
     this.options = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.5,
       indexAxis: 'y',
-      aspectRatio: 0.6,
       plugins: {
         legend: {
           labels: {
