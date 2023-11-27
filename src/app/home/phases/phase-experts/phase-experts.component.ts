@@ -154,13 +154,17 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         break;
       case 'expert_startup_link':
         const listStartups = (
-          await this.startupsService.getDocuments({ phase: this.phase._id })
-        ).map((doc) => {
-          return {
-            _id: doc._id,
-            name: doc.item.nombre,
-          };
-        });
+          await this.startupsService.getDocuments({
+            phase: this.phase._id,
+          })
+        )
+          .filter((i) => !i.item.generic)
+          .map((doc) => {
+            return {
+              _id: doc._id,
+              name: doc.item.nombre,
+            };
+          });
         let startupsWithExpert = new Set();
         this.selectedExpert = rawDataTable.find((i) => i._id === element._id);
         for (const expert of rawDataTable) {
