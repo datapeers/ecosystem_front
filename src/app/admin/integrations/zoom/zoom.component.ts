@@ -34,6 +34,10 @@ export class ZoomComponent implements OnInit {
         const doc = await this.service.createIntegration({
           code: splicedUrl[1],
           typeIntegration: TypeIntegration.zoom,
+          metadata: {
+            clientIdZoom: localStorage.getItem('clientIdZoom'),
+            clientSecretZoom: localStorage.getItem('clientSecretZoom'),
+          },
         });
         this.validCode = true;
         setTimeout(() => {
@@ -48,7 +52,8 @@ export class ZoomComponent implements OnInit {
         });
       }
     }
-
+    localStorage.removeItem('clientIdZoom');
+    localStorage.removeItem('clientSecretZoom');
     this.loaded = true;
   }
 }

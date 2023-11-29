@@ -47,6 +47,7 @@ export class IntegrationsService {
   async createIntegration(createIntegrationInput: {
     code: string;
     typeIntegration: TypeIntegration;
+    metadata: Record<string, any>;
   }): Promise<Integration> {
     const mutRef = this.graphql.refMutation(
       integrationQueries.mutation.createIntegration,

@@ -3,7 +3,8 @@ import { TypeIntegration } from './type-integrations.enum';
 export interface IIntegration {
   _id?: string;
   code: string;
-  type: TypeIntegration;
+  typeIntegration: TypeIntegration;
+  metadata: Record<string, any>;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -11,7 +12,8 @@ export interface IIntegration {
 export class Integration implements IIntegration {
   _id?: string;
   code: string;
-  type: TypeIntegration;
+  typeIntegration: TypeIntegration;
+  metadata: Record<string, any>;
   createdAt?: Date;
   updatedAt?: Date;
   constructor() {}

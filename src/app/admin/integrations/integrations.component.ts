@@ -12,6 +12,7 @@ import { TypeIntegration } from './model/type-integrations.enum';
 })
 export class IntegrationsComponent implements OnInit, OnDestroy {
   clientIdZoom = '';
+  clientSecretZoom = '';
   appUrl = '';
   integrations$: Subscription;
   zoomIntegrationDone = false;
@@ -21,6 +22,8 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
     private toast: ToastService
   ) {
     this.appUrl = window.location.href + '/redirect_zoom';
+    localStorage.removeItem('clientIdZoom');
+    localStorage.removeItem('clientSecretZoom');
   }
 
   ngOnInit(): void {
@@ -28,8 +31,14 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
       .watchIntegrations()
       .then((integrations$) => {
         this.integrations$ = integrations$.subscribe((integrations) => {
-          if (integrations.find((i) => i.type === TypeIntegration.zoom))
+          const zoomInt = integrations.find(
+            (i) => i.typeIntegration === TypeIntegration.zoom
+          );
+          if (zoomInt) {
             this.zoomIntegrationDone = true;
+            this.clientIdZoom = zoomInt.metadata['clientIdZoom'];
+            this.clientSecretZoom = zoomInt.metadata['clientSecretZoom'];
+          }
         });
       })
       .catch((err) => {
@@ -46,8 +55,11 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
   }
 
   saveChanges() {
+    localStorage.setItem('clientIdZoom', this.clientIdZoom);
+    localStorage.setItem('clientSecretZoom', this.clientSecretZoom);
     window.open(
-      `https://zoom.us/oauth/authorize?response_type=code&client_id=${this.clientIdZoom}&redirect_uri=${this.appUrl}`
+      `https://zoom.us/oauth/authorize?response_type=code&client_id=${this.clientIdZoom}&redirect_uri=${this.appUrl}`,
+      '_self'
     );
   }
 }

@@ -4,6 +4,7 @@ const fragments = {
         _id
         code
         typeIntegration
+        metadata
         createdAt
         updatedAt
     }
