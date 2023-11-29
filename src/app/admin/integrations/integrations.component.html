@@ -11,15 +11,21 @@
         </div>
         <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
             <ng-container *ngIf="zoomIntegrationDone; else noZoomInt">
-                <span class="text-sm text-green-600	">Integración hecha</span>
+                <span class="text-base font-semibold text-green-600	">Integración hecha</span>
             </ng-container>
             <ng-template #noZoomInt>
-                <span class="text-sm text-pink-500	"> Integración pendiente</span>
+                <span class="text-base font-semibold text-pink-500	"> Integración pendiente</span>
             </ng-template>
 
         </div>
     </div>
     <form [formGroup]="clientIntegrationZoom" class="w-full formgrid grid pt-3 px-1 sm:px-4 md:px-8">
+
+        <span class="w-full app-input-field field-h-1 field col-12">
+            <label htmlFor="namePhase">Email cuenta zoom</label>
+            <input pInputText id="namePhase" formControlName="email" class="inputfield field-full" placeholder="Ingresa el email de tu app zoom" />
+        </span>
+
 
         <span class="w-full app-input-field field-h-1 field col-12">
             <label htmlFor="namePhase">Account ID</label>

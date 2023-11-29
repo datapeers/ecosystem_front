@@ -40,6 +40,10 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
     this.clientIntegrationZoom = new UntypedFormGroup({
+      email: new UntypedFormControl(null, [
+        Validators.required,
+        Validators.email,
+      ]),
       accountId: new UntypedFormControl(null, Validators.required),
       clientId: new UntypedFormControl(null, Validators.required),
       clientSecret: new UntypedFormControl(null, Validators.required),
@@ -56,6 +60,9 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
           );
           if (zoomInt) {
             this.zoomIntegrationDone = true;
+            this.clientIntegrationZoom
+              .get('email')
+              .setValue(zoomInt.metadata['email']);
             this.clientIntegrationZoom
               .get('accountId')
               .setValue(zoomInt.metadata['accountId']);
@@ -100,6 +107,7 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
         code: this.user._id,
         typeIntegration: TypeIntegration.zoom,
         metadata: {
+          email: zoomIntDoc['email'],
           accountId: zoomIntDoc['accountId'],
           clientId: zoomIntDoc['clientId'],
           clientSecret: zoomIntDoc['clientSecret'],
