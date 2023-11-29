@@ -1,0 +1,14 @@
+<ng-container *ngIf="loaded; else loadingTemplate">
+    <ng-container *ngIf="validCode; else invalidCode">
+        <div class="w-full flex align-items-center justify-content-center"></div>
+        <h2>integración Exitosa, espere un momento por favor</h2>
+    </ng-container>
+    <ng-template #invalidCode>
+        <h2>Código invalido, revize la integración con Zoom</h2>
+    </ng-template>
+</ng-container>
+<ng-template #loadingTemplate>
+    <div class="flex w-full h-full justify-content-center align-items-center">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+</ng-template>

@@ -4,6 +4,7 @@ import {
   faEnvelope,
   faUsers,
   faLink,
+  faMap,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -16,4 +17,5 @@ export class AdminComponent {
   faEnvelope = faEnvelope;
   faAddressCard = faAddressCard;
   faLink = faLink;
+  faMap = faMap;
 }

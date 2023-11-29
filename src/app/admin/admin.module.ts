@@ -11,7 +11,9 @@ import { InvitationsComponent } from './invitations/invitations.component';
 import { RolesComponent } from './roles/roles.component';
 import { UsersAssignComponent } from './users-assign/users-assign.component';
 import { PermissionsComponent } from './permissions/permissions.component';
-
+import { IntegrationsComponent } from './integrations/integrations.component';
+import { IconsModule } from '../icons/icons.module';
+import { ZoomComponent } from './integrations/zoom/zoom.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { PermissionsComponent } from './permissions/permissions.component';
     RolesComponent,
     UsersAssignComponent,
     PermissionsComponent,
+    IntegrationsComponent,
+    ZoomComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +33,7 @@ import { PermissionsComponent } from './permissions/permissions.component';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    IconsModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}
