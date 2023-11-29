@@ -19,26 +19,27 @@
 
         </div>
     </div>
-    <div class="flex pt-3 px-1 sm:px-4 md:px-8">
-        <span class="w-full app-input-field field-h-1">
-            <label htmlFor="namePhase">Recuerda agregar como link de redirección y agrega a la lista de permitidos</label>
-            <input pInputText id="namePhase" [(ngModel)]="appUrl" class="inputfield field-full" readonly />
+    <form [formGroup]="clientIntegrationZoom" class="w-full formgrid grid pt-3 px-1 sm:px-4 md:px-8">
+
+        <span class="w-full app-input-field field-h-1 field col-12">
+            <label htmlFor="namePhase">Account ID</label>
+            <input pInputText id="namePhase" formControlName="accountId" class="inputfield field-full" placeholder="Ingresa el account id de tu app zoom" />
         </span>
-    </div>
-    <div class="flex pt-3 px-1 sm:px-4 md:px-8">
-        <span class="w-full app-input-field field-h-1">
+
+        <span class="w-full app-input-field field-h-1 field col-12">
             <label htmlFor="namePhase">Client ID</label>
-            <input pInputText id="namePhase" [(ngModel)]="clientIdZoom" class="inputfield field-full" placeholder="Ingresa el client id de tu app zoom" />
+            <input pInputText id="namePhase" formControlName="clientId" class="inputfield field-full" placeholder="Ingresa el client id de tu app zoom" />
         </span>
-    </div>
-    <div class="flex pt-3 px-1 sm:px-4 md:px-8">
-        <span class="w-full app-input-field field-h-1">
+
+        <span class="w-full app-input-field field-h-1 field col-12">
             <label htmlFor="namePhase">Client Secret</label>
-            <input pInputText id="namePhase" [(ngModel)]="clientSecretZoom" class="inputfield field-full" placeholder="Ingresa el client secret de tu app zoom" />
+            <input pInputText id="namePhase" formControlName="clientSecret" class="inputfield field-full" placeholder="Ingresa el client secret de tu app zoom" />
         </span>
-    </div>
+
+    </form>
+
     <div class="flex align-items-center justify-content-center pt-3">
-        <p-button label="Guardar cambios" (onClick)="saveChanges()" class="mt-4" [disabled]="!clientIdZoom || clientIdZoom === '' || !clientSecretZoom || clientSecretZoom === '' "></p-button>
+        <p-button label="Integrar" (onClick)="saveChanges()" class="mt-4" [disabled]="clientIntegrationZoom.invalid || saving" [loading]="saving"></p-button>
     </div>
     <div style="height: 1.5rem;"></div>
 </div>

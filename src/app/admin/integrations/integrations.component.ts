@@ -1,9 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IntegrationsService } from './integrations.service';
-import { Subscription } from 'rxjs';
+import { Subscription, first, firstValueFrom } from 'rxjs';
 import { ToastService } from '@shared/services/toast.service';
 import { TypeIntegration } from './model/type-integrations.enum';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
+import { User } from '@auth/models/user';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-integrations',
@@ -11,19 +19,31 @@ import { TypeIntegration } from './model/type-integrations.enum';
   styleUrls: ['./integrations.component.scss'],
 })
 export class IntegrationsComponent implements OnInit, OnDestroy {
-  clientIdZoom = '';
-  clientSecretZoom = '';
   appUrl = '';
   integrations$: Subscription;
   zoomIntegrationDone = false;
+  user: User;
+  clientIntegrationZoom: UntypedFormGroup;
+  saving = false;
   constructor(
     private readonly router: Router,
     private service: IntegrationsService,
-    private toast: ToastService
+    private toast: ToastService,
+    private store: Store<AppState>
   ) {
     this.appUrl = window.location.href + '/redirect_zoom';
-    localStorage.removeItem('clientIdZoom');
-    localStorage.removeItem('clientSecretZoom');
+    // localStorage.removeItem('clientIdZoom');
+    // localStorage.removeItem('clientSecretZoom');
+    firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    ).then((u) => (this.user = u));
+    this.clientIntegrationZoom = new UntypedFormGroup({
+      accountId: new UntypedFormControl(null, Validators.required),
+      clientId: new UntypedFormControl(null, Validators.required),
+      clientSecret: new UntypedFormControl(null, Validators.required),
+    });
   }
 
   ngOnInit(): void {
@@ -36,8 +56,15 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
           );
           if (zoomInt) {
             this.zoomIntegrationDone = true;
-            this.clientIdZoom = zoomInt.metadata['clientIdZoom'];
-            this.clientSecretZoom = zoomInt.metadata['clientSecretZoom'];
+            this.clientIntegrationZoom
+              .get('accountId')
+              .setValue(zoomInt.metadata['accountId']);
+            this.clientIntegrationZoom
+              .get('clientId')
+              .setValue(zoomInt.metadata['clientId']);
+            this.clientIntegrationZoom
+              .get('clientSecret')
+              .setValue(zoomInt.metadata['clientSecret']);
           }
         });
       })
@@ -54,12 +81,38 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
     this.integrations$?.unsubscribe();
   }
 
-  saveChanges() {
-    localStorage.setItem('clientIdZoom', this.clientIdZoom);
-    localStorage.setItem('clientSecretZoom', this.clientSecretZoom);
-    window.open(
-      `https://zoom.us/oauth/authorize?response_type=code&client_id=${this.clientIdZoom}&redirect_uri=${this.appUrl}`,
-      '_self'
-    );
+  async saveChanges() {
+    // localStorage.setItem('clientIdZoom', this.clientIdZoom);
+    // localStorage.setItem('clientSecretZoom', this.clientSecretZoom);
+    // window.open(
+    //   `https://zoom.us/oauth/authorize?response_type=code&client_id=${this.clientIdZoom}&redirect_uri=${this.appUrl}`,
+    //   '_self'
+    // );
+    this.saving = true;
+    this.toast.info({
+      summary: 'Guardando',
+      detail: 'Por favor espere',
+      life: 200000,
+    });
+    const zoomIntDoc = this.clientIntegrationZoom.value;
+    try {
+      const doc = await this.service.createIntegration({
+        code: this.user._id,
+        typeIntegration: TypeIntegration.zoom,
+        metadata: {
+          accountId: zoomIntDoc['accountId'],
+          clientId: zoomIntDoc['clientId'],
+          clientSecret: zoomIntDoc['clientSecret'],
+        },
+      });
+      this.toast.clear();
+    } catch (error) {
+      this.toast.clear();
+      this.toast.error({
+        summary: 'Error al vincular app de zoom',
+        detail: error,
+      });
+    }
+    this.saving = false;
   }
 }
