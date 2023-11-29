@@ -275,12 +275,15 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.service
           .deleteEvent(event._id)
           .then((ans) => {
-            this.toast.clear();
-            this.toast.success({
-              detail: 'El evento ha sido eliminado exitosamente',
-              summary: 'Evento eliminado!',
-              life: 2000,
-            });
+            setTimeout(() => {
+              this.toast.clear();
+              this.toast.success({
+                detail: 'El evento ha sido eliminado exitosamente',
+                summary: 'Evento eliminado!',
+                life: 2000,
+              });
+              this.loadComponent();
+            }, 1000);
             // if (this.dataArray) {
             //   for (const page of this.dataArray) {
             //     page.array = [

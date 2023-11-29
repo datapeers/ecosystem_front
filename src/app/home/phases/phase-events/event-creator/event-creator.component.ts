@@ -194,6 +194,7 @@ export class EventCreatorComponent implements OnInit {
       return {
         _id: doc._id,
         name: doc.item.nombre,
+        email: doc.item['correoElectronico'],
       };
     });
   }
@@ -207,7 +208,11 @@ export class EventCreatorComponent implements OnInit {
     let addedGeneric = undefined;
     for (const startUp of startupsPhase) {
       const entrepreneurs = startUp.entrepreneurs.map((entrepreneur) => {
-        return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
+        return {
+          _id: entrepreneur._id,
+          name: entrepreneur.item.nombre,
+          email: entrepreneur.item['email'],
+        };
       });
       if (startUp.item.generic) {
         if (addedGeneric) {
@@ -232,6 +237,7 @@ export class EventCreatorComponent implements OnInit {
         this.entrepreneurList.push({
           _id: entrepreneur._id,
           name: entrepreneur.item.nombre,
+          email: entrepreneur.item['email'],
         });
       }
     }
@@ -248,6 +254,7 @@ export class EventCreatorComponent implements OnInit {
       this.teamCoachList.push({
         _id: teamCoach._id,
         name: teamCoach.fullName,
+        email: teamCoach.email,
       });
     }
   }

@@ -103,7 +103,7 @@ export class IntegrationsComponent implements OnInit, OnDestroy {
     });
     const zoomIntDoc = this.clientIntegrationZoom.value;
     try {
-      const doc = await this.service.createIntegration({
+      await this.service.createIntegration({
         code: this.user._id,
         typeIntegration: TypeIntegration.zoom,
         metadata: {

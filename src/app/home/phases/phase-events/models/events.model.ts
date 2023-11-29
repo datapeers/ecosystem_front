@@ -8,12 +8,14 @@ import { IFileUpload } from '@shared/models/file';
 export interface IEntityEvent {
   _id: string;
   name: string;
+  email: string;
   __typename?: string;
 }
 
 export class EntrepreneurItemDisplay implements IEntityEvent {
   _id: string;
   name: string;
+  email: string;
   __typename?: string;
   startup: string;
 
@@ -24,6 +26,7 @@ export class EntrepreneurItemDisplay implements IEntityEvent {
     return {
       _id: this._id,
       name: this.name,
+      email: this.email,
     };
   }
 }
@@ -64,6 +67,7 @@ export class Event implements IEvent {
     files?: IFileUpload[];
     acta?: string;
     link?: string;
+    zoom?: Record<string, any>;
   };
   startAt: Date;
   endAt: Date;
@@ -153,6 +157,8 @@ export interface CreateEvent extends Partial<IEvent> {
   participants: IEntityEvent[];
 }
 
-export interface IItemStartup extends IEntityEvent {
+export interface IItemStartup {
+  _id: string;
+  name: string;
   entrepreneurs: IEntityEvent[];
 }

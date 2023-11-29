@@ -194,10 +194,11 @@
         <ng-container *ngIf="eventShow.extendedProps.acta && user?.allowed(userPermission.actas_view);">
             <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
         </ng-container>
-        <span class="flex flex-row gap-2 p-3">
+        <span class="flex flex-row justify-content-center align-items-center gap-2 p-3">
             <ng-container *ngIf="eventShow.extendedProps?.files?.length && eventShow.extendedProps?.canViewFiles;">
                 <p-button (onClick)="viewFiles(eventShow)" label="Ver archivos" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
             </ng-container>
+            <p-button *ngIf="eventShow.extendedProps?.zoom" (onClick)="openZoom(eventShow)" label="Abrir en zoom" pTooltip="Zoom" tooltipPosition="top" icon="pi pi-reply" styleClass="p-button-text"></p-button>
             <p-button *ngIf="todayAfter(eventShow.end)" label="Calificar evento" (onClick)="showRating(eventShow)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
         </span>
     </div>

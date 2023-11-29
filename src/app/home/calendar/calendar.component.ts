@@ -336,6 +336,7 @@ export class CalendarComponent {
         canViewFiles: event.extra_options.allow_viewFiles,
         acta: this.actas.find((i) => i.event === event._id),
         files: event.extra_options?.files,
+        zoom: event.extra_options?.zoom,
       },
     });
   }
@@ -441,5 +442,13 @@ export class CalendarComponent {
     const roles = ['Mentor', 'Asesor'];
     const indiceAleatorio = Math.floor(Math.random() * roles.length);
     return roles[indiceAleatorio];
+  }
+
+  openZoom(event) {
+    // if (this.todayAfter(event.end)) {
+    //   console.log('video');
+    //   return;
+    // }
+    window.open(event.extendedProps.zoom.join_url);
   }
 }
