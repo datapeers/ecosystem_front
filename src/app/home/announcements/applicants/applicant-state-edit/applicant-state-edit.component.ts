@@ -90,34 +90,42 @@ export class ApplicantStateEditComponent {
     });
   }
 
-  removeFile(key: string) {
-    this.applicantsService
-      .removeStateAttachment(this.announcementId, this.applicantId, key)
-      .subscribe(async (event) => {
-        if (event.type === HttpEventType.Response) {
-          const documents = this.currentApplicantState.documents.filter(
-            (doc) => doc.key !== key
-          );
-          const updatedState: ApplicantState = {
-            ...this.currentApplicantState,
-            documents: documents,
-          };
-          const updateResult =
-            await this.applicantsService.updateApplicantState(
-              this.applicantId,
-              updatedState
-            );
-          if (updateResult) {
-            this.documentsFormArray.controls = documents.map((doc) =>
-              attachmentFormGroup(doc)
-            );
-          }
-        }
-      });
+  removeFile(key: string, index: number) {
+    const documents = this.currentApplicantState.documents.filter(
+      (doc) => doc.key !== key
+    );
+    this.documentsFormArray.removeAt(index);
+    this.documentsFormArray.controls = documents.map((doc) =>
+      attachmentFormGroup(doc)
+    );
+    // this.applicantsService
+    //   .removeStateAttachment(this.announcementId, this.applicantId, key)
+    //   .subscribe(async (event) => {
+    //     if (event.type === HttpEventType.Response) {
+    //       const documents = this.currentApplicantState.documents.filter(
+    //         (doc) => doc.key !== key
+    //       );
+    //       const updatedState: ApplicantState = {
+    //         ...this.currentApplicantState,
+    //         documents: documents,
+    //       };
+    //       const updateResult =
+    //         await this.applicantsService.updateApplicantState(
+    //           this.applicantId,
+    //           updatedState
+    //         );
+    //       if (updateResult) {
+    //         this.documentsFormArray.controls = documents.map((doc) =>
+    //           attachmentFormGroup(doc)
+    //         );
+    //       }
+    //     }
+    //   });
   }
 
   async saveState() {
     const { notes, documents } = this.form.value;
+
     const updatedState: ApplicantState = {
       ...this.currentApplicantState,
       notes,

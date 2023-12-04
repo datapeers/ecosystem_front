@@ -11,6 +11,19 @@ const fragments = {
         updatedAt
     }
   `,
+  configurationAppFieldsExtra: `
+    fragment configurationAppFieldsExtra on ConfigurationApp {
+        _id
+        benefactors
+        contentOfInterest
+        dashboard
+        verticals
+        services
+        createdAt
+        updatedAt
+        initGraph
+    }
+  `,
 };
 
 const query = {
@@ -21,6 +34,14 @@ const query = {
       }
     }
     ${fragments.configurationAppFields}
+  `,
+  configurationAppExtends: `
+    query ConfigurationApp {
+      configurationApp {
+        ...configurationAppFieldsExtra
+      }
+    }
+    ${fragments.configurationAppFieldsExtra}
   `,
 };
 

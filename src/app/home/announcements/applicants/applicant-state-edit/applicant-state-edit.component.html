@@ -20,12 +20,12 @@
     </ng-template>
   </p-fileUpload>
   <span class="font-semibold text-xl">Archivos</span>
-  <ng-container *ngFor="let arrayGroup of documentsFormArray.controls">
+  <ng-container *ngFor="let arrayGroup of documentsFormArray.controls; let i=index">
     <div class="w-full shadow-1 border-round p-2">
       <div class="w-full flex flex-row gap-2">
         <input pInputText id="name" [formControl]="arrayGroup['controls']['name']" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
         <p-button icon="pi pi-eye" (onClick)="downloadFile(arrayGroup['controls']['url'].value)"></p-button>
-        <p-button icon="pi pi-trash" styleClass="p-button-outlined" (onClick)="removeFile(arrayGroup['controls']['key'].value)"></p-button>
+        <p-button icon="pi pi-trash" styleClass="p-button-outlined" (onClick)="removeFile(arrayGroup['controls']['key'].value, i)"></p-button>
       </div>
     </div>
   </ng-container>

@@ -77,6 +77,7 @@ export class DatefilterComponent {
   ngOnInit(): void {
     this.configure();
     this.debouncer.pipe(debounceTime(150)).subscribe((valor) => {
+      console.log('valor?');
       this.OnInput.emit(valor);
     });
   }

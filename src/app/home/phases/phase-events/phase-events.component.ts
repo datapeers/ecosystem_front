@@ -55,7 +55,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   currentFilterFieldValue = '';
   tableData: ListedObject[] = [];
   list: ListedObject[];
-  dataArray;
+  listToFilter: ListedObject[];
+  dataArray = [];
 
   ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dataTableRef: Table;
@@ -103,7 +104,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
-    this.loaded = true;
+    this.loaded = false;
     this.service
       .watchTypesEvents()
       .then((typesEvent$) => {
@@ -148,6 +149,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   preloadTableItems() {
+    this.loaded = false;
     this.list = [];
     this.events.forEach((ev) => {
       const diffInMinutes = Math.abs(differenceInMinutes(ev.endAt, ev.startAt));
@@ -177,7 +179,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         durationString: duration,
       });
     });
-    this.list = [...this.list];
+    this.listToFilter = [...this.list];
+    if (this.listToFilter.length === 0) {
+      for (const iterator of this.dataArray) {
+        iterator.array = [];
+      }
+    }
+    this.loaded = true;
   }
 
   resetCreatorEventType() {
@@ -275,15 +283,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         this.service
           .deleteEvent(event._id)
           .then((ans) => {
-            setTimeout(() => {
-              this.toast.clear();
-              this.toast.success({
-                detail: 'El evento ha sido eliminado exitosamente',
-                summary: 'Evento eliminado!',
-                life: 2000,
-              });
-              this.loadComponent();
-            }, 1000);
+            this.toast.clear();
+            this.toast.success({
+              detail: 'El evento ha sido eliminado exitosamente',
+              summary: 'Evento eliminado!',
+              life: 2000,
+            });
+
             // if (this.dataArray) {
             //   for (const page of this.dataArray) {
             //     page.array = [

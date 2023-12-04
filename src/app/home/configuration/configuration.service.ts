@@ -31,7 +31,7 @@ export class ConfigurationService {
 
   async getConfig() {
     this._getConfig = this.graphql.refQuery(
-      configurationAppQueries.query.configurationApp,
+      configurationAppQueries.query.configurationAppExtends,
       {},
       'cache-first',
       { auth: true }

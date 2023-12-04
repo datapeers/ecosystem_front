@@ -13,13 +13,13 @@
         <div class="flex w-full flex-row justify-content-end mt-3">
             <div class="flex align-items-center justify-content-center mx-1">
                 <div class="flex align-items-center justify-content-start my-1 app-input-field">
-                    <input placeholder="Buscar" type="text" pInputText [(ngModel)]="currentFilterFieldValue" (input)="filter()" [pTooltip]="inputTooltip">
+                    <input placeholder="Buscar" type="text" pInputText [(ngModel)]="currentFilterFieldValue" (input)="filter()" [pTooltip]="inputTooltip" tooltipPosition="left">
                 </div>
             </div>
 
             <div *ngIf="order=='between' || alwaysBetween" class="flex align-items-center justify-content-center mx-1">
                 <div class="flex align-items-center justify-content-center my-1 app-input-field">
-                    <p-calendar #calendar1 [panelStyle]="{'width': '400px'}" [inputStyle]="{'width': '220px'}" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" (onSelect)="applyNewRange()" [pTooltip]="dateTooltip" [showButtonBar]="true" (onClearClick)="clearRange()" (onTodayClick)="applyNewRange()">
+                    <p-calendar #calendar1 [panelStyle]="{'width': '400px'}" [inputStyle]="{'width': '220px'}" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" (onSelect)="applyNewRange()" [pTooltip]="dateTooltip" tooltipPosition="left" [showButtonBar]="true" (onClearClick)="clearRange()" (onTodayClick)="applyNewRange()">
                     </p-calendar>
                 </div>
             </div>

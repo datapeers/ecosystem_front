@@ -127,6 +127,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   async loadComponent() {
     this.config = await this.serviceConfig.getConfig();
+    console.log(this.config);
     this.loadGraph();
     switch (this.user.rolType) {
       case ValidRoles.user:
