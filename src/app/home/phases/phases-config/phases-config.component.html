@@ -53,20 +53,16 @@
                         </div>
                         <div class="flex flex-column gap-1">
                             <span class="font-bold">{{item.name}}</span>
-                            <div class="flex align-items-center gap-2 font-semibold">
-                                <span class="text-xs"></span>-<span class="text-xs"></span>
+                            <div class="flex align-items-center gap-2 font-semibold ">
+                                <span class="text-xs max-h-4rem  overflow-hidden text-overflow-ellipsis">{{item.stageDoc.description}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="flex flex-row gap-1 justify-content-between align-items-center">
                         <div class="flex flex-row" style="gap:0.5rem;">
                             <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" label="Configurar" (onClick)="openPhaseEdit(item)" styleClass="button-blue"></p-button>
-                            <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="openPhaseEdit(item)" pTooltip="Borrar" styleClass="button-grey"></p-button>
+                            <p-button *ngIf="user?.allowed(userPermission.phases_phase_edit)" type="button" icon="pi pi-trash" (onClick)="deletePhase(item)" pTooltip="Borrar" styleClass="button-grey"></p-button>
                         </div>
-                        <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
-                        </div>
-                        <!-- <p-button styleClass="p-button-quaternary" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})">Ver Batch</p-button> -->
-
                     </div>
                 </div>
             </ng-container>
@@ -79,5 +75,3 @@
 <ng-template #loadingTemplate>
     <app-loading></app-loading>
 </ng-template>
-
-<p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

@@ -11,6 +11,8 @@ export interface IConfigurationApp {
   contentOfInterest: IInterestContent[];
   createdAt: Date;
   updatedAt: Date;
+  initGraph?: Record<string, any> | any;
+  countUsers?: number;
 }
 
 export class ConfigurationApp implements IConfigurationApp {
@@ -22,7 +24,8 @@ export class ConfigurationApp implements IConfigurationApp {
   contentOfInterest: IInterestContent[];
   createdAt: Date;
   updatedAt: Date;
-
+  initGraph?: Record<string, any> | any;
+  countUsers?: number;
   constructor() {}
 
   static fromJson(data: IConfigurationApp): ConfigurationApp {

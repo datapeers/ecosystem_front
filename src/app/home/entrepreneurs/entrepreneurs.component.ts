@@ -63,15 +63,13 @@ export class EntrepreneursComponent {
         const extraColumnsTable = [];
         if (!filterProspects) {
           this.tableLocator = tableLocators.entrepreneurs;
+          this.defaultFilters = {};
+        } else {
+          this.tableLocator = tableLocators.entrepreneursProspects;
           this.defaultFilters = {
             isProspect: [
               { matchMode: 'equals', operator: 'and', value: false },
             ],
-          };
-        } else {
-          this.tableLocator = tableLocators.entrepreneursProspects;
-          this.defaultFilters = {
-            isProspect: [{ matchMode: 'equals', operator: 'and', value: true }],
           };
         }
         this.optionsTable = {

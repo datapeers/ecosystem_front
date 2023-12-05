@@ -126,6 +126,14 @@ const mutation = {
       }
     }
   `,
+  removePhase: `
+    ${fragments.phaseFields}
+    mutation RemovePhase($removePhaseId: String!) {
+      removePhase(id: $removePhaseId) {
+        ...phaseFields
+      }
+    }
+  `,
 };
 
 const phaseQueries = {

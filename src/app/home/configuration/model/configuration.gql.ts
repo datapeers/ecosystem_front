@@ -22,6 +22,7 @@ const fragments = {
         createdAt
         updatedAt
         initGraph
+        countUsers
     }
   `,
 };

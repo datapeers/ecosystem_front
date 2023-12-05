@@ -140,7 +140,7 @@ export class StagesComponent implements OnInit, OnDestroy {
       rejectLabel: 'Cancelar',
       header: '¿Está seguro de que desea eliminar esta etapa?',
       message:
-        '¿Está seguro de que desea eliminar esta etapa? Tenga en cuenta que, al eliminarla, se conservarán los registros de las fases anteriores y otros datos relacionados, pero no podrá utilizar esta etapa en el futuro. ¿Desea continuar?',
+        'Tenga en cuenta que, al eliminarla, se conservarán los registros de las fases anteriores y otros datos relacionados, pero no podrá utilizar esta etapa en el futuro. ¿Desea continuar?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         this.toast.info({ detail: '', summary: 'Eliminado...' });

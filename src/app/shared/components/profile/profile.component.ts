@@ -225,12 +225,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const formDoc = await this.formService.getFormByCollection(
       FormCollections.experts
     );
-    console.log(this.profileDoc);
     this.form = formDoc.find(() => true);
     const components = this.formService.getFormComponents(this.form);
-    console.log(components);
     this.fields = this.formService.getInputComponents(components);
-    console.log(this.fields);
   }
 
   async loadEntrepreneurProfile() {

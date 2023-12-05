@@ -155,4 +155,32 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
         }
       : null;
   }
+
+  deletePhase(phase: Phase) {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea eliminar esta fase?',
+      message:
+        'Tenga en cuenta que, al eliminarla, se conservarán los registros de los batch que la utilicen como base y otros datos relacionados, pero no podrá utilizar esta fase en el futuro. ¿Desea continuar?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .removePhase(phase._id)
+          .then((ans) => {
+            this.toast.clear();
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar fase',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
 }

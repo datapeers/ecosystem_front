@@ -207,6 +207,20 @@ export class PhasesService {
     );
   }
 
+  async removePhase(id: string): Promise<Phase> {
+    const mutRef = this.graphql.refMutation(
+      phaseQueries.mutation.removePhase,
+      { removePhaseId: id },
+      [this._getPhases],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(map((request) => request.data.removePhase))
+    );
+  }
+
   updatePhaseThumbnail(phase: Phase, file: File) {
     const renamedFile = new File([file], phase._id, {
       type: file.type,

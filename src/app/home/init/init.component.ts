@@ -56,8 +56,9 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   activesPhases = 0;
   activesAnnouncements = 0;
   lastPhases = [];
-  completedT = 75;
-  completedTText = '75%';
+  countGraph = 0;
+  completedT = 0;
+  completedTText = '0%';
   widthGraphs = '27rem';
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -127,8 +128,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   async loadComponent() {
     this.config = await this.serviceConfig.getConfig();
-    console.log(this.config);
-    this.loadGraph();
+    this.loadGraph(this.config);
     switch (this.user.rolType) {
       case ValidRoles.user:
         this.setInitUser();
@@ -219,7 +219,8 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  loadGraph() {
+  loadGraph(config: ConfigurationApp) {
+    // ---------------- Bars graph --------------------------------
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const textColorSecondary = documentStyle.getPropertyValue(
@@ -264,15 +265,20 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
         ];
         break;
       default:
+        // --------------- Circle graph -------------------------------
+        this.countGraph = config.initGraph.count;
+        this.completedT = Math.round(
+          (config.initGraph.count / config.countUsers) * 100
+        );
+        this.completedTText = `${this.completedT}%`;
         datasets = [
           {
             label: 'Usuarios interactuando',
             backgroundColor: documentStyle.getPropertyValue('--blue-500'),
             borderColor: documentStyle.getPropertyValue('--blue-500'),
-            data: [4, 2, 1, 5, 3, 0, 0],
+            data: config.initGraph.data,
           },
         ];
-        break;
         break;
     }
     this.data = {
