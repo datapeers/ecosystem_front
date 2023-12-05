@@ -37,7 +37,7 @@ export class RolesComponent implements OnInit, OnDestroy {
     private readonly adminService: AdminService,
     public dialogService: DialogService
   ) {
-    this.scrollHeight = `${innerHeight - 400}px`;
+    this.scrollHeight = `${innerHeight - 446}px`;
   }
 
   ngOnInit() {

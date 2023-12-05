@@ -133,6 +133,9 @@ export class ExpertsComponent {
         const subscription = await this.formService.createFormSubscription({
           form: this.entityForm._id,
           reason: 'Create expert',
+          data: {
+            typeView: 'firstPart',
+          },
         });
         const ref = this.formService.openFormFromSubscription(
           subscription,

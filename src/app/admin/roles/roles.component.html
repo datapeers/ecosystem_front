@@ -46,7 +46,7 @@
         <td>
           <div class="flex flex-row gap-2 align-items-center w-full justify-content-between">
             <span class="white-space-nowrap">{{rolRow.permissions.length}}</span>
-            <p-button *ngIf="allowedChangePermissions[rolRow.type]" icon="pi pi-file-edit" styleClass="p-button-lg" pTooltip="Editar permisos iniciales" (onClick)="editPermissions(rolRow)"></p-button>
+            <p-button *ngIf="allowedChangePermissions[rolRow.type]" icon="pi pi-file-edit" styleClass="p-button-lg" pTooltip="Editar permisos iniciales" tooltipPosition="left" (onClick)="editPermissions(rolRow)"></p-button>
           </div>
         </td>
       </tr>

@@ -116,7 +116,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
     let resizeTimeout;
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      this.scrollHeight = `${innerHeight - 400}px`;
+      this.scrollHeight = `${innerHeight - 446}px`;
     }, 250);
   }
 
@@ -223,6 +223,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
         this.service
           .updateUser(this.rowInteract._id, {
             relationsAssign: {
+              ...this.rowInteract.relationsAssign,
               phases: this.selectedPhases,
               batches: this.selectedBatches,
               startups: this.selectedStartups,

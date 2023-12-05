@@ -87,6 +87,7 @@ export class TableConfigComponent {
         this.columnGroups.push(extraColumnsGroup);
       }
       this.columnGroups.push(...tableColumnGroups);
+      console.log(this.columnGroups);
       this.selectedColumns = [...this.tableConfig.columns];
     });
     this.config$.next(this.config);
@@ -100,7 +101,6 @@ export class TableConfigComponent {
   }
 
   async addJoin(join: TableJoin) {
-    console.log('pasa', join, this.context.locator);
     const updatedTable = await this.dynamicTableService.addTableJoin(
       this.table._id,
       join,

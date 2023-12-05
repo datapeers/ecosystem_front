@@ -14,6 +14,7 @@ import { PermissionsComponent } from './permissions/permissions.component';
 import { IntegrationsComponent } from './integrations/integrations.component';
 import { IconsModule } from '../icons/icons.module';
 import { ZoomComponent } from './integrations/zoom/zoom.component';
+import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ZoomComponent } from './integrations/zoom/zoom.component';
     PermissionsComponent,
     IntegrationsComponent,
     ZoomComponent,
+    TermsOfUseComponent,
   ],
   imports: [
     CommonModule,

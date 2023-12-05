@@ -20,6 +20,10 @@ export class InvitationsComponent implements OnInit {
     { field: 'createdAt', name: 'Creada' },
     { field: 'expiresAt', name: 'Expira' },
   ];
+  namesStates: {
+    accepted: 'Acepto';
+    disabled: 'Inhabilitado';
+  };
   filterFields = this.columns.map((column) => column.field);
   invitations: Invitation[];
   loading: boolean = true;
@@ -69,6 +73,7 @@ export class InvitationsComponent implements OnInit {
 
   async loadInvitations() {
     this.invitations = await this.service.getInvitations();
+    console.log(this.invitations);
   }
 
   openInvitationDialog() {

@@ -227,6 +227,10 @@ export class AuthService {
 
   async expertDoc(user: User) {
     const doc = await this.expertsService.getUserDoc(user);
+    if (!user.relationsAssign.expertFull && doc)
+      await this.userService.updateUser(user._id, {
+        relationsAssign: { ...user.relationsAssign, expertFull: true },
+      });
     if (!doc) {
       this.toast.clear();
       this.toast.alert({
@@ -237,6 +241,9 @@ export class AuthService {
       this.signOut();
       return;
     }
+    // if (!user.relationsAssign.termsAccepted) {
+    //   this.dialog
+    // }
     this.store.dispatch(new SetProfileDocAction(doc));
     return;
   }

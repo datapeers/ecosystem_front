@@ -74,4 +74,7 @@ interface IRelationsUser {
   phases: { _id: string; name: string }[];
   batches: { _id: string; name: string }[];
   startups: { _id: string; name: string }[];
+  expertFull?: boolean;
+  termsAccepted?: boolean;
+  hoursDonated?: number;
 }
