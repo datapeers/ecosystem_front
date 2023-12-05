@@ -25,13 +25,11 @@ export class TermsOfUseService {
     );
   }
 
-  async updateTermsOfUse(
-    id: string,
-    updateTermsOfUseInput: {
-      content: string;
-      extraOptions: Record<string, any>;
-    }
-  ): Promise<ITermsOfUse> {
+  async updateTermsOfUse(updateTermsOfUseInput: {
+    _id: string;
+    content: string;
+    extra_options: Record<string, any>;
+  }): Promise<ITermsOfUse> {
     const mutationRef = this.graphql.refMutation(
       termsOfUseQueries.mutation.updateTermsOfUse,
       { updateTermsOfUseInput },

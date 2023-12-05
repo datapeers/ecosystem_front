@@ -4,7 +4,7 @@
             <div class="w-full panel-profile justify-center flex flex-column align-items-center gap-3" style="padding: 1.875rem; border-radius: 3.25rem">
                 <div class="w-full flex flex-column md:flex-row justify-content-between align-items-center">
                     <span class="font-semibold text-xl">
-                        <h3>Perfil</h3>
+                        <h3>Cuenta</h3>
                     </span>
                     <div class="w-full flex flex-wrap gap-3 justify-content-center md:justify-content-end">
                         <p-button (onClick)="openPasswordDialog()" styleClass="button-yellow-second">
@@ -53,14 +53,14 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="panel-profile justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="fieldsEntrepreneur.length">
+            <div class="panel-profile justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="fields.length">
                 <div class="flex flex-row justify-content-between">
-                    <h3>Datos de empresario</h3>
-                    <i-tabler name="edit" class="edit-btn cursor-pointer" (click)="editEntrepreneurDoc()"></i-tabler>
+                    <h3>Perfil</h3>
+                    <i-tabler name="edit" class="edit-btn cursor-pointer" (click)="editProfileDoc()"></i-tabler>
                 </div>
                 <div class="flex flex-column gap-4">
                     <div class="grid-container">
-                        <ng-container *ngFor="let item of fieldsEntrepreneur">
+                        <ng-container *ngFor="let item of fields">
                             <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: profileDoc }"></ng-template>
                         </ng-container>
                     </div>
@@ -154,18 +154,23 @@
 
 <!-- Ediable params template -->
 <ng-template #editableParamCardTemplate let-data="data" let-change="changeHandler">
-    <div class="info-grid-cell p-2 border-round gap-2">
+    <span class="app-input-field" [pTooltip]="data.label" tooltipPosition="top" style="width: 100%">
+        <label>{{data.label }}</label>
+        <input pInputText (change)="change($event)" value="{{data.value}}" [disabled]="!change || data.readOnly" />
+    </span>
+
+    <!-- <div class="info-grid-cell p-2 border-round gap-2">
         <span class="cell-label">
             <span [pTooltip]="data.label" tooltipPosition="top">{{data.label |
                 uppercase}}</span>
         </span>
         <input pInputText (change)="change($event)" class="cell-value p-inputtext-sm" [pTooltip]="data.value" tooltipPosition="top" value="{{data.value}}" [disabled]="!change || data.readOnly">
-    </div>
+    </div> -->
 </ng-template>
 
 <ng-template #fieldFormTemplate let-component="component" let-doc="doc">
     <ng-container [ngSwitch]="true">
-        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid'].includes(component.type)">
+        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid', 'fieldset', 'html', 'htmlelement'].includes(component.type)">
             <!-- Skip -->
         </ng-container>
         <ng-container *ngSwitchCase="['datetime', 'dateAndTime', 'time'].includes(component.type)">
@@ -176,6 +181,35 @@
                         }
                     }"></ng-template>
         </ng-container>
+        <ng-container *ngSwitchCase="['selectboxes'].includes(component.type)">
+            <ng-container *ngFor="let item of component.values | keyvalue">
+                <ng-template *ngIf="doc.item[component.key][$any(item.key)]" [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                        data: {
+                                                            label: component.label,
+                                                            value: $any(item.value)
+                                                        }
+                                                    }"></ng-template>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="['select'].includes(component.type)">
+            <ng-container *ngIf="component.multiple; else onlyAOption">
+                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                            data: {
+                                                                label: component.label,
+                                                                value: doc.item[component.key] ?  valueFieldMultiple(doc.item[component.key], component.values) : noValuePlaceholder
+                                                            }
+                                                        }"></ng-template>
+            </ng-container>
+            <ng-template #onlyAOption>
+                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                                            data: {
+                                                                                label: component.label,
+                                                                                value: doc.item[component.key] ?  doc.item[component.key] : noValuePlaceholder
+                                                                            }
+                                                                        }"></ng-template>
+            </ng-template>
+        </ng-container>
+
         <ng-container *ngSwitchDefault>
             <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
                         data: {
@@ -188,6 +222,7 @@
 </ng-template>
 
 <ng-template #paramCardTemplate let-data="data">
+
     <div class="info-grid-cell p-2 border-round">
         <span class="cell-label" [pTooltip]="data.label" tooltipPosition="top">
             {{data.label | uppercase}}

@@ -10,6 +10,7 @@ import { FormService } from '../../shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { Table } from 'primeng/table';
 import { RolStartup, rolStartupNames } from './models/rol-startup.enum';
+import { textField } from '@shared/utils/order-field-multiple';
 @Component({
   selector: 'app-startup-profile',
   templateUrl: './startup-profile.component.html',
@@ -113,5 +114,9 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
         this.startup = await this.startupService.getDocument(this.startup._id);
       }
     });
+  }
+
+  valueFieldMultiple(values: string[], text: Record<string, any>) {
+    return textField(values, text);
   }
 }

@@ -15,6 +15,7 @@ import { IntegrationsComponent } from './integrations/integrations.component';
 import { IconsModule } from '../icons/icons.module';
 import { ZoomComponent } from './integrations/zoom/zoom.component';
 import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,9 @@ import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
     FormsModule,
     ReactiveFormsModule,
     IconsModule,
+    NgxTinymceModule.forRoot({
+      baseURL: '/assets/tinymce/',
+    }),
   ],
 })
 export class AdminModule {}

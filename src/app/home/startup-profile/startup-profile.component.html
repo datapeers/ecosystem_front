@@ -49,7 +49,7 @@
 
 <ng-template #fieldFormTemplate let-component="component" let-doc="doc">
     <ng-container [ngSwitch]="true">
-        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid'].includes(component.type)">
+        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid', 'fieldset', 'html', 'htmlelement'].includes(component.type)">
             <!-- Skip -->
         </ng-container>
         <ng-container *ngSwitchCase="['datetime', 'dateAndTime', 'time'].includes(component.type)">
@@ -59,6 +59,34 @@
                             value: doc.item[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder
                         }
                     }"></ng-template>
+        </ng-container>
+        <ng-container *ngSwitchCase="['selectboxes'].includes(component.type)">
+            <ng-container *ngFor="let item of component.values | keyvalue">
+                <ng-template *ngIf="doc.item[component.key][$any(item.key)]" [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                                data: {
+                                                                    label: component.label,
+                                                                    value: $any(item.value)
+                                                                }
+                                                            }"></ng-template>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="['select'].includes(component.type)">
+            <ng-container *ngIf="component.multiple; else onlyAOption">
+                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                                    data: {
+                                                                        label: component.label,
+                                                                        value: doc.item[component.key] ?  valueFieldMultiple(doc.item[component.key], component.values) : noValuePlaceholder
+                                                                    }
+                                                                }"></ng-template>
+            </ng-container>
+            <ng-template #onlyAOption>
+                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                                                    data: {
+                                                                                        label: component.label,
+                                                                                        value: doc.item[component.key] ?  doc.item[component.key] : noValuePlaceholder
+                                                                                    }
+                                                                                }"></ng-template>
+            </ng-template>
         </ng-container>
         <ng-container *ngSwitchDefault>
             <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{

@@ -1,1 +1,29 @@
-<p>terms-of-use works!</p>
+<div class="w-full flex flex-column">
+    <div class="flex flex-column xl:flex-row justify-content-between pt-3">
+        <div class="flex flex-column flex-grown-1 px-1 sm:px-3 md:px-4">
+            <h2>Términos de uso para experts</h2>
+            <div style="height: 1.5rem"></div>
+            <div class="flex gap-2 align-items-center">
+                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                <p class="th2">Cambia los términos de uso que debe aceptar los experts para ser parte de ecosystem
+                </p>
+            </div>
+        </div>
+        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
+            <p-button label="Guardar cambios" (onClick)="saveChanges()" class="mt-4" [disabled]="!loaded" [loading]="!loaded"></p-button>
+        </div>
+    </div>
+
+    <ng-container *ngIf="loaded; else elseTemplate">
+        <div class="flex flex-column align-items-baseline w-full inline-flex gap-2 p-2" *ngIf="loaded">
+            <tinymce [(ngModel)]="termsExperts['content']" [config]="configTiny" class="w-full"></tinymce>
+        </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <div class="flex w-full h-full justify-content-center align-items-center">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+    </ng-template>
+
+
+</div>

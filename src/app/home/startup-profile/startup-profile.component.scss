@@ -72,6 +72,7 @@
   white-space: nowrap; // Evita que el texto del label se rompa en varias líneas
   overflow: hidden; // Oculta el exceso de texto si el label es muy largo
   text-overflow: ellipsis; // Muestra puntos suspensivos (...) si el texto del label es muy largo
+  max-width: 45%;
   @media (max-width: 576px) {
     width: 100%;
     text-align: center;

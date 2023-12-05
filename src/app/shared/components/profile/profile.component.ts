@@ -20,6 +20,7 @@ import { FormCollections } from '@shared/form/enums/form-collections';
 import { ToastService } from '@shared/services/toast.service';
 import { AdminService } from 'src/app/admin/admin.service';
 import { cloneDeep } from 'lodash';
+import { textField } from '@shared/utils/order-field-multiple';
 
 @Component({
   selector: 'app-profile',
@@ -48,12 +49,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   change;
   rating = 4;
   viewRating = false;
-  formEntrepreneur;
-  fieldsEntrepreneur = [];
+  form;
+  fields = [];
 
   // -----------
   basicData: any;
   basicOptions: any;
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -223,12 +225,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const formDoc = await this.formService.getFormByCollection(
       FormCollections.experts
     );
-    // console.log(form);
-    // const formComponents = this.formService.getFormComponents(form);
-    this.formProfileFields = this.formService.getInputComponents(
-      formDoc[0].form.components
-    );
-    // console.log(this.formProfileFields);
+    console.log(this.profileDoc);
+    this.form = formDoc.find(() => true);
+    const components = this.formService.getFormComponents(this.form);
+    console.log(components);
+    this.fields = this.formService.getInputComponents(components);
+    console.log(this.fields);
   }
 
   async loadEntrepreneurProfile() {
@@ -236,31 +238,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const formDoc = await this.formService.getFormByCollection(
       FormCollections.entrepreneurs
     );
-    this.formEntrepreneur = formDoc.find(() => true);
-    const formNegociosComponents = this.formService.getFormComponents(
-      this.formEntrepreneur
-    );
-    this.fieldsEntrepreneur = this.formService.getInputComponents(
-      formNegociosComponents
-    );
+    this.form = formDoc.find(() => true);
+    const components = this.formService.getFormComponents(this.form);
+    this.fields = this.formService.getInputComponents(components);
   }
 
-  async editEntrepreneurDoc() {
+  async editProfileDoc() {
     this.toast.loading();
     const subscription = await this.formService.createFormSubscription({
-      form: this.formEntrepreneur._id,
-      reason: 'Editar datos de empresario',
+      form: this.form._id,
+      reason: 'Editar datos de perfil',
       data: {},
       doc: this.profileDoc._id,
     });
     this.toast.clear();
     const ref = this.formService.openFormFromSubscription(
       subscription,
-      'Editar startup'
+      `Editar perfil del usuario ${this.user._id}`
     );
     ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe(async (doc) => {
       if (doc) {
-        this.profileDoc = await this.entrepreneursService.getUserDoc(this.user);
+        this.profileDoc = this.user.isExpert
+          ? await this.expertsService.getUserDoc(this.user)
+          : await this.entrepreneursService.getUserDoc(this.user);
       }
     });
   }
@@ -319,5 +319,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         summary: 'Ocurrió un problema',
       });
     }
+  }
+
+  valueFieldMultiple(values: string[], text: Record<string, any>) {
+    return textField(values, text);
   }
 }

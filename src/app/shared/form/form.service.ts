@@ -247,11 +247,30 @@ export class FormService {
             format: comp.widget.format,
           });
           break;
-        case 'select':
+        case 'selectboxes':
+          const valuesBoxes = {};
+          for (const iterator of comp.values) {
+            valuesBoxes[iterator.value] = iterator.label;
+          }
           headers.push({
             label: comp.label,
             key: comp.key,
             type: comp.type,
+            values: valuesBoxes,
+            multiple: comp.multiple,
+          });
+          break;
+        case 'select':
+          const valuesSelect = {};
+          for (const iterator of comp.data.values) {
+            valuesSelect[iterator.value] = iterator.label;
+          }
+          headers.push({
+            label: comp.label,
+            key: comp.key,
+            type: comp.type,
+            values: valuesSelect,
+            multiple: comp.multiple,
           });
           break;
         case 'datamap':
