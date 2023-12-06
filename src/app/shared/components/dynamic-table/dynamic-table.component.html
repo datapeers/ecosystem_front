@@ -1,4 +1,4 @@
-<div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
+<div #tableWrapper class="table-container overflow-hidden " [ngClass]="{ 'fullscreen': fullscreen }">
   <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
   <ng-container *ngIf="configs && !options.hideMultipleFiltersTable">
     <div style="height: 10px"></div>

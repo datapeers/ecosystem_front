@@ -1,12 +1,12 @@
 <div class="sidenav" [ngClass]="(menuExpanded) ? '':'sidenav-collapsed'">
-    <div class="flex justify-between">
-        <div class="logo-container">
-            <p-avatar image="assets/identity/logo.svg" size="large" shape="circle" class="logo" (click)="toggleMenu()" @rotate></p-avatar>
-        </div>
-        <div class="sm:hidden">
-            <i-tabler name="align-justified" class="menu-icon" (click)="toggleMenu()"></i-tabler>
-        </div>
+
+    <div class="logo-container">
+        <p-avatar image="assets/identity/logo.svg" size="large" shape="circle" class="logo" (click)="toggleMenu()"></p-avatar>
     </div>
+    <div class="sm:hidden">
+        <i-tabler name="align-justified" class="menu-icon" (click)="toggleMenu()"></i-tabler>
+    </div>
+
 
     <div class="scrollwrap scrollwrap_delayed">
         <ul class="sidenav-nav" *ngIf="menu">
