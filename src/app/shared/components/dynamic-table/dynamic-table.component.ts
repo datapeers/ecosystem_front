@@ -183,7 +183,7 @@ export class DynamicTableComponent {
     await this.buildTable();
     this.loading = true;
     this.setOptions();
-    this.setGlobalFilter();
+
     this.validateHeight();
     this.loading = false;
   }
@@ -252,12 +252,12 @@ export class DynamicTableComponent {
   }
 
   async buildTable() {
+    const invalidKeys = ['_id'];
+    const globalFilterKeys = this.config.columns
+      .filter((c) => !invalidKeys.some((invalidKey) => invalidKey == c.key))
+      .map((c) => c.key);
     if (this.lazy) {
       const lazyEvent = this.lastLazyEvent ?? this.dt.createLazyLoadMetadata();
-      const invalidKeys = ['_id'];
-      const globalFilterKeys = this.config.columns
-        .filter((c) => !invalidKeys.some((invalidKey) => invalidKey == c.key))
-        .map((c) => c.key);
       const pageRequest = requestUtilities.parseTableOptionsToRequest(
         lazyEvent,
         globalFilterKeys
@@ -273,6 +273,7 @@ export class DynamicTableComponent {
       this.rawData = await this.documentProvider.getDocuments(
         this.context.data
       );
+      this.globalFilter = globalFilterKeys;
     }
     this.setRows(this.config.columns, this.rawData);
   }

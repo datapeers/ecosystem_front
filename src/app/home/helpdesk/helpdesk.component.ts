@@ -202,8 +202,10 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
           ...this.response.value,
           body: this.newTicket.value.body,
         },
-        startupId: this.startup._id,
-        startupName: this.startup.item['nombre'],
+        startupId: this.startup ? this.startup._id : this.profileDoc._id,
+        startupName: this.startup
+          ? this.startup.item['nombre']
+          : this.profileDoc.item['nombre'],
         category: this.newTicket.value.category,
       })
       .then((ans) => {
@@ -369,6 +371,8 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     if (!ticket) return false;
     if (ticket.status === this.ticketsStates.Closed) return false;
     if (this.user.isUser && ticket.startupId !== this.startup._id) return false;
+    if (this.user.isExpert && ticket.startupId !== this.profileDoc._id)
+      return false;
     return true;
   }
 
