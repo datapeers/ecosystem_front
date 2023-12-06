@@ -17,6 +17,7 @@ import { HttpEventType } from '@angular/common/http';
 import { FormService } from '@shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { IDropItem } from '@shared/models/dropdown-item';
+import { resourcesTypesNames } from '@home/phases/model/resources-types.model';
 import {
   ResourcesTypes,
   resourcesTypesArray,
@@ -40,6 +41,11 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
   load = false;
   forms: IDropItem[] = [];
   listFormsFiltered = [];
+
+  public get resourcesTypesName(): typeof resourcesTypesNames {
+    return resourcesTypesNames;
+  }
+
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -112,6 +118,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
 
   setResource(resource: IResource) {
     this.onlyView = resource;
+    console.log(this.onlyView);
     this.formResource.get('name').setValue(resource.name);
     this.formResource.get('type').patchValue(resource.type);
     this.formResource.get('hide').setValue(resource.hide);

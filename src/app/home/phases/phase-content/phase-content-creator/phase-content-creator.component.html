@@ -11,14 +11,14 @@
 </p-divider>
 <div class="flex flex-column w-full px-6" *ngIf="contentCreationForm">
     <form [formGroup]="contentCreationForm" class="formgrid grid">
-        <div class="field col-12 ">
+        <div class="field col-9 ">
             <span class="app-input-field">
                 <label for="name">Nombre</label>
                 <input type="text" id="name" pInputText formControlName="name" placeholder="Escriba un nombre" />
             </span>
         </div>
 
-        <div class="app-input-field" *ngIf="!parent_content">
+        <div class="app-input-field col-3" *ngIf="!parent_content">
             <label for="horizontal">Duración (días)</label>
             <p-inputNumber formControlName="duration" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
         </div>
