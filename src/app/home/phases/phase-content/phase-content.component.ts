@@ -123,6 +123,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   }
 
   invertHide(content: Content) {
+    console.log('no enta?');
     this.toast.info({ summary: 'Guardando...', detail: '' });
     this.service
       .updateContent({ _id: content._id, hide: !content.hide })

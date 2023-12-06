@@ -148,9 +148,9 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
 
   hideResource(resource: Resource, event) {
     this.confirmationService.confirm({
-      key: 'confirmPopup',
-      target: event.target,
-      acceptLabel: 'Cambiar',
+      key: 'confirmDialog',
+      // target: event.target,
+      acceptLabel: resource.hide ? 'Mostrar' : 'Ocultar',
       rejectLabel: 'Cancelar',
       message:
         '¿Está seguro que desea cambiar el estado de visualizar este recurso?',
@@ -158,7 +158,9 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
       accept: async () => {
         const request = await this.service.updateResource({
           _id: resource._id,
+          name: resource.name,
           hide: !resource.hide,
+          extra_options: {},
         });
         if (request.hide === !resource.hide) {
           this.toast.info({
@@ -179,16 +181,18 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
 
   deleteResource(resource: Resource, event) {
     this.confirmationService.confirm({
-      key: 'confirmPopup',
-      target: event.target,
-      acceptLabel: 'Cambiar',
+      key: 'confirmDialog',
+      // target: event.target,
+      acceptLabel: 'Eliminar',
       rejectLabel: 'Cancelar',
       message: '¿Está seguro que desea eliminar este recurso?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         const request = await this.service.updateResource({
           _id: resource._id,
+          name: resource.name,
           isDeleted: true,
+          extra_options: {},
         });
         if (request) {
           this.toast.info({

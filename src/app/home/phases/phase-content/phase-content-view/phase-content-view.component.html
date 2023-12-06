@@ -46,7 +46,7 @@
                     <button pButton pRipple icon="pi pi-clone" class="p-button-outlined mr-1" pTooltip="Ver" (click)="viewResource(rowData.containerParent, rowData)" tooltipPosition="top">
                     </button>
 
-                    <button pButton pRipple [icon]="rowData.oculto ? 'pi pi-eye-slash' : 'pi pi-eye'" (click)="hideResource(rowData, $event)" class="p-button-outlined p-button-help mr-1" [pTooltip]="rowData.oculto ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
+                    <button pButton pRipple [icon]="rowData.hide ? 'pi pi-eye-slash' : 'pi pi-eye'" (click)="hideResource(rowData, $event)" class="p-button-outlined p-button-help mr-1" [pTooltip]="rowData.hide ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
                     </button>
 
                     <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" (click)="deleteResource(rowData, $event)" pTooltip="Borrar" tooltipPosition="top">
