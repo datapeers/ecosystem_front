@@ -6,6 +6,8 @@ import {
   Subscription,
   combineLatest,
   filter,
+  firstValueFrom,
+  take,
 } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
@@ -24,6 +26,8 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import { User } from './models/user';
 import { ExpertsService } from '@shared/services/experts/experts.service';
 import { EntrepreneursService } from '@shared/services/entrepreneurs/entrepreneurs.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TermsDialogComponent } from '@shared/components/terms-dialog/terms-dialog.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -35,6 +39,7 @@ export class AuthService {
 
   renewToken$: Subject<void> = new Subject();
   renewTimer: any;
+  ref: DynamicDialogRef | undefined;
   constructor(
     public fireAuth: AngularFireAuth,
     public toast: ToastService,
@@ -42,7 +47,8 @@ export class AuthService {
     private router: Router,
     private userService: UserService,
     private readonly expertsService: ExpertsService,
-    private readonly entrepreneursService: EntrepreneursService
+    private readonly entrepreneursService: EntrepreneursService,
+    public dialogService: DialogService
   ) {
     this.authStatusListener();
     // Renew token subscription
@@ -241,9 +247,28 @@ export class AuthService {
       this.signOut();
       return;
     }
-    // if (!user.relationsAssign.termsAccepted) {
-    //   this.dialog
-    // }
+    if (!user.relationsAssign.termsAccepted) {
+      const ref = this.dialogService.open(TermsDialogComponent, {
+        header: ``,
+        width: '55vw',
+        maskStyleClass: 'dialog-app',
+        data: {
+          expert: doc,
+          user,
+        },
+      });
+      const accepted = await firstValueFrom(ref.onClose.pipe(take(1)));
+      if (!accepted.hours) {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'No se puede continuar',
+          detail:
+            'Debes aceptar los términos de uso, y asignar unas horas a donar para operar dentro de Ecosystem',
+        });
+        this.signOut();
+        return;
+      }
+    }
     this.store.dispatch(new SetProfileDocAction(doc));
     return;
   }

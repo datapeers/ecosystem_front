@@ -227,7 +227,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       '--text-color-secondary'
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-    const labels = [
+    let labels = [
       'Lunes',
       'Martes',
       'Miércoles',
@@ -260,9 +260,10 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
             label: 'Horas',
             backgroundColor: documentStyle.getPropertyValue('--blue-500'),
             borderColor: documentStyle.getPropertyValue('--blue-500'),
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: config.initGraph.data,
           },
         ];
+        labels = config.initGraph.labels;
         break;
       default:
         // --------------- Circle graph -------------------------------
@@ -279,6 +280,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
             data: config.initGraph.data,
           },
         ];
+        labels = config.initGraph.labels;
         break;
     }
     this.data = {

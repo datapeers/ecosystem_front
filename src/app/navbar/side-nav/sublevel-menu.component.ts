@@ -123,6 +123,7 @@ export class SublevelMenuComponent implements OnInit {
       }
     }
     item.opened = !item.opened;
+    console.log('a');
   }
 
   getActiveClass(item: IMenuOption): string {

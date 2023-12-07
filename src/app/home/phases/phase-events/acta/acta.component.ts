@@ -128,6 +128,7 @@ export class ActaComponent implements OnInit {
         phase: this.phase._id,
       })
       .then((act) => {
+        this.toast.clear();
         this.actaDoc = act;
         this.close();
       })
