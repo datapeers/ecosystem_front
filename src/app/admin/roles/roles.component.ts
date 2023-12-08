@@ -88,6 +88,7 @@ export class RolesComponent implements OnInit, OnDestroy {
           .updateRol(rol._id, { permissions: data })
           .then((ans) => {
             this.toast.clear();
+            this.toast.success({ detail: 'Cambios guardados', summary: '' });
           })
           .catch((err) => {
             this.toast.clear();
@@ -113,7 +114,7 @@ export class RolesComponent implements OnInit, OnDestroy {
     if (rol.permissions.length <= 0) return;
     const ref = this.dialogService.open(PermissionsComponent, {
       header: 'Permisos',
-      data: { rol, readOnly: true },
+      data: { rol, readOnly: !this.allowedChangePermissions[rol.type] },
     });
   }
 }

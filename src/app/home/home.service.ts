@@ -35,7 +35,8 @@ export class HomeService {
     if (user.isUser) menuItems.push('startUp');
     menuItems.push('agenda');
     menuItems.push('public-nodes');
-    menuItems.push('helpDesk');
+    if (user.isUser || user.allowed(Permission.help_desk_view))
+      menuItems.push('helpDesk');
     if (user.isUser || user.allowed(Permission.community_view))
       menuItems.push('communities');
     // if (user.allowed(Permission.sites_and_services_view))
