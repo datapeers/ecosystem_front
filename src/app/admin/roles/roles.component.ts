@@ -25,7 +25,7 @@ export class RolesComponent implements OnInit, OnDestroy {
   allowedChangePermissions = {
     host: true,
     teamCoach: true,
-    expert: true,
+    //     expert: true,
   };
   columns = [{ field: 'name', name: 'Nombre', tooltip: 'Nombre' }];
   filterFields = this.columns.map((column) => column.field);
@@ -107,5 +107,13 @@ export class RolesComponent implements OnInit, OnDestroy {
     return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
+  }
+
+  onClick(rol: Rol) {
+    if (rol.permissions.length <= 0) return;
+    const ref = this.dialogService.open(PermissionsComponent, {
+      header: 'Permisos',
+      data: { rol, readOnly: true },
+    });
   }
 }

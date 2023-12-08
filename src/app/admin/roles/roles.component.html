@@ -33,21 +33,25 @@
             <span>Permisos</span>
           </div>
         </th>
+        <th style="width: 10%;"></th>
 
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rolRow>
       <tr class="p-selectable-row">
-        <td>
+        <td (click)="onClick(rolRow)">
           <div class="flex flex-row gap-2 align-items-center">
             <span class="white-space-nowrap">{{rolRow.name}}</span>
           </div>
         </td>
-        <td>
+        <td (click)="onClick(rolRow)">
           <div class="flex flex-row gap-2 align-items-center w-full justify-content-between">
             <span class="white-space-nowrap">{{rolRow.permissions.length}}</span>
-            <p-button *ngIf="allowedChangePermissions[rolRow.type]" icon="pi pi-file-edit" styleClass="p-button-lg" pTooltip="Editar permisos iniciales" tooltipPosition="left" (onClick)="editPermissions(rolRow)"></p-button>
+
           </div>
+        </td>
+        <td>
+          <p-button *ngIf="allowedChangePermissions[rolRow.type]" icon="pi pi-file-edit" styleClass="p-button-lg" pTooltip="Editar permisos iniciales" tooltipPosition="left" (onClick)="editPermissions(rolRow)"></p-button>
         </td>
       </tr>
     </ng-template>
