@@ -149,7 +149,6 @@
   list-style: none;
   padding: 0;
   margin-left: 0.75rem;
-
   .sublevel-nav-item {
     .sublevel-nav-link {
       display: flex;
@@ -176,6 +175,15 @@
         flex: 1;
       }
     }
+  }
+}
+
+.sub-level-collapsed {
+  margin-left: 0;
+  .sublevel-link-icon {
+    margin: 0;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }
 

@@ -149,7 +149,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
   handleClick(item: IMenuOption) {
     this.shrinkItems(item);
     item.opened = !item.opened;
-    console.log('a');
   }
 
   getActiveClass(item: IMenuOption): string {

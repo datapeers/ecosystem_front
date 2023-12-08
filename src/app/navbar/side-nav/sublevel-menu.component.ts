@@ -13,7 +13,9 @@ import { IMenuOption } from '@shared/models/menu';
   selector: 'app-sublevel-menu',
   template: `
     <ul
-      *ngIf="collapsed && data.children && data.children.length > 0"
+      *ngIf="data.children && data.children.length > 0"
+      class="sublevel-nav"
+      [ngClass]="{ 'sub-level-collapsed': !collapsed }"
       [@submenu]="
         opened
           ? {
@@ -31,7 +33,6 @@ import { IMenuOption } from '@shared/models/menu';
               }
             }
       "
-      class="sublevel-nav"
     >
       <li *ngFor="let item of data.children" class="sublevel-nav-item">
         <a
@@ -94,7 +95,7 @@ import { IMenuOption } from '@shared/models/menu';
         animate('{{transitionParams}}'),
       ]),
 
-      transition('void => *', animate(0)),
+      // transition('void => *', animate(0)),
     ]),
   ],
 })
@@ -123,7 +124,6 @@ export class SublevelMenuComponent implements OnInit {
       }
     }
     item.opened = !item.opened;
-    console.log('a');
   }
 
   getActiveClass(item: IMenuOption): string {

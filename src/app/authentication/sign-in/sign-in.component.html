@@ -21,7 +21,7 @@
                 <form [formGroup]="loginForm" class="formgrid grid mt-2" (keydown)="onKeyUp($event)">
                     <div class="field col-12 flex flex-column align-items-center">
                         <label htmlFor="username">Usuario</label>
-                        <input pInputText id="username" formControlName="login" placeholder="Ingresa tu correo de registro" aria-describedby="username-help" [ngClass]="{'ng-invalid ng-dirty': loginForm.touched && formControls['login'].errors}" class="w-full" />
+                        <input pInputText id="username" formControlName="login" placeholder="Ingresa tu correo de registro" aria-describedby="username-help" [ngClass]="{'ng-invalid ng-dirty': loginForm.touched && formControls['login'].errors}" class="w-full" autocomplete="on" />
                         <div [hidden]="loginForm.valid || !loginForm.dirty" class="alert alert-danger">
                             <small id="username-help" *ngIf="formControls['login'].errors?.['required']" class="error-message">Ingrese un email</small>
                             <small id="username-help" *ngIf="formControls['login'].errors?.['email']" class="error-message">Ingrese un email valido</small>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="field col-12 flex flex-column align-items-center password-input">
                         <label htmlFor="password">Clave de ingreso</label>
-                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Ingresa tu clave" aria-describedby="password-help" [ngClass]="{'ng-invalid ng-dirty': formControls['login'].errors}"></p-password>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Ingresa tu clave" aria-describedby="password-help" [ngClass]="{'ng-invalid ng-dirty': formControls['login'].errors}" autocomplete="on"></p-password>
                         <div [hidden]="loginForm.valid || !loginForm.dirty" class="alert alert-danger">
                             <small id="password-help" *ngIf="formControls['password'].errors?.['required']" class="error-message">La
                                 contraseña es obligatoria</small>
