@@ -206,7 +206,28 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  async setInitExpert() {}
+  async setInitExpert() {
+    this.phasesService
+      .watchPhases()
+      .then(
+        (obsPhases$) =>
+          (this.phases$ = obsPhases$
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe((phasesList: Phase[]) => {
+              const phases = phasesList.filter((i) => !i.basePhase);
+              this.lastPhases = [];
+              this.activesPhases = phasesList.filter((i) => !i.finished).length;
+              this.lastPhases = phases.sort(
+                (a, b) =>
+                  new Date(b.updatedAt).getTime() -
+                  new Date(a.updatedAt).getTime()
+              );
+            }))
+      )
+      .catch((err) => {
+        this.lastPhases = [];
+      });
+  }
 
   resizeMap() {
     if (this.mainMap) {

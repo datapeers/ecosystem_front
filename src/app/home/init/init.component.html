@@ -150,64 +150,88 @@
                 <h2>Hola {{user?.fullName}}, bienvenido {{user?.isUser ? 'a tu panel' : ''}}</h2>
             </div>
             <div class="flex flex-column sm:flex-row header-statistics justify-content-around w-full gap-4">
-                <ng-container *ngIf="user?.isUser; else infoAdmin">
-                    <div class="flex gap-3">
-                        <div class="icon-panel">
-                            <i-tabler name="list-check"></i-tabler>
+                <ng-container [ngSwitch]="user.rolType">
+                    <ng-container *ngSwitchCase="roles.user">
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="list-check"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>{{phasesUser}}/{{phasesBases}}</h2>
+                                <p class="th2">Fases Completadas</p>
+                            </div>
                         </div>
-                        <div class="flex flex-column justify-content-center">
-                            <h2>{{phasesUser}}/{{phasesBases}}</h2>
-                            <p class="th2">Fases Completadas</p>
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="layout-board-split"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>{{logs.length}}</h2>
+                                <p class="th2">Contenidos vistos</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <div class="icon-panel">
-                            <i-tabler name="layout-board-split"></i-tabler>
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="chart-dots"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>67</h2>
+                                <p class="th2">Horas de enfoque</p>
+                            </div>
                         </div>
-                        <div class="flex flex-column justify-content-center">
-                            <h2>{{logs.length}}</h2>
-                            <p class="th2">Contenidos vistos</p>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="roles.expert">
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="polygon"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>{{activesPhases}}</h2>
+                                <p class="th2">Batch activas</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <div class="icon-panel">
-                            <i-tabler name="chart-dots"></i-tabler>
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="flag-3"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>37</h2>
+                                <p class="th2">Emprendedores registrados</p>
+                            </div>
                         </div>
-                        <div class="flex flex-column justify-content-center">
-                            <h2>67</h2>
-                            <p class="th2">Horas de enfoque</p>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="brand-ubuntu"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>{{activesAnnouncements}}</h2>
+                                <p class="th2">Convocatorias abiertas</p>
+                            </div>
                         </div>
-                    </div>
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="polygon"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>{{activesPhases}}</h2>
+                                <p class="th2">Batch activas</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="icon-panel">
+                                <i-tabler name="flag-3"></i-tabler>
+                            </div>
+                            <div class="flex flex-column justify-content-center">
+                                <h2>37</h2>
+                                <p class="th2">Emprendedores registrados</p>
+                            </div>
+                        </div>
+                    </ng-container>
                 </ng-container>
-                <ng-template #infoAdmin>
-                    <div class="flex gap-3">
-                        <div class="icon-panel">
-                            <i-tabler name="brand-ubuntu"></i-tabler>
-                        </div>
-                        <div class="flex flex-column justify-content-center">
-                            <h2>{{activesAnnouncements}}</h2>
-                            <p class="th2">Convocatorias abiertas</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <div class="icon-panel">
-                            <i-tabler name="polygon"></i-tabler>
-                        </div>
-                        <div class="flex flex-column justify-content-center">
-                            <h2>{{activesPhases}}</h2>
-                            <p class="th2">Batch activas</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-3">
-                        <div class="icon-panel">
-                            <i-tabler name="flag-3"></i-tabler>
-                        </div>
-                        <div class="flex flex-column justify-content-center">
-                            <h2>37</h2>
-                            <p class="th2">Emprendedores registrados</p>
-                        </div>
-                    </div>
-                </ng-template>
+
+
             </div>
 
             <ng-container *ngIf="user?.isUser; else adminStats">
