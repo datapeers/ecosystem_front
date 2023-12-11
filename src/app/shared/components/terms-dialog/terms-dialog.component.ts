@@ -64,7 +64,10 @@ export class TermsDialogComponent {
       })
       .then((ans) => {
         this.toast.clear();
-        this.ref.close({ hours: this.hoursDonated });
+        this.ref.close({
+          termsAccepted: true,
+          hoursDonated: this.hoursDonated,
+        });
       })
       .catch((err) => {
         this.toast.clear();

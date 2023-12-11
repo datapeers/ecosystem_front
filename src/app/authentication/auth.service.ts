@@ -233,10 +233,12 @@ export class AuthService {
 
   async expertDoc(user: User) {
     const doc = await this.expertsService.getUserDoc(user);
-    if (!user.relationsAssign.expertFull && doc)
+    if (!user.relationsAssign.expertFull && doc) {
       await this.userService.updateUser(user._id, {
         relationsAssign: { ...user.relationsAssign, expertFull: true },
       });
+      user.relationsAssign = { ...user.relationsAssign, expertFull: true };
+    }
     if (!doc) {
       this.toast.clear();
       this.toast.alert({
@@ -247,6 +249,7 @@ export class AuthService {
       this.signOut();
       return;
     }
+
     if (!user.relationsAssign.termsAccepted) {
       const ref = this.dialogService.open(TermsDialogComponent, {
         header: ``,
@@ -258,7 +261,7 @@ export class AuthService {
         },
       });
       const accepted = await firstValueFrom(ref.onClose.pipe(take(1)));
-      if (!accepted.hours) {
+      if (!accepted.hoursDonated) {
         this.toast.clear();
         this.toast.alert({
           summary: 'No se puede continuar',
@@ -267,6 +270,12 @@ export class AuthService {
         });
         this.signOut();
         return;
+      } else {
+        user.relationsAssign = {
+          ...user.relationsAssign,
+          termsAccepted: true,
+          hoursDonated: accepted.hoursDonated,
+        };
       }
     }
     this.store.dispatch(new SetProfileDocAction(doc));

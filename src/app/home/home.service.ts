@@ -24,10 +24,10 @@ export class HomeService {
       menuItems.push('entrepreneurs');
 
     if (user.allowed(Permission.view_business)) menuItems.push('businesses');
-    if (user.allowed(Permission.view_startups) && !user.isExpert)
-      menuItems.push('startUps');
-    if (user.allowed(Permission.view_startups) && user.isExpert)
-      menuItems.push('startUpsLimited');
+    // if (user.allowed(Permission.view_startups) && !user.isExpert)
+    menuItems.push('startUps');
+    // if (user.allowed(Permission.view_startups) && user.isExpert)
+    //   menuItems.push('startUpsLimited');
     if (user.allowed(Permission.view_experts)) menuItems.push('expert');
     if (user.isUser) menuItems.push('route');
     if (user.isUser) menuItems.push('contents');
