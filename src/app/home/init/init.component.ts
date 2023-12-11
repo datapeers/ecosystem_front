@@ -57,6 +57,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   activesAnnouncements = 0;
   lastPhases = [];
   countGraph = 0;
+  otherCountGraph = 0;
   completedT = 0;
   completedTText = '0%';
   widthGraphs = '27rem';
@@ -227,34 +228,28 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
       '--text-color-secondary'
     );
     const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-    let labels = [
-      'Lunes',
-      'Martes',
-      'Miércoles',
-      'Jueves',
-      'Viernes',
-      'Sábado',
-      'Domingo',
-    ];
     let datasets = [];
     switch (this.user.rolType) {
       case ValidRoles.user:
         datasets = [
           {
-            label: '% Avance',
+            label: 'Avance en contenidos',
             backgroundColor: documentStyle.getPropertyValue('--blue-500'),
             borderColor: documentStyle.getPropertyValue('--blue-500'),
-            data: [0, 0, 0, 3, 5, 0, 0],
+            data: config.initGraph.data,
           },
-          // {
-          //   label: 'My Second dataset',
-          //   backgroundColor: documentStyle.getPropertyValue('--pink-500'),
-          //   borderColor: documentStyle.getPropertyValue('--pink-500'),
-          //   data: [28, 48, 40, 19, 86, 27, 90],
-          // },
         ];
         break;
       case ValidRoles.expert:
+        this.otherCountGraph = this.user.relationsAssign.hoursDonated;
+        // --------------- Circle graph -------------------------------
+        this.countGraph = config.initGraph.countHoursDonated;
+        this.completedT = this.otherCountGraph
+          ? Math.round(
+              (config.initGraph.countHoursDonated / this.otherCountGraph) * 100
+            )
+          : 0;
+        this.completedTText = `${this.completedT}%`;
         datasets = [
           {
             label: 'Horas',
@@ -263,7 +258,6 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
             data: config.initGraph.data,
           },
         ];
-        labels = config.initGraph.labels;
         break;
       default:
         // --------------- Circle graph -------------------------------
@@ -280,11 +274,11 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
             data: config.initGraph.data,
           },
         ];
-        labels = config.initGraph.labels;
+
         break;
     }
     this.data = {
-      labels,
+      labels: config.initGraph.labels,
       datasets,
     };
 

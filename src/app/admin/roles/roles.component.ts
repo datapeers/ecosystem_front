@@ -112,9 +112,13 @@ export class RolesComponent implements OnInit, OnDestroy {
 
   onClick(rol: Rol) {
     if (rol.permissions.length <= 0) return;
+    if (this.allowedChangePermissions[rol.type]) {
+      this.editPermissions(rol);
+      return;
+    }
     const ref = this.dialogService.open(PermissionsComponent, {
       header: 'Permisos',
-      data: { rol, readOnly: !this.allowedChangePermissions[rol.type] },
+      data: { rol, readOnly: true },
     });
   }
 }

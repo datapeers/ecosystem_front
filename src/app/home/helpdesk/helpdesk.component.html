@@ -28,7 +28,7 @@
                     </form>
                 </div>
             </div>
-            <p-button label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user?.isUser || user?.isExpert"></p-button>
+            <p-button label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user.allowed(userPermission.help_desk_create)"></p-button>
         </div>
     </div>
     <p-divider></p-divider>
@@ -39,7 +39,6 @@
                 <div class="table-header pt-3">
                     <span class="header color-custom ml-3">Tickets</span>
                     <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
-
 
 
                     </div>

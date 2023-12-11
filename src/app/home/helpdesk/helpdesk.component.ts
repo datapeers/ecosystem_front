@@ -32,6 +32,9 @@ import { IFileUpload, IFileUploadExtended } from '@shared/models/file';
 import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { hexToRgb } from '@shared/utils/hexToRgb';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { assertAbstractType } from 'graphql';
+import { Permission } from '@auth/models/permissions.enum';
 @Component({
   selector: 'app-helpdesk',
   templateUrl: './helpdesk.component.html',
@@ -99,6 +102,10 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     return ticketCategoryNames;
   }
   @ViewChild('dt', { static: true }) dt: Table;
+
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
   constructor(
     private toast: ToastService,
     private store: Store<AppState>,
@@ -195,6 +202,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   async createTicket() {
     this.toast.info({ detail: '', summary: 'Guardando...' });
     await this.uploadFiles();
+    const data = this.getData();
     this.service
       .createTicket({
         title: this.newTicket.value.title,
@@ -202,10 +210,8 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
           ...this.response.value,
           body: this.newTicket.value.body,
         },
-        startupId: this.startup ? this.startup._id : this.profileDoc._id,
-        startupName: this.startup
-          ? this.startup.item['nombre']
-          : this.profileDoc.item['nombre'],
+        startupId: data.id,
+        startupName: data.name,
         category: this.newTicket.value.category,
       })
       .then((ans) => {
@@ -370,9 +376,8 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   allowDelete(ticket: Ticket) {
     if (!ticket) return false;
     if (ticket.status === this.ticketsStates.Closed) return false;
-    if (this.user.isUser && ticket.startupId !== this.startup._id) return false;
-    if (this.user.isExpert && ticket.startupId !== this.profileDoc._id)
-      return false;
+    const data = this.getData();
+    if (ticket.startupId !== data.id) return false;
     return true;
   }
 
@@ -387,5 +392,28 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     const colorRgb = hexToRgb(color);
     const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
     return style;
+  }
+
+  getData() {
+    const data = {
+      name: '',
+      email: '',
+      id: '',
+    };
+    switch (this.user.rolType) {
+      case ValidRoles.user:
+        data.name = this.startup.item['nombre'];
+        data.id = this.startup._id;
+        break;
+      case ValidRoles.expert:
+        data.name = this.profileDoc.item['nombre'];
+        data.id = this.profileDoc._id;
+        break;
+      default:
+        data.name = this.user.fullName;
+        data.id = this.user._id;
+        break;
+    }
+    return data;
   }
 }
