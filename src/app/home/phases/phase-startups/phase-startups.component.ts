@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import {
+  TableColumnType,
+  TableConfig,
+} from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { AppForm } from '@shared/form/models/form';
@@ -92,11 +95,29 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
       return;
     }
     this.entityForm = forms.find(() => true);
-
+    const entrepreneursForms = await this.formService.getFormByCollection(
+      FormCollections.entrepreneurs
+    );
+    const entrepreneursForm = entrepreneursForms.find(() => true);
     this.tableContext = {
       locator: `startups phase ${this.phase._id}`,
       name: 'StartUps',
       form: this.entityForm._id,
+      joins: [
+        {
+          name: 'Empresarios',
+          key: 'entrepreneurs',
+          form: entrepreneursForm._id,
+          extraColumns: [
+            {
+              label: 'Rol',
+              key: 'rol',
+              type: TableColumnType.data,
+              format: 'string',
+            },
+          ],
+        },
+      ],
       data: {
         phase: this.phase._id,
       },

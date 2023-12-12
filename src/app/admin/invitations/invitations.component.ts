@@ -38,7 +38,7 @@ export class InvitationsComponent implements OnInit {
     private readonly service: AdminService,
     readonly fb: FormBuilder
   ) {
-    this.scrollHeight = `${innerHeight - 400}px`;
+    this.scrollHeight = `${innerHeight - 446}px`;
     this.formInvitation = fb.group({
       email: fb.control<string>('', {
         validators: [Validators.required, Validators.email],
@@ -62,7 +62,7 @@ export class InvitationsComponent implements OnInit {
     let resizeTimeout;
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      this.scrollHeight = `${innerHeight - 400}px`;
+      this.scrollHeight = `${innerHeight - 446}px`;
     }, 250);
   }
 
