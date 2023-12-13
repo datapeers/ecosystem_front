@@ -5,13 +5,23 @@ export interface ISite {
   name: string;
   thumbnail: string;
   description: string;
-  coords: any;
-  services: {
+  // coords: any;
+  // services: {
+  //   name: string;
+  //   description: string;
+  //   contact: string;
+  //   email: string;
+  //   coords: any;
+  // }[];
+  directedTo: string;
+  methodology: string;
+  factors: string[];
+  results: string;
+  contacts: {
     name: string;
-    description: string;
+    others: string;
     contact: string;
     email: string;
-    coords: any;
   }[];
   isDeleted: boolean;
   createdAt: Date;
@@ -23,13 +33,23 @@ export class Site implements ISite {
   name: string;
   thumbnail: string;
   description: string;
-  coords: any;
-  services: {
+  // coords: any;
+  // services: {
+  //   name: string;
+  //   description: string;
+  //   contact: string;
+  //   email: string;
+  //   coords: any;
+  // }[];
+  directedTo: string;
+  methodology: string;
+  factors: string[];
+  results: string;
+  contacts: {
     name: string;
-    description: string;
+    others: string;
     contact: string;
     email: string;
-    coords: any;
   }[];
   isDeleted: boolean;
   createdAt: Date;
@@ -43,7 +63,8 @@ export class Site implements ISite {
       ...cloneDeep(data),
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt),
-      services: data.services.map((i) => new ServiceSite(i)),
+      // services: data.services.map((i) => new ServiceSite(i)),
+      contacts: data.contacts.map((i) => new ContactService(i)),
     });
     return site;
   }
@@ -52,14 +73,20 @@ export class Site implements ISite {
     const siteBody = {
       _id: previousSite?._id ?? undefined,
       name: previousSite?.name ?? '',
-      description: previousSite?.name ?? '',
-      thumbnail: previousSite?.name ?? undefined,
-      coords: {
-        lat: undefined,
-        lng: undefined,
-        ...previousSite?.coords,
-      },
-      services: previousSite?.services ?? [],
+      description: previousSite?.description ?? '',
+      thumbnail: previousSite?.thumbnail ?? undefined,
+      directedTo: previousSite?.directedTo ?? '',
+      methodology: previousSite?.methodology ?? '',
+      factors: previousSite?.factors ?? [],
+      results: previousSite?.results ?? '',
+
+      // coords: {
+      //   lat: undefined,
+      //   lng: undefined,
+      //   ...previousSite?.coords,
+      // },
+      // services: previousSite?.services ?? [],
+      contacts: previousSite?.contacts ?? [],
     };
     return siteBody;
   }
@@ -70,8 +97,12 @@ export class Site implements ISite {
       name: this.name,
       thumbnail: this.thumbnail,
       description: this.description,
-      coords: this.coords,
-      services: this.services,
+      directedTo: this.directedTo,
+      methodology: this.methodology,
+      factors: this.factors,
+      results: this.results,
+      // coords: this.coords,
+      // services: this.services,
     };
   }
 }
@@ -100,5 +131,26 @@ export class ServiceSite implements IServiceSite {
       lat: previousService?.coords?.lat ?? undefined,
       lng: previousService?.coords?.lng ?? undefined,
     };
+  }
+}
+
+export interface IContactService {
+  name: string;
+  contact: string;
+  email: string;
+  others: string;
+}
+export class ContactService implements IContactService {
+  name: string;
+  contact: string;
+  email: string;
+  others: any;
+
+  constructor(contact?: IContactService) {
+    const previousContact = cloneDeep(contact);
+    this.name = previousContact?.name ?? '';
+    this.contact = previousContact?.contact ?? '';
+    this.email = previousContact?.email ?? '';
+    this.others = previousContact?.others ?? '';
   }
 }

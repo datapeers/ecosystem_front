@@ -2,7 +2,7 @@
     <div class="flex flex-column sm:flex-row">
         <div class="flex flex-column gap-4">
             <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="user">
-                <ng-container [ngSwitch]="user.rolType">
+                <ng-container [ngSwitch]="user?.rolType">
                     <ng-container *ngSwitchCase="roles.user">
                         <div class="flex stage flex-row" [style.background-color]="stage?.color ?? '#EA4254'">
                             <div class="flex flex-column flex-none p-3 ">
@@ -150,7 +150,7 @@
                 <h2>Hola {{user?.fullName}}, bienvenido {{user?.isUser ? 'a tu panel' : ''}}</h2>
             </div>
             <div class="flex flex-column sm:flex-row header-statistics justify-content-around w-full gap-4">
-                <ng-container [ngSwitch]="user.rolType">
+                <ng-container [ngSwitch]="user?.rolType">
                     <ng-container *ngSwitchCase="roles.user">
                         <div class="flex gap-3">
                             <div class="icon-panel">
@@ -233,85 +233,87 @@
 
 
             </div>
-
-            <ng-container *ngIf="user?.isUser; else adminStats">
-                <div class="normal-panel w-full p-4" *ngIf="config">
-                    <div [innerHtml]="(config.dashboard | safe:'html')" class="w-full p-1 md:p-4"></div>
-                    <span class="my-3 text-3xl font-semibold">Nuestras {{config.verticals.length}} verticales</span>
-                    <div class="flex flex-row flex-wrap align-items-center justify-content-center gap-3 my-3">
-                        <ng-container *ngFor="let vertical of config.verticals">
-                            <div class="card-vertical" [style.background-color]="vertical.color">
-                                <div class="w-full content-vertical flex flex-column align-items-center justify-content-center" style="flex: 1">
-                                    <i-tabler [name]="vertical.icon" [style.color]="vertical.color"></i-tabler>
-                                    <span class="text-center">{{vertical.name}}</span>
+            <ng-container *ngIf="user">
+                <ng-container *ngIf="user.isUser; else adminStats">
+                    <div class="normal-panel w-full p-4" *ngIf="config">
+                        <div [innerHtml]="(config.dashboard | safe:'html')" class="w-full p-1 md:p-4"></div>
+                        <span class="my-3 text-3xl font-semibold">Nuestras {{config.verticals.length}} verticales</span>
+                        <div class="flex flex-row flex-wrap align-items-center justify-content-center gap-3 my-3">
+                            <ng-container *ngFor="let vertical of config.verticals">
+                                <div class="card-vertical" [style.background-color]="vertical.color">
+                                    <div class="w-full content-vertical flex flex-column align-items-center justify-content-center" style="flex: 1">
+                                        <i-tabler [name]="vertical.icon" [style.color]="vertical.color"></i-tabler>
+                                        <span class="text-center">{{vertical.name}}</span>
+                                    </div>
+                                    <div class="w-full separator-vertical"></div>
                                 </div>
-                                <div class="w-full separator-vertical"></div>
-                            </div>
-                        </ng-container>
-                    </div>
-                    <div class="flex flex-column w-full my-3">
-                        <span class="text-3xl font-semibold">Conectamos ecosistemas</span>
-                        <span class="py-6 set-color-text-third">Somos una red de Startup factories alrededor del mundo</span>
-                        <div id="mapSite" class="w-full">
+                            </ng-container>
+                        </div>
+                        <!-- <div class="flex flex-column w-full my-3">
+                                        <span class="text-3xl font-semibold">Conectamos ecosistemas</span>
+                                        <span class="py-6 set-color-text-third">Somos una red de Startup factories alrededor del mundo</span>
+                                        <div id="mapSite" class="w-full">
+                                        </div>
+                                    </div> -->
+                        <div class="flex flex-column w-full my-3">
+                            <span class="text-3xl font-semibold">Nuestros aliados</span>
+                            <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
+
+                            <p-carousel [value]="config.benefactors" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoPlayInterval="3000" [showIndicators]="false">
+                                <ng-template let-benefactor pTemplate="item">
+                                    <img class="card-benefactor" [src]="benefactor.image" alt="" [pTooltip]="benefactor.name">
+                                </ng-template>
+                            </p-carousel>
+
+
                         </div>
                     </div>
-                    <div class="flex flex-column w-full my-3">
-                        <span class="text-3xl font-semibold">Nuestros aliados</span>
-                        <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
+                    <div class="normal-panel w-full p-4 mb-3" *ngIf="config">
+                        <div class="flex flex-column w-full my-3">
+                            <span class="text-3xl font-semibold">Contenidos de interés</span>
+                            <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
+                            <div class="flex flex-column align-items-center justify-content-center gap-3">
+                                <div class="w-full flex flex-column md:flex-row gap-3 justify-content-center align-items-center">
+                                    <ng-container *ngFor="let interestContent of config.contentOfInterest; let i=index">
 
-                        <p-carousel [value]="config.benefactors" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoPlayInterval="3000" [showIndicators]="false">
-                            <ng-template let-benefactor pTemplate="item">
-                                <img class="card-benefactor" [src]="benefactor.image" alt="" [pTooltip]="benefactor.name">
-                            </ng-template>
-                        </p-carousel>
-
-
+                                        <div class="card-interest-content flex flex-column align-items-center">
+                                            <img class="card-benefactor pt-2" [src]="interestContent.image" alt="" [pTooltip]="interestContent.name">
+                                            <div class="w-full flex flex-column p-5 gap-4">
+                                                <span class="font-semibold">{{interestContent.name}}</span>
+                                                <span class="set-color-text-third">{{interestContent.description}}</span>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center mt-3">
+                                    <span class="w-full font-semibold text-center">Ver más contenidos</span>
+                                </p-button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="normal-panel w-full p-4 mb-3" *ngIf="config">
-                    <div class="flex flex-column w-full my-3">
-                        <span class="text-3xl font-semibold">Contenidos de interés</span>
-                        <span class="py-6 set-color-text-third">Estamos conectados con el ecosistema de innovación y emprendimiento</span>
+                </ng-container>
+                <ng-template #adminStats>
+                    <div class="normal-panel w-full p-4" *ngIf="config">
                         <div class="flex flex-column align-items-center justify-content-center gap-3">
-                            <div class="w-full flex flex-column md:flex-row gap-3 justify-content-center align-items-center">
-                                <ng-container *ngFor="let interestContent of config.contentOfInterest; let i=index">
-
+                            <div class="show-batch gap-3">
+                                <ng-container *ngFor="let batch of lastPhases; let i=index">
                                     <div class="card-interest-content flex flex-column align-items-center">
-                                        <img class="card-benefactor pt-2" [src]="interestContent.image" alt="" [pTooltip]="interestContent.name">
+                                        <img class="card-benefactor pt-2" [src]="batch?.thumbnail ? batch?.thumbnail : '/assets/noPic.jpg'" alt="" [pTooltip]="batch.name">
                                         <div class="w-full flex flex-column p-5 gap-4">
-                                            <span class="font-semibold">{{interestContent.name}}</span>
-                                            <span class="set-color-text-third">{{interestContent.description}}</span>
+                                            <span class="font-semibold">{{batch.name}}</span>
+
                                         </div>
                                     </div>
                                 </ng-container>
                             </div>
-                            <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center mt-3">
-                                <span class="w-full font-semibold text-center">Ver más contenidos</span>
+                            <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center mt-3" (click)="goPhases()">
+                                <span class="w-full font-semibold text-center">Ver todas</span>
                             </p-button>
                         </div>
                     </div>
-                </div>
+                </ng-template>
             </ng-container>
-            <ng-template #adminStats>
-                <div class="normal-panel w-full p-4" *ngIf="config">
-                    <div class="flex flex-column align-items-center justify-content-center gap-3">
-                        <div class="show-batch gap-3">
-                            <ng-container *ngFor="let batch of lastPhases; let i=index">
-                                <div class="card-interest-content flex flex-column align-items-center">
-                                    <img class="card-benefactor pt-2" [src]="batch?.thumbnail ? batch?.thumbnail : '/assets/noPic.jpg'" alt="" [pTooltip]="batch.name">
-                                    <div class="w-full flex flex-column p-5 gap-4">
-                                        <span class="font-semibold">{{batch.name}}</span>
 
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center mt-3" (click)="goPhases()">
-                            <span class="w-full font-semibold text-center">Ver todas</span>
-                        </p-button>
-                    </div>
-                </div>
-            </ng-template>
         </div>
     </div>
 </div>

@@ -252,7 +252,7 @@ export class HomeService {
         icon: 'heart-handshake',
       },
       siteAndServices: {
-        label: 'Sedes y servicios',
+        label: 'Servicios',
         rute: '/home/site_management',
         type: 'single',
         icon: 'map-search',

@@ -18,6 +18,7 @@ import { User } from '@auth/models/user';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
+import { configTinyMce } from '@shared/models/configTinyMce';
 
 @Component({
   selector: 'app-site-management',
@@ -44,15 +45,24 @@ export class SiteManagementComponent
   allMarkersSites = [];
   selectedSite;
   user: User;
-
+  factoresDiferenciales = [];
+  creatingService = false;
+  editingService = false;
+  configTiny = configTinyMce;
   public get userPermission(): typeof Permission {
     return Permission;
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.resizeMap();
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize() {
+  //   this.resizeMap();
+  // }
+  cols = [
+    { field: 'name', header: 'Nombre' },
+    { field: 'email', header: 'Correo' },
+    { field: 'contact', header: 'Telefono' },
+    { field: 'others', header: 'Otros' },
+  ];
   constructor(
     private store: Store<AppState>,
     private readonly router: Router,
@@ -80,7 +90,7 @@ export class SiteManagementComponent
     if (!navigator.geolocation) {
       console.log('locations is not supported');
     }
-    this.initializeMainMap();
+    // this.initializeMainMap();
   }
 
   loadComponent() {
@@ -91,16 +101,16 @@ export class SiteManagementComponent
           (this.sites$ = obsSites$.subscribe((sitesList: Site[]) => {
             this.loading = true;
             this.sites = sitesList;
-            for (const iterator of this.allMarkersSites) {
-              this.mainMap.removeControl(iterator);
-            }
-            this.allMarkersSites = [];
-            for (const site of this.sites) {
-              const markerSite = new Marker([site.coords.lat, site.coords.lng])
-                .addTo(this.mainMap)
-                .bindPopup(site.name);
-              this.allMarkersSites.push(markerSite);
-            }
+            // for (const iterator of this.allMarkersSites) {
+            //   this.mainMap.removeControl(iterator);
+            // }
+            // this.allMarkersSites = [];
+            // for (const site of this.sites) {
+            //   const markerSite = new Marker([site.coords.lat, site.coords.lng])
+            //     .addTo(this.mainMap)
+            //     .bindPopup(site.name);
+            //   this.allMarkersSites.push(markerSite);
+            // }
             this.loading = false;
           }))
       )
@@ -115,15 +125,16 @@ export class SiteManagementComponent
       });
   }
 
-  openCreatorSite() {
-    this.newSite = Site.newSite();
+  openCreatorSite(prevSite?: Site, onlyView?: boolean) {
+    this.newSite = Site.newSite(prevSite);
     this.showCreatorSite = true;
-
-    if (!this.assignMap) {
-      setTimeout(() => {
-        this.initializeAssignMap();
-      }, 100);
-    }
+    this.creatingService = prevSite ? false : true;
+    this.editingService = prevSite && !onlyView ? true : false;
+    // if (!this.assignMap) {
+    //   setTimeout(() => {
+    //     this.initializeAssignMap();
+    //   }, 100);
+    // }
   }
 
   navigateToEdit(site: Site) {
@@ -145,7 +156,7 @@ export class SiteManagementComponent
           .then((ans) => {
             this.toast.clear();
             this.toast.success({
-              detail: 'La sede ha sido eliminado exitosamente',
+              detail: 'El servicio ha sido eliminado exitosamente',
               summary: 'Evento eliminado!',
               life: 1500,
             });
@@ -153,7 +164,7 @@ export class SiteManagementComponent
           .catch((err) => {
             this.toast.clear();
             this.toast.alert({
-              summary: 'Error al intentar eliminar sede',
+              summary: 'Error al intentar eliminar servicio',
               detail: err,
               life: 12000,
             });
@@ -188,13 +199,13 @@ export class SiteManagementComponent
   }
 
   createSite() {
-    if (!this.markerAdded) {
-      this.toast.alert({
-        summary: 'Falta ubicación',
-        detail: 'No ha seleccionado una ubicación para la sede',
-      });
-      return;
-    }
+    // if (!this.markerAdded) {
+    //   this.toast.alert({
+    //     summary: 'Falta ubicación',
+    //     detail: 'No ha seleccionado una ubicación para la sede',
+    //   });
+    //   return;
+    // }
     this.toast.info({ detail: '', summary: 'Guardando...' });
     this.saving = true;
     this.service
@@ -255,40 +266,74 @@ export class SiteManagementComponent
     }
   }
 
-  initializeAssignMap() {
-    if (!this.assignMap) {
-      this.assignMap = new Map('mapAssign').setView(this.latLong as any, 17);
-      tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        minZoom: 1,
-        maxZoom: 20,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }).addTo(this.assignMap);
+  // initializeAssignMap() {
+  //   if (!this.assignMap) {
+  //     this.assignMap = new Map('mapAssign').setView(this.latLong as any, 17);
+  //     tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //       minZoom: 1,
+  //       maxZoom: 20,
+  //       attribution:
+  //         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  //     }).addTo(this.assignMap);
 
-      this.assignMap.on('click', (e) => {
-        this.newSite.coords = e.latlng;
-        if (this.markerAdded) {
-          this.assignMap.removeControl(this.markerAdded);
-        }
-        this.markerAdded = new Marker([
-          this.newSite.coords.lat,
-          this.newSite.coords.lng,
-        ])
-          .addTo(this.assignMap)
-          .bindPopup('Ubicación seleccionado');
-      });
-    }
+  //     this.assignMap.on('click', (e) => {
+  //       this.newSite.coords = e.latlng;
+  //       if (this.markerAdded) {
+  //         this.assignMap.removeControl(this.markerAdded);
+  //       }
+  //       this.markerAdded = new Marker([
+  //         this.newSite.coords.lat,
+  //         this.newSite.coords.lng,
+  //       ])
+  //         .addTo(this.assignMap)
+  //         .bindPopup('Ubicación seleccionado');
+  //     });
+  //   }
+  // }
+
+  // changeOnCoords(event) {
+  //   if (this.markerAdded) {
+  //     this.assignMap.removeControl(this.markerAdded);
+  //   }
+  //   this.markerAdded = new Marker([
+  //     this.newSite.coords.lat,
+  //     this.newSite.coords.lng,
+  //   ])
+  //     .addTo(this.assignMap)
+  //     .bindPopup('Ubicación seleccionado');
+  // }
+
+  addContact() {
+    this.newSite.contacts.push({
+      name: '',
+      contact: '',
+      email: '',
+      others: '',
+    });
   }
 
-  changeOnCoords(event) {
-    if (this.markerAdded) {
-      this.assignMap.removeControl(this.markerAdded);
-    }
-    this.markerAdded = new Marker([
-      this.newSite.coords.lat,
-      this.newSite.coords.lng,
-    ])
-      .addTo(this.assignMap)
-      .bindPopup('Ubicación seleccionado');
+  saveChanges() {
+    this.saving = true;
+    this.toast.info({ detail: '', summary: 'Guardando...' });
+    this.service
+      .updateSite(this.newSite._id, this.newSite)
+      .then((ans) => {
+        this.toast.clear();
+        this.toast.success({
+          detail: 'Los cambios al servicio han sido guardados',
+          summary: 'Servicio editado!',
+          life: 2000,
+        });
+        this.saving = false;
+      })
+      .catch((err) => {
+        this.saving = false;
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al editar servicio',
+          detail: err,
+          life: 12000,
+        });
+      });
   }
 }

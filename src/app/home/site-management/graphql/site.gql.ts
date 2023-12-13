@@ -1,17 +1,38 @@
 const fragments = {
+  // siteFields: `
+  // fragment siteFields on Site {
+  //     _id
+  //     name
+  //     thumbnail
+  //     description
+  //     coords
+  //     services {
+  //       name
+  //       description
+  //       email
+  //       contact
+  //       coords
+  //     }
+  //     isDeleted
+  //     createdAt
+  //     updatedAt
+  //   }
+  // `,
   siteFields: `
   fragment siteFields on Site {
       _id
       name
       thumbnail
       description
-      coords
-      services {
+      directedTo
+      methodology
+      factors
+      results
+      contacts {
         name
-        description
+        others
         email
         contact
-        coords
       }
       isDeleted
       createdAt

@@ -166,9 +166,11 @@
                 <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="image" required>
             </div>
             <span class="field col-12">
-                <label for="textarea">Descripción</label>
-                <textarea inputId="textarea" style="width: 100%;" rows="8" formControlName="description" pInputTextarea></textarea>
-            </span>
+                <label for="textarea">Descripción - {{newInterestContent.controls['description'].value?.length}}/120
+                    caracteres
+                    permitidos</label>
+                <textarea inputId="textarea" style="width: 100%;" rows="8" formControlName="description" [maxlength]="120" pInputTextarea></textarea>
+            </span>a
             <div style="height: 1rem;"></div>
         </form>
         <div class="actions flex flex-column gap-1">
