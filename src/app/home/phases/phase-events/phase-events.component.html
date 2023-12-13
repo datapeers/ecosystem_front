@@ -45,76 +45,79 @@
                                         </div>
                                         <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
                                             <div class="flex flex-column align-items-center justify-content-start w-full h-full">
-                                                <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
-                                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.name}} {{event.objectRef.isCanceled ? 'CANCELADO' : ''}}</span>
-                                                </div>
-                                                <div class="flex flex-column w-full justify-content-between">
-                                                    <span class="text-gray-600 font-semibold">Participación</span>
-                                                    <div class="flex align-items-center my-1">
-                                                        <span class="text-gray-600 text-base mr-2">
-                                                            {{event.objectRef.participation.length}}
-                                                        </span>
+                                                <span class="w-full text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.name}} {{event.objectRef.isCanceled ? 'CANCELADO' : ''}}</span>
 
-                                                    </div>
-                                                    <p-rating [(ngModel)]="event.objectRef.rating" [readonly]="true" [cancel]="false"></p-rating>
-                                                </div>
-                                                <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
-                                                    <div class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-video text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{attendanceLabels[event.objectRef.attendanceType]}}
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-user text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{'Tipo de evento: ' + showedTypesEvents[event.objectRef.type].name }}
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-calendar text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{event.objectRef.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.objectRef.endAt | date:'yyyy MMM dd - hh:mm aa'}}
-                                                        </span>
-                                                    </div>
-                                                    <div *ngIf="event.durationString" class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-clock text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{'Duración: ' + event.durationString }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <div class="w-full flex flex-row justify-content-between">
+                                                    <div class="w-full flex flex-column">
+                                                        <div class="flex flex-column ">
+                                                            <span class="text-gray-600 font-semibold">Participación</span>
+                                                            <div class="flex align-items-center my-1">
+                                                                <span class="text-gray-600 text-base mr-2">
+                                                                    {{event.objectRef.participation.length}}
+                                                                </span>
 
-                                        <div class="flex align-items-end justify-content-center p-2">
-                                            <div class="flex flex-row justify-content-end align-items-end">
-                                                <ng-container *ngIf="event.objectRef.extra_options.assistant ==='virtual'">
-                                                    <div class="flex flex-row">
-                                                        <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top" (onClick)="goToLink(event.objectRef.extra_options.url)">
-                                                        </p-button>
+                                                            </div>
+                                                            <p-rating [(ngModel)]="event.objectRef.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                                        </div>
+                                                        <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
+                                                            <div class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-video text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{attendanceLabels[event.objectRef.attendanceType]}}
+                                                                </span>
+                                                            </div>
+                                                            <div class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-user text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{'Tipo de evento: ' + showedTypesEvents[event.objectRef.type].name }}
+                                                                </span>
+                                                            </div>
+                                                            <div class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-calendar text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{event.objectRef.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.objectRef.endAt | date:'yyyy MMM dd - hh:mm aa'}}
+                                                                </span>
+                                                            </div>
+                                                            <div *ngIf="event.durationString" class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-clock text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{'Duración: ' + event.durationString }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </ng-container>
-                                                <div class="flex flex-row">
-                                                    <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="Participa QR" tooltipPosition="top" *ngIf="!event.objectRef.isCanceled" (onClick)="openQrWindow(event.objectRef)">
-                                                    </p-button>
-                                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
-                                                            pTooltip="Notas" tooltipPosition="top"
-                                                            (click)="notesDisplay = true">
-                                                        </p-button> -->
-                                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
-                                    </p-button> -->
-                                                    <p-button class="mx-1" type="button" styleClass="button-yellow-second" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.allowed(userPermission.actas_view)">
-                                                    </p-button>
-                                                    <p-button class="mx-1" styleClass="button-yellow-second" type="button" icon="pi pi-bars" label="" pTooltip="Participantes" tooltipPosition="top" *ngIf="todayAfter(event.objectRef.startAt)" (onClick)="openParticipation(event.objectRef)">
-                                                    </p-button>
-                                                    <p-button class="mx-1" styleClass="button-yellow-second" type="button" icon="pi pi-paperclip" label="" pTooltip="Link" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && dateAfter(event.objectRef.endAt)" (onClick)="openEditLink(event.objectRef)"></p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">
-                                                    </p-button>
-                                                    <p-button class="mx-1" styleClass="button-grey" type="button" icon="pi pi-times" label="" pTooltip="Cancelar evento" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateAfter(event.objectRef.startAt)" (onClick)="cancelEvent(event.objectRef)">
-                                                    </p-button>
-                                                    <p-button styleClass="button-grey" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.allowed(userPermission.events_edit)">
-                                                    </p-button>
+                                                    <div class="flex align-items-end justify-content-center p-2">
+                                                        <div class="flex flex-row justify-content-end align-items-end">
+                                                            <ng-container *ngIf="event.objectRef.extra_options.assistant ==='virtual'">
+                                                                <div class="flex flex-row">
+                                                                    <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top" (onClick)="goToLink(event.objectRef.extra_options.url)">
+                                                                    </p-button>
+                                                                </div>
+                                                            </ng-container>
+                                                            <div class="flex flex-row">
+                                                                <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="Participa QR" tooltipPosition="top" *ngIf="!event.objectRef.isCanceled" (onClick)="openQrWindow(event.objectRef)">
+                                                                </p-button>
+                                                                <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
+                                                                                                                pTooltip="Notas" tooltipPosition="top"
+                                                                                                                (click)="notesDisplay = true">
+                                                                                                            </p-button> -->
+                                                                <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
+                                                                                        </p-button> -->
+                                                                <p-button class="mx-1" type="button" styleClass="button-yellow-second" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.allowed(userPermission.actas_view)">
+                                                                </p-button>
+                                                                <p-button class="mx-1" styleClass="button-yellow-second" type="button" icon="pi pi-bars" label="" pTooltip="Participantes" tooltipPosition="top" *ngIf="todayAfter(event.objectRef.startAt)" (onClick)="openParticipation(event.objectRef)">
+                                                                </p-button>
+                                                                <p-button class="mx-1" styleClass="button-yellow-second" type="button" icon="pi pi-paperclip" label="" pTooltip="Link" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && dateAfter(event.objectRef.endAt)" (onClick)="openEditLink(event.objectRef)"></p-button>
+                                                                <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">
+                                                                </p-button>
+                                                                <p-button class="mx-1" styleClass="button-grey" type="button" icon="pi pi-times" label="" pTooltip="Cancelar evento" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateAfter(event.objectRef.startAt)" (onClick)="cancelEvent(event.objectRef)">
+                                                                </p-button>
+                                                                <p-button styleClass="button-grey" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.allowed(userPermission.events_edit)">
+                                                                </p-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

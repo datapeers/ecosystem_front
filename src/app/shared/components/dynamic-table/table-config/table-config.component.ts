@@ -87,7 +87,6 @@ export class TableConfigComponent {
         this.columnGroups.push(extraColumnsGroup);
       }
       this.columnGroups.push(...tableColumnGroups);
-      console.log(this.columnGroups);
       this.selectedColumns = [...this.tableConfig.columns];
     });
     this.config$.next(this.config);

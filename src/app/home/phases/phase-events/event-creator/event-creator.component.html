@@ -43,13 +43,13 @@
             <div class="field col-6 pt-3 md:col-6">
                 <span class="app-input-field" style="width: 100%">
                     <label for="calendar-first">{{generalConstant.begin}}</label>
-                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt" [showTime]="true"></p-calendar>
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="startAt" [showTime]="true" (ngModelChange)="editedDates = true"></p-calendar>
                 </span>
             </div>
             <div class="field col-6 pt-3 md:col-6">
                 <span class="app-input-field" style="width: 100%">
                     <label for="calendar-first">{{generalConstant.end}}</label>
-                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt" [showTime]="true"></p-calendar>
+                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: '100%' }" formControlName="endAt" [showTime]="true" (ngModelChange)="editedDates = true"></p-calendar>
                 </span>
             </div>
             <div class="field col-12 pt-3 md:col-12 ">

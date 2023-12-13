@@ -13,21 +13,22 @@
         </div>
     </div>
 </div>
+
 <ng-container *ngIf="!loadingComponent; else loadingTemplate">
-    <p-tabView class="overflow-hidden" (onChange)="reorderSizes()">
+    <p-tabView (onChange)="reorderSizes()">
 
         <p-tabPanel [header]="'Calendario'" *ngIf="!showDifferentDesign">
 
-            <div class="overflow-hidden surface-0">
+            <div class="h-full overflow-hidden surface-0">
                 <full-calendar #calendar [options]="calendarOptions" [events]="events" [deepChangeDetection]="true" class="pr-3 pl-3"></full-calendar>
             </div>
         </p-tabPanel>
         <p-tabPanel [header]="'Detalles'">
-            <div class="flex table-container p-3">
+            <div class="table-container">
                 <!-- <div class="flex flex-row align-items-center justify-content-end p-2">
-                        <p-button label="Descargar agenda detallada" icon="pi pi-file" iconPos="right" styleClass="p-button-raised p-button-secondary"></p-button>
-                    </div> -->
-                <p-table #dt class="table-app w-full" [value]="events" [tableStyle]="{'min-width': '30rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both" [globalFilterFields]="globalFilter">
+                            <p-button label="Descargar agenda detallada" icon="pi pi-file" iconPos="right" styleClass="p-button-raised p-button-secondary"></p-button>
+                        </div> -->
+                <p-table #dt class="table-app w-full" [value]="events" dataKey="_id" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [showCurrentPageReport]="true" [rows]="3" [rowsPerPageOptions]="[3,10,20]" [paginator]="true" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="table-header">
                             <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
@@ -75,7 +76,7 @@
                                     <ng-template #noFiles>
 
                                     </ng-template>
-                                    <p-button *ngIf="todayAfter(event.end)" (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
+                                    <p-button *ngIf="todayAfter(event.end) && user.isUser" (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
                                 </span>
                             </td>
                         </tr>
@@ -98,6 +99,7 @@
         </p-tabPanel>
     </p-tabView>
 </ng-container>
+
 
 <ng-template #loadingTemplate>
     <app-loading></app-loading>

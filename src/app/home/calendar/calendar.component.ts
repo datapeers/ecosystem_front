@@ -110,7 +110,7 @@ export class CalendarComponent {
     },
     locale: esLocale,
     selectable: true, // * important for activating date selectability!
-    aspectRatio: 2.3,
+    aspectRatio: 3.2,
   };
   // calendarOptions: CalendarOptions = {
   //   initialView: 'dayGridMonth',
@@ -131,9 +131,14 @@ export class CalendarComponent {
     this.resizeCalendar();
     this.setSizeGraphs();
     this.showGraphs = false;
-    setTimeout(() => {
-      this.showGraphs = true;
-    }, 1000);
+    // setTimeout(() => {
+    //   this.showGraphs = true;
+    // }, 1000);
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 446}px`;
+    }, 250);
   }
 
   showDifferentDesign = false;
@@ -155,6 +160,7 @@ export class CalendarComponent {
   @ViewChild('dt', { static: true }) dt: Table;
   globalFilter = [];
   eventShow;
+  scrollHeight;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -166,6 +172,7 @@ export class CalendarComponent {
     private readonly phaseService: PhasesService,
     private readonly storageService: StorageService
   ) {
+    this.scrollHeight = `${innerHeight - 446}px`;
     this.globalFilter = this.columns.map((i) => i.field);
     this.setGraph();
     firstValueFrom(

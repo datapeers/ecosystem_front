@@ -83,7 +83,7 @@ export class UsersPanelComponent implements OnInit {
     let resizeTimeout;
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      this.scrollHeight = `${innerHeight - 400}px`;
+      this.scrollHeight = `${innerHeight - 446}px`;
     }, 250);
   }
 

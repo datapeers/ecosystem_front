@@ -42,6 +42,7 @@ export interface IEvent {
     publicFiles?: boolean;
     files?: IFileUpload[];
     acta?: string;
+    editedDates?: boolean;
   };
   startAt: Date;
   endAt: Date;
@@ -68,6 +69,7 @@ export class Event implements IEvent {
     acta?: string;
     link?: string;
     zoom?: Record<string, any>;
+    editedDates?: boolean;
   };
   startAt: Date;
   endAt: Date;
@@ -137,9 +139,12 @@ export function newEvent(
     startAt: new FormControl<Date>(previous?.startAt ?? new Date(), {
       validators: [Validators.required],
     }),
-    endAt: new FormControl<Date>(moment(new Date()).add(1, 'hours').toDate(), {
-      validators: [Validators.required],
-    }),
+    endAt: new FormControl<Date>(
+      previous?.endAt ?? moment(new Date()).add(1, 'hours').toDate(),
+      {
+        validators: [Validators.required],
+      }
+    ),
   });
 }
 

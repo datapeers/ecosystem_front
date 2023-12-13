@@ -88,6 +88,7 @@ export class EventCreatorComponent implements OnInit {
   faClock = faClock;
   faUsers = faUsers;
 
+  editedDates = false;
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -145,7 +146,9 @@ export class EventCreatorComponent implements OnInit {
     this.user = this.config.data.user;
     this.typeEvents = this.config.data.typeEvents;
     this.previousEvent = this.config.data.event;
+    console.log(this.previousEvent);
     this.event = newEvent(this.batch, this.typeEvents, this.previousEvent);
+    console.log(this.event);
     this.extra_options = {
       userCreated: this.user._id,
     };
@@ -415,6 +418,13 @@ export class EventCreatorComponent implements OnInit {
   }
 
   async eventEdit() {
+    if (moment(this.event.value.endAt).isBefore(this.event.value.startAt)) {
+      this.toast.alert({
+        summary: GeneralConstant.errorDateTooltip,
+        detail: PhaseEventsConstant.errorDates,
+      });
+      return;
+    }
     await this.uploadFiles();
     this.toast.info({ detail: '', summary: GeneralConstant.saving });
     const updatedItems = this.event.value;
@@ -424,7 +434,7 @@ export class EventCreatorComponent implements OnInit {
     this.service
       .updateEvent({
         ...updatedItems,
-        extra_options: this.extra_options,
+        extra_options: { ...this.extra_options, editedDates: this.editedDates },
         batch: this.batch._id,
         experts: this.experts,
         teamCoaches: this.teamCoaches,
