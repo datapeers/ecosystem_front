@@ -27,9 +27,37 @@
     <p-divider></p-divider>
     <div class="w-full" style="flex: 1" *ngIf="tableContext">
 
-        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)" [allowFullscreen]="false">
+        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)" [allowFullscreen]="false" (onRowClick)="contact($event)">
         </app-dynamic-table>
 
     </div>
 
 </div>
+
+<p-dialog appendTo="body" header="Ticket" [(visible)]="toContact" [style]="{ width: '45vw' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" (onHide)="resetContact()">
+    <div class="w-full flex flex-row gap-3" *ngIf="toContact">
+        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Contactar a {{toContact['item, nombre']}}</h2>
+            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a odio ipsum. Sed sed egestas massa, nec eleifend dui. Aenean dictum ac nulla quis efficitur. Morbi mattis egestas massa quis viverra.</span>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="flex flex-column w-full h-full px-3 justify-content-center align-items-center" *ngIf="toContact">
+        <div class="w-full formgrid grid">
+            <div class="field app-input-field col-6">
+                <label for="titleTicket">Asunto</label>
+                <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" [(ngModel)]="subjectContact" required>
+            </div>
+            <div class="field app-input-field col-6">
+                <label for="categoryTicket">Responder a</label>
+                <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" [(ngModel)]="fromContact" required>
+            </div>
+            <span class="field app-input-field col-12">
+                <label for="msgTicket">Mensaje</label>
+                <textarea inputId="msgTicket" style="width: 100%;" rows="8" [(ngModel)]="bodyContact" pInputTextarea></textarea>
+            </span>
+        </div>
+        <p-button type="submit" label="Enviar" (onClick)="sendContact()" styleClass="p-button-lg border-round-2xl my-2 p-3"></p-button>
+    </div>
+</p-dialog>

@@ -8,12 +8,34 @@ const fragments = {
       _id
       item
       isProspect
+      phases {
+        _id
+        name
+      }
       entrepreneurs {
         _id
         rol
         item
         description
       }
+    }
+  `,
+  communitiesFields: `
+    fragment communitiesFields on Startup {
+      _id
+      item
+      isProspect
+      phases {
+        _id
+        name
+      }
+      entrepreneurs {
+        _id
+        rol
+        item
+        description
+      }
+      lastPhase
     }
   `,
 };
@@ -46,10 +68,10 @@ const query = {
   startupsCommunities: `
     query StartupsCommunities {
       startupsCommunities {
-        ...startupFields
+        ...communitiesFields
       }
     }
-    ${fragments.startupFields}
+    ${fragments.communitiesFields}
   `,
   startupsPage: `
     query StartupsPage($request: PageRequest!) {

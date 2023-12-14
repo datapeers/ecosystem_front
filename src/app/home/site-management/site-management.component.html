@@ -128,8 +128,9 @@
                     </span>
                     <span class="w-full app-input-field">
                         <label for="service-description" class="font-bold">Descripción</label>
-                        <tinymce id="service-description" [(ngModel)]="newSite.description" [config]="configTiny"></tinymce>
+                        <textarea id="service-description" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.description" pInputTextarea></textarea>
                     </span>
+
                     <span class="w-full app-input-field pt-3">
                         <div class="flex fle-row w-full justify-content-between align-items-center">
                             <label for="service-description" class="font-bold">Contactos</label>
@@ -159,32 +160,29 @@
                     </span>
                 </div>
             </div>
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-3 gap-3" style="flex: 3">
+            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-3 gap-3" style="flex: 3">
                 <div class="flex flex-column gap-3">
                     <span class="w-full app-input-field">
                         <label for="directedToService" class="font-bold">¿A quien va dirigido?</label>
-                        <tinymce id="directedToService" [(ngModel)]="newSite.directedTo" [config]="configTiny"></tinymce>
+                        <textarea id="directedToService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.directedTo" pInputTextarea></textarea>
                     </span>
                 </div>
-                <div class="flex flex-column gap-3">
-                    <span class="w-full app-input-field">
-                        <label for="methodService" class="font-bold">Metodología</label>
-                        <tinymce id="methodService" [(ngModel)]="newSite.methodology" [config]="configTiny"></tinymce>
-                    </span>
-                </div>
-
-            </div>
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-3 gap-3" style="flex: 3">
                 <div class="flex flex-column gap-3">
                     <span class="w-full app-input-field">
                         <label for="factorsServices" class="font-bold">Factores diferenciales</label>
                         <p-chips id="factorsServices" styleClass="inputfield field-full" [(ngModel)]="newSite.factors"></p-chips>
                     </span>
                 </div>
-                <div class="flex flex-column gap-3 pt-3">
+                <div class="flex flex-column gap-3">
                     <span class="w-full app-input-field">
+                        <label for="methodService" class="font-bold">Metodología</label>
+                        <textarea id="methodService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.methodology" pInputTextarea></textarea>
+                    </span>
+                </div>
+                <div class="flex flex-column gap-3 pt-3">
+                    <span class="w-full app-input-field">a
                         <label for="resultsService" class="font-bold">Resultados</label>
-                        <tinymce id="resultsService" [(ngModel)]="newSite.results" [config]="configTiny"></tinymce>
+                        <textarea id="resultsService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.results" pInputTextarea></textarea>
                     </span>
                 </div>
             </div>
@@ -204,28 +202,27 @@
                             </ng-template>
                             <h2>{{newSite.name}}</h2>
                         </div>
-                        <div>
-                            <div [innerHtml]="(newSite.description | safe:'html')" class="w-full p-3 md:p-4"></div>
-                        </div>
-                        <div class="flex flex-column gap-2">
+                        <span class="pt-3">
+                            {{newSite.description}}
+                        </span>
+                        <p-divider></p-divider>
+                        <div class="flex flex-column gap-2 pt-3">
                             <span class="text-xs">Contactos</span>
                             <div class="flex flex-row align-items-center" *ngFor="let item of newSite.contacts">
                                 <p-avatar [label]="item['name'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
                                 <p>{{item['name']}} - </p>
-                                <p>{{item['email']}}</p>
+                                <p *ngIf="item['email'] !==''">{{item['email']}} - </p>
+                                <p *ngIf="item['contact'] !==''">{{item['contact']}} - </p>
+                                <p *ngIf="item['others'] !==''">{{item['others']}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-3 gap-3" style="flex: 3">
-                <h2>¿A quien va dirigido?</h2>
-                <div [innerHtml]="(newSite.directedTo | safe:'html')" class="w-full p-3 md:p-4"></div>
-                <h2>Metodología</h2>
-                <div [innerHtml]="(newSite.methodology | safe:'html')" class="w-full p-3 md:p-4"></div>
-            </div>
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-3 gap-3" style="flex: 3">
-                <h2>Factores diferenciales</h2>
+                <h3>¿A quien va dirigido?</h3>
+                <span class="w-full p-3 md:p-4">{{newSite.directedTo}}</span>
+                <h3>Factores diferenciales</h3>
                 <div class="flex flex-wrap gap-2">
                     <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}" *ngFor="let item of newSite.factors">
                         <div class="flex align-items-center gap-2">
@@ -233,10 +230,11 @@
                         </div>
                     </p-tag>
                 </div>
+                <h3>Metodología</h3>
+                <span class="w-full p-3 md:p-4">{{newSite.methodology}}</span>
 
-
-                <h2>Resultados</h2>
-                <div [innerHtml]="(newSite.results | safe:'html')" class="w-full p-3 md:p-4"></div>
+                <h3>Resultados</h3>
+                <span>{{newSite.results}}</span>
             </div>
         </div>
 

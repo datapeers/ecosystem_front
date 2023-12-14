@@ -28,7 +28,7 @@
                     </form>
                 </div>
             </div>
-            <p-button label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user.allowed(userPermission.help_desk_create)"></p-button>
+            <p-button label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user?.allowed(userPermission.help_desk_create)"></p-button>
         </div>
     </div>
     <p-divider></p-divider>
@@ -150,16 +150,16 @@
     <p-divider></p-divider>
     <div class="flex flex-column justify-content-between h-full w-full p-3" *ngIf="newTicket">
         <form [formGroup]="newTicket" class="formgrid grid">
-            <div class="field col-6">
+            <div class="field app-input-field col-6">
                 <label for="titleTicket">Titulo</label>
                 <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" formControlName="title" required>
             </div>
-            <div class="field col-6">
+            <div class="field app-input-field col-6">
                 <label for="categoryTicket">Categoría</label>
                 <p-dropdown inputId="categoryTicket" appendTo="body" [options]="categories" optionLabel="name" optionValue="value" formControlName="category" styleClass="appearance-none outline-none w-full">
                 </p-dropdown>
             </div>
-            <span class="field col-12">
+            <span class="field app-input-field col-12">
                 <label for="msgTicket">Mensaje</label>
                 <textarea inputId="msgTicket" style="width: 100%;" rows="8" formControlName="body" pInputTextarea></textarea>
             </span>

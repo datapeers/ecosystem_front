@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DynamicTable } from '@shared/components/dynamic-table/models/dynamic-table';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import {
+  TableColumnType,
+  TableConfig,
+} from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { AppForm } from '@shared/form/models/form';
@@ -37,6 +40,11 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
   selectedStartups: [] = [];
   callbackTable;
   user: User;
+
+  toContact;
+  fromContact;
+  subjectContact;
+  bodyContact;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -50,10 +58,29 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       summary: 'Comunidades',
       showConfigButton: false,
       redirect: null,
-      selection: true,
+      selection: false,
       actions_row: 'compress',
       actionsPerRow: [],
-      extraColumnsTable: [],
+      extraColumnsTable: [
+        {
+          label: 'Email',
+          key: 'entrepreneurs; item, email',
+          type: TableColumnType.data,
+          format: 'string',
+        },
+        {
+          label: 'Fases',
+          key: 'phases; name',
+          type: TableColumnType.data,
+          format: 'string',
+        },
+        {
+          label: 'Fase actual',
+          key: 'lastPhase, name',
+          type: TableColumnType.data,
+          format: 'string',
+        },
+      ],
       actionsTable: [],
       hideMultipleFiltersTable: true,
       hideCaption: false,
@@ -85,11 +112,16 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       return;
     }
     this.entityForm = forms.find(() => true);
+    const entrepreneursForms = await this.formService.getFormByCollection(
+      FormCollections.entrepreneurs
+    );
+    const entrepreneursForm = entrepreneursForms.find(() => true);
     this.tableContext = {
       locator: `communities`,
       name: 'Comunidades',
       form: this.entityForm._id,
       data: {},
+      joins: [],
     };
     if (this.user?.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
@@ -108,5 +140,25 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       case 'test':
         break;
     }
+  }
+
+  resetContact() {
+    this.toContact = undefined;
+    this.fromContact = undefined;
+    this.subjectContact = undefined;
+    this.bodyContact = undefined;
+  }
+
+  contact(row) {
+    console.log(row);
+    this.toContact = row;
+    this.fromContact = this.user.email;
+    this.subjectContact = '';
+    this.bodyContact = '';
+  }
+
+  sendContact() {
+    console.log('awaiting');
+    //email     this.toContact = row['entrepreneurs; item, email'][0];
   }
 }
