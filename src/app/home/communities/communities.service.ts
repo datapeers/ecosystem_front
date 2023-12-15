@@ -23,4 +23,19 @@ export class CommunitiesService {
         .pipe(map((request) => request.data.startupsCommunities))
     );
   }
+
+  async contact(body: string, from: string, subject: string, to: string) {
+    const queryRef = this.graphql.refQuery(
+      startupsQueries.query.contactCommunity,
+      {
+        body,
+        from,
+        subject,
+        to,
+      },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql.query(queryRef));
+  }
 }
