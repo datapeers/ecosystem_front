@@ -19,6 +19,7 @@ import { CommunitiesService } from './communities.service';
 import { RowConfigColumn } from '@shared/models/row-config-column';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-communities',
@@ -41,10 +42,13 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
   callbackTable;
   user: User;
 
-  toContact;
-  fromContact;
-  subjectContact;
-  bodyContact;
+  contactTo;
+  contactForm: FormGroup;
+  sending = false;
+  get formControls() {
+    return this.contactForm.controls;
+  }
+
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -142,23 +146,53 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
     }
   }
 
-  resetContact() {
-    this.toContact = undefined;
-    this.fromContact = undefined;
-    this.subjectContact = undefined;
-    this.bodyContact = undefined;
+  newContact(from: string, to: string) {
+    return new FormGroup({
+      subject: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
+      body: new FormControl<string>('', {
+        validators: [Validators.required],
+      }),
+      from: new FormControl<string>(from ?? '', {
+        validators: [Validators.required, Validators.email],
+      }),
+      to: new FormControl<string>(to ?? '', {
+        validators: [Validators.required, Validators.email],
+      }),
+    });
   }
 
   contact(row) {
-    console.log(row);
-    this.toContact = row;
-    this.fromContact = this.user.email;
-    this.subjectContact = '';
-    this.bodyContact = '';
+    this.contactForm = this.newContact(
+      this.user.email,
+      row['entrepreneurs; item, email'][0]
+    );
+    this.contactTo = row;
+
+    this.sending = false;
   }
 
-  sendContact() {
-    console.log('awaiting');
+  async sendContact() {
+    this.sending = true;
+    try {
+      await this.service.contact(
+        this.contactForm.value.body,
+        this.contactForm.value.from,
+        this.contactForm.value.subject,
+        this.contactForm.value.to
+      );
+      this.toast.success({ summary: 'Mensaje enviado', detail: '' });
+      this.contactTo = undefined;
+      this.sending = false;
+    } catch (error) {
+      this.sending = false;
+      this.toast.error({
+        summary: 'Error al intentar contactar',
+        detail: error,
+      });
+    }
     //email     this.toContact = row['entrepreneurs; item, email'][0];
+    // await this.service.contact(this.bodyContact,. this.subjectContact, this.to)
   }
 }

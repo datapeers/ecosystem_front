@@ -89,6 +89,11 @@ const query = {
     }
     ${downloadResultFields}
   `,
+  contactCommunity: `
+    query Query($body: String!, $from: String!, $subject: String!, $to: String!) {
+      contactCommunity(body: $body, from: $from, subject: $subject, to: $to)
+    }
+  `,
 };
 
 const mutation = {

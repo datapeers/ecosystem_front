@@ -222,6 +222,7 @@
             <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">
                 <h3>¿A quien va dirigido?</h3>
                 <span>{{newSite.directedTo}}</span>
+                <p-divider></p-divider>
                 <h3>Factores diferenciales</h3>
                 <div class="flex flex-wrap gap-2">
                     <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}" *ngFor="let item of newSite.factors">
@@ -230,9 +231,10 @@
                         </div>
                     </p-tag>
                 </div>
+                <p-divider></p-divider>
                 <h3>Metodología</h3>
                 <span>{{newSite.methodology}}</span>
-
+                <p-divider></p-divider>
                 <h3>Resultados</h3>
                 <span>{{newSite.results}}</span>
             </div>

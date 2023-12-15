@@ -39,7 +39,7 @@ export class HomeService {
       menuItems.push('helpDesk');
     if (user.isUser || user.allowed(Permission.community_view))
       menuItems.push('communities');
-    if (user.allowed(Permission.sites_and_services_view))
+    if (user.isUser || user.allowed(Permission.sites_and_services_view))
       menuItems.push('siteAndServices');
 
     if (user.allowed(Permission.reports_view)) menuItems.push('reports');
