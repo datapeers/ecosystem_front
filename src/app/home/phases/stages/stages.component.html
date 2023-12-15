@@ -3,7 +3,7 @@
         <span class="subheader font-semibold">Configuración fases</span>
     </div>
 
-    <p-button *ngIf="user?.masterRol" styleClass="button-primary-app" type="button" label="Crear etapa" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
+    <p-button *ngIf="user?.masterRol" styleClass="button-blue" type="button" label="Crear etapa" icon="pi pi-plus" (onClick)="openCreator()"></p-button>
 </div>
 
 <div class="flex flex-wrap align-items-center justify-content-around gap-1">
@@ -30,12 +30,12 @@
         </div>
         <div class="flex flex-wrap align-items-center justify-content-center pt-3">
 
-            <p-button *ngIf="user?.masterRol" styleClass="button-primary-app" type="button" [label]="stage.isDeleted ? 'Ver' : 'Configurar'" iconPos="right" [icon]="stage.isDeleted ? 'pi pi-eye' : 'pi pi-cog'" (onClick)="openCreator(stage, stage.isDeleted)">
+            <p-button *ngIf="user?.masterRol" styleClass="button-yellow-second" type="button" [label]="stage.isDeleted ? 'Ver' : 'Configurar'" iconPos="right" [icon]="stage.isDeleted ? 'pi pi-eye' : 'pi pi-cog'" (onClick)="openCreator(stage, stage.isDeleted)">
             </p-button>
             <div class="flex flex-row gap-2 w-full justify-content-center pt-2" *ngIf="user?.masterRol">
-                <p-button *ngIf="stage.index > 0" styleClass="button-primary-app" type="button" icon="pi pi-arrow-left" (onClick)="onStageDownIndex(stage, index)">
+                <p-button *ngIf="stage.index > 0" styleClass="button-grey" type="button" icon="pi pi-arrow-left" (onClick)="onStageDownIndex(stage, index)">
                 </p-button>
-                <p-button *ngIf="stage.index < stages.length - 1" styleClass="button-primary-app" type="button" icon="pi pi-arrow-right" (onClick)="onStageUpIndex(stage, index)">
+                <p-button *ngIf="stage.index < stages.length - 1" styleClass="button-grey" type="button" icon="pi pi-arrow-right" (onClick)="onStageUpIndex(stage, index)">
                 </p-button>
             </div>
 
@@ -45,8 +45,18 @@
 </ng-template>
 
 
-<p-dialog header="Etapa" [(visible)]="showStageCreator" [style]="{ width: '45vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()">
-    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newStage">
+<p-dialog header="" [(visible)]="showStageCreator" [style]="{ width: '45vw' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreator()" appendTo="body" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Etapa</h2>
+            <div class="w-full flex flex-row gap-1">
+                <span class="text-sm text-color-other"></span>
+            </div>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="flex flex-column justify-content-between h-full w-full px-4" *ngIf="newStage">
         <form [formGroup]="newStage" class="formgrid grid">
             <div class="field col-5">
                 <label for="stageName">Nombre</label>
@@ -93,5 +103,3 @@
         </div>
     </div>
 </p-dialog>
-
-<p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

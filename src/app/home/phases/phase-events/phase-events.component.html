@@ -1,113 +1,123 @@
 <ng-container *ngIf="loaded; else loadingTemplate">
-    <div class="p-4">
-        <div class="w-full flex flex-row w-full gap-4 text-white justify-content-between align-items-center ">
-            <h2>Eventos</h2>
-            <div class="flex flex-row gap-2">
-                <!-- <p-button label="Vista previa" icon="pi pi-eye"></p-button> -->
-                <p-button *ngIf="canCreate()" label="Tipos de eventos" icon="pi pi-tags" (onClick)="showTypes = true"></p-button>
+    <div class="px-4">
+        <div class="flex flex-column xl:flex-row gap-4 align-items-end justify-content-between">
+            <div class="flex flex-column gap-3 flex-grown-1 ">
+                <h3>Eventos</h3>
+                <div class="flex gap-2">
+                    <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                    <p class="th2">Programa eventos, rellena actas, verifica participación, comparte qr y mas.
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-row align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3">
+                <p-button *ngIf="canCreate()" label="Tipos de eventos" icon="pi pi-tags" styleClass="button-yellow-second" (onClick)="showTypes = true"></p-button>
                 <p-button *ngIf="user?.allowed(userPermission.events_create)" label="Evento" icon="pi pi-plus" (onClick)="showEvent()"></p-button>
             </div>
         </div>
-        <app-datefilter [alwaysBetween]="true" [emitAll]="true" [viewOptions]="[
+
+        <app-datefilter [alwaysBetween]=" true" [emitAll]="true" [viewOptions]="[
             { label: 'Todos', value: 'all' },
             { label: 'Próximos', value: 'future' },
             { label: 'Pasados', value: 'past' },
             { label: 'En curso', value: 'current' },
             { label: 'Del día', value: 'daily' }
-            ]" [listOfObjects]='list' [inputTooltip]="'Buscar'" (OnInput)="filter($event)" (OnChange)="updateTable($event)">
+            ]" [listOfObjects]='listToFilter' [inputTooltip]="'Buscar'" (OnInput)="filter($event)" (OnChange)="updateTable($event)">
         </app-datefilter>
 
         <div class="card">
-            <p-tabView>
+            <p-tabView styleClass="page-event">
                 <ng-container *ngFor="let tableData of dataArray">
                     <p-tabPanel [header]="tableData.label">
-                        <p-table #dt id="dt" [value]="tableData.array" dataKey="_id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [loading]="!loaded" [paginator]="true">
+                        <p-table #dt id="dt" [value]="tableData.array" dataKey="_id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,20]" [loading]="!loaded" [paginator]="true" [currentPageReportTemplate]="textSummary">
                             <ng-template pTemplate="header">
                             </ng-template>
                             <ng-template pTemplate="body" let-event>
-                                <div class="card shadow-4 my-2 p-2 border-round bg-white">
+                                <div class="card m-3 p-2 border-round bg-white">
                                     <div class="flex flex-row flex-wrap card-container blue-container justify-content-center">
                                         <div class="flex flex-none align-items-center justify-content-center">
-                                            <div class="flex align-items-center justify-content-center">
-                                                <div class="p-0 align-items-center justify-content-center">
-                                                    <div class="cursor-pointer flex flex-column align-items-center justify-content-center border-round shadow-2 m-2" pTooltip=" video" tooltipPosition="top">
-                                                        <img src='/assets/noPic.jpg' alt="" class="border-round" style="height: 225px; width: 400px; object-fit: contain;">
-                                                    </div>
-                                                </div>
+
+
+                                            <div class="cursor-pointer flex flex-column align-items-center justify-content-center border-round shadow-2 m-2" tooltipPosition="top">
+                                                <img src='/assets/noPic.jpg' alt="" class="border-round" style="height: 225px; width: 330px; object-fit: contain;">
                                             </div>
+
+
                                         </div>
                                         <div class="flex flex-grow-1 align-items-center justify-content-start p-2" style="min-width: 416px; overflow-y: hidden;">
                                             <div class="flex flex-column align-items-center justify-content-start w-full h-full">
-                                                <div class="flex flex-grow-1 justify-content-start my-1 w-full overflow-y-hidden">
-                                                    <span class="text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.name}} {{event.objectRef.isCanceled ? 'CANCELADO' : ''}}</span>
-                                                </div>
-                                                <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
-                                                    <div class="flex flex-column w-full">
-                                                        <span class="text-gray-600 font-semibold">Participación</span>
-                                                        <div class="flex align-items-center my-1">
-                                                            <span class="text-gray-600 text-base mr-2">
-                                                                {{event.objectRef.participation.length}}
-                                                            </span>
-                                                            <p-button styleClass="p-button-text" icon="pi pi-eye"></p-button>
-                                                        </div>
-                                                        <p-rating [(ngModel)]="event.objectRef.rating" [readonly]="true" [cancel]="false"></p-rating>
-                                                    </div>
-                                                    <div class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-video text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{attendanceLabels[event.objectRef.attendanceType]}}
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-user text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{'Tipo de evento: ' + showedTypesEvents[event.objectRef.type].name }}
-                                                        </span>
-                                                    </div>
-                                                    <div class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-calendar text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{event.objectRef.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.objectRef.endAt | date:'yyyy MMM dd - hh:mm aa'}}
-                                                        </span>
-                                                    </div>
-                                                    <div *ngIf="event.durationString" class="flex align-items-center w-full my-1">
-                                                        <i class="pi pi-clock text-base"></i>
-                                                        <span class="text-base ml-2">
-                                                            {{'Duración: ' + event.durationString }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                <span class="w-full text-2xl py-1 font-semibold" style="word-break: break-all;">{{event.objectRef.name}} {{event.objectRef.isCanceled ? 'CANCELADO' : ''}}</span>
 
-                                        <div class="flex align-items-end justify-content-center p-2">
-                                            <div class="flex flex-row justify-content-end align-items-end">
-                                                <ng-container *ngIf="event.objectRef.extra_options.assistant ==='virtual'">
-                                                    <div class="flex flex-row">
-                                                        <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top" (onClick)="goToLink(event.objectRef.extra_options.url)">
-                                                        </p-button>
+                                                <div class="w-full flex flex-row justify-content-between">
+                                                    <div class="w-full flex flex-column">
+                                                        <div class="flex flex-column ">
+                                                            <span class="text-gray-600 font-semibold">Participación</span>
+                                                            <div class="flex align-items-center my-1">
+                                                                <span class="text-gray-600 text-base mr-2">
+                                                                    {{event.objectRef.participation.length}}
+                                                                </span>
+
+                                                            </div>
+                                                            <p-rating [(ngModel)]="event.objectRef.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                                        </div>
+                                                        <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
+                                                            <div class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-video text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{attendanceLabels[event.objectRef.attendanceType]}}
+                                                                </span>
+                                                            </div>
+                                                            <div class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-user text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{'Tipo de evento: ' + showedTypesEvents[event.objectRef.type].name }}
+                                                                </span>
+                                                            </div>
+                                                            <div class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-calendar text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{event.objectRef.startAt | date:'yyyy MMM dd - hh:mm aa'}} - {{event.objectRef.endAt | date:'yyyy MMM dd - hh:mm aa'}}
+                                                                </span>
+                                                            </div>
+                                                            <div *ngIf="event.durationString" class="flex align-items-center w-full my-1">
+                                                                <i class="pi pi-clock text-base"></i>
+                                                                <span class="text-base ml-2">
+                                                                    {{'Duración: ' + event.durationString }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </ng-container>
-                                                <div class="flex flex-row">
-                                                    <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="Participa QR" tooltipPosition="top" *ngIf="!event.objectRef.isCanceled" (onClick)="openQrWindow(event.objectRef)">
-                                                    </p-button>
-                                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
-                                                            pTooltip="Notas" tooltipPosition="top"
-                                                            (click)="notesDisplay = true">
-                                                        </p-button> -->
-                                                    <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
-                                    </p-button> -->
-                                                    <p-button class="mx-1" type="button" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.allowed(userPermission.actas_view)">
-                                                    </p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-bars" label="" pTooltip="Participantes" tooltipPosition="top" *ngIf="todayAfter(event.objectRef.startAt)" (onClick)="openParticipation(event.objectRef)">
-                                                    </p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-paperclip" label="" pTooltip="Link" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && dateAfter(event.objectRef.endAt)" (onClick)="openEditLink(event.objectRef)"></p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">
-                                                    </p-button>
-                                                    <p-button class="mx-1" type="button" icon="pi pi-times" label="" pTooltip="Cancelar evento" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateAfter(event.objectRef.startAt)" (onClick)="cancelEvent(event.objectRef)">
-                                                    </p-button>
-                                                    <p-button styleClass="p-button-outlined" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.allowed(userPermission.events_edit)">
-                                                    </p-button>
+                                                    <div class="flex align-items-end justify-content-center p-2">
+                                                        <div class="flex flex-row justify-content-end align-items-end">
+                                                            <ng-container *ngIf="event.objectRef.extra_options.assistant ==='virtual'">
+                                                                <div class="flex flex-row">
+                                                                    <p-button class="mx-1" type="button" icon="pi pi-link" label="" pTooltip="link" tooltipPosition="top" (onClick)="goToLink(event.objectRef.extra_options.url)">
+                                                                    </p-button>
+                                                                </div>
+                                                            </ng-container>
+                                                            <div class="flex flex-row">
+                                                                <p-button class="mx-1" type="button" icon="pi pi-qrcode" label="" pTooltip="Participa QR" tooltipPosition="top" *ngIf="!event.objectRef.isCanceled" (onClick)="openQrWindow(event.objectRef)">
+                                                                </p-button>
+                                                                <!-- <p-button class="mx-1" type="button" icon="pi pi-bookmark" label=""
+                                                                                                                pTooltip="Notas" tooltipPosition="top"
+                                                                                                                (click)="notesDisplay = true">
+                                                                                                            </p-button> -->
+                                                                <!-- <p-button class="mx-1" type="button" icon="pi pi-cog" label="" pTooltip="Manage" tooltipPosition="top">
+                                                                                        </p-button> -->
+                                                                <p-button class="mx-1" type="button" styleClass="button-yellow-second" icon="pi pi-file" label="" pTooltip="Acta" tooltipPosition="top" (onClick)="showActa(event.objectRef)" *ngIf=" showedTypesEvents[event.objectRef.type].extra_options.allow_acta && user?.allowed(userPermission.actas_view)">
+                                                                </p-button>
+                                                                <p-button class="mx-1" styleClass="button-yellow-second" type="button" icon="pi pi-bars" label="" pTooltip="Participantes" tooltipPosition="top" *ngIf="todayAfter(event.objectRef.startAt)" (onClick)="openParticipation(event.objectRef)">
+                                                                </p-button>
+                                                                <p-button class="mx-1" styleClass="button-yellow-second" type="button" icon="pi pi-paperclip" label="" pTooltip="Link" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && dateAfter(event.objectRef.endAt)" (onClick)="openEditLink(event.objectRef)"></p-button>
+                                                                <p-button class="mx-1" type="button" icon="pi pi-pencil" label="" pTooltip="Modificar" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit)" (onClick)="showEvent(event.objectRef)">
+                                                                </p-button>
+                                                                <p-button class="mx-1" styleClass="button-grey" type="button" icon="pi pi-times" label="" pTooltip="Cancelar evento" tooltipPosition="top" *ngIf="user?.allowed(userPermission.events_edit) && !event.objectRef.isCanceled && dateAfter(event.objectRef.startAt)" (onClick)="cancelEvent(event.objectRef)">
+                                                                </p-button>
+                                                                <p-button styleClass="button-grey" class="mx-1" type="button" icon="pi pi-trash" label="" pTooltip="Eliminar" tooltipPosition="top" (onClick)="eventDelete(event.objectRef)" *ngIf="user?.allowed(userPermission.events_edit)">
+                                                                </p-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -135,97 +145,122 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog header="Tipo eventos" [(visible)]="showTypes" [style]="{ width: '50vw', height: '50vh' }" [draggable]="false" [resizable]="false">
-    <!-- <div class="w-full flex flex-row justify-content-end">
-        <p-button type="button" label="Etapa" icon="pi pi-plus" (onClick)="createStage()"></p-button>
-    </div> -->
-    <p-table [value]="typesEvents" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '45rem'}">
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width:5cqh">Nombre</th>
-                <th style="width:10%" class="text-center">Permite acta</th>
-                <th style="width:10%" class="text-center">Permite archivos</th>
-                <th style="width:20%" class="text-center">Bolsa de horas - Experto</th>
-                <th style="width:10%" class="text-center">
-                    <div class="flex align-items-center justify-content-center">
-                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
-                    </div>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-typeEvent let-editing="editing" let-ri="rowIndex">
-            <tr [pEditableRow]="typeEvent">
-                <td>
-                    <p-cellEditor>
-                        <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="typeEvent.name" required>
-                        </ng-template>
-                        <ng-template pTemplate="output">
-                            {{typeEvent.name}}
-                        </ng-template>
-                    </p-cellEditor>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center">
+<p-dialog header="" [(visible)]="showTypes" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Tipo eventos</h2>
+            <div class="w-full flex flex-row gap-1">
+                <span class="text-sm text-color-other">Lista con los posibles tipos de eventos que se pueden utilizar en la plataforma</span>
+            </div>
+        </div>
+    </div>
+    <p-divider [style]="{width: '100%'}">
+    </p-divider>
+    <div class="flex w-full justify-content-center align-items-center">
+        <p-table class="table-container border-round-2xl table-dialog w-11" [value]="typesEvents" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 6, 10]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:5cqh">Nombre</th>
+                    <th style="width:10%" class="text-center">Permite acta</th>
+                    <th style="width:10%" class="text-center">Permite archivos</th>
+                    <th style="width:20%" class="text-center">Bolsa de horas - Experto</th>
+                    <th style="width:10%" class="text-center">
+                        <div class="flex align-items-center justify-content-center">
+                            <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-typeEvent let-editing="editing" let-ri="rowIndex">
+                <tr [pEditableRow]="typeEvent">
+                    <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" inputId="allowActa"></p-checkbox>
+                                <input pInputText type="text" [(ngModel)]="typeEvent.name" required>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" [disabled]="true"></p-checkbox>
+                                {{typeEvent.name}}
                             </ng-template>
                         </p-cellEditor>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center">
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" inputId="allowFiles"></p-checkbox>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" [disabled]="true"></p-checkbox>
-                            </ng-template>
-                        </p-cellEditor>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center">
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" inputId="expertFocus"></p-checkbox>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" [disabled]="true"></p-checkbox>
-                            </ng-template>
-                        </p-cellEditor>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex align-items-center justify-content-center gap-2">
-                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onTypeEventEditInit(typeEvent)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="!editing && !typesNeeded.includes(typeEvent._id)" pButton pRipple type="button" icon="pi pi-trash" (click)="deleteType(typeEvent, ri)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onTypeEventEditSave(typeEvent, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onTypeEventEditCancel(typeEvent, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" inputId="allowActa"></p-checkbox>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_acta" [disabled]="true"></p-checkbox>
+                                </ng-template>
+                            </p-cellEditor>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" inputId="allowFiles"></p-checkbox>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" [disabled]="true"></p-checkbox>
+                                </ng-template>
+                            </p-cellEditor>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" inputId="expertFocus"></p-checkbox>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" [disabled]="true"></p-checkbox>
+                                </ng-template>
+                            </p-cellEditor>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onTypeEventEditInit(typeEvent)" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="!editing && !typesNeeded.includes(typeEvent._id)" pButton pRipple type="button" icon="pi pi-trash" (click)="deleteType(typeEvent, ri)" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onTypeEventEditSave(typeEvent, ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onTypeEventEditCancel(typeEvent, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
 </p-dialog>
 
-<p-dialog header="Crear tipo eventos" [(visible)]="showCreatorType" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()">
-    <div class="flex flex-column gap-2 py-2">
-        <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Nombre" required>
+<p-dialog header="" [(visible)]="showCreatorType" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorEventType()" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Crear tipo de evento</h2>
+            <div class="w-full flex flex-row gap-1">
+                <span class="text-sm text-color-other"></span>
+            </div>
+        </div>
+    </div>
+    <p-divider [style]="{width: '100%'}">
+    </p-divider>
+    <div class="flex flex-column gap-2 py-2 px-6">
+        <span class="app-input-field">
+            <label for="name">Nombre</label>
+            <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Escriba un nombre" required>
+        </span>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_acta" label="Permite acta" inputId="allowActa"></p-checkbox>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_files" label="Permite archivos" inputId="allowFiles"></p-checkbox>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.expertFocus" label="Bolsa de horas - Experto" inputId="expertFocus"></p-checkbox>
         <div style="height: 1rem;"></div>
-        <p-button type="submit" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
+        <p-button type="submit" label="Crear" (onClick)="createTypeEvent()" [disabled]="newTypeEvent.name === ''" styleClass="bg-primary"></p-button>
     </div>
 </p-dialog>
 
-<p-dialog header="Link" [(visible)]="showLinkEvent" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetEditLink()">
+<p-dialog header="Link" [(visible)]="showLinkEvent" [style]="{ width: '50vw', height: '40vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetEditLink()" appendTo="body">
     <div class="flex flex-column gap-2 py-2">
         <div class="flex flex-column gap-2">
             <label htmlFor="linkEvent">Link</label>
@@ -235,5 +270,3 @@
         <p-button type="submit" label="Guardar link" (onClick)="saveEditLink()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"></p-button>
     </div>
 </p-dialog>
-
-<p-confirmDialog key="confirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>

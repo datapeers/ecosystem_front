@@ -1,4 +1,4 @@
-import { TableColumn } from "./table-config";
+import { TableColumn } from './table-config';
 
 export interface TableOptions {
   save: boolean;
@@ -12,4 +12,6 @@ export interface TableOptions {
   actionsTable: any[];
   extraColumnsTable: TableColumn[];
   summary?: string;
+  hideMultipleFiltersTable?: boolean;
+  hideCaption?: boolean;
 }

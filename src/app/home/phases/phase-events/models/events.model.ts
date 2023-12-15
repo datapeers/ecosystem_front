@@ -4,10 +4,31 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TypeEvent } from './types-events.model';
 import { attendanceType } from '../models/assistant-type.enum';
 import { IParticipationEvent } from './participation.model';
+import { IFileUpload } from '@shared/models/file';
 export interface IEntityEvent {
   _id: string;
   name: string;
+  email: string;
   __typename?: string;
+}
+
+export class EntrepreneurItemDisplay implements IEntityEvent {
+  _id: string;
+  name: string;
+  email: string;
+  __typename?: string;
+  startup: string;
+
+  constructor(obj: IEntityEvent, startup: string) {
+    (this._id = obj._id), (this.name = obj.name), (this.startup = startup);
+  }
+  toEntity(): IEntityEvent {
+    return {
+      _id: this._id,
+      name: this.name,
+      email: this.email,
+    };
+  }
 }
 
 export interface IEvent {
@@ -19,8 +40,9 @@ export interface IEvent {
   extra_options: {
     url?: string;
     publicFiles?: boolean;
-    files?: { name: string; url: string }[];
+    files?: IFileUpload[];
     acta?: string;
+    editedDates?: boolean;
   };
   startAt: Date;
   endAt: Date;
@@ -43,9 +65,11 @@ export class Event implements IEvent {
   extra_options: {
     url?: string;
     allow_viewFiles?: boolean;
-    files?: { name: string; url: string }[];
+    files?: IFileUpload[];
     acta?: string;
     link?: string;
+    zoom?: Record<string, any>;
+    editedDates?: boolean;
   };
   startAt: Date;
   endAt: Date;
@@ -86,15 +110,6 @@ export class Event implements IEvent {
   }
 }
 
-export interface IEventFile {
-  url?: string;
-  name: string;
-}
-
-export interface IEventFileExtended extends IEventFile {
-  file?: File;
-}
-
 export function newEvent(
   batch: Phase,
   typesEvents: TypeEvent[],
@@ -124,9 +139,12 @@ export function newEvent(
     startAt: new FormControl<Date>(previous?.startAt ?? new Date(), {
       validators: [Validators.required],
     }),
-    endAt: new FormControl<Date>(moment(new Date()).add(1, 'hours').toDate(), {
-      validators: [Validators.required],
-    }),
+    endAt: new FormControl<Date>(
+      previous?.endAt ?? moment(new Date()).add(1, 'hours').toDate(),
+      {
+        validators: [Validators.required],
+      }
+    ),
   });
 }
 
@@ -144,6 +162,8 @@ export interface CreateEvent extends Partial<IEvent> {
   participants: IEntityEvent[];
 }
 
-export interface IItemStartup extends IEntityEvent {
+export interface IItemStartup {
+  _id: string;
+  name: string;
   entrepreneurs: IEntityEvent[];
 }

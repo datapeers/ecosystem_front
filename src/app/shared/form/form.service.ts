@@ -128,13 +128,23 @@ export class FormService {
   openAnnouncementFromSubscription(
     announcement: Announcement,
     participantId: string,
-    subscription?: IFormSubscription
-  ) {
+    subscription?: IFormSubscription,
+    openDialog?: boolean
+  ): any {
     let frameUrl = `${formUrls.announcement}/${announcement._id}/${participantId}`;
     if (subscription) {
       frameUrl = frameUrl.concat(`?sub=${subscription._id}`);
     }
-    window.open(frameUrl, '_blank');
+    if (openDialog && subscription) {
+      frameUrl = frameUrl.concat(`&fromApp=true`);
+      return this.openFormFromSubscriptionDialog(
+        subscription,
+        'Creación de preinscrito',
+        frameUrl
+      );
+    } else {
+      window.open(frameUrl, '_blank');
+    }
   }
 
   openFormFromSubscription(
@@ -226,6 +236,7 @@ export class FormService {
         case 'content':
           break;
         case 'datetime':
+          // console.log(comp);
           headers.push({
             label: comp.label,
             key: comp.key,
@@ -233,13 +244,33 @@ export class FormService {
               numFmt: comp.format,
             },
             type: comp.type,
+            format: comp.widget.format,
           });
           break;
-        case 'select':
+        case 'selectboxes':
+          const valuesBoxes = {};
+          for (const iterator of comp.values) {
+            valuesBoxes[iterator.value] = iterator.label;
+          }
           headers.push({
             label: comp.label,
             key: comp.key,
             type: comp.type,
+            values: valuesBoxes,
+            multiple: comp.multiple,
+          });
+          break;
+        case 'select':
+          const valuesSelect = {};
+          for (const iterator of comp.data.values) {
+            valuesSelect[iterator.value] = iterator.label;
+          }
+          headers.push({
+            label: comp.label,
+            key: comp.key,
+            type: comp.type,
+            values: valuesSelect,
+            multiple: comp.multiple,
           });
           break;
         case 'datamap':

@@ -1,25 +1,103 @@
+@import "/src/styles.scss";
+
 .scrollwrap {
-    overflow-y: auto;
-    visibility: hidden;
-    height: calc(100vh - 102px - 2.5rem) !important;
-    // max-height: calc(100vh - 102px - 2.5rem) !important;
+  overflow-y: auto;
+  visibility: hidden;
+  height: 85vh !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
 }
 
 .display-content,
 .scrollwrap:hover,
 .scrollwrap:focus {
-    visibility: visible;
+  visibility: visible;
 }
 
 .statics-panel {
-    border-radius: 1.25rem;
-    padding: 1.875rem;
+  border-radius: 1.25rem;
+  padding: 1.875rem;
 }
 
 .bg-pastel-1 {
-    background-color: #E7F2FF;
+  background-color: #e7f2ff;
 }
 
 .bg-pastel-2 {
-    background-color: #FFF1DC;
+  background-color: #fff1dc;
+}
+
+.panel-startup {
+  padding: 1.875rem;
+  border-radius: 3.25rem;
+}
+
+.startup-thumbnail {
+  background-color: #2196f3;
+  color: #ffffff;
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 50%;
+  padding: 1.5rem;
+}
+
+.edit-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.65rem;
+  border-radius: 0.625rem;
+  background-color: #f6f6f6;
+  color: $appTextThree;
+  &:hover {
+    border-color: darken(#f6f6f6, 5%) !important;
+    background-color: darken(#f6f6f6, 5%) !important;
+  }
+}
+
+.info-grid-cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.cell-label {
+  color: #6b6b6b;
+  flex-basis: auto; // Deja que el ancho sea automático
+  white-space: nowrap; // Evita que el texto del label se rompa en varias líneas
+  overflow: hidden; // Oculta el exceso de texto si el label es muy largo
+  text-overflow: ellipsis; // Muestra puntos suspensivos (...) si el texto del label es muy largo
+  max-width: 45%;
+  @media (max-width: 576px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.cell-line {
+  flex-grow: 1;
+  border-bottom: solid 1px #f6f6f6;
+  margin: 0 10px 3px 10px;
+}
+
+.cell-value {
+  background-color: #f6f6f6;
+  color: black;
+  padding: 0.65rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  flex-basis: 50%; // Ancho fijo del 50%
+}
+
+.table-container {
+  background-color: $grayThird;
+  border-radius: 3.125rem;
+  padding: 5rem 0 1rem 0;
+  height: 100%;
+  max-height: 100%;
 }

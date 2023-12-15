@@ -12,8 +12,8 @@ const fragments = {
       state
       email
     }
-  `
-}
+  `,
+};
 
 const query = {
   invitations: `
@@ -35,6 +35,14 @@ const mutation = {
     }
     ${fragments.invitationFields}
   `,
+  resendInvitation: `
+    mutation ResendInvitation($resendInvitationId: String!) {
+      resendInvitation(id: $resendInvitationId) {
+        ...invitationFields
+      }
+    }
+    ${fragments.invitationFields}
+  `,
   cancelInvitation: `
     mutation CancelInvitation($id: String!) {
       cancelInvitation(id: $id) {
@@ -47,7 +55,7 @@ const mutation = {
 
 export const invitationQueries = {
   query,
-  mutation
+  mutation,
 };
 
 export default invitationQueries;

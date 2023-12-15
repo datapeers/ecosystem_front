@@ -62,10 +62,93 @@
   visibility: hidden;
   height: calc(100vh - 102px - 2.5rem) !important;
   // max-height: calc(100vh - 102px - 2.5rem) !important;
+  @media (max-width: 576px) {
+    margin-top: 1rem;
+    height: auto;
+  }
 }
 
 .display-content,
 .scrollwrap:hover,
 .scrollwrap:focus {
   visibility: visible;
+}
+
+#mapSite {
+  height: 50vh;
+}
+
+#mapService {
+  height: 30vh;
+}
+
+.card-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 12.1875rem;
+  height: 15.375rem;
+  border-radius: 1.875rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  @media (max-width: 860px) {
+    width: 8.53125rem;
+    height: 10.762rem;
+  }
+  i-tabler {
+    width: 5rem;
+    height: 5rem;
+    @media (max-width: 860px) {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+  }
+  span {
+    color: $appColorOne;
+  }
+  .content-vertical {
+    background-color: white;
+    border-radius: 1.875rem;
+  }
+  .separator-vertical {
+    height: 1.5rem;
+  }
+}
+
+.card-benefactor {
+  border-radius: 1.875rem;
+  width: 15.625rem;
+  height: 9.375rem;
+  @media (max-width: 576px) {
+    width: calc(100vw - 14rem);
+  }
+}
+
+.card-interest-content {
+  border-radius: 1.875rem;
+  width: 16.875rem;
+  height: 25rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  img {
+    border-radius: 1.875rem;
+    width: 15.625rem;
+    height: 13.625rem;
+  }
+}
+
+.progress-admin {
+  border-radius: 50%;
+  border: white 0.5rem solid;
+}
+
+.show-batch {
+  display: flex;
+  flex-wrap: wrap;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 }

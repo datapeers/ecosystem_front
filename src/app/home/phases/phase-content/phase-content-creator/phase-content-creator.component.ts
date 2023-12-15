@@ -20,7 +20,7 @@ import * as moment from 'moment';
   styleUrls: ['./phase-content-creator.component.scss'],
 })
 export class PhaseContentCreatorComponent implements OnInit, OnDestroy {
-  configTiny = configTinyMce;
+  configTiny = { ...configTinyMce, height: 200 };
   contentCreationForm: FormGroup;
   extra_options: {
     sprint: boolean;

@@ -19,6 +19,7 @@ import {
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+  NoBtnReturn,
   RestoreMenuAction,
   SetOtherMenuAction,
 } from '@home/store/home.actions';
@@ -33,6 +34,8 @@ import { IUserLog } from './models/user-logs';
 import { hexToRgb } from '@shared/utils/hexToRgb';
 import { Stage } from '@home/phases/model/stage.model';
 import { fadeInOut } from 'src/app/navbar/helper';
+import { getPhaseAndNumb } from '@shared/utils/phases.utils';
+import { PhasesService } from '@home/phases/phases.service';
 
 @Component({
   selector: 'app-contents',
@@ -46,28 +49,31 @@ export class ContentsComponent implements OnInit, OnDestroy {
   profileDoc;
   startup: Startup;
   currentBatch: Phase;
+  phasesUser: Phase[];
   dialogRef;
   onCloseDialogSub$: Subscription;
   onDestroy$: Subject<void> = new Subject();
   logs: IUserLog[] = [];
-  sprints: Content[];
-  sprintSelected: Content;
   paramSub$: Subscription;
-  contentSelected: Content;
-  indexContent = 0;
-  indexSprint = 0;
-  nextContent: boolean = false;
-  previousContent: boolean = false;
 
   marked = true;
   stage: Stage;
   countContent = 0;
   phaseName = '';
   phaseNumb = '';
+
+  // Content Display -------------------------------------------
+  sprints: Content[] = [];
+  contentSelected: Content;
+  sprintSelected: Content;
+  indexContent = 0;
+  contentDisplay: Content;
+
   // Homeworks --------------------------------------------------
   homeworks: ResourceReply[] = [];
   viewHomeworks = false;
   indexHomework = 0;
+
   homeworkDisplay: ResourceReply;
   public get resourcesStates(): typeof ResourceReplyState {
     return ResourceReplyState;
@@ -86,15 +92,22 @@ export class ContentsComponent implements OnInit, OnDestroy {
   contentCompleted = {};
   savingCompleted = false;
 
+  viewNavMenuContent = false;
+
+  // Phases
+  nextPhase: Phase;
+  previousPhase: Phase;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
     private route: ActivatedRoute,
     private router: Router,
     private service: ContentsService,
+    private phasesService: PhasesService,
     private phaseContentService: PhaseContentService,
     private phaseHomeworksService: PhaseHomeworksService
   ) {
+    this.store.dispatch(new NoBtnReturn());
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)
@@ -103,30 +116,46 @@ export class ContentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadComponent();
+    this.preload();
   }
 
   ngOnDestroy(): void {
     this.onCloseDialogSub$?.unsubscribe();
     this.userLogs$?.unsubscribe();
+    this.paramSub$?.unsubscribe();
     // this.store.dispatch(new RestoreMenuAction());
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
 
-  async loadComponent() {
-    this.loaded = false;
+  async preload() {
     this.profileDoc = await firstValueFrom(
       this.store
         .select((store) => store.auth.profileDoc)
         .pipe(first((i) => i !== null))
     );
     this.startup = this.profileDoc.startups[0];
-    const currentBatch = await firstValueFrom(
-      this.store
-        .select((store) => store.home.currentBatch)
-        .pipe(first((i) => i !== null))
+    const userPhases = await this.phasesService.getPhasesList(
+      this.profileDoc['startups'][0].phases.map((i) => i._id),
+      true
     );
+    this.phasesUser = userPhases.filter((i) => !i.basePhase);
+    this.paramSub$ = this.route.queryParamMap.subscribe((params) => {
+      const batchId = params.get('batch');
+      const batch = this.phasesUser.find((i) => i._id === batchId);
+      this.loadComponent(batch);
+    });
+  }
+
+  async loadComponent(phase?: Phase) {
+    this.loaded = false;
+    const currentBatch =
+      phase ??
+      (await firstValueFrom(
+        this.store
+          .select((store) => store.home.currentBatch)
+          .pipe(first((i) => i !== null))
+      ));
     if (currentBatch === 'without batch') {
       this.toast.info({
         summary: 'Aun no participas',
@@ -137,43 +166,36 @@ export class ContentsComponent implements OnInit, OnDestroy {
     }
     this.currentBatch = currentBatch;
     this.stage = this.currentBatch.stageDoc;
-    [this.phaseName, this.phaseNumb] = this.getPhaseAndNumb(
-      this.currentBatch.name
+    [this.phaseName, this.phaseNumb] = getPhaseAndNumb(this.currentBatch.name);
+    const indexPhase = this.phasesUser.findIndex(
+      (i) => i._id === this.currentBatch._id
     );
+    this.nextPhase =
+      indexPhase + 1 > this.phasesUser.length
+        ? undefined
+        : this.phasesUser[indexPhase + 1];
+    this.previousPhase =
+      indexPhase - 1 < 0 ? undefined : this.phasesUser[indexPhase - 1];
+
     this.phaseContentService
       .getContents(this.currentBatch._id)
       .then(async (i) => {
-        this.loaded = false;
         this.sprints = i;
-        const previousSprint = (
-          await firstValueFrom(this.route.queryParamMap)
-        ).get('sprint');
-        if (!previousSprint) {
-          this.sprintSelected =
-            this.sprints.find((i) =>
-              moment(new Date()).isBetween(
-                i.extra_options.start,
-                i.extra_options.end
-              )
-            ) ?? this.sprints[this.sprints.length - 1];
-          this.indexSprint = this.sprints.findIndex(
-            (i) => i._id === this.sprintSelected._id
-          );
-        }
-        this.watchLogPhase(this.currentBatch, this.startup);
-        this.watchContentSelector();
-        this.changesSprint(this.indexSprint);
+        this.watchLogPhase(this.currentBatch);
+        this.loadHomeworks();
+        this.setContentDisplay();
         this.loaded = true;
       });
   }
 
-  watchLogPhase(currentBatch: Phase, startup: Startup) {
+  watchLogPhase(currentBatch: Phase) {
     this.service
       .watchLogsWithFilter({
         'metadata.batch': currentBatch._id,
         'metadata.startup': this.startup._id,
       })
       .then((logs$) => {
+        this.userLogs$?.unsubscribe();
         this.userLogs$ = logs$.subscribe((logsList) => {
           this.logs = logsList;
           this.setContentCompleted(this.logs);
@@ -188,56 +210,50 @@ export class ContentsComponent implements OnInit, OnDestroy {
       });
   }
 
-  changesSprint(index: number, content?: string) {
-    this.router.navigate(['/home/contents'], {
-      queryParams: { sprint: this.sprints[index]._id, content },
-    });
-  }
-
-  watchContentSelector() {
-    this.paramSub$ = this.route.queryParamMap.subscribe((params) => {
-      const sprintId = params.get('sprint');
-      const contentId = params.get('content');
-      this.setContentDisplay(sprintId, contentId);
-    });
-  }
-
-  async setContentDisplay(sprintId: string, contentId: string) {
-    this.homeworks = [];
-    if (!sprintId) {
-      return;
-    }
-    this.indexSprint = this.sprints.findIndex((i) => i._id === sprintId);
-    this.sprintSelected = this.sprints[this.indexSprint];
-    if (!this.sprintSelected) {
-      this.toast.alert({
-        summary: 'Sprint invalido',
-        detail: 'Sprint no encontrado',
-      });
-      return;
-    }
-    // this.store.dispatch(new SetOtherMenuAction(menu));
-    this.indexContent = 0;
-    this.contentSelected = this.sprintSelected.childs[0];
+  async setContentDisplay(contentId?: string) {
     if (contentId) {
-      const indexContent = this.sprintSelected.childs.findIndex(
-        (i) => i._id === contentId
-      );
+      let indexContent = -1;
+      let indexSprint = 0;
+      for (const sprint of this.sprints) {
+        indexContent = sprint.childs.findIndex((i) => i._id === contentId);
+        if (indexContent !== -1) break;
+        ++indexSprint;
+      }
       if (indexContent !== -1) {
-        this.contentSelected = this.sprintSelected.childs[indexContent];
+        this.contentSelected = this.sprints[indexSprint].childs[indexContent];
         this.indexContent = indexContent;
+        this.sprintSelected = this.sprints[indexSprint];
+      }
+    } else {
+      if (!this.contentDisplay) {
+        let sprintClose =
+          this.sprints.find((i) =>
+            moment(new Date()).isBetween(
+              i.extra_options.start,
+              i.extra_options.end
+            )
+          ) ??
+          this.sprints.find((i) =>
+            i.childs.some((o) => this.contentCompleted[o._id])
+          );
+        if (!sprintClose) sprintClose = this.sprints[this.sprints.length - 1];
+        let indexSprint = this.sprints.findIndex(
+          (i) => i._id === sprintClose._id
+        );
+        this.sprintSelected = this.sprints[indexSprint];
+        this.indexContent = this.sprints[indexSprint].childs.length - 1;
+        this.contentSelected =
+          this.sprints[indexSprint].childs[this.indexContent];
       }
     }
-    this.previousContent = this.indexSprint > 0 ? true : false;
-    this.nextContent = this.indexSprint !== this.sprints.length - 1;
-    this.loadHomeworks();
+    this.contentDisplay = this.contentSelected;
   }
 
   async loadHomeworks() {
     this.homeworks = await this.phaseHomeworksService.setResourcesReplies(
       this.startup,
       this.currentBatch,
-      this.sprintSelected
+      this.sprints
     );
     this.homeworks = [...this.homeworks];
     this.indexHomework = 0;
@@ -246,11 +262,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
       : undefined;
   }
 
-  changeContent(index: number) {
-    const nextContent = this.sprintSelected.childs[index];
-    if (nextContent) {
-      this.setContentDisplay(this.sprintSelected._id, nextContent._id);
-    }
+  changeContent(content: Content) {
+    this.setContentDisplay(content._id);
   }
 
   changeResource(type: 'next' | 'previous') {
@@ -354,11 +367,16 @@ export class ContentsComponent implements OnInit, OnDestroy {
   iconState(content: Content) {
     if (content._id === '64fb4b87e309965c9ef1187d') return 'corner-down-right';
     if (this.contentCompleted[content._id]) return 'check';
-    return '';
+    return 'exclamation-circle';
   }
 
-  lineState(content: Content) {
-    if (this.contentCompleted[content._id]) return '#317bf4';
+  lineState(sprint: Content, content?: Content) {
+    if (sprint && !content) {
+      let lastContent = sprint.childs[sprint.childs.length - 1];
+      if (this.contentCompleted[lastContent._id]) return '#317bf4';
+      else return '#dcdcdc';
+    }
+    if (content && this.contentCompleted[content._id]) return '#317bf4';
     return '#dcdcdc';
   }
 
@@ -374,15 +392,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
     return '#dcdcdc';
   }
 
-  getPhaseAndNumb(cadena: string): [string, string] {
-    const regex = /Fase (\d+)/;
-    const matches = cadena.match(regex);
-    if (matches && matches.length === 2) {
-      const fase = 'Fase';
-      const numero = matches[1];
-      return [fase, numero];
-    } else {
-      return ['Fase', '0']; // No se encontró una coincidencia
-    }
+  openHomeworks() {
+    this.viewNavMenuContent = false;
+    this.viewHomeworks = true;
   }
 }

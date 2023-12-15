@@ -1,11 +1,9 @@
 export interface ITicketCategory {
-  _id: string;
   name: string;
   color: string;
 }
 
 export class TicketCategory implements ITicketCategory {
-  _id: string;
   name: string;
   color: string;
 
@@ -14,7 +12,6 @@ export class TicketCategory implements ITicketCategory {
   static fromJson(data: ITicketCategory): TicketCategory {
     const category = new TicketCategory();
     Object.assign(category, {
-      _id: data._id,
       name: data.name,
       color: data.color,
     });
@@ -23,7 +20,6 @@ export class TicketCategory implements ITicketCategory {
 
   toSave(): Partial<TicketCategory> {
     return {
-      _id: this._id,
       name: this.name,
       color: this.color,
     };

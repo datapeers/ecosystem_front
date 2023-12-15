@@ -63,15 +63,13 @@ export class EntrepreneursComponent {
         const extraColumnsTable = [];
         if (!filterProspects) {
           this.tableLocator = tableLocators.entrepreneurs;
+          this.defaultFilters = {};
+        } else {
+          this.tableLocator = tableLocators.entrepreneursProspects;
           this.defaultFilters = {
             isProspect: [
               { matchMode: 'equals', operator: 'and', value: false },
             ],
-          };
-        } else {
-          this.tableLocator = tableLocators.entrepreneursProspects;
-          this.defaultFilters = {
-            isProspect: [{ matchMode: 'equals', operator: 'and', value: true }],
           };
         }
         this.optionsTable = {
@@ -124,11 +122,13 @@ export class EntrepreneursComponent {
           name: 'Empresas',
           key: 'businesses',
           form: businessesForm._id,
+          extraColumns: [],
         },
         {
           name: 'Startups',
           key: 'startups',
           form: startupsForm._id,
+          extraColumns: [],
         },
       ],
       defaultFilters: this.defaultFilters,
@@ -211,6 +211,7 @@ export class EntrepreneursComponent {
                 businessesIds
               );
             }
+            callbacks.fullRefresh();
           });
         break;
       case 'linkWithStartups':
@@ -236,6 +237,7 @@ export class EntrepreneursComponent {
                 businessesIds
               );
             }
+            callbacks.fullRefresh();
           });
         break;
     }

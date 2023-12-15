@@ -1,21 +1,19 @@
 <div class="flex flex-column px-4 py-3 h-full w-full h-full">
     <div class="flex flex-column xl:flex-row gap-4 justify-content-between">
-        <div class="fex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">
+        <div class="flex flex-column px-1 sm:px-4 md:px-8" style="flex: 1">
             <h2>Comunidades</h2>
             <div style="height: 1.5rem"></div>
-            <div class="flex gap-2">
+            <div class="flex flex-row align-items-center gap-2">
                 <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
                 <p class="th2">Cuando busques comunicarte con alguien mas y este en nuestro ecosistema.
                 </p>
             </div>
         </div>
         <div class="flex flex-none flex-column sm:flex-row align-items-end gap-3 px-6 mt2 ">
-            <div class="flex flex-column gap-2">
+            <!-- <div class="flex flex-column gap-2">
                 <label>Ver por:</label>
                 <div class="flex">
-                    <!-- <form [formGroup]="formFilterCategory">
-                            <p-dropdown formControlName="category" [options]="categories" optionLabel="name"></p-dropdown>
-                        </form> -->
+                    
                 </div>
             </div>
             <div class="flex flex-column gap-2">
@@ -23,15 +21,43 @@
                 <p-dropdown optionLabel="name"></p-dropdown>
             </div>
             <div class="w-2"></div>
-            <p-button label="+ Ticket"></p-button>
+            <p-button label="+ Ticket"></p-button> -->
         </div>
     </div>
     <p-divider></p-divider>
     <div class="w-full" style="flex: 1" *ngIf="tableContext">
 
-        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)">
+        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)" [allowFullscreen]="false" (onRowClick)="contact($event)">
         </app-dynamic-table>
 
     </div>
 
 </div>
+
+<p-dialog appendTo="body" header="Ticket" [(visible)]="toContact" [style]="{ width: '45vw' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" (onHide)="resetContact()">
+    <div class="w-full flex flex-row gap-3" *ngIf="toContact">
+        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Contactar a {{toContact['item, nombre']}}</h2>
+            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a odio ipsum. Sed sed egestas massa, nec eleifend dui. Aenean dictum ac nulla quis efficitur. Morbi mattis egestas massa quis viverra.</span>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="flex flex-column w-full h-full px-3 justify-content-center align-items-center" *ngIf="toContact">
+        <div class="w-full formgrid grid">
+            <div class="field app-input-field col-6">
+                <label for="titleTicket">Asunto</label>
+                <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" [(ngModel)]="subjectContact" required>
+            </div>
+            <div class="field app-input-field col-6">
+                <label for="categoryTicket">Responder a</label>
+                <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" [(ngModel)]="fromContact" required>
+            </div>
+            <span class="field app-input-field col-12">
+                <label for="msgTicket">Mensaje</label>
+                <textarea inputId="msgTicket" style="width: 100%;" rows="8" [(ngModel)]="bodyContact" pInputTextarea></textarea>
+            </span>
+        </div>
+        <p-button type="submit" label="Enviar" (onClick)="sendContact()" styleClass="p-button-lg border-round-2xl my-2 p-3"></p-button>
+    </div>
+</p-dialog>

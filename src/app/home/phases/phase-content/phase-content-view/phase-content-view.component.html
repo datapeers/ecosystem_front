@@ -1,23 +1,21 @@
 <div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
-    <div class="text-wrapper flex flex-row align-items-center text-center ">
-        <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
+    <div class="text-wrapper flex flex-row align-items-center text-center">
 
-        </fa-icon> <span class="subheader text-white ">Regresar a Contenidos</span>
     </div>
-    <p-button type="button" label="Guardar cambios" icon="pi pi-save" (onClick)="saveChanges()"></p-button>
+    <p-button type="button" label="Guardar cambios" icon="pi pi-save" iconPos="right" (onClick)="saveChanges()"></p-button>
 </div>
-<div class="flex flex-column bg-white mx-4 gap-2 p-4 border-round" *ngIf="content">
-    <div class="field mt-4">
+<div class="flex flex-column bg-white mx-4 gap-2 px-4" *ngIf="content">
+    <div class="field app-input-field ">
         <label for="float-input" class="p-1 text-gray-500">Nombre</label>
         <input id="float-input" type="text" pInputText [(ngModel)]="content.name" class="inputfield w-full">
     </div>
-    <div class="field">
+    <div class="field ">
         <label for="float-details" class="p-1 text-gray-500">Detalles</label>
         <tinymce id="float-details" [(ngModel)]="content.content" [config]="configTiny"></tinymce>
     </div>
 </div>
 
-<div class="flex flex-column bg-white mx-4 mt-4 p-4 border-round">
+<div class="flex flex-column bg-white mx-4 px-4 border-round">
     <div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
         <span class="subheader">Recursos</span>
         <p-button type="button" label="Recurso" icon="pi pi-plus" (onClick)="addResource()"></p-button>
@@ -43,12 +41,12 @@
                     {{rowData ? resourcesTypesNames[rowData.type] : ''}}
                 </td>
                 <td>
-                    <button pButton pRipple icon="pi pi-chart-pie" class="p-button-outlined mr-1" pTooltip="Peso" *ngIf="rowData.type !== 'downloadable'" (click)="dialogWeight(rowData)" tooltipPosition="top">
-                    </button>
+                    <!-- <button pButton pRipple icon="pi pi-chart-pie" class="p-button-outlined mr-1" pTooltip="Peso" *ngIf="rowData.type !== 'downloadable'" (click)="dialogWeight(rowData)" tooltipPosition="top">
+                    </button> -->
                     <button pButton pRipple icon="pi pi-clone" class="p-button-outlined mr-1" pTooltip="Ver" (click)="viewResource(rowData.containerParent, rowData)" tooltipPosition="top">
                     </button>
 
-                    <button pButton pRipple [icon]="rowData.oculto ? 'pi pi-eye-slash' : 'pi pi-eye'" (click)="hideResource(rowData, $event)" class="p-button-outlined p-button-help mr-1" [pTooltip]="rowData.oculto ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
+                    <button pButton pRipple [icon]="rowData.hide ? 'pi pi-eye-slash' : 'pi pi-eye'" (click)="hideResource(rowData, $event)" class="p-button-outlined p-button-help mr-1" [pTooltip]="rowData.hide ? 'Mostrar' : 'Ocultar'" tooltipPosition="top">
                     </button>
 
                     <button pButton pRipple icon="pi pi-times" class="p-button-outlined p-button-danger" (click)="deleteResource(rowData, $event)" pTooltip="Borrar" tooltipPosition="top">

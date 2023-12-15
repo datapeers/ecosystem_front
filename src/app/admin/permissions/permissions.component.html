@@ -1,5 +1,5 @@
 <div class="w-full flex flex-column">
-    <div class="w-full flex flex-row align-items-center justify-content-end gap-2">
+    <div *ngIf="!readOnly" class="w-full flex flex-row align-items-center justify-content-end gap-2">
         <p-button label="Restablecer cambios" icon="pi pi-refresh" (onClick)="refresh()"></p-button>
         <p-button label="Guardar cambios" icon="pi pi-tags" (onClick)="saveChanges()"></p-button>
     </div>
@@ -26,7 +26,7 @@
         <ng-template pTemplate="body" let-permission>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="permission"></p-tableCheckbox>
+                    <p-tableCheckbox [value]="permission" [disabled]="readOnly"></p-tableCheckbox>
                 </td>
                 <td>
                     {{ permission.label }}

@@ -11,12 +11,7 @@ import { PhaseExpertsService } from '@home/phases/phase-experts/phase-experts.se
 import { PhaseStartupsService } from '@home/phases/phase-startups/phase-startups.service';
 import { Phase } from '@home/phases/model/phase.model';
 import { User } from '@auth/models/user';
-import {
-  IEntityEvent,
-  IItemStartup,
-  IEventFileExtended,
-  newEvent,
-} from '../models/events.model';
+import { IEntityEvent, IItemStartup, newEvent } from '../models/events.model';
 import {
   faClock,
   faPaperclip,
@@ -37,6 +32,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Event } from '@home/phases/phase-events/models/events.model';
 import { GeneralConstant } from '@shared/constant/general.constant';
 import { PhaseEventsConstant } from '../constant/phase-events.constant';
+import { IFileUploadExtended } from '@shared/models/file';
 @Component({
   selector: 'app-event-creator',
   templateUrl: './event-creator.component.html',
@@ -82,7 +78,7 @@ export class EventCreatorComponent implements OnInit {
   fileSizeLimit = 1000000;
   filesLimit = 5;
   allowFiles = false;
-  selectedFiles: IEventFileExtended[] = [];
+  selectedFiles: IFileUploadExtended[] = [];
 
   // ? Icons
   faPaperclip = faPaperclip;
@@ -92,6 +88,7 @@ export class EventCreatorComponent implements OnInit {
   faClock = faClock;
   faUsers = faUsers;
 
+  editedDates = false;
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -149,7 +146,9 @@ export class EventCreatorComponent implements OnInit {
     this.user = this.config.data.user;
     this.typeEvents = this.config.data.typeEvents;
     this.previousEvent = this.config.data.event;
+    console.log(this.previousEvent);
     this.event = newEvent(this.batch, this.typeEvents, this.previousEvent);
+    console.log(this.event);
     this.extra_options = {
       userCreated: this.user._id,
     };
@@ -198,6 +197,7 @@ export class EventCreatorComponent implements OnInit {
       return {
         _id: doc._id,
         name: doc.item.nombre,
+        email: doc.item['correoElectronico'],
       };
     });
   }
@@ -208,18 +208,39 @@ export class EventCreatorComponent implements OnInit {
     });
     this.entrepreneurList = [];
     this.startupsList = [];
+    let addedGeneric = undefined;
     for (const startUp of startupsPhase) {
-      this.startupsList.push({
-        _id: startUp._id,
-        name: startUp.item.nombre,
-        entrepreneurs: startUp.entrepreneurs.map((entrepreneur) => {
-          return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
-        }),
+      const entrepreneurs = startUp.entrepreneurs.map((entrepreneur) => {
+        return {
+          _id: entrepreneur._id,
+          name: entrepreneur.item.nombre,
+          email: entrepreneur.item['email'],
+        };
       });
+      if (startUp.item.generic) {
+        if (addedGeneric) {
+          this.startupsList[addedGeneric].entrepreneurs =
+            this.startupsList[addedGeneric].entrepreneurs.concat(entrepreneurs);
+        } else {
+          addedGeneric = this.startupsList.length;
+          this.startupsList.push({
+            _id: startUp._id,
+            name: startUp.item.nombre,
+            entrepreneurs: entrepreneurs,
+          });
+        }
+      } else {
+        this.startupsList.push({
+          _id: startUp._id,
+          name: startUp.item.nombre,
+          entrepreneurs: entrepreneurs,
+        });
+      }
       for (const entrepreneur of startUp.entrepreneurs) {
         this.entrepreneurList.push({
           _id: entrepreneur._id,
           name: entrepreneur.item.nombre,
+          email: entrepreneur.item['email'],
         });
       }
     }
@@ -236,6 +257,7 @@ export class EventCreatorComponent implements OnInit {
       this.teamCoachList.push({
         _id: teamCoach._id,
         name: teamCoach.fullName,
+        email: teamCoach.email,
       });
     }
   }
@@ -326,7 +348,7 @@ export class EventCreatorComponent implements OnInit {
     }
   }
 
-  async downloadFile(file: IEventFileExtended) {
+  async downloadFile(file: IFileUploadExtended) {
     if (file.file) {
       FileSaver.saveAs(file.file);
       return;
@@ -396,6 +418,13 @@ export class EventCreatorComponent implements OnInit {
   }
 
   async eventEdit() {
+    if (moment(this.event.value.endAt).isBefore(this.event.value.startAt)) {
+      this.toast.alert({
+        summary: GeneralConstant.errorDateTooltip,
+        detail: PhaseEventsConstant.errorDates,
+      });
+      return;
+    }
     await this.uploadFiles();
     this.toast.info({ detail: '', summary: GeneralConstant.saving });
     const updatedItems = this.event.value;
@@ -405,7 +434,7 @@ export class EventCreatorComponent implements OnInit {
     this.service
       .updateEvent({
         ...updatedItems,
-        extra_options: this.extra_options,
+        extra_options: { ...this.extra_options, editedDates: this.editedDates },
         batch: this.batch._id,
         experts: this.experts,
         teamCoaches: this.teamCoaches,

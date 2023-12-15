@@ -96,6 +96,7 @@ export class BusinessesComponent {
           name: 'Empresarios',
           key: 'entrepreneurs',
           form: entrepreneursForm._id,
+          extraColumns: [],
         },
       ],
     };

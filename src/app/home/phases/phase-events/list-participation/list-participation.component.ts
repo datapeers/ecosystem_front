@@ -82,13 +82,18 @@ export class ListParticipationComponent implements OnInit {
         _id: startUp._id,
         name: startUp.item.nombre,
         entrepreneurs: startUp.entrepreneurs.map((entrepreneur) => {
-          return { _id: entrepreneur._id, name: entrepreneur.item.nombre };
+          return {
+            _id: entrepreneur._id,
+            name: entrepreneur.item.nombre,
+            email: entrepreneur.item.email,
+          };
         }),
       });
       for (const entrepreneur of startUp.entrepreneurs) {
         this.entrepreneurList.push({
           _id: entrepreneur._id,
           name: entrepreneur.item.nombre,
+          email: entrepreneur.item.email,
         });
       }
     }

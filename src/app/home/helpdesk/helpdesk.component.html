@@ -1,6 +1,6 @@
 <div class="flex flex-column px-1 sm:px-4 gap-2">
-    <div class="flex flex-column xl:flex-row gap-4">
-        <div class="fex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">
+    <div class="flex flex-column xl:flex-row gap-4 ">
+        <div class="flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">
             <h2>Mesa de ayuda</h2>
             <div style="height: 1.5rem"></div>
             <div class="flex gap-2">
@@ -11,27 +11,39 @@
                 </p>
             </div>
         </div>
-        <div class="flex flex-none flex-column sm:flex-row align-items-end gap-3 px-6 mt2">
-            <div class="flex flex-column gap-2">
+        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
+            <div class="flex flex-column gap-2 app-input-field">
                 <label>Ver por:</label>
                 <div class="flex">
-                    <form [formGroup]="formFilterCategory">
-                        <p-dropdown formControlName="category" [options]="categories" optionLabel="name"></p-dropdown>
+                    <form [formGroup]="filtersTickets">
+                        <p-dropdown formControlName="category" appendTo="body" [style]="{'width':'190px'}" [options]="categories" optionLabel="name" optionValue="value"></p-dropdown>
                     </form>
                 </div>
             </div>
-            <div class="flex flex-column gap-2">
+            <div class="flex flex-column gap-2 app-input-field">
                 <label>Ordenar por:</label>
-                <p-dropdown optionLabel="name"></p-dropdown>
+                <div class="flex">
+                    <form [formGroup]="filtersTickets">
+                        <p-dropdown appendTo="body" formControlName="status" [options]="status" optionLabel="name" optionValue="value" [style]="{'width':'190px'}"></p-dropdown>
+                    </form>
+                </div>
             </div>
-            <div class="w-2"></div>
-            <p-button label="+ Ticket"></p-button>
+            <p-button label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user?.allowed(userPermission.help_desk_create)"></p-button>
         </div>
     </div>
     <p-divider></p-divider>
     <div class="flex h-4"></div>
-    <div class="flex w-full table-container">
-        <p-table class="table-dark w-full" [value]="tickets" [tableStyle]="{'min-width': '50rem'}">
+    <div class="flex w-full table-container p-1">
+        <p-table #dt class="table-app w-full" [value]="showedTickets" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
+            <ng-template pTemplate="caption">
+                <div class="table-header pt-3">
+                    <span class="header color-custom ml-3">Tickets</span>
+                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+
+
+                    </div>
+                </div>
+            </ng-template>
             <ng-template pTemplate="header">
                 <tr>
                     <th>Categoría</th>
@@ -42,15 +54,142 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-ticket>
-                <tr>
-                    <td class="text-center">{{ticket.category ? ticket.category.name : ''}}</td>
+                <tr (click)="display(ticket)" class="cursor-pointer">
+                    <td class="text-center">{{ticketCategoryNames[ticket.category]}}</td>
                     <td class="text-center">{{ticket.title}}</td>
-                    <td class="text-center"><p-tag [value]="ticket.status"
-                            [severity]="getSeverity(ticket.status)"></p-tag></td>
-                    <td class="text-center">{{ticket.createdAt | date : 'yyyy/MM/yy'}}</td>
+                    <td class="text-center"><p-tag [value]="ticketsStatesNames[ticket.status]" [severity]="ticketsStatesColors[ticket.status]"></p-tag></td>
+                    <td class="text-center">{{ticket.createdAt | date : 'yyyy/MM/dd'}}</td>
                     <td class="text-center"></td>
                 </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <span>{{paginatorRightMsg()}}</span>
             </ng-template>
         </p-table>
     </div>
 </div>
+
+<p-dialog appendTo="body" header="" [(visible)]="showTicket" [style]="{width: '70vw'}" [maximizable]="true" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">{{showTicket?.title}}</h2>
+            <div class="w-full flex flex-row gap-1">
+                <p-button type="submit" pTooltip="Cerrar ticket" label="Cerrar ticket" icon="pi pi-sign-out" iconPos="left" (onClick)="closeTicket()" styleClass="button-blue-second border-round-2xl my-2 p-3" *ngIf="!(user?.isUser || user.isExpert) && showTicket?.status !== ticketsStates.Closed"></p-button>
+                <p-button type="submit" pTooltip="Borrar ticket" icon="pi pi-trash" (onClick)="deleteTicket()" styleClass="button-grey border-round-2xl my-2 p-3" *ngIf="allowDelete(showTicket)"></p-button>
+            </div>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="flex flex-column w-full p-3 gap-2 " *ngIf="showTicket">
+        <ng-container *ngFor="let item of showTicket.childs">
+            <div class="flex flex-row w-full align-items-center pt-2 gap-2" [ngClass]="{'justify-content-end' : item.isResponse, 'align-items-start': !item.isResponse}">
+                <p-avatar [label]="item.answerBy[0]" styleClass="mr-2" size="large" shape="circle" *ngIf="!item.isResponse"></p-avatar>
+                <div class="w-full flex flex-column card-ticket w-9 p-3 gap-2" [ngClass]="{'justify-content-end text-right right-card border-none' : item.isResponse, 'align-items-start left-card text-white': !item.isResponse}" [style.background-color]="item.isResponse ? colorWithOpacity('#18e4e6', 0.5) : colorWithOpacity('#196A9F', 1)">
+                    <p>
+                        {{item.body}}
+                    </p>
+                    <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer text-sm" *ngFor="let file of item.attachment">
+                        <i-tabler name="file-description" class="mr-1"></i-tabler>
+                        <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                        <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                    </div>
+                </div>
+                <p-avatar [label]="item.answerBy[0]" styleClass="mr-2" size="large" shape="circle" *ngIf="item.isResponse"></p-avatar>
+            </div>
+            <p class="set-color-text-third font-semibold px-8" [ngClass]="{'justify-content-end text-right' : item.isResponse, 'align-items-start': !item.isResponse}">{{item.answerBy}}</p>
+        </ng-container>
+        <ng-container *ngIf="showTicket.status !== this.ticketsStates.Closed">
+            <p-divider></p-divider>
+            <form [formGroup]="response" class="formgrid grid">
+                <span class="field col-11">
+                    <textarea inputId="msgResponse" class="mt-4" style="width: 100%;" placeholder="Escribe aquí tu respuesta" rows="3" formControlName="body" pInputTextarea></textarea>
+                </span>
+                <div class="field col-1 p-2">
+                    <p-button type="submit" pTooltip="Enviar respuesta" (onClick)="sendResponse()" styleClass="button-blue-second w-full h-full border-round-2xl my-2 p-3" [disabled]="response.invalid">
+                        <div class="flex w-full justify-content-center">
+                            <i-tabler class="icon-response" name="arrow-narrow-right"></i-tabler>
+                        </div>
+
+                    </p-button>
+                </div>
+            </form>
+            <div class="flex flex-row">
+                <p-toggleButton [(ngModel)]="showFileUploadUI" [offIcon]="'pi pi-link'" [onIcon]="'pi pi-link'" [onLabel]="'Subir archivos'" offLabel="Subir archivos"></p-toggleButton>
+            </div>
+            <span class="field col-12" *ngIf="showFileUploadUI">
+                <label for="filesTicket" class="">Archivos</label>
+                <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
+                <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos a la respuesta" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+                    <ng-template let-file pTemplate="file">
+                        <div></div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                            <i-tabler name="file-description" class="mr-1"></i-tabler>
+                            <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                            <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                            <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
+                        </div>
+                    </ng-template>
+                </p-fileUpload>
+            </span>
+        </ng-container>
+    </div>
+    <div class="panel-hide fixed bottom-0 left-0"></div>
+</p-dialog>
+
+<p-dialog appendTo="body" header="Ticket" [(visible)]="showCreatorTicket" [style]="{ width: '45vw' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Ticket</h2>
+            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a odio ipsum. Sed sed egestas massa, nec eleifend dui. Aenean dictum ac nulla quis efficitur. Morbi mattis egestas massa quis viverra.</span>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="flex flex-column justify-content-between h-full w-full p-3" *ngIf="newTicket">
+        <form [formGroup]="newTicket" class="formgrid grid">
+            <div class="field app-input-field col-6">
+                <label for="titleTicket">Titulo</label>
+                <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" formControlName="title" required>
+            </div>
+            <div class="field app-input-field col-6">
+                <label for="categoryTicket">Categoría</label>
+                <p-dropdown inputId="categoryTicket" appendTo="body" [options]="categories" optionLabel="name" optionValue="value" formControlName="category" styleClass="appearance-none outline-none w-full">
+                </p-dropdown>
+            </div>
+            <span class="field app-input-field col-12">
+                <label for="msgTicket">Mensaje</label>
+                <textarea inputId="msgTicket" style="width: 100%;" rows="8" formControlName="body" pInputTextarea></textarea>
+            </span>
+        </form>
+        <div class="flex flex-row">
+            <p-toggleButton [(ngModel)]="showFileUploadUI" [offIcon]="'pi pi-link'" [onIcon]="'pi pi-link'" [onLabel]="'Subir archivos'" offLabel="Subir archivos"></p-toggleButton>
+        </div>
+        <span class="field col-12" *ngIf="showFileUploadUI">
+            <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">
+                <ng-template let-file pTemplate="file">
+                    <div></div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                        <i-tabler name="file-description" class="mr-1"></i-tabler>
+                        <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                        <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                        <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>
+
+                    </div>
+                </ng-template>
+            </p-fileUpload>
+        </span>
+        <div style="height: 1rem;"></div>
+        <div class="actions flex flex-column gap-1 mb-4">
+            <p-button type="submit" label="Crear ticket" (onClick)="createTicket()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newTicket.invalid"></p-button>
+        </div>
+        <div class="flex md:hidden" style="height: 30rem;">
+
+        </div>
+    </div>
+    <div class="panel-hide fixed bottom-0 left-0"></div>
+</p-dialog>

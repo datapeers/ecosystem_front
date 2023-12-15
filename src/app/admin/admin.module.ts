@@ -11,7 +11,11 @@ import { InvitationsComponent } from './invitations/invitations.component';
 import { RolesComponent } from './roles/roles.component';
 import { UsersAssignComponent } from './users-assign/users-assign.component';
 import { PermissionsComponent } from './permissions/permissions.component';
-
+import { IntegrationsComponent } from './integrations/integrations.component';
+import { IconsModule } from '../icons/icons.module';
+import { ZoomComponent } from './integrations/zoom/zoom.component';
+import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,9 @@ import { PermissionsComponent } from './permissions/permissions.component';
     RolesComponent,
     UsersAssignComponent,
     PermissionsComponent,
+    IntegrationsComponent,
+    ZoomComponent,
+    TermsOfUseComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +36,10 @@ import { PermissionsComponent } from './permissions/permissions.component';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-  ]
+    IconsModule,
+    NgxTinymceModule.forRoot({
+      baseURL: '/assets/tinymce/',
+    }),
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

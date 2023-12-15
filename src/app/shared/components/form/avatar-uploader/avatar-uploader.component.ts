@@ -10,6 +10,16 @@ export class AvatarUploaderComponent {
   @Output() onUpload: EventEmitter<File> = new EventEmitter();
   @Output() onRemove: EventEmitter<void> = new EventEmitter();
   @Input() disableRemove: boolean = false;
+  @Input() shape?: 'square' | 'circle' = 'circle';
+  @Input() styleClass?: string = 'w-12rem h-12rem';
+
+  get classNames() {
+    return {
+      'relative hover-panel': true,
+      'border-circle': this.shape === 'circle',
+      [this.styleClass]: this.styleClass,
+    };
+  }
 
   selectFile(element: HTMLInputElement) {
     const files = element.files;

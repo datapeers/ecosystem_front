@@ -5,10 +5,27 @@
     </ng-container>
 </div>
 
-<p-dialog header="Agregar StartUps" [(visible)]="showAddStartups" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="resetStartupsDialog()">
-    <div class="card flex justify-content-center w-full">
-        <p-multiSelect display="chip" appendTo="body" [options]="listStartups" [(ngModel)]="selectedStartups" optionLabel="name" optionValue="_id" [style]="{ width: '100%', height: 'auto' }" [style]="{ width: '100%', height: 'auto' }" placeholder="Seleccione startups"></p-multiSelect>
+<p-dialog header="" [(visible)]="showAddStartups" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="resetStartupsDialog()" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+    <div class="w-full flex flex-row gap-3">
+        <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Agregar StartUps</h2>
+            <div class="w-full flex flex-row gap-1">
+                <span class="text-sm text-color-other">Selecciona las startup's que deseas que participen en el batch</span>
+            </div>
+        </div>
     </div>
-    <div style="height: 1rem;"></div>
-    <p-button type="submit" label="Agregar" (onClick)="addStartUpPhase()" styleClass="p-button-lg w-full border-round-2xl my-1 p-2 bg-primary"></p-button>
+    <p-divider>
+
+    </p-divider>
+    <div class="w-full px-6">
+        <div class="app-input-field" style="width: 100%">
+            <p-multiSelect display="chip" appendTo="body" [options]="listStartups" [(ngModel)]="selectedStartups" optionLabel="name" optionValue="_id" [style]="{ width: '100%', height: 'auto' }" [style]="{ width: '100%', height: 'auto' }" placeholder="Seleccione startups"></p-multiSelect>
+        </div>
+        <div class="flex align-items-center justify-content-center mt-4">
+            <p-button type="submit" label="Agregar" (onClick)="addStartUpPhase()" styleClass="p-button-outlined bg-primary"></p-button>
+        </div>
+
+    </div>
+
 </p-dialog>

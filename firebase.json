@@ -1,1 +1,13 @@
-{}
+{
+  "hosting": {
+    "site": "ecosystem-beta",
+    "public": "dist/ecosystem_front",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

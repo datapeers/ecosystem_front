@@ -15,6 +15,7 @@ export interface IPhase {
   deleted: boolean;
   basePhase: boolean;
   childrenOf: string;
+  finished: boolean;
   createdAt: Date;
   updatedAt: Date;
   calcEndDate?: Date;
@@ -36,6 +37,7 @@ export class Phase implements IPhase {
   deleted: boolean;
   basePhase: boolean;
   childrenOf: string;
+  finished: boolean;
   createdAt: Date;
   updatedAt: Date;
   calcEndDate?: Date;

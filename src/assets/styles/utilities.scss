@@ -1,5 +1,8 @@
+@import "primeflex/primeflex.scss";
+
 .form-field {
-  &.ng-invalid.ng-dirty, &.ng-invalid.ng-touched {
+  &.ng-invalid.ng-dirty,
+  &.ng-invalid.ng-touched {
     & + *.field-help {
       visibility: visible;
     }
@@ -11,6 +14,8 @@
 }
 
 .hover-panel {
+  background-color: #dcdcdc;
+  border-radius: 16px;
   & .panel {
     transition: opacity 0.3s;
     opacity: 0;
@@ -18,4 +23,255 @@
   &:hover .panel {
     opacity: 0.8;
   }
+}
+
+.shadow-focus-card {
+  transition: box-shadow 0.2s;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+}
+
+.shadow-focus {
+  transition: box-shadow 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  &:hover {
+    box-shadow: 0px 3px 30px #0f213326;
+  }
+}
+
+.text-2xs {
+  font-size: 0.625rem;
+}
+
+.text-3xs {
+  font-size: 0.5rem;
+}
+
+.section-surface {
+  background-color: var(--surface-100);
+  border-radius: 1rem;
+}
+
+.placeholder-bold {
+  color: var(--surface-900);
+  font-weight: 700;
+  ::placeholder {
+    color: var(--surface-900);
+    font-weight: 700;
+  }
+}
+
+.field-h-1 {
+  .p-inputtext {
+    height: 3.4375rem !important;
+  }
+}
+
+.app-input-field {
+  @include styleclass("flex flex-column gap-2");
+  label {
+    font-weight: 400;
+    font-size: 0.875rem;
+  }
+  .p-inputtext {
+    // height: 3.4375rem !important;
+
+    background-color: var(--app-backgrounds);
+    border: none;
+    color: var(--surface-900);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .p-dropdown {
+    background-color: var(--app-backgrounds);
+    color: black !important;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Montserrat";
+    .p-dropdown-items-wrapper {
+      width: 100%;
+    }
+  }
+
+  ::placeholder {
+    color: var(--surface-900);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .p-inputnumber-buttons-horizontal .p-inputnumber-button-down {
+    border-radius: 6px 0 0 6px;
+  }
+  .p-inputnumber-buttons-horizontal .p-inputnumber-button-up {
+    border-radius: 0 6px 6px 0;
+  }
+}
+
+// Utilities for icon size
+
+.size-2xl {
+  height: 2.5rem !important;
+  width: 2.5rem !important;
+  min-width: 2.5rem !important;
+}
+
+.size-xl {
+  height: 2rem !important;
+  width: 2rem !important;
+  min-width: 2rem !important;
+}
+
+.size-md {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+  min-width: 1.5rem !important;
+}
+
+.size-sm {
+  height: 1rem !important;
+  width: 1rem !important;
+  min-width: 1rem !important;
+}
+
+.size-xs {
+  height: 0.875rem !important;
+  width: 0.875rem !important;
+  min-width: 0.875rem !important;
+}
+
+.size-2xs {
+  height: 0.75rem !important;
+  width: 0.75rem !important;
+  min-width: 0.75rem !important;
+}
+
+.bg-secondary {
+  background-color: var(--app-color-two);
+}
+
+.text-secondary {
+  color: var(--app-color-two);
+}
+
+.bg-tertiary {
+  background-color: var(--app-color-five);
+}
+
+.bg-tertiary-light {
+  background-color: var(--app-color-six);
+}
+
+.bg-off-app {
+  background-color: var(--app-backgrounds);
+}
+
+.text-tertiary {
+  color: var(--app-color-five);
+}
+
+.bg-quaternary-light {
+  background-color: var(--app-color-eight);
+}
+
+.text-quaternary {
+  color: var(--app-color-seven);
+}
+
+// ? ----------------------------------------------- Table -----------------------------------------
+.table-container-app {
+  background-color: var(--app-backgrounds);
+  height: 100%;
+  max-height: 100%;
+}
+
+.table-app .p-datatable .p-datatable-thead > tr > th {
+  background-color: transparent;
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  border-top: 1px solid var(--text-color-normal);
+  border-bottom: 1px solid var(--text-color-normal);
+}
+
+.table-app .p-datatable {
+  margin: 0;
+
+  .p-paginator {
+    margin: 1rem 0.5rem;
+    background-color: var(--app-backgrounds);
+    gap: 0.5rem;
+    .p-paginator-current {
+      color: var(--text-color-normal) Two;
+      font-weight: 500;
+      margin-right: auto;
+    }
+  }
+  .p-paginator-right-content {
+    color: var(--text-color-normal) Two;
+    font-weight: 500;
+  }
+
+  .p-paginator .p-paginator-first,
+  .p-paginator .p-paginator-prev,
+  .p-paginator .p-paginator-next,
+  .p-paginator .p-paginator-last {
+    border-radius: 0.625rem;
+    background-color: var(--app-color-six);
+    stroke-width: 2px;
+    color: var(--app-color-five);
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    border-radius: 0.625rem;
+    background-color: white;
+    font-weight: 600;
+    color: var(--text-color-normal) Two;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: var(--app-color-five);
+    color: white;
+  }
+}
+
+.table-app .p-datatable .p-datatable-tbody > tr > td {
+  background-color: white;
+  border: none;
+}
+
+.table-app .p-datatable .p-datatable-tbody > tr > td:first-child {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
+.table-app .p-datatable .p-datatable-tbody > tr > td:last-child {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.table-app .p-datatable .p-datatable-tbody > tr:hover {
+  //  border-radius: 0.625rem;
+  box-shadow: 0px 3px 30px #0f213326;
+}
+
+.table-app .p-datatable .p-datatable-tbody > tr {
+  border-radius: 0.625rem;
+  background-color: transparent;
+}
+
+.table-app .p-datatable-table {
+  // background-color: var( --app-backgrounds);
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 0 0.5rem;
+}
+.table-app .p-datatable .p-datatable-header {
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 1rem 1rem;
+  border: none;
 }

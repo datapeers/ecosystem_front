@@ -111,7 +111,7 @@ export class PhasesComponent implements OnInit, OnDestroy {
               );
               this.list.push({
                 base: iterator,
-                label: iterator.name,
+                label: iterator.name.split(': ')[1],
                 docs,
               });
             }
@@ -131,10 +131,11 @@ export class PhasesComponent implements OnInit, OnDestroy {
 
   openCreator(phase: Phase) {
     this.dialogRef = this.dialogService.open(PhasesCreatorComponent, {
-      header: `Crear batch para ${phase.name}`,
-      width: '75vw',
-      height: '70vh',
+      header: ``,
+      width: '55vw',
+      maskStyleClass: 'dialog-app',
       data: {
+        phaseName: `Crear batch para ${phase.name}`,
         stages: this.stages,
         basePhase: false,
         childrenOf: phase._id,

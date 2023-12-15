@@ -3,8 +3,11 @@ import { UserService } from '../../../authentication/user.service';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { User } from '@auth/models/user';
-import { Subject, filter, takeUntil, tap } from 'rxjs';
-import { UpdateUserImageAction } from '@auth/store/auth.actions';
+import { Subject, filter, take, takeUntil, tap } from 'rxjs';
+import {
+  UpdateUserAction,
+  UpdateUserImageAction,
+} from '@auth/store/auth.actions';
 import { HttpEventType } from '@angular/common/http';
 import { AuthService } from '@auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +18,9 @@ import { StorageService } from '../../storage/storage.service';
 import { FormService } from '../../form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { ToastService } from '@shared/services/toast.service';
+import { AdminService } from 'src/app/admin/admin.service';
+import { cloneDeep } from 'lodash';
+import { textField } from '@shared/utils/order-field-multiple';
 
 @Component({
   selector: 'app-profile',
@@ -41,10 +47,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
     },
   ];
   change;
+  rating = 4;
+  viewRating = false;
+  form;
+  fields = [];
+
+  // -----------
+  basicData: any;
+  basicOptions: any;
+
   constructor(
     private userService: UserService,
     private authService: AuthService,
     private store: Store<AppState>,
+    private adminService: AdminService,
     private readonly fb: FormBuilder,
     private readonly toast: ToastService,
     private readonly formService: FormService,
@@ -59,7 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         filter((user) => user !== null)
       )
       .subscribe((userState) => {
-        this.user = userState;
+        this.user = cloneDeep(userState);
       });
 
     this.changePasswordForm = fb.group(
@@ -95,8 +111,69 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
+    if (this.user.isExpert || this.user.isTeamCoach) this.viewRating = true;
     if (this.user.isExpert) this.loadExpertProfile();
     if (this.user.isUser) this.loadEntrepreneurProfile();
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue(
+      '--text-color-secondary'
+    );
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    this.basicData = {
+      labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      datasets: [
+        {
+          label: 'Sales',
+          data: [540, 325, 702, 620],
+          backgroundColor: [
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+          ],
+          borderColor: [
+            'rgb(255, 159, 64)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+          ],
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    this.basicOptions = {
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor,
+          },
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false,
+          },
+        },
+        x: {
+          ticks: {
+            color: textColorSecondary,
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false,
+          },
+        },
+      },
+    };
   }
 
   async uploadImage(fileToUpload: File, user: User) {
@@ -148,12 +225,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const formDoc = await this.formService.getFormByCollection(
       FormCollections.experts
     );
-    // console.log(form);
-    // const formComponents = this.formService.getFormComponents(form);
-    this.formProfileFields = this.formService.getInputComponents(
-      formDoc[0].form.components
-    );
-    // console.log(this.formProfileFields);
+    this.form = formDoc.find(() => true);
+    const components = this.formService.getFormComponents(this.form);
+    this.fields = this.formService.getInputComponents(components);
   }
 
   async loadEntrepreneurProfile() {
@@ -161,10 +235,51 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const formDoc = await this.formService.getFormByCollection(
       FormCollections.entrepreneurs
     );
-    // const formComponents = this.formService.getFormComponents(form);
-    this.formProfileFields = this.formService.getInputComponents(
-      formDoc[0].form.components
+    this.form = formDoc.find(() => true);
+    const components = this.formService.getFormComponents(this.form);
+    this.fields = this.formService.getInputComponents(components);
+  }
+
+  async editProfileDoc() {
+    this.toast.loading();
+    const subscription = await this.formService.createFormSubscription({
+      form: this.form._id,
+      reason: 'Editar datos de perfil',
+      data: {},
+      doc: this.profileDoc._id,
+    });
+    this.toast.clear();
+    const ref = this.formService.openFormFromSubscription(
+      subscription,
+      `Editar perfil del usuario ${this.user._id}`
     );
+    ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe(async (doc) => {
+      if (doc) {
+        this.profileDoc = this.user.isExpert
+          ? await this.expertsService.getUserDoc(this.user)
+          : await this.entrepreneursService.getUserDoc(this.user);
+      }
+    });
+  }
+
+  saveChanges() {
+    this.toast.info({ summary: 'Guardando...', detail: '' });
+    this.adminService
+      .updateUser(this.user._id, {
+        fullName: this.user.fullName,
+      })
+      .then((ans) => {
+        this.toast.clear();
+        this.store.dispatch(new UpdateUserAction(new User(ans)));
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al guardar cambios',
+          detail: err,
+          life: 12000,
+        });
+      });
   }
 
   async saveSimpleChange(param: string) {
@@ -188,7 +303,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.toast.alert({ detail: '', summary: 'El cambio no se realizo' });
         return;
       }
-
       this.toast.success({
         detail: '',
         summary: 'Cambios guardados',
@@ -202,5 +316,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         summary: 'Ocurrió un problema',
       });
     }
+  }
+
+  valueFieldMultiple(values: string[], text: Record<string, any>) {
+    return textField(values, text);
   }
 }

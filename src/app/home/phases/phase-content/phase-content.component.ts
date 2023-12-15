@@ -2,7 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppState } from '@appStore/app.reducer';
 import { Store } from '@ngrx/store';
 import { PhaseContentService } from './phase-content.service';
-import { Subscription, first, firstValueFrom } from 'rxjs';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  first,
+  firstValueFrom,
+  takeUntil,
+} from 'rxjs';
 import { Phase } from '../model/phase.model';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PhaseContentCreatorComponent } from './phase-content-creator/phase-content-creator.component';
@@ -10,6 +17,8 @@ import { cloneDeep } from 'lodash';
 import { Content } from '../model/content.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '@shared/services/toast.service';
+import { TreeNode } from 'primeng/api';
+import { TreeTable } from 'primeng/treetable';
 
 @Component({
   selector: 'app-phase-content',
@@ -37,6 +46,10 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
     private service: PhaseContentService
   ) {}
 
+  filter(table: TreeTable, evt: Event) {
+    table.filterGlobal((evt.target as any).value, 'contains');
+  }
+
   ngOnInit(): void {
     this.loadComponent();
   }
@@ -59,20 +72,30 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
       this.contentList = cloneDeep(i);
       this.table = [];
       this.displayTable = false;
-      for (const iterator of this.contentList) {
-        if (iterator.isDeleted == false)
-          this.table.push(this.service.convertContainerToNode(iterator));
-      }
+      this.table = this.contentList
+        .filter((content) => content.isDeleted == false)
+        .map((content, index, arr) => {
+          return this.service.convertContainerToNode(
+            content,
+            0,
+            index == 0,
+            index == arr.length
+          );
+        });
       this.loaded = true;
     });
   }
 
   openCreator(content?) {
     this.dialogRef = this.dialogService.open(PhaseContentCreatorComponent, {
-      header: content ? 'Añadir contenido' : 'Añadir sprint',
+      // header: content ? 'Añadir contenido' : 'Añadir sprint',
       width: '75vw',
-      height: '70vh',
+      maskStyleClass: 'dialog-app',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
       data: {
+        header: content ? 'Añadir contenido' : 'Añadir sprint',
         batch: this.phase,
         content,
         lastSprint: this.contentList.length
@@ -100,6 +123,7 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   }
 
   invertHide(content: Content) {
+    console.log('no enta?');
     this.toast.info({ summary: 'Guardando...', detail: '' });
     this.service
       .updateContent({ _id: content._id, hide: !content.hide })

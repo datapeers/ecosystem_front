@@ -91,7 +91,11 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
         (obsPhases$) =>
           (this.phases$ = obsPhases$.subscribe((phasesList: Phase[]) => {
             this.loaded = false;
-            this.phases = phasesList.filter((i) => i.basePhase);
+            this.phases = phasesList
+              .filter((i) => i.basePhase)
+              .map((i) => {
+                return { ...i, stageDoc: this.stagesDictionary[i.stage] };
+              });
             this.loaded = true;
           }))
       )
@@ -120,17 +124,63 @@ export class PhasesConfigComponent implements OnInit, OnDestroy {
 
   openCreator() {
     this.dialogRef = this.dialogService.open(PhasesCreatorComponent, {
-      header: 'Creador de fase',
-      width: '75vw',
-      height: '70vh',
+      header: '',
+      width: '55vw',
+      maskStyleClass: 'dialog-app',
       data: {
-        stages: this.stages,
+        phaseName: `Crear fase`,
+        stages: this.stages.filter((i) => !i.isDeleted),
         basePhase: true,
       },
     });
     this.onCloseDialogSub$ = this.dialogRef.onClose.subscribe(async (data) => {
       this.onCloseDialogSub$.unsubscribe();
       this.dialogRef = null;
+    });
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb = this.hexToRgb(color);
+    const style = `rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})`;
+    return style;
+  }
+
+  hexToRgb(hex: string) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
+  }
+
+  deletePhase(phase: Phase) {
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que desea eliminar esta fase?',
+      message:
+        'Tenga en cuenta que, al eliminarla, se conservarán los registros de los batch que la utilicen como base y otros datos relacionados, pero no podrá utilizar esta fase en el futuro. ¿Desea continuar?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ detail: '', summary: 'Eliminado...' });
+        this.service
+          .removePhase(phase._id)
+          .then((ans) => {
+            this.toast.clear();
+          })
+          .catch((err) => {
+            this.toast.clear();
+            this.toast.alert({
+              summary: 'Error al intentar eliminar fase',
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
     });
   }
 }

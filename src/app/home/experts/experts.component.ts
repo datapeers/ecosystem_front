@@ -35,43 +35,46 @@ export class ExpertsComponent {
   onDestroy$: Subject<void> = new Subject();
   user: User;
   defaultFilters: TableFilters;
+  filterProspects;
   constructor(
     private store: Store<AppState>,
     private readonly formService: FormService,
     private readonly toast: ToastService,
-    private readonly route: ActivatedRoute,
+    private readonly route: ActivatedRoute
   ) {
     this.route.queryParamMap
-    .pipe(takeUntil(this.onDestroy$))
-    .subscribe((params) => {
-      const filterProspects = !!params.get("prospects");
-      const extraColumnsTable = [];
-      if(!filterProspects) {
-        this.tableLocator = tableLocators.experts;
-        this.defaultFilters = {
-          "isProspect": [{ matchMode: "equals", operator: "and", value: false }]
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params) => {
+        this.filterProspects = !!params.get('prospects');
+        const extraColumnsTable = [];
+        if (!this.filterProspects) {
+          this.tableLocator = tableLocators.experts;
+          this.defaultFilters = {
+            isProspect: [
+              { matchMode: 'equals', operator: 'and', value: false },
+            ],
+          };
+        } else {
+          this.tableLocator = tableLocators.expertsProspects;
+          this.defaultFilters = {
+            isProspect: [{ matchMode: 'equals', operator: 'and', value: true }],
+          };
         }
-      } else {
-        this.tableLocator = tableLocators.expertsProspects;
-        this.defaultFilters = {
-          "isProspect": [{ matchMode: "equals", operator: "and", value: true }]
-        }
-      }
-      this.optionsTable = {
-        save: true,
-        download: false,
-        details: true,
-        summary: 'Expertos',
-        showConfigButton: true,
-        redirect: null,
-        selection: true,
-        actions_row: 'compress',
-        actionsPerRow: [],
-        extraColumnsTable: extraColumnsTable,
-        actionsTable: [],
-      };
-      this.loadComponent();
-    });
+        this.optionsTable = {
+          save: true,
+          download: false,
+          details: true,
+          summary: 'Expertos',
+          showConfigButton: true,
+          redirect: null,
+          selection: true,
+          actions_row: 'compress',
+          actionsPerRow: [],
+          extraColumnsTable: extraColumnsTable,
+          actionsTable: [],
+        };
+        this.loadComponent();
+      });
     firstValueFrom(
       this.store
         .select((store) => store.auth.user)
@@ -79,9 +82,7 @@ export class ExpertsComponent {
     ).then((u) => (this.user = u));
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
     this.onDestroy$.next();
@@ -103,6 +104,7 @@ export class ExpertsComponent {
       locator: this.tableLocator,
       name: 'Expertos',
       form: this.entityForm._id,
+      defaultFilters: this.defaultFilters,
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
@@ -111,7 +113,7 @@ export class ExpertsComponent {
   }
 
   actionsTableOptions() {
-    if (this.user.allowed(Permission.create_experts))
+    if (this.user.allowed(Permission.create_experts) && this.filterProspects)
       this.optionsTable.actionsTable.push({
         action: 'add',
         label: `Nuevo Experto`,
@@ -131,6 +133,9 @@ export class ExpertsComponent {
         const subscription = await this.formService.createFormSubscription({
           form: this.entityForm._id,
           reason: 'Create expert',
+          data: {
+            typeView: 'firstPart',
+          },
         });
         const ref = this.formService.openFormFromSubscription(
           subscription,

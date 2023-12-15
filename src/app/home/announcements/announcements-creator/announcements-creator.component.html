@@ -17,7 +17,7 @@
         Formulario
         <i class="pi pi-refresh text-primary cursor-pointer" pTooltip="Actualizar formularios" tooltipPosition="top"></i>
       </label>
-      <p-dropdown styleClass="w-full" id="announcementForms" [options]="forms" formControlName="form" optionLabel="label" optionValue="id"></p-dropdown>
+      <p-dropdown styleClass="w-full" id="announcementForms" [options]="forms" formControlName="form" optionLabel="label" optionValue="id" [readonly]="onlyForm"></p-dropdown>
     </div>
 
     <div class="field col-12 md:col-6">

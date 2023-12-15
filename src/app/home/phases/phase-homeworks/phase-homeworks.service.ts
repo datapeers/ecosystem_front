@@ -257,7 +257,7 @@ export class PhaseHomeworksService {
     return false;
   }
 
-  async setResourcesReplies(
+  async setResourcesRepliesSprint(
     startup: Startup,
     batch: Phase,
     sprint: Content
@@ -301,6 +301,57 @@ export class PhaseHomeworksService {
           sprint: sprint,
           phase: batch,
         });
+      }
+    }
+    return ans;
+  }
+
+  async setResourcesReplies(
+    startup: Startup,
+    batch: Phase,
+    sprints: Content[]
+  ): Promise<ResourceReply[]> {
+    let ans = [];
+    const repliesSaved = await this.getDocumentsStartup(startup._id, batch._id);
+    for (const sprint of sprints) {
+      for (const resourceSprint of sprint.resources) {
+        let reply = repliesSaved.find(
+          (i) => i.resource._id === resourceSprint._id
+        );
+        if (!reply) {
+          reply = createSimpleResourceReply(
+            startup,
+            resourceSprint,
+            sprint,
+            batch
+          );
+        }
+        ans.push({
+          ...reply,
+          startup: startup,
+          sprint: sprint,
+          phase: batch,
+        });
+      }
+      for (const content of sprint.childs) {
+        for (const resourceContent of content.resources) {
+          let reply = repliesSaved.find(
+            (i) => i.resource._id === resourceContent._id
+          );
+          if (!reply)
+            reply = createSimpleResourceReply(
+              startup,
+              resourceContent,
+              sprint,
+              batch
+            );
+          ans.push({
+            ...reply,
+            startup: startup,
+            sprint: sprint,
+            phase: batch,
+          });
+        }
       }
     }
     return ans;

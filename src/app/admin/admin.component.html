@@ -1,5 +1,5 @@
-<div class="px-4 py-3 h-full w-full">
-  <p-tabView styleClass="shadow-elevated overflow-hidden border-round h-full w-full surface-0 tabview-content-fit" [scrollable]="true">
+<div class="py-3 h-full w-full">
+  <p-tabView [scrollable]="true">
     <p-tabPanel header="Usuarios">
       <ng-template pTemplate="header">
         <span class="flex flex-row gap-2 align-items-center">
@@ -44,7 +44,29 @@
         <app-users-assign></app-users-assign>
       </ng-template>
     </p-tabPanel>
+    <p-tabPanel header="Asignaciones">
+      <ng-template pTemplate="header">
+        <span class="flex flex-row gap-2 align-items-center">
+          <fa-icon [icon]="faMap"></fa-icon>
+          <span>Integraciones</span>
+        </span>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <app-integrations></app-integrations>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel header="Términos de uso">
+      <ng-template pTemplate="header">
+        <span class="flex flex-row gap-2 align-items-center">
+          <fa-icon [icon]="faPersonDotsFromLine"></fa-icon>
+          <span>Términos de uso</span>
+        </span>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <app-terms-of-use></app-terms-of-use>
+      </ng-template>
+    </p-tabPanel>
   </p-tabView>
 </div>
 
-<p-confirmDialog key="adminConfirmDialog" [style]="{ width: '50vw' }"></p-confirmDialog>
+<p-confirmDialog key="adminConfirmDialog" [style]="{ width: '50vw' }" appendTo="body"></p-confirmDialog>

@@ -41,7 +41,7 @@ export enum Permission {
   // Help Desk
   help_desk_view = 'help_desk_view',
   help_desk_create = 'help_desk_create',
-  help_desk_edit = 'help_desk_edit',
+  // help_desk_edit = 'help_desk_edit',
 
   // Sites
   sites_and_services_view = 'sites_and_services_view',
@@ -62,6 +62,7 @@ export enum Permission {
 
   phases_batch_create = 'phases_batch_create',
   phases_batch_edit = 'phases_batch_edit',
+  phases_batch_close = 'phases_batch_close',
 
   // Phase Events
   events_view = 'events_view',
@@ -136,7 +137,7 @@ export const permissionDescriptions: Record<Permission, string> = {
   // Help Desk
   [Permission.help_desk_view]: 'Ver sección Mesa de ayuda',
   [Permission.help_desk_create]: 'Crear hilo en mesa de ayuda',
-  [Permission.help_desk_edit]: 'Permitir editar un hilo en mesa de ayuda',
+  // [Permission.help_desk_edit]: 'Permitir editar un hilo en mesa de ayuda',
 
   // Sites
   [Permission.sites_and_services_view]: 'Ver sección Sedes y servicios',
@@ -157,6 +158,8 @@ export const permissionDescriptions: Record<Permission, string> = {
 
   [Permission.phases_batch_create]: 'Crear batch',
   [Permission.phases_batch_edit]: 'Editar batch',
+  [Permission.phases_batch_close]:
+    'Puede cerrar un batch y asignar quienes pasan y quienes no',
 
   // Phase Events
   [Permission.events_view]: 'Ver sección eventos en los batch',

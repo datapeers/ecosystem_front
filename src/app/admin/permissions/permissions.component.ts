@@ -14,6 +14,7 @@ export class PermissionsComponent {
   permissions: item_permission[];
   selectedPermissions: item_permission[];
   loading = true;
+  readOnly = false;
   constructor(
     private ref: DynamicDialogRef,
     private toast: ToastService,
@@ -25,6 +26,7 @@ export class PermissionsComponent {
       this.ref.close();
     }
     this.setPermission();
+    this.readOnly = this.config.data.readOnly;
   }
 
   setPermission() {

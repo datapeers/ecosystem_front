@@ -8,54 +8,57 @@
         </div>
     </ng-container>
     <ng-template #elseTable>
-        <p-table #dt2 [value]="tableRows" [tableStyle]="{'min-width': '60rem'}" dataKey="key" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['startup.item.nombre', 'state', 'observations']" [tableStyle]="{ 'min-width': '75rem' }">
-            <ng-template pTemplate="caption">
-                <div class="flex align-items-center justify-content-between">
-                    <span>{{optionsTable.summary}}</span>
-                    <span class="p-input-icon-left ml-auto">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
-                    </span>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>
-                        <div class="flex align-items-center">
-                            Nombre
-                            <p-columnFilter type="text" field="startup.item.nombre" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="flex align-items-center">
-                            Estado
-                            <p-columnFilter type="text" field="state" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th *ngIf="resource.type !== resourcesTypes.downloadable">
-                        <div class="flex align-items-center">
-                            Observaciones
-                            <p-columnFilter type="text" field="observations" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-itemRow>
-                <tr>
-                    <td>{{itemRow.startup.item.nombre}}</td>
-                    <td>{{itemRow.state}}</td>
-                    <td *ngIf="resource.type !== resourcesTypes.downloadable">{{itemRow.observations}}</td>
-                    <td class="w-full flex flex-wrap align-items-center justify-content-center gap-2">
-                        <p-button *ngIf="resource.type !== resourcesTypes.downloadable" label="Calificar" icon="pi pi-check" pTooltip="Calificar" (onClick)="evaluate(itemRow)"></p-button>
-                        <ng-container *ngIf="itemRow.modified">
-                            <p class="text-orange-600">Ha sido modificado</p>
-                        </ng-container>
+        <div class="table-container-app">
+            <p-table #dt2 class="w-full table-app" [value]="tableRows" [tableStyle]="{'min-width': '60rem'}" dataKey="key" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['startup.item.nombre', 'state', 'observations']" [tableStyle]="{ 'min-width': '75rem' }">
+                <ng-template pTemplate="caption">
+                    <div class="flex align-items-center justify-content-between">
+                        <span>{{tableTitle}}</span>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt2.filterGlobal($any($event.target).value, 'contains')" placeholder="Buscar" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div class="flex align-items-center">
+                                Nombre
+                                <p-columnFilter type="text" field="startup.item.nombre" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex align-items-center">
+                                Estado
+                                <p-columnFilter type="text" field="state" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th *ngIf="resource.type !== resourcesTypes.downloadable">
+                            <div class="flex align-items-center">
+                                Observaciones
+                                <p-columnFilter type="text" field="observations" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-itemRow>
+                    <tr>
+                        <td>{{itemRow.startup.item.nombre}}</td>
+                        <td>{{itemRow.state}}</td>
+                        <td *ngIf="resource.type !== resourcesTypes.downloadable">{{itemRow.observations}}</td>
+                        <td class="w-full flex flex-wrap align-items-center justify-content-center gap-2">
+                            <p-button *ngIf="resource.type !== resourcesTypes.downloadable" label="Calificar" icon="pi pi-check" pTooltip="Calificar" (onClick)="evaluate(itemRow)"></p-button>
+                            <ng-container *ngIf="resource.type !== resourcesTypes.downloadable && itemRow.modified">
+                                <p class="text-orange-600">Ha sido modificado</p>
+                            </ng-container>
 
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
 
     </ng-template>
 
@@ -64,7 +67,7 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog header="Evaluar" [(visible)]="showDialogEvaluation" [style]="{ width: '80vw', 'max-height': '70vh' }" [draggable]="false" [resizable]="false" [modal]="true">
+<p-dialog header="Evaluar" [(visible)]="showDialogEvaluation" [style]="{ width: '80vw', 'max-height': '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
     <div style="height: 1.5rem;"></div>
     <ng-container *ngIf="replyForEvaluated?.item?.file">
         <div class="w-full flex align-items-center justify-content-center p-2">

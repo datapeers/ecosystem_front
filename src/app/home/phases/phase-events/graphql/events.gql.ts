@@ -17,14 +17,17 @@ const fragments = {
     experts {
       _id
       name
+      email
     }
     teamCoaches {
       _id
       name
+      email
     }
     participants {
       _id
       name
+      email
     }
     participation {
       _id

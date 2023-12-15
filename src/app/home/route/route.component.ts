@@ -1,85 +1,125 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppState } from '@appStore/app.reducer';
+import { Phase } from '@home/phases/model/phase.model';
+import { Stage } from '@home/phases/model/stage.model';
+import { PhaseContentService } from '@home/phases/phase-content/phase-content.service';
+import { PhasesService } from '@home/phases/phases.service';
+import { NoBtnReturn } from '@home/store/home.actions';
+import { Store } from '@ngrx/store';
+import { Startup } from '@shared/models/entities/startup';
+import { lastContent } from '@shared/models/lastContent';
+import { ToastService } from '@shared/services/toast.service';
+import { getNameBase } from '@shared/utils/phases.utils';
+import { firstValueFrom, first, Subscription, takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-route',
   templateUrl: './route.component.html',
   styleUrls: ['./route.component.scss'],
 })
-export class RouteComponent {
+export class RouteComponent implements OnInit, OnDestroy {
   minWidth = 1200;
 
   break = false;
-
-  stages = [
-    {
-      label: 'ONBOARDING',
-      icon: 'brand-asana',
-      color: '#4552A7',
-      fases: [
-        {
-          number: 1,
-        },
-        {
-          number: 2,
-        },
-      ],
-    },
-    {
-      label: 'EARLY',
-      icon: 'social',
-      color: '#EA4254',
-      fases: [
-        {
-          number: 3,
-        },
-        {
-          number: 4,
-        },
-      ],
-    },
-    {
-      label: 'GROWTH',
-      icon: 'plant',
-      color: '#F8A70B',
-      fases: [
-        {
-          number: 5,
-        },
-        {
-          number: 6,
-        },
-        {
-          number: 7,
-        },
-      ],
-    },
-    {
-      label: 'LATE',
-      icon: 'tree',
-      color: '#B8C53A',
-      fases: [
-        {
-          number: 8,
-        },
-        {
-          number: 9,
-        },
-      ],
-    },
-    {
-      label: 'LAUNCH',
-      icon: 'plant-2',
-      color: '#DB5F39',
-      fases: [
-        {
-          number: 10,
-        },
-      ],
-    },
-  ];
+  stages$: Subscription;
+  stages = [];
+  profileDoc;
+  startup: Startup;
+  phasesBases: Phase[];
+  phasesUser: Phase[];
+  currentBatch: Phase | any;
+  listBasesDone = [];
+  lastContent: lastContent;
+  onDestroy$: Subject<void> = new Subject();
+  completed = 0;
+  completedString = '0%';
+  constructor(
+    private router: Router,
+    private toast: ToastService,
+    private store: Store<AppState>,
+    private phasesService: PhasesService,
+    private contentService: PhaseContentService
+  ) {
+    this.store.dispatch(new NoBtnReturn());
+  }
 
   ngOnInit() {
     this.checkScreen();
+    this.loadComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.stages$?.unsubscribe();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  async loadComponent() {
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.startup = this.profileDoc.startups[0];
+    const userPhases = await this.phasesService.getPhasesList(
+      this.profileDoc['startups'][0].phases.map((i) => i._id),
+      true
+    );
+    this.currentBatch = await firstValueFrom(
+      this.store
+        .select((store) => store.home.currentBatch)
+        .pipe(first((i) => i !== null))
+    );
+    this.phasesBases = userPhases.filter((i) => i.basePhase);
+    this.phasesUser = userPhases.filter((i) => !i.basePhase);
+
+    this.listBasesDone = [];
+    for (const iterator of this.phasesUser) {
+      if (this.listBasesDone.includes(iterator.childrenOf)) continue;
+      this.listBasesDone.push(iterator.childrenOf);
+    }
+    this.completed =
+      (this.listBasesDone.length / this.phasesBases.length) * 100;
+    this.completedString = this.completed.toString() + '%';
+    this.lastContentSub();
+    this.phasesService
+      .watchStages()
+      .then((stages$) => {
+        this.stages$ = stages$.subscribe((stageList) => {
+          this.stages = [];
+          let numbPhase = 1;
+          for (const stage of stageList) {
+            if (stage.isDeleted) continue;
+            const phasesStage = this.phasesBases
+              .filter((i) => i.stage === stage._id)
+              .map((i) => ({
+                ...i,
+                number: numbPhase++,
+                done: this.listBasesDone.includes(i._id),
+                currentBatch: this.currentBatch.childrenOf === i._id,
+                nameLabel: getNameBase(i),
+              }));
+            const phasesDone = phasesStage.filter((fase) =>
+              this.listBasesDone.includes(fase._id)
+            );
+            this.stages.push({
+              ...stage,
+              fases: phasesStage,
+              hasPhasesDone: phasesDone.length !== 0,
+              hasAllPhasesDone: phasesDone.length === phasesStage.length,
+            });
+          }
+        });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar etapas',
+          detail: err,
+          life: 12000,
+        });
+        this.stages = [];
+      });
   }
 
   checkScreen() {
@@ -145,5 +185,24 @@ export class RouteComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.break = window.innerWidth < 1200;
+  }
+
+  goContent() {
+    this.router.navigate(['/home/contents']);
+  }
+
+  lastContentSub() {
+    this.store
+      .select((store) => store.home.lastContent)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (i) => {
+        this.lastContent = i;
+      });
+  }
+
+  goToDescription(stage: Stage) {
+    this.router.navigate([`/home/route/stage`], {
+      queryParams: { stageId: stage._id },
+    });
   }
 }

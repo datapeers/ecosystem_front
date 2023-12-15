@@ -3,6 +3,15 @@ import { Notification } from './models/notification';
 import { NotificationTypes } from './models/notification-types.enum';
 import { NotificationStates } from './models/notification-states.enum';
 import { fadeInOut } from '../helper';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
+import { NotificationsService } from './notifications.service';
+import { Subscription, Subject, firstValueFrom, first } from 'rxjs';
+import { channelsNotificationEnum } from './models/chanels-notification.enum';
+import { takeUntil } from 'rxjs/operators';
+import { User } from '@auth/models/user';
+import { ToastService } from '@shared/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -16,65 +25,56 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   notificationRead: Notification[] = [];
 
   modified: Record<string, boolean> = {};
+  notifications$: Subscription;
+  onDestroy$: Subject<void> = new Subject();
+  user: User;
   public get notificationTypes(): typeof NotificationTypes {
     return NotificationTypes;
   }
 
-  constructor() {}
+  constructor(
+    private store: Store<AppState>,
+    private toast: ToastService,
+    private service: NotificationsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadComponent();
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   async loadComponent() {
-    this.notificationsList = [
-      new Notification({
-        _id: '1',
-        text: 'Jhon Doe, tu tutor ha aprobado tu entregable',
-        type: NotificationTypes.notes,
-        state: NotificationStates.pending,
-        isDeleted: false,
-        date: '2023-08-09T10:45:00.000Z' as any,
-        createdAt: '2023-08-22 15:02:34.199Z' as any,
-        updatedAt: '2023-08-22 15:06:16.295Z' as any,
-      }),
-      new Notification({
-        _id: '2',
-        text: 'Te restan dos días para completar a tiempo la entrega de la Fase 3',
-        type: NotificationTypes.homework,
-        state: NotificationStates.pending,
-        isDeleted: false,
-        date: '2023-08-09T10:45:00.000Z' as any,
-        createdAt: '2023-08-22 15:02:34.199Z' as any,
-        updatedAt: '2023-08-22 15:06:16.295Z' as any,
-      }),
-      new Notification({
-        _id: '3',
-        text: '¡Felicidades! Has completado la Fase 2. No pierdas el ritmo',
-        type: NotificationTypes.approved,
-        state: NotificationStates.pending,
-        isDeleted: false,
-        date: '2023-08-09T10:45:00.000Z' as any,
-        createdAt: '2023-08-22 15:02:34.199Z' as any,
-        updatedAt: '2023-08-22 15:06:16.295Z' as any,
-      }),
-      new Notification({
-        _id: '4',
-        text: 'Tienes el evento programado para hoy: "Fortalecimiento de habilidades y aptitudes"',
-        type: NotificationTypes.calendar,
-        state: NotificationStates.pending,
-        isDeleted: false,
-        date: '2023-08-09T10:45:00.000Z' as any,
-        createdAt: '2023-08-22 15:02:34.199Z' as any,
-        updatedAt: '2023-08-22 15:06:16.295Z' as any,
-      }),
-    ];
-    this.setNotification();
+    this.user = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    );
+    this.service
+      .watchNotifications([
+        `${channelsNotificationEnum.userNotification} ${this.user._id};`,
+      ])
+      .then((notifications$) => {
+        this.notifications$ = notifications$
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe((notificationList) => {
+            this.notificationsList = notificationList.map((i) =>
+              Notification.fromJson(i)
+            );
+            this.setNotification();
+          });
+      })
+      .catch((err) => {
+        this.toast.alert({
+          summary: 'Error al cargar notificaciones',
+          detail: err,
+          life: 12000,
+        });
+      });
   }
 
   setNotification() {
@@ -101,16 +101,17 @@ export class NotificationsComponent implements OnInit, OnDestroy {
 
   notificationMove(notification: Notification) {
     notification.state = NotificationStates.read;
-    // this.triggerAnimation(notification);
-    this.setNotification();
+    this.service.updateNotification({
+      _id: notification._id,
+      state: NotificationStates.read,
+    });
   }
 
   notificationDelete(notification: Notification) {
     this.notificationsList = this.notificationsList.filter(
       (i) => i._id !== notification._id
     );
-    // this.triggerAnimation(notification);
-    this.setNotification();
+    this.service.deleteNotification(notification._id);
   }
 
   triggerAnimation(notification: Notification) {
@@ -118,5 +119,26 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       delete this.modified[notification._id];
     }, 1000);
+  }
+
+  goToNotification(notification: Notification) {
+    switch (notification.type) {
+      case 'rate':
+        if (notification.state !== NotificationStates.read)
+          this.action(notification, 'read');
+        break;
+      case 'homework':
+        break;
+      case 'approved':
+        break;
+      case 'advise':
+        break;
+      case 'notes':
+        break;
+      case 'calendar':
+        break;
+      default:
+        break;
+    }
   }
 }

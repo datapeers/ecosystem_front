@@ -1,11 +1,13 @@
+@import "../../styles.scss";
+
 .container-home {
   position: relative;
   min-height: 100vh;
   height: auto;
   background: var(--app-color-one);
-  @media (max-width: 990px) {
-      background: white;
-    }
+  @media (max-width: 576px) {
+    background: white;
+  }
   //   display: flex;
   //   flex-direction: column;
   //   background-size: cover;
@@ -16,10 +18,10 @@
 .router-body {
   width: calc(100% - 5rem);
   max-width: 100%;
-  height: calc(100vh - 102px);  
+  height: calc(100vh - 102px);
   margin-left: 5rem;
-  padding: 2rem 0 1.5rem 0;
-  z-index: 0;
+  padding: 1rem 0 1.5rem 0;
+  z-index: 5;
   position: relative;
   top: 0;
   transition: all 0.5s ease;
@@ -28,7 +30,8 @@
   -webkit-border-radius: 0 0 0 2.5rem;
   -moz-border-radius: 0 0 0 2.5rem;
   @media (max-width: 576px) {
-    margin-left:0;
+    // padding: 1rem 1rem 1.5rem 1rem;
+    margin-left: 0;
     width: 100%;
     border-radius: 0 0 0 0;
   }

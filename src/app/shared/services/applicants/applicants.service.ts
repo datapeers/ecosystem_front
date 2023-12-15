@@ -8,18 +8,16 @@ import { ApplicantState } from '@home/announcements/model/applicant-state';
 import { ApplicationStates } from '@home/announcements/model/application-states.enum';
 import { resolveStorage } from '@shared/storage/storage.constants';
 import { StorageService } from '@shared/storage/storage.service';
-import { UpdateResultPayload } from '@shared/models/graphql/update-result-payload';
+import { AnnouncementTargets } from '@home/announcements/model/announcement-targets.enum';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApplicantsService implements DocumentProvider {
   constructor(
     private readonly graphql: GraphqlService,
-    private readonly storageService: StorageService,
-  ) {
-
-  }
+    private readonly storageService: StorageService
+  ) {}
 
   async getApplicant(id: string, state: ApplicationStates): Promise<Applicant> {
     const queryRef = this.graphql.refQuery(
@@ -28,35 +26,43 @@ export class ApplicantsService implements DocumentProvider {
       'no-cache',
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .query(queryRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
         map((request) => request.data.applicant),
         catchError((error) => {
-          if(error.graphQLErrors.some(error => error.extensions.originalError.statusCode === 404))
+          if (
+            error.graphQLErrors.some(
+              (error) => error.extensions.originalError.statusCode === 404
+            )
+          )
             return of(null);
-          throw (error);
+          throw error;
         })
       )
     );
   }
 
-  async getDocuments(args: { announcement: string, state: ApplicationStates }): Promise<Applicant[]> {
+  async getDocuments(args: {
+    announcement: string;
+    state: ApplicationStates;
+  }): Promise<Applicant[]> {
     const queryRef = this.graphql.refQuery(
       applicantQueries.query.applicants,
       { announcement: args.announcement, state: args.state },
       'no-cache',
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .query(queryRef)
-      .pipe(
-        map((request) => request.data.applicants),
-      )
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.applicants))
     );
   }
 
-  async updateApplicantState(id: string, updatedState: ApplicantState): Promise<UpdateResultPayload> {
+  async updateApplicantState(
+    id: string,
+    updatedState: ApplicantState
+  ): Promise<Applicant> {
     const mutationRef = this.graphql.refMutation(
       applicantQueries.mutation.updateApplicantState,
       { updateApplicantStateInput: { id, ...updatedState } },
@@ -64,13 +70,44 @@ export class ApplicantsService implements DocumentProvider {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.mutation(mutationRef).pipe(
-        map((request) => request.data.updateApplicantState),
-      )
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.updateApplicantState))
     );
   }
 
-  pushStateAttachment(announcementId: string, applicantId: string, file: File, fileName: string) {
+  async selectApplicant(
+    idApplicant: string,
+    idBatch: string,
+    nameBatch: string,
+    typeApplicant: AnnouncementTargets,
+    metadata: Record<string, any>
+  ): Promise<Applicant> {
+    const mutationRef = this.graphql.refMutation(
+      applicantQueries.mutation.selectApplicantState,
+      {
+        idApplicant,
+        idBatch,
+        nameBatch,
+        typeApplicant,
+        metadata,
+      },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.selectApplicantState))
+    );
+  }
+
+  pushStateAttachment(
+    announcementId: string,
+    applicantId: string,
+    file: File,
+    fileName: string
+  ) {
     const renamedFile = new File([file], fileName, {
       type: file.type,
       lastModified: file.lastModified,
@@ -81,12 +118,15 @@ export class ApplicantsService implements DocumentProvider {
       true
     );
   }
-  
-  removeStateAttachment(announcementId: string, applicantId: string, fileName: string) {
+
+  removeStateAttachment(
+    announcementId: string,
+    applicantId: string,
+    fileName: string
+  ) {
     return this.storageService.deleteFile(
       resolveStorage.applicantFiles(announcementId, applicantId),
       fileName
     );
   }
-
 }

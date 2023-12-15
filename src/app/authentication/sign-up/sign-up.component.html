@@ -75,7 +75,7 @@
                     </div>
                     <div class="field col-12 flex flex-column align-items-center password-input">
                         <label htmlFor="password">Clave de ingreso</label>
-                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Ingresa tu clave" aria-describedby="password-help" [ngClass]="{'ng-invalid ng-dirty': formControls['password'].errors}"></p-password>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Ingresa tu clave" aria-describedby="password-main-help" [ngClass]="{'ng-invalid ng-dirty': formControls['password'].errors}"></p-password>
                         <div [hidden]="signUpForm.valid || !signUpForm.dirty" class="alert alert-danger">
                             <small id="password-help" *ngIf="formControls['password'].errors?.['required']" class="error-message">La
                                 clave de ingreso es obligatoria</small>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="field col-12 flex flex-column align-items-center password-input">
                         <label htmlFor="passwordConfirm">Confirmar clave</label>
-                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="confirmPassword" placeholder="Ingresa tu clave de ingreso" aria-describedby="password-help" [ngClass]="{'ng-invalid ng-dirty': formControls['confirmPassword'].errors}"></p-password>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="confirmPassword" placeholder="Ingresa tu clave de ingreso" aria-describedby="password-confirm-help" [ngClass]="{'ng-invalid ng-dirty': formControls['confirmPassword'].errors}"></p-password>
                         <div [hidden]="signUpForm.valid || !signUpForm.dirty" class="alert alert-danger">
                             <small *ngIf="formControls['confirmPassword'].errors?.['required']" class="error-message">
                                 Se necesita confirmar que ambas claves sean similares

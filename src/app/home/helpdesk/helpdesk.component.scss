@@ -1,62 +1,49 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
 
-.table-dark::ng-deep .p-datatable .p-datatable-thead>tr>th {    
-    background-color: transparent;
-    color: black;    
-    font-weight: 600;
-    text-align: center;
-    border-top: 1px solid $appText;
-    border-bottom: 1px solid $appText;
-}
-
-.table-dark::ng-deep .p-datatable {
-    margin: 0;
-}
-
-.table-dark::ng-deep .p-datatable .p-datatable-tbody>tr>td {
-    background-color: white;
-    border: none;
-}
-
-.table-dark::ng-deep .p-datatable .p-datatable-tbody>tr>td:first-child {
-    border-radius: 0.625rem 0 0 0.625rem;    
-}
-
-.table-dark::ng-deep .p-datatable .p-datatable-tbody>tr>td:last-child {
-    border-radius: 0 0.625rem 0.625rem 0;
-}
-
-.table-dark::ng-deep .p-datatable .p-datatable-tbody>tr:hover {
-    border-radius: 0.625rem;
-    box-shadow: 0px 3px 30px #0F213326;
-}
-
-.table-dark::ng-deep .p-datatable .p-datatable-tbody > tr {
-    border-radius: 0.625rem;
-    background-color: transparent;
-}
-
-.table-dark::ng-deep .p-datatable-table {
-    background-color: $grayThird;
-    border-collapse: separate;
-    border-spacing: 0 0.625rem;
-    padding: 0 0.5rem;
-}
-
-
-.opt-label {
-    font-size: 1rem;
-    line-height: 1.25rem;
-    font-family: "Montserrat";    
-    font-weight: 450;
-}
-
-.opt-panel {
-    padding: 0.7rem 0;
+.dpandfilters {
+  display: flex;
+  flex-direction: none;
+  @media (max-width: 1050px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .table-container {
-    background-color: $grayThird;
-    border-radius: 3.125rem;
-    padding: 5rem 0 1rem 0;
+  background-color: $grayThird;
+  border-radius: 3.125rem;
+  padding: 5rem 0 1rem 0;
+  height: 100%;
+  max-height: 100%;
+}
+
+.card-ticket {
+  border: 1px solid;
+}
+
+.left-card {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.right-card {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.icon-response {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.panel-hide {
+  height: 3rem;
+  background-color: white;
+  border-bottom-right-radius: 3.125rem;
+  border-bottom-left-radius: 3.125rem;
+  width: 98%;
 }

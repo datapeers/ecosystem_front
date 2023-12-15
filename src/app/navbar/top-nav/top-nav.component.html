@@ -1,66 +1,52 @@
 <div class="head" [ngClass]="getHeadClass()">
     <div class="head-content">
-        <div class="head-content-left ">
-            <div class="flex flex-row gap-4 align-items-center w-full">
-                <i-tabler name="align-justified" class="head-menu-item-btn menu-icon" *ngIf="showSidenavButton()"
-                    (click)="toggleMenu()"></i-tabler>
-                <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn menu-icon" *ngIf="returnBtn$ | async"
-                    (click)="return()"></i-tabler>
-                <div class="panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-3"
-                    [style.background]="gradient()">
-                    <div class="completed elipse-panel p-2 min-h-full flex align-items-center justify-content-center"
-                        [style.background-color]="colorPhase">
-                        <span class="font-semibold text-white text-xl">3/10</span>
-                    </div>
-                    <div class="labels hidden sm:flex flex-column" [style.color]="colorPhase">
-                        <span class="font-bold text-base">ETAPA EARLY</span>
-                        <div style="height: 3px;"></div>
-                        <span class="text-sm">Fase 3</span>
-                    </div>
-                    <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58"
-                        [valueTemplate]="'75%'" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)">
-                        <ng-template pTemplate="text">a</ng-template>
-                    </p-knob>
+        <div class="flex-none head-content-left flex-row justify-content-between">
+            <i-tabler name="align-justified" class="head-menu-item-btn app-backgrounds menu-icon size-2xl" *ngIf="showSidenavButton()" (click)="toggleMenu()"></i-tabler>
+            <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn app-backgrounds menu-icon size-2xl" *ngIf="returnBtn$ | async" (click)="return()"></i-tabler>
+            <div class="panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2 sm:gap-3" [style.background]="gradient()" *ngIf="stage">
+                <div class="completed elipse-panel p-2 min-h-full flex align-items-center justify-content-center" [style.background-color]="colorPhase">
+                    <span class="font-semibold text-white progress-label">{{phasesUser}}/{{phasesBases}}</span>
                 </div>
+                <div class="flex flex-column labels" [style.color]="colorPhase">
+                    <span class="font-bold text-base">{{stage.name}}</span>
+                    <div style="height: 3px;"></div>
+                    <span class="text-sm">{{phaseName}} {{phaseNumb}}</span>
+                </div>
+                <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58" [valueTemplate]="percentCompletedString" [valueColor]="colorPhase" [rangeColor]="withOpacity(colorPhase, 0.2)" class="hidden sm:flex">
+                </p-knob>
             </div>
-
+            <ng-container *ngIf="!user.isUser">
+                <app-side-nav-route-icon></app-side-nav-route-icon>
+            </ng-container>
         </div>
-        <div class="head-content-mid">
-            <div class="search-container hidden sm:flex">
-                <span class="p-input-icon-right search">
-                    <i class="pi pi-search"></i>
-                    <input type="text" pInputText [(ngModel)]="searchValue" placeholder="¿Que deseas buscar?" />
-                </span>
+        <div class="flex-grow-1">
+            <div class="hidden lg:flex w-full">
+                <ng-container [ngTemplateOutlet]="searchBar">
+                </ng-container>
             </div>
-            <div class="sm:hidden flex">
-                <i-tabler name="search"></i-tabler>
+            <div class="icon-btn-top-nav search-mobile flex lg:hidden" (click)="viewSearchItem = true">
+                <i-tabler name="search" class="app-backgrounds border-circle"></i-tabler>
             </div>
         </div>
-        <div class="head-content-right flex align-items-center gap-2 ">
-            <div class="head-menu gap-4 align-items-center justify-content-center">
+        <div class="flex-none head-content-right flex align-items-center gap-2 ">
+            <div class="head-menu gap-2 sm:gap-4 align-items-center justify-content-center">
                 <div class="pt-2">
-                    <div class="notify-btn" *ngIf="showSidenavButton()" (click)="viewNotificationBoard = true">
+                    <div class="notify-btn icon-btn-top-nav" *ngIf="showSidenavButton()" (click)="viewNotificationBoard = true">
                         <i-tabler name="bell"></i-tabler>
                     </div>
-                    <div class="circle-indicator pulse"></div>
+                    <div class="circle-indicator pulse" *ngIf="pendingNotification"></div>
                 </div>
                 <div class="panel-user elipse-panel flex flex-row align-items-center justify-content-between gap-2">
-                    <div class="p-2 flex flex-column w-9">
-                        <span
-                            class="cursor-default font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis"
-                            [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
-                        <span
-                            class="cursor-default font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis"
-                            [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
+                    <div class="user-name-rol w-8 ">
+                        <span class="cursor-default font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
+                        <span class="cursor-default font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
                     </div>
                     <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-                        <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app flex cursor-pointer"
-                            pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+                        <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
                         </p-avatar>
                     </ng-container>
                     <ng-template #imageTemplate>
-                        <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app flex cursor-pointer"
-                            pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
+                        <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left" size="large" (click)="viewUserBoard = true">
                         </p-avatar>
                     </ng-template>
 
@@ -71,59 +57,48 @@
 </div>
 
 
-<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="border-sidebar" appendTo="body" [modal]="false"
-    [showCloseIcon]="true">
+<p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
     <ng-template pTemplate="header"></ng-template>
     <ng-template pTemplate="content" styleClass="m-0 p-0">
         <div class="flex flex-column w-full h-full gap-2 align-items-center justify-content-between">
             <div class="w-full flex flex-column p-2 gap-2">
                 <div class="w-full flex flex-row align-items-center justify-content-center gap-3">
                     <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">
-                        <p-avatar [label]="user.nameInitial" shape="circle"
-                            class="avatar-app big-avatar flex cursor-pointer " pTooltip="Opciones"
-                            tooltipPosition="left">
+                        <p-avatar [label]="user.nameInitial" shape="circle" class="avatar-app big-avatar flex cursor-pointer " pTooltip="Opciones" tooltipPosition="left">
                         </p-avatar>
                     </ng-container>
                     <ng-template #imageTemplate>
-                        <p-avatar [image]="user.profileImageUrl" shape="circle"
-                            class="avatar-app big-avatar flex cursor-pointer" pTooltip="Opciones"
-                            tooltipPosition="left">
+                        <p-avatar [image]="user.profileImageUrl" shape="circle" class="avatar-app big-avatar flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left">
                         </p-avatar>
                     </ng-template>
                     <div class="info-user flex flex-column gap-2">
-                        <span
-                            class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis"
-                            [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
-                        <span
-                            class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis"
-                            [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
+                        <span class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>
+                        <span class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis" [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>
                     </div>
                 </div>
-                <p-button
-                    styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2"
-                    (onClick)="profileSetting()">
+                <p-button styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="profileStartup()" *ngIf="user.isUser">
                     <span class="mx-2 font-semibold	">Perfil startup</span>
                     <i-tabler class="sidenav-link-icon" name="rocket"></i-tabler>
                 </p-button>
+                <p-button styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2" (onClick)="openFormApp()" *ngIf="user?.allowed(userPermission.form_view)">
+                    <span class="mx-2 font-semibold	">Formularios</span>
+                    <i-tabler class="sidenav-link-icon" name="forms"></i-tabler>
+                </p-button>
             </div>
-            <div class="option normal-panel flex flex-column gap-2 p-5 m-2">
+            <div class="option normal-panel flex flex-column gap-2 p-5 m-2" *ngIf="lastContent">
                 <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>
-                <span class="font-bold">'Decidir'</span>
-                <span class="text-xs content-description">Contenido de Fase 3 - Etapa Early</span>
-                <p-button styleClass="w-full button-yellow button-border-mid mt-3">
+                <span class="font-bold">{{lastContent.lastContent['name']}}</span>
+                <span class="text-xs content-description">Contenido de {{phaseName}} {{phaseNumb}} - {{currentBatch.stageDoc.name}}</span>
+                <p-button styleClass="w-full button-yellow button-border-mid mt-3" (onClick)="goContent()">
                     <span class="w-full text-center">Retomar ultimo contenido</span>
                 </p-button>
             </div>
             <div class="option flex flex-column gap-2">
-                <p-button
-                    styleClass="w-full button-yellow-second button-border-mid w-full align-items-center justify-content-between "
-                    (onClick)="logOut()">
+                <p-button styleClass="w-full button-yellow-second button-border-mid w-full align-items-center justify-content-between " (onClick)="logOut()">
                     <span class="mx-2 font-semibold	">Cerrar Sesión</span>
                     <i-tabler class="sidenav-link-icon" name="door-exit"></i-tabler>
                 </p-button>
-                <p-button
-                    styleClass="w-full button-grey button-border-mid w-full align-items-center justify-content-between "
-                    (onClick)="profileSetting()">
+                <p-button styleClass="w-full button-grey button-border-mid w-full align-items-center justify-content-between " (onClick)="profileSetting()">
                     <span class="mx-2 font-semibold	">Configuración de cuenta</span>
                     <i-tabler class="sidenav-link-icon" name="settings"></i-tabler>
                 </p-button>
@@ -133,11 +108,9 @@
     <ng-template pTemplate="footer"></ng-template>
 </p-sidebar>
 
-<p-sidebar [(visible)]="viewNotificationBoard" position="right" styleClass="border-sidebar" appendTo="body"
-    [modal]="false" [showCloseIcon]="true">
+<p-sidebar [(visible)]="viewNotificationBoard" position="right" styleClass="border-sidebar" appendTo="body" [modal]="false" [showCloseIcon]="true">
     <ng-template pTemplate="header">
-        <div
-            class="panel-info elipse-panel w-9 h-full notifications-header p-2 flex flex-row align-items-center justify-content-center gap-3">
+        <div class="panel-info elipse-panel w-9 h-full notifications-header p-2 flex flex-row align-items-center justify-content-center gap-3">
             <i-tabler name="bell"></i-tabler>
             <span>NOTIFICACIONES</span>
         </div>
@@ -145,3 +118,43 @@
     <ng-template pTemplate="content" styleClass="m-0 p-0"><app-notifications></app-notifications></ng-template>
     <ng-template pTemplate="footer"></ng-template>
 </p-sidebar>
+
+<p-sidebar [(visible)]="viewSearchItem" position="top" (onHide)="clearSearch()">
+    <div class="w-full h-full flex flex-column align-content-center justify-content-center mt-2">
+        <ng-container [ngTemplateOutlet]="searchBar">
+        </ng-container>
+    </div>
+</p-sidebar>
+
+<ng-template #searchBar>
+    <div #searchBarInput class="head-content-mid w-full">
+        <span class="p-input-icon-right search placeholder-bold">
+            <i class="pi pi-search font-semibold"></i>
+            <input type="text" pInputText [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)" placeholder="¿Que deseas buscar?" />
+        </span>
+    </div>
+</ng-template>
+
+<ng-template #searchResultsTemp>
+    <ng-container *ngIf="overlayLoading; else elseTemplate">
+        <div class="flex flex-row justify-content-center align-items-center">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <p-listbox [options]="_searchResults" (onChange)="goTo($event.value)" [styleClass]="'listbox-search'">
+            <ng-template let-item pTemplate="item">
+                <div class="flex w-full">
+                    <p class="font-bold text-black-alpha-90 absolute opacity-80 text-xs border-round-lg p-1">
+                        {{item.tag}}</p>
+                    <p class="overflow-hidden text-sm mt-4 ml-2">{{item.label}}</p>
+                </div>
+            </ng-template>
+        </p-listbox>
+    </ng-template>
+</ng-template>
+
+<p-overlay styleClass="overlay-search" #overlayPanel [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom' }" (onHide)="clearSearch()" [appendTo]="'body'">
+    <ng-container [ngTemplateOutlet]="searchResultsTemp">
+    </ng-container>
+</p-overlay>

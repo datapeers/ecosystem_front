@@ -1,8 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  Event,
-  IEventFileExtended,
-} from '@home/phases/phase-events/models/events.model';
+import { Event } from '@home/phases/phase-events/models/events.model';
 import { Phase } from '@home/phases/model/phase.model';
 import { Acta, newActa } from '@home/phases/phase-events/models/acta.model';
 import { ActaService } from './acta.service';
@@ -25,6 +22,7 @@ import { User } from '@auth/models/user';
 import { ConfirmationService } from 'primeng/api';
 import { Permission } from '@auth/models/permissions.enum';
 import { FormGroup } from '@angular/forms';
+import { IFileUploadExtended } from '@shared/models/file';
 
 @Component({
   selector: 'app-acta',
@@ -40,7 +38,7 @@ export class ActaComponent implements OnInit {
   loaded = false;
 
   // Files
-  selectedFiles: IEventFileExtended[] = [];
+  selectedFiles: IFileUploadExtended[] = [];
   fileSizeLimit = 1000000;
 
   // ? Icons
@@ -130,6 +128,7 @@ export class ActaComponent implements OnInit {
         phase: this.phase._id,
       })
       .then((act) => {
+        this.toast.clear();
         this.actaDoc = act;
         this.close();
       })
@@ -200,7 +199,7 @@ export class ActaComponent implements OnInit {
     }
   }
 
-  async downloadFile(file: IEventFileExtended) {
+  async downloadFile(file: IFileUploadExtended) {
     if (file.file) {
       FileSaver.saveAs(file.file);
       return;

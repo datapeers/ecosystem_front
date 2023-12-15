@@ -1,48 +1,168 @@
-<div class="w-full px-4 ">
-    <div class="flex flex-column sm:flex-row">
-        <div class="flex flex-column max-w-30rem gap-4">
-            <div class="normal-panel justify-center align-items-center h-auto"
-                style="padding: 1.875rem; border-radius: 3.25rem">
-                <div class="flex flex-column gap-4">
-                    <p-avatar label="V" styleClass="mr-2"
-                        [style]="{ 'background-color': '#2196F3', color: '#ffffff', 'height':'7.5rem', 'width':'7.5rem' }"
-                        shape="circle"></p-avatar>
-                    <div class="h-2"></div>
-                    <h2>Emprendia S.A.S.</h2>
-                    <p class="th2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis
-                        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
-                    <div class="h-4rem"></div>
-                </div>
-            </div>
-        </div>
+<div class="w-full h-full px-4">
+    <ng-container *ngIf="!loaded; else elseTemplate">
+        <app-loading> </app-loading>
+    </ng-container>
+    <ng-template #elseTemplate>
+        <ng-container *ngIf="!startup; else componentTemplate">
+            <p class="w-full">
+                Aun no perteneces a ninguna startup
+            </p>
+        </ng-container>
+        <ng-template #componentTemplate>
+            <div class="flex w-full flex-column md:flex-row ">
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between" style="height: 85vh;">
+                    <div class="flex flex-column">
+                        <div>
+                            <div class="flex flex-row justify-content-between">
+                                <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
+                                <i-tabler name="edit" class="edit-btn cursor-pointer" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
+                            </div>
 
-
-        <div class="flex flex-column gap-4 w-full px-4 display-content scrollwrap scrollwrap_delayed">
-            <div class="flex flex-column gap-4">
-                <div class="flex w-auto gap-4 mt-4">
-                    <div class="flex flex-column gap-4 w-full">
-                        <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -
-                            costos</label>
-                        <div class="statics-panel bg-pastel-1"></div>
-                    </div>
-                    <div class="flex flex-column gap-4 w-full">
-                        <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte horas
-                            invertidas</label>
-                        <div class="statics-panel bg-pastel-2"></div>
-                    </div>
-                </div>
-                <div class="flex flex-column gap-4">
-                    <div class="normal-panel justify-center align-items-center h-auto"
-                        style="padding: 1.875rem; border-radius: 3.25rem">
-                        <div class="flex flex-column gap-4">
-                            <div style="height:120rem"></div>
+                            <div class="h-3rem"></div>
+                            <h2>{{startup.item['nombre']}}</h2>
+                            <p class="mt-3">{{startup.item['descripcion']}}</p>
                         </div>
                     </div>
+                    <div class="flex flex-column gap-2">
+                        <span class="text-xs">Responsable</span>
+                        <div class="flex flex-row align-items-center">
+                            <p-avatar [label]="leaderStartup.item['nombre'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                            <p>{{leaderStartup.item['nombre']}}</p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="hidden md:flex flex-column gap-4 w-full md:w-8 px-4 display-content scrollwrap scrollwrap_delayed">
+                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>
+                </div>
+                <div class="flex md:hidden flex-column gap-4 w-full md:w-8 px-4 display-content">
+                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>
+                </div>
+            </div>
+        </ng-template>
+
+    </ng-template>
+</div>
+
+
+<ng-template #fieldFormTemplate let-component="component" let-doc="doc">
+    <ng-container [ngSwitch]="true">
+        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid', 'fieldset', 'html', 'htmlelement'].includes(component.type)">
+            <!-- Skip -->
+        </ng-container>
+        <ng-container *ngSwitchCase="['datetime', 'dateAndTime', 'time'].includes(component.type)">
+            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                        data: {
+                            label: component.label,
+                            value: doc.item[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder
+                        }
+                    }"></ng-template>
+        </ng-container>
+        <ng-container *ngSwitchCase="['selectboxes'].includes(component.type)">
+            <ng-container *ngFor="let item of component.values | keyvalue">
+                <ng-template *ngIf="doc.item[component.key][$any(item.key)]" [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                                data: {
+                                                                    label: component.label,
+                                                                    value: $any(item.value)
+                                                                }
+                                                            }"></ng-template>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="['select'].includes(component.type)">
+            <ng-container *ngIf="component.multiple; else onlyAOption">
+                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                                    data: {
+                                                                        label: component.label,
+                                                                        value: doc.item[component.key] ?  valueFieldMultiple(doc.item[component.key], component.values) : noValuePlaceholder
+                                                                    }
+                                                                }"></ng-template>
+            </ng-container>
+            <ng-template #onlyAOption>
+                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                                                                                    data: {
+                                                                                        label: component.label,
+                                                                                        value: doc.item[component.key] ?  doc.item[component.key] : noValuePlaceholder
+                                                                                    }
+                                                                                }"></ng-template>
+            </ng-template>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                        data: {
+                            label: component.label,
+                            value: doc.item[component.key] ? doc.item[component.key] : noValuePlaceholder
+                        }
+                    }"></ng-template>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #sideContent>
+    <div class="flex flex-column gap-4">
+        <!-- <div class="flex w-auto gap-4 mt-4">
+            <div class="flex flex-column gap-4 w-full">
+                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -
+                    costos</label>
+                <div class="statics-panel bg-pastel-1"></div>
+            </div>
+            <div class="flex flex-column gap-4 w-full">
+                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte horas
+                    invertidas</label>
+                <div class="statics-panel bg-pastel-2"></div>
+            </div>
+        </div> -->
+        <div class="flex w-full table-container p-1 normal-panel">
+            <p-table #dt class="table-dark w-full" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
+                <ng-template pTemplate="caption">
+                    <div class="table-header">
+                        <span class="header color-custom ml-3">Equipo</span>
+                        <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Emprendedor</th>
+                        <th>Rol</th>
+                        <th>Funciones</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-entrepreneur>
+                    <tr class="cursor-pointer">
+                        <td class="text-center">{{entrepreneur.item['nombre']}}</td>
+                        <td class="text-center">{{rolStartupsNames[entrepreneur['rol']]}}</td>
+                        <td class="text-center">{{entrepreneur['description']}}</td>
+                        <td class="text-center"></td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="paginatorright">
+                    <span>{{paginatorRightMsg()}}</span>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
+            <div class="flex flex-column gap-4">
+                <div class="grid-container">
+                    <ng-container *ngFor="let item of formNegociosFields">
+                        <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>
+                    </ng-container>
                 </div>
             </div>
         </div>
+
+
     </div>
-</div>
+</ng-template>
+
+<ng-template #paramCardTemplate let-data="data">
+    <div class="info-grid-cell p-2 border-round">
+        <span class="cell-label" [pTooltip]="data.label" tooltipPosition="top">
+            {{data.label | uppercase}}
+        </span>
+        <div class="cell-line"></div>
+        <span class="cell-value" [pTooltip]="data.value" tooltipPosition="top">{{data.value}}</span>
+    </div>
+</ng-template>

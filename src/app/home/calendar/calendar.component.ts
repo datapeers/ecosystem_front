@@ -37,6 +37,8 @@ import { TypeEvent } from '@home/phases/phase-events/models/types-events.model';
 import { RatingEventComponent } from './rating-event/rating-event.component';
 import * as moment from 'moment';
 import { Permission } from '@auth/models/permissions.enum';
+import { Table } from 'primeng/table';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -87,14 +89,14 @@ export class CalendarComponent {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
-    buttonText: {
-      // listMonth: 'Agenda mensual',
-      listYear: 'Agenda anual',
-      // listWeek: 'Agenda semanal',
-      // listDay: 'Agenda diaria',
-    },
     eventClick: ({ el, event, jsEvent, view }) => {
-      //  this.selectedEvent = event;
+      this.eventShow = {
+        id: event.extendedProps['id'],
+        title: event.extendedProps['title'],
+        start: event.extendedProps['start'],
+        end: event.extendedProps['end'],
+        extendedProps: event.extendedProps,
+      };
       this.openEventDialog = true;
     },
     eventDidMount: ({ event, el }) => {
@@ -102,13 +104,13 @@ export class CalendarComponent {
     },
     eventClassNames: 'cursor-pointer',
     headerToolbar: {
-      start: 'dayGridMonth,timeGridWeek,timeGridDay listYear',
+      start: 'dayGridMonth,timeGridWeek,timeGridDay',
       center: 'title',
       end: 'prevYear,prev,next,nextYear',
     },
     locale: esLocale,
     selectable: true, // * important for activating date selectability!
-    aspectRatio: 2.3,
+    aspectRatio: 3.2,
   };
   // calendarOptions: CalendarOptions = {
   //   initialView: 'dayGridMonth',
@@ -129,9 +131,14 @@ export class CalendarComponent {
     this.resizeCalendar();
     this.setSizeGraphs();
     this.showGraphs = false;
-    setTimeout(() => {
-      this.showGraphs = true;
-    }, 1000);
+    // setTimeout(() => {
+    //   this.showGraphs = true;
+    // }, 1000);
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 446}px`;
+    }, 250);
   }
 
   showDifferentDesign = false;
@@ -146,11 +153,14 @@ export class CalendarComponent {
   dialogSolicitude = false;
   expertsDialog: Expert[] = [];
   startup;
-
+  textSummary = `Mostrando {first} a {last} de {totalRecords}`;
   public get userPermission(): typeof Permission {
     return Permission;
   }
-
+  @ViewChild('dt', { static: true }) dt: Table;
+  globalFilter = [];
+  eventShow;
+  scrollHeight;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -162,6 +172,8 @@ export class CalendarComponent {
     private readonly phaseService: PhasesService,
     private readonly storageService: StorageService
   ) {
+    this.scrollHeight = `${innerHeight - 446}px`;
+    this.globalFilter = this.columns.map((i) => i.field);
     this.setGraph();
     firstValueFrom(
       this.store
@@ -316,6 +328,10 @@ export class CalendarComponent {
       start: event.startAt,
       end: event.endAt,
       extendedProps: {
+        id: event._id,
+        title: event.name,
+        start: event.startAt,
+        end: event.endAt,
         participants: event.participants,
         participantsName: event.participants.map((i) => i.name).join(', '),
         teamCoaches: event.teamCoaches,
@@ -327,6 +343,7 @@ export class CalendarComponent {
         canViewFiles: event.extra_options.allow_viewFiles,
         acta: this.actas.find((i) => i.event === event._id),
         files: event.extra_options?.files,
+        zoom: event.extra_options?.zoom,
       },
     });
   }
@@ -383,6 +400,7 @@ export class CalendarComponent {
     this.expertsDialog = await this.expertsService.getExpertsByStartup(
       this.startup._id
     );
+    this.toast.clear();
     this.dialogSolicitude = true;
   }
 
@@ -418,5 +436,26 @@ export class CalendarComponent {
 
   todayAfter(date: Date) {
     return moment(new Date()).isAfter(date);
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
+  }
+
+  expertRol(): string {
+    const roles = ['Mentor', 'Asesor'];
+    const indiceAleatorio = Math.floor(Math.random() * roles.length);
+    return roles[indiceAleatorio];
+  }
+
+  openZoom(event) {
+    // if (this.todayAfter(event.end)) {
+    //   console.log('video');
+    //   return;
+    // }
+    window.open(event.extendedProps.zoom.join_url);
   }
 }

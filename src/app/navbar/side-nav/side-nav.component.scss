@@ -1,26 +1,24 @@
 @import "../../../styles.scss";
 
 .sidenav {
-  transition: all 0.5s ease;
+  // transition: all 0.5s ease;
   position: fixed;
-  z-index: 2;
+  z-index: 1;
   top: 0;
   width: 16.5625rem;
   height: 100vh;
-  background-color: $appColorOne;
-
   .logo-container {
     display: flex;
     align-items: center;
     padding: 0.938rem 0.938rem 0.938rem;
-    width: 100%;
+    background-color: transparent;
+    width: 3rem;
     .logo {
       margin-top: 0.8rem;
       width: 3rem;
       min-width: 3rem;
       height: 3rem;
       min-height: 3rem;
-
       cursor: pointer;
       border: none;
     }
@@ -53,9 +51,9 @@
   .sidenav-nav-item {
     width: 100%;
     // margin-bottom: 0.625rem;
-  @media (max-width: 576px) {
-    font-size: 12px;
-  }
+    @media (max-width: 576px) {
+      font-size: 12px;
+    }
     .sidenav-nav-link {
       display: flex;
       align-items: center;
@@ -84,20 +82,20 @@
       }
     }
   }
-  .sidenav-nav-item:hover {
-    .sidenav-link-icon,
-    .sidenav-link-text,
-    .sidenav-nav-link {
-      color: lighten($appColorTwo, 20%) !important;
-      .menu-collapse-icon {
-        color: lighten($appColorTwo, 20%);
-      }
-    }
-  }
+  // .sidenav-nav-item:hover {
+  //   .sidenav-link-icon,
+  //   .sidenav-link-text,
+  //   .sidenav-nav-link {
+  //     color: lighten($appColorTwo, 20%);
+  //     .menu-collapse-icon {
+  //       color: lighten($appColorTwo, 20%);
+  //     }
+  //   }
+  // }
 }
 
 .menu-icon {
-  color: $appColorTwo;
+  color: $appColorTwo !important;
   cursor: pointer;
   margin: 2rem 1rem;
 }
@@ -113,6 +111,7 @@
   .sidenav-link-text {
     color: lighten($appColorTwo, 20%) !important;
   }
+  opacity: 1 !important;
 }
 
 .uppercase .right-bar-selected {
@@ -150,7 +149,6 @@
   list-style: none;
   padding: 0;
   margin-left: 0.75rem;
-
   .sublevel-nav-item {
     .sublevel-nav-link {
       display: flex;
@@ -159,7 +157,7 @@
       color: $appText;
       text-decoration: none;
       // border-radius: 0.625rem;
-      transition: all 0.3s ease;
+      transition: all 0.5s ease;
       padding: 0.6875rem 0.72rem;
       .sublevel-link-icon {
         width: 3.4375rem;
@@ -177,6 +175,13 @@
         flex: 1;
       }
     }
+  }
+}
+
+.sub-level-collapsed {
+  margin-left: 0;
+  .sublevel-link-icon {
+    margin: 0 !important;
   }
 }
 
@@ -205,7 +210,7 @@
 .scrollwrap {
   overflow-y: auto;
   visibility: hidden;
-  height: calc(100% - 3.65rem);
+  height: calc(100% - 6.35rem);
 }
 
 .sidenav-nav,

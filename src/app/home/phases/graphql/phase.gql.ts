@@ -14,13 +14,15 @@ const fragments = {
       published
       basePhase
       childrenOf
+      finished
       createdAt
       updatedAt
       calcEndDate
+      participants
     }
   `,
   phaseFieldsExtra: `
-  fragment phaseFields on Phase {
+  fragment phaseFieldsExtra on Phase {
       _id
       index
       stage
@@ -36,6 +38,7 @@ const fragments = {
       childrenOf
       createdAt
       updatedAt
+      finished
       calcEndDate
       stageDoc {
         _id
@@ -49,6 +52,7 @@ const fragments = {
         createdAt
         updatedAt
       }
+      participants
     }
   `,
 };
@@ -57,14 +61,22 @@ const query = {
   getPhase: `
     query Phase($id: String!) {
       phase(id: $id) {
+        ...phaseFieldsExtra
+      }
+    }
+    ${fragments.phaseFieldsExtra}
+  `,
+  getPhases: `
+    query Phases {
+      phases {
         ...phaseFields
       }
     }
     ${fragments.phaseFields}
   `,
-  getPhases: `
-    query Phases {
-      phases {
+  phasesBases: `
+    query PhasesBases {
+      phasesBases {
         ...phaseFields
       }
     }
@@ -81,10 +93,19 @@ const query = {
   phasesListWithExtra: `
     query PhasesList($ids: [String!]!) {
       phasesList(ids: $ids) {
-        ...phaseFields
+        ...phaseFieldsExtra
       }
     }
     ${fragments.phaseFieldsExtra}
+  `,
+  searchInBatchOutput: `
+    query SearchInBatch($othersInput: SearchBatchInput!) {
+      searchInBatch(OthersInput: $othersInput) {
+        ansContent
+        ansPhases
+        ansResource
+      }
+    }
   `,
 };
 
@@ -98,9 +119,17 @@ const mutation = {
     }
   `,
   updatePhase: `
-    ${fragments.phaseFields}
+    ${fragments.phaseFieldsExtra}
     mutation UpdatePhase($updatePhaseInput: UpdatePhaseInput!) {
       updatePhase(updatePhaseInput: $updatePhaseInput) {
+        ...phaseFieldsExtra
+      }
+    }
+  `,
+  removePhase: `
+    ${fragments.phaseFields}
+    mutation RemovePhase($removePhaseId: String!) {
+      removePhase(id: $removePhaseId) {
         ...phaseFields
       }
     }

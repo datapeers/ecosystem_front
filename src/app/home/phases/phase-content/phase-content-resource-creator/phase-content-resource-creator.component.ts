@@ -17,6 +17,7 @@ import { HttpEventType } from '@angular/common/http';
 import { FormService } from '@shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { IDropItem } from '@shared/models/dropdown-item';
+import { resourcesTypesNames } from '@home/phases/model/resources-types.model';
 import {
   ResourcesTypes,
   resourcesTypesArray,
@@ -40,6 +41,11 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
   load = false;
   forms: IDropItem[] = [];
   listFormsFiltered = [];
+
+  public get resourcesTypesName(): typeof resourcesTypesNames {
+    return resourcesTypesNames;
+  }
+
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -112,6 +118,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
 
   setResource(resource: IResource) {
     this.onlyView = resource;
+    console.log(this.onlyView);
     this.formResource.get('name').setValue(resource.name);
     this.formResource.get('type').patchValue(resource.type);
     this.formResource.get('hide').setValue(resource.hide);
@@ -226,6 +233,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
           this.toast.info({
             summary: 'Subiendo archivo...',
             detail: 'Por favor espere, no cierre la ventana',
+            life: 200000,
           });
           try {
             const fileUploaded: any = await firstValueFrom(
@@ -234,12 +242,14 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
                 .pipe(first((event) => event.type === HttpEventType.Response))
             );
             newResource.extra_options[iterator.key] = fileUploaded.url;
+            this.toast.clear();
             this.toast.info({
               summary: 'Archivo almacenado con éxito',
               detail: '',
             });
           } catch (error) {
             console.error(error);
+            this.toast.clear();
             this.toast.info({
               summary: 'Error al subir archivo',
               detail: 'Ocurrió un error al intentar subir el archivo',
@@ -264,7 +274,7 @@ export class PhaseContentResourceCreatorComponent implements OnInit, OnDestroy {
           continue;
       }
     }
-    this.toast.info({ summary: 'Guardando...', detail: '' });
+    this.toast.info({ summary: 'Guardando...', detail: '', life: 200000 });
     this.service
       .createResource(newResource)
       .then((ans) => {

@@ -39,12 +39,19 @@ import { RouteComponent } from './route/route.component';
 import { StagesComponent } from './phases/stages/stages.component';
 import { Startup } from '@shared/models/entities/startup';
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { RouteStageDescriptionComponent } from './route-stage-description/route-stage-description.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'inicio',
+        pathMatch: 'full',
+      },
       {
         path: 'admin',
         canMatch: [RoleGuard],
@@ -65,6 +72,10 @@ const routes: Routes = [
       {
         path: 'forms',
         component: FormsComponent,
+      },
+      {
+        path: 'settings',
+        component: ConfigurationComponent,
       },
       {
         path: 'entrepreneurs',
@@ -104,10 +115,19 @@ const routes: Routes = [
       },
       {
         path: 'route',
-        component: RouteComponent,
+        children: [
+          {
+            path: '',
+            component: RouteComponent,
+          },
+          {
+            path: 'stage',
+            component: RouteStageDescriptionComponent,
+          },
+        ],
       },
       {
-        path: 'startup-profile',
+        path: 'startup',
         component: StartupProfileComponent,
       },
       {
@@ -118,6 +138,7 @@ const routes: Routes = [
         path: 'calendar',
         component: CalendarComponent,
       },
+
       {
         path: 'site_management',
         children: [

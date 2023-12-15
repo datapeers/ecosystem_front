@@ -1,0 +1,23 @@
+<div class="w-full flex flex-row gap-3">
+    <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+    <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+        <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
+            Términos de uso</h2>
+        <div class="w-full flex flex-row gap-1">
+            <span class="text-sm text-color-other"></span>
+        </div>
+    </div>
+</div>
+<p-divider></p-divider>
+<div class="flex flex-column w-full px-6" *ngIf="terms">
+    <div [innerHtml]="(terms.content | safe:'html')" class="w-full"></div>
+    <div class="w-full flex flex-row justify-content-end align-items-end gap-4">
+        <span class="app-input-field">
+            <label>Horas a donar</label>
+            <p-inputNumber inputId="integeronly" [(ngModel)]="hoursDonated"> </p-inputNumber>
+        </span>
+
+        <p-button icon="pi pi-check" label="Aceptar" pRipple styleClass="text-sm w-min p-button-primary" type="button" [disabled]="saving || hoursDonated <= 0" [loading]="saving" (onClick)="saveChanges()"></p-button>
+        <p-button icon="pi pi-times" label="Rechazar" pRipple styleClass="text-sm w-min p-button-secondary" type="button" [disabled]="saving" [loading]="saving"></p-button>
+    </div>
+</div>

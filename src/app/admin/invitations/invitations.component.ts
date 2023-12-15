@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { Subject, throttleTime } from 'rxjs';
 import { Invitation } from '@shared/models/invitation';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidRoles, validRoles } from '@auth/models/valid-roles.enum';
 import { ToastService } from '@shared/services/toast.service';
-
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-invitations',
   templateUrl: './invitations.component.html',
@@ -20,6 +20,10 @@ export class InvitationsComponent implements OnInit {
     { field: 'createdAt', name: 'Creada' },
     { field: 'expiresAt', name: 'Expira' },
   ];
+  namesStates: {
+    accepted: 'Acepto';
+    disabled: 'Inhabilitado';
+  };
   filterFields = this.columns.map((column) => column.field);
   invitations: Invitation[];
   loading: boolean = true;
@@ -27,11 +31,14 @@ export class InvitationsComponent implements OnInit {
   roles = validRoles;
   formInvitation: FormGroup;
   submit$: Subject<void> = new Subject();
+  @ViewChild('dt', { static: true }) dt: Table;
+  scrollHeight;
   constructor(
     private readonly toast: ToastService,
     private readonly service: AdminService,
     readonly fb: FormBuilder
   ) {
+    this.scrollHeight = `${innerHeight - 446}px`;
     this.formInvitation = fb.group({
       email: fb.control<string>('', {
         validators: [Validators.required, Validators.email],
@@ -50,6 +57,15 @@ export class InvitationsComponent implements OnInit {
     this.loadComponent();
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 446}px`;
+    }, 250);
+  }
+
   async loadComponent() {
     await this.loadInvitations();
     this.loading = false;
@@ -57,6 +73,7 @@ export class InvitationsComponent implements OnInit {
 
   async loadInvitations() {
     this.invitations = await this.service.getInvitations();
+    console.log(this.invitations);
   }
 
   openInvitationDialog() {
@@ -89,9 +106,23 @@ export class InvitationsComponent implements OnInit {
   }
 
   async cancelInvitation(invitationRow: Invitation) {
-    this.toast.info({ summary: 'Cancelando', detail: '' });
+    this.toast.info({ summary: 'Cancelando', detail: '', life: 20000 });
     await this.service.cancelInvitation(invitationRow._id);
     await this.loadInvitations();
     this.toast.clear();
+  }
+
+  async resendInvitation(invitationRow: Invitation) {
+    this.toast.info({ summary: 'Reenviando...', detail: '', life: 20000 });
+    await this.service.resendInvitation(invitationRow._id);
+    this.toast.clear();
+    this.toast.success({ summary: 'Invitación reenviada', detail: '' });
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }

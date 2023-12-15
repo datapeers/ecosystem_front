@@ -70,6 +70,11 @@ import { IconsModule } from '../icons/icons.module';
 import { InitComponent } from './init/init.component';
 import { ResourceCardComponent } from '../shared/components/resource-card/resource-card.component';
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { RouteStageDescriptionComponent } from './route-stage-description/route-stage-description.component';
+import { ApplicantSelectDialogComponent } from './announcements/applicants/applicant-select-dialog/applicant-select-dialog.component';
+import { TermsDialogComponent } from '@shared/components/terms-dialog/terms-dialog.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -125,6 +130,10 @@ import { StartupProfileComponent } from './startup-profile/startup-profile.compo
     StagesComponent,
     ResourceCardComponent,
     StartupProfileComponent,
+    ConfigurationComponent,
+    RouteStageDescriptionComponent,
+    ApplicantSelectDialogComponent,
+    TermsDialogComponent,
   ],
   imports: [
     CommonModule,

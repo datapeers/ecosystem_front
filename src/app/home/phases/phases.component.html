@@ -1,62 +1,100 @@
 <div class="card" *ngIf="!loading else loadingPage">
     <div class="home-section-container" style="gap:1rem;">
-
-        <div class="flex justify-content-between flex-wrap gap-2 align-items-center w-full mb-3">
-            <span id="home-section-header" class="text-white"></span>
-
-            <div class="flex flex-row gap-2">
-                <p-button *ngIf="user?.allowed(userPermission.phases_phase_access)" type="button" label="Configurar fases" icon="pi pi-cog" [routerLink]="['config']"></p-button>
+        <div class="px-4">
+            <div class="flex justify-content-between gap-2 align-items-center w-full px-3 section-header-container">
+                <span class="text-3xl font-semibold white-space-nowrap">
+                    Batch's por fase
+                </span>
+                <div class="flex flex-row flex-grow-1 justify-content-center gap-2">
+                    <ng-container *ngFor="let item of list let i = index">
+                        <p-button [ngClass]="{ 'active': i === activeIndex  }" [styleClass]="{ 'p-button-tertiary p-button-sm border-round': true, 'active': i === activeIndex } | className" (onClick)="activeIndex = i">
+                            <span class="font-semibold text-xs">{{i + 1}}</span>
+                        </p-button>
+                    </ng-container>
+                </div>
+                <div class="flex flex-row gap-2">
+                    <p-button *ngIf="user?.allowed(userPermission.phases_phase_access)" type="button" label="Configurar fases" icon="pi pi-cog" [routerLink]="['config']"></p-button>
+                </div>
             </div>
         </div>
-
-        <p-tabView [(activeIndex)]="activeIndex">
-            <ng-container *ngFor="let item of list">
-                <ng-container>
-                    <p-tabPanel [header]="item.label ">
+        <p-tabView styleClass="app-tabview" [(activeIndex)]="activeIndex">
+            <ng-container *ngFor="let item of list let i = index">
+                <p-tabPanel>
+                    <div class="p-4">
+                        <div class="flex flex-row justify-content-between p-3 gap-2 flex-wrap align-content-center align-items-center">
+                            <div class="flex flex-row gap-4 align-items-center">
+                                <span class="text-tertiary font-semibold text-xl white-space-nowrap">
+                                    Fase {{i + 1}}
+                                </span>
+                                <span class="font-semibold max-w-8rem text-500">
+                                    {{item.label}}
+                                </span>
+                            </div>
+                            <div class="flex flex-row align-items-start w-full max-w-28rem gap-2">
+                                <i-tabler class="size-md text-secondary" name="bulb"></i-tabler>
+                                <p class="text-sm">
+                                    Estas viendo los Batchs creadas de la Fase. Desde este panel puedes seleccionar la Fase que deseas consultar y crear una nueva Batch. Entra en cada batch para consultar su gestión e información.
+                                </p>
+                            </div>
+                            <div class="flex flex-row gap-2">
+                                <p-button *ngIf="user?.allowed(userPermission.phases_batch_create)" type="button" label="Batch" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                    <p-divider styleClass="p-0" [style]="{ 'margin': '1px 0' }"></p-divider>
+                    <div class="px-4">
                         <p-dataView #dv [value]="item.docs" [paginator]="false" filterBy="name" layout="grid">
                             <ng-template pTemplate="header">
-                                <div class="flex flex-wrap align-items-center justify-content-between">
-                                    <span class="p-input-icon-left mr-2">
-                                        <i class="pi pi-search-plus"></i>
-                                        <input type="text" pInputText (input)="dv.filter($any($event.target).value)" placeholder="Buscar" />
+                                <div class="flex flex-wrap align-items-center justify-content-between py-2">
+                                    <span class="p-input-icon-left">
+                                        <span class="font-bold">Todos los batch</span>
                                     </span>
-                                    <p-button *ngIf="user?.allowed(userPermission.phases_batch_create)" type="button" label="batch" icon="pi pi-plus" (onClick)="openCreator(item.base)"></p-button>
+                                    <div class="flex flex-row gap-3">
+                                        <div class="flex flex-row gap-2 align-items-center text-primary">
+                                            <span class="font-semibold text-2xl">{{item.docs.length}}</span>
+                                            <span class="font-semibold">Batch's {{item.docs.length > 1 ? 's' : ''}} </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </ng-template>
                             <ng-template let-stepPhase pTemplate="gridItem">
-                                <div class="tour-card" style="margin:0.5rem;" (mouseenter)="selected = stepPhase;" (mouseleave)="selected = undefined;">
-                                    <ng-container *ngIf="stepPhase?.thumbnail; else noThumbnail">
-                                        <img width="100%" height="144px" [src]="stepPhase.thumbnail" alt="">
-                                    </ng-container>
-                                    <ng-template #noThumbnail>
-                                        <img width="100%" height="144px" src="/assets/noPic.jpg" alt="">
-                                    </ng-template>
-                                    <div class="title-wrapper">
-                                        <span class="subheader-small card-title">{{stepPhase.name}}</span>
+                                <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-18rem">
+                                    <div class="flex flex-column gap-6">
+                                        <div class="flex flex-row gap-1 align-items-center justify-content-between">
+                                            <i-tabler class="text-center text-tertiary size-md" name="affiliate"></i-tabler>
+                                            <div class="flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs">
+                                                <i-tabler class="text-center text-xs size-sm " name="calendar"></i-tabler>
+                                                <span class="font-semibold">{{stepPhase.startAt | date: 'dd MMM yyyy'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-column gap-1">
+                                            <span class="font-bold">{{stepPhase.name}}</span>
+                                            <div class="flex align-items-center gap-2 font-semibold">
+                                                <span class="text-xs">{{stepPhase.startAt | date: 'dd MMMM yyyy'}}</span>-<span class="text-xs">{{stepPhase.endAt | date: 'dd MMMM yyyy'}}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <!-- <p class="body-copy">{{space.descripcion | date}} - {{'2023-06-08' | date}}</p> -->
-                                    <div class="flex flex-row align-items-center justify-content-between">
-                                        <div class="flex flex-row" style="gap:0.5rem;" *ngIf="user?.allowed(userPermission.phases_batch_edit)">
-                                            <ng-container *ngFor="let action of actions">
-                                                <p-button [styleClass]="action.class" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})" type="button" label="{{action.label}}"></p-button>
-                                            </ng-container>
+                                    <div class="flex flex-row gap-1 justify-content-between align-items-center">
+                                        <div class="flex flex-row gap-2 align-items-center">
+                                            <i-tabler class="size-md" name="users-group"></i-tabler>
+                                            <span class="text-xs font-semibold">{{stepPhase.participants}}</span>
                                         </div>
-                                        <div class="flex flex-row align-items-center" style="gap: 0.5rem;">
-                                            <span class="body-copy">0</span>
-                                            <fa-icon [icon]="faUser"></fa-icon>
-                                        </div>
+                                        <ng-container *ngFor="let action of actions">
+                                            <p-button styleClass="p-button-quaternary" (click)="onAction({mouseEvent: $event, action, phase: stepPhase})">Ver Batch</p-button>
+                                        </ng-container>
                                     </div>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="empty">
-                                <!-- <app-empty [tittle]="emptyMessage" display="noFind"></app-empty> -->
+                                <div class="flex flex-row justify-content-center align-items-center w-full h-20rem">
+                                    <span class="text-2xl text-500 font-semibold">No hay Batch's</span>
+                                </div>
                             </ng-template>
                         </p-dataView>
-                    </p-tabPanel>
-                </ng-container>
+                    </div>
+                </p-tabPanel>
             </ng-container>
         </p-tabView>
-
     </div>
 </div>
 

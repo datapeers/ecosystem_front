@@ -13,16 +13,13 @@ import { DownloadRequest } from '@shared/components/dynamic-table/models/downloa
 import { DownloadResult } from '@shared/components/dynamic-table/models/download-result';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StartupsService implements DocumentProvider {
-
   constructor(
     private readonly graphql: GraphqlService,
-    private readonly toast: ToastService,
-  ) {
-    
-  }
+    private readonly toast: ToastService
+  ) {}
 
   cachedQueries: string[] = [];
 
@@ -30,22 +27,34 @@ export class StartupsService implements DocumentProvider {
     this.graphql.evictStore(this.cachedQueries);
   }
 
-  async getDocuments(args: any): Promise<Startup[]> {
+  async getDocument(id: string): Promise<Startup> {
     const queryRef = this.graphql.refQuery(
-      startupQueries.query.startups,
-      { },
+      startupQueries.query.startup,
+      { id },
       'no-cache',
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .query(queryRef)
-      .pipe(
-        map((request) => request.data.startups),
-      )
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(map((request) => request.data.startup))
     );
   }
 
-  async getDocumentsPage(_: any, request: PageRequest): Promise<PaginatedResult<Startup>> {
+  async getDocuments(args: any): Promise<Startup[]> {
+    const queryRef = this.graphql.refQuery(
+      startupQueries.query.startups,
+      {},
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(map((request) => request.data.startups))
+    );
+  }
+
+  async getDocumentsPage(
+    _: any,
+    request: PageRequest
+  ): Promise<PaginatedResult<Startup>> {
     const queryRef = this.graphql.refQuery(
       startupQueries.query.startupsPage,
       { request },
@@ -54,7 +63,7 @@ export class StartupsService implements DocumentProvider {
     );
     request = jsonUtils.sortObjectKeys(request);
     const requestKey = `startupsPage(${JSON.stringify({ request })})`;
-    if(!this.cachedQueries.some(queryKey => queryKey === requestKey)) {
+    if (!this.cachedQueries.some((queryKey) => queryKey === requestKey)) {
       this.cachedQueries.push(requestKey);
     }
     return firstValueFrom(
@@ -71,33 +80,36 @@ export class StartupsService implements DocumentProvider {
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.deleteBusinesses),
-      )
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.deleteBusinesses))
     );
   }
 
-  async linkWithEntrepreneursByRequest(request: PageRequest, targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithEntrepreneursByRequest(
+    request: PageRequest,
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       startupQueries.mutation.linkStartupsWithEntrepreneursByRequest,
       { request, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
         map((request) => request.data.linkStartupsWithEntrepreneursByRequest),
         tap((result: UpdateResultPayload) => {
-          if(result.acknowledged) {
+          if (result.acknowledged) {
             this.toast.success({
-              detail: "Se asociaron con éxito los empresarios seleccionadas con las empresas"
+              detail:
+                'Se asociaron con éxito los empresarios seleccionadas con las empresas',
             });
           } else {
             this.toast.success({
-              detail: "Se asociaron con éxito los empresarios seleccionadas con las empresas"
+              detail:
+                'Se asociaron con éxito los empresarios seleccionadas con las empresas',
             });
           }
         })
@@ -105,22 +117,26 @@ export class StartupsService implements DocumentProvider {
     );
   }
 
-  async linkWithEntrepreneurs(ids: string[], targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithEntrepreneurs(
+    ids: string[],
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       startupQueries.mutation.linkStartupsWithEntrepreneurs,
       { ids, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.linkStartupsWithEntrepreneurs),
-      )
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.linkStartupsWithEntrepreneurs))
     );
   }
-  
-  async requestDownload(downloadRequest: DownloadRequest): Promise<DownloadResult> {
+
+  async requestDownload(
+    downloadRequest: DownloadRequest
+  ): Promise<DownloadResult> {
     const queryRef = this.graphql.refQuery(
       startupQueries.query.startupsDownload,
       { ...downloadRequest },

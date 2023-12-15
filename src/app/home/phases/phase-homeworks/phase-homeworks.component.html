@@ -1,14 +1,27 @@
 <ng-container *ngIf="loaded; else loadingTemplates">
     <div class="p-4">
-        <div class="w-full flex flex-row w-full gap-4 text-white  align-items-center ">
-            <h2>Tareas</h2>
-            <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint">
-                <ng-template let-sprint pTemplate="item">
-                    <div>{{ sprint.name }}</div>
-                </ng-template>
-            </p-dropdown>
+        <div class="flex flex-column xl:flex-row gap-4 align-items-end justify-content-between">
+            <div class="flex flex-column gap-3 flex-grown-1 ">
+                <h3 class="my-2">Tareas</h3>
+                <div class="flex gap-2 w-11">
+                    <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                    <p class="th2">Observa el estado de las tareas asignadas a los participantes, que diligenciaron y coméntales su resultados.
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-row align-items-center justify-content-emd sm:justify-content-end gap-1 sm:gap-3">
+                <span class="app-input-field" style="width: 100%">
+                    <label for="sprintView">Sprint</label>
+                    <p-dropdown inputId="sprintView" [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" appendTo="body" [style]="{ width: '100%' }">
+                        <ng-template let-sprint pTemplate="item">
+                            <div>{{ sprint.name }}</div>
+                        </ng-template>
+                    </p-dropdown>
+                </span>
+            </div>
         </div>
-        <p-accordion class="w-full h-full" *ngIf="sprintSelected">
+        <div style="height: 1rem;"></div>
+        <p-accordion class="w-full" *ngIf="sprintSelected">
             <ng-container *ngFor="let resourceSprint of sprintSelected.resources">
                 <ng-container *ngIf="!resourceSprint.isDeleted ">
                     <p-accordionTab>

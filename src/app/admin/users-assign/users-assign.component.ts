@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AdminService } from '../admin.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { User } from '@auth/models/user';
@@ -8,6 +14,7 @@ import { StartupsService } from '@shared/services/startups/startups.service';
 import { UserAssign } from './model/user-to-assign';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { ToastService } from '@shared/services/toast.service';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-users-assign',
@@ -50,6 +57,8 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   rowMenuItemsHost: MenuItem[] = [];
   rowMenuItemsTeamCoach: MenuItem[] = [];
   validRoles = ValidRoles;
+  @ViewChild('dt', { static: true }) dt: Table;
+  scrollHeight;
   constructor(
     private toast: ToastService,
     private service: AdminService,
@@ -58,6 +67,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
     public dialogService: DialogService,
     private confirmationService: ConfirmationService
   ) {
+    this.scrollHeight = `${innerHeight - 446}px`;
     this.rowMenuItemsHost = [
       {
         label: 'Asignar Fase',
@@ -99,6 +109,15 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.scrollHeight = `${innerHeight - 446}px`;
+    }, 250);
   }
 
   async initComponent() {
@@ -204,6 +223,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
         this.service
           .updateUser(this.rowInteract._id, {
             relationsAssign: {
+              ...this.rowInteract.relationsAssign,
               phases: this.selectedPhases,
               batches: this.selectedBatches,
               startups: this.selectedStartups,
@@ -226,5 +246,12 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
           });
       },
     });
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return '';
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }

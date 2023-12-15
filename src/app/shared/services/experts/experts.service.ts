@@ -95,31 +95,35 @@ export class ExpertsService implements DocumentProvider {
 
   async getUserDoc(user: User) {
     let doc = await this.findUser(user.uid);
-    if (!doc) {
-      const forms = await this.formService.getFormByCollection(
-        FormCollections.experts
-      );
-      if (!forms.length) {
-        return doc;
-      }
-      const entityForm = forms.find(() => true);
-      const subscription = await this.formService.createFormSubscription({
-        form: entityForm._id,
-        reason: 'Create expert',
-        data: {
-          accountId: user.uid,
-        },
-      });
-      const ref = this.formService.openFormFromSubscription(
-        subscription,
-        'Creación de ficha para experto'
-      );
-      const idNewExpert = await firstValueFrom(ref.pipe(take(1)));
+    if (!doc || !user.relationsAssign.expertFull) {
+      const subRef = await this.setFormSub(user, doc);
+      const idNewExpert = await firstValueFrom(subRef.pipe(take(1)));
       if (!idNewExpert) return null;
       return await this.findById(idNewExpert);
     } else {
       return doc;
     }
+  }
+
+  async setFormSub(user: User, doc?: Expert) {
+    const forms = await this.formService.getFormByCollection(
+      FormCollections.experts
+    );
+    const entityForm = forms.find(() => true);
+    const subscription = await this.formService.createFormSubscription({
+      doc: doc ? doc._id : undefined,
+      form: entityForm._id,
+      reason: doc ? 'Do second part of expert doc' : 'Expert doc to new user',
+      data: {
+        accountId: user.uid,
+        typeView: 'secondPart',
+        expertFull: user.relationsAssign.expertFull,
+      },
+    });
+    return this.formService.openFormFromSubscription(
+      subscription,
+      'Ficha expert'
+    );
   }
 
   async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {

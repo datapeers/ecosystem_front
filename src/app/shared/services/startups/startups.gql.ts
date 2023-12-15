@@ -8,16 +8,47 @@ const fragments = {
       _id
       item
       isProspect
+      phases {
+        _id
+        name
+      }
       entrepreneurs {
         _id
         rol
         item
+        description
       }
+    }
+  `,
+  communitiesFields: `
+    fragment communitiesFields on Startup {
+      _id
+      item
+      isProspect
+      phases {
+        _id
+        name
+      }
+      entrepreneurs {
+        _id
+        rol
+        item
+        description
+      }
+      lastPhase
     }
   `,
 };
 
 const query = {
+  startup: `
+    query Startup($id: String!) {
+      startup(id: $id) {
+        ...startupFields
+      }
+    }
+    ${fragments.startupFields}
+  `,
   startups: `
     query Startups {
       startups {
@@ -37,10 +68,10 @@ const query = {
   startupsCommunities: `
     query StartupsCommunities {
       startupsCommunities {
-        ...startupFields
+        ...communitiesFields
       }
     }
-    ${fragments.startupFields}
+    ${fragments.communitiesFields}
   `,
   startupsPage: `
     query StartupsPage($request: PageRequest!) {
@@ -57,7 +88,7 @@ const query = {
       }
     }
     ${downloadResultFields}
-  `
+  `,
 };
 
 const mutation = {

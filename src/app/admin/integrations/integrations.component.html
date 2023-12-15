@@ -1,0 +1,51 @@
+<div class="w-full flex flex-column">
+    <div class="flex flex-column xl:flex-row justify-content-between pt-3">
+        <div class="flex flex-column flex-grown-1 px-1 sm:px-3 md:px-4">
+            <h2>Zoom</h2>
+            <div style="height: 1.5rem"></div>
+            <div class="flex gap-2 align-items-center">
+                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                <p class="th2">Ingresa aquí tu clientId para integrar tu app zoom y permitir que los eventos realizados en los batch se puede programar rápidamente en zoom
+                </p>
+            </div>
+        </div>
+        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
+            <ng-container *ngIf="zoomIntegrationDone; else noZoomInt">
+                <span class="text-base font-semibold text-green-600	">Integración hecha</span>
+            </ng-container>
+            <ng-template #noZoomInt>
+                <span class="text-base font-semibold text-pink-500	"> Integración pendiente</span>
+            </ng-template>
+
+        </div>
+    </div>
+    <form [formGroup]="clientIntegrationZoom" class="w-full formgrid grid pt-3 px-1 sm:px-4 md:px-8">
+
+        <span class="w-full app-input-field field-h-1 field col-12">
+            <label htmlFor="namePhase">Email cuenta zoom</label>
+            <input pInputText id="namePhase" formControlName="email" class="inputfield field-full" placeholder="Ingresa el email de tu app zoom" />
+        </span>
+
+
+        <span class="w-full app-input-field field-h-1 field col-12">
+            <label htmlFor="namePhase">Account ID</label>
+            <input pInputText id="namePhase" formControlName="accountId" class="inputfield field-full" placeholder="Ingresa el account id de tu app zoom" />
+        </span>
+
+        <span class="w-full app-input-field field-h-1 field col-12">
+            <label htmlFor="namePhase">Client ID</label>
+            <input pInputText id="namePhase" formControlName="clientId" class="inputfield field-full" placeholder="Ingresa el client id de tu app zoom" />
+        </span>
+
+        <span class="w-full app-input-field field-h-1 field col-12">
+            <label htmlFor="namePhase">Client Secret</label>
+            <input pInputText id="namePhase" formControlName="clientSecret" class="inputfield field-full" placeholder="Ingresa el client secret de tu app zoom" />
+        </span>
+
+    </form>
+
+    <div class="flex align-items-center justify-content-center pt-3">
+        <p-button label="Integrar" (onClick)="saveChanges()" class="mt-4" [disabled]="clientIntegrationZoom.invalid || saving" [loading]="saving"></p-button>
+    </div>
+    <div style="height: 1.5rem;"></div>
+</div>

@@ -7,7 +7,7 @@
                     <span class="text-base">entradas</span>
                 </div>
                 <div class="right-side">
-                    tiempo
+
                 </div>
             </div>
             <div class="flex flex-column gap-3 mt-5">
@@ -26,7 +26,7 @@
                     <span class="text-base">entradas</span>
                 </div>
                 <div class="right-side">
-                    tiempo
+
                 </div>
             </div>
             <div class="flex flex-column gap-3 mt-5">
@@ -47,7 +47,7 @@
             <span class="capitalize text-xs">{{notification.dateString}}</span>
             <i class="pi pi-times cursor-pointer" (click)="action(notification, type)"></i>
         </div>
-        <div class="notification-info flex flex-row align-items-center gap-2  mt-3">
+        <div class="notification-info flex flex-row align-items-center gap-2  mt-3 cursor-pointer">
             <ng-container [ngSwitch]="notification.type">
                 <ng-container *ngSwitchCase="notificationTypes.calendar">
                     <i-tabler name="calendar-time" class="normal-color-icon"></i-tabler>
@@ -55,12 +55,14 @@
                 <ng-container *ngSwitchCase="notificationTypes.notes">
                     <i-tabler name="checklist" class="normal-color-icon"></i-tabler>
                 </ng-container>
-
                 <ng-container *ngSwitchCase="notificationTypes.approved">
                     <i-tabler name="checks" class="primary-color-icon"></i-tabler>
                 </ng-container>
                 <ng-container *ngSwitchCase="notificationTypes.homework">
                     <i-tabler name="clock-code" class="normal-color-icon"></i-tabler>
+                </ng-container>
+                <ng-container *ngSwitchCase="notificationTypes.rate">
+                    <i-tabler name="stars-filled" class="primary-color-icon"></i-tabler>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
                     <i-tabler name="bell-code" class="normal-color-icon"></i-tabler>

@@ -42,6 +42,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   clonedTypesEvents: { [s: string]: TypeEvent } = {};
   typesEvent$: Subscription;
 
+  textSummary = `Mostrando {first} a {last} de {totalRecords}`;
   phase: Phase;
   user: User;
 
@@ -54,7 +55,8 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   currentFilterFieldValue = '';
   tableData: ListedObject[] = [];
   list: ListedObject[];
-  dataArray;
+  listToFilter: ListedObject[];
+  dataArray = [];
 
   ref: DynamicDialogRef | undefined;
   @ViewChild('dt') dataTableRef: Table;
@@ -102,7 +104,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
-    this.loaded = true;
+    this.loaded = false;
     this.service
       .watchTypesEvents()
       .then((typesEvent$) => {
@@ -147,6 +149,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
   }
 
   preloadTableItems() {
+    this.loaded = false;
     this.list = [];
     this.events.forEach((ev) => {
       const diffInMinutes = Math.abs(differenceInMinutes(ev.endAt, ev.startAt));
@@ -176,7 +179,13 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
         durationString: duration,
       });
     });
-    this.list = [...this.list];
+    this.listToFilter = [...this.list];
+    if (this.listToFilter.length === 0) {
+      for (const iterator of this.dataArray) {
+        iterator.array = [];
+      }
+    }
+    this.loaded = true;
   }
 
   resetCreatorEventType() {
@@ -280,6 +289,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
               summary: 'Evento eliminado!',
               life: 2000,
             });
+
             // if (this.dataArray) {
             //   for (const page of this.dataArray) {
             //     page.array = [
@@ -362,11 +372,12 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   showEvent(event?: Event) {
     this.ref = this.dialogService.open(EventCreatorComponent, {
-      header: 'Evento',
+      header: '',
       width: '70%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       maximizable: true,
+      maskStyleClass: 'dialog-app',
       data: {
         event,
         batch: this.phase,
@@ -385,11 +396,12 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   showActa(event: Event) {
     this.ref = this.dialogService.open(ActaComponent, {
-      header: 'Acta',
+      header: '',
       width: '70%',
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
       maximizable: true,
+      maskStyleClass: 'dialog-app',
       data: {
         event,
         phase: this.phase,

@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   recoverPsw = new FormControl(null, [Validators.email]);
   rememberPsw = false;
   blockSpace: RegExp = /[^s]/;
-  footerText = 'Startup factory - All rights reserved 2023 ©';
+  footerText = 'Ecosystem - All rights reserved 2023 ©';
   loading = false;
   get formControls() {
     return this.loginForm.controls;
@@ -96,6 +96,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         return;
       })
       .catch((err) => {
+        this.loading = false;
         this.authService.fireAuthError(
           err.code,
           err.message,

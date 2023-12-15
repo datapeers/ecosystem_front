@@ -108,7 +108,7 @@ export class TableSelectDialogComponent {
           });
           return;
         }
-        this.applySelection(selected, pageRequest);
+        this.applySelection(element, pageRequest);
         break;
       case 'close':
         this.close();

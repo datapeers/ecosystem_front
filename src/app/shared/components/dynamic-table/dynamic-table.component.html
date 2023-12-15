@@ -1,19 +1,22 @@
-<div #tableWrapper class="table-container overflow-hidden" [ngClass]="{ 'fullscreen': fullscreen }">
+<div #tableWrapper class="table-container overflow-hidden " [ngClass]="{ 'fullscreen': fullscreen }">
   <p-menu #rowMenu [model]="rowMenuItems" [popup]="true" appendTo="body"></p-menu>
-  <app-config-selector *ngIf="configs" [options]="configs" [config]="config" (configChange)="onConfigChange.next($event)" (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
-  <p-table [columns]="config?.columns ?? []" (onColReorder)="columnReorder($event)" [ngStyle]="{ 'height': scrollHeight + 'px'}" [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id" [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($any($event))" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [rows]="25" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true" [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords" (onRowSelect)="onRowSelected($event)" (onRowUnselect)="onRowUnselected($event)" styleClass="p-datatable-sm app-table" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($any($event))">
-    <ng-template pTemplate="caption">
+  <ng-container *ngIf="configs && !options.hideMultipleFiltersTable">
+    <div style="height: 10px"></div>
+    <app-config-selector [options]="configs" [config]="config" (configChange)="onConfigChange.next($event)" (onAdd)="createNewConfigForTable($event)" (onRemove)="deleteTableConfig($event)"></app-config-selector>
+  </ng-container>
+  <p-table class="dynamic-table" [columns]="config?.columns ?? []" (onColReorder)="columnReorder($event)" [reorderableColumns]="true" #dt [value]="data" [(first)]="page" dataKey="_id" [showCurrentPageReport]="true" (onHeaderCheckboxToggle)="onSelectAll($any($event))" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" [filterDelay]="2" [(selection)]="selected" [rowHover]="true" [loading]="loading || downloading" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll" [totalRecords]="totalRecords" (onRowSelect)="onRowSelected($event)" (onRowUnselect)="onRowUnselected($event)" paginatorDropdownAppendTo="body" [lazy]="lazy" (onLazyLoad)="lazyLoadDebouncer.next($any($event))">
+    <ng-template pTemplate="caption" *ngIf="!options.hideCaption">
       <div class="table-header">
-        <span class="header color-custom">{{title}}</span>
+        <span class="header text-primary	">{{title}}</span>
         <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
-          <span class="p-input-icon-left">
+          <span class="p-input-icon-right search placeholder-bold">
             <i class="pi pi-search"></i>
             <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
           </span>
           <ng-container>
             <ng-container *ngIf="actionsMenu?.length > 0">
               <div>
-                <p-button #actionButton styleClass="p-button-outlined" type="button" icon="pi pi-angle-down" [iconPos]="'right'" label="Acciones" (onClick)="actionsTable.toggle($event)"></p-button>
+                <p-button #actionButton styleClass="p-button-outlined button-yellow-second" type="button" icon="pi pi-angle-down" [iconPos]="'right'" label="Acciones" (onClick)="actionsTable.toggle($event)"></p-button>
                 <p-tieredMenu appendTo="body" #actionsTable [popup]="true" [model]="actionsMenu"></p-tieredMenu>
               </div>
             </ng-container>
@@ -29,7 +32,7 @@
               </ng-template>
             </ng-container>
           </ng-container>
-          <p-button *ngIf="allowFullscreen" [pTooltip]="(fullscreen ? 'Cancelar' : 'Pantalla completa')" tooltipPosition="top" (onClick)="setFullscreen()" [icon]="fullscreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'"></p-button>
+          <p-button *ngIf="allowFullscreen" [pTooltip]="(fullscreen ? 'Cancelar' : 'Pantalla completa')" tooltipPosition="top" (onClick)="setFullscreen()" [icon]="fullscreen ? 'pi pi-window-minimize' : 'pi pi-window-maximize'" styleClass="button-grey"></p-button>
         </div>
       </div>
     </ng-template>
@@ -163,6 +166,9 @@
           </ng-container>
         </ng-template>
       </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <span>{{paginatorRightMsg()}}</span>
     </ng-template>
   </p-table>
 

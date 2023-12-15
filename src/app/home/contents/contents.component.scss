@@ -9,116 +9,151 @@
   justify-content: space-between;
   // align-items: stretch;
   // align-content: stretch;
+}
 
-  .navigation-panel {
-    // width: 32rem !important;
-    padding: 0 1.875rem;
+.navigation-panel {
+  // width: 32rem !important;
+  padding: 0 1.875rem;
+  align-items: stretch;
+  border-radius: 3.125rem !important;
+  @media (max-width: 1280px) {
+    padding: 0 1rem;
+  }
+  @media (max-width: 680px) {
+    padding: 0;
+  }
+  .direction-btn {
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: 0;
+    color: #495057;
+    background-color: var(--app-backgrounds);
+    border-radius: 25%;
+    padding: 0.5625rem;
+    stroke-width: 2.5px;
+  }
+  .phase-column {
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    align-content: stretch;
-    border-radius: 3.125rem !important;
-    .direction-btn {
-      height: 2.5rem;
-      width: 2.5rem;
-      cursor: pointer;
-      border: 1px solid transparent;
-      outline: 0;
-      color: #495057;
-      background-color: var(--app-backgrounds);
-      border-radius: 25%;
-      padding: 0.5625rem;
-      stroke-width: 2.5px;
+    flex-direction: column;
+    height: 100%;
+    .navigation-controls {
+      width: 6.875rem;
     }
-    .phase-column {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      .navigation-controls {
-        width: 6.875rem;
+    .phase-display {
+      border-radius: 2rem;
+      .title-sprint {
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
       }
-      .phase-display {
-        border-radius: 2rem;
-        .title-sprint {
-          writing-mode: vertical-lr;
-          transform: rotate(180deg);
-        }
 
-        .icon-stage {
-          width: 5rem;
-          height: 5rem;
-          border: 1px solid transparent;
-          outline: 0;
-          color: white;
-          border-radius: 25%;
-          stroke-width: 1px;
-          padding: 1rem;
-        }
-      }
-    }
-
-    .navigation-contents {
-      display: flex;
-      flex-direction: column;
-      margin: 0 0 0 2rem;
-      .lines-done {
-        margin: -2.5rem 0 -2.5rem 12px;
-        border-left: 2px solid $appColorFive;
-        height: 5.5rem;
-        width: 2rem;
-        z-index: 0;
-      }
-      .lines-pending {
-        margin: -2.5rem 0 -2.5rem 0.5rem;
-        border-left: 2px solid $appText;
-        height: 5.5rem;
-        width: 2rem;
-        z-index: 0;
-      }
-      .row {
-        .icon-state {
-          color: white;
-          border-radius: 50%;
-          padding: 0.25rem;
-          width: 1.5rem;
-          height: 1.5rem;
-          z-index: 1;
-        }
-        .h-line {
-          border: none;
-          height: 1px;
-          width: 1rem;
-        }
-        .card-content {
-          padding: 1.25rem 1.875rem;
-          width: 16rem;
-          height: 5rem;
-          border-radius: 1rem;
-          background-color: var(--app-backgrounds);
-          cursor: pointer;
-          .card-state-content {
-            color: $appTextThree;
-          }
-        }
+      .icon-stage {
+        width: 5rem;
+        height: 5rem;
+        border: 1px solid transparent;
+        outline: 0;
+        color: white;
+        border-radius: 25%;
+        stroke-width: 1px;
+        padding: 1rem;
       }
     }
   }
 
-  .display-content {
-    width: 100%;
-    .state-content {
-      width: 8.5625rem;
-      height: 2.5rem;
+  .navigation-contents {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 2rem;
+    @media (max-width: 1280px) {
+      margin: 0 0 0 1rem;
     }
+    @media (max-width: 680px) {
+      margin: 0 0 0 0.5rem;
+    }
+    .lines-done {
+      margin: -2.5rem 0 -2.5rem 12px;
+      border-left: 2px solid $appColorFive;
+      height: 5.5rem;
+      width: 2rem;
+      z-index: 0;
+      @media (max-width: 1280px) {
+        width: 1.5rem;
+      }
+      @media (max-width: 680px) {
+        width: 1rem;
+      }
+    }
+    .lines-pending {
+      margin: -2.5rem 0 -2.5rem 0.5rem;
+      border-left: 2px solid $appText;
+      height: 5.5rem;
+      width: 2rem;
+      z-index: 0;
+      @media (max-width: 1280px) {
+        width: 1.5rem;
+      }
+      @media (max-width: 680px) {
+        width: 1rem;
+      }
+    }
+    .row {
+      .icon-state {
+        color: white;
+        border-radius: 50%;
+        padding: 0.25rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        z-index: 1;
+      }
+      .h-line {
+        border: none;
+        height: 1px;
+        width: 1rem;
+        @media (max-width: 1280px) {
+          margin: 0;
+        }
+      }
+      .card-content {
+        padding: 1.25rem 1.875rem;
+        width: 16rem;
+        height: 5rem;
+        border-radius: 1rem;
+        background-color: var(--app-backgrounds);
+        cursor: pointer;
+        .card-state-content {
+          color: $appTextThree;
+        }
+        @media (max-width: 1280px) {
+          padding: 1rem 1.5rem;
+          width: 14rem;
+        }
+        @media (max-width: 680px) {
+          padding: 0.25rem 1.275rem;
+          width: 10rem;
+        }
+      }
+    }
+  }
+}
 
-    .completed-btn {
-      width: 16rem !important;
-      height: 3.4375rem !important;
+.display-content {
+  width: 100%;
+  .state-content {
+    width: 8.5625rem;
+    height: 2.5rem;
+  }
+
+  .completed-btn {
+    @media (max-width: 576px) {
+      width: auto !important;
+      height: auto !important;
+      font-size: 0.65rem;
     }
-    ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
-      border-color: $appColorSeven;
-      background-color: $appColorSeven;
-    }
+  }
+  ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+    border-color: $appColorSeven;
+    background-color: $appColorSeven;
   }
 }
 
@@ -145,53 +180,16 @@
   visibility: visible;
 }
 
-// ? Dialog homeworks
-::ng-deep .homework-dialog {
-  border-radius: 3.125rem !important;
-  .p-dialog .p-dialog-content {
-    padding: 0 0 2rem 0;
-  }
+.date-resource-display {
+  width: 10.875rem;
+  border-radius: 2.5rem;
+  background-color: $appColorEight;
+  color: $appColorSeven;
+}
 
-  .info-resource {
-    color: $appTextTwo;
-    font-weight: 600;
-  }
-  .icon-resource {
-    width: 7.375rem !important;
-    height: 7.375rem !important;
-    padding: 2.225rem;
-    background-color: $appColorEight;
-    color: $appColorSeven;
-    border-top-right-radius: 1.25rem;
-    border-bottom-right-radius: 1.25rem;
-  }
-
-  .date-resource-display {
-    width: 10.875rem;
-    border-radius: 2.5rem;
-    background-color: $appColorEight;
-    color: $appColorSeven;
-  }
-
-  .type-resource-display {
-    border-radius: 2.5rem;
-    background-color: $appColorSix;
-    color: $appColorFive;
-  }
-
-  .navigation-btn-resource {
-    border-radius: 0.625rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0.625rem;
-    cursor: pointer;
-    border: 1px solid transparent;
-    outline: 0;
-    color: #495057;
-    background-color: var(--app-backgrounds);
-  }
-
-  .separator-resource {
-    background-color: $appText;
-  }
+.type-resource-display {
+  border-radius: 2.5rem;
+  padding: 0.5rem 1rem;
+  background-color: $appColorSix;
+  color: $appColorFive;
 }

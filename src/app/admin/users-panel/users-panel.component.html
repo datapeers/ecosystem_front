@@ -1,65 +1,71 @@
-<p-table class="overflow-hidden shadow-elevated border-round-lg" #dt [value]="users" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuarios" [filterDelay]="0" [globalFilterFields]="filterFields">
-  <ng-template pTemplate="caption">
-    <div class="flex flex-row justify-content-between align-items-center">
-      <div class="text-2xl">
-        <span class="pl-2 font-semibold">Usuarios</span>
-      </div>
-      <div class="flex flex-row gap-2">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
-        </span>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="header">
-    <tr>
-      <th *ngFor="let column of columns" [pSortableColumn]="column.field" [pTooltip]="column.tooltip" tooltipPosition="top">
-        <div class="flex flex-row gap-2 align-items-center">
-          <span>{{column.name}}</span>
-          <p-sortIcon style="min-width: min-content; display: flex;" [field]="column.field"></p-sortIcon>
+<div #tableWrapper class="table-container-app">
+  <p-table class="table-app w-full" #dt [value]="users" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuarios" [filterDelay]="0" [globalFilterFields]="filterFields" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+    <ng-template pTemplate="caption">
+      <div class="flex flex-row justify-content-between align-items-center">
+        <div class="text-2xl">
+          <span class="pl-2 font-semibold">Usuarios</span>
         </div>
-      </th>
-      <th style="width: 3rem"></th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-userRow>
-    <tr class="p-selectable-row">
-      <td>
-        <span class="white-space-nowrap">{{userRow.fullName}}</span>
-      </td>
-      <td>
-        <span class="white-space-nowrap">{{userRow.email}}</span>
-      </td>
-      <td>
-        <span class="white-space-nowrap">{{userRow.rolName}}</span>
-      </td>
-      <td>
-        <span class="white-space-nowrap">{{userRow.createdAt | date}}</span>
-      </td>
-      <td>
-        <span class="white-space-nowrap">{{userRow.updatedAt | date}}</span>
-      </td>
-      <td>
-        <span class="white-space-nowrap">{{userRow.isActive ? 'Si':'No'}}</span>
-      </td>
-      <td>
-        <span class="white-space-nowrap">{{userRow.passwordSet ? 'Si':'No'}}</span>
-      </td>
-      <td>
-        <span class="white-space-nowrap">{{userRow.uid}}</span>
-      </td>
-      <td style="width: 3rem" class="frozen-column" (click)="$event.stopPropagation();" *ngIf="editPermission.includes(userRow.rolType)">
-        <i class="pi pi-ellipsis-v text-primary cursor-pointer" pTooltip="Opciones" tooltipPosition="left" style="font-size: 1rem" (click)="menuOptUser.toggle($event); rowInteract = userRow"></i>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="emptymessage">
-    <tr>
-      <td colspan="8">No hay usuarios.</td>
-    </tr>
-  </ng-template>
-</p-table>
+        <div class="flex flex-row gap-2">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+          </span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let column of columns" [pSortableColumn]="column.field" [pTooltip]="column.tooltip" tooltipPosition="top">
+          <div class="flex flex-row gap-2 align-items-center">
+            <span>{{column.name}}</span>
+            <p-sortIcon style="min-width: min-content; display: flex;" [field]="column.field"></p-sortIcon>
+          </div>
+        </th>
+        <th style="width: 3rem"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-userRow>
+      <tr class="p-selectable-row">
+        <td>
+          <span class="white-space-nowrap">{{userRow.fullName}}</span>
+        </td>
+        <td>
+          <span class="white-space-nowrap">{{userRow.email}}</span>
+        </td>
+        <td>
+          <span class="white-space-nowrap">{{userRow.rolName}}</span>
+        </td>
+        <td>
+          <span class="white-space-nowrap">{{userRow.createdAt | date}}</span>
+        </td>
+        <td>
+          <span class="white-space-nowrap">{{userRow.updatedAt | date}}</span>
+        </td>
+        <td>
+          <span class="white-space-nowrap">{{userRow.isActive ? 'Si':'No'}}</span>
+        </td>
+        <td>
+          <span class="white-space-nowrap">{{userRow.passwordSet ? 'Si':'No'}}</span>
+        </td>
+        <td>
+          <span class="white-space-nowrap">{{userRow.uid}}</span>
+        </td>
+        <td style="width: 3rem" class="frozen-column" (click)="$event.stopPropagation();" *ngIf="editPermission.includes(userRow.rolType)">
+          <i class="pi pi-ellipsis-v text-primary cursor-pointer" pTooltip="Opciones" tooltipPosition="left" style="font-size: 1rem" (click)="menuOptUser.toggle($event); rowInteract = userRow"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">No hay usuarios.</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright">
+      <span>{{paginatorRightMsg()}}</span>
+    </ng-template>
+  </p-table>
+</div>
+
 
 
 <p-menu #menuOptUser [model]="menuUser" [popup]="true" appendTo="body"></p-menu>

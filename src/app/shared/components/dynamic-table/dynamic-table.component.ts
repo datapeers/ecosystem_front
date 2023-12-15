@@ -10,7 +10,16 @@ import {
 import { LazyLoadEvent, MenuItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { BehaviorSubject, Subject, debounceTime, filter, firstValueFrom, skip, take, takeUntil } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subject,
+  debounceTime,
+  filter,
+  firstValueFrom,
+  skip,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { DynamicTableService } from './dynamic-table.service';
 import { TableExportFormats } from './models/table-export-formats.enum';
 import { TableAction, TableActionEvent } from './models/table-action';
@@ -26,6 +35,7 @@ import { TableContext } from './models/table-context';
 import { requestUtilities } from '@shared/utils/request.utils';
 import { PageRequest } from '@shared/models/requests/page-request';
 import { ExcelService } from '../../services/excel.service';
+import { Paginator } from 'primeng/paginator';
 
 @Component({
   selector: 'app-dynamic-table',
@@ -35,7 +45,7 @@ import { ExcelService } from '../../services/excel.service';
 export class DynamicTableComponent {
   @Input() set context(value: TableContext) {
     this.onContextChange.next(value);
-  };
+  }
   get context(): TableContext {
     return this.onContextChange.getValue();
   }
@@ -103,28 +113,30 @@ export class DynamicTableComponent {
     private readonly excelService: ExcelService
   ) {
     // Table Config
-    this.onConfigChange.pipe(
-      filter((config) => config !== null && config !== undefined),
-      takeUntil(this.onDestroy$)
-    ).subscribe((newConfig) => this.handleConfigChange(newConfig));
-  
+    this.onConfigChange
+      .pipe(
+        filter((config) => config !== null && config !== undefined),
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe((newConfig) => this.handleConfigChange(newConfig));
+
     // Lazy loading
     this.lazyLoadDebouncer
-    .pipe(
-      debounceTime(400),
-      takeUntil(this.onDestroy$)
-    ).subscribe(lazyLoadEvent => this.handleLazyLoadChange(lazyLoadEvent));
+      .pipe(debounceTime(400), takeUntil(this.onDestroy$))
+      .subscribe((lazyLoadEvent) => this.handleLazyLoadChange(lazyLoadEvent));
 
     // Set as lazy if the provider can handle lazy loading
     this.lazy = !!this.documentProvider.getDocumentsPage;
-    
+
     // Action callbacks
     this.setupCallbacks();
   }
 
   setupCallbacks() {
     this.clearCache$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
-      if(this.documentProvider.clearCache) { this.documentProvider.clearCache(); }
+      if (this.documentProvider.clearCache) {
+        this.documentProvider.clearCache();
+      }
     });
 
     this.refresh$.pipe(takeUntil(this.onDestroy$)).subscribe(async () => {
@@ -133,13 +145,13 @@ export class DynamicTableComponent {
   }
 
   handleLazyLoadChange(lazyLoadEvent: LazyLoadEvent) {
-    if(!this.config) return;
+    if (!this.config) return;
     this.lastLazyEvent = cloneDeep({
       ...lazyLoadEvent,
       filters: {
         ...lazyLoadEvent.filters,
         ...this.context.defaultFilters,
-      }
+      },
     });
     Object.freeze(this.lastLazyEvent);
     this.onLazyLoad.emit(this.lastLazyEvent);
@@ -154,14 +166,14 @@ export class DynamicTableComponent {
       this.dt.filters = filters ? cloneDeep(filters) : {};
       this.dt.sortField = sortField ?? '';
       this.dt.sortOrder = sortOrder;
-      if(this.lazy) {
+      if (this.lazy) {
         this.lazyLoadDebouncer.next(this.dt.createLazyLoadMetadata());
       }
     } else {
       // Reset filters trigger a new lazy load event
       this.resetFilters();
     }
-    if(!this.lazy) {
+    if (!this.lazy) {
       // If lazy load is not enabled the config change should be enough to setup the table again.
       this.setupTable();
     }
@@ -171,7 +183,7 @@ export class DynamicTableComponent {
     await this.buildTable();
     this.loading = true;
     this.setOptions();
-    this.setGlobalFilter();
+
     this.validateHeight();
     this.loading = false;
   }
@@ -189,15 +201,20 @@ export class DynamicTableComponent {
     if (!document.fullscreenElement && this.fullscreen) {
       this.fullscreen = false;
     }
-    this.validateHeight();
+    let resizeTimeout;
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      this.validateHeight();
+    }, 250);
   }
 
   validateHeight() {
     let availableHeight: number;
     availableHeight = this.wrapper.nativeElement.offsetHeight;
     availableHeight -= this.header ? this.header.scrollHeight : 0;
-    availableHeight -= this.footer ? this.footer.scrollHeight : 0;
-    const tabViewHeight = 50;
+    availableHeight -= this.footer ? this.footer.scrollHeight + 24 : 0;
+    const tabViewHeight =
+      this.configs && !this.options.hideMultipleFiltersTable ? 60 : 0;
     const finalHeight = availableHeight - tabViewHeight;
     const minHeight = 300;
     const height = Math.max(finalHeight, minHeight);
@@ -205,12 +222,14 @@ export class DynamicTableComponent {
   }
 
   ngOnInit(): void {
-    this.onContextChange.pipe(
-      takeUntil(this.onDestroy$),
-      filter(context => context != null)
-    ).subscribe((_) => {
-      this.initComponent();
-    });
+    this.onContextChange
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((context) => context != null)
+      )
+      .subscribe((_) => {
+        this.initComponent();
+      });
   }
 
   ngAfterViewInit() {
@@ -233,52 +252,63 @@ export class DynamicTableComponent {
   }
 
   async buildTable() {
-    if(this.lazy) {
-      const lazyEvent = this.lastLazyEvent ?? this.dt.createLazyLoadMetadata();
-      const invalidKeys = ["_id"];
-      const globalFilterKeys = this.config.columns
+    const invalidKeys = ['_id'];
+    const globalFilterKeys = this.config.columns
       .filter((c) => !invalidKeys.some((invalidKey) => invalidKey == c.key))
       .map((c) => c.key);
-      const pageRequest = requestUtilities.parseTableOptionsToRequest(lazyEvent, globalFilterKeys);
+    if (this.lazy) {
+      const lazyEvent = this.lastLazyEvent ?? this.dt.createLazyLoadMetadata();
+      const pageRequest = requestUtilities.parseTableOptionsToRequest(
+        lazyEvent,
+        globalFilterKeys
+      );
       this.onPageRequest$.next(pageRequest);
-      const pageResult = await this.documentProvider.getDocumentsPage(this.context.data, pageRequest);
+      const pageResult = await this.documentProvider.getDocumentsPage(
+        this.context.data,
+        pageRequest
+      );
       this.rawData = pageResult.documents;
       this.totalRecords = pageResult.totalRecords;
     } else {
-      this.rawData = await this.documentProvider.getDocuments(this.context.data);
+      this.rawData = await this.documentProvider.getDocuments(
+        this.context.data
+      );
+      this.globalFilter = globalFilterKeys;
     }
     this.setRows(this.config.columns, this.rawData);
   }
 
   async initConfiguration() {
     const tableChanges = this.service.getTable(this.context.locator);
-    tableChanges.pipe(
-      // Cancel subscription if parent subscription emits a value
-      // Skip(1) because subscription has initial value
-      takeUntil(this.onContextChange.pipe(skip(1))),
-      takeUntil(this.onDestroy$),
-    ).subscribe(async entity => {
-      this.entity = entity;
-      if (!this.entity) {
-        this.entity = await this.service.createTable(
-          this.context.locator,
-          this.context.form
-        );
-      }
-      this.service
-        .getTableConfigs(this.entity._id)
-        .pipe(
-          // Cancel subscription if parent subscription emits a value
-          // Skip(1) because subscription has initial value
-          takeUntil(tableChanges.pipe(skip(1))),
-          takeUntil(this.onDestroy$),
-        )
-        .subscribe((configs) => {
-          this.configs = cloneDeep(configs);
-          const defaultConfig = this.configs[0];
-          this.onConfigChange.next(defaultConfig);
-        });
-    });
+    tableChanges
+      .pipe(
+        // Cancel subscription if parent subscription emits a value
+        // Skip(1) because subscription has initial value
+        takeUntil(this.onContextChange.pipe(skip(1))),
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe(async (entity) => {
+        this.entity = entity;
+        if (!this.entity) {
+          this.entity = await this.service.createTable(
+            this.context.locator,
+            this.context.form
+          );
+        }
+        this.service
+          .getTableConfigs(this.entity._id)
+          .pipe(
+            // Cancel subscription if parent subscription emits a value
+            // Skip(1) because subscription has initial value
+            takeUntil(tableChanges.pipe(skip(1))),
+            takeUntil(this.onDestroy$)
+          )
+          .subscribe((configs) => {
+            this.configs = cloneDeep(configs);
+            const defaultConfig = this.configs[0];
+            this.onConfigChange.next(defaultConfig);
+          });
+      });
   }
 
   includeCommand(action: TableAction, actionHandler): TableAction {
@@ -320,8 +350,11 @@ export class DynamicTableComponent {
     );
     if (this.options.showConfigButton) {
       this.featuredActions.push({
-        label: 'Configurar tabla',
+        label: '',
+        tooltip: 'Configurar tabla',
         icon: 'pi pi-cog',
+        class: 'button-grey',
+        styleClass: 'button-grey',
         command: () => {
           this.openConfigDialog();
         },
@@ -352,8 +385,11 @@ export class DynamicTableComponent {
     if (this.options.showConfigButton) {
       if (this.featuredActions.length == 0) {
         this.featuredActions.push({
-          label: 'Configurar tabla',
+          label: '',
+          tooltip: 'Configurar tabla',
           icon: 'pi pi-cog',
+          class: 'button-grey',
+          styleClass: 'button-grey',
           command: () => {
             this.openConfigDialog();
           },
@@ -362,6 +398,8 @@ export class DynamicTableComponent {
         this.actionsMenu.push({
           label: 'Configurar tabla',
           icon: 'pi pi-cog',
+          // class: 'button-grey',
+          // styleClass: 'button-grey',
           command: () => {
             this.openConfigDialog();
           },
@@ -371,6 +409,7 @@ export class DynamicTableComponent {
         label: '',
         tooltip: 'Guardar filtros',
         icon: 'pi pi-filter',
+        styleClass: 'button-grey',
         command: () => {
           this.saveCurrentFilters();
         },
@@ -378,6 +417,7 @@ export class DynamicTableComponent {
       const filterAction = {
         label: 'Filtros y orden',
         icon: 'pi pi-filter',
+        // styleClass: 'button-grey',
         items: [
           {
             label: 'Guardar',
@@ -398,18 +438,20 @@ export class DynamicTableComponent {
       this.actionsMenu.push(filterAction);
     }
 
-    if(this.documentProvider.deleteDocuments) {
+    if (this.documentProvider.deleteDocuments) {
       const noRowsSelected = () => !this.selected.length;
       this.actionsMenu.push({
-        action: "delete",
+        action: 'delete',
         label: 'Eliminar registros',
         icon: 'pi pi-trash',
         disabled: noRowsSelected(),
         disableOn: noRowsSelected,
         command: async () => {
-          const selectedDocumentsIds = this.selected.map(doc => doc._id);
-          const result = await this.documentProvider.deleteDocuments(selectedDocumentsIds);
-          if(result.acknowledged) {
+          const selectedDocumentsIds = this.selected.map((doc) => doc._id);
+          const result = await this.documentProvider.deleteDocuments(
+            selectedDocumentsIds
+          );
+          if (result.acknowledged) {
             this.clearCache$.next();
             this.refresh$.next();
           }
@@ -514,20 +556,22 @@ export class DynamicTableComponent {
   }
 
   async handleServerDownload(format: TableExportFormats) {
-    if(!this.documentProvider.requestDownload) return;
+    if (!this.documentProvider.requestDownload) return;
     const result = await this.documentProvider.requestDownload({
       request: this.onPageRequest$.value,
       configId: this.config._id,
       format: format,
     });
-    window.open(result.url, "_blank");
+    window.open(result.url, '_blank');
   }
 
   handleLocalDownload(format: TableExportFormats) {
-    
     //Preparing data for download
     this.downloading = true;
-    let toExport = this.selected.length > 0 ? this.selected : this.dt.filteredValue ?? this.data;
+    let toExport =
+      this.selected.length > 0
+        ? this.selected
+        : this.dt.filteredValue ?? this.data;
     if (!this.config.columns.find((i) => i.key === '_id')) {
       toExport = toExport.map((i) => {
         const newItem = { ...i };
@@ -571,11 +615,11 @@ export class DynamicTableComponent {
 
   updateActions() {
     this.selection.emit(this.dt.selection);
-    this.actionsMenu = this.actionsMenu.map(action => {
-      if(action.disableOn) {
+    this.actionsMenu = this.actionsMenu.map((action) => {
+      if (action.disableOn) {
         return {
           ...action,
-          disabled: action.disableOn()
+          disabled: action.disableOn(),
         };
       }
       return action;
@@ -624,12 +668,13 @@ export class DynamicTableComponent {
   openConfigDialog() {
     const ref = this.dialogService.open(TableConfigComponent, {
       header: 'Configuración',
-      modal: false,
+      modal: true,
       width: '100vw',
       height: '100vh',
       //Required for drag and drop to work properly on primeng components inside dialogs
-      autoZIndex: false,
-      baseZIndex: 999,
+      // autoZIndex: false,
+      // baseZIndex: 999,
+      // appendTo: 'body',
       data: {
         table: this.entity,
         tableConfig: this.config,
@@ -654,5 +699,11 @@ export class DynamicTableComponent {
       changes
     );
     this.onConfigChange.next(updatedConfig);
+  }
+
+  paginatorRightMsg() {
+    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }`;
   }
 }

@@ -6,6 +6,8 @@ import {
   Subscription,
   combineLatest,
   filter,
+  firstValueFrom,
+  take,
 } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastService } from '@shared/services/toast.service';
@@ -24,7 +26,8 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import { User } from './models/user';
 import { ExpertsService } from '@shared/services/experts/experts.service';
 import { EntrepreneursService } from '@shared/services/entrepreneurs/entrepreneurs.service';
-import { NotificationService } from '../notification/notification.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TermsDialogComponent } from '@shared/components/terms-dialog/terms-dialog.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -36,6 +39,7 @@ export class AuthService {
 
   renewToken$: Subject<void> = new Subject();
   renewTimer: any;
+  ref: DynamicDialogRef | undefined;
   constructor(
     public fireAuth: AngularFireAuth,
     public toast: ToastService,
@@ -44,7 +48,7 @@ export class AuthService {
     private userService: UserService,
     private readonly expertsService: ExpertsService,
     private readonly entrepreneursService: EntrepreneursService,
-    private readonly notificationService: NotificationService
+    public dialogService: DialogService
   ) {
     this.authStatusListener();
     // Renew token subscription
@@ -100,16 +104,8 @@ export class AuthService {
         if (instanceUser.isUser) {
           this.entrepreneurDoc(instanceUser);
         }
-        this.listenNotifications(
-          this.notificationService.listenNotificationSubscription(
-            credential.uid
-          )
-        );
         this.authStatusSub.next(true);
       } else {
-        if (this.notificationSubscription) {
-          this.notificationSubscription.unsubscribe();
-        }
         this.authStatusSub.next(null);
       }
     });
@@ -142,6 +138,7 @@ export class AuthService {
   }
 
   signOut() {
+    localStorage.clear();
     sessionStorage.clear();
     this.store.dispatch(new ClearAuthStoreAction());
     this.fireAuth.signOut();
@@ -211,8 +208,8 @@ export class AuthService {
           .then(() => {
             // The user's password has been successfully updated
             this.toast.success({
-              summary: 'Exitó',
-              detail: 'Contraseña actualizada con exito',
+              summary: 'Éxito',
+              detail: 'Contraseña actualizada con éxito',
             });
           })
           .catch((error) => {
@@ -236,15 +233,50 @@ export class AuthService {
 
   async expertDoc(user: User) {
     const doc = await this.expertsService.getUserDoc(user);
+    if (!user.relationsAssign.expertFull && doc) {
+      await this.userService.updateUser(user._id, {
+        relationsAssign: { ...user.relationsAssign, expertFull: true },
+      });
+      user.relationsAssign = { ...user.relationsAssign, expertFull: true };
+    }
     if (!doc) {
       this.toast.clear();
       this.toast.alert({
         summary: 'No se puede continuar',
         detail:
-          'Debes tener una ficha de experto para operar dentro de StartUp Factory',
+          'Debes tener una ficha de experto para operar dentro de Ecosystem',
       });
       this.signOut();
       return;
+    }
+
+    if (!user.relationsAssign.termsAccepted) {
+      const ref = this.dialogService.open(TermsDialogComponent, {
+        header: ``,
+        width: '55vw',
+        maskStyleClass: 'dialog-app',
+        data: {
+          expert: doc,
+          user,
+        },
+      });
+      const accepted = await firstValueFrom(ref.onClose.pipe(take(1)));
+      if (!accepted.hoursDonated) {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'No se puede continuar',
+          detail:
+            'Debes aceptar los términos de uso, y asignar unas horas a donar para operar dentro de Ecosystem',
+        });
+        this.signOut();
+        return;
+      } else {
+        user.relationsAssign = {
+          ...user.relationsAssign,
+          termsAccepted: true,
+          hoursDonated: accepted.hoursDonated,
+        };
+      }
     }
     this.store.dispatch(new SetProfileDocAction(doc));
     return;
@@ -257,7 +289,7 @@ export class AuthService {
       this.toast.alert({
         summary: 'No se puede continuar',
         detail:
-          'Debes tener una ficha de experto para operar dentro de StartUp Factory',
+          'Debes tener una ficha de experto para operar dentro de Ecosystem',
       });
       this.signOut();
       return;

@@ -43,6 +43,9 @@ export class User implements IUser {
   get isAdmin() {
     return this.rol.type === ValidRoles.admin;
   }
+  get isTeamCoach() {
+    return this.rol.type === ValidRoles.teamCoach;
+  }
   get isExpert() {
     return this.rol.type === ValidRoles.expert;
   }
@@ -71,4 +74,7 @@ interface IRelationsUser {
   phases: { _id: string; name: string }[];
   batches: { _id: string; name: string }[];
   startups: { _id: string; name: string }[];
+  expertFull?: boolean;
+  termsAccepted?: boolean;
+  hoursDonated?: number;
 }

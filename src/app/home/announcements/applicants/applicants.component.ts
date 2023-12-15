@@ -4,7 +4,10 @@ import { Store } from '@ngrx/store';
 import { tableLocators } from '@shared/components/dynamic-table/locators';
 import { DocumentProvider } from '@shared/components/dynamic-table/models/document-provider';
 import { TableActionEvent } from '@shared/components/dynamic-table/models/table-action';
-import { TableConfig } from '@shared/components/dynamic-table/models/table-config';
+import {
+  TableColumnType,
+  TableConfig,
+} from '@shared/components/dynamic-table/models/table-config';
 import { TableContext } from '@shared/components/dynamic-table/models/table-context';
 import { TableOptions } from '@shared/components/dynamic-table/models/table-options';
 import { FormService } from '@shared/form/form.service';
@@ -22,6 +25,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApplicantState } from '../model/applicant-state';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
+import { applicantStates } from 'src/app/public/landing/landing.component';
+import { ApplicantSelectDialogComponent } from './applicant-select-dialog/applicant-select-dialog.component';
 
 @Component({
   selector: 'app-applicants',
@@ -56,11 +61,17 @@ export class ApplicantsComponent {
       const nextState = applicationStatesUtilities.nextApplicationState(state);
       const rowActions = [];
       this.nextState = nextState;
-      if (nextState) {
-        const label = applicationStatesUtilities.stateChangeLabel(state);
+      if (this.currentState === ApplicationStates.enrolled) {
         rowActions.push({
           action: 'update',
-          label: label,
+          label: 'Inscribir',
+          icon: 'pi pi-plus',
+        });
+      }
+      if (this.currentState !== ApplicationStates.selected) {
+        rowActions.push({
+          action: 'selectBatch',
+          label: 'Seleccionar',
           icon: 'pi pi-plus',
         });
       }
@@ -92,6 +103,16 @@ export class ApplicantsComponent {
           },
         ],
       };
+      if (this.currentState === ApplicationStates.selected) {
+        this.optionsTable.extraColumnsTable = [
+          {
+            label: 'Batch seleccionado',
+            key: 'batch, nombre',
+            type: TableColumnType.data,
+            format: 'string',
+          },
+        ];
+      }
       this.loadComponent();
     });
     firstValueFrom(
@@ -115,7 +136,7 @@ export class ApplicantsComponent {
       (state) => state.announcement.announcement
     );
     this.announcement = await firstValueFrom(announcementChanges);
-    this.tableLocator = `${tableLocators.applicants}${this.announcement._id}`;
+    this.tableLocator = `${tableLocators.applicants}${this.announcement._id}${this.currentState}`;
     this.optionsTable.summary = 'Inscritos';
     this.tableTitle = 'Inscritos';
     this.loading = true;
@@ -128,6 +149,11 @@ export class ApplicantsComponent {
         state: this.applicantState,
       },
     };
+    this.user = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    );
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
     this.loading = false;
@@ -138,16 +164,23 @@ export class ApplicantsComponent {
     element,
     event,
     callbacks,
+    rawDataTable,
   }: TableActionEvent<Applicant>) {
     switch (action) {
       case 'add':
         const subscription = await this.formService.createFormSubscription({
           form: this.announcement.form._id,
           reason: 'Create applicant',
+          data: {
+            fromApp: true,
+            announcement: this.announcement._id,
+          },
         });
-        const ref = this.formService.openFormFromSubscription(
+        const ref = this.formService.openAnnouncementFromSubscription(
+          this.announcement,
+          undefined,
           subscription,
-          'Creación de inscrito'
+          true
         );
         ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) => {
           if (doc) {
@@ -168,6 +201,10 @@ export class ApplicantsComponent {
         );
         this.updateStateDialog(header, element._id, this.nextState);
         break;
+      case 'selectBatch':
+        const item = rawDataTable.find((i) => i._id === element._id);
+        this.selectParticipantDialog(item);
+        break;
     }
   }
 
@@ -177,11 +214,26 @@ export class ApplicantsComponent {
     state: ApplicationStates
   ) {
     this.dialogService.open(ApplicantStateEditComponent, {
-      header,
+      header: '',
+      maskStyleClass: 'dialog-app',
       data: {
+        announcement: this.announcement,
         announcementId: this.announcement._id,
         id: applicantId,
         currentState: state,
+      },
+    });
+  }
+
+  selectParticipantDialog(applicant) {
+    this.dialogService.open(ApplicantSelectDialogComponent, {
+      header: '',
+      maskStyleClass: 'dialog-app',
+      data: {
+        announcement: this.announcement,
+        announcementId: this.announcement._id,
+        id: applicant._id,
+        currentState: this.currentState,
       },
     });
   }

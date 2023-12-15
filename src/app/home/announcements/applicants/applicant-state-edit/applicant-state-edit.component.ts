@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { ApplicationStates } from '@home/announcements/model/application-states.enum';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ApplicantsService } from '@shared/services/applicants/applicants.service';
-import { ApplicantState, Attachment } from '@home/announcements/model/applicant-state';
+import {
+  ApplicantState,
+  Attachment,
+} from '@home/announcements/model/applicant-state';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Applicant } from '@shared/models/entities/applicant';
 import { FileUpload } from 'primeng/fileupload';
@@ -12,16 +15,17 @@ import { StorageService } from '@shared/storage/storage.service';
 import * as uuid from 'uuid';
 import { ToastService } from '@shared/services/toast.service';
 
-const attachmentFormGroup = (document: Attachment) => new FormGroup({
-  name: new FormControl<string>(document.name),
-  url: new FormControl<string>(document.url),
-  key: new FormControl<string>(document.key),
-});
+const attachmentFormGroup = (document: Attachment) =>
+  new FormGroup({
+    name: new FormControl<string>(document.name),
+    url: new FormControl<string>(document.url),
+    key: new FormControl<string>(document.key),
+  });
 
 @Component({
   selector: 'app-applicant-state-edit',
   templateUrl: './applicant-state-edit.component.html',
-  styleUrls: ['./applicant-state-edit.component.scss']
+  styleUrls: ['./applicant-state-edit.component.scss'],
 })
 export class ApplicantStateEditComponent {
   announcementId: string;
@@ -49,7 +53,7 @@ export class ApplicantStateEditComponent {
     private readonly config: DynamicDialogConfig,
     private readonly applicantsService: ApplicantsService,
     private readonly storageService: StorageService,
-    private readonly toastService: ToastService,
+    private readonly toastService: ToastService
   ) {
     const { currentState, id, announcementId } = this.config.data;
     this.currentState = currentState;
@@ -57,8 +61,10 @@ export class ApplicantStateEditComponent {
     this.announcementId = announcementId;
     this.documentsFormArray = new FormArray([]);
     this.form = new FormGroup({
-      notes: new FormControl<string>("", { validators: [Validators.maxLength(this.maxLengthNotes)] }),
-      documents: this.documentsFormArray
+      notes: new FormControl<string>('', {
+        validators: [Validators.maxLength(this.maxLengthNotes)],
+      }),
+      documents: this.documentsFormArray,
     });
   }
 
@@ -71,42 +77,66 @@ export class ApplicantStateEditComponent {
   }
 
   async loadComponent() {
-    const applicant = await this.applicantsService.getApplicant(this.applicantId, this.currentState);
-    if(!applicant) return;
+    const applicant = await this.applicantsService.getApplicant(
+      this.applicantId,
+      this.currentState
+    );
+    if (!applicant) return;
     this.applicant = applicant;
     const state = this.applicant.state;
-    this.form.controls["notes"].setValue(state.notes);
+    this.form.controls['notes'].setValue(state.notes);
     state.documents.forEach((document) => {
       this.documentsFormArray.push(attachmentFormGroup(document));
     });
   }
 
-  removeFile(key: string) {
-    this.applicantsService.removeStateAttachment(this.announcementId, this.applicantId, key).subscribe(async (event) => {
-      if (event.type === HttpEventType.Response) {
-        const documents = this.currentApplicantState.documents.filter(doc => doc.key !== key);
-        const updatedState: ApplicantState = {
-          ...this.currentApplicantState,
-          documents: documents,
-        };
-        const updateResult = await this.applicantsService.updateApplicantState(this.applicantId, updatedState);
-        if(updateResult.acknowledged) {
-          this.documentsFormArray.controls = documents.map(doc => attachmentFormGroup(doc));
-        }
-      }
-    });
+  removeFile(key: string, index: number) {
+    const documents = this.currentApplicantState.documents.filter(
+      (doc) => doc.key !== key
+    );
+    this.documentsFormArray.removeAt(index);
+    this.documentsFormArray.controls = documents.map((doc) =>
+      attachmentFormGroup(doc)
+    );
+    // this.applicantsService
+    //   .removeStateAttachment(this.announcementId, this.applicantId, key)
+    //   .subscribe(async (event) => {
+    //     if (event.type === HttpEventType.Response) {
+    //       const documents = this.currentApplicantState.documents.filter(
+    //         (doc) => doc.key !== key
+    //       );
+    //       const updatedState: ApplicantState = {
+    //         ...this.currentApplicantState,
+    //         documents: documents,
+    //       };
+    //       const updateResult =
+    //         await this.applicantsService.updateApplicantState(
+    //           this.applicantId,
+    //           updatedState
+    //         );
+    //       if (updateResult) {
+    //         this.documentsFormArray.controls = documents.map((doc) =>
+    //           attachmentFormGroup(doc)
+    //         );
+    //       }
+    //     }
+    //   });
   }
 
   async saveState() {
     const { notes, documents } = this.form.value;
+
     const updatedState: ApplicantState = {
       ...this.currentApplicantState,
       notes,
       documents,
     };
-    await this.applicantsService.updateApplicantState(this.applicantId, updatedState);
+    await this.applicantsService.updateApplicantState(
+      this.applicantId,
+      updatedState
+    );
     this.toastService.success({
-      detail: "Cambios guardados con éxito."
+      detail: 'Cambios guardados con éxito.',
     });
     this.close();
   }
@@ -120,34 +150,44 @@ export class ApplicantStateEditComponent {
     fileUploadElement.clear();
     if (file) {
       const fileUid = uuid.v4();
-      this.applicantsService.pushStateAttachment(this.announcementId, this.applicantId, file, fileUid)
-      .pipe(
-        tap((event) => {
-          if (event.type === HttpEventType.DownloadProgress) {
-            // Display upload progress if required
+      this.applicantsService
+        .pushStateAttachment(
+          this.announcementId,
+          this.applicantId,
+          file,
+          fileUid
+        )
+        .pipe(
+          tap((event) => {
+            if (event.type === HttpEventType.DownloadProgress) {
+              // Display upload progress if required
+            }
+          })
+        )
+        .subscribe(async (event) => {
+          if (event.type === HttpEventType.Response) {
+            const realUrl = this.storageService.getPureUrl(event.url);
+            const documents = this.currentApplicantState.documents;
+            const newDocument = {
+              name: file.name,
+              url: realUrl,
+              key: fileUid,
+            };
+            documents.push(newDocument);
+            const updatedState: ApplicantState = {
+              ...this.currentApplicantState,
+              documents: documents,
+            };
+            const updateResult =
+              await this.applicantsService.updateApplicantState(
+                this.applicantId,
+                updatedState
+              );
+            if (updateResult) {
+              this.documentsFormArray.push(attachmentFormGroup(newDocument));
+            }
           }
-        })
-      )
-      .subscribe(async (event) => {
-        if (event.type === HttpEventType.Response) {
-          const realUrl = this.storageService.getPureUrl(event.url);
-          const documents = this.currentApplicantState.documents;
-          const newDocument = {
-            name: file.name,
-            url: realUrl,
-            key: fileUid
-          };
-          documents.push(newDocument);
-          const updatedState: ApplicantState = {
-            ...this.currentApplicantState,
-            documents: documents,
-          };
-          const updateResult = await this.applicantsService.updateApplicantState(this.applicantId, updatedState);
-          if(updateResult.acknowledged) {
-            this.documentsFormArray.push(attachmentFormGroup(newDocument));
-          }
-        }
-      });
+        });
     }
   }
 }

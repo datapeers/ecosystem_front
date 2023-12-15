@@ -7,6 +7,7 @@ import { Observable, firstValueFrom, map } from 'rxjs';
 import { TreeNode } from 'primeng/api';
 import { IResource, Resource } from '../model/resource.model';
 import { cloneDeep } from '@apollo/client/utilities';
+import { lastContent } from '@shared/models/lastContent';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,24 @@ export class PhaseContentService {
       map((request) => request.data.allContent),
       map((allContent) =>
         allContent.map((content) => Content.fromJson(content))
+      )
+    );
+  }
+
+  async getLastContent(
+    batchId: string,
+    startupId: string
+  ): Promise<lastContent> {
+    const query = this.graphql.refQuery(
+      contentQueries.query.lastContent,
+      { batchId, startupId },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(query).pipe(
+        map((request) => request.data.lastContent),
+        map((allContent) => allContent)
       )
     );
   }
@@ -77,17 +96,19 @@ export class PhaseContentService {
   convertContainerToNode(
     container: IContent,
     level: number = 0,
+    first: boolean = false,
+    last: boolean = false,
     father?: IContent
   ): TreeNode<IContent> {
     const levelNode = level + 1;
-    const data = { ...container, levelNode, father };
     const children = container.childs
       ? container.childs
           .filter((i) => !i.isDeleted)
-          .map((child) => {
-            return this.convertContainerToNode(child, levelNode, container);
+          .map((child, index) => {
+            return this.convertContainerToNode(child, levelNode, index == 0, index == container.childs.length - 1, container);
           })
       : [];
+    const data = { ...container, levelNode, father, first, last, hasChildren: children.length > 0 };
     return {
       data,
       expanded: true,

@@ -24,23 +24,30 @@ export class HomeService {
       menuItems.push('entrepreneurs');
 
     if (user.allowed(Permission.view_business)) menuItems.push('businesses');
-    if (user.allowed(Permission.view_startups)) menuItems.push('startUps');
+    if (user.allowed(Permission.view_startups) && !user.isExpert)
+      menuItems.push('startUps');
+    if (user.allowed(Permission.view_startups) && user.isExpert)
+      menuItems.push('startUpsLimited');
     if (user.allowed(Permission.view_experts)) menuItems.push('expert');
     if (user.isUser) menuItems.push('route');
     if (user.isUser) menuItems.push('contents');
     if (user.isUser) menuItems.push('toolkit');
+    if (user.isUser) menuItems.push('startUp');
     menuItems.push('agenda');
     menuItems.push('public-nodes');
-    if (user.isUser) menuItems.push('helpDesk');
+    if (user.isUser || user.allowed(Permission.help_desk_view))
+      menuItems.push('helpDesk');
     if (user.isUser || user.allowed(Permission.community_view))
       menuItems.push('communities');
     if (user.allowed(Permission.sites_and_services_view))
       menuItems.push('siteAndServices');
 
     if (user.allowed(Permission.reports_view)) menuItems.push('reports');
-    if (adminOptions.includes(user.rolType as ValidRoles))
+    if (adminOptions.includes(user.rolType as ValidRoles)) {
       menuItems.push('settings');
-    if (user.allowed(Permission.form_view)) menuItems.push('forms');
+      menuItems.push('adminPanel');
+    }
+    // if (user.allowed(Permission.form_view)) menuItems.push('forms');
 
     const outputOptions: IMenuOption[] = menuItems.map(
       (optKey) => options[optKey] as IMenuOption
@@ -126,13 +133,13 @@ export class HomeService {
         rute: '/home/announcements',
         type: 'single',
         // class: 'mt-4',
-        icon: 'album',
+        icon: 'brand-ubuntu',
       },
       phases: {
         label: 'Fases',
         rute: '/home/phases',
         type: 'single',
-        icon: 'box-multiple',
+        icon: 'stairs',
       },
       communities: {
         label: 'Comunidades',
@@ -143,24 +150,26 @@ export class HomeService {
       },
       entrepreneurs: {
         label: 'Emprendedores',
-        type: 'dropdown',
-        class: 'mt-4',
-        icon: 'users-group',
-        children: [
-          {
-            label: 'Emprendedores',
-            rute: '/home/entrepreneurs',
-            type: 'single',
-            icon: 'users-group',
-          },
-          {
-            label: 'Prospectos',
-            rute: '/home/entrepreneursProspects',
-            type: 'single',
-            icon: 'list-search',
-            queryParamsRute: { prospects: true },
-          },
-        ],
+        // type: 'dropdown',
+        type: 'single',
+        class: '',
+        icon: 'flag-3',
+        rute: '/home/entrepreneurs',
+        // children: [
+        //   {
+        //     label: 'Emprendedores',
+        //     rute: '/home/entrepreneurs',
+        //     type: 'single',
+        //     icon: 'flag-3',
+        //   },
+        //   {
+        //     label: 'Prospectos',
+        //     rute: '/home/entrepreneursProspects',
+        //     type: 'single',
+        //     icon: 'list-search',
+        //     queryParamsRute: { prospects: true },
+        //   },
+        // ],
       },
       businesses: {
         label: 'Empresas',
@@ -171,13 +180,13 @@ export class HomeService {
       startUps: {
         label: 'StartUps',
         type: 'dropdown',
-        icon: 'rocket',
+        icon: 'seeding',
         children: [
           {
             label: 'StartUps',
             rute: '/home/startups',
             type: 'single',
-            icon: 'rocket',
+            icon: 'seeding',
           },
           {
             label: 'Prospectos',
@@ -187,6 +196,12 @@ export class HomeService {
             queryParamsRute: { prospects: true },
           },
         ],
+      },
+      startUpsLimited: {
+        label: 'StartUps',
+        rute: '/home/startups',
+        type: 'single',
+        icon: 'seeding',
       },
       expert: {
         label: 'Expertos',
@@ -237,7 +252,7 @@ export class HomeService {
         icon: 'heart-handshake',
       },
       siteAndServices: {
-        label: 'Sedes y servicios',
+        label: 'Servicios',
         rute: '/home/site_management',
         type: 'single',
         icon: 'map-search',
@@ -246,13 +261,12 @@ export class HomeService {
         label: 'Reportes',
         rute: '/home/reportes',
         type: 'single',
-        icon: 'wave-square',
+        icon: 'chart-pie',
       },
       settings: {
         label: 'Ajustes',
-        rute: '/home/personalizar',
-        type: 'dropdown',
-        class: 'mt-4',
+        rute: '/home/settings',
+        type: 'single',
         icon: 'settings',
       },
       forms: {
@@ -260,7 +274,14 @@ export class HomeService {
         rute: '/home/forms',
         type: 'single',
         class: 'mt-4',
-        icon: 'book',
+        icon: 'forms',
+      },
+      adminPanel: {
+        label: 'Admin panel',
+        rute: '/home/admin',
+        type: 'single',
+        class: 'mt-4',
+        icon: 'solar-panel',
       },
       services: {
         label: 'Servicios',
