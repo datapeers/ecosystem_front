@@ -117,7 +117,7 @@
     <p-divider></p-divider>
     <ng-container *ngIf="creatingService || editingService; else viewTemplate">
         <div class="w-full flex flex-wrap px-3 gap-3">
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-3" style="flex: 3">
+            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">
                 <div class="flex flex-column gap-3">
                     <div class="w-full flex flex-row justify-content-center align-items-center">
                         <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail" (onUpload)="uploadImage($event, newSite)" [disableRemove]="true"></app-avatar-uploader>
@@ -131,7 +131,7 @@
                         <textarea id="service-description" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.description" pInputTextarea></textarea>
                     </span>
 
-                    <span class="w-full app-input-field pt-3">
+                    <span class="w-full app-input-field">
                         <div class="flex fle-row w-full justify-content-between align-items-center">
                             <label for="service-description" class="font-bold">Contactos</label>
                             <p class="text-xs" (click)="addContact()">Añadir contacto <i class="pi pi-plus cursor-pointer"></i></p>
@@ -160,7 +160,7 @@
                     </span>
                 </div>
             </div>
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-3 gap-3" style="flex: 3">
+            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">
                 <div class="flex flex-column gap-3">
                     <span class="w-full app-input-field">
                         <label for="directedToService" class="font-bold">¿A quien va dirigido?</label>
@@ -179,8 +179,8 @@
                         <textarea id="methodService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.methodology" pInputTextarea></textarea>
                     </span>
                 </div>
-                <div class="flex flex-column gap-3 pt-3">
-                    <span class="w-full app-input-field">a
+                <div class="flex flex-column gap-3">
+                    <span class="w-full app-input-field">
                         <label for="resultsService" class="font-bold">Resultados</label>
                         <textarea id="resultsService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.results" pInputTextarea></textarea>
                     </span>
@@ -190,48 +190,48 @@
     </ng-container>
     <ng-template #viewTemplate>
         <div class="w-full flex flex-wrap px-3 gap-3">
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-3" style="flex: 3">
+            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">
                 <div class="flex flex-column">
-                    <div>
-                        <div class="flex flex-row w-full align-items-center gap-3">
-                            <ng-container *ngIf="newSite?.thumbnail !== ''; else noThumbnail">
-                                <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                            </ng-container>
-                            <ng-template #noThumbnail>
-                                <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
-                            </ng-template>
-                            <h2>{{newSite.name}}</h2>
-                        </div>
-                        <span class="pt-3">
-                            {{newSite.description}}
-                        </span>
-                        <p-divider></p-divider>
-                        <div class="flex flex-column gap-2 pt-3">
-                            <span class="text-xs">Contactos</span>
-                            <div class="flex flex-row align-items-center" *ngFor="let item of newSite.contacts">
-                                <p-avatar [label]="item['name'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                                <p>{{item['name']}} - </p>
-                                <p *ngIf="item['email'] !==''">{{item['email']}} - </p>
-                                <p *ngIf="item['contact'] !==''">{{item['contact']}} - </p>
-                                <p *ngIf="item['others'] !==''">{{item['others']}}</p>
-                            </div>
+
+                    <div class="flex flex-row w-full align-items-center gap-3">
+                        <ng-container *ngIf="newSite?.thumbnail !== ''; else noThumbnail">
+                            <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                        </ng-container>
+                        <ng-template #noThumbnail>
+                            <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
+                        </ng-template>
+                        <h2>{{newSite.name}}</h2>
+                    </div>
+                    <span class="pt-3">
+                        {{newSite.description}}
+                    </span>
+                    <p-divider></p-divider>
+                    <div class="flex flex-column gap-2">
+                        <span class="text-xs">Contactos</span>
+                        <div class="flex flex-row align-items-center" *ngFor="let item of newSite.contacts">
+                            <p-avatar [label]="item['name'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                            <p>{{item['name']}} - </p>
+                            <p *ngIf="item['email'] !==''">{{item['email']}} - </p>
+                            <p *ngIf="item['contact'] !==''">{{item['contact']}} - </p>
+                            <p *ngIf="item['others'] !==''">{{item['others']}}</p>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-3 gap-3" style="flex: 3">
+            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">
                 <h3>¿A quien va dirigido?</h3>
-                <span class="w-full p-3 md:p-4">{{newSite.directedTo}}</span>
+                <span>{{newSite.directedTo}}</span>
                 <h3>Factores diferenciales</h3>
                 <div class="flex flex-wrap gap-2">
                     <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}" *ngFor="let item of newSite.factors">
                         <div class="flex align-items-center gap-2">
-                            <span class="text-base">item</span>
+                            <span class="text-base">{{item}}</span>
                         </div>
                     </p-tag>
                 </div>
                 <h3>Metodología</h3>
-                <span class="w-full p-3 md:p-4">{{newSite.methodology}}</span>
+                <span>{{newSite.methodology}}</span>
 
                 <h3>Resultados</h3>
                 <span>{{newSite.results}}</span>
