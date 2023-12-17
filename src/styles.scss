@@ -70,6 +70,15 @@ body {
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
 }
 
+@media (max-width: 768px) {
+
+  /* Reglas CSS para celulares */
+  .normal-panel {
+      background-color: #ffffff;
+      border-radius: 30px;
+    }
+}
+
 .elipse-panel {
   border-radius: 3.125rem;
 }
@@ -256,6 +265,11 @@ body {
     color: $appColorSeven;
     border-top-right-radius: 1.25rem;
     border-bottom-right-radius: 1.25rem;
+    @media (max-width: 992px) {
+      width: 4.375rem !important;
+      height: 4.375rem !important;
+      padding: 1.225rem;
+    }
   }
 
   .navigation-btn-dialog {
@@ -381,4 +395,9 @@ p {
 .subheader {
   font-size: 2.5rem;
   color: #000000;
+}
+
+.h-max-router {
+  height: 100% !important;
+  border-radius: 0 0 0 2.5rem !important;
 }

@@ -14,8 +14,8 @@ $heightPanels: 4.375rem;
     width: 3.4375rem;
     padding: 0.715rem;
     @media (max-width: 576px) {
-      height: 3rem;
-      width: 3rem;
+      height: 2.5rem;
+      width: 2.5rem;
       padding: 0.6rem;
     }
   }
@@ -160,7 +160,7 @@ $heightPanels: 4.375rem;
         flex-direction: column;
         padding: 0 0.5rem;
       }
-      @media (max-width: 576px) {
+      @media (max-width: 800px) {
         width: auto !important;
         padding: 0;
         background-color: transparent;
@@ -191,7 +191,7 @@ $heightPanels: 4.375rem;
 
 ::ng-deep .big-avatar .p-avatar {
   width: 6.25rem !important;
-  height: 6.25rem !important;
+  height: 6.25rem !important;  
 }
 
 ::ng-deep .option {

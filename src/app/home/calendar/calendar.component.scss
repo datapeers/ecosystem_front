@@ -38,6 +38,30 @@
   border-radius: 3.125rem;
 }
 
+.tabs::ng-deep .p-tabview .p-tabview-panels {
+  padding: 1.5rem 0;
+}
+
+.calendar-app::ng-deep .p-component {
+  width: 100%;
+}
+
+.calendar-app::ng-deep .fc .fc-toolbar {
+  @media (max-width: 768px) {
+    flex-direction: column;    
+  }  
+}
+
+.calendar-app::ng-deep .fc {
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+}
+
+.calendar-app::ng-deep.fc .fc-view-harness {
+  min-height: 400px;
+}
+
 .table-app::ng-deep .p-datatable .p-datatable-thead > tr > th {
   background-color: transparent;
   color: black;

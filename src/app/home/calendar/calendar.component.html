@@ -1,199 +1,231 @@
-<div class="flex flex-column xl:flex-row gap-4">
-    <div class="fex flex-column flex-grown-1 px-8">
-        <h2 class="text-center md:text-left">Agenda</h2>
-        <div style="height: 1.5rem"></div>
-        <div class="flex flex-column md:flex-row w-full justify-content-between mb-3 gap-3 ">
-            <div class="flex align-items-center w-9 gap-3">
-                <i-tabler class="text-center" name="bulb" style="color:#18E4E6;"></i-tabler>
-                <p class="th2">En este lugar encuentras tu agenda de actividades en Ecosystem, desde acá puedes
-                    solicitar un agendamiento específico con nuestro grupo de acompañamiento.
-                </p>
+<div class="w-full h-max-router overflow-auto">
+    <div class="flex flex-column xl:flex-row gap-4">
+        <div class="fex flex-column flex-grown-1 px-2 lg:px-8">
+            <h2 class="text-center md:text-left">Agenda</h2>
+            <div style="height: 1.5rem"></div>
+            <div class="flex flex-column md:flex-row w-full justify-content-between mb-3 gap-3 ">
+                <div class="flex align-items-center w-9 gap-3">
+                    <i-tabler class="text-center" name="bulb" style="color:#18E4E6;"></i-tabler>
+                    <p class="th2">En este lugar encuentras tu agenda de actividades en Ecosystem, desde acá puedes
+                        solicitar un agendamiento específico con nuestro grupo de acompañamiento.
+                    </p>
+                </div>
+                <p-button *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Solicitud de actividad"
+                    styleClass="button-blue p-button-raised"></p-button>
             </div>
-            <p-button *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Solicitud de actividad" styleClass="button-blue p-button-raised"></p-button>
         </div>
     </div>
-</div>
 
-<ng-container *ngIf="!loadingComponent; else loadingTemplate">
-    <p-tabView (onChange)="reorderSizes()">
+    <ng-container *ngIf="!loadingComponent; else loadingTemplate">
+        <p-tabView class="flex tabs h-auto w-full px-2 lg:px4 calendar-app" (onChange)="reorderSizes()">
 
-        <p-tabPanel [header]="'Calendario'" *ngIf="!showDifferentDesign">
-
-            <div class="h-full overflow-hidden surface-0">
-                <full-calendar #calendar [options]="calendarOptions" [events]="events" [deepChangeDetection]="true" class="pr-3 pl-3"></full-calendar>
-            </div>
-        </p-tabPanel>
-        <p-tabPanel [header]="'Detalles'">
-            <div class="table-container">
-                <!-- <div class="flex flex-row align-items-center justify-content-end p-2">
+            <p-tabPanel class="w-full h-auto" [header]="'Calendario'" *ngIf="!showDifferentDesign">
+                <div class="overflow-hidden surface-0">
+                    <full-calendar #calendar [options]="calendarOptions" [events]="events" [deepChangeDetection]="true"
+                        class="px-2 lg:pr-3 lg:pl-3"></full-calendar>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel [header]="'Detalles'">
+                <div class="table-container">
+                    <!-- <div class="flex flex-row align-items-center justify-content-end p-2">
                             <p-button label="Descargar agenda detallada" icon="pi pi-file" iconPos="right" styleClass="p-button-raised p-button-secondary"></p-button>
                         </div> -->
-                <p-table #dt class="table-app w-full" [value]="events" dataKey="_id" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [showCurrentPageReport]="true" [rows]="3" [rowsPerPageOptions]="[3,10,20]" [paginator]="true" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
-                    <ng-template pTemplate="caption">
-                        <div class="table-header">
-                            <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
-                                <span class="p-input-icon-left">
-                                    <i class="pi pi-search"></i>
-                                    <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
-                                </span>
+                    <p-table #dt class="table-app w-full" [value]="events" dataKey="_id" paginatorPosition="bottom"
+                        [currentPageReportTemplate]="textSummary" [showCurrentPageReport]="true" [rows]="3"
+                        [rowsPerPageOptions]="[3,10,20]" [paginator]="true" scrollDirection="both"
+                        [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            <div class="table-header">
+                                <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+                                    <span class="p-input-icon-left">
+                                        <i class="pi pi-search"></i>
+                                        <input pInputText type="text"
+                                            (input)="dt.filterGlobal($any($event).target.value, 'contains')"
+                                            placeholder="Buscar" />
+                                    </span>
 
-                            </div>
-                        </div>
-                    </ng-template>
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" class="white-space-nowrap">
-                                {{col.header}}
-                                <p-sortIcon [field]="col.field"></p-sortIcon>
-                            </th>
-                            <th>
-                                Acta
-                            </th>
-                            <th>
-                                Herramientas
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-event>
-                        <tr>
-                            <td>{{event.title}}</td>
-                            <td>{{event.start | date}}</td>
-                            <td>{{event?.extendedProps?.type}}</td>
-                            <td>{{event?.extendedProps?.expertsName}}</td>
-                            <td>
-                                <ng-container *ngIf="event?.extendedProps?.acta && user?.allowed(userPermission.actas_view); else noActa">
-                                    <p-button (onClick)="showActa(event)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
-                                </ng-container>
-                                <ng-template #noActa>
-                                    Acta no disponible
-                                </ng-template>
-                            </td>
-                            <td>
-                                <span class="flex flex-row gap-2">
-                                    <ng-container *ngIf="event?.extendedProps?.files?.length && event?.extendedProps?.canViewFiles; else noFiles">
-                                        <p-button (onClick)="viewFiles(event)" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
-                                    </ng-container>
-                                    <ng-template #noFiles>
-
-                                    </ng-template>
-                                    <p-button *ngIf="todayAfter(event.end) && user.isUser" (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
-                                </span>
-                            </td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="paginatorright">
-                        <span>{{paginatorRightMsg()}}</span>
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td [attr.colspan]="6">
-                                <div class="w-full flex flex-row justify-content-center align-items-center flex-wrap">
-                                    <span>No hay eventos disponibles</span>
                                 </div>
-                            </td>
-                        </tr>
-                    </ng-template>
-
-                </p-table>
-            </div>
-        </p-tabPanel>
-    </p-tabView>
-</ng-container>
-
-
-<ng-template #loadingTemplate>
-    <app-loading></app-loading>
-</ng-template>
-
-<p-dialog appendTo="body" [(visible)]="openFilesDialog" [dismissableMask]="true" header="Archivos">
-    <div class="flex flex-row gap-3 flex-wrap">
-        <div class="flex flex-column gap-2 p-2 border-round shadow-elevated" *ngFor="let file of selectedEvent?.extendedProps?.files">
-            <span><b>Nombre:</b> {{file.name}}</span>
-            <div class="flex flex-row flex-wrap gap-2 justify-content-between pt-3">
-                <p-button label="Descargar" (onClick)="downloadFile(file.url)"></p-button>
-                <p-button styleClass="p-button-outlined" label="Cerrar" (onClick)="openFilesDialog = false"></p-button>
-            </div>
-        </div>
-    </div>
-</p-dialog>
-
-<p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" maskStyleClass="dialog-app" [style]="{width: '50vw'}">
-    <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
-        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
-        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
-            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Solicitud</h2>
-            <span>Recuerda que al hacer la solicitud debes ingresar el nombre de tu startup o tu nombre de usuario, y el
-                correo usando en esta plataforma.</span>
-            <div class="flex flex-row">
-                <span class="font-bold">Startup:</span>
-                <span class="pl-2">{{startup['item']['nombre']}}</span>
-            </div>
-            <div class="flex flex-row">
-                <span class="font-bold">Usuario:</span>
-                <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
-            </div>
-            <div class="flex flex-row">
-                <span class="font-bold">Email:</span>
-                <span class="pl-2">{{user['email']}}</span>
-            </div>
-        </div>
-    </div>
-    <p-divider></p-divider>
-    <div class="flex w-full">
-        <label class="w-full text-center font-bold">Expertos</label>
-    </div>
-
-    <div class="card-grid flex flex-wrap justify-content-center p-3 gap-2">
-        <ng-container *ngFor="let expert of expertsDialog">
-            <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
-                <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
-                    <div class="flex align-self-center">
-                        <p-avatar [label]="expert['item']['nombre'][0]" shape="circle" styleClass="w-8rem h-8rem"></p-avatar>
-                    </div>
-                    <span class="primary-param-label " tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
-                        {{expert['item']['nombre']}}
-                    </span>
-                    <span class="rol-label" tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
-                        {{expertRol()}}
-                    </span>
-                    <span class="secondary-param-label" tooltipPosition="top" pTooltip="aaaaaaaaaaaa">
-
-                    </span>
-                    <ng-container>
-                        <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
-                            <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
-                        </ng-container>
-                        <ng-template #noCalendly>
-                            <span class="font-bold">Sin calendly</span>
+                            </div>
                         </ng-template>
-                    </ng-container>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                    class="white-space-nowrap">
+                                    {{col.header}}
+                                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                                </th>
+                                <th>
+                                    Acta
+                                </th>
+                                <th>
+                                    Herramientas
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-event>
+                            <tr>
+                                <td>{{event.title}}</td>
+                                <td>{{event.start | date}}</td>
+                                <td>{{event?.extendedProps?.type}}</td>
+                                <td>{{event?.extendedProps?.expertsName}}</td>
+                                <td>
+                                    <ng-container
+                                        *ngIf="event?.extendedProps?.acta && user?.allowed(userPermission.actas_view); else noActa">
+                                        <p-button (onClick)="showActa(event)" pTooltip="Ver acta" tooltipPosition="top"
+                                            icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
+                                    </ng-container>
+                                    <ng-template #noActa>
+                                        Acta no disponible
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <span class="flex flex-row gap-2">
+                                        <ng-container
+                                            *ngIf="event?.extendedProps?.files?.length && event?.extendedProps?.canViewFiles; else noFiles">
+                                            <p-button class="w-2rem" (onClick)="viewFiles(event)"
+                                                pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open"
+                                                styleClass="p-button-text"></p-button>
+                                        </ng-container>
+                                        <ng-template #noFiles>
+
+                                        </ng-template>
+                                        <p-button class="w-2rem" *ngIf="todayAfter(event.end) && user.isUser"
+                                            (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top"
+                                            icon="pi pi-star" styleClass="p-button-text"></p-button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="paginatorright">
+                            <span>{{paginatorRightMsg()}}</span>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td [attr.colspan]="6">
+                                    <div
+                                        class="w-full flex flex-row justify-content-center align-items-center flex-wrap">
+                                        <span>No hay eventos disponibles</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-container>
+
+
+    <ng-template #loadingTemplate>
+        <app-loading></app-loading>
+    </ng-template>
+
+    <p-dialog appendTo="body" [(visible)]="openFilesDialog" [dismissableMask]="true" header="Archivos"
+        [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+        <div class="flex flex-row gap-3 flex-wrap">
+            <div class="flex flex-column gap-2 p-2 border-round shadow-elevated"
+                *ngFor="let file of selectedEvent?.extendedProps?.files">
+                <span><b>Nombre:</b> {{file.name}}</span>
+                <div class="flex flex-row flex-wrap gap-2 justify-content-between pt-3">
+                    <p-button label="Descargar" (onClick)="downloadFile(file.url)"></p-button>
+                    <p-button styleClass="p-button-outlined" label="Cerrar"
+                        (onClick)="openFilesDialog = false"></p-button>
                 </div>
             </div>
-        </ng-container>
-    </div>
-</p-dialog>
+        </div>
+    </p-dialog>
 
-<p-dialog appendTo="body" [(visible)]="openEventDialog" [dismissableMask]="true" [style]="{width: '50vw'}" maskStyleClass="dialog-app" [modal]="true">
-    <div class="flex flex-column w-full" *ngIf="eventShow">
-        <div class="w-full flex flex-row gap-3">
-            <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>
-            <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
-                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">{{eventShow.title}}</h2>
-                <p>{{eventShow.start | date: 'yyyy/MM/dd, h:mm a'}} - {{eventShow.end | date: 'h:mm a'}} </p>
+    <p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" maskStyleClass="dialog-app"
+        [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+        <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
+            <!--<i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>-->
+            <div class="content-resource w-full flex flex-column justify-content-between px-2 lg:px4 pb-2 gap-2">
+                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Solicitud
+                </h2>
+                <span>Recuerda que al hacer la solicitud debes ingresar el nombre de tu startup o tu nombre de usuario,
+                    y el
+                    correo usando en esta plataforma.</span>
+                <div class="flex flex-row">
+                    <span class="font-bold">Startup:</span>
+                    <span class="pl-2">{{startup['item']['nombre']}}</span>
+                </div>
+                <div class="flex flex-row">
+                    <span class="font-bold">Usuario:</span>
+                    <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
+                </div>
+                <div class="flex flex-row">
+                    <span class="font-bold">Email:</span>
+                    <span class="pl-2">{{user['email']}}</span>
+                </div>
             </div>
         </div>
         <p-divider></p-divider>
-        <div style="height: 1.5rem;"></div>
-        <span class="flex flex-row justify-content-center align-items-center gap-2 p-3">
-            <ng-container *ngIf="eventShow.extendedProps.acta && user?.allowed(userPermission.actas_view);">
-                <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
-            </ng-container>
-            <ng-container *ngIf="eventShow.extendedProps?.files?.length && eventShow.extendedProps?.canViewFiles;">
-                <p-button (onClick)="viewFiles(eventShow)" label="Ver archivos" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
-            </ng-container>
-            <p-button *ngIf="eventShow.extendedProps?.zoom" (onClick)="openZoom(eventShow)" label="Abrir en zoom" pTooltip="Zoom" tooltipPosition="top" icon="pi pi-reply" styleClass="p-button-text"></p-button>
-            <p-button *ngIf="todayAfter(eventShow.end) && user.isUser" label="Calificar evento" (onClick)="showRating(eventShow)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
-        </span>
-    </div>
+        <div class="flex w-full">
+            <label class="w-full text-center font-bold">Expertos</label>
+        </div>
 
-</p-dialog>
+        <div class="card-grid flex flex-wrap justify-content-center p-3 gap-2">
+            <ng-container *ngFor="let expert of expertsDialog">
+                <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
+                    <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
+                        <div class="flex align-self-center">
+                            <p-avatar [label]="expert['item']['nombre'][0]" shape="circle"
+                                styleClass="w-4rem h-4rem"></p-avatar>
+                        </div>
+                        <span class="primary-param-label " tooltipPosition="top"
+                            [pTooltip]="expert['item']['nombre']??''">
+                            {{expert['item']['nombre']}}
+                        </span>
+                        <span class="rol-label" tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
+                            {{expertRol()}}
+                        </span>
+                        <span class="secondary-param-label" tooltipPosition="top">
+                        </span>
+                        <ng-container>
+                            <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
+                                <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
+                            </ng-container>
+                            <ng-template #noCalendly>
+                                <span class="font-bold">Sin calendly</span>
+                            </ng-template>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </p-dialog>
+
+    <p-dialog appendTo="body" [(visible)]="openEventDialog" [dismissableMask]="true" [style]="{width: '50vw'}"
+        [breakpoints]="{'960px': '85vw', '640px': '100vw'}" maskStyleClass="dialog-app" [modal]="true">
+        <div class="flex flex-column w-full" *ngIf="eventShow">
+            <div class="w-full flex flex-row gap-3">
+                <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>
+                <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+                    <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis"
+                        [style.color]="'black'">
+                        {{eventShow.title}}</h2>
+                    <p>{{eventShow.start | date: 'yyyy/MM/dd, h:mm a'}} - {{eventShow.end | date: 'h:mm a'}} </p>
+                </div>
+            </div>
+            <p-divider></p-divider>
+            <div style="height: 1.5rem;"></div>
+            <span class="flex flex-column lg:flex-row justify-content-center align-items-center gap-2 p-3">
+                <ng-container *ngIf="eventShow.extendedProps.acta && user?.allowed(userPermission.actas_view);">
+                    <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top"
+                        icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
+                </ng-container>
+                <ng-container *ngIf="eventShow.extendedProps?.files?.length && eventShow.extendedProps?.canViewFiles;">
+                    <p-button (onClick)="viewFiles(eventShow)" label="Ver archivos" pTooltip="Ver archivos"
+                        tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
+                </ng-container>
+                <p-button *ngIf="eventShow.extendedProps?.zoom" (onClick)="openZoom(eventShow)" label="Abrir en zoom"
+                    pTooltip="Zoom" tooltipPosition="top" icon="pi pi-reply" styleClass="p-button-text"></p-button>
+                <p-button *ngIf="todayAfter(eventShow.end) && user.isUser" label="Calificar evento"
+                    (onClick)="showRating(eventShow)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star"
+                    styleClass="p-button-text"></p-button>
+            </span>
+        </div>
+
+    </p-dialog>
+</div>

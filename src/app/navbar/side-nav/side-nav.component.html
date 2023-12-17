@@ -1,10 +1,9 @@
 <div class="sidenav" [ngClass]="(menuExpanded) ? '':'sidenav-collapsed'">
 
     <div class="logo-container">
-        <p-avatar image="assets/logonew.png" [style]="{ 'background-color': '#ffffff', 'border-radius': '50%', 'padding':'0.5rem' }" size="large" shape="circle" class="logo" (click)="toggleMenu()"></p-avatar>
-    </div>
-    <div class="sm:hidden">
-        <i-tabler name="align-justified" class="menu-icon" (click)="toggleMenu()"></i-tabler>
+        <p-avatar image="assets/logonew.png"
+            [style]="{ 'background-color': '#ffffff', 'border-radius': '50%', 'padding':'0.5rem' }" size="large"
+            shape="circle" class="logo" (click)="toggleMenu()"></p-avatar>
     </div>
 
 
@@ -13,7 +12,10 @@
             <li class="sidenav-nav-item" *ngFor="let item of menu.options">
                 <ng-container [ngSwitch]="item.type">
                     <ng-container *ngSwitchCase="'single'">
-                        <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute" [queryParams]="item.queryParamsRute" routerLinkActive="active" (click)="shrinkItems(item) " [ngClass]="getActiveClass(item)">
+                        <a class="sidenav-nav-link" [pTooltip]="item.label" tooltipPosition="right"
+                            [tooltipDisabled]="menuExpanded" [routerLink]="item?.rute"
+                            [queryParams]="item.queryParamsRute" routerLinkActive="active" (click)="shrinkItems(item) "
+                            [ngClass]="getActiveClass(item)">
                             <i-tabler class="sidenav-link-icon flex align-items-center" [name]="item.icon"></i-tabler>
                             <p class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
                                 {{item.label}}
@@ -22,15 +24,18 @@
                         </a>
                     </ng-container>
                     <ng-container *ngSwitchCase="'dropdown'">
-                        <a class="sidenav-nav-link" (click)="handleClick(item)" [pTooltip]="item.label" tooltipPosition="right" [tooltipDisabled]="menuExpanded">
+                        <a class="sidenav-nav-link" (click)="handleClick(item)" [pTooltip]="item.label"
+                            tooltipPosition="right" [tooltipDisabled]="menuExpanded">
                             <i-tabler class="sidenav-link-icon flex align-items-center" [name]="item.icon"></i-tabler>
                             <p class="sidenav-link-text" @fadeInOut *ngIf="menuExpanded">
                                 {{item.label}}
                             </p>
-                            <i *ngIf="item.children && menuExpanded" class="menu-collapse-icon" [ngClass]="!item.opened ? 'pi pi-angle-down' : 'pi pi-angle-up'">
+                            <i *ngIf="item.children && menuExpanded" class="menu-collapse-icon"
+                                [ngClass]="!item.opened ? 'pi pi-angle-down' : 'pi pi-angle-up'">
                             </i>
                         </a>
-                        <app-sublevel-menu [data]="item" [collapsed]="menuExpanded" [multiple]="multiple" [opened]="item.opened"></app-sublevel-menu>
+                        <app-sublevel-menu [data]="item" [collapsed]="menuExpanded" [multiple]="multiple"
+                            [opened]="item.opened"></app-sublevel-menu>
                     </ng-container>
                     <ng-container *ngSwitchDefault>
                         <div class="w-full flex flex-row divider-app">

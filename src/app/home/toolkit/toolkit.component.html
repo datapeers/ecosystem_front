@@ -1,4 +1,4 @@
-<div class="flex flex-column">
+<div class="flex flex-column h-max-router overflow-auto">
     <div class="flex flex-none flex-column xl:flex-row gap-4 sm:p-2 ">
         <div class="fex flex-column flex-grown-1 px-2 sm:px-4 md:px-8">
             <h2>Tu contenido de valor</h2>
@@ -16,7 +16,8 @@
         <div class="flex flex-none align-items-end gap-3 px-1 md:px-6 mt2">
             <div class="flex flex-column gap-2">
                 <label>Ver por:</label>
-                <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="setCards()">
+                <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true"
+                    filterBy="name" placeholder="Seleccione un sprint" (onChange)="setCards()">
                     <ng-template let-sprint pTemplate="item">
                         <div>{{ sprint.name }}</div>
                     </ng-template>
@@ -24,17 +25,20 @@
             </div>
             <div class="flex flex-column gap-2">
                 <label>Batch:</label>
-                <p-dropdown [options]="phasesUser" [(ngModel)]="currentBatch" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un batch" (onChange)="loadComponent(this.currentBatch)">
+                <p-dropdown [options]="phasesUser" [(ngModel)]="currentBatch" optionLabel="name" [filter]="true"
+                    filterBy="name" placeholder="Seleccione un batch" (onChange)="loadComponent(this.currentBatch)">
                     <ng-template let-batch pTemplate="item">
                         <div>{{ batch.name }}</div>
                     </ng-template>
                 </p-dropdown>
             </div>
             <div class="w-2"></div>
-            <div class="panel-icon cursor-pointer" [ngClass]="{'panel-icon-active': selected === 'list'}" (click)="selected = 'list'">
+            <div class="panel-icon cursor-pointer" [ngClass]="{'panel-icon-active': selected === 'list'}"
+                (click)="selected = 'list'">
                 <i-tabler name="list"></i-tabler>
             </div>
-            <div class="panel-icon cursor-pointer" [ngClass]="{'panel-icon-active': selected === 'grid'}" (click)="selected = 'grid'">
+            <div class="panel-icon cursor-pointer" [ngClass]="{'panel-icon-active': selected === 'grid'}"
+                (click)="selected = 'grid'">
                 <i-tabler name="layout-grid"></i-tabler>
             </div>
         </div>
@@ -42,9 +46,11 @@
     <p-divider></p-divider>
     <ng-container *ngIf="loaded; else loadingTemplates">
         <div class="flex flex-grown-1 p-4 cards-container" *ngIf="cards.length > 0">
-            <div class="flex w-full gap-4" [ngClass]="{'flex-column' : selected === 'list', 'flex-wrap justify-content-center' : selected === 'grid'}">
+            <div class="flex w-full gap-4"
+                [ngClass]="{'flex-column' : selected === 'list', 'flex-wrap justify-content-center' : selected === 'grid'}">
                 <ng-container *ngFor="let item of cards">
-                    <div class="flex container" [ngClass]="{'w-full flex-row align-items-center mt-2 gap-4' : selected === 'list', 'flex-column max-w-20rem' : selected === 'grid'}">
+                    <div class="flex container"
+                        [ngClass]="{'w-full flex-row align-items-center mt-2 gap-4' : selected === 'list', 'flex-column max-w-20rem' : selected === 'grid'}">
                         <div class="flex justify-content-between color-seven align-items-center flex-none">
                             <i-tabler name="layout-board-split" *ngIf="selected === 'grid'"></i-tabler>
                             <div class="flex panel-date">
@@ -54,15 +60,20 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="sh1" [ngClass]="{'mt-0' : selected === 'list', 'mt-5' : selected === 'grid'}">{{item.resource.name}}</p>
+                        <p class="sh1" [ngClass]="{'mt-0' : selected === 'list', 'mt-5' : selected === 'grid'}">
+                            {{item.resource.name}}</p>
                         <div class="flex flex-column gap-4 flex-grown-1">
-                            <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-2' : selected === 'grid'}">Contenido de {{item.phase.name}} - Etapa {{item.phase.stageDoc.name}}</p>
+                            <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-2' : selected === 'grid'}">
+                                Contenido de {{item.phase.name}} - Etapa {{item.phase.stageDoc.name}}</p>
                             <ng-container *ngIf="item.resource.type !== resourcesTypes.downloadable">
-                                <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-4' : selected === 'grid'}">Observaciones:</p>
+                                <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-4' : selected === 'grid'}">
+                                    Observaciones:</p>
                                 <p>{{item.observations ?? ''}}</p>
                             </ng-container>
                         </div>
-                        <div class="flex w-full flex-row" [ngClass]="{'mt-0  justify-content-end gap-2' : selected === 'list', ' justify-content-between mt-4' : selected === 'grid'}" style="flex: 1">
+                        <div class="flex w-full flex-row"
+                            [ngClass]="{'mt-0  justify-content-end gap-2' : selected === 'list', ' justify-content-between mt-4' : selected === 'grid'}"
+                            style="flex: 1">
                             <div class="flex gap-2 h-full align-items-end">
                                 <ng-container [ngSwitch]="item.resource.type">
                                     <ng-container *ngSwitchCase="resourcesTypes.form">
@@ -77,18 +88,22 @@
 
                                     </ng-container>
                                     <ng-container *ngSwitchCase="resourcesTypes.task">
-                                        <div class="flex panel-icon" *ngIf="item.resource.extra_options.file" (click)="downloadFile(item)" pTooltip="Plantilla">
+                                        <div class="flex panel-icon" *ngIf="item.resource.extra_options.file"
+                                            (click)="downloadFile(item)" pTooltip="Plantilla">
                                             <i-tabler name="eye"></i-tabler>
                                         </div>
-                                        <div class="flex panel-icon" [pTooltip]="item.item?.file ? 'Cambiar' : 'Subir'" (click)="fileInput.click()">
+                                        <div class="flex panel-icon" [pTooltip]="item.item?.file ? 'Cambiar' : 'Subir'"
+                                            (click)="fileInput.click()">
                                             <i-tabler [name]="item.item?.file ? 'download' : 'upload'"></i-tabler>
                                         </div>
                                         <ng-container *ngIf="item.state !== resourcesStates.Pendiente">
-                                            <div class="flex panel-icon" pTooltip="Ver archivo" (click)="downloadFileReply(item)">
+                                            <div class="flex panel-icon" pTooltip="Ver archivo"
+                                                (click)="downloadFileReply(item)">
                                                 <i-tabler name="eye"></i-tabler>
                                             </div>
                                         </ng-container>
-                                        <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, item)">
+                                        <input #fileInput type="file" accept="*" class="hidden"
+                                            (change)="selectFile(fileInput, item)">
                                     </ng-container>
                                 </ng-container>
                             </div>
