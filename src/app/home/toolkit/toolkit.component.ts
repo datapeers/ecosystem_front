@@ -140,7 +140,6 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       this.currentBatch,
       this.sprintSelected
     );
-    console.log(this.cards);
   }
 
   async openForm(reply: ResourceReply) {

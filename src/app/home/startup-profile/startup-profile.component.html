@@ -113,36 +113,36 @@
                 <div class="statics-panel bg-pastel-2"></div>
             </div>
         </div> -->
-        <div class="flex w-full table-container p-1 normal-panel">
-            <p-table #dt class="table-dark w-full" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
-                <ng-template pTemplate="caption">
-                    <div class="table-header">
-                        <span class="header color-custom ml-3">Equipo</span>
-                        <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
-                        </div>
+
+        <p-table #dt class="w-full table-container border-round-2xl table-dialog" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
+            <ng-template pTemplate="caption">
+                <div class="table-header">
+                    <span class="header color-custom ml-3">Equipo</span>
+                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
                     </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Emprendedor</th>
-                        <th>Rol</th>
-                        <th>Funciones</th>
-                        <th></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-entrepreneur>
-                    <tr class="cursor-pointer">
-                        <td class="text-center">{{entrepreneur.item['nombre']}}</td>
-                        <td class="text-center">{{rolStartupsNames[entrepreneur['rol']]}}</td>
-                        <td class="text-center">{{entrepreneur['description']}}</td>
-                        <td class="text-center"></td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="paginatorright">
-                    <span>{{paginatorRightMsg()}}</span>
-                </ng-template>
-            </p-table>
-        </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Emprendedor</th>
+                    <th>Rol</th>
+                    <th>Funciones</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entrepreneur>
+                <tr class="cursor-pointer">
+                    <td class="text-center">{{entrepreneur.item['nombre']}}</td>
+                    <td class="text-center">{{rolStartupsNames[entrepreneur['rol']]}}</td>
+                    <td class="text-center">{{entrepreneur['description']}}</td>
+                    <td class="text-center"></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <span>{{paginatorRightMsg()}}</span>
+            </ng-template>
+        </p-table>
+
         <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
             <div class="flex flex-column gap-4">
                 <div class="grid-container">

@@ -15,18 +15,18 @@
         </div>
         <div class="flex flex-none align-items-end gap-3 px-1 md:px-6 mt2">
             <div class="flex flex-column gap-2">
-                <label>Ver por:</label>
-                <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="setCards()">
-                    <ng-template let-sprint pTemplate="item">
-                        <div>{{ sprint.name }}</div>
-                    </ng-template>
-                </p-dropdown>
-            </div>
-            <div class="flex flex-column gap-2">
                 <label>Batch:</label>
                 <p-dropdown [options]="phasesUser" [(ngModel)]="currentBatch" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un batch" (onChange)="loadComponent(this.currentBatch)">
                     <ng-template let-batch pTemplate="item">
                         <div>{{ batch.name }}</div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+            <div class="flex flex-column gap-2">
+                <label>Ver por:</label>
+                <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="setCards()">
+                    <ng-template let-sprint pTemplate="item">
+                        <div>{{ sprint.name }}</div>
                     </ng-template>
                 </p-dropdown>
             </div>

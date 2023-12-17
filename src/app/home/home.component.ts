@@ -79,6 +79,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           .select((state) => state.auth.profileDoc)
           .pipe(first((i) => i !== null))
       );
+      console.log(profile);
       this.store.dispatch(new SearchCurrentBatch(profile));
     }
   }
