@@ -21,6 +21,8 @@ import { DocumentProvider } from '@shared/components/dynamic-table/models/docume
 import { User } from '@auth/models/user';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { Permission } from '@auth/models/permissions.enum';
+import { DialogService } from 'primeng/dynamicdialog';
+import { StartupDialogComponent } from '@home/startup-profile/startup-dialog/startup-dialog.component';
 
 @Component({
   selector: 'app-phase-startups',
@@ -48,6 +50,7 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
     private readonly startupsService: StartupsService,
     private readonly formService: FormService,
     private readonly toast: ToastService,
+    public dialogService: DialogService,
     private store: Store<AppState>
   ) {
     this.optionsTable = {
@@ -189,5 +192,15 @@ export class PhaseStartupsComponent implements OnInit, OnDestroy {
     this.selectedStartups = [];
     this.showAddStartups = false;
     this.callbackTable = undefined;
+  }
+
+  viewStartupProfile(row) {
+    this.dialogService.open(StartupDialogComponent, {
+      header: '',
+      width: '95vw',
+      modal: true,
+      maskStyleClass: 'dialog-app',
+      data: { startupId: row._id, user: this.user },
+    });
   }
 }

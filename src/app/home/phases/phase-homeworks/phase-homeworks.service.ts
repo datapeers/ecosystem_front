@@ -203,8 +203,11 @@ export class PhaseHomeworksService {
     }
   }
 
-  async openFormResource(reply: ResourceReply) {
-    if (moment(new Date()).isAfter(reply.resource.extra_options.expiration)) {
+  async openFormResource(reply: ResourceReply, ignoreCheck?: boolean) {
+    if (
+      !ignoreCheck &&
+      moment(new Date()).isAfter(reply.resource.extra_options.expiration)
+    ) {
       this.toast.info({
         summary: 'Fecha limite',
         detail: 'Esta tarea ya supero el tiempo limite para su realización',
@@ -214,22 +217,32 @@ export class PhaseHomeworksService {
     this.toast.loading();
     const subscription = await this.formService.createFormSubscription({
       form: reply.resource.extra_options.form,
-      reason: 'Abrir formulario recurso desde toolkit',
+      reason: ignoreCheck
+        ? 'Ver form desde batch'
+        : 'Abrir formulario recurso desde toolkit',
       data: {
-        startup: reply.startup._id,
-        sprint: reply.sprint._id,
-        resource: reply.resource._id,
-        phase: reply.phase._id,
-        type: reply.resource.type,
-        state: 'Sin evaluar',
+        allowEdit: true,
       },
       doc: reply._id,
     });
     this.toast.clear();
     return this.formService.openFormFromSubscription(
       subscription,
-      `Diligenciar ${reply.resource.name}`
+      `${ignoreCheck ? 'Ver' : 'Diligenciar'} ${reply.resource.name}`
     );
+  }
+
+  async downloadResourceFile(reply: ResourceReply) {
+    const resource = reply.resource;
+    const file = resource?.extra_options?.file;
+    this.toast.info({ summary: 'Descargando', detail: '' });
+    const key = this.storageService.getKey(file);
+    const url = await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      this.toast.clear();
+      window.open(url, '_blank');
+    }
+    return false;
   }
 
   async downloadFileAndCheck(reply: ResourceReply, user: User) {
@@ -255,6 +268,13 @@ export class PhaseHomeworksService {
       }
     }
     return false;
+  }
+
+  async getResourcesByBatch(
+    startupId: string,
+    batchId: string
+  ): Promise<ResourceReply[]> {
+    return await this.getDocumentsStartup(startupId, batchId);
   }
 
   async setResourcesRepliesSprint(

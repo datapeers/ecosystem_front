@@ -5,11 +5,16 @@ import { StartupsService } from '@shared/services/startups/startups.service';
 import { ToastService } from '@shared/services/toast.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { Subject } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { RolStartup, rolStartupNames } from '../models/rol-startup.enum';
 import { FormService } from '@shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { textField } from '@shared/utils/order-field-multiple';
+import { PhasesService } from '@home/phases/phases.service';
+import { PhaseContentService } from '@home/phases/phase-content/phase-content.service';
+import { PhaseHomeworksService } from '@home/phases/phase-homeworks/phase-homeworks.service';
+import { ResourceReply } from '@home/phases/phase-homeworks/model/resource-reply.model';
+import { ResourcesTypes } from '@home/phases/model/resources-types.model';
 
 @Component({
   selector: 'app-startup-dialog',
@@ -19,9 +24,10 @@ import { textField } from '@shared/utils/order-field-multiple';
 export class StartupDialogComponent implements OnInit, OnDestroy {
   loaded = false;
   user: User;
+  startupId: string;
   startup: Startup;
   leaderStartup;
-  resources: [];
+  resources: { label: string; resources: ResourceReply[] }[];
   formStartup;
   formNegociosFields = [];
   noValuePlaceholder: string = '- - - -';
@@ -42,15 +48,18 @@ export class StartupDialogComponent implements OnInit, OnDestroy {
     private readonly ref: DynamicDialogRef,
     private toast: ToastService,
     private startupService: StartupsService,
-    private formService: FormService
+    private formService: FormService,
+    private phasesService: PhasesService,
+    private phaseContentService: PhaseContentService,
+    private phaseHomeworksService: PhaseHomeworksService
   ) {
-    this.startup = this.config.data.startup;
-    this.leaderStartup = this.config.data.leaderStartup;
+    this.startupId = this.config.data.startupId;
     this.user = this.config.data.user;
   }
 
   async ngOnInit() {
     this.loaded = false;
+    this.startup = await this.startupService.getDocument(this.startupId);
     this.leaderStartup = this.startup.entrepreneurs.find(
       (i) => i.rol === 'leader'
     );
@@ -71,8 +80,26 @@ export class StartupDialogComponent implements OnInit, OnDestroy {
     // console.log(this.formNegociosFields);
 
     if (this.user.isExpert) {
-      console.log('entra como expert');
       this.resources = [];
+      const startupBatchList = (
+        await this.phasesService.getPhasesList(
+          this.startup.phases.map((i) => i._id),
+          true
+        )
+      ).filter((i) => !i.basePhase);
+      for (const batch of startupBatchList) {
+        const resources = (
+          await this.phaseHomeworksService.getResourcesByBatch(
+            this.startup._id,
+            batch._id
+          )
+        ).filter((i) => i.resource.type !== ResourcesTypes.downloadable);
+        this.resources.push({
+          label: batch.name,
+          resources,
+        });
+      }
+      console.log(this.resources);
     }
     this.loaded = true;
   }
@@ -91,5 +118,30 @@ export class StartupDialogComponent implements OnInit, OnDestroy {
 
   valueFieldMultiple(values: string[], text: Record<string, any>) {
     return textField(values, text);
+  }
+
+  viewResource(resource: ResourceReply) {
+    console.log(resource);
+    switch (resource.resource.type) {
+      case ResourcesTypes.form:
+        console.log('formulario');
+        this.openForm(resource);
+        break;
+      case ResourcesTypes.task:
+        console.log('reply');
+        this.downloadFileReply(resource);
+        break;
+      default:
+        break;
+    }
+  }
+
+  async openForm(reply: ResourceReply) {
+    const ref = await this.phaseHomeworksService.openFormResource(reply, true);
+    if (ref) ref.pipe(take(1), takeUntil(this.onDestroy$));
+  }
+
+  async downloadFileReply(reply: ResourceReply) {
+    this.phaseHomeworksService.downloadFileReply(reply);
   }
 }
