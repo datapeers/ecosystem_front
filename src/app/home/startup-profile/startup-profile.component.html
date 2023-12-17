@@ -46,6 +46,66 @@
     </ng-template>
 </div>
 
+<ng-template #sideContent>
+    <div class="flex flex-column gap-4">
+        <!-- <div class="flex w-auto gap-4 mt-4">
+            <div class="flex flex-column gap-4 w-full">
+                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -
+                    costos</label>
+                <div class="statics-panel bg-pastel-1"></div>
+            </div>
+            <div class="flex flex-column gap-4 w-full">
+                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte horas
+                    invertidas</label>
+                <div class="statics-panel bg-pastel-2"></div>
+            </div>
+        </div> -->
+
+        <p-table #dt class="w-full table-container table-dialog" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
+            <ng-template pTemplate="caption">
+                <div class="table-header">
+                    <span class="header color-custom ml-3">Equipo</span>
+                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Emprendedor</th>
+                    <th>Rol</th>
+                    <th>Funciones</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entrepreneur>
+                <tr class="cursor-pointer">
+                    <td class="text-center">{{entrepreneur.item['nombre']}}</td>
+                    <td class="text-center">{{rolStartupsNames[entrepreneur['rol']]}}</td>
+                    <td class="text-center">{{entrepreneur['description']}}</td>
+                    <td class="text-center"></td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+                <span>{{paginatorRightMsg()}}</span>
+            </ng-template>
+            <!-- <ng-template pTemplate="paginatorright">
+              
+            </ng-template> -->
+        </p-table>
+
+        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
+            <div class="flex flex-column gap-4">
+                <div class="grid-container">
+                    <ng-container *ngFor="let item of formNegociosFields">
+                        <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</ng-template>
 
 <ng-template #fieldFormTemplate let-component="component" let-doc="doc">
     <ng-container [ngSwitch]="true">
@@ -97,64 +157,6 @@
                     }"></ng-template>
         </ng-container>
     </ng-container>
-</ng-template>
-
-<ng-template #sideContent>
-    <div class="flex flex-column gap-4">
-        <!-- <div class="flex w-auto gap-4 mt-4">
-            <div class="flex flex-column gap-4 w-full">
-                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -
-                    costos</label>
-                <div class="statics-panel bg-pastel-1"></div>
-            </div>
-            <div class="flex flex-column gap-4 w-full">
-                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte horas
-                    invertidas</label>
-                <div class="statics-panel bg-pastel-2"></div>
-            </div>
-        </div> -->
-
-        <p-table #dt class="w-full table-container border-round-2xl table-dialog" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
-            <ng-template pTemplate="caption">
-                <div class="table-header">
-                    <span class="header color-custom ml-3">Equipo</span>
-                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Emprendedor</th>
-                    <th>Rol</th>
-                    <th>Funciones</th>
-                    <th></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-entrepreneur>
-                <tr class="cursor-pointer">
-                    <td class="text-center">{{entrepreneur.item['nombre']}}</td>
-                    <td class="text-center">{{rolStartupsNames[entrepreneur['rol']]}}</td>
-                    <td class="text-center">{{entrepreneur['description']}}</td>
-                    <td class="text-center"></td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="paginatorright">
-                <span>{{paginatorRightMsg()}}</span>
-            </ng-template>
-        </p-table>
-
-        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">
-            <div class="flex flex-column gap-4">
-                <div class="grid-container">
-                    <ng-container *ngFor="let item of formNegociosFields">
-                        <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>
-                    </ng-container>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
 </ng-template>
 
 <ng-template #paramCardTemplate let-data="data">

@@ -74,6 +74,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { RouteStageDescriptionComponent } from './route-stage-description/route-stage-description.component';
 import { ApplicantSelectDialogComponent } from './announcements/applicants/applicant-select-dialog/applicant-select-dialog.component';
 import { TermsDialogComponent } from '@shared/components/terms-dialog/terms-dialog.component';
+import { StartupDialogComponent } from './startup-profile/startup-dialog/startup-dialog.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { TermsDialogComponent } from '@shared/components/terms-dialog/terms-dial
     RouteStageDescriptionComponent,
     ApplicantSelectDialogComponent,
     TermsDialogComponent,
+    StartupDialogComponent,
   ],
   imports: [
     CommonModule,

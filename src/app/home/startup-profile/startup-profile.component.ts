@@ -24,7 +24,7 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   formStartup;
   formNegociosFields = [];
   noValuePlaceholder: string = '- - - -';
-  textSummary = `Mostrando {first} a {last} de {totalRecords}`;
+  textSummary = `Visualizando {first} a {last} de {totalRecords} entradas`;
   onDestroy$: Subject<void> = new Subject();
   leaderStartup;
   @ViewChild('dt', { static: true }) dt: Table;
