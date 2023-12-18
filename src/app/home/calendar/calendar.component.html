@@ -144,20 +144,22 @@
                 <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl"
                     [style.color]="'black'">Solicitud
                 </h2>
-                <span>Recuerda que al hacer la solicitud en calendly debes ingresar el nombre de tu startup o tu nombre,
+                <span class="text-xs lg:text-base">Recuerda que al hacer la solicitud en calendly debes ingresar el
+                    nombre de tu startup o tu nombre,
                     y el
                     correo usado en esta plataforma.</span>
-                <div class="flex flex-row">
+                <div class="flex flex-row text-xs lg:text-base">
                     <span class="font-bold">Startup:</span>
                     <span class="pl-2">{{startup['item']['nombre']}}</span>
                 </div>
-                <div class="flex flex-row">
+                <div class="flex flex-row text-xs lg:text-base">
                     <span class="font-bold">Usuario:</span>
                     <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
                 </div>
-                <div class="flex flex-row">
+                <div class="flex flex-row text-xs lg:text-base">
                     <span class="font-bold">Email:</span>
-                    <span class="pl-2">{{user['email']}}</span>
+                    <span class="pl-2 text-overflow-ellipsis" tooltipPosition="top"
+                        [pTooltip]="user['email']">{{user['email']}}</span>
                 </div>
             </div>
         </div>
