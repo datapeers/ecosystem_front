@@ -303,7 +303,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
       })
       .then((ans) => {
         this.toast.clear();
-        this.showTicket.childs.push({ ...this.response.value });
+        this.showTicket.childs = this.showTicket.childs.concat([{ ...this.response.value }]);
       })
       .catch((err) => {
         this.toast.clear();
