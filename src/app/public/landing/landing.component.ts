@@ -169,6 +169,7 @@ export class LandingComponent {
         if (!submittedDocId) return;
         this.currentSubscription$ = null;
         this.applicantContext.businesses.push(submittedDocId);
+        this.currentState = ApplicantState.withBusinesses;
       });
   }
 
