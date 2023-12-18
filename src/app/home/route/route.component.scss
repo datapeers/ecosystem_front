@@ -32,7 +32,7 @@
     stroke-width: 1.3px;
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     border-right: solid 0.625rem;
     border-top: none;
     height: auto;
@@ -42,7 +42,7 @@
 }
 
 .stage-label {
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     writing-mode: vertical-rl;
     font-size: 0.8rem;
   }
@@ -53,7 +53,7 @@
   border: solid 4px;
   z-index: 1;
   color: white;
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     margin: -1.5rem 0 -1.5rem 0.5rem;
   }
 }
@@ -66,7 +66,7 @@
   width: 3rem;
   height: 3rem;
   color: white;
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     margin: 0 0 0 -1.5rem;
   }
 }
@@ -74,7 +74,7 @@
 .fase-finished-body {
   height: 2.8rem;
   width: 2.4rem;
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     height: 2.4rem;
     width: 2.8rem;
   }
@@ -86,19 +86,11 @@
   border-radius: 1.5rem 1.5rem 0 0;
   height: 5rem;
   padding-top: 0.5rem;
-  @media (max-width: 1200px) {
-    margin: 0 0 0 -2rem;
-    border-radius: 0 1.5rem 1.5rem 0;
-    width: 5rem;
-    height: 7rem;
-    padding-right: 0.5rem;
-    writing-mode: vertical-rl;
-  }
-  @media (max-width: 600px) {
+  @media (max-width: 1199px) {
     margin: 0 0 0 -1rem;
     border-radius: 0 1.5rem 1.5rem 0;
     width: 3rem;
-    height: 8rem;
+    height: 7rem;
     padding-right: 0.5rem;
     writing-mode: vertical-rl;
   }
@@ -107,12 +99,13 @@
 .fase {
   width: 7rem;
   height: 7rem;
+  z-index: 2;
 }
 
 .line {
   border-right: dashed 1px #000;
   width: 1px;
-  @media (max-width: 1200px) {
+  @media (max-width: 1199px) {
     border-top: dashed 1px #000;
     height: 1px;
     width: 2rem;
@@ -122,8 +115,8 @@
 .main {
   width: 100%; // Por defecto, ocupa el 100% del ancho
 
-  @media (min-width: 1200px) {
-    min-width: 1400px; // Cuando la pantalla tenga al menos 1200px de ancho, establece el ancho mínimo a 1400px
+  @media (min-width: 992px) {
+    min-width: 1400px; // Cuando la pantalla tenga al menos 992px de ancho, establece el ancho mínimo a 1400px
     width: auto; // Elimina la restricción del ancho máximo para que pueda ser mayor de 1400px si es necesario
   }
 }
@@ -152,7 +145,7 @@
 }
 
 .header-panel {
-  @media (min-width: 1200px) {
+  @media (min-width: 992px) {
     border-radius: 1.25rem;
     background-image: linear-gradient(to right, #dcdcdc, #fafafa);
     padding: 2.5rem 3.75rem;
@@ -160,7 +153,7 @@
 }
 
 .header-panel-child {
-  @media (max-width: 1200px) {
+  @media (max-width: 992px) {
     border-radius: 1.25rem;
     background-image: linear-gradient(to right, #dcdcdc, #fafafa);
     padding: 0.3rem 1rem;

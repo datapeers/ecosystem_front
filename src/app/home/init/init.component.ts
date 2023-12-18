@@ -10,7 +10,14 @@ import { User } from '@auth/models/user';
 import { ConfigurationService } from '@home/configuration/configuration.service';
 import { ConfigurationApp } from '@home/configuration/model/configurationApp';
 import { Store } from '@ngrx/store';
-import { first, firstValueFrom, Subject, Subscription, takeUntil } from 'rxjs';
+import {
+  first,
+  firstValueFrom,
+  Subject,
+  Subscription,
+  takeUntil,
+  map,
+} from 'rxjs';
 import { Map, tileLayer, Marker, Icon, geoJSON, control } from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 import { Startup } from '@shared/models/entities/startup';
@@ -61,8 +68,14 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   completedT = 0;
   completedTText = '0%';
   widthGraphs = '27rem';
+  movil = false;
+  medium = false;
+
   @HostListener('window:resize', ['$event'])
   onResize() {
+    this.movil = window.innerWidth <= 550;
+    this.medium = window.innerWidth <= 992;
+    this.widthGraphs = this.movil ? '18rem' : '27rem';
     this.resizeMap();
     this.widthGraphs = this.calcularWidthGraph(window.innerWidth);
   }
@@ -113,6 +126,17 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.loadComponent();
+    this.movil = window.innerWidth <= 550;
+    this.medium = window.innerWidth <= 992;
+
+    if (
+      window.innerWidth < 768 ||
+      (window.innerWidth > 992 && window.innerWidth <= 1500)
+    ) {
+      this.widthGraphs = '18rem';
+    } else {
+      this.widthGraphs = '27rem';
+    }
   }
 
   ngOnDestroy(): void {
@@ -144,9 +168,9 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   async setInitUser() {
-    setTimeout(() => {
+    /*setTimeout(() => {
       this.initializeMainMap();
-    }, 500);
+    }, 500);*/
     this.profileDoc = await firstValueFrom(
       this.store
         .select((store) => store.auth.profileDoc)
@@ -298,14 +322,17 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
 
         break;
     }
+
     this.data = {
-      labels: config.initGraph.labels,
+      labels: this.movil
+        ? config.initGraph.labels.map((label) => label.substring(0, 1))
+        : config.initGraph.labels,
       datasets,
     };
 
     this.options = {
-      maintainAspectRatio: false,
-      aspectRatio: 0.5,
+      maintainAspectRatio: this.movil,
+      aspectRatio: this.movil ? 1 : 0.5,
       indexAxis: 'y',
       plugins: {
         legend: {
@@ -344,7 +371,7 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
   async initializeMainMap() {
     if (!this.mainMap) {
       // shapes states
-      this.states = await this.getStateShapes();
+      //this.states = await this.getStateShapes();
       const stateLayer = geoJSON(this.states, {
         style: (feature) => ({
           weight: 3,

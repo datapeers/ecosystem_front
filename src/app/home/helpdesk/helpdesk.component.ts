@@ -47,6 +47,10 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   profileDoc;
   startup: Startup;
 
+  public get roles(): typeof ValidRoles {
+    return ValidRoles;
+  }
+
   filtersTickets = new FormGroup({
     category: new FormControl(TicketCategory.support),
     status: new FormControl(TicketStates.Open),

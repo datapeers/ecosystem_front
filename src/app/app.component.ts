@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from './authentication/auth.service';
 import { lang_es } from '@shared/i18n/es';
 import { PrimeNGConfig } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { AppState } from '@appStore/app.reducer';
+import { ToggleMenuAction } from '@home/store/home.actions';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +12,8 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
   title = 'Ecosystem';
+
+  private readonly store = inject(Store<AppState>);
 
   constructor(
     public primengConfig: PrimeNGConfig,
@@ -18,6 +23,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('funciona')
+    if (window.innerWidth > 768 && window.innerWidth <= 1500) {
+      this.store.dispatch(new ToggleMenuAction());
+    }
   }
 }

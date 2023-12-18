@@ -16,74 +16,91 @@
         </p-tabPanel>
     </p-tabView>
 </div> -->
-
-<div class="flex flex-column px-1 sm:px-4 gap-2">
-    <div class="flex flex-column xl:flex-row gap-4 align-items-center">
-        <div class="flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">
-            <h2>Servicios</h2>
-            <div style="height: 1.5rem"></div>
-            <div class="flex gap-2">
-                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
-                <p class="th2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque ligula ut hendrerit aliquam. Duis lacinia interdum sem at aliquet. Fusce ipsum enim, elementum ac iaculis eu, fringilla eget risus. Nullam a nisi vehicula, venenatis massa id, ultricies diam. Integer ullamcorper.
-                </p>
+<div class="w-full h-max-router overflow-auto">
+    <div class="flex flex-column px-1 sm:px-4 gap-2 pt-4">
+        <div class="flex flex-column xl:flex-row gap-4 align-items-center">
+            <div class="flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">
+                <h2>Servicios</h2>
+                <div style="height: 1.5rem"></div>
+                <div class="flex gap-2">
+                    <i-tabler class="text-center" name="bulb"
+                        style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                    <p class="th2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque ligula
+                        ut
+                        hendrerit aliquam. Duis lacinia interdum sem at aliquet. Fusce ipsum enim, elementum ac iaculis
+                        eu,
+                        fringilla eget risus. Nullam a nisi vehicula, venenatis massa id, ultricies diam. Integer
+                        ullamcorper.
+                    </p>
+                </div>
+            </div>
+            <div
+                class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
+                <p-button *ngIf="user?.allowed(userPermission.sites_and_services_create)" type="button"
+                    label="Añadir servicio" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>
             </div>
         </div>
-        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
-            <p-button *ngIf="user?.allowed(userPermission.sites_and_services_create)" type="button" label="Añadir servicio" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>
-        </div>
-    </div>
-    <p-divider></p-divider>
-    <div class="px-4">
-        <p-dataView #dv [value]="sites" [paginator]="false" filterBy="name" layout="grid">
-            <ng-template pTemplate="header">
-                <div class="flex flex-wrap align-items-center justify-content-between py-2">
-                    <span class="p-input-icon-left">
-                        <span class="font-bold"></span>
-                    </span>
-                    <div class="flex flex-row gap-3">
-                        <div class="flex flex-row gap-2 align-items-center text-primary">
-                            <span class="font-semibold text-2xl">{{sites.length}}</span>
-                            <span class="font-semibold">Servicios {{sites.length > 1 ? 's' : ''}} </span>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-            <ng-template let-site pTemplate="gridItem">
-                <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-20rem">
-                    <div class="flex flex-column">
-                        <div class="flex flex-row gap-1 align-items-center justify-content-between">
-                            <i-tabler class="text-center text-tertiary size-md" name="affiliate"></i-tabler>
-                            <div class="flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs">
-                                <i-tabler class="text-center text-xs size-sm " name="calendar"></i-tabler>
-                                <span class="font-semibold">{{site.createdAt | date: 'dd MMM yyyy'}}</span>
+        <p-divider></p-divider>
+        <div class="px-4">
+            <p-dataView #dv [value]="sites" [paginator]="false" filterBy="name" layout="grid">
+                <ng-template pTemplate="header">
+                    <div class="flex flex-wrap align-items-center justify-content-between py-2">
+                        <span class="p-input-icon-left">
+                            <span class="font-bold"></span>
+                        </span>
+                        <div class="flex flex-row gap-3">
+                            <div class="flex flex-row gap-2 align-items-center text-primary">
+                                <span class="font-semibold text-2xl">{{sites.length}}</span>
+                                <span class="font-semibold">Servicios {{sites.length > 1 ? 's' : ''}} </span>
                             </div>
                         </div>
-                        <div class="flex flex-column pt-3 gap-1">
-                            <img width="100%" height="124px" [src]="site?.thumbnail ? site?.thumbnail : '/assets/noPic.jpg'" alt="" class="border-round-xl">
-                            <span class="font-bold">{{site.name}}</span>
+                    </div>
+                </ng-template>
+                <ng-template let-site pTemplate="gridItem">
+                    <div
+                        class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-20rem">
+                        <div class="flex flex-column">
+                            <div class="flex flex-row gap-1 align-items-center justify-content-between">
+                                <i-tabler class="text-center text-tertiary size-md" name="affiliate"></i-tabler>
+                                <div
+                                    class="flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs">
+                                    <i-tabler class="text-center text-xs size-sm " name="calendar"></i-tabler>
+                                    <span class="font-semibold">{{site.createdAt | date: 'dd MMM yyyy'}}</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-column pt-3 gap-1">
+                                <img width="100%" height="124px"
+                                    [src]="site?.thumbnail ? site?.thumbnail : '/assets/noPic.jpg'" alt=""
+                                    class="border-round-xl">
+                                <span class="font-bold">{{site.name}}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-row gap-1 justify-content-between align-items-center">
+                            <div class="flex flex-row gap-2 align-items-center" pTooltip="Contactos">
+                                <i-tabler class="size-md" name="map-search"></i-tabler>
+                                <span class="text-xs font-semibold">{{site.contacts.length}}</span>
+                            </div>
+
+                            <p-button styleClass="p-button-quaternary"
+                                (onClick)="openCreatorSite(site, true)">Ver</p-button>
+                            <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-pencil"
+                                type="button" pTooltip="editar" label=""
+                                (onClick)="openCreatorSite(site, false)"></p-button>
+                            <p-button styleClass="button-grey"
+                                *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-trash"
+                                pTooltip="borrar" type="button" label="" (onClick)="deleteSite(site)"></p-button>
+
                         </div>
                     </div>
-                    <div class="flex flex-row gap-1 justify-content-between align-items-center">
-                        <div class="flex flex-row gap-2 align-items-center" pTooltip="Contactos">
-                            <i-tabler class="size-md" name="map-search"></i-tabler>
-                            <span class="text-xs font-semibold">{{site.contacts.length}}</span>
-                        </div>
-
-                        <p-button styleClass="p-button-quaternary" (onClick)="openCreatorSite(site, true)">Ver</p-button>
-                        <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-pencil" type="button" pTooltip="editar" label="" (onClick)="openCreatorSite(site, false)"></p-button>
-                        <p-button styleClass="button-grey" *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-trash" pTooltip="borrar" type="button" label="" (onClick)="deleteSite(site)"></p-button>
-
+                </ng-template>
+                <ng-template pTemplate="empty">
+                    <div class="flex flex-row justify-content-center align-items-center w-full h-20rem">
+                        <span class="text-2xl text-500 font-semibold">No hay servicios</span>
                     </div>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="empty">
-                <div class="flex flex-row justify-content-center align-items-center w-full h-20rem">
-                    <span class="text-2xl text-500 font-semibold">No hay servicios</span>
-                </div>
-            </ng-template>
-        </p-dataView>
-    </div>
-    <!-- <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center ">
+                </ng-template>
+            </p-dataView>
+        </div>
+        <!-- <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center ">
         <ng-container *ngFor="let site of sites">
             <div class="tour-card bg-white" style="margin:0.5rem;" (mouseenter)="selectedSite = site;" (mouseleave)="selectedSite = undefined;">
                 <img width="100%" height="144px" [src]="site?.thumbnail ? site?.thumbnail : '/assets/noPic.jpg'" alt="">
@@ -101,149 +118,170 @@
             </div>
         </ng-container>
     </div> -->
-</div>
-
-<p-dialog appendTo="body" header="" [(visible)]="showCreatorSite" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorSite()" [maximizable]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '100vw'}" [style]="{ width: '95vw' }">
-    <div class="w-full flex flex-row gap-3">
-        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
-        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
-            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Servicio</h2>
-            <div class="w-full flex flex-row gap-1">
-                <p-button *ngIf="creatingService" type="submit" label="Crear servicio" (onClick)="createSite()" [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
-                <p-button *ngIf="editingService" type="submit" label="Guardar cambios" (onClick)="saveChanges()" [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
-            </div>
-        </div>
     </div>
-    <p-divider></p-divider>
-    <ng-container *ngIf="creatingService || editingService; else viewTemplate">
-        <div class="w-full flex flex-wrap px-3 gap-3">
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">
-                <div class="flex flex-column gap-3">
-                    <div class="w-full flex flex-row justify-content-center align-items-center">
-                        <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail" (onUpload)="uploadImage($event, newSite)" [disableRemove]="true"></app-avatar-uploader>
-                    </div>
-                    <span class="w-full app-input-field field-h-1">
-                        <label htmlFor="nameService" class="font-bold">Nombre</label>
-                        <input pInputText id="nameService" [(ngModel)]="newSite.name" class="inputfield field-full" placeholder="Ingresa un nombre para el servicio" />
-                    </span>
-                    <span class="w-full app-input-field">
-                        <label for="service-description" class="font-bold">Descripción</label>
-                        <textarea id="service-description" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.description" pInputTextarea></textarea>
-                    </span>
 
-                    <span class="w-full app-input-field">
-                        <div class="flex fle-row w-full justify-content-between align-items-center">
-                            <label for="service-description" class="font-bold">Contactos</label>
-                            <p class="text-xs" (click)="addContact()">Añadir contacto <i class="pi pi-plus cursor-pointer"></i></p>
-                        </div>
-
-                        <p-table [value]="newSite.contacts" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
-                            <ng-template pTemplate="header" let-columns>
-                                <tr>
-                                    <th style="width:3rem"></th>
-                                    <th *ngFor="let col of columns" pReorderableColumn>
-                                        {{col.header}}
-                                    </th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
-                                <tr [pReorderableRow]="index">
-                                    <td>
-                                        <span class="pi pi-bars" pReorderableRowHandle></span>
-                                    </td>
-                                    <td *ngFor="let col of columns">
-                                        <input pInputText [(ngModel)]="rowData[col.field]" />
-                                    </td>
-                                </tr>
-                            </ng-template>
-                        </p-table>
-                    </span>
-                </div>
-            </div>
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">
-                <div class="flex flex-column gap-3">
-                    <span class="w-full app-input-field">
-                        <label for="directedToService" class="font-bold">¿A quien va dirigido?</label>
-                        <textarea id="directedToService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.directedTo" pInputTextarea></textarea>
-                    </span>
-                </div>
-                <div class="flex flex-column gap-3">
-                    <span class="w-full app-input-field">
-                        <label for="factorsServices" class="font-bold">Factores diferenciales</label>
-                        <p-chips id="factorsServices" styleClass="inputfield field-full" [(ngModel)]="newSite.factors"></p-chips>
-                    </span>
-                </div>
-                <div class="flex flex-column gap-3">
-                    <span class="w-full app-input-field">
-                        <label for="methodService" class="font-bold">Metodología</label>
-                        <textarea id="methodService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.methodology" pInputTextarea></textarea>
-                    </span>
-                </div>
-                <div class="flex flex-column gap-3">
-                    <span class="w-full app-input-field">
-                        <label for="resultsService" class="font-bold">Resultados</label>
-                        <textarea id="resultsService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.results" pInputTextarea></textarea>
-                    </span>
+    <p-dialog appendTo="body" header="" [(visible)]="showCreatorSite" [draggable]="false" [resizable]="false"
+        [modal]="true" (onHide)="resetCreatorSite()" [maximizable]="true" maskStyleClass="dialog-app"
+        [breakpoints]="{'960px': '100vw'}" [style]="{ width: '95vw' }">
+        <div class="w-full flex flex-row gap-3">
+            <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+            <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Servicio
+                </h2>
+                <div class="w-full flex flex-row gap-1">
+                    <p-button *ngIf="creatingService" type="submit" label="Crear servicio" (onClick)="createSite()"
+                        [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary"
+                        [disabled]="saving"></p-button>
+                    <p-button *ngIf="editingService" type="submit" label="Guardar cambios" (onClick)="saveChanges()"
+                        [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary"
+                        [disabled]="saving"></p-button>
                 </div>
             </div>
         </div>
-    </ng-container>
-    <ng-template #viewTemplate>
-        <div class="w-full flex flex-wrap px-3 gap-3">
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">
-                <div class="flex flex-column">
+        <p-divider></p-divider>
+        <ng-container *ngIf="creatingService || editingService; else viewTemplate">
+            <div class="w-full flex flex-wrap px-3 gap-3">
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">
+                    <div class="flex flex-column gap-3">
+                        <div class="w-full flex flex-row justify-content-center align-items-center">
+                            <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail"
+                                (onUpload)="uploadImage($event, newSite)" [disableRemove]="true"></app-avatar-uploader>
+                        </div>
+                        <span class="w-full app-input-field field-h-1">
+                            <label htmlFor="nameService" class="font-bold">Nombre</label>
+                            <input pInputText id="nameService" [(ngModel)]="newSite.name" class="inputfield field-full"
+                                placeholder="Ingresa un nombre para el servicio" />
+                        </span>
+                        <span class="w-full app-input-field">
+                            <label for="service-description" class="font-bold">Descripción</label>
+                            <textarea id="service-description" style="width: 100%;" rows="8" id="resultsService"
+                                [(ngModel)]="newSite.description" pInputTextarea></textarea>
+                        </span>
 
-                    <div class="flex flex-row w-full align-items-center gap-3">
-                        <ng-container *ngIf="newSite?.thumbnail !== ''; else noThumbnail">
-                            <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                        </ng-container>
-                        <ng-template #noThumbnail>
-                            <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
-                        </ng-template>
-                        <h2>{{newSite.name}}</h2>
+                        <span class="w-full app-input-field">
+                            <div class="flex fle-row w-full justify-content-between align-items-center">
+                                <label for="service-description" class="font-bold">Contactos</label>
+                                <p class="text-xs" (click)="addContact()">Añadir contacto <i
+                                        class="pi pi-plus cursor-pointer"></i></p>
+                            </div>
+
+                            <p-table [value]="newSite.contacts" [columns]="cols" [reorderableColumns]="true"
+                                [tableStyle]="{'min-width': '50rem'}">
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th style="width:3rem"></th>
+                                        <th *ngFor="let col of columns" pReorderableColumn>
+                                            {{col.header}}
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                                    <tr [pReorderableRow]="index">
+                                        <td>
+                                            <span class="pi pi-bars" pReorderableRowHandle></span>
+                                        </td>
+                                        <td *ngFor="let col of columns">
+                                            <input pInputText [(ngModel)]="rowData[col.field]" />
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </span>
                     </div>
-                    <span class="pt-3">
-                        {{newSite.description}}
-                    </span>
+                </div>
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">
+                    <div class="flex flex-column gap-3">
+                        <span class="w-full app-input-field">
+                            <label for="directedToService" class="font-bold">¿A quien va dirigido?</label>
+                            <textarea id="directedToService" style="width: 100%;" rows="8" id="resultsService"
+                                [(ngModel)]="newSite.directedTo" pInputTextarea></textarea>
+                        </span>
+                    </div>
+                    <div class="flex flex-column gap-3">
+                        <span class="w-full app-input-field">
+                            <label for="factorsServices" class="font-bold">Factores diferenciales</label>
+                            <p-chips id="factorsServices" styleClass="inputfield field-full"
+                                [(ngModel)]="newSite.factors"></p-chips>
+                        </span>
+                    </div>
+                    <div class="flex flex-column gap-3">
+                        <span class="w-full app-input-field">
+                            <label for="methodService" class="font-bold">Metodología</label>
+                            <textarea id="methodService" style="width: 100%;" rows="8" id="resultsService"
+                                [(ngModel)]="newSite.methodology" pInputTextarea></textarea>
+                        </span>
+                    </div>
+                    <div class="flex flex-column gap-3">
+                        <span class="w-full app-input-field">
+                            <label for="resultsService" class="font-bold">Resultados</label>
+                            <textarea id="resultsService" style="width: 100%;" rows="8" id="resultsService"
+                                [(ngModel)]="newSite.results" pInputTextarea></textarea>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #viewTemplate>
+            <div class="w-full flex flex-wrap px-3 gap-3">
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3"
+                    style="flex: 3">
+                    <div class="flex flex-column">
+
+                        <div class="flex flex-row w-full align-items-center gap-3">
+                            <ng-container *ngIf="newSite?.thumbnail !== ''; else noThumbnail">
+                                <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge"
+                                    shape="circle"></p-avatar>
+                            </ng-container>
+                            <ng-template #noThumbnail>
+                                <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
+                            </ng-template>
+                            <h2>{{newSite.name}}</h2>
+                        </div>
+                        <span class="pt-3">
+                            {{newSite.description}}
+                        </span>
+                        <p-divider></p-divider>
+                        <div class="flex flex-column gap-2">
+                            <span class="text-xs">Contactos</span>
+                            <div class="flex flex-row align-items-center" *ngFor="let item of newSite.contacts">
+                                <p-avatar [label]="item['name'][0]" styleClass="mr-2" size="xlarge"
+                                    shape="circle"></p-avatar>
+                                <p>{{item['name']}} - </p>
+                                <p *ngIf="item['email'] !==''">{{item['email']}} - </p>
+                                <p *ngIf="item['contact'] !==''">{{item['contact']}} - </p>
+                                <p *ngIf="item['others'] !==''">{{item['others']}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3"
+                    style="flex: 3">
+                    <h3>¿A quien va dirigido?</h3>
+                    <span>{{newSite.directedTo}}</span>
                     <p-divider></p-divider>
-                    <div class="flex flex-column gap-2">
-                        <span class="text-xs">Contactos</span>
-                        <div class="flex flex-row align-items-center" *ngFor="let item of newSite.contacts">
-                            <p-avatar [label]="item['name'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                            <p>{{item['name']}} - </p>
-                            <p *ngIf="item['email'] !==''">{{item['email']}} - </p>
-                            <p *ngIf="item['contact'] !==''">{{item['contact']}} - </p>
-                            <p *ngIf="item['others'] !==''">{{item['others']}}</p>
-                        </div>
+                    <h3>Factores diferenciales</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}"
+                            *ngFor="let item of newSite.factors">
+                            <div class="flex align-items-center gap-2">
+                                <span class="text-base">{{item}}</span>
+                            </div>
+                        </p-tag>
                     </div>
-
+                    <p-divider></p-divider>
+                    <h3>Metodología</h3>
+                    <span>{{newSite.methodology}}</span>
+                    <p-divider></p-divider>
+                    <h3>Resultados</h3>
+                    <span>{{newSite.results}}</span>
                 </div>
             </div>
-            <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">
-                <h3>¿A quien va dirigido?</h3>
-                <span>{{newSite.directedTo}}</span>
-                <p-divider></p-divider>
-                <h3>Factores diferenciales</h3>
-                <div class="flex flex-wrap gap-2">
-                    <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}" *ngFor="let item of newSite.factors">
-                        <div class="flex align-items-center gap-2">
-                            <span class="text-base">{{item}}</span>
-                        </div>
-                    </p-tag>
-                </div>
-                <p-divider></p-divider>
-                <h3>Metodología</h3>
-                <span>{{newSite.methodology}}</span>
-                <p-divider></p-divider>
-                <h3>Resultados</h3>
-                <span>{{newSite.results}}</span>
-            </div>
-        </div>
 
-    </ng-template>
+        </ng-template>
 
 
-    <!-- <div class="formgrid grid px-3">
+        <!-- <div class="formgrid grid px-3">
         
         <div class="field col-12 md:col-9 pl-6">
             <label for="nameField" class="w-full text-center">
@@ -281,4 +319,5 @@
 
 
 
-</p-dialog>
+    </p-dialog>
+</div>

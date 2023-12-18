@@ -30,6 +30,13 @@
     }
   }
 }
+@media (max-width: 1500px) {
+  /* Reglas CSS para celulares */
+  .sidenav {
+    background-color: $appColorOne;
+    z-index: 100;
+  }
+}
 
 .sidenav-collapsed {
   width: 5rem;
@@ -181,7 +188,7 @@
 .sub-level-collapsed {
   margin-left: 0;
   .sublevel-link-icon {
-    margin: 0 !important;
+    
   }
 }
 

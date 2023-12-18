@@ -68,10 +68,53 @@
   }
 }
 
+.scrollResponsive {
+  
+      overflow-y: auto;
+      visibility: visible;
+      height: calc(100vh - 102px - 2.5rem) !important;
+      //margin-top: 1rem;
+      //height: auto;
+  @media (max-width: 1500px) {
+      overflow-x: auto;
+    }
+}
+
+::ng-deep .avatar-initials .p-avatar {
+  border: 4px solid white;
+  border-radius: 50%;
+  font-size: 36px;
+  -webkit-box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.15);
+}
+
+ ::ng-deep .center-content .p-grid{
+    align-items: center;
+    justify-content: center;
+}
+
+.fase-header {
+  padding: 1.875rem;
+  border-radius: 3.125rem;
+  @media (max-width: 768px) {     
+        padding: 1.25rem;
+        border-radius: 30px     
+    }
+  @media screen and (min-width: 993px) and (max-width: 1500px) {
+      max-width: 24rem;
+    }
+}
+
+
+
 .display-content,
 .scrollwrap:hover,
 .scrollwrap:focus {
   visibility: visible;
+  @media (max-width: 768px) {
+   visibility: hidden;
+  }
 }
 
 #mapSite {

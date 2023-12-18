@@ -8,7 +8,7 @@ import { ValidRoles, validRoles } from '@auth/models/valid-roles.enum';
 import { LandingComponent } from './public/landing/landing.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/inicio', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: SignUpComponent },
   { path: 'landing/:id', component: LandingComponent },

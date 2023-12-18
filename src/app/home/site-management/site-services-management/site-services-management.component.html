@@ -1,139 +1,171 @@
-<div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
-    <div class="text-wrapper flex flex-row align-items-center text-center ">
-        <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
-        </fa-icon> <span class="subheader text-white ">Servicios</span>
-    </div>
-    <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" type="button" label="Guardar cambios" icon="pi pi-save" (onClick)="saveChanges()"></p-button>
-</div>
-
-<div class="px-4">
-    <div class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
-        <div class="top-banner">
-            <div class="logo flex flex-column">
-                <label for="logoField" class="w-full text-center">
-                    <b>Logo</b>
-                </label>
-                <div style="height: 1rem;"></div>
-                <ng-container *ngIf="user?.allowed(userPermission.sites_and_services_edit); else avatarNotEdit">
-                    <app-avatar-uploader [imageUrl]="site.thumbnail" (onUpload)="uploadImage($event, site)" [disableRemove]="true"></app-avatar-uploader>
-                </ng-container>
-                <ng-template #avatarNotEdit>
-                    <div class="w-12rem h-12rem border-circle relative shadow-border hover-panel">
-                        <p-avatar shape="circle" [image]="site.thumbnail" styleClass="w-full h-full"></p-avatar>
-                    </div>
-                </ng-template>
-            </div>
-            <div class="fields formgrid grid pt-2">
-                <div class="field col-12 md:col-6">
-                    <label for="nameField" class="w-full text-center">
-                        <b>Nombre de la sede</b>
-                    </label>
-                    <input id="nameField" type="text" pInputText [(ngModel)]="site.name" [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)" class="inputfield w-full">
-                </div>
-                <div class="field col-12 md:col-6">
-                    <label for="descriptionField" class="w-full text-center">
-                        <b>Descripción</b>
-                    </label>
-                    <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="site.description" [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)" pInputTextarea></textarea>
-                </div>
-                <div class="field col-12 md:col-6">
-                    <label for="nameField" class="w-full text-center">
-                        <b>Latitud</b>
-                    </label>
-                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lat" class="inputfield w-full" (keyup)="changeOnCoords($event)" [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)">
-                </div>
-                <div class="field col-12 md:col-6">
-                    <label for="nameField" class="w-full text-center">
-                        <b>Longitud</b>
-                    </label>
-                    <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lng" class="inputfield w-full" (keyup)="changeOnCoords($event)" [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)">
-                </div>
-            </div>
-            <div class="dates flex flex-column gap-2 flex-1">
-                <span class="font-semibold text-right">Creado el {{site.createdAt | date}}</span>
-                <span class="font-semibold text-right">Actualizado el {{site.updatedAt | date}}</span>
-            </div>
+<div class="w-full h-max-router overflow-auto">
+    <div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">
+        <div class="text-wrapper flex flex-row align-items-center text-center ">
+            <fa-icon [icon]="faReply" class="mr-3 cursor-pointer text-white" pTooltip="Regresar" (click)="return()">
+            </fa-icon> <span class="subheader text-white ">Servicios</span>
         </div>
-        <p-divider styleClass="w-full"> Servicios</p-divider>
-        <p-table [value]="site.services" editMode="row" [tableStyle]="{'min-width': '45rem'}" [styleClass]="'p-datatable-sm'">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Correo</th>
-                    <th>Contacto</th>
-                    <th><button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar servicio'" (click)="openCreatorService()"></button></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-service let-ri="rowIndex">
-                <tr>
-                    <td>{{ service.name }}</td>
-                    <td>{{ service.description }}</td>
-                    <td>{{ service.email }}</td>
-                    <td>{{ service.contact }}</td>
-                    <th>
-                        <div *ngIf="user?.allowed(userPermission.sites_and_services_edit)" class="flex align-items-center justify-content-center gap-2">
-                            <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="openCreatorService(service, ri)"></button>
-                            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text" (click)="deleteService(ri)"></button>
+        <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" type="button" label="Guardar cambios"
+            icon="pi pi-save" (onClick)="saveChanges()"></p-button>
+    </div>
+
+    <div class="px-4">
+        <div
+            class="bg-white flex flex-column align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">
+            <div class="top-banner">
+                <div class="logo flex flex-column">
+                    <label for="logoField" class="w-full text-center">
+                        <b>Logo</b>
+                    </label>
+                    <div style="height: 1rem;"></div>
+                    <ng-container *ngIf="user?.allowed(userPermission.sites_and_services_edit); else avatarNotEdit">
+                        <app-avatar-uploader [imageUrl]="site.thumbnail" (onUpload)="uploadImage($event, site)"
+                            [disableRemove]="true"></app-avatar-uploader>
+                    </ng-container>
+                    <ng-template #avatarNotEdit>
+                        <div class="w-12rem h-12rem border-circle relative shadow-border hover-panel">
+                            <p-avatar shape="circle" [image]="site.thumbnail" styleClass="w-full h-full"></p-avatar>
                         </div>
-                    </th>
-                </tr>
-            </ng-template>
-        </p-table>
-        <div id="mapSite" class="w-full">
+                    </ng-template>
+                </div>
+                <div class="fields formgrid grid pt-2">
+                    <div class="field col-12 md:col-6">
+                        <label for="nameField" class="w-full text-center">
+                            <b>Nombre de la sede</b>
+                        </label>
+                        <input id="nameField" type="text" pInputText [(ngModel)]="site.name"
+                            [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)"
+                            class="inputfield w-full">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="descriptionField" class="w-full text-center">
+                            <b>Descripción</b>
+                        </label>
+                        <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3"
+                            style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="site.description"
+                            [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)"
+                            pInputTextarea></textarea>
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="nameField" class="w-full text-center">
+                            <b>Latitud</b>
+                        </label>
+                        <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lat"
+                            class="inputfield w-full" (keyup)="changeOnCoords($event)"
+                            [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="nameField" class="w-full text-center">
+                            <b>Longitud</b>
+                        </label>
+                        <input id="nameField" type="text" pInputText [(ngModel)]="site.coords.lng"
+                            class="inputfield w-full" (keyup)="changeOnCoords($event)"
+                            [readOnly]="!user?.allowed(userPermission.sites_and_services_edit)">
+                    </div>
+                </div>
+                <div class="dates flex flex-column gap-2 flex-1">
+                    <span class="font-semibold text-right">Creado el {{site.createdAt | date}}</span>
+                    <span class="font-semibold text-right">Actualizado el {{site.updatedAt | date}}</span>
+                </div>
+            </div>
+            <p-divider styleClass="w-full"> Servicios</p-divider>
+            <p-table [value]="site.services" editMode="row" [tableStyle]="{'min-width': '45rem'}"
+                [styleClass]="'p-datatable-sm'">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Correo</th>
+                        <th>Contacto</th>
+                        <th><button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" pButton pRipple
+                                type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2"
+                                [pTooltip]="'Agregar servicio'" (click)="openCreatorService()"></button></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-service let-ri="rowIndex">
+                    <tr>
+                        <td>{{ service.name }}</td>
+                        <td>{{ service.description }}</td>
+                        <td>{{ service.email }}</td>
+                        <td>{{ service.contact }}</td>
+                        <th>
+                            <div *ngIf="user?.allowed(userPermission.sites_and_services_edit)"
+                                class="flex align-items-center justify-content-center gap-2">
+                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-text"
+                                    (click)="openCreatorService(service, ri)"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    class="p-button-rounded p-button-text" (click)="deleteService(ri)"></button>
+                            </div>
+                        </th>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div id="mapSite" class="w-full">
+            </div>
+
         </div>
 
     </div>
 
+    <p-dialog [header]="'Crear servicio'" [(visible)]="showCreatorService" [style]="{ width: '70vw', height: '70vh' }"
+        [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorService()">
+        <div class="formgrid grid pt-2">
+            <div style="height: 2rem;"></div>
+            <div class="field col-12 md:col-6">
+                <label for="nameField" class="w-full text-center">
+                    <b>Nombre del servicio</b>
+                </label>
+                <input id="nameField" type="text" pInputText [(ngModel)]="newService.name" class="inputfield w-full">
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="descriptionField" class="w-full text-center">
+                    <b>Descripción</b>
+                </label>
+                <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3"
+                    style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="newService.description"
+                    pInputTextarea></textarea>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="emailField" class="w-full text-center">
+                    <b>Correo</b>
+                </label>
+                <input id="emailField" type="text" pInputText [(ngModel)]="newService.contact"
+                    class="inputfield w-full">
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="contactField" class="w-full text-center">
+                    <b>Contacto</b>
+                </label>
+                <input id="contactField" type="text" pInputText [(ngModel)]="newService.email"
+                    class="inputfield w-full">
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="latField" class="w-full text-center">
+                    <b>Latitud</b>
+                </label>
+                <input id="latField" type="text" pInputText [(ngModel)]="newService.coords.lat"
+                    (keyup)="changeOnCoordsService($event)" class="inputfield w-full">
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="lngField" class="w-full text-center">
+                    <b>Longitud</b>
+                </label>
+                <input id="lngField" type="text" pInputText [(ngModel)]="newService.coords.lng"
+                    (keyup)="changeOnCoordsService($event)" class="inputfield w-full">
+            </div>
+            <div id="mapService" class="w-full">
+            </div>
+            <div style="height: 1rem;"></div>
+        </div>
+        <ng-container *ngIf="editService; else createButton">
+            <p-button type="submit" label="Modificar" (onClick)="saveEditService()" [disabled]="saving"
+                styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"
+                [disabled]="saving"></p-button>
+        </ng-container>
+        <ng-template #createButton>
+            <p-button type="submit" label="Crear servicios" (onClick)="createService()" [disabled]="saving"
+                styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary"
+                [disabled]="saving"></p-button>
+        </ng-template>
+    </p-dialog>
 </div>
-
-<p-dialog [header]="'Crear servicio'" [(visible)]="showCreatorService" [style]="{ width: '70vw', height: '70vh' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorService()">
-    <div class="formgrid grid pt-2">
-        <div style="height: 2rem;"></div>
-        <div class="field col-12 md:col-6">
-            <label for="nameField" class="w-full text-center">
-                <b>Nombre del servicio</b>
-            </label>
-            <input id="nameField" type="text" pInputText [(ngModel)]="newService.name" class="inputfield w-full">
-        </div>
-        <div class="field col-12 md:col-6">
-            <label for="descriptionField" class="w-full text-center">
-                <b>Descripción</b>
-            </label>
-            <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="newService.description" pInputTextarea></textarea>
-        </div>
-        <div class="field col-12 md:col-6">
-            <label for="emailField" class="w-full text-center">
-                <b>Correo</b>
-            </label>
-            <input id="emailField" type="text" pInputText [(ngModel)]="newService.contact" class="inputfield w-full">
-        </div>
-        <div class="field col-12 md:col-6">
-            <label for="contactField" class="w-full text-center">
-                <b>Contacto</b>
-            </label>
-            <input id="contactField" type="text" pInputText [(ngModel)]="newService.email" class="inputfield w-full">
-        </div>
-        <div class="field col-12 md:col-6">
-            <label for="latField" class="w-full text-center">
-                <b>Latitud</b>
-            </label>
-            <input id="latField" type="text" pInputText [(ngModel)]="newService.coords.lat" (keyup)="changeOnCoordsService($event)" class="inputfield w-full">
-        </div>
-        <div class="field col-12 md:col-6">
-            <label for="lngField" class="w-full text-center">
-                <b>Longitud</b>
-            </label>
-            <input id="lngField" type="text" pInputText [(ngModel)]="newService.coords.lng" (keyup)="changeOnCoordsService($event)" class="inputfield w-full">
-        </div>
-        <div id="mapService" class="w-full">
-        </div>
-        <div style="height: 1rem;"></div>
-    </div>
-    <ng-container *ngIf="editService; else createButton">
-        <p-button type="submit" label="Modificar" (onClick)="saveEditService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
-    </ng-container>
-    <ng-template #createButton>
-        <p-button type="submit" label="Crear servicios" (onClick)="createService()" [disabled]="saving" styleClass=" field col-12  p-button-lg w-full border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
-    </ng-template>
-</p-dialog>

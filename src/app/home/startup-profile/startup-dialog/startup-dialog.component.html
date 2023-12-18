@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="resources.length">
+        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="resources?.length">
             <p-accordion>
                 <p-accordionTab *ngFor="let item of resources" [header]="item.label">
                     <div class="w-full flex flex-wrap gap-3">

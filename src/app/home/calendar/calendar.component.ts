@@ -416,9 +416,17 @@ export class CalendarComponent {
         .pipe(first((i) => i !== null))
     );
     this.startup = this.profileDoc.startups[0];
+
+    let res = '50%';
+
+    if (window.innerWidth < 640) {
+      res = '100vw';
+    } else if (window.innerWidth < 640) {
+      res = '85vw';
+    }
     this.ref = this.dialogService.open(RatingEventComponent, {
       header: 'Calificar evento',
-      width: '30%',
+      width: res,
       modal: false,
       contentStyle: { overflow: 'auto' },
       baseZIndex: 10000,
