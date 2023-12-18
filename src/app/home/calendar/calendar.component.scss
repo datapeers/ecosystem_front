@@ -27,6 +27,18 @@
   font-weight: 450;
 }
 
+.profile {
+  font-size: smaller;
+  width: 200px;
+  word-wrap: break-word;
+}
+
+.background {
+  background-color: $appText;
+  margin: 0 1rem;
+  border-radius: 1.5rem;
+}
+
 .opt-panel {
   padding: 0.7rem 0;
 }
