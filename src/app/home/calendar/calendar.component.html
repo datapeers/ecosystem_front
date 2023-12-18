@@ -139,7 +139,7 @@
     <p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" maskStyleClass="dialog-app"
         [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
         <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
-            <!--<i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>-->
+            <i-tabler name="heart-handshake" class="icon-dialog hidden md:block"></i-tabler>
             <div class="content-resource w-full flex flex-column justify-content-between px-2 lg:px4 pb-2 gap-2">
                 <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Solicitud
                 </h2>

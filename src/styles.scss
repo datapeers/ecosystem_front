@@ -246,11 +246,19 @@ body {
   .p-dialog .p-dialog-header {
     border-top-right-radius: 3.125rem;
     border-top-left-radius: 3.125rem;
+    @media (max-width: 576px) {
+        border-top-right-radius: 1.125rem;
+          border-top-left-radius: 1.125rem;
+      }
   }
 
   .p-dialog .p-dialog-content:last-of-type {
     border-bottom-right-radius: 3.125rem;
     border-bottom-left-radius: 3.125rem;
+    @media (max-width: 576px) {
+        border-bottom-right-radius: 1.125rem;
+          border-bottom-left-radius: 1.125rem;
+      }
   }
 
   .info-dialog {
