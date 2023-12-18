@@ -129,13 +129,19 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     this.movil = window.innerWidth <= 550;
     this.medium = window.innerWidth <= 992;
 
-    if (
-      window.innerWidth < 768 ||
-      (window.innerWidth > 992 && window.innerWidth <= 1500)
-    ) {
-      this.widthGraphs = '18rem';
-    } else {
-      this.widthGraphs = '27rem';
+    switch (true) {
+      case window.innerWidth < 600:
+        this.widthGraphs = `${innerWidth * 0.05}rem`;
+        break;
+      case window.innerWidth >= 600 && window.innerWidth <= 800:
+        this.widthGraphs = `${innerWidth * 0.04}rem`;
+        break;
+      case window.innerWidth >= 992 && window.innerWidth <= 1500:
+        this.widthGraphs = `18rem`;
+        break;
+      default:
+        this.widthGraphs = '27rem';
+        break;
     }
   }
 

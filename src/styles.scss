@@ -71,12 +71,11 @@ body {
 }
 
 @media (max-width: 768px) {
-
   /* Reglas CSS para celulares */
   .normal-panel {
-      background-color: #ffffff;
-      border-radius: 30px;
-    }
+    background-color: #ffffff;
+    border-radius: 30px;
+  }
 }
 
 .elipse-panel {
@@ -400,4 +399,20 @@ p {
 .h-max-router {
   height: 100% !important;
   border-radius: 0 0 0 2.5rem !important;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $appColorTwo transparent;
+}
+
+.h-max-router::-webkit-scrollbar {
+  width: 10px;
+}
+
+.h-max-router::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.h-max-router::-webkit-scrollbar-thumb {
+  background-color: $appColorTwo;
+  border-radius: 20px;
 }
