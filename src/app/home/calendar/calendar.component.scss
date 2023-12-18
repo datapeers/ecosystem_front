@@ -29,7 +29,7 @@
 
 .profile {
   font-size: smaller;
-  width: 200px;
+  width: 300px;
   word-wrap: break-word;
 }
 
@@ -37,6 +37,10 @@
   background-color: $appText;
   margin: 0 1rem;
   border-radius: 1.5rem;
+  @media (max-width: 576px) {
+    margin: 0 0;
+    border-radius: 0;
+  }
 }
 
 .opt-panel {
