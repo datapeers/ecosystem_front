@@ -151,6 +151,7 @@ export class CalendarComponent {
   originalEvents: Event[] = [];
   ref: DynamicDialogRef | undefined;
   dialogSolicitude = false;
+  dialogExperts = false;
   expertsDialog: Expert[] = [];
   startup;
   textSummary = `Mostrando {first} a {last} de {totalRecords}`;
@@ -402,6 +403,21 @@ export class CalendarComponent {
     );
     this.toast.clear();
     this.dialogSolicitude = true;
+  }
+
+  async showDialogExperts() {
+    this.toast.loading();
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    this.startup = this.profileDoc.startups[0];
+    this.expertsDialog = await this.expertsService.getExpertsByStartup(
+      this.startup._id
+    );
+    this.toast.clear();
+    this.dialogExperts = true;
   }
 
   selectExpert(expert) {

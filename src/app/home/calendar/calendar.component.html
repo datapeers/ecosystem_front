@@ -5,13 +5,27 @@
             <div style="height: 1.5rem"></div>
             <div class="flex flex-column md:flex-row w-full justify-content-between mb-3 gap-3 ">
                 <div class="flex align-items-center w-9 gap-3">
-                    <i-tabler class="text-center" name="bulb" style="color:#18E4E6;"></i-tabler>
-                    <p class="th2">En este lugar encuentras tu agenda de actividades en Ecosystem, desde acá puedes
-                        solicitar un agendamiento específico con nuestro grupo de acompañamiento.
+                    <i-tabler class="text-center" name="bulb"
+                        style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
+                    <p *ngIf="user?.isUser" class="th2">En este lugar encuentras tu agenda de actividades en Ecosystem,
+                        desde acá puedes
+                        solicitar un agendamiento específico con nuestro grupo de acompañamiento en las sigueintes áreas
+                        Asesoría, Mentoría, Coach para esto usa el botón "Acompañamientos", también conoce el
+                        equipo de experts disponibles dando click en "Grupo de Experts".
+                    </p>
+                    <p *ngIf="!user?.isUser" class="th2">En este lugar se encuentra la agenda de las actividades de
+                        acompañamiento y también permite el acceso a los diferentes recursos asociados a cada
+                        acompañamiento como lo es el acta y archivos descargables.
                     </p>
                 </div>
-                <p-button *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Solicitud de actividad"
-                    styleClass="button-blue p-button-raised"></p-button>
+
+                <div class="flex flex-column gap-2">
+                    <p-button *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Acompañamientos"
+                        styleClass="w-full button-blue p-button-raised"></p-button>
+                    <p-button *ngIf="user?.isUser" (onClick)="showDialogExperts()" label="Experts"
+                        styleClass="w-full button-blue p-button-raised"></p-button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -165,7 +179,7 @@
         </div>
         <p-divider></p-divider>
         <div class="flex w-full">
-            <label class="w-full text-center font-bold">Expertos</label>
+            <label class="w-full text-center font-bold">Acompañamientos</label>
         </div>
 
         <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
@@ -173,8 +187,8 @@
                 <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
                     <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
                         <div
-                            class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-26rem">
-                            <div class="flex flex-column h-23rem gap-1">
+                            class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-23rem">
+                            <div class="flex flex-column h-20rem gap-1">
                                 <div class="flex flex-none flex-column pt-3 gap-1">
                                     <div class="flex justify-content-center">
                                         <ng-container
@@ -228,14 +242,107 @@
                                         ')}}
                                     </span>
                                 </div>
-                                <div class="flex flex-none justify-content-center mt-2">
+                                <!--<div class="flex flex-none justify-content-center mt-2">
                                     <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
                                         <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
                                     </ng-container>
                                     <ng-template #noCalendly>
                                         <span class="font-bold">Sin calendly</span>
                                     </ng-template>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </p-dialog>
+
+    <p-dialog appendTo="body" [(visible)]="dialogExperts" [dismissableMask]="true" maskStyleClass="dialog-app"
+        [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+        <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
+            <i-tabler name="heart-handshake" class="icon-dialog hidden md:block"></i-tabler>
+            <div class="content-resource w-full flex flex-column justify-content-between px-2 lg:px4 pb-2 gap-2">
+                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl"
+                    [style.color]="'black'">Experts
+                </h2>
+                <span class="text-xs lg:text-base">Este es el equipo de experts que tienes disponible para tu
+                    startup en los acompañamientos de tipo mentorías y asesorías</span>
+            </div>
+        </div>
+        <p-divider></p-divider>
+        <div class="flex w-full">
+            <label class="w-full text-center font-bold">Expertos</label>
+        </div>
+
+        <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
+            <ng-container *ngFor="let expert of expertsDialog">
+                <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
+                    <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
+                        <div
+                            class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-23rem">
+                            <div class="flex flex-column h-20rem gap-1">
+                                <div class="flex flex-none flex-column pt-3 gap-1">
+                                    <div class="flex justify-content-center">
+                                        <ng-container
+                                            *ngIf="expert['image'] && expert['image'] != ''; else withoutImage">
+                                            <p-avatar [image]="expert['image']" shape="circle"
+                                                styleClass="w-4rem h-4rem"></p-avatar>
+                                        </ng-container>
+                                        <ng-template #withoutImage>
+                                            <p-avatar [label]="expert['item']['nombre'][0]" shape="circle"
+                                                styleClass="w-4rem h-4rem"></p-avatar>
+                                        </ng-template>
+                                    </div>
+                                    <div class="h-1rem"></div>
+                                    <div class="flex justify-content-center">
+                                        <span class="primary-param-label font-bold text-overflow-ellipsis"
+                                            tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
+                                            {{expert['item']['nombre']}}
+                                        </span>
+                                    </div>
                                 </div>
+                                <div class="flex flex-column flex-grow-1 justify-content-center">
+                                    <a *ngIf="expert['item']['linkDeLinkedIn']" class="profile"
+                                        [href]="expert['item']['linkDeLinkedIn']" target="_blank">
+                                        LinkedIn
+                                    </a>
+                                    <span
+                                        *ngIf="expert['item']['indicanosLosAnosDeExperienciaEnTuTrayectoriaProfesional']"
+                                        class="profile" tooltipPosition="top">
+                                        <strong>Años de experiencia:</strong>
+                                        {{expert['item']['indicanosLosAnosDeExperienciaEnTuTrayectoriaProfesional']}}
+                                    </span>
+                                    <span
+                                        *ngIf="expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'] && expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'].length > 0"
+                                        class="profile">
+                                        <strong>Enfoques:</strong>
+                                        {{expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'].join(',
+                                        ')}}
+                                    </span>
+                                    <span
+                                        *ngIf="expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'] && expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'].length > 0"
+                                        class="profile">
+                                        <strong>Sectores:</strong>
+                                        {{expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'].join(',
+                                        ')}}
+                                    </span>
+                                    <span
+                                        *ngIf="expert['item']['enQueAreasPodriasApoyar'] && expert['item']['enQueAreasPodriasApoyar'].length > 0"
+                                        class="profile">
+                                        <strong>Areas:</strong>
+                                        {{expert['item']['enQueAreasPodriasApoyar'].join(',
+                                        ')}}
+                                    </span>
+                                </div>
+                                <!--<div class="flex flex-none justify-content-center mt-2">
+                                        <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
+                                            <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
+                                        </ng-container>
+                                        <ng-template #noCalendly>
+                                            <span class="font-bold">Sin calendly</span>
+                                        </ng-template>
+                                    </div>-->
                             </div>
                         </div>
                     </div>
