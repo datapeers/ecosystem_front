@@ -170,3 +170,29 @@
         <span class="cell-value" [pTooltip]="data.value" tooltipPosition="top">{{data.value}}</span>
     </div>
 </ng-template>
+
+<p-dialog appendTo="body" [(visible)]="editEntrepreneur" [dismissableMask]="true" [style]="{width: '50vw'}" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" maskStyleClass="dialog-app" [modal]="true" (onHide)="closeDataEntrepreneur()">
+    <div class="flex flex-column w-full" *ngIf="editEntrepreneur">
+        <div class="w-full flex flex-row gap-3">
+            <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>
+            <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+                <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
+                    Editar información</h2>
+                <p>{{editEntrepreneur['item']['nombre']}} </p>
+            </div>
+        </div>
+        <p-divider></p-divider>
+        <div style="height: 1.5rem;"></div>
+        <span class="w-full flex flex-column justify-content-center align-items-center gap-2 p-3">
+            <span class="w-full app-input-field field-h-1">
+                <label htmlFor="namePhase">Funciones - {{editEntrepreneur.description.length}}/120
+                    caracteres
+                    permitidos</label>
+                <textarea maxlength="120" inputId="textarea" rows="5" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="editEntrepreneur.description" placeholder="Ingresa las funciones que cumple" pInputTextarea></textarea>
+            </span>
+
+            <p-button (onClick)="saveDataEntrepreneur()" pTooltip="Guardar cambios" tooltipPosition="top" icon="pi pi-save" styleClass="p-button-text"></p-button>
+        </span>
+    </div>
+
+</p-dialog>

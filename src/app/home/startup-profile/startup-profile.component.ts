@@ -11,6 +11,7 @@ import { FormCollections } from '@shared/form/enums/form-collections';
 import { Table } from 'primeng/table';
 import { RolStartup, rolStartupNames } from './models/rol-startup.enum';
 import { textField } from '@shared/utils/order-field-multiple';
+import { cloneDeep } from 'lodash';
 @Component({
   selector: 'app-startup-profile',
   templateUrl: './startup-profile.component.html',
@@ -27,6 +28,7 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   textSummary = `Visualizando {first} a {last} de {totalRecords} entradas`;
   onDestroy$: Subject<void> = new Subject();
   leaderStartup;
+  editEntrepreneur;
   @ViewChild('dt', { static: true }) dt: Table;
 
   public get rolStartups(): typeof RolStartup {
@@ -121,7 +123,37 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   }
 
   editDataEntrepreneur(data) {
-    console.log('aaaa', data);
+    this.editEntrepreneur = cloneDeep(data);
     // updateDataEntrepreneur;
+  }
+
+  async saveDataEntrepreneur() {
+    this.toast.info({
+      summary: 'Guardando cambios',
+      detail: 'por favor espere',
+      life: 120000000,
+    });
+    try {
+      await this.startupService.updateDataEntrepreneur(
+        this.editEntrepreneur['_id'],
+        this.editEntrepreneur['description'],
+        this.editEntrepreneur['rol'],
+        this.startup._id
+      );
+      this.startup = await this.startupService.getDocument(this.startup._id);
+      this.toast.clear();
+      this.closeDataEntrepreneur();
+    } catch (error) {
+      this.toast.clear();
+      this.toast.error({
+        summary: 'Error al intentar cambiar datos',
+        detail: error,
+        life: 10000,
+      });
+    }
+  }
+
+  closeDataEntrepreneur() {
+    this.editEntrepreneur = undefined;
   }
 }

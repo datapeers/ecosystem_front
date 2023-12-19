@@ -135,6 +135,7 @@ const mutation = {
         ...updateResultPayloadFields
       }
     }
+    ${updateResultPayloadFields}
   `,
 };
 

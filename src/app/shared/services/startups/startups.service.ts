@@ -162,10 +162,6 @@ export class StartupsService implements DocumentProvider {
       [],
       { auth: true }
     );
-    return firstValueFrom(
-      this.graphql
-        .mutation(mutationRef)
-        .pipe(map((request) => request.data.updateDataEntrepreneurStartup))
-    );
+    return firstValueFrom(this.graphql.mutation(mutationRef));
   }
 }
