@@ -34,6 +34,20 @@ export class PhaseHourConfigService {
     );
   }
 
+  async watchConfigPerStartup(phase: string, startup: string) {
+    const activitiesConfigPhasePerStartup = this.graphql.refQuery(
+      activitiesConfigQueries.query.getConfigPerStartup,
+      { phase, startup },
+      'network-only',
+      { auth: true }
+    );
+    return this.graphql
+      .watch_query(activitiesConfigPhasePerStartup)
+      .valueChanges.pipe(
+        map((request) => request.data.activitiesConfigPhasePerStartup)
+      );
+  }
+
   async createConfig(createActivitiesConfigInput): Promise<ActivitiesConfig> {
     const mutationRef = this.graphql.refMutation(
       activitiesConfigQueries.mutation.createActivitiesConfig,

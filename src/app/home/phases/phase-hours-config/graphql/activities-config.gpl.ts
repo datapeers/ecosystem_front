@@ -28,6 +28,11 @@ const fragments = {
       calcHours
     }
   `,
+  activitiesPerStartupConfigFields: `
+  fragment activitiesPerStartupConfigFields on Hours {      
+      hours
+    }
+  `,
 };
 
 const query = {
@@ -38,6 +43,14 @@ const query = {
       }
     }
     ${fragments.activitiesConfigFields}
+  `,
+  getConfigPerStartup: `
+  query ActivitiesConfigPerStartup($phase: String!, $startup: String!) {
+      activitiesConfigPhasePerStartup(phase: $phase, startup: $startup) {
+        ...activitiesPerStartupConfigFields
+      }
+    }
+    ${fragments.activitiesPerStartupConfigFields}
   `,
 };
 
