@@ -312,6 +312,27 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
       });
   }
 
+  updateTicketStatus(newState: TicketStates) {
+    this.toast.info({ detail: '', summary: 'Actualizando...' });
+    this.service
+    .updateTicket({
+      _id: this.showTicket._id,
+      status: newState,
+    })
+    .then((ans) => {
+      this.showTicket = false;
+      this.toast.clear();
+    })
+    .catch((err) => {
+      this.toast.clear();
+      this.toast.alert({
+        summary: 'Error al intentar actualizar el estado del ticket',
+        detail: err,
+        life: 12000,
+      });
+    });
+  }
+
   async closeTicket() {
     this.confirmationService.confirm({
       key: 'confirmDialog',

@@ -81,15 +81,21 @@
     [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
-        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+        <div class="content-resource w-full flex flex-column justify-content-between pr-4">
             <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
                 {{showTicket?.title}}</h2>
-            <div class="w-full flex flex-row gap-1">
-                <p-button type="submit" pTooltip="Cerrar ticket" label="Cerrar ticket" icon="pi pi-sign-out"
-                    iconPos="left" (onClick)="closeTicket()" styleClass="button-blue-second border-round-2xl my-2 p-3"
+            <div class="w-full flex flex-row gap-2">
+                <p-button type="submit" tooltipPosition="top" pTooltip="Marcar en progreso" label="Marcar en progreso" icon="pi pi-check-square"
+                    iconPos="left" (onClick)="updateTicketStatus(ticketsStates.InProgress)" styleClass="p-button-quaternary border-round-2xl p-3"
+                    *ngIf="!(user?.isUser || user.isExpert) && showTicket?.status !== ticketsStates.Closed && showTicket?.status !== ticketsStates.InProgress"></p-button>
+                <p-button type="submit" tooltipPosition="top" pTooltip="Marcar como abierto" label="Marcar como abierto" icon="pi pi-folder-open"
+                    iconPos="left" (onClick)="updateTicketStatus(ticketsStates.Open)" styleClass="p-button-quaternary border-round-2xl p-3"
+                    *ngIf="!(user?.isUser || user.isExpert) && showTicket?.status !== ticketsStates.Closed && showTicket?.status !== ticketsStates.Open"></p-button>
+                <p-button type="submit" tooltipPosition="top" pTooltip="Cerrar ticket" label="Cerrar ticket" icon="pi pi-sign-out"
+                    iconPos="left" (onClick)="closeTicket()" styleClass="button-blue-second border-round-2xl p-3"
                     *ngIf="!(user?.isUser || user.isExpert) && showTicket?.status !== ticketsStates.Closed"></p-button>
-                <p-button type="submit" pTooltip="Borrar ticket" icon="pi pi-trash" (onClick)="deleteTicket()"
-                    styleClass="button-grey border-round-2xl my-2 p-3" *ngIf="allowDelete(showTicket)"></p-button>
+                <p-button type="submit" tooltipPosition="top" pTooltip="Borrar ticket" icon="pi pi-trash" (onClick)="deleteTicket()"
+                    styleClass="button-grey border-round-2xl p-3" *ngIf="allowDelete(showTicket)"></p-button>
             </div>
         </div>
     </div>
