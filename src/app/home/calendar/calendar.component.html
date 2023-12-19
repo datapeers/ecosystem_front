@@ -142,15 +142,12 @@
         <p-divider></p-divider>
 
         <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
-            <ng-container *ngFor="let typeEvent of typesEvents">
+            <ng-container *ngFor="let typeEvent of typesEventsWithHours; let i=index;">
                 <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer" *ngIf="typeEvent.isSchedulable">
                     <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
                         <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-23rem">
                             <div class="flex flex-column h-20rem gap-1">
                                 <div class="flex flex-none flex-column pt-3 gap-1">
-                                    <div class="flex justify-content-center">
-
-                                    </div>
                                     <div class="h-1rem"></div>
                                     <div class="flex justify-content-center">
                                         <span class="primary-param-label font-bold text-overflow-ellipsis" tooltipPosition="top" [pTooltip]="typeEvent.name">
@@ -162,6 +159,21 @@
                                     <span class="profile text-justify" tooltipPosition="top">
                                         {{typeEvent.description}}
                                     </span>
+                                </div>
+                                <div class="flex justify-content-center">
+                                    <table>
+                                        <tr>
+                                            <td><strong>Horas recibidas:</strong></td>
+                                            <td class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
+                                                {{typeEvent.value}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Horas restantes:</strong></td>
+                                            <td class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
+                                                {{(typeEvent.target - typeEvent.value) > 0 ? (typeEvent.target -
+                                                typeEvent.value) : 0}}</td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="flex flex-none justify-content-center mt-2">
                                     <ng-container *ngIf="typeEvent.scheduleUrl && typeEvent.scheduleUrl != ''; else noScheduleUrl">
@@ -265,7 +277,7 @@
             <p-divider></p-divider>
             <div style="height: 1.5rem;"></div>
             <span class="flex flex-column lg:flex-row justify-content-center align-items-center gap-2 p-3">
-                <ng-container *ngIf="eventShow.extendedProps.acta && user?.allowed(userPermission.actas_view);">
+                <ng-container *ngIf="eventShow.extendedProps.acta && (user?.allowed(userPermission.actas_view) || user.isUser);">
                     <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
                 </ng-container>
                 <ng-container *ngIf="eventShow.extendedProps?.files?.length && eventShow.extendedProps?.canViewFiles;">

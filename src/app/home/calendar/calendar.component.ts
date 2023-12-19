@@ -39,6 +39,7 @@ import * as moment from 'moment';
 import { Permission } from '@auth/models/permissions.enum';
 import { Table } from 'primeng/table';
 import { ShepherdService } from 'angular-shepherd';
+import { PhaseHourConfigService } from '../phases/phase-hours-config/phase-hour-config.service';
 
 @Component({
   selector: 'app-calendar',
@@ -144,6 +145,7 @@ export class CalendarComponent {
 
   showDifferentDesign = false;
   typesEvents: TypeEvent[] = [];
+  typesEventsWithHours: any[] = [];
   showedTypesEvents: { [s: string]: TypeEvent } = {};
   typesEvent$: Subscription;
   events$: Subscription;
@@ -173,6 +175,7 @@ export class CalendarComponent {
     private readonly expertsService: ExpertsService,
     private readonly phaseService: PhasesService,
     private readonly storageService: StorageService,
+    private readonly phaseHourConfigService: PhaseHourConfigService,
     private readonly shepherdService: ShepherdService
   ) {
     this.scrollHeight = `${innerHeight - 446}px`;
@@ -455,10 +458,27 @@ export class CalendarComponent {
         .select((store) => store.auth.profileDoc)
         .pipe(first((i) => i !== null))
     );
-    this.startup = this.profileDoc.startups[0];
-    this.expertsDialog = await this.expertsService.getExpertsByStartup(
-      this.startup._id
+    const batch = await firstValueFrom(
+      this.store
+        .select((store) => store.home.currentBatch)
+        .pipe(first((i) => i !== null))
     );
+    this.startup = this.profileDoc.startups[0];
+
+    const hours = await firstValueFrom(
+      await this.phaseHourConfigService.watchConfigPerStartup(
+        (batch as Phase)._id,
+        this.startup._id
+      )
+    );
+
+    this.typesEventsWithHours = this.typesEvents.map((e) => ({
+      ...e,
+      target: hours.hours[e._id.toString()].target ?? 0,
+      value: hours.hours[e._id.toString()].value ?? 0,
+    }));
+
+    this.typesEvents.map;
     this.toast.clear();
     this.dialogSolicitude = true;
   }
