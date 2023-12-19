@@ -67,6 +67,12 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
       actionsPerRow: [],
       extraColumnsTable: [
         {
+          label: 'Logo',
+          key: 'thumbnail',
+          type: TableColumnType.img,
+          format: 'image',
+        },
+        {
           label: 'Email',
           key: 'entrepreneurs; item, email',
           type: TableColumnType.data,

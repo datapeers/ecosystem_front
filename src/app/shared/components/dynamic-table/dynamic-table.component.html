@@ -79,12 +79,20 @@
                 </div>
               </th>
             </ng-container>
+            <ng-container *ngSwitchCase="'image'">
+              <th>
+                <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
+                  <span [pTooltip]="item.label" tooltipPosition="top" class="small-bold text-ellipsis">{{item.label}}</span>
+                </div>
+              </th>
+            </ng-container>
             <ng-container [ngTemplateOutlet]="dateTemplate" [ngTemplateOutletContext]="{ item: item}" *ngSwitchCase="'date'">
             </ng-container>
             <ng-container [ngTemplateOutlet]="dateTemplate" [ngTemplateOutletContext]="{ item: item}" *ngSwitchCase="'dateAndTime'">
             </ng-container>
             <ng-container [ngTemplateOutlet]="dateTemplate" [ngTemplateOutletContext]="{ item: item}" *ngSwitchCase="'time'">
             </ng-container>
+
             <ng-template #dateTemplate let-item="item">
               <th [pSortableColumn]="item.key" pReorderableColumn>
                 <div class="flex align-items-center gap-1" [style]="{'max-width':'300px'}">
@@ -144,6 +152,16 @@
                 </ng-container>
                 <ng-template #noUrl>
                   <i class="pi pi-file-excel text-orange-500"></i>
+                </ng-template>
+              </td>
+            </ng-container>
+            <ng-container *ngSwitchCase="'image'">
+              <td class="small" ngClass="{{item['propConditionalClass'] && row[item.propConditionalClass.prop] ? item.propConditionalClass.class : ''}}">
+                <ng-container *ngIf="row[item.key] && row[item.key] !== ''; else noImage">
+                  <p-avatar [image]="row[item.key]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                </ng-container>
+                <ng-template #noImage>
+                  <p-avatar label="Up" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
                 </ng-template>
               </td>
             </ng-container>

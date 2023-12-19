@@ -21,7 +21,7 @@ import { ConfirmationService } from 'primeng/api';
 import { EntrepreneurSelectTableComponent } from './table-select-dialog/providers/entrepreneur-select-table/entrepreneur-select-table.component';
 import { StartupSelectTableComponent } from './table-select-dialog/providers/startup-select-table/startup-select-table.component';
 import { CellFormatPipe } from './pipes/cell-format.pipe';
-
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
   declarations: [
@@ -48,10 +48,9 @@ import { CellFormatPipe } from './pipes/cell-format.pipe';
     CalendarModule,
     OrderListModule,
     DragDropModule,
+    AvatarModule,
   ],
-  exports: [
-    DynamicTableComponent
-  ],
-  providers: [ConfirmationService, CurrencyPipe]
+  exports: [DynamicTableComponent],
+  providers: [ConfirmationService, CurrencyPipe],
 })
-export class DynamicTableModule { }
+export class DynamicTableModule {}
