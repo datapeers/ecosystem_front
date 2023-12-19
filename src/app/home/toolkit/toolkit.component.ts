@@ -45,6 +45,7 @@ export class ToolkitComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<void> = new Subject();
   selected = 'grid';
   phasesUser: Phase[] = [];
+  selectedItem: any;
   public get resourcesTypes(): typeof ResourcesTypes {
     return ResourcesTypes;
   }
@@ -176,5 +177,9 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       );
       this.setCards();
     }
+  }
+
+  setItem(item) {
+    this.selectedItem = item;
   }
 }
