@@ -126,19 +126,19 @@ export class ExpertsService implements DocumentProvider {
     );
   }
 
-  async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
-    const mutationRef = this.graphql.refMutation(
-      expertsQueries.mutation.deleteExperts,
-      { ids },
-      [],
-      { auth: true }
-    );
-    return firstValueFrom(
-      this.graphql
-        .mutation(mutationRef)
-        .pipe(map((request) => request.data.deleteExperts))
-    );
-  }
+  // async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
+  //   const mutationRef = this.graphql.refMutation(
+  //     expertsQueries.mutation.deleteExperts,
+  //     { ids },
+  //     [],
+  //     { auth: true }
+  //   );
+  //   return firstValueFrom(
+  //     this.graphql
+  //       .mutation(mutationRef)
+  //       .pipe(map((request) => request.data.deleteExperts))
+  //   );
+  // }
 
   async updateExpert(updateExpertInput: any): Promise<Expert> {
     const mutationRef = this.graphql.refMutation(

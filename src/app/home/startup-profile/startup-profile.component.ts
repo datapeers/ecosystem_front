@@ -119,4 +119,9 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   valueFieldMultiple(values: string[], text: Record<string, any>) {
     return textField(values, text);
   }
+
+  editDataEntrepreneur(data) {
+    console.log('aaaa', data);
+    // updateDataEntrepreneur;
+  }
 }

@@ -12,16 +12,13 @@ import { DownloadRequest } from '@shared/components/dynamic-table/models/downloa
 import { DownloadResult } from '@shared/components/dynamic-table/models/download-result';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BusinessesService {
-
   constructor(
     private readonly graphql: GraphqlService,
-    private readonly toast: ToastService,
-  ) {
-
-  }
+    private readonly toast: ToastService
+  ) {}
 
   cachedQueries: string[] = [];
 
@@ -32,19 +29,21 @@ export class BusinessesService {
   async getDocuments(args: any): Promise<Business[]> {
     const queryRef = this.graphql.refQuery(
       businessQueries.query.businesses,
-      { },
+      {},
       'no-cache',
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .query(queryRef)
-      .pipe(
-        map((request) => request.data.businesses),
-      )
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.businesses))
     );
   }
 
-  async getDocumentsPage(_: any, request: PageRequest): Promise<PaginatedResult<Business>> {
+  async getDocumentsPage(
+    _: any,
+    request: PageRequest
+  ): Promise<PaginatedResult<Business>> {
     const queryRef = this.graphql.refQuery(
       businessQueries.query.businessesPage,
       { request },
@@ -53,7 +52,7 @@ export class BusinessesService {
     );
     request = jsonUtils.sortObjectKeys(request);
     const requestKey = `businessesPage(${JSON.stringify({ request })})`;
-    if(!this.cachedQueries.some(queryKey => queryKey === requestKey)) {
+    if (!this.cachedQueries.some((queryKey) => queryKey === requestKey)) {
       this.cachedQueries.push(requestKey);
     }
     return firstValueFrom(
@@ -63,40 +62,44 @@ export class BusinessesService {
     );
   }
 
-  async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
-    const mutationRef = this.graphql.refMutation(
-      businessQueries.mutation.deleteBusinesses,
-      { ids },
-      [],
-      { auth: true }
-    );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.deleteBusinesses),
-      )
-    );
-  }
+  // async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
+  //   const mutationRef = this.graphql.refMutation(
+  //     businessQueries.mutation.deleteBusinesses,
+  //     { ids },
+  //     [],
+  //     { auth: true }
+  //   );
+  //   return firstValueFrom(this.graphql
+  //     .mutation(mutationRef)
+  //     .pipe(
+  //       map((request) => request.data.deleteBusinesses),
+  //     )
+  //   );
+  // }
 
-  async linkWithEntrepreneursByRequest(request: PageRequest, targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithEntrepreneursByRequest(
+    request: PageRequest,
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       businessQueries.mutation.linkBusinessesWithEntrepreneursByRequest,
       { request, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
         map((request) => request.data.linkBusinessesWithEntrepreneursByRequest),
         tap((result: UpdateResultPayload) => {
-          if(result.acknowledged) {
+          if (result.acknowledged) {
             this.toast.success({
-              detail: "Se asociaron con éxito los empresarios seleccionadas con las empresas"
+              detail:
+                'Se asociaron con éxito los empresarios seleccionadas con las empresas',
             });
           } else {
             this.toast.success({
-              detail: "Se asociaron con éxito los empresarios seleccionadas con las empresas"
+              detail:
+                'Se asociaron con éxito los empresarios seleccionadas con las empresas',
             });
           }
         })
@@ -104,22 +107,26 @@ export class BusinessesService {
     );
   }
 
-  async linkWithEntrepreneurs(ids: string[], targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithEntrepreneurs(
+    ids: string[],
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       businessQueries.mutation.linkBusinessesWithEntrepreneurs,
       { ids, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.linkBusinessesWithEntrepreneurs),
-      )
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.linkBusinessesWithEntrepreneurs))
     );
   }
 
-  async requestDownload(downloadRequest: DownloadRequest): Promise<DownloadResult> {
+  async requestDownload(
+    downloadRequest: DownloadRequest
+  ): Promise<DownloadResult> {
     const queryRef = this.graphql.refQuery(
       businessQueries.query.businessesDownload,
       { ...downloadRequest },

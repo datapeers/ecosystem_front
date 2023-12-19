@@ -194,6 +194,14 @@ export class StartupsComponent {
           });
           return;
         }
+        if (element.length > 1) {
+          this.toast.alert({
+            summary: 'Ha seleccionado mas de una startup',
+            detail:
+              'Solo se permite modificar los integrantes de una startup a la vez',
+          });
+          return;
+        }
         this.dialogService
           .open(EntrepreneurSelectTableComponent, {
             modal: true,
@@ -206,10 +214,28 @@ export class StartupsComponent {
             if (!data.selected) return;
             const entrepreneursIds = data.selected;
             if (entrepreneursIds.length) {
-              await this.service.linkWithEntrepreneurs(
-                element.map((i) => i._id),
-                entrepreneursIds
-              );
+              try {
+                this.toast.info({
+                  summary: 'Aplicando cambios',
+                  detail: '',
+                  life: 12000000,
+                });
+                await this.service.linkWithEntrepreneurs(
+                  element.map((i) => i._id),
+                  entrepreneursIds
+                );
+                this.toast.clear();
+                this.toast.success({
+                  summary: 'Cambiaos aplicados',
+                  detail: '',
+                });
+              } catch (error) {
+                this.toast.clear();
+                this.toast.error({
+                  summary: 'Error al intentar mezclar emprendedor y startup',
+                  detail: error,
+                });
+              }
               callbacks.fullRefresh();
             }
           });

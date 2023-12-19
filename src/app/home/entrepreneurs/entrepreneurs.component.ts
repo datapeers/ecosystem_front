@@ -23,6 +23,7 @@ import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableFilters } from '@shared/components/dynamic-table/models/table-filters';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
   selector: 'app-entrepreneurs',
@@ -46,7 +47,8 @@ export class EntrepreneursComponent {
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
     private readonly service: EntrepreneursService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private toast: ToastService
   ) {
     firstValueFrom(
       this.store
@@ -188,7 +190,6 @@ export class EntrepreneursComponent {
         });
         break;
       case 'linkWithBusinesses':
-        console.log(entrepreneurIds);
         this.dialogService
           .open(BusinessSelectTableComponent, {
             modal: true,
@@ -200,17 +201,36 @@ export class EntrepreneursComponent {
             if (!data) return;
             if (!data.selected) return;
             const businessesIds = data.selected;
-            if (entrepreneurIds.length) {
-              await this.service.linkWithBusinesses(
-                entrepreneurIds,
-                businessesIds
-              );
-            } else {
-              await this.service.linkWithBusinessesByRequest(
-                pageRequest,
-                businessesIds
-              );
+            this.toast.info({
+              summary: 'Guardando cambios',
+              detail: 'Por favor espere',
+              life: 12000000,
+            });
+            try {
+              if (entrepreneurIds.length) {
+                await this.service.linkWithBusinesses(
+                  entrepreneurIds,
+                  businessesIds
+                );
+              } else {
+                await this.service.linkWithBusinessesByRequest(
+                  pageRequest,
+                  businessesIds
+                );
+              }
+              this.toast.clear();
+              this.toast.success({
+                summary: 'Cambios guardados',
+                detail: '',
+              });
+            } catch (error) {
+              this.toast.clear();
+              this.toast.error({
+                summary: 'Error al intentar mezclar emprendedor y empresa',
+                detail: error,
+              });
             }
+
             callbacks.fullRefresh();
           });
         break;
@@ -225,17 +245,41 @@ export class EntrepreneursComponent {
           .subscribe(async (data?: TableSelection) => {
             if (!data) return;
             if (!data.selected) return;
-            const businessesIds = data.selected;
-            if (entrepreneurIds.length) {
-              await this.service.linkWithStartups(
-                entrepreneurIds,
-                businessesIds
-              );
-            } else {
-              await this.service.linkWithStartupsByRequest(
-                pageRequest,
-                businessesIds
-              );
+            const startupsIds = data.selected;
+            if (startupsIds.length > 1) {
+              this.toast.alert({
+                summary:
+                  'No se permite enlazar multiples emprendedores a una startup, no varias',
+                detail: '',
+                life: 12000,
+              });
+              return;
+            }
+            this.toast.info({
+              summary: 'Guardando cambios',
+              detail: 'Por favor espere',
+              life: 12000000,
+            });
+            try {
+              if (entrepreneurIds.length) {
+                await this.service.linkWithStartups(
+                  entrepreneurIds,
+                  startupsIds
+                );
+              } else {
+                await this.service.linkWithStartupsByRequest(
+                  pageRequest,
+                  startupsIds
+                );
+              }
+              this.toast.clear();
+              this.toast.info({ summary: 'Cambio realizado', detail: '' });
+            } catch (error) {
+              this.toast.clear();
+              this.toast.error({
+                summary: 'Error al intentar mezclar emprendedor y startup',
+                detail: error,
+              });
             }
             callbacks.fullRefresh();
           });
