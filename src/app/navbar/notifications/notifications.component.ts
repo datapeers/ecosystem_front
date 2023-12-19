@@ -12,6 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 import { User } from '@auth/models/user';
 import { ToastService } from '@shared/services/toast.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-notifications',
@@ -124,14 +125,18 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   goToNotification(notification: Notification) {
     switch (notification.type) {
       case 'rate':
-        if (notification.state !== NotificationStates.read)
-          this.action(notification, 'read');
+        // if (notification.state !== NotificationStates.read)
+        //   this.action(notification, 'read');
         break;
       case 'homework':
         break;
       case 'approved':
         break;
       case 'advise':
+        if (notification.url === '') return;
+        const rutaRelativa = notification.url.replace(location.origin, '');
+        console.log(rutaRelativa);
+        this.router.navigate([rutaRelativa]);
         break;
       case 'notes':
         break;

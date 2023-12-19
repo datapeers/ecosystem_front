@@ -41,6 +41,7 @@ import { Startup } from '@shared/models/entities/startup';
 import { StartupProfileComponent } from './startup-profile/startup-profile.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { RouteStageDescriptionComponent } from './route-stage-description/route-stage-description.component';
+import { StartupInvitationComponent } from './startup-profile/startup-invitation/startup-invitation.component';
 
 const routes: Routes = [
   {
@@ -129,6 +130,10 @@ const routes: Routes = [
       {
         path: 'startup',
         component: StartupProfileComponent,
+      },
+      {
+        path: 'startup_invitation/:startupId',
+        component: StartupInvitationComponent,
       },
       {
         path: 'helpdesk',
