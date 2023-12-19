@@ -149,4 +149,19 @@ export class StartupsService implements DocumentProvider {
         .pipe(map((request) => request.data.startupsDownload))
     );
   }
+
+  async updateDataEntrepreneur(
+    id: string,
+    description: string,
+    rol: string,
+    startup: string
+  ) {
+    const mutationRef = this.graphql.refMutation(
+      startupQueries.mutation.updateDataEntrepreneurStartup,
+      { id, description, rol, startup },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql.mutation(mutationRef));
+  }
 }

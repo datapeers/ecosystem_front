@@ -129,6 +129,14 @@ const mutation = {
     }
     ${updateResultPayloadFields}
   `,
+  updateDataEntrepreneurStartup: `
+    mutation UpdateDataEntrepreneurStartup($id: String!, $description: String!, $rol: String!, $startup: String!) {
+      updateDataEntrepreneurStartup(_id: $id, description: $description, rol: $rol, startup: $startup) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
 };
 
 export const startupQueries = {

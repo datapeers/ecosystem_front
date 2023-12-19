@@ -23,7 +23,7 @@ export class EntrepreneursService implements DocumentProvider {
   constructor(
     private readonly graphql: GraphqlService,
     private readonly formService: FormService,
-    private readonly toast: ToastService,
+    private readonly toast: ToastService
   ) {}
 
   cachedQueries: string[] = [];
@@ -46,7 +46,10 @@ export class EntrepreneursService implements DocumentProvider {
     );
   }
 
-  async getDocumentsPage(_: any, request: PageRequest): Promise<PaginatedResult<Entrepreneur>> {
+  async getDocumentsPage(
+    _: any,
+    request: PageRequest
+  ): Promise<PaginatedResult<Entrepreneur>> {
     const queryRef = this.graphql.refQuery(
       entrepreneurQueries.query.entrepreneursPage,
       { request },
@@ -55,7 +58,7 @@ export class EntrepreneursService implements DocumentProvider {
     );
     request = jsonUtils.sortObjectKeys(request);
     const requestKey = `entrepreneursPage(${JSON.stringify({ request })})`;
-    if(!this.cachedQueries.some(queryKey => queryKey === requestKey)) {
+    if (!this.cachedQueries.some((queryKey) => queryKey === requestKey)) {
       this.cachedQueries.push(requestKey);
     }
     return firstValueFrom(
@@ -124,40 +127,44 @@ export class EntrepreneursService implements DocumentProvider {
     }
   }
 
-  async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
-    const mutationRef = this.graphql.refMutation(
-      entrepreneurQueries.mutation.deleteEntrepreneurs,
-      { ids },
-      [],
-      { auth: true }
-    );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.deleteEntrepreneurs),
-      )
-    );
-  }
+  // async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
+  //   const mutationRef = this.graphql.refMutation(
+  //     entrepreneurQueries.mutation.deleteEntrepreneurs,
+  //     { ids },
+  //     [],
+  //     { auth: true }
+  //   );
+  //   return firstValueFrom(this.graphql
+  //     .mutation(mutationRef)
+  //     .pipe(
+  //       map((request) => request.data.deleteEntrepreneurs),
+  //     )
+  //   );
+  // }
 
-  async linkWithBusinessesByRequest(request: PageRequest, targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithBusinessesByRequest(
+    request: PageRequest,
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       entrepreneurQueries.mutation.linkEntrepreneursWithBusinessesByRequest,
       { request, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
         map((request) => request.data.linkEntrepreneursWithBusinessesByRequest),
         tap((result: UpdateResultPayload) => {
-          if(result.acknowledged) {
+          if (result.acknowledged) {
             this.toast.success({
-              detail: "Se asociaron con éxito las empresas seleccionadas con los empresarios"
+              detail:
+                'Se asociaron con éxito las empresas seleccionadas con los empresarios',
             });
           } else {
             this.toast.success({
-              detail: "Se asociaron con éxito las empresas seleccionadas con los empresarios"
+              detail:
+                'Se asociaron con éxito las empresas seleccionadas con los empresarios',
             });
           }
         })
@@ -165,41 +172,46 @@ export class EntrepreneursService implements DocumentProvider {
     );
   }
 
-  async linkWithBusinesses(ids: string[], targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithBusinesses(
+    ids: string[],
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       entrepreneurQueries.mutation.linkEntrepreneursWithBusinesses,
       { ids, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.linkEntrepreneursWithBusinesses),
-      )
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.linkEntrepreneursWithBusinesses))
     );
   }
 
-  
-  async linkWithStartupsByRequest(request: PageRequest, targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithStartupsByRequest(
+    request: PageRequest,
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       entrepreneurQueries.mutation.linkEntrepreneursWithStartupsByRequest,
       { request, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
         map((request) => request.data.linkEntrepreneursWithStartupsByRequest),
         tap((result: UpdateResultPayload) => {
-          if(result.acknowledged) {
+          if (result.acknowledged) {
             this.toast.success({
-              detail: "Se asociaron con éxito las startups seleccionadas con los empresarios"
+              detail:
+                'Se asociaron con éxito las startups seleccionadas con los empresarios',
             });
           } else {
             this.toast.success({
-              detail: "Se asociaron con éxito las startups seleccionadas con los empresarios"
+              detail:
+                'Se asociaron con éxito las startups seleccionadas con los empresarios',
             });
           }
         })
@@ -207,22 +219,26 @@ export class EntrepreneursService implements DocumentProvider {
     );
   }
 
-  async linkWithStartups(ids: string[], targetIds: string[]): Promise<UpdateResultPayload> {
+  async linkWithStartups(
+    ids: string[],
+    targetIds: string[]
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       entrepreneurQueries.mutation.linkEntrepreneursWithStartups,
       { ids, targetIds },
       [],
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .mutation(mutationRef)
-      .pipe(
-        map((request) => request.data.linkEntrepreneursWithStartups),
-      )
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.linkEntrepreneursWithStartups))
     );
   }
 
-  async requestDownload(downloadRequest: DownloadRequest): Promise<DownloadResult> {
+  async requestDownload(
+    downloadRequest: DownloadRequest
+  ): Promise<DownloadResult> {
     const queryRef = this.graphql.refQuery(
       entrepreneurQueries.query.entrepreneursDownload,
       { ...downloadRequest },

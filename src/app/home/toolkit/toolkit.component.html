@@ -44,69 +44,82 @@
         <div class="flex flex-grown-1 p-4 cards-container" *ngIf="cards.length > 0">
             <div class="flex w-full gap-4" [ngClass]="{'flex-column' : selected === 'list', 'flex-wrap justify-content-center' : selected === 'grid'}">
                 <ng-container *ngFor="let item of cards">
-                    <div class="flex container" [ngClass]="{'w-full flex-row align-items-center mt-2 gap-4' : selected === 'list', 'flex-column max-w-20rem' : selected === 'grid'}">
-                        <div class="flex justify-content-between color-seven align-items-center flex-none">
-                            <i-tabler name="layout-board-split" *ngIf="selected === 'grid'"></i-tabler>
-                            <div class="flex panel-date">
-                                <div class="flex justify-content-between align-items-center gap-2">
-                                    <i-tabler name="calendar-bolt"></i-tabler>
-                                    <p class="th2">{{item.resource.extra_options.expiration | date : 'dd MMM yyyy'}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="sh1" [ngClass]="{'mt-0' : selected === 'list', 'mt-5' : selected === 'grid'}">
-                            {{item.resource.name}}</p>
-                        <div class="flex flex-column gap-4 flex-grown-1">
-                            <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-2' : selected === 'grid'}">
-                                Contenido de {{item.phase.name}} - Etapa {{item.phase.stageDoc.name}}</p>
-                            <ng-container *ngIf="item.resource.type !== resourcesTypes.downloadable">
-                                <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-4' : selected === 'grid'}">
-                                    Observaciones:</p>
-                                <p>{{item.observations ?? ''}}</p>
-                            </ng-container>
-                        </div>
-                        <div class="flex w-full flex-row" [ngClass]="{'mt-0  justify-content-end gap-2' : selected === 'list', ' justify-content-between mt-4' : selected === 'grid'}" style="flex: 1">
-                            <div class="flex gap-2 h-full align-items-end">
-                                <ng-container [ngSwitch]="item.resource.type">
-                                    <ng-container *ngSwitchCase="resourcesTypes.form">
-                                        <div class="flex panel-icon" pTooltip="Ver formulario" (click)="openForm(item)">
-                                            <i-tabler name="download"></i-tabler>
-                                        </div>
-                                    </ng-container>
-                                    <ng-container *ngSwitchCase="resourcesTypes.downloadable">
-                                        <div class="flex panel-icon" pTooltip="Descargar" (click)="downloadFile(item)">
-                                            <i-tabler name="download"></i-tabler>
-                                        </div>
-
-                                    </ng-container>
-                                    <ng-container *ngSwitchCase="resourcesTypes.task">
-                                        <div class="flex panel-icon" *ngIf="item.resource.extra_options.file" (click)="downloadFile(item)" pTooltip="Plantilla">
-                                            <i-tabler name="eye"></i-tabler>
-                                        </div>
-                                        <div class="flex panel-icon" [pTooltip]="item.item?.file ? 'Cambiar' : 'Subir'" (click)="fileInput.click()">
-                                            <i-tabler [name]="item.item?.file ? 'download' : 'upload'"></i-tabler>
-                                        </div>
-                                        <ng-container *ngIf="item.state !== resourcesStates.Pendiente">
-                                            <div class="flex panel-icon" pTooltip="Ver archivo" (click)="downloadFileReply(item)">
-                                                <i-tabler name="eye"></i-tabler>
-                                            </div>
-                                        </ng-container>
-                                        <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, item)">
-                                    </ng-container>
-                                </ng-container>
-                            </div>
-                            <div class="flex h-full align-items-end">
-                                <p class="text-base text-center tag">
-                                    {{item.state}}</p>
-                            </div>
-                        </div>
+                    <div class="flex container" (click)="setItem(item)" [ngClass]="{'w-full flex-row align-items-center mt-2 gap-4' : selected === 'list', 'flex-column max-w-20rem' : selected === 'grid'}">
+                        <ng-container *ngTemplateOutlet="itemCard; context: { '$implicit': item }"></ng-container>
                     </div>
                 </ng-container>
             </div>
-
         </div>
     </ng-container>
 </div>
 <ng-template #loadingTemplates>
     <app-loading></app-loading>
 </ng-template>
+
+<ng-template #itemCard let-item>
+    <ng-container *ngIf="item">
+        <div class="flex container" class="flex justify-content-between color-seven align-items-center flex-none">
+            <i-tabler name="layout-board-split" *ngIf="selected === 'grid'"></i-tabler>
+            <div class="flex panel-date">
+                <div class="flex justify-content-between align-items-center gap-2">
+                    <i-tabler name="calendar-bolt"></i-tabler>
+                    <p class="th2">{{item.resource.extra_options.expiration | date : 'dd MMM yyyy'}}</p>
+                </div>
+            </div>
+        </div>
+        <p class="sh1" [ngClass]="{'mt-0' : selected === 'list', 'mt-5' : selected === 'grid'}">
+            {{item.resource.name}}</p>
+        <div class="flex flex-column gap-4 flex-grown-1">
+            <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-2' : selected === 'grid'}">
+                Contenido de {{item.phase.name}} - Etapa {{item.phase.stageDoc.name}}</p>
+            <ng-container *ngIf="item.resource.type !== resourcesTypes.downloadable">
+                <p class="th1" [ngClass]="{'mt-0' : selected === 'list', 'mt-4' : selected === 'grid'}">
+                    Observaciones:</p>
+                <p class="overflow-hidden max-h-5rem">{{item.observations ?? ''}}</p>
+            </ng-container>
+        </div>
+        <div class="flex w-full flex-row" [ngClass]="{'mt-0  justify-content-end gap-2' : selected === 'list', ' justify-content-between mt-4' : selected === 'grid'}" style="flex: 1">
+            <div class="flex gap-2 h-full align-items-end">
+                <ng-container [ngSwitch]="item.resource.type">
+                    <ng-container *ngSwitchCase="resourcesTypes.form">
+                        <div class="flex panel-icon" pTooltip="Ver formulario" (click)="openForm(item)">
+                            <i-tabler name="download"></i-tabler>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="resourcesTypes.downloadable">
+                        <div class="flex panel-icon" pTooltip="Descargar" (click)="downloadFile(item)">
+                            <i-tabler name="download"></i-tabler>
+                        </div>
+
+                    </ng-container>
+                    <ng-container *ngSwitchCase="resourcesTypes.task">
+                        <div class="flex panel-icon" *ngIf="item.resource.extra_options.file" (click)="downloadFile(item)" pTooltip="Plantilla">
+                            <i-tabler name="eye"></i-tabler>
+                        </div>
+                        <div class="flex panel-icon" [pTooltip]="item.item?.file ? 'Cambiar' : 'Subir'" (click)="fileInput.click()">
+                            <i-tabler [name]="item.item?.file ? 'download' : 'upload'"></i-tabler>
+                        </div>
+                        <ng-container *ngIf="item.state !== resourcesStates.Pendiente">
+                            <div class="flex panel-icon" pTooltip="Ver archivo" (click)="downloadFileReply(item)">
+                                <i-tabler name="eye"></i-tabler>
+                            </div>
+                        </ng-container>
+                        <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, item)">
+                    </ng-container>
+                </ng-container>
+            </div>
+            <div class="flex h-full align-items-end">
+                <p class="text-base text-center tag">
+                    {{item.state}}</p>
+            </div>
+        </div>
+    </ng-container>
+</ng-template>
+
+<p-dialog appendTo="body" [header]="selectedItem?.resource?.name" [(visible)]="!!selectedItem" [style]="{ width: '45vw' }"
+    [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app"
+    [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+    <div class="px-5">
+        <ng-container *ngTemplateOutlet="itemCard; context: { '$implicit': selectedItem }"></ng-container>
+    </div>
+</p-dialog>

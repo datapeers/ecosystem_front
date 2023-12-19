@@ -303,13 +303,34 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
       })
       .then((ans) => {
         this.toast.clear();
-        this.showTicket.childs.push({ ...this.response.value });
+        this.showTicket.childs = this.showTicket.childs.concat([{ ...this.response.value }]);
       })
       .catch((err) => {
         this.toast.clear();
         console.warn(err);
         this.toast.error({ summary: 'Error al responder ticket', detail: err });
       });
+  }
+
+  updateTicketStatus(newState: TicketStates) {
+    this.toast.info({ detail: '', summary: 'Actualizando...' });
+    this.service
+    .updateTicket({
+      _id: this.showTicket._id,
+      status: newState,
+    })
+    .then((ans) => {
+      this.showTicket = false;
+      this.toast.clear();
+    })
+    .catch((err) => {
+      this.toast.clear();
+      this.toast.alert({
+        summary: 'Error al intentar actualizar el estado del ticket',
+        detail: err,
+        life: 12000,
+      });
+    });
   }
 
   async closeTicket() {

@@ -196,7 +196,7 @@
                 <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
                                                             data: {
                                                                 label: component.label,
-                                                                value: doc.item[component.key] ?  valueFieldMultiple(doc.item[component.key], component.values) : noValuePlaceholder
+                                                                value: doc.item[component.key] ?  doc.item[component.key].join(',') : noValuePlaceholder
                                                             }
                                                         }"></ng-template>
             </ng-container>
