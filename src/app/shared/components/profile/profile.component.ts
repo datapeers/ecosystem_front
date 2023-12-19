@@ -244,14 +244,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.toast.loading();
     const subscription = await this.formService.createFormSubscription({
       form: this.form._id,
-      reason: 'Editar datos de perfil',
+      reason: `Editar datos de perfil del usuario ${this.user._id}`,
       data: {},
       doc: this.profileDoc._id,
     });
     this.toast.clear();
     const ref = this.formService.openFormFromSubscription(
       subscription,
-      `Editar perfil del usuario ${this.user._id}`
+      `Editar perfil`
     );
     ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe(async (doc) => {
       if (doc) {

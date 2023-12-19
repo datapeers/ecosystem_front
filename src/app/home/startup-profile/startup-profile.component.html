@@ -15,7 +15,7 @@
                         <div>
                             <div class="flex flex-row justify-content-between">
                                 <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
-                                <i-tabler name="edit" class="edit-btn cursor-pointer" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
+                                <i-tabler name="edit" class="edit-btn cursor-pointer" pTooltip="Editar datos de startUp" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
                             </div>
 
                             <div class="h-3rem"></div>
@@ -63,10 +63,11 @@
 
         <p-table #dt class="w-full table-container table-dialog" [value]="startup.entrepreneurs" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
             <ng-template pTemplate="caption">
-                <div class="table-header">
+                <div class="table-header w-full flex flex-row justify-content-between align-items-center ">
                     <span class="header color-custom ml-3">Equipo</span>
                     <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
                     </div>
+                    <i-tabler name="user-plus" pTooltip="Invitar" tooltipPosition="left" class="edit-btn cursor-pointer" (click)="inviteDialog()" *ngIf="canInvite && leaderStartup._id === profileDoc._id"></i-tabler>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -185,13 +186,37 @@
         <div style="height: 1.5rem;"></div>
         <span class="w-full flex flex-column justify-content-center align-items-center gap-2 p-3">
             <span class="w-full app-input-field field-h-1">
-                <label htmlFor="namePhase">Funciones - {{editEntrepreneur.description.length}}/120
+                <label htmlFor="textFunctions">Funciones - {{editEntrepreneur.description.length}}/120
                     caracteres
                     permitidos</label>
-                <textarea maxlength="120" inputId="textarea" rows="5" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="editEntrepreneur.description" placeholder="Ingresa las funciones que cumple" pInputTextarea></textarea>
+                <textarea maxlength="120" inputId="textFunctions" rows="5" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="editEntrepreneur.description" placeholder="Ingresa las funciones que cumple" pInputTextarea></textarea>
             </span>
 
             <p-button (onClick)="saveDataEntrepreneur()" pTooltip="Guardar cambios" tooltipPosition="top" icon="pi pi-save" styleClass="p-button-text"></p-button>
+        </span>
+    </div>
+
+</p-dialog>
+
+<p-dialog appendTo="body" [(visible)]="showDialogInvite" [dismissableMask]="true" [style]="{width: '50vw'}" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" maskStyleClass="dialog-app" [modal]="true" (onHide)="invite = ''">
+    <div class="flex flex-column w-full">
+        <div class="w-full flex flex-row gap-3">
+            <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>
+            <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+                <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
+                    Invitar a emprendedor</h2>
+                <p>Por favor, introduce la dirección de correo electrónico del usuario que deseas invitar al grupo. Nos aseguraremos de enviarle una invitación para que se una a nosotros </p>
+            </div>
+        </div>
+        <p-divider></p-divider>
+        <div style="height: 1.5rem;"></div>
+        <span class="w-full flex flex-column justify-content-center align-items-center gap-2 p-3">
+            <span class="w-full app-input-field field-h-1">
+                <label htmlFor="emailInvite">Email</label>
+                <input pInputText id="emailInvite" [(ngModel)]="invite" class="inputfield field-full" placeholder="Ingresa el correo " />
+            </span>
+
+            <p-button icon="pi pi-send" label="Invitar" styleClass="p-button-text"></p-button>
         </span>
     </div>
 

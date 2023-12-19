@@ -356,12 +356,14 @@ export class CalendarComponent {
           this.actas = await this.actasService.getActasByEvents(
             eventList.map((i) => i._id)
           );
+          console.log(this.actas);
           this.phases = await this.phaseService.getPhases();
           this.events = [];
           this.originalEvents = eventList;
           for (const iterator of eventList) {
             this.assignItem(iterator);
           }
+          console.log(this.events);
           this.loadingComponent = false;
           setTimeout(() => {
             this.resizeCalendar();

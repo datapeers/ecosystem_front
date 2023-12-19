@@ -12,6 +12,7 @@ import { Table } from 'primeng/table';
 import { RolStartup, rolStartupNames } from './models/rol-startup.enum';
 import { textField } from '@shared/utils/order-field-multiple';
 import { cloneDeep } from 'lodash';
+import { Phase } from '@home/phases/model/phase.model';
 @Component({
   selector: 'app-startup-profile',
   templateUrl: './startup-profile.component.html',
@@ -29,6 +30,11 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   onDestroy$: Subject<void> = new Subject();
   leaderStartup;
   editEntrepreneur;
+
+  canInvite;
+  showDialogInvite;
+  invite = '';
+  currentBatch: Phase | any;
   @ViewChild('dt', { static: true }) dt: Table;
 
   public get rolStartups(): typeof RolStartup {
@@ -88,6 +94,17 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
       .getInputComponents(formNegociosComponents)
       .filter((i) => !ignore.includes(i.key));
     // console.log(this.formNegociosFields);
+    this.currentBatch = await firstValueFrom(
+      this.store
+        .select((store) => store.home.currentBatch)
+        .pipe(first((i) => i !== null))
+    );
+    if (
+      this.currentBatch &&
+      this.currentBatch['childrenOf'] === '65242ea3baa24cae19bd5baf'
+    ) {
+      this.canInvite = true;
+    }
     this.loaded = true;
   }
 
@@ -155,5 +172,9 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
 
   closeDataEntrepreneur() {
     this.editEntrepreneur = undefined;
+  }
+
+  inviteDialog() {
+    this.showDialogInvite = true;
   }
 }

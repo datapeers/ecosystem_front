@@ -28,7 +28,7 @@ const fragments = {
       _id
       name
       email
-      startup
+      startupEntrepreneur
     }
     participation {
       _id

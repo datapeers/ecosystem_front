@@ -9,7 +9,7 @@ export interface IEntityEvent {
   _id: string;
   name: string;
   email: string;
-  startup?: string;
+  startupEntrepreneur?: string;
   __typename?: string;
 }
 
@@ -28,7 +28,7 @@ export class EntrepreneurItemDisplay implements IEntityEvent {
       _id: this._id,
       name: this.name,
       email: this.email,
-      startup: this.startup,
+      startupEntrepreneur: this.startup,
     };
   }
 }
@@ -94,7 +94,6 @@ export class Event implements IEvent {
     const averageRating = data.participation.length
       ? totalRatings / data.participation.length
       : 0;
-    console.log(data.participants);
     Object.assign(obj, {
       ...data,
       createdAt: new Date(data.createdAt),

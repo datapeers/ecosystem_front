@@ -213,7 +213,7 @@ export class EventCreatorComponent implements OnInit {
           _id: entrepreneur._id,
           name: entrepreneur.item.nombre,
           email: entrepreneur.item['email'],
-          startup: startUp._id,
+          startupEntrepreneur: startUp._id,
         };
       });
       if (startUp.item.generic) {
@@ -240,7 +240,7 @@ export class EventCreatorComponent implements OnInit {
           _id: entrepreneur._id,
           name: entrepreneur.item.nombre,
           email: entrepreneur.item['email'],
-          startup: startUp._id,
+          startupEntrepreneur: startUp._id,
         });
       }
     }
