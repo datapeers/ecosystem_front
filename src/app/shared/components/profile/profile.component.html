@@ -1,7 +1,8 @@
 <ng-container *ngIf="user else loadingTemplate">
     <p-scrollPanel [style]="{ width: '100%', height: '100%' }" class="w-full">
-        <div class="flex flex-column mx-5 mt-3 gap-3">
-            <div class="w-full panel-profile justify-center flex flex-column align-items-center gap-3" style="padding: 1.875rem; border-radius: 3.25rem">
+        <div class="flex flex-column mx-1 lg:mx-5 mt-3 gap-3">
+            <div class="w-full panel-profile justify-center flex flex-column align-items-center gap-3"
+                style="padding: 1.875rem; border-radius: 3.25rem">
                 <div class="w-full flex flex-column md:flex-row justify-content-between align-items-center">
                     <span class="font-semibold text-xl">
                         <h3>Cuenta</h3>
@@ -19,14 +20,16 @@
                         </p-button>
                     </div>
                 </div>
-                <app-avatar-uploader [imageUrl]="user.profileImageUrl" (onUpload)="uploadImage($event, user)" [disableRemove]="true"></app-avatar-uploader>
+                <app-avatar-uploader [imageUrl]="user.profileImageUrl" (onUpload)="uploadImage($event, user)"
+                    [disableRemove]="true"></app-avatar-uploader>
                 <span class="app-input-field" style="width: 100%">
                     <label htmlFor="username">Nombre de usuario</label>
                     <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="user.fullName" />
                 </span>
                 <span class="app-input-field" style="width: 100%">
                     <label htmlFor="username">Correo</label>
-                    <input class="flex-auto" pInputText id="username" aria-describedby="username-help" [(ngModel)]="user.email" readonly />
+                    <input class="flex-auto" pInputText id="username" aria-describedby="username-help"
+                        [(ngModel)]="user.email" readonly />
                 </span>
 
                 <div class="flex flex-wrap w-full gap-2">
@@ -53,7 +56,8 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="panel-profile justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="fields.length">
+            <div class="panel-profile justify-center align-items-center h-auto"
+                style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="fields.length">
                 <div class="flex flex-row justify-content-between">
                     <h3>Perfil</h3>
                     <i-tabler name="edit" class="edit-btn cursor-pointer" (click)="editProfileDoc()"></i-tabler>
@@ -61,21 +65,25 @@
                 <div class="flex flex-column gap-4">
                     <div class="grid-container">
                         <ng-container *ngFor="let item of fields">
-                            <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: profileDoc }"></ng-template>
+                            <ng-template [ngTemplateOutlet]="fieldFormTemplate"
+                                [ngTemplateOutletContext]="{ component: item, doc: profileDoc }"></ng-template>
                         </ng-container>
                     </div>
                 </div>
             </div>
-            <div *ngIf="viewRating" class="w-full panel-profile justify-center flex flex-column align-items-center gap-3" style="padding: 1.875rem; border-radius: 3.25rem">
+            <div *ngIf="viewRating"
+                class="w-full panel-profile justify-center flex flex-column align-items-center gap-3"
+                style="padding: 1.875rem; border-radius: 3.25rem">
                 <label for="" class="font-semibold">Calificación general por parte de los usuarios:</label>
                 <p-rating [(ngModel)]="rating" [disabled]="true" [cancel]="false"></p-rating>
             </div>
             <!-- <div class="card">
                 <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
             </div> -->
-            <div *ngIf="notifications.length" class="panel-profile justify-center align-items-center" style="padding: 1.875rem; border-radius: 3.25rem">
+            <div *ngIf="notifications.length" class="panel-profile justify-center align-items-center"
+                style="padding: 1.875rem; border-radius: 3.25rem">
                 <div class="flex flex-row justify-content-between">
-                    <h3>Notificaciones que quiero recibir</h3>
+                    <h3>Notificaciones que quiero recibir por correo</h3>
                 </div>
                 <div class="grid pb-2 pt-4">
                     <ng-container *ngFor="let item of notifications">
@@ -94,72 +102,91 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog [(visible)]="passwordDialog" header="" maskStyleClass="dialog-app" appendTo="body" [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+<p-dialog [(visible)]="passwordDialog" header="" maskStyleClass="dialog-app" appendTo="body" [modal]="true"
+    [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="bulb" class="icon-dialog"></i-tabler>
         <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
-            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Cambiar contraseña</h2>
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Cambiar
+                contraseña</h2>
             <div class="w-full flex flex-row gap-1">
                 <span class="text-sm text-color-other"></span>
             </div>
         </div>
     </div>
     <p-divider></p-divider>
-    <form (keyup)="onKeyUp($event)" class="formgrid grid gap-3 p-6 w-full align-items-center justify-content-center " [formGroup]="changePasswordForm">
+    <form (keyup)="onKeyUp($event)" class="formgrid grid gap-3 p-6 w-full align-items-center justify-content-center "
+        [formGroup]="changePasswordForm">
         <span class="w-11">
-            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="currentPassword" placeholder="Contraseña"></p-password>
+            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="currentPassword"
+                placeholder="Contraseña"></p-password>
 
             <div class="flex align-items-center justify-content-center">
-                <div [hidden]="changePasswordForm.controls['currentPassword'].valid || !changePasswordForm.controls['currentPassword'].dirty" class="alert alert-danger">
+                <div [hidden]="changePasswordForm.controls['currentPassword'].valid || !changePasswordForm.controls['currentPassword'].dirty"
+                    class="alert alert-danger">
                     <small class="p-error">Debe ingresarse una contraseña</small>
                 </div>
             </div>
             <div class="flex align-items-center justify-content-center">
-                <div [hidden]="changePasswordForm.controls['currentPassword'].valid || !changePasswordForm.controls['currentPassword'].dirty" class="alert alert-danger">
-                    <small *ngIf="changePasswordForm.controls['currentPassword'].errors?.['required']" class="error-message">La
+                <div [hidden]="changePasswordForm.controls['currentPassword'].valid || !changePasswordForm.controls['currentPassword'].dirty"
+                    class="alert alert-danger">
+                    <small *ngIf="changePasswordForm.controls['currentPassword'].errors?.['required']"
+                        class="error-message">La
                         contraseña es obligatoria</small>
-                    <small *ngIf="changePasswordForm.controls['currentPassword'].errors?.['minlength']" class="error-message">La
+                    <small *ngIf="changePasswordForm.controls['currentPassword'].errors?.['minlength']"
+                        class="error-message">La
                         contraseña debe tener al menos 6 caracteres</small>
                 </div>
             </div>
         </span>
 
         <span class="w-11">
-            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="newPassword" placeholder="Nueva contraseña"></p-password>
+            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="newPassword"
+                placeholder="Nueva contraseña"></p-password>
 
             <div class="flex align-items-center justify-content-center">
-                <div [hidden]="changePasswordForm.controls['newPassword'].valid || !changePasswordForm.controls['newPassword'].dirty" class="alert alert-danger">
+                <div [hidden]="changePasswordForm.controls['newPassword'].valid || !changePasswordForm.controls['newPassword'].dirty"
+                    class="alert alert-danger">
                     <small class="p-error">Debe ingresarse una contraseña</small>
                 </div>
             </div>
             <div class="flex align-items-center justify-content-center">
-                <div [hidden]="changePasswordForm.controls['newPassword'].valid || !changePasswordForm.controls['newPassword'].dirty" class="alert alert-danger">
-                    <small *ngIf="changePasswordForm.controls['newPassword'].errors?.['required']" class="error-message">La
+                <div [hidden]="changePasswordForm.controls['newPassword'].valid || !changePasswordForm.controls['newPassword'].dirty"
+                    class="alert alert-danger">
+                    <small *ngIf="changePasswordForm.controls['newPassword'].errors?.['required']"
+                        class="error-message">La
                         contraseña es obligatoria</small>
-                    <small *ngIf="changePasswordForm.controls['newPassword'].errors?.['minlength']" class="error-message">La
+                    <small *ngIf="changePasswordForm.controls['newPassword'].errors?.['minlength']"
+                        class="error-message">La
                         contraseña debe tener al menos 6 caracteres</small>
                 </div>
             </div>
         </span>
 
         <span class="w-11">
-            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false" formControlName="confirmNewPassword" placeholder="Confirmar contraseña"></p-password>
+            <p-password styleClass="field-full" [toggleMask]="true" [feedback]="false"
+                formControlName="confirmNewPassword" placeholder="Confirmar contraseña"></p-password>
             <div class="flex align-items-center justify-content-center">
-                <div [hidden]="changePasswordForm.controls['confirmNewPassword'].valid || !changePasswordForm.controls['confirmNewPassword'].dirty" class="alert alert-danger">
+                <div [hidden]="changePasswordForm.controls['confirmNewPassword'].valid || !changePasswordForm.controls['confirmNewPassword'].dirty"
+                    class="alert alert-danger">
                     <small class="p-error">Debe ingresarse una contraseña</small>
                 </div>
             </div>
             <div class="flex align-items-center justify-content-center">
-                <div [hidden]="changePasswordForm.controls['confirmNewPassword'].valid || !changePasswordForm.controls['confirmNewPassword'].dirty" class="alert alert-danger">
-                    <small *ngIf="changePasswordForm.controls['confirmNewPassword'].errors?.['required']" class="error-message">
+                <div [hidden]="changePasswordForm.controls['confirmNewPassword'].valid || !changePasswordForm.controls['confirmNewPassword'].dirty"
+                    class="alert alert-danger">
+                    <small *ngIf="changePasswordForm.controls['confirmNewPassword'].errors?.['required']"
+                        class="error-message">
                         Ambas contraseñas deben ser iguales
                     </small>
                 </div>
             </div>
         </span>
         <div class="flex flex-row justify-content-end gap-2 w-11">
-            <p-button type="submit" label="Cambiar" (onClick)="onSubmit()" [disabled]="!changePasswordForm.valid" styleClass=""></p-button>
-            <p-button label="Cancelar" (onClick)="passwordDialog = false;" styleClass="p-button-outlined button-grey"></p-button>
+            <p-button type="submit" label="Cambiar" (onClick)="onSubmit()" [disabled]="!changePasswordForm.valid"
+                styleClass=""></p-button>
+            <p-button label="Cancelar" (onClick)="passwordDialog = false;"
+                styleClass="p-button-outlined button-grey"></p-button>
         </div>
     </form>
 </p-dialog>
@@ -182,7 +209,8 @@
 
 <ng-template #fieldFormTemplate let-component="component" let-doc="doc">
     <ng-container [ngSwitch]="true">
-        <ng-container *ngSwitchCase="['datamap', 'editgrid', 'datagrid', 'fieldset', 'html', 'htmlelement'].includes(component.type)">
+        <ng-container
+            *ngSwitchCase="['datamap', 'editgrid', 'datagrid', 'fieldset', 'html', 'htmlelement'].includes(component.type)">
             <!-- Skip -->
         </ng-container>
         <ng-container *ngSwitchCase="['datetime', 'dateAndTime', 'time'].includes(component.type)">
@@ -195,7 +223,8 @@
         </ng-container>
         <ng-container *ngSwitchCase="['selectboxes'].includes(component.type)">
             <ng-container *ngFor="let item of component.values | keyvalue">
-                <ng-template *ngIf="doc.item[component.key][$any(item.key)]" [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{
+                <ng-template *ngIf="doc.item[component.key][$any(item.key)]" [ngTemplateOutlet]="paramCardTemplate"
+                    [ngTemplateOutletContext]="{
                                                         data: {
                                                             label: component.label,
                                                             value: $any(item.value)
