@@ -36,6 +36,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profileDoc;
   noValuePlaceholder: string = '- - - -';
   formProfileFields: any[] = [];
+  notifications: any[] = [
+    { label: "Invitación a evento", value: true },
+    { label: "Actualización Evento", value: true },
+    { label: "Recurso calificado", value: true },
+    { label: "Recurso próximo a vencer", value: true },
+    { label: "Culminación de fase", value: true },
+    { label: "Evaluación disponible", value: true },
+    { label: "Actualización ticket mesa de ayuda", value: true },
+  ];
   accountParams = [
     {
       label: 'Calendly link',
