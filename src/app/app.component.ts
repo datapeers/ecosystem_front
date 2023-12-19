@@ -5,6 +5,8 @@ import { PrimeNGConfig } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { ToggleMenuAction } from '@home/store/home.actions';
+import { ShepherdService } from 'angular-shepherd';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

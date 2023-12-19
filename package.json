@@ -36,6 +36,7 @@
     "@ngrx/effects": "^16.2.0",
     "@ngrx/store": "^16.2.0",
     "@ngrx/store-devtools": "^16.2.0",
+    "angular-shepherd": "^16.0.0",
     "angular-tabler-icons": "^2.39.0",
     "angularx-qrcode": "^16.0.1",
     "apollo-angular": "^5.0.1",

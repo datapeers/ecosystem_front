@@ -38,6 +38,7 @@ import { RatingEventComponent } from './rating-event/rating-event.component';
 import * as moment from 'moment';
 import { Permission } from '@auth/models/permissions.enum';
 import { Table } from 'primeng/table';
+import { ShepherdService } from 'angular-shepherd';
 
 @Component({
   selector: 'app-calendar',
@@ -171,7 +172,8 @@ export class CalendarComponent {
     private readonly service: CalendarService,
     private readonly expertsService: ExpertsService,
     private readonly phaseService: PhasesService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
+    private readonly shepherdService: ShepherdService
   ) {
     this.scrollHeight = `${innerHeight - 446}px`;
     this.globalFilter = this.columns.map((i) => i.field);
@@ -186,6 +188,60 @@ export class CalendarComponent {
   ngOnInit(): void {
     this.loadingComponent = false;
     this.loadComponent();
+  }
+
+  ngAfterViewInit() {
+    /*this.shepherdService.defaultStepOptions = {
+      classes: 'custom-class-name-1 custom-class-name-2',
+      scrollTo: true,
+      cancelIcon: {
+        enabled: true,
+      },
+    };
+    this.shepherdService.modal = true;
+    this.shepherdService.confirmCancel = false;
+    this.shepherdService.addSteps([
+      {
+        attachTo: {
+          element: '#bulb-calendar',
+          on: 'top',
+        },
+        beforeShowPromise: function () {
+          return new Promise<void>(function (resolve) {
+            setTimeout(function () {
+              window.scrollTo(0, 0);
+              resolve();
+            }, 500);
+          });
+        },
+        text: 'El primer Texto',
+        buttons: [
+          {
+            classes: 'button-blue p-button-raised',
+            text: 'Exit',
+            action() {
+              console.log('Tour', this);
+              this.next();
+            },
+          },
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Back',
+            action: this.shepherdService.back,
+          },
+          {
+            classes: 'shepherd-button-primary',
+            text: 'Next',
+            action: this.shepherdService.next,
+          },
+        ],
+      },
+      {
+        title: 'Segundo Titulo',
+        text: 'El Segundo Texto',
+      },
+    ]);
+    this.shepherdService.start();*/
   }
 
   ngOnDestroy() {

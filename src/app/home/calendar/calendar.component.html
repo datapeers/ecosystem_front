@@ -5,13 +5,13 @@
             <div style="height: 1.5rem"></div>
             <div class="flex flex-column md:flex-row w-full justify-content-between mb-3 gap-3 ">
                 <div class="flex align-items-center w-9 gap-3">
-                    <i-tabler class="text-center" name="bulb"
+                    <i-tabler id="bulb-calendar" class="text-center" name="bulb"
                         style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
                     <p *ngIf="user?.isUser" class="th2">En este lugar encuentras tu agenda de actividades en Ecosystem,
                         desde acá puedes
                         solicitar un agendamiento específico con nuestro grupo de acompañamiento en las sigueintes áreas
-                        Asesoría, Mentoría, Coach para esto usa el botón "Acompañamientos", también conoce el
-                        equipo de experts disponibles dando click en "Grupo de Experts".
+                        Asesoría, Mentoría, Coach. Para esto usa el botón "Acompañamientos", también conoce el
+                        equipo de experts disponibles dando click en "Experts".
                     </p>
                     <p *ngIf="!user?.isUser" class="th2">En este lugar se encuentra la agenda de las actividades de
                         acompañamiento y también permite el acceso a los diferentes recursos asociados a cada
@@ -156,31 +156,13 @@
             <i-tabler name="heart-handshake" class="icon-dialog hidden md:block"></i-tabler>
             <div class="content-resource w-full flex flex-column justify-content-between px-2 lg:px4 pb-2 gap-2">
                 <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl"
-                    [style.color]="'black'">Solicitud
+                    [style.color]="'black'">Acompañamientos
                 </h2>
-                <span class="text-xs lg:text-base">Recuerda que al hacer la solicitud en calendly debes ingresar el
-                    nombre de tu startup o tu nombre,
-                    y el
-                    correo usado en esta plataforma.</span>
-                <div class="flex flex-row text-xs lg:text-base">
-                    <span class="font-bold">Startup:</span>
-                    <span class="pl-2">{{startup['item']['nombre']}}</span>
-                </div>
-                <div class="flex flex-row text-xs lg:text-base">
-                    <span class="font-bold">Usuario:</span>
-                    <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
-                </div>
-                <div class="flex flex-row text-xs lg:text-base">
-                    <span class="font-bold">Email:</span>
-                    <span class="pl-2 text-overflow-ellipsis" tooltipPosition="top"
-                        [pTooltip]="user['email']">{{user['email']}}</span>
-                </div>
+                <span class="text-xs lg:text-base">Estos son los tipos de acompañamiento que tenemos para ofrecerte, en
+                    cada uno de ellos tenemos personas altamente calificadas para ello</span>
             </div>
         </div>
         <p-divider></p-divider>
-        <div class="flex w-full">
-            <label class="w-full text-center font-bold">Acompañamientos</label>
-        </div>
 
         <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
             <ng-container *ngFor="let typeEvent of typesEvents">
@@ -238,10 +220,6 @@
             </div>
         </div>
         <p-divider></p-divider>
-        <div class="flex w-full">
-            <label class="w-full text-center font-bold">Expertos</label>
-        </div>
-
         <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
             <ng-container *ngFor="let expert of expertsDialog">
                 <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
