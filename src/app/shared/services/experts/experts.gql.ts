@@ -16,6 +16,7 @@ const fragments = {
       }
       item
       calendlyLink
+      image
     }
   `,
 };

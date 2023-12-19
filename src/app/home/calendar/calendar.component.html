@@ -137,26 +137,29 @@
     </p-dialog>
 
     <p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" maskStyleClass="dialog-app"
-        [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+        [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
         <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
             <i-tabler name="heart-handshake" class="icon-dialog hidden md:block"></i-tabler>
             <div class="content-resource w-full flex flex-column justify-content-between px-2 lg:px4 pb-2 gap-2">
-                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Solicitud
+                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl"
+                    [style.color]="'black'">Solicitud
                 </h2>
-                <span>Recuerda que al hacer la solicitud debes ingresar el nombre de tu startup o tu nombre de usuario,
+                <span class="text-xs lg:text-base">Recuerda que al hacer la solicitud en calendly debes ingresar el
+                    nombre de tu startup o tu nombre,
                     y el
-                    correo usando en esta plataforma.</span>
-                <div class="flex flex-row">
+                    correo usado en esta plataforma.</span>
+                <div class="flex flex-row text-xs lg:text-base">
                     <span class="font-bold">Startup:</span>
                     <span class="pl-2">{{startup['item']['nombre']}}</span>
                 </div>
-                <div class="flex flex-row">
+                <div class="flex flex-row text-xs lg:text-base">
                     <span class="font-bold">Usuario:</span>
                     <span class="pl-2">{{profileDoc['item']['nombre']}}</span>
                 </div>
-                <div class="flex flex-row">
+                <div class="flex flex-row text-xs lg:text-base">
                     <span class="font-bold">Email:</span>
-                    <span class="pl-2">{{user['email']}}</span>
+                    <span class="pl-2 text-overflow-ellipsis" tooltipPosition="top"
+                        [pTooltip]="user['email']">{{user['email']}}</span>
                 </div>
             </div>
         </div>
@@ -165,31 +168,76 @@
             <label class="w-full text-center font-bold">Expertos</label>
         </div>
 
-        <div class="card-grid flex flex-wrap justify-content-center p-3 gap-2">
+        <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
             <ng-container *ngFor="let expert of expertsDialog">
                 <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
                     <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
-                        <div class="flex align-self-center">
-                            <p-avatar [label]="expert['item']['nombre'][0]" shape="circle"
-                                styleClass="w-4rem h-4rem"></p-avatar>
+                        <div
+                            class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-26rem">
+                            <div class="flex flex-column h-23rem gap-1">
+                                <div class="flex flex-none flex-column pt-3 gap-1">
+                                    <div class="flex justify-content-center">
+                                        <ng-container
+                                            *ngIf="expert['image'] && expert['image'] != ''; else withoutImage">
+                                            <p-avatar [image]="expert['image']" shape="circle"
+                                                styleClass="w-4rem h-4rem"></p-avatar>
+                                        </ng-container>
+                                        <ng-template #withoutImage>
+                                            <p-avatar [label]="expert['item']['nombre'][0]" shape="circle"
+                                                styleClass="w-4rem h-4rem"></p-avatar>
+                                        </ng-template>
+                                    </div>
+                                    <div class="h-1rem"></div>
+                                    <div class="flex justify-content-center">
+                                        <span class="primary-param-label font-bold text-overflow-ellipsis"
+                                            tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
+                                            {{expert['item']['nombre']}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex flex-column flex-grow-1 justify-content-center">
+                                    <a *ngIf="expert['item']['linkDeLinkedIn']" class="profile"
+                                        [href]="expert['item']['linkDeLinkedIn']" target="_blank">
+                                        LinkedIn
+                                    </a>
+                                    <span
+                                        *ngIf="expert['item']['indicanosLosAnosDeExperienciaEnTuTrayectoriaProfesional']"
+                                        class="profile" tooltipPosition="top">
+                                        <strong>Años de experiencia:</strong>
+                                        {{expert['item']['indicanosLosAnosDeExperienciaEnTuTrayectoriaProfesional']}}
+                                    </span>
+                                    <span
+                                        *ngIf="expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'] && expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'].length > 0"
+                                        class="profile">
+                                        <strong>Enfoques:</strong>
+                                        {{expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'].join(',
+                                        ')}}
+                                    </span>
+                                    <span
+                                        *ngIf="expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'] && expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'].length > 0"
+                                        class="profile">
+                                        <strong>Sectores:</strong>
+                                        {{expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'].join(',
+                                        ')}}
+                                    </span>
+                                    <span
+                                        *ngIf="expert['item']['enQueAreasPodriasApoyar'] && expert['item']['enQueAreasPodriasApoyar'].length > 0"
+                                        class="profile">
+                                        <strong>Areas:</strong>
+                                        {{expert['item']['enQueAreasPodriasApoyar'].join(',
+                                        ')}}
+                                    </span>
+                                </div>
+                                <div class="flex flex-none justify-content-center mt-2">
+                                    <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
+                                        <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
+                                    </ng-container>
+                                    <ng-template #noCalendly>
+                                        <span class="font-bold">Sin calendly</span>
+                                    </ng-template>
+                                </div>
+                            </div>
                         </div>
-                        <span class="primary-param-label " tooltipPosition="top"
-                            [pTooltip]="expert['item']['nombre']??''">
-                            {{expert['item']['nombre']}}
-                        </span>
-                        <span class="rol-label" tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
-                            {{expertRol()}}
-                        </span>
-                        <span class="secondary-param-label" tooltipPosition="top">
-                        </span>
-                        <ng-container>
-                            <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
-                                <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
-                            </ng-container>
-                            <ng-template #noCalendly>
-                                <span class="font-bold">Sin calendly</span>
-                            </ng-template>
-                        </ng-container>
                     </div>
                 </div>
             </ng-container>

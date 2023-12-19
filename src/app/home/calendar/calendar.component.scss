@@ -27,6 +27,22 @@
   font-weight: 450;
 }
 
+.profile {
+  font-size: smaller;
+  width: 300px;
+  word-wrap: break-word;
+}
+
+.background {
+  background-color: $appText;
+  margin: 0 1rem;
+  border-radius: 1.5rem;
+  @media (max-width: 576px) {
+    margin: 0 0;
+    border-radius: 0;
+  }
+}
+
 .opt-panel {
   padding: 0.7rem 0;
 }

@@ -276,7 +276,7 @@ export class TopNavComponent {
 
   getHeadClass() {
     let styleClass = '';
-    if (this.menuExpanded && this.screenWith > 768) {
+    if (this.menuExpanded && this.screenWith > 992) {
       styleClass = 'head-trimmed';
     } else {
       styleClass = 'head-md-screen';
