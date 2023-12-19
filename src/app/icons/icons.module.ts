@@ -115,6 +115,7 @@ import {
   IconUserBolt,
   IconUserCode,
   IconTrash,
+  IconUserPlus
 } from 'angular-tabler-icons/icons';
 import { environment } from 'src/environments/environment';
 // Select some icons (use an object, not an array)
@@ -231,6 +232,7 @@ const icons = {
   IconUserBolt,
   IconUserCode,
   IconTrash,
+  IconUserPlus
 };
 
 @NgModule({

@@ -9,6 +9,7 @@ export interface IEntityEvent {
   _id: string;
   name: string;
   email: string;
+  startupEntrepreneur?: string;
   __typename?: string;
 }
 
@@ -27,6 +28,7 @@ export class EntrepreneurItemDisplay implements IEntityEvent {
       _id: this._id,
       name: this.name,
       email: this.email,
+      startupEntrepreneur: this.startup,
     };
   }
 }

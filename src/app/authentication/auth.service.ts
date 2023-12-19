@@ -238,6 +238,7 @@ export class AuthService {
         relationsAssign: { ...user.relationsAssign, expertFull: true },
       });
       user.relationsAssign = { ...user.relationsAssign, expertFull: true };
+      this.store.dispatch(new SetUserAction(user));
     }
     if (!doc) {
       this.toast.clear();
@@ -276,9 +277,11 @@ export class AuthService {
           termsAccepted: true,
           hoursDonated: accepted.hoursDonated,
         };
+        this.store.dispatch(new SetUserAction(user));
       }
     }
     this.store.dispatch(new SetProfileDocAction(doc));
+
     return;
   }
 

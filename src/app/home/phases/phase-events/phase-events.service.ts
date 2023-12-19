@@ -113,7 +113,12 @@ export class PhaseEventsService {
     );
     return this.graphql.watch_query(this._getEvents).valueChanges.pipe(
       map((request) => request.data.eventsBatch),
-      map((events) => events.map((eventDoc) => Event.fromJson(eventDoc)))
+      map((events) =>
+        events.map((eventDoc) => {
+          console.log(eventDoc);
+          return Event.fromJson(eventDoc);
+        })
+      )
     );
   }
 
