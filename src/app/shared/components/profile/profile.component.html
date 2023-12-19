@@ -73,6 +73,18 @@
             <!-- <div class="card">
                 <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
             </div> -->
+            <div *ngIf="notifications.length" class="panel-profile justify-center align-items-center" style="padding: 1.875rem; border-radius: 3.25rem">
+                <div class="flex flex-row justify-content-between">
+                    <h3>Notificaciones que quiero recibir</h3>
+                </div>
+                <div class="grid pb-2 pt-4">
+                    <ng-container *ngFor="let item of notifications">
+                        <div class="col-12 sm:col-6 md:col-4">
+                            <p-checkbox [(ngModel)]="item.value" [binary]="true" [label]="item.label"></p-checkbox>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
             <div style="height: 1rem;"></div>
         </div>
     </p-scrollPanel>
