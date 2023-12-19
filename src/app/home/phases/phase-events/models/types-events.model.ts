@@ -4,6 +4,9 @@ export interface ITypeEvent {
   extra_options: any;
   expertFocus: boolean;
   isDeleted: boolean;
+  isSchedulable: boolean;
+  scheduleUrl: string;
+  description: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +18,9 @@ export class TypeEvent implements ITypeEvent {
     allow_acta: boolean;
     allow_files: boolean;
   };
+  isSchedulable: boolean;
+  scheduleUrl: string;
+  description: string;
   expertFocus: boolean;
   isDeleted: boolean;
   createdAt: Date;

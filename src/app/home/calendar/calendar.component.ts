@@ -424,6 +424,10 @@ export class CalendarComponent {
     window.open(expert['calendlyLink'], '_blank');
   }
 
+  selectEvent(url) {
+    window.open(url);
+  }
+
   async showRating(eventCalendar: ICalendarItem) {
     const event = this.originalEvents.find((i) => i._id === eventCalendar.id);
     this.profileDoc = await firstValueFrom(

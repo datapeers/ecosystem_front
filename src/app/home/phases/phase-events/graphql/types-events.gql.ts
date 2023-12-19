@@ -6,6 +6,9 @@ const fragments = {
       extra_options
       expertFocus
       isDeleted
+      isSchedulable
+      scheduleUrl
+      description
       createdAt
       updatedAt
     }
