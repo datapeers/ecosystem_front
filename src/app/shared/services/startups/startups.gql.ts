@@ -90,8 +90,8 @@ const query = {
     ${downloadResultFields}
   `,
   contactCommunity: `
-    query Query($body: String!, $from: String!, $subject: String!, $to: String!) {
-      contactCommunity(body: $body, from: $from, subject: $subject, to: $to)
+    query Query($body: String!, $from: String!, $startupId: String!, $startupName: String!, $subject: String!, $to: String!) {
+      contactCommunity(body: $body, from: $from, startupID: $startupId, startupName: $startupName, subject: $subject, to: $to)
     }
   `,
 };

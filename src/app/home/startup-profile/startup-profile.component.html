@@ -215,7 +215,7 @@
                 <input pInputText id="emailInvite" [(ngModel)]="invite" class="inputfield field-full" placeholder="Ingresa el correo " />
             </span>
 
-            <p-button icon="pi pi-send" label="Invitar" styleClass="p-button-text"></p-button>
+            <p-button icon="pi pi-send" (onClick)="inviteToStartup()" [loading]="saving" label="Invitar" styleClass="p-button-text"></p-button>
         </span>
     </div>
 

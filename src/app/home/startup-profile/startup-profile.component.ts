@@ -13,6 +13,7 @@ import { RolStartup, rolStartupNames } from './models/rol-startup.enum';
 import { textField } from '@shared/utils/order-field-multiple';
 import { cloneDeep } from 'lodash';
 import { Phase } from '@home/phases/model/phase.model';
+import { UserService } from '@auth/user.service';
 @Component({
   selector: 'app-startup-profile',
   templateUrl: './startup-profile.component.html',
@@ -35,6 +36,7 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   showDialogInvite;
   invite = '';
   currentBatch: Phase | any;
+  saving = false;
   @ViewChild('dt', { static: true }) dt: Table;
 
   public get rolStartups(): typeof RolStartup {
@@ -49,7 +51,8 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private toast: ToastService,
     private startupService: StartupsService,
-    private formService: FormService
+    private formService: FormService,
+    private userService: UserService
   ) {
     firstValueFrom(
       this.store
@@ -176,5 +179,28 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
 
   inviteDialog() {
     this.showDialogInvite = true;
+  }
+
+  async inviteToStartup() {
+    this.saving = true;
+    this.toast.info({ summary: 'Invitando...', detail: '', life: 12000000 });
+    try {
+      await this.userService.inviteUserStartup(
+        'aaaaaaaaaaa',
+        this.user.fullName,
+        `Forma parte de ${this.startup.item['nombre']} en EcosystemBT`,
+        this.invite,
+        this.startup._id,
+        this.startup.item['nombre']
+      );
+      this.toast.clear();
+      this.showDialogInvite = false;
+      this.invite = '';
+      this.saving = false;
+      this.toast.success({ summary: 'Invitación enviada', detail: '' });
+    } catch (error) {
+      this.saving = false;
+      this.toast.error({ summary: 'Error al invitar', detail: error });
+    }
   }
 }

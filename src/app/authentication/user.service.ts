@@ -132,4 +132,28 @@ export class UserService {
   removeProfileImage(user: User) {
     return this.storageService.deleteFile(StoragePaths.profileImages, user.uid);
   }
+
+  async inviteUserStartup(
+    body: string,
+    from: string,
+    subject: string,
+    to: string,
+    startupId: string,
+    startupName: string
+  ) {
+    const queryRef = this.graphql.refQuery(
+      userQueries.query.inviteUser,
+      {
+        body,
+        from,
+        subject,
+        to,
+        startupId,
+        startupName,
+      },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql.query(queryRef));
+  }
 }

@@ -40,6 +40,11 @@ const query = {
     }
     ${fragments.userFields}
   `,
+  inviteUser: `
+    mutation InviteUser($body: String!, $from: String!, $startupId: String!, $startupName: String!, $subject: String!, $to: String!) {
+      inviteUser(body: $body, from: $from, startupID: $startupId, startupName: $startupName, subject: $subject, to: $to)
+    }
+  `,
 };
 
 const mutation = {
