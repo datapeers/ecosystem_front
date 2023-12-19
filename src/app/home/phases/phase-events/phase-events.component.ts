@@ -134,6 +134,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
       .then((events$) => {
         this.events$ = events$.subscribe((eventList: Event[]) => {
           this.events = eventList;
+          console.log(this.events);
           this.preloadTableItems();
         });
       })

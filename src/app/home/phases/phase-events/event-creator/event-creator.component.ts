@@ -146,9 +146,7 @@ export class EventCreatorComponent implements OnInit {
     this.user = this.config.data.user;
     this.typeEvents = this.config.data.typeEvents;
     this.previousEvent = this.config.data.event;
-    console.log(this.previousEvent);
     this.event = newEvent(this.batch, this.typeEvents, this.previousEvent);
-    console.log(this.event);
     this.extra_options = {
       userCreated: this.user._id,
     };
@@ -215,6 +213,7 @@ export class EventCreatorComponent implements OnInit {
           _id: entrepreneur._id,
           name: entrepreneur.item.nombre,
           email: entrepreneur.item['email'],
+          startup: startUp._id,
         };
       });
       if (startUp.item.generic) {
@@ -241,6 +240,7 @@ export class EventCreatorComponent implements OnInit {
           _id: entrepreneur._id,
           name: entrepreneur.item.nombre,
           email: entrepreneur.item['email'],
+          startup: startUp._id,
         });
       }
     }
