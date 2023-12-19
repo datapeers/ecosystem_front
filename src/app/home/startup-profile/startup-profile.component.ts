@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Startup } from '@shared/models/entities/startup';
 import { StartupsService } from '@shared/services/startups/startups.service';
 import { ToastService } from '@shared/services/toast.service';
-import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
+import { Subject, first, firstValueFrom, take, takeUntil, tap } from 'rxjs';
 import { FormService } from '../../shared/form/form.service';
 import { FormCollections } from '@shared/form/enums/form-collections';
 import { Table } from 'primeng/table';
@@ -14,6 +14,9 @@ import { textField } from '@shared/utils/order-field-multiple';
 import { cloneDeep } from 'lodash';
 import { Phase } from '@home/phases/model/phase.model';
 import { UserService } from '@auth/user.service';
+import { HttpEventType } from '@angular/common/http';
+import { StorageService } from '@shared/storage/storage.service';
+
 @Component({
   selector: 'app-startup-profile',
   templateUrl: './startup-profile.component.html',
@@ -37,6 +40,7 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   invite = '';
   currentBatch: Phase | any;
   saving = false;
+  thumbnail;
   @ViewChild('dt', { static: true }) dt: Table;
 
   public get rolStartups(): typeof RolStartup {
@@ -52,7 +56,8 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
     private toast: ToastService,
     private startupService: StartupsService,
     private formService: FormService,
-    private userService: UserService
+    private userService: UserService,
+    private storageService: StorageService
   ) {
     firstValueFrom(
       this.store
@@ -202,5 +207,46 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
       this.saving = false;
       this.toast.error({ summary: 'Error al invitar', detail: error });
     }
+  }
+
+  async uploadImage(fileToUpload: File) {
+    this.toast.info({
+      summary: 'Subiendo imagen...',
+      detail: 'Por favor espere',
+      life: 10000,
+    });
+    this.startupService
+      .updateStartupThumbnail(this.startup, fileToUpload)
+      .pipe(
+        tap((event) => {
+          if (event.type === HttpEventType.DownloadProgress) {
+            // Display upload progress if required
+          }
+        })
+      )
+      .subscribe((event) => {
+        if (event.type === HttpEventType.Response) {
+          const realUrl = this.storageService.getPureUrl(event.url);
+          this.startupService
+            .updateThumbnailDB(this.startup._id, realUrl)
+            .then(async (phase) => {
+              this.toast.clear();
+              this.startup = await this.startupService.getDocument(
+                this.startup._id
+              );
+            })
+            .catch((err) => {
+              this.toast.clear();
+              this.toast.error({
+                detail: err,
+                summary: 'Error al cambiar imagen de startup',
+              });
+            });
+        }
+      });
+  }
+
+  returnUrlThumbnail(): string {
+    return this.startup.thumbnail;
   }
 }

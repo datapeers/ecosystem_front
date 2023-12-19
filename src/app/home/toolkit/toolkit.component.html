@@ -96,7 +96,7 @@
                         <div class="flex panel-icon" *ngIf="item.resource.extra_options.file" (click)="downloadFile(item)" pTooltip="Plantilla">
                             <i-tabler name="eye"></i-tabler>
                         </div>
-                        <div class="flex panel-icon" [pTooltip]="item.item?.file ? 'Cambiar' : 'Subir'" (click)="fileInput.click()">
+                        <div class="flex panel-icon" *ngIf="item.state !== resourcesStates.Aprobado" [pTooltip]="item.item?.file ? 'Cambiar' : 'Subir'" (click)="fileInput.click()">
                             <i-tabler [name]="item.item?.file ? 'download' : 'upload'"></i-tabler>
                         </div>
                         <ng-container *ngIf="item.state !== resourcesStates.Pendiente">
@@ -116,9 +116,7 @@
     </ng-container>
 </ng-template>
 
-<p-dialog appendTo="body" [header]="selectedItem?.resource?.name" [(visible)]="!!selectedItem" [style]="{ width: '45vw' }"
-    [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app"
-    [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+<p-dialog appendTo="body" [header]="selectedItem?.resource?.name" [(visible)]="!!selectedItem" [style]="{ width: '45vw' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
     <div class="px-5">
         <ng-container *ngTemplateOutlet="itemCard; context: { '$implicit': selectedItem }"></ng-container>
     </div>

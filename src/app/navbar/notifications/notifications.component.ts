@@ -13,6 +13,8 @@ import { User } from '@auth/models/user';
 import { ToastService } from '@shared/services/toast.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { DialogService } from 'primeng/dynamicdialog';
+import { EvaluationUserComponent } from '@shared/components/evaluation-user/evaluation-user.component';
 
 @Component({
   selector: 'app-notifications',
@@ -37,7 +39,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private toast: ToastService,
     private service: NotificationsService,
-    private router: Router
+    private router: Router,
+    public dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -127,6 +130,13 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       case 'rate':
         // if (notification.state !== NotificationStates.read)
         //   this.action(notification, 'read');
+        this.dialogService.open(EvaluationUserComponent, {
+          header: '',
+          width: '95vw',
+          modal: true,
+          maskStyleClass: 'dialog-app',
+          data: { user: this.user },
+        });
         break;
       case 'homework':
         break;
@@ -135,7 +145,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       case 'advise':
         if (notification.url === '') return;
         const rutaRelativa = notification.url.replace(location.origin, '');
-        console.log(rutaRelativa);
         this.router.navigate([rutaRelativa]);
         break;
       case 'notes':

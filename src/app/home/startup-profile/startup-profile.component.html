@@ -14,7 +14,19 @@
                     <div class="flex flex-column">
                         <div>
                             <div class="flex flex-row justify-content-between">
-                                <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
+
+                                <ng-container *ngIf="leaderStartup._id === profileDoc._id; else avatarTemplateSimple">
+                                    <app-avatar-uploader styleClass="w-10rem h-10rem" shape="circle" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event)" [disableRemove]="true"></app-avatar-uploader>
+                                </ng-container>
+                                <ng-template #avatarTemplateSimple>
+                                    <ng-container *ngIf="startup.thumbnail && startup.thumbnail !== '' else noChangeThubnail">
+                                        <p-avatar [image]="startup.thumbnail" shape="circle" class="startup-thumbnail">
+                                        </p-avatar>
+                                    </ng-container>
+                                    <ng-template #noChangeThubnail>
+                                        <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
+                                    </ng-template>
+                                </ng-template>
                                 <i-tabler name="edit" class="edit-btn cursor-pointer" pTooltip="Editar datos de startUp" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
                             </div>
 

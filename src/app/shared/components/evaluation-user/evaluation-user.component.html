@@ -1,1 +1,30 @@
-<p>evaluation-user works!</p>
+<div class="w-full flex flex-row gap-3">
+    <i-tabler name="bulb" class="icon-dialog"></i-tabler>
+    <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
+        <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
+            Evaluación fase 1</h2>
+        <div class="w-full flex flex-row gap-1">
+            <span class="text-sm text-color-other"></span>
+        </div>
+    </div>
+</div>
+<p-divider></p-divider>
+<div class="flex flex-column p-2 align-items-center px-5 gap-2">
+    <ng-container *ngFor="let item of evaluated">
+        <span class="w-full app-input-field field-h-1">
+            <label class="text-lg">¿Cómo calificas la atención recibida por parte de <strong>{{item.name}}</strong> ?</label>
+            <p-rating [(ngModel)]="item.text"></p-rating>
+        </span>
+        <span class="w-full app-input-field field-h-1">
+            <label class="text-lg">¿En qué medida sientes que tu encargado apoya tu desarrollo profesional por parte de <strong>{{item.name}}</strong>?</label>
+            <p-rating [(ngModel)]="item.rate"></p-rating>
+        </span>
+        <span class="w-full app-input-field">
+            <label for="textarea" class="text-lg">Algo que quieras compartir con <strong>{{item.name}}</strong></label>
+            <textarea maxlength="300" inputId="textarea" rows="5" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="item.notes" placeholder="Descripción interna breve sobre el batch" pInputTextarea></textarea>
+        </span>
+        <p-divider></p-divider>
+    </ng-container>
+
+    <p-button type="submit" label="Enviar" styleClass="mt-3 bg-primary"></p-button>
+</div>

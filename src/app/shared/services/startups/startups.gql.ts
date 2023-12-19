@@ -18,6 +18,7 @@ const fragments = {
         item
         description
       }
+      thumbnail
     }
   `,
   communitiesFields: `
@@ -35,6 +36,7 @@ const fragments = {
         item
         description
       }
+      thumbnail
       lastPhase
     }
   `,
@@ -136,6 +138,14 @@ const mutation = {
       }
     }
     ${updateResultPayloadFields}
+  `,
+  changeThumbnailStartup: `
+    mutation ChangeThumbnailStartup($changeThumbnailStartupId: String!, $thumbnail: String!) {
+      changeThumbnailStartup(id: $changeThumbnailStartupId, thumbnail: $thumbnail) {
+        ...startupFields
+      }
+    }
+    ${fragments.startupFields}
   `,
 };
 
