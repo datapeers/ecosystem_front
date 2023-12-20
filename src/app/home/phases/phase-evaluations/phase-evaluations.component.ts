@@ -201,6 +201,7 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
           ValidRoles.expert,
         ];
         this.canBeReviewer = [
+          ValidRoles.user,
           ValidRoles.host,
           ValidRoles.teamCoach,
           ValidRoles.expert,

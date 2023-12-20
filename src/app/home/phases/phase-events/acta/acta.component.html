@@ -8,105 +8,110 @@
     </div>
 </div>
 <p-divider></p-divider>
-<div *ngIf="loaded" class="flex card-container overflow-hidden">
-    <div class="flex-none flex flex-column align-items-start justify-content-start m-2">
-        <p-card class="w-full mb-2">
-            <div class="flex flex-column align-items-center justify-content-center gap-2">
-                <ng-container *ngIf="actaDoc._id; else createButtonActa">
-                    <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_edit)"></p-button>
-                </ng-container>
-                <ng-template #createButtonActa>
-                    <p-button label="Crear Acta" (onClick)="action('create')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_create)"></p-button>
-                </ng-template>
-
-                <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!actaDoc.closed && actaDoc._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>
-                <span *ngIf="actaDoc.closed">Acta cerrada el {{actaDoc.updatedAt | date}}</span>
-            </div>
-        </p-card>
-        <p-card class="w-full">
-            <div class="flex flex-row align-items-center justify-content-center">
-                <h3 class="my-2">
-                    <fa-icon [icon]="faUserTie"></fa-icon> Expertos
-                </h3>
-            </div>
-            <div class="flex flex-column align-items-center justify-content-start px-1" style="max-height: 240px; overflow-y: auto;">
-                <div *ngFor="let resp of event.experts; let i=index" class="mb-1 flex flex-row align-items-center justify-content-start w-full">
-                    <span pTooltip="{{(i+1) + ' - ' + resp.name}}">
-                        <p-avatar icon="pi pi-user" styleClass="mx-2" shape="circle"></p-avatar>
-                        {{resp.name.length>15 ? (resp.name | slice:0:15) : resp.name}}
-                    </span>
-                    <div class="flex-grow-1"></div>
-                    <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=resp; expertHoursOverlay.toggle($event)" *ngIf="!actaDoc.closed && !onlyView"></fa-icon>
-
-                </div>
-
-            </div>
-
-        </p-card>
-        <p-card class="w-full my-2">
-            <div class="flex flex-row align-items-center justify-content-center">
-                <h3 class="mt-0 mb-1">Evidencias</h3>
-            </div>
-            <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
-            <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="actaDoc.closed || onlyView">
-                <ng-template let-file pTemplate="file">
-                    <div></div>
-                </ng-template>
-                <ng-template pTemplate="content">
-                    <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
-                        <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>
-                        <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
-                        <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
-                        <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)" *ngIf="actaDoc.closed || onlyView"></fa-icon>
-                    </div>
-                </ng-template>
-            </p-fileUpload>
-        </p-card>
-    </div>
+<div *ngIf="loaded" class="flex flex-column px-4 overflow-hidden">
     <form [formGroup]="acta" class="flex-grow-1 flex flex-column align-items-start justify-content-start m-2 border-round">
-        <p-card class="w-full py-0">
-            <div class="formgrid grid">
-                <div class="field col-12 app-input-field">
-                    <label for="inputtitulo" class="w-full text-center">
-                        <b>Nombre de la sesión</b>
-                    </label>
-                    <input id="inputtitulo" type="text" pInputText formControlName="name" class="inputfield w-full">
-                </div>
-                <div class="field col-12 md:col-6 app-input-field">
-                    <label for="time" class="w-full text-center">
-                        <b>Fecha</b>
-                    </label>
-                    <p-calendar class="inputfield" [showTime]="true" formControlName="date" [style]="{ width: '100%' }" inputId="time" appendTo="body" [showButtonBar]="true"></p-calendar>
-                </div>
-                <div class="field col-12 md:col-6 app-input-field">
-                    <label for="ojectiveField" class="w-full text-center">
-                        <b>Objetivo</b>
-                    </label>
-                    <input id="ojectiveField" type="text" pInputText formControlName="objective" class="inputfield w-full">
-                </div>
-                <div class="field col-12 md:col-6 app-input-field">
-                    <label for="solutionField" class="w-full text-center">
-                        <b>Nombre de la solución</b>
-                    </label>
-                    <input id="solutionField" type="text" pInputText formControlName="solution" class="inputfield w-full">
-                </div>
-                <div class="field col-12 md:col-6 app-input-field">
-                    <label for="conclusionField" class="w-full text-center">
-                        <b>Conclusiones</b>
-                    </label>
-                    <input id="conclusionField" type="text" pInputText formControlName="conclusions" class="inputfield w-full">
-                </div>
-            </div>
-            <div class="flex flex-row align-items-center justify-content-center w-full">
-                <!-- "space_management_add_acta" "cuerpo": "Cuerpo del acta",, -->
-                <label>
-                    <h3 class="my-1">Temas tratados</h3>
+
+        <div class="formgrid grid">
+            <div class="field col-12 app-input-field">
+                <label for="inputtitulo" class="w-full text-center">
+                    <b>Nombre de la sesión</b>
                 </label>
+                <input id="inputtitulo" type="text" pInputText formControlName="name" class="inputfield w-full">
             </div>
-            <tinymce formControlName="topics_covered" [config]="configTiny"></tinymce>
-        </p-card>
+            <div class="field col-12 md:col-6 app-input-field">
+                <label for="time" class="w-full text-center">
+                    <b>Fecha</b>
+                </label>
+                <p-calendar class="inputfield" [showTime]="true" formControlName="date" [style]="{ width: '100%' }" inputId="time" appendTo="body" [showButtonBar]="true"></p-calendar>
+            </div>
+            <div class="field col-12 md:col-6 app-input-field">
+                <label for="ojectiveField" class="w-full text-center">
+                    <b>Objetivo</b>
+                </label>
+                <input id="ojectiveField" type="text" pInputText formControlName="objective" class="inputfield w-full">
+            </div>
+            <div class="field col-12 md:col-6 app-input-field">
+                <label for="solutionField" class="w-full text-center">
+                    <b>Nombre de la solución</b>
+                </label>
+                <input id="solutionField" type="text" pInputText formControlName="solution" class="inputfield w-full">
+            </div>
+            <div class="field col-12 md:col-6 app-input-field">
+                <label for="conclusionField" class="w-full text-center">
+                    <b>Conclusiones</b>
+                </label>
+                <input id="conclusionField" type="text" pInputText formControlName="conclusions" class="inputfield w-full">
+            </div>
+        </div>
+        <div class="flex flex-row align-items-center justify-content-center w-full">
+            <!-- "space_management_add_acta" "cuerpo": "Cuerpo del acta",, -->
+            <label>
+                <h3 class="my-1">Temas tratados</h3>
+            </label>
+        </div>
+        <tinymce style="width: 100%;" formControlName="topics_covered" [config]="configTiny"></tinymce>
         <div style="height: 10px;"></div>
     </form>
+
+    <div class="flex flex-row align-items-center justify-content-center pt-2">
+        <h3 class="my-2">
+            <fa-icon [icon]="faUserTie"></fa-icon> Expertos
+        </h3>
+    </div>
+    <div class="flex flex-column align-items-center justify-content-start px-1" style="max-height: 240px; overflow-y: auto;">
+        <p-table class="table-container border-round-2xl table-dialog" [value]="event.experts" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 10, 15]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:90%">Expert</th>
+                    <th style="width:10%" class="text-center">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-expert let-ri="rowIndex">
+                <tr>
+                    <td [pTooltip]="(ri+1) + ' - ' + expert.name">
+                        {{expert.name.length>15 ? (expert.name | slice:0:15) : expert.name}}
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=expert; expertHoursOverlay.toggle($event)" *ngIf="!actaDoc.closed && !onlyView"></fa-icon>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+
+    <div class="flex flex-row align-items-center justify-content-center pt-3">
+        <h3 class="mt-0 mb-1">Evidencias</h3>
+    </div>
+    <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
+    <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="actaDoc.closed || onlyView">
+        <ng-template let-file pTemplate="file">
+            <div></div>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">
+                <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>
+                <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>
+                <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>
+                <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)" *ngIf="actaDoc.closed || onlyView"></fa-icon>
+            </div>
+        </ng-template>
+    </p-fileUpload>
+
+    <div class="flex flex-row align-items-center justify-content-center gap-2 pt-3">
+        <ng-container *ngIf="actaDoc._id; else createButtonActa">
+            <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_edit)"></p-button>
+        </ng-container>
+        <ng-template #createButtonActa>
+            <p-button label="Crear Acta" (onClick)="action('create')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_create)"></p-button>
+        </ng-template>
+
+        <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!actaDoc.closed && actaDoc._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>
+        <span *ngIf="actaDoc.closed">Acta cerrada el {{actaDoc.updatedAt | date}}</span>
+    </div>
 </div>
 
 <p-overlayPanel #expertHoursOverlay [dismissable]="true" [style]="{'width':'100px'}">
