@@ -175,8 +175,7 @@ export class CalendarComponent {
     private readonly expertsService: ExpertsService,
     private readonly phaseService: PhasesService,
     private readonly storageService: StorageService,
-    private readonly phaseHourConfigService: PhaseHourConfigService,
-    private readonly shepherdService: ShepherdService
+    private readonly phaseHourConfigService: PhaseHourConfigService
   ) {
     this.scrollHeight = `${innerHeight - 446}px`;
     this.globalFilter = this.columns.map((i) => i.field);

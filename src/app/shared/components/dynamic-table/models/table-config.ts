@@ -1,4 +1,4 @@
-import { TableLazyLoadEvent } from "./lazy-load";
+import { TableLazyLoadEvent } from './lazy-load';
 
 export interface ITableConfig {
   _id: string;
@@ -31,16 +31,18 @@ export type TableColumn = {
 };
 
 export enum TableColumnType {
-  data = "data",
-  array = "array",
-};
-  
-type TableCellFormat = 
-| 'string'
-| 'url'
-| 'number'
-| 'currency'
-| 'boolean'
-| 'date'
-| 'dateAndTime'
-| 'time';
+  data = 'data',
+  array = 'array',
+  img = 'img',
+}
+
+type TableCellFormat =
+  | 'string'
+  | 'url'
+  | 'number'
+  | 'currency'
+  | 'boolean'
+  | 'date'
+  | 'dateAndTime'
+  | 'time'
+  | 'image';

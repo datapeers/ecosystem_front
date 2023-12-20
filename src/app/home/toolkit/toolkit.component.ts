@@ -23,6 +23,8 @@ import { StorageService } from '@shared/storage/storage.service';
 import { ResourceReplyState } from '@home/phases/phase-homeworks/model/resource-reply-states';
 import { PhasesService } from '@home/phases/phases.service';
 import { ActivatedRoute } from '@angular/router';
+import { ShepherdService } from 'angular-shepherd';
+import { toolkitOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-toolkit',
@@ -54,13 +56,30 @@ export class ToolkitComponent implements OnInit, OnDestroy {
     return ResourceReplyState;
   }
 
+  ngAfterViewInit() {
+    this.shepherdService.defaultStepOptions = {
+      scrollTo: true,
+      cancelIcon: {
+        enabled: true,
+      },
+    };
+    this.shepherdService.modal = true;
+    this.shepherdService.confirmCancel = false;
+    this.shepherdService.addSteps(toolkitOnboarding);
+  }
+
+  launchTour() {
+    this.shepherdService.start();
+  }
+
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private toast: ToastService,
     private phasesService: PhasesService,
     private phaseContentService: PhaseContentService,
-    private phaseHomeworksService: PhaseHomeworksService
+    private phaseHomeworksService: PhaseHomeworksService,
+    private readonly shepherdService: ShepherdService
   ) {
     firstValueFrom(
       this.store

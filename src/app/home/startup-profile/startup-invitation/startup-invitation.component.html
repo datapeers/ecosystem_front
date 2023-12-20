@@ -1,1 +1,17 @@
-<p>startup-invitation works!</p>
+<ng-container *ngIf="!loaded; else elseTemplate">
+    <app-loading> </app-loading>
+</ng-container>
+<ng-template #elseTemplate>
+    <ng-container *ngIf="!error; else errorTemplate">
+        <div class="w-full h-15rem flex flex-column align-items-center justify-content-center" *ngIf="startup">
+            <h3>Aceptar invitación de unirse a la startup de {{startup.item['nombre']}}</h3>
+            <div class="flex flex-row align-items-center gap-3">
+                <p-button label="Si" styleClass="p-button-text"></p-button>
+                <p-button label="No" styleClass="p-button-text button-grey"></p-button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #errorTemplate>
+        {{error}}
+    </ng-template>
+</ng-template>

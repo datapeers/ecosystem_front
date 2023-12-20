@@ -11,6 +11,7 @@ import { jsonUtils } from '@shared/utils/json.utils';
 import { PaginatedResult } from '@shared/models/requests/paginated-result';
 import { DownloadRequest } from '@shared/components/dynamic-table/models/download-request';
 import { DownloadResult } from '@shared/components/dynamic-table/models/download-result';
+import { StorageService } from '@shared/storage/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,8 @@ import { DownloadResult } from '@shared/components/dynamic-table/models/download
 export class StartupsService implements DocumentProvider {
   constructor(
     private readonly graphql: GraphqlService,
-    private readonly toast: ToastService
+    private readonly toast: ToastService,
+    private readonly storageService: StorageService
   ) {}
 
   cachedQueries: string[] = [];
@@ -159,6 +161,28 @@ export class StartupsService implements DocumentProvider {
     const mutationRef = this.graphql.refMutation(
       startupQueries.mutation.updateDataEntrepreneurStartup,
       { id, description, rol, startup },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(this.graphql.mutation(mutationRef));
+  }
+
+  updateStartupThumbnail(startup: Startup, file: File) {
+    const renamedFile = new File([file], startup._id, {
+      type: file.type,
+      lastModified: file.lastModified,
+    });
+    return this.storageService.uploadFile(
+      `startups/${startup._id}/thumbnail`,
+      renamedFile,
+      true
+    );
+  }
+
+  async updateThumbnailDB(id: string, thumbnail: string) {
+    const mutationRef = this.graphql.refMutation(
+      startupQueries.mutation.changeThumbnailStartup,
+      { changeThumbnailStartupId: id, thumbnail },
       [],
       { auth: true }
     );

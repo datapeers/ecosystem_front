@@ -32,6 +32,8 @@ export class CommunitiesService {
         from,
         subject,
         to,
+        startupId: '',
+        startupName: '',
       },
       'no-cache',
       { auth: true }

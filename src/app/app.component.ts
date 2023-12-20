@@ -6,6 +6,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { ToggleMenuAction } from '@home/store/home.actions';
 import { ShepherdService } from 'angular-shepherd';
+import { first, firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
+import { appOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +22,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     public primengConfig: PrimeNGConfig,
-    public auth: AuthService // ! don't remove, initialize listener and auth methods in all app
+    public auth: AuthService, // ! don't remove, initialize listener and auth methods in all app
+    private readonly shepherdService: ShepherdService,
+    private readonly router: Router
   ) {
     this.primengConfig.setTranslation(lang_es.primeng);
   }
@@ -28,5 +33,31 @@ export class AppComponent implements OnInit {
     if (window.innerWidth > 768 && window.innerWidth <= 1500) {
       this.store.dispatch(new ToggleMenuAction());
     }
+
+    this.initUser();
+  }
+
+  async initUser() {
+    const user = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.user)
+        .pipe(first((i) => i !== null))
+    );
+
+    if (user && user.rol.name == 'Usuario') {
+      //this.shepherdService.start();
+    }
+  }
+
+  ngAfterViewInit() {
+    this.shepherdService.defaultStepOptions = {
+      scrollTo: true,
+      cancelIcon: {
+        enabled: true,
+      },
+    };
+    this.shepherdService.modal = true;
+    this.shepherdService.confirmCancel = false;
+    this.shepherdService.addSteps(appOnboarding);
   }
 }

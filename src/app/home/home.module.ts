@@ -76,6 +76,7 @@ import { ApplicantSelectDialogComponent } from './announcements/applicants/appli
 import { TermsDialogComponent } from '@shared/components/terms-dialog/terms-dialog.component';
 import { StartupDialogComponent } from './startup-profile/startup-dialog/startup-dialog.component';
 import { StartupInvitationComponent } from './startup-profile/startup-invitation/startup-invitation.component';
+import { EvaluationUserComponent } from '@shared/components/evaluation-user/evaluation-user.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { StartupInvitationComponent } from './startup-profile/startup-invitation
     TermsDialogComponent,
     StartupDialogComponent,
     StartupInvitationComponent,
+    EvaluationUserComponent,
   ],
   imports: [
     CommonModule,

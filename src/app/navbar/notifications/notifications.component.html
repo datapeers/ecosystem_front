@@ -47,7 +47,7 @@
             <span class="capitalize text-xs">{{notification.dateString}}</span>
             <i class="pi pi-times cursor-pointer" (click)="action(notification, type)"></i>
         </div>
-        <div class="notification-info flex flex-row align-items-center gap-2  mt-3 cursor-pointer">
+        <div class="notification-info flex flex-row align-items-center gap-2  mt-3 cursor-pointer" (click)="goToNotification(notification)">
             <ng-container [ngSwitch]="notification.type">
                 <ng-container *ngSwitchCase="notificationTypes.calendar">
                     <i-tabler name="calendar-time" class="normal-color-icon"></i-tabler>
