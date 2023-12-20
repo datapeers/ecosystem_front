@@ -285,7 +285,7 @@ export class PhasesService {
       )
     ) {
       menu.options.push({
-        label: 'Expertos',
+        label: 'Experts',
         rute: ['/home', 'phases', phase._id, 'experts'].join('/'),
         icon: 'file-description',
         type: 'single',

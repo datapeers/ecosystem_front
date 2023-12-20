@@ -47,6 +47,7 @@ export class HomeService {
       menuItems.push('settings');
       menuItems.push('adminPanel');
     }
+
     // if (user.allowed(Permission.form_view)) menuItems.push('forms');
 
     const outputOptions: IMenuOption[] = menuItems.map(
@@ -259,7 +260,7 @@ export class HomeService {
       },
       reports: {
         label: 'Reportes',
-        rute: '/home/reportes',
+        rute: '/home/reports',
         type: 'single',
         icon: 'chart-pie',
       },

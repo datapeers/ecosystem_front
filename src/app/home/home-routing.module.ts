@@ -42,6 +42,7 @@ import { StartupProfileComponent } from './startup-profile/startup-profile.compo
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { RouteStageDescriptionComponent } from './route-stage-description/route-stage-description.component';
 import { StartupInvitationComponent } from './startup-profile/startup-invitation/startup-invitation.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const routes: Routes = [
   {
@@ -191,6 +192,10 @@ const routes: Routes = [
       {
         path: 'toolkit',
         component: ToolkitComponent,
+      },
+      {
+        path: 'reports',
+        component: ReportsComponent,
       },
       {
         // TODO: Add guards or modules if required

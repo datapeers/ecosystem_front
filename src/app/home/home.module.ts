@@ -77,6 +77,7 @@ import { TermsDialogComponent } from '@shared/components/terms-dialog/terms-dial
 import { StartupDialogComponent } from './startup-profile/startup-dialog/startup-dialog.component';
 import { StartupInvitationComponent } from './startup-profile/startup-invitation/startup-invitation.component';
 import { EvaluationUserComponent } from '@shared/components/evaluation-user/evaluation-user.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { EvaluationUserComponent } from '@shared/components/evaluation-user/eval
     StartupDialogComponent,
     StartupInvitationComponent,
     EvaluationUserComponent,
+    ReportsComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 <ng-container *ngIf="!loading; else loadingTemplates">
-    <div class="flex w-full h-full py-0 md:py-4 px-3 md:px-8">
+    <div class="flex w-full h-full py-0 md:py-4 px-3 md:px-8 h-max-router">
         <ng-container *ngIf="stage">
             <div class="normal-panel elipse-panel w-full main-card justify-content-between" [style.background]="stage.color">
                 <div class="left-side text-white flex flex-column justify-content-between" [style.background]="stage.color" [style.border-color]="stage.color">

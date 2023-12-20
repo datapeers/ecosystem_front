@@ -38,6 +38,10 @@
         <p-tabPanel header="Team Coach" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">
             <app-assign-hours class="h-full w-full" [config]="activitiesConfig" [list]="listTeamCoaches" [activitiesConfig]="activitiesTeamCoach" [changes]="changesTeamCoaches" [type]="'teamCoaches'" [columnsHours]="columnsTeamCoachesHours"></app-assign-hours>
         </p-tabPanel>
+
+        <p-tabPanel header="Reporte">
+
+        </p-tabPanel>
     </p-tabView>
 
 </ng-container>

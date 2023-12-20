@@ -1,0 +1,44 @@
+<div class="flex flex-column h-max-router overflow-auto">
+    <div class="flex flex-none flex-column xl:flex-row gap-4 sm:p-2 ">
+        <div class="flex flex-column flex-grown-1 px-2 sm:px-4 md:px-8">
+            <h2>Reportes</h2>
+            <div style="height: 1.5rem"></div>
+            <div class="flex gap-2">
+                <p class="th2">Aquí encontrarás un listado detallado de reportes generados. Revisar y analiza estos informes para garantizar un ambiente seguro y eficiente dentro de la plataforma. Toma medidas apropiadas para abordar cualquier problema identificado, ya sea respondiendo directamente a los usuarios o tomando medidas adicionales según sea necesario. Tu diligencia en la gestión de los informes contribuye significativamente a mantener la integridad y calidad de nuestra aplicación.
+                </p>
+            </div>
+        </div>
+        <div id="toolkit-filter" class="flex flex-none align-items-end gap-3 px-1 md:px-6 mt2">
+
+        </div>
+    </div>
+    <div class="iframe-container">
+        <iframe frameBorder="0" [src]="urlSafe"></iframe>
+        <!-- <p-dataView #dv styleClass="center-content" [value]="reports" [paginator]="false" filterBy="name" layout="grid">
+            <ng-template let-report pTemplate="gridItem">
+                <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-18rem h-20rem">
+                    <div class="flex flex-column">
+                        <div class="flex flex-row gap-1 align-items-center justify-content-between">
+                            <i-tabler class="text-center text-tertiary size-md" name="arrow-back-up"></i-tabler>
+                            <div class="flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs">
+                                <i-tabler class="text-center text-xs size-sm " name="calendar"></i-tabler>
+                                <span class="font-semibold">{{report.date | date: 'dd MMM yyyy'}}</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-column pt-3 gap-1">
+                            <span class="font-bold">{{report.name}}</span>
+                        </div>
+                    </div>
+                    <p-button styleClass="w-16rem button-blue-second button-border-mid align-items-center mt-3" (click)="goPhases()">
+                        <span class="w-full font-semibold text-center">Ver</span>
+                    </p-button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="empty">
+                <div class="flex flex-row justify-content-center align-items-center w-full h-20rem">
+                    <span class="text-2xl text-500 font-semibold">No hay historial reciente</span>
+                </div>
+            </ng-template>
+        </p-dataView> -->
+    </div>
+</div>
