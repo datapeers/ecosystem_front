@@ -21,6 +21,7 @@ import {
   columnsHoursLabels,
 } from './models/columns-hours.enum';
 import { TypeEvent } from '../phase-events/models/types-events.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-phase-hours-config',
@@ -77,12 +78,13 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
   ];
   idTeamCoachActivities = ['646f953cc2305c411d73f700'];
   activitiesTeamCoach: IActivityConfigInput[] = [];
-
+  urlSafe;
   public get userPermission(): typeof Permission {
     return Permission;
   }
 
   constructor(
+    public sanitizer: DomSanitizer,
     private store: Store<AppState>,
     private readonly toast: ToastService,
     private readonly service: PhaseHourConfigService,
@@ -93,6 +95,9 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
+      'https://ecometabase.vinku.co/public/dashboard/2b8bf28e-a974-4948-80b9-ffff7df43d79'
+    );
   }
 
   ngOnInit() {
