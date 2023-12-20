@@ -2,17 +2,15 @@
     <div class="flex flex-column xl:flex-row gap-4 ">
         <div class="flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">
             <h2>Mesa de ayuda</h2>
-            <div style="height: 1.5rem"></div>
+            <div style="height: 1rem"></div>
             <div class="flex gap-2">
-                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
-                <p class="th2">Cuando tenga una necesidad para tu startup, un acompañamiento específico, una sugerencia
-                    a un evento, tenes startups o expertos para recomendar o
-                    cualqueir otra cosa que nos quieras comunicar, este es el lugar indicado para hacerlo.
+                <i-tabler class="text-center cursor-pointer" (click)="launchTour()" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
+                <p class="th2">{{user?.isAdmin ? 'Aquí puedes revisar y gestionar las conversaciones en la Mesa de Ayuda. Asegúrate de que los tickets sean apropiados y responde a las consultas de los usuarios para proporcionar soluciones efectivas. Si encuentras tickets inapropiados, puedes eliminarlos para mantener un entorno positivo y productivo. Tu participación es esencial para garantizar una experiencia óptima para nuestros usuarios. ¡Explora las conversaciones y toma medidas según sea necesario' : 'Este espacio está diseñado para ti. Si necesitas ayuda específica para tu startup, buscas acompañamiento, deseas hacer sugerencias para eventos, o simplemente tienes algo que compartir con nosotros, ¡este es el lugar indicado! Inicia una conversación y nuestro equipo estará encantado de ayudarte y conectar contigo. Tu feedback es crucial para nosotros.'}}
                 </p>
             </div>
         </div>
         <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
-            <div class="flex flex-column gap-2 app-input-field">
+            <div class="flex flex-column gap-2 app-input-field" id="filterTickType">
                 <label>Ver por:</label>
                 <div class="flex">
                     <form [formGroup]="filtersTickets">
@@ -20,7 +18,7 @@
                     </form>
                 </div>
             </div>
-            <div class="flex flex-column gap-2 app-input-field">
+            <div class="flex flex-column gap-2 app-input-field" id="orderTickState">
                 <label>Ordenar por:</label>
                 <div class="flex">
                     <form [formGroup]="filtersTickets">
@@ -28,12 +26,12 @@
                     </form>
                 </div>
             </div>
-            <p-button label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user?.allowed(userPermission.help_desk_create) || user?.rolType==roles.user"></p-button>
+            <p-button id="createTicketBtn" label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user?.allowed(userPermission.help_desk_create) || user?.rolType==roles.user"></p-button>
         </div>
     </div>
     <p-divider></p-divider>
     <div class="flex h-4"></div>
-    <div class="flex w-full table-container p-1">
+    <div class="flex w-full table-container p-1" id="tableTickets">
         <p-table #dt class="table-app w-full" [value]="showedTickets" [tableStyle]="{'min-width': '50rem'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">
             <ng-template pTemplate="caption">
                 <div class="table-header pt-3">

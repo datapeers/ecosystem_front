@@ -35,6 +35,8 @@ import { hexToRgb } from '@shared/utils/hexToRgb';
 import { ValidRoles } from '@auth/models/valid-roles.enum';
 import { assertAbstractType } from 'graphql';
 import { Permission } from '@auth/models/permissions.enum';
+import { ShepherdService } from 'angular-shepherd';
+import { helpDeskOnboarding } from '@shared/onboarding/onboarding.config';
 @Component({
   selector: 'app-helpdesk',
   templateUrl: './helpdesk.component.html',
@@ -115,7 +117,8 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private service: HelpdeskService,
     private readonly storageService: StorageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private readonly shepherdService: ShepherdService
   ) {
     this.filtersTickets.valueChanges.subscribe((data) => {
       this.filterTicketsFunction(data as any);
@@ -128,6 +131,12 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.tickets$?.unsubscribe();
+  }
+
+  launchTour() {
+    if (!this.user.isUser) return;
+    this.shepherdService.addSteps(helpDeskOnboarding);
+    this.shepherdService.start();
   }
 
   async loadComponent() {
@@ -303,7 +312,9 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
       })
       .then((ans) => {
         this.toast.clear();
-        this.showTicket.childs = this.showTicket.childs.concat([{ ...this.response.value }]);
+        this.showTicket.childs = this.showTicket.childs.concat([
+          { ...this.response.value },
+        ]);
       })
       .catch((err) => {
         this.toast.clear();
@@ -315,22 +326,22 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   updateTicketStatus(newState: TicketStates) {
     this.toast.info({ detail: '', summary: 'Actualizando...' });
     this.service
-    .updateTicket({
-      _id: this.showTicket._id,
-      status: newState,
-    })
-    .then((ans) => {
-      this.showTicket = false;
-      this.toast.clear();
-    })
-    .catch((err) => {
-      this.toast.clear();
-      this.toast.alert({
-        summary: 'Error al intentar actualizar el estado del ticket',
-        detail: err,
-        life: 12000,
+      .updateTicket({
+        _id: this.showTicket._id,
+        status: newState,
+      })
+      .then((ans) => {
+        this.showTicket = false;
+        this.toast.clear();
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.toast.alert({
+          summary: 'Error al intentar actualizar el estado del ticket',
+          detail: err,
+          life: 12000,
+        });
       });
-    });
   }
 
   async closeTicket() {

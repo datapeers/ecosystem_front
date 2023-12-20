@@ -364,3 +364,95 @@ export const calendarOnboarding: any[] = [
     ],
   },
 ];
+
+export const helpDeskOnboarding: any[] = [
+  {
+    attachTo: {
+      element: '#tableTickets',
+      on: 'top',
+    },
+    text: `Mira el listado de los tickets hechos hasta el momento, su estado y puedes dar click en cualquier para obtener mas información sobre esté`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#createTicketBtn',
+      on: 'bottom',
+    },
+    text: `Si necesitas ayuda específica para tu startup, buscas acompañamiento, deseas hacer sugerencias para eventos, o simplemente tienes algo que compartir con nosotros, <strong>crea un ticket</strong>`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Anterior',
+        action() {
+          this.back();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#filterTickType',
+      on: 'top',
+    },
+    text: 'Filtra los tickets según el tipo que requieras ahora',
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#orderTickState',
+      on: 'top',
+    },
+    text: 'Pues organizarlos en cualquier momento',
+    buttons: [
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Completar',
+        action() {
+          this.complete();
+        },
+      },
+    ],
+  },
+];
