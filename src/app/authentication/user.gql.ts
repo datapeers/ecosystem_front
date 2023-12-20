@@ -21,6 +21,13 @@ const fragments = {
       permissions
     }
   `,
+  userConfigFields: `
+    fragment userConfigFields on UserConfig {
+      _id
+      uid
+      notifications
+    }
+  `
 };
 
 const query = {
@@ -31,6 +38,14 @@ const query = {
       }
     }
     ${fragments.userFields}
+  `,
+  getUserConfigByUid: `
+    query GetUserConfigByUid($uid: String!) {
+      userConfig(uid: $uid) {
+        ...userConfigFields
+      }
+    }
+    ${fragments.userConfigFields}
   `,
   users: `
     query Users($search: String, $roles: [ValidRoles!]) {
@@ -64,6 +79,14 @@ const mutation = {
     }
     ${fragments.userFields}
   `,
+  updateUserConfig: `
+  mutation UpdateUserConfig($updateUserConfigInput: UpdateUserConfigInput!) {
+    updateUserConfig(updateUserConfigInput: $updateUserConfigInput) {
+      ...userConfigFields
+    }
+  }
+  ${fragments.userConfigFields}
+`,
   createUserFromInvitation: `
     mutation CreateUserFromInvitation($code: String!, $name: String!, $password: String!) {
       createUserFromInvitation(code: $code, name: $name, password: $password) {
