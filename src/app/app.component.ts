@@ -45,21 +45,5 @@ export class AppComponent implements OnInit {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     );
-    const viewOnboarding = localStorage.getItem('onboarding');
-    if (user && user.rolType === ValidRoles.user && !viewOnboarding) {
-      this.shepherdService.start();
-    }
-  }
-
-  ngAfterViewInit() {
-    this.shepherdService.defaultStepOptions = {
-      scrollTo: true,
-      cancelIcon: {
-        enabled: true,
-      },
-    };
-    this.shepherdService.modal = true;
-    this.shepherdService.confirmCancel = false;
-    this.shepherdService.addSteps(appOnboarding);
   }
 }

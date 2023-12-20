@@ -11,6 +11,9 @@ import { User } from '@auth/models/user';
 import { Observable, Subject, takeUntil, firstValueFrom, first } from 'rxjs';
 import { SearchCurrentBatch } from './store/home.actions';
 import { ToastService } from '@shared/services/toast.service';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
+import { ShepherdService } from 'angular-shepherd';
+import { appOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +39,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.screenWidth = window.innerWidth;
   }
 
-  constructor(private store: Store<AppState>, private toast: ToastService) {
+  constructor(
+    private store: Store<AppState>,
+    private toast: ToastService,
+    private readonly shepherdService: ShepherdService
+  ) {
     this.screenWidth = window.innerWidth;
     this.store
       .select((storeState) => storeState.home.menuExpanded)
@@ -70,6 +77,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
+  ngAfterViewInit() {
+    this.shepherdService.defaultStepOptions = {
+      scrollTo: true,
+      cancelIcon: {
+        enabled: true,
+      },
+    };
+    this.shepherdService.modal = true;
+    this.shepherdService.confirmCancel = false;
+    this.shepherdService.addSteps(appOnboarding);
+  }
+
   async loadComponent() {
     -this.toast.clear();
     this.loading = false;
@@ -80,6 +99,10 @@ export class HomeComponent implements OnInit, OnDestroy {
           .pipe(first((i) => i !== null))
       );
       this.store.dispatch(new SearchCurrentBatch(profile));
+    }
+    const viewOnboarding = localStorage.getItem('onboarding');
+    if (this.user && this.user.rolType === ValidRoles.user && !viewOnboarding) {
+      this.shepherdService.start();
     }
   }
 
