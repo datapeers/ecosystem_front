@@ -165,7 +165,7 @@
         <p-divider></p-divider>
 
         <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
-            <ng-container *ngFor="let typeEvent of typesEventsWithHours">
+            <ng-container *ngFor="let typeEvent of typesEventsWithHours; let i=index;">
                 <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer"
                     *ngIf="typeEvent.isSchedulable">
                     <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
@@ -325,7 +325,8 @@
             <p-divider></p-divider>
             <div style="height: 1.5rem;"></div>
             <span class="flex flex-column lg:flex-row justify-content-center align-items-center gap-2 p-3">
-                <ng-container *ngIf="eventShow.extendedProps.acta && user?.allowed(userPermission.actas_view);">
+                <ng-container
+                    *ngIf="eventShow.extendedProps.acta && (user?.allowed(userPermission.actas_view) || user.isUser);">
                     <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top"
                         icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
                 </ng-container>
