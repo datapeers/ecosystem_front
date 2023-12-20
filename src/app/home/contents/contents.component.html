@@ -1,4 +1,4 @@
-<div class="h-full overflow-auto">
+<div class="h-full overflow-auto pt-3">
     <ng-container *ngIf="loaded; else loadingTemplates">
         <div class="container-component px-0 md:px-4 py-2 gap-4">
             <div class="hidden md:flex normal-panel navigation-panel py-5">
@@ -9,24 +9,20 @@
             <div class=" display-content scrollwrap scrollwrap_delayed flex flex-column gap-2" *ngIf="contentSelected">
                 <div class="flex flex-row w-full justify-content-between align-items-center px-0 md:px-6">
                     <div class="flex flex-row gap-2 d:gap-6 align-items-center">
-                        <div class="side-left-btn md:hidden py-1 px-2 cursor-pointer"
-                            (click)="viewNavMenuContent = true">
+                        <div class="side-left-btn md:hidden py-1 px-2 cursor-pointer" (click)="viewNavMenuContent = true">
                             <i-tabler name="arrow-narrow-right">
                             </i-tabler>
                         </div>
                         <ng-container *ngIf="contentCompleted[contentSelected._id]; else elseTemplate">
-                            <p
-                                class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">
+                            <p class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">
                                 Completado</p>
                         </ng-container>
                         <ng-template #elseTemplate>
-                            <p
-                                class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">
+                            <p class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">
                                 En curso</p>
                         </ng-template>
                         <span class="hidden md:flex align-items-center justify-content-center gap-4 font-bold">
-                            <i-tabler name="layout-board-split"
-                                style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
+                            <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
                             <p class="white-space-nowrap overflow-hidden text-overflow-ellipsis">
                                 {{contentSelected.name}}
                             </p>
@@ -34,9 +30,7 @@
                     </div>
                     <div class="completed-btn px-2 md:px-0">
                         <ng-container *ngIf="!contentCompleted[contentSelected._id];">
-                            <p-button
-                                styleClass="w-full button-yellow-second button-border-mid align-items-center justify-content-between gap-2"
-                                (onClick)="markAsCompleted()" [disabled]="savingCompleted">
+                            <p-button styleClass="w-full button-yellow-second button-border-mid align-items-center justify-content-between gap-2" (onClick)="markAsCompleted()" [disabled]="savingCompleted">
                                 <span class="font-semibold" style="font-size: 0.85rem;">Completar modulo</span>
                                 <p-checkbox [(ngModel)]="marked" [binary]="true" inputId="binary"></p-checkbox>
                             </p-button>
@@ -54,8 +48,7 @@
         <app-loading></app-loading>
     </ng-template>
 
-    <p-dialog header="" [(visible)]="viewHomeworks" [breakpoints]="{'960px': '85vw', '640px': '100vw'}"
-        [style]="{width: '60vw'}" [modal]="true" maskStyleClass="dialog-app" appendTo="body">
+    <p-dialog header="" [(visible)]="viewHomeworks" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '60vw'}" [modal]="true" maskStyleClass="dialog-app" appendTo="body">
         <div class="w-full h-full flex flex-row gap-3">
             <i-tabler name="layout-board-split" class="icon-dialog"></i-tabler>
             <ng-container *ngIf="!homeworkDisplay; else showHomework">
@@ -63,17 +56,14 @@
             </ng-container>
             <ng-template #showHomework>
                 <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4" style="flex: 1">
-                    <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-base"
-                        [style.color]="'black'">
+                    <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-base" [style.color]="'black'">
                         {{homeworkDisplay.resource.name}}</h2>
-                    <div
-                        class="w-full flex flex-wrap md:flex-row justify-content-center md:justify-content-between gap-2 md:gap-2 align-items-center">
+                    <div class="w-full flex flex-wrap md:flex-row justify-content-center md:justify-content-between gap-2 md:gap-2 align-items-center">
                         <div class="info-dialog flex flex-column text-sm">
                             <span>Contenido de {{homeworkDisplay.phase.name}}</span>
                             <span>{{stage.name}}</span>
                         </div>
-                        <div
-                            class="flex flex-row date-resource-display align-items-center justify-content-center p-1 gap-2">
+                        <div class="flex flex-row date-resource-display align-items-center justify-content-center p-1 gap-2">
                             <i-tabler name="calendar-event"></i-tabler>
                             <span>{{ homeworkDisplay.resource.extra_options.expiration ??
                                 sprintSelected.extra_options.end |
@@ -88,26 +78,19 @@
                         <div class="flex flew-wrap gap-2">
                             <ng-container [ngSwitch]="homeworkDisplay.resource.type">
                                 <ng-container *ngSwitchCase="resourcesTypes.form">
-                                    <p-button label="Ver formulario" iconPos="right" icon="pi pi-file-export"
-                                        (onClick)="openForm(homeworkDisplay)"></p-button>
+                                    <p-button label="Ver formulario" iconPos="right" icon="pi pi-file-export" (onClick)="openForm(homeworkDisplay)"></p-button>
                                 </ng-container>
                                 <ng-container *ngSwitchCase="resourcesTypes.downloadable">
-                                    <p-button label="Descargar" iconPos="right" icon="pi pi-download"
-                                        (onClick)="downloadFile(homeworkDisplay)"></p-button>
+                                    <p-button label="Descargar" iconPos="right" icon="pi pi-download" (onClick)="downloadFile(homeworkDisplay)"></p-button>
                                 </ng-container>
                                 <ng-container *ngSwitchCase="resourcesTypes.task">
-                                    <p-button *ngIf="homeworkDisplay.resource.extra_options.file" pTooltip="Plantilla"
-                                        (onClick)="downloadFile(homeworkDisplay)" icon="pi pi-file"></p-button>
+                                    <p-button *ngIf="homeworkDisplay.resource.extra_options.file" pTooltip="Plantilla" (onClick)="downloadFile(homeworkDisplay)" icon="pi pi-file"></p-button>
                                     <ng-container *ngIf="homeworkDisplay.state !== resourcesStates.Pendiente">
-                                        <p-button pTooltip="Ver archivo" icon="pi pi-eye"
-                                            (onClick)="downloadFileReply(homeworkDisplay)"></p-button>
+                                        <p-button pTooltip="Ver archivo" icon="pi pi-eye" (onClick)="downloadFileReply(homeworkDisplay)"></p-button>
                                     </ng-container>
-                                    <p-button [label]="homeworkDisplay.item?.file ? 'Cambiar' : 'Subir'"
-                                        icon="pi pi-upload" (onClick)="fileInput.click()"
-                                        styleClass="p-button-outlined"></p-button>
+                                    <p-button [label]="homeworkDisplay.item?.file ? 'Cambiar' : 'Subir'" icon="pi pi-upload" (onClick)="fileInput.click()" styleClass="p-button-outlined"></p-button>
 
-                                    <input #fileInput type="file" accept="*" class="hidden"
-                                        (change)="selectFile(fileInput, homeworkDisplay)">
+                                    <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, homeworkDisplay)">
                                 </ng-container>
                             </ng-container>
                         </div>
@@ -124,8 +107,7 @@
                 ''}}</span>
         </div>
         <div class="w-full flex flex-row justify-content-end align-items-center gap-2 px-6">
-            <i-tabler name="arrow-big-left" class="navigation-btn-dialog"
-                (click)="changeResource('previous')"></i-tabler>
+            <i-tabler name="arrow-big-left" class="navigation-btn-dialog" (click)="changeResource('previous')"></i-tabler>
             <span class="info-dialog text-sm">Pag {{indexHomework + 1}} - {{homeworks.length}} </span>
             <i-tabler name="arrow-big-right" class="navigation-btn-dialog" (click)="changeResource('next')"></i-tabler>
         </div>
@@ -134,29 +116,23 @@
     <ng-template #navContent>
         <div class="phase-column w-full flex flex-column align-items-center justify-content-between">
             <div class="w-full navigation-controls flex flex-row justify-content-between">
-                <i-tabler name="chevron-left" class="direction-btn" *ngIf="previousPhase"
-                    (click)="loadComponent(previousPhase)"></i-tabler>
-                <i-tabler name="chevron-right" class="direction-btn" *ngIf="nextPhase"
-                    (click)="loadComponent(nextPhase)"></i-tabler>
+                <i-tabler name="chevron-left" class="direction-btn" *ngIf="previousPhase" (click)="loadComponent(previousPhase)"></i-tabler>
+                <i-tabler name="chevron-right" class="direction-btn" *ngIf="nextPhase" (click)="loadComponent(nextPhase)"></i-tabler>
             </div>
-            <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 p-3"
-                [style.background]="gradient()">
-                <div class="flex flex-column align-items-center gap-3" style="padding: 0.875rem;"
-                    [style.color]="stage.color">
+            <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 p-3" [style.background]="gradient()">
+                <div class="flex flex-column align-items-center gap-3" style="padding: 0.875rem;" [style.color]="stage.color">
                     <span class="text-xl font-semibold">{{phaseName}}</span>
                     <h1 style="font-weight: 600;">{{phaseNumb}}</h1>
                 </div>
                 <div class="flex flex-column align-items-center gap-5">
-                    <span class="title-sprint font-semibold text-2xl "
-                        [style.color]="stage.color">{{sprintSelected.name}}</span>
+                    <span class="title-sprint font-semibold text-2xl " [style.color]="stage.color">{{sprintSelected.name}}</span>
                     <i-tabler class="icon-stage " [name]="stage.icon" [style.background-color]="stage.color"></i-tabler>
                 </div>
             </div>
         </div>
         <div class="navigation-contents">
             <div class="w-full flex justify-content-end">
-                <p-button styleClass="w-auto md:w-16rem button-blue-second button-border-mid align-items-center"
-                    (onClick)="openHomeworks()">
+                <p-button styleClass="w-auto md:w-16rem button-blue-second button-border-mid align-items-center" (onClick)="openHomeworks()">
                     <span class="w-full font-semibold text-center text-xs md:text-base">Toolkit</span>
                 </p-button>
             </div>
@@ -165,36 +141,29 @@
                 <ng-container *ngFor="let sprint of sprints; let iSprint = index">
                     <ng-container *ngFor="let content of sprint.childs; let iContent = index">
                         <div class="row flex flex-row w-full align-items-center justify-content-center">
-                            <i-tabler class="icon-state done-state" [name]="iconState(content)"
-                                [style.background-color]="colorByState(content)"></i-tabler>
+                            <i-tabler class="icon-state done-state" [name]="iconState(content)" [style.background-color]="colorByState(content)"></i-tabler>
                             <hr class="h-line" [style.background-color]="colorByState(content)">
-                            <div class="card-content flex flex-column justify-content-center"
-                                [ngClass]="{selected: content?._id === contentSelected?._id}"
-                                (click)="changeContent(content)">
+                            <div class="card-content flex flex-column justify-content-center" [ngClass]="{selected: content?._id === contentSelected?._id}" (click)="changeContent(content)">
                                 <span class="" style="font-weight: 550;">{{content.name}}</span>
                                 <span class="card-state-content text-sm">{{textState(content)}}</span>
                             </div>
                         </div>
-                        <div class="lines-done" *ngIf="iContent < sprint.childs.length -1"
-                            [style.border-color]="lineState(sprint, content)"></div>
+                        <div class="lines-done" *ngIf="iContent < sprint.childs.length -1" [style.border-color]="lineState(sprint, content)"></div>
                     </ng-container>
-                    <div class="lines-done" *ngIf="iSprint < sprints.length -1"
-                        [style.border-color]="lineState(sprint)">
+                    <div class="lines-done" *ngIf="iSprint < sprints.length -1" [style.border-color]="lineState(sprint)">
                     </div>
                 </ng-container>
             </div>
         </div>
     </ng-template>
 
-    <p-sidebar [(visible)]="viewNavMenuContent" position="left" styleClass="border-sidebar-left" appendTo="body"
-        [modal]="false" [showCloseIcon]="false">
+    <p-sidebar [(visible)]="viewNavMenuContent" position="left" styleClass="border-sidebar-left" appendTo="body" [modal]="false" [showCloseIcon]="false">
         <div class="flex flex-row h-full">
             <div class="flex navigation-panel flex-grown-1" *ngIf="loaded">
                 <ng-container [ngTemplateOutlet]="navContent">
                 </ng-container>
             </div>
-            <div class="flex align-items-center justify-content-center" style="width: 1.5rem;"
-                (click)="viewNavMenuContent = false">
+            <div class="flex align-items-center justify-content-center" style="width: 1.5rem;" (click)="viewNavMenuContent = false">
                 <i-tabler name="arrow-narrow-left">
                 </i-tabler>
             </div>

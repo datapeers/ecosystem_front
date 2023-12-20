@@ -6,7 +6,7 @@ export const appOnboarding: any[] = [
       element: '#main-ico',
       on: 'right-end',
     },
-    text: 'Usa ese icono para expandir y contraer el menu lateral, tener el menú contraído te dará más espacio en pantalla para trabajar',
+    text: 'Usa este ícono para expandir y contraer el menú lateral, tener el menú contraído te dará más espacio en pantalla para trabajar',
     buttons: [
       {
         text: 'Cancelar',
@@ -135,7 +135,7 @@ export const routeOnboarding: any[] = [
       element: '#info',
       on: 'bottom',
     },
-    text: 'Aca encontrarás información generl de tu avance',
+    text: 'Aca encontrarás información general de tu avance',
     buttons: [
       {
         text: 'Cancelar',
@@ -176,7 +176,7 @@ export const toolkitOnboarding: any[] = [
       element: '#toolkit-filter',
       on: 'bottom',
     },
-    text: 'Aca encontrarás filtros para acceder a recursos de sprint y batchs anteriores recuerda siempre regrear a tu batch y sprint actual',
+    text: 'Aca encontrarás filtros para acceder a recursos de sprint y batch`s anteriores recuerda siempre regresar a tu batch y sprint actual',
     buttons: [
       {
         text: 'Cancelar',
@@ -199,6 +199,160 @@ export const toolkitOnboarding: any[] = [
       on: 'top',
     },
     text: 'Encuentra diferentes tarjetas con los diferentes recursos disponibles en cada sprint y batch que participes',
+    buttons: [
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Completar',
+        action() {
+          this.complete();
+        },
+      },
+    ],
+  },
+];
+
+export const startupProfileOnboarding: any[] = [
+  {
+    attachTo: {
+      element: '#avatarChange',
+      on: 'bottom',
+    },
+    text: 'Logo de la startup, cámbialo cuando desees dando click sobre el',
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#editInfoStartup',
+      on: 'top',
+    },
+    text: 'Modifica los datos de tu startUp en cualquier momento dando click',
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#functionsStartup',
+      on: 'top',
+    },
+    text: 'Modifica las funciones publicas que tienen los miembros de tu startup',
+    buttons: [
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Completar',
+        action() {
+          this.complete();
+        },
+      },
+    ],
+  },
+];
+
+export const calendarOnboarding: any[] = [
+  {
+    attachTo: {
+      element: '#viewerCalendar',
+      on: 'bottom',
+    },
+    text: `Tienes las opciones de ver los eventos dentro del <strong>Calendario</strong> o en un listado en la vista de <strong>Detalles</strong>`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#calendarContain',
+      on: 'top',
+    },
+    text: 'Cambia la vistas que tienes del calendario en cualquier momento',
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#expertBtn',
+      on: 'top',
+    },
+    text: 'Mira en cualquier momento el listado de los expert asignados a tu startup',
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        text: 'Regresar',
+        action() {
+          this.back();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#acompBtn',
+      on: 'top',
+    },
+    text: 'Agenda con nuestro equipo de acompañamiento alguna Mentoría/Asesoría si lo necesitas.',
     buttons: [
       {
         classes: 'shepherd-button-primary',

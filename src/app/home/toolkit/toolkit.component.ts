@@ -56,19 +56,8 @@ export class ToolkitComponent implements OnInit, OnDestroy {
     return ResourceReplyState;
   }
 
-  ngAfterViewInit() {
-    this.shepherdService.defaultStepOptions = {
-      scrollTo: true,
-      cancelIcon: {
-        enabled: true,
-      },
-    };
-    this.shepherdService.modal = true;
-    this.shepherdService.confirmCancel = false;
-    this.shepherdService.addSteps(toolkitOnboarding);
-  }
-
   launchTour() {
+    this.shepherdService.addSteps(toolkitOnboarding);
     this.shepherdService.start();
   }
 

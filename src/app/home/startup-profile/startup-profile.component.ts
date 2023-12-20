@@ -16,6 +16,8 @@ import { Phase } from '@home/phases/model/phase.model';
 import { UserService } from '@auth/user.service';
 import { HttpEventType } from '@angular/common/http';
 import { StorageService } from '@shared/storage/storage.service';
+import { ShepherdService } from 'angular-shepherd';
+import { startupProfileOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-startup-profile',
@@ -57,7 +59,8 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
     private startupService: StartupsService,
     private formService: FormService,
     private userService: UserService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private readonly shepherdService: ShepherdService
   ) {
     firstValueFrom(
       this.store
@@ -73,6 +76,11 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  launchTour() {
+    this.shepherdService.addSteps(startupProfileOnboarding);
+    this.shepherdService.start();
   }
 
   async loadComponent() {

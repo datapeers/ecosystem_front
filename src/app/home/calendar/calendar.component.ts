@@ -40,6 +40,7 @@ import { Permission } from '@auth/models/permissions.enum';
 import { Table } from 'primeng/table';
 import { ShepherdService } from 'angular-shepherd';
 import { PhaseHourConfigService } from '../phases/phase-hours-config/phase-hour-config.service';
+import { calendarOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-calendar',
@@ -175,7 +176,8 @@ export class CalendarComponent {
     private readonly expertsService: ExpertsService,
     private readonly phaseService: PhasesService,
     private readonly storageService: StorageService,
-    private readonly phaseHourConfigService: PhaseHourConfigService
+    private readonly phaseHourConfigService: PhaseHourConfigService,
+    private readonly shepherdService: ShepherdService
   ) {
     this.scrollHeight = `${innerHeight - 446}px`;
     this.globalFilter = this.columns.map((i) => i.field);
@@ -244,6 +246,12 @@ export class CalendarComponent {
       },
     ]);
     this.shepherdService.start();*/
+  }
+
+  launchTour() {
+    if (!this.user.isUser) return;
+    this.shepherdService.addSteps(calendarOnboarding);
+    this.shepherdService.start();
   }
 
   ngOnDestroy() {
@@ -358,14 +366,14 @@ export class CalendarComponent {
           this.actas = await this.actasService.getActasByEvents(
             eventList.map((i) => i._id)
           );
-          console.log(this.actas);
+
           this.phases = await this.phaseService.getPhases();
           this.events = [];
           this.originalEvents = eventList;
           for (const iterator of eventList) {
             this.assignItem(iterator);
           }
-          console.log(this.events);
+
           this.loadingComponent = false;
           setTimeout(() => {
             this.resizeCalendar();
