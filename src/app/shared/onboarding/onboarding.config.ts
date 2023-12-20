@@ -171,7 +171,7 @@ export const toolkitOnboarding: any[] = [
       element: '#toolkit-filter',
       on: 'bottom',
     },
-    text: 'Aca encontrarás filtros para acceder a recursos de sprint y batchs anteriores recuerda siempre regrear a tu batcj y sprint actual',
+    text: 'Aca encontrarás filtros para acceder a recursos de sprint y batchs anteriores recuerda siempre regrear a tu batch y sprint actual',
     buttons: [
       {
         text: 'Cancelar',

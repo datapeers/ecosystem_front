@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
     );
 
     if (user && user.rol.name == 'Usuario') {
-      //this.shepherdService.start();
+      this.shepherdService.start();
     }
   }
 
