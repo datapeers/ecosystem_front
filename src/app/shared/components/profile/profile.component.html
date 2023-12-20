@@ -2,7 +2,7 @@
     <p-scrollPanel [style]="{ width: '100%', height: '100%' }" class="w-full">
         <div class="flex flex-column mx-5 mt-3 gap-3">
             <div class="w-full panel-profile justify-center flex flex-column align-items-center gap-3" style="padding: 1.875rem; border-radius: 3.25rem">
-                <div class="w-full flex flex-column md:flex-row justify-content-between align-items-center">
+            <div class="w-full flex flex-column gap-3 md:flex-row justify-content-between align-items-center">
                     <span class="font-semibold text-xl">
                         <h3>Cuenta</h3>
                     </span>
@@ -73,14 +73,21 @@
             <!-- <div class="card">
                 <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
             </div> -->
-            <div *ngIf="notifications.length" class="panel-profile justify-center align-items-center" style="padding: 1.875rem; border-radius: 3.25rem">
-                <div class="flex flex-row justify-content-between">
-                    <h3>Notificaciones que quiero recibir</h3>
+            <div *ngIf="userConfig?.notifications" class="panel-profile justify-center align-items-center" style="padding: 1.875rem; border-radius: 3.25rem">
+                <div class="w-full flex flex-column gap-3 md:flex-row justify-content-between align-items-center">
+                    <h3 class="text-center">Notificaciones que quiero recibir</h3>
+                    <div class="flex flex-wrap gap-3 justify-content-center md:justify-content-end">
+                        <p-button (onClick)="saveConfigChanges()" class="">
+                            <p>Guardar cambios</p>
+                            <div class="w-1rem"></div>
+                            <i-tabler name="device-floppy"></i-tabler>
+                        </p-button>
+                    </div>
                 </div>
                 <div class="grid pb-2 pt-4">
-                    <ng-container *ngFor="let item of notifications">
+                    <ng-container *ngFor="let item of notificationsConfig">
                         <div class="col-12 sm:col-6 md:col-4">
-                            <p-checkbox [(ngModel)]="item.value" [binary]="true" [label]="item.label"></p-checkbox>
+                            <p-checkbox [(ngModel)]="userConfig.notifications[item.type]" [binary]="true" [label]="item.label"></p-checkbox>
                         </div>
                     </ng-container>
                 </div>

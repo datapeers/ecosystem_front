@@ -21,6 +21,8 @@ import { ToastService } from '@shared/services/toast.service';
 import { AdminService } from 'src/app/admin/admin.service';
 import { cloneDeep } from 'lodash';
 import { textField } from '@shared/utils/order-field-multiple';
+import { UserConfig } from '@auth/models/user-config';
+import { EmailNotificationTypes } from '@auth/models/email-notification-types';
 
 @Component({
   selector: 'app-profile',
@@ -36,15 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profileDoc;
   noValuePlaceholder: string = '- - - -';
   formProfileFields: any[] = [];
-  notifications: any[] = [
-    { label: "Invitación a evento", value: true },
-    { label: "Actualización Evento", value: true },
-    { label: "Recurso calificado", value: true },
-    { label: "Recurso próximo a vencer", value: true },
-    { label: "Culminación de fase", value: true },
-    { label: "Evaluación disponible", value: true },
-    { label: "Actualización ticket mesa de ayuda", value: true },
-  ];
+  userConfig: UserConfig;
   accountParams = [
     {
       label: 'Calendly link',
@@ -60,6 +54,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   viewRating = false;
   form;
   fields = [];
+  notificationsConfig: { type: EmailNotificationTypes, label: string }[] = [
+    { label: "Invitación a evento", type: EmailNotificationTypes.invitationToEvent },
+    { label: "Actualización Evento", type: EmailNotificationTypes.eventUpdate },
+    { label: "Recurso calificado", type: EmailNotificationTypes.qualifiedResource },
+    { label: "Recurso próximo a vencer", type: EmailNotificationTypes.resourceExpiringSoon },
+    { label: "Culminación de fase", type: EmailNotificationTypes.phaseCompletion },
+    { label: "Evaluación disponible", type: EmailNotificationTypes.assessmentAvailable },
+    { label: "Actualización ticket mesa de ayuda", type: EmailNotificationTypes.helpdeskTicketUpdate },
+  ];
 
   // -----------
   basicData: any;
@@ -240,6 +243,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   async loadEntrepreneurProfile() {
+    this.userConfig = await this.userService.getUserConfig(this.user.uid);
     this.profileDoc = await this.entrepreneursService.getUserDoc(this.user);
     const formDoc = await this.formService.getFormByCollection(
       FormCollections.entrepreneurs
@@ -289,6 +293,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
           life: 12000,
         });
       });
+  }
+
+  saveConfigChanges() {
+    this.userService.updateUserConfig(this.userConfig._id, this.userConfig);
   }
 
   async saveSimpleChange(param: string) {

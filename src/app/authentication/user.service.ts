@@ -6,6 +6,7 @@ import { ValidRoles } from './models/valid-roles.enum';
 import { StorageService } from '@shared/storage/storage.service';
 import { StoragePaths } from '@shared/storage/storage.constants';
 import userQueries from './user.gql';
+import { UserConfig } from './models/user-config';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,18 @@ export class UserService {
     );
     return firstValueFrom(
       this.graphql.query(queryRef).pipe(map((request) => request.data.users))
+    );
+  }
+
+  async getUserConfig(uid: string): Promise<UserConfig> {
+    const queryRef = this.graphql.refQuery(
+      userQueries.query.getUserConfigByUid,
+      { uid },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(map((request) => request.data.userConfig))
     );
   }
 
@@ -131,5 +144,23 @@ export class UserService {
 
   removeProfileImage(user: User) {
     return this.storageService.deleteFile(StoragePaths.profileImages, user.uid);
+  }
+
+  updateUserConfig(id: string, config: UserConfig): Promise<UserConfig> {
+    const updatedConfig = {
+      uid: config.uid,
+      notifications: config.notifications
+    };
+    const mutRef = this.graphql.refMutation(
+      userQueries.mutation.updateUserConfig,
+      { updateUserConfigInput: { _id: id, ...updatedConfig } },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(map((request) => request.data.updateUserConfig))
+    );
   }
 }
