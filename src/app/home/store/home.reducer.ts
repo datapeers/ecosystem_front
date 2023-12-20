@@ -52,9 +52,9 @@ export function homeReducer(
       return { ...state, breadcrumb: [] };
     case fromHome.SET_CURRENT_BATCH:
       if (action.batch && action.batch !== 'without batch') {
-        localStorage.setItem('currentBatch', action.batch._id);
+        sessionStorage.setItem('currentBatch', action.batch._id);
       } else {
-        localStorage.setItem('currentBatch', '');
+        sessionStorage.setItem('currentBatch', '');
       }
       return { ...state, currentBatch: action.batch };
     case fromHome.ACTIVATE_RETURN:

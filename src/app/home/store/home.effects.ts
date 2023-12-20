@@ -25,7 +25,7 @@ export class HomeEffects {
         );
         const batches = userPhases.filter((i) => !i.basePhase);
 
-        const currentBatchID = localStorage.getItem('currentBatch');
+        const currentBatchID = sessionStorage.getItem('currentBatch');
         let currentBatch = batches.find((i) => i._id === currentBatchID);
         if (!currentBatchID || !currentBatch) {
           // Obtén la fecha actual

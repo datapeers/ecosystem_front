@@ -9,6 +9,8 @@ import { ShepherdService } from 'angular-shepherd';
 import { first, firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { appOnboarding } from '@shared/onboarding/onboarding.config';
+import { User } from '@auth/models/user';
+import { ValidRoles } from '@auth/models/valid-roles.enum';
 
 @Component({
   selector: 'app-root',
@@ -38,13 +40,13 @@ export class AppComponent implements OnInit {
   }
 
   async initUser() {
-    const user = await firstValueFrom(
+    const user: User = await firstValueFrom(
       this.store
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     );
-
-    if (user && user.rol.name == 'Usuario') {
+    const viewOnboarding = localStorage.getItem('onboarding');
+    if (user && user.rolType === ValidRoles.user && !viewOnboarding) {
       this.shepherdService.start();
     }
   }

@@ -11,6 +11,7 @@ export const appOnboarding: any[] = [
       {
         text: 'Cancelar',
         action() {
+          localStorage.setItem('onboarding', 'viewed');
           this.cancel();
         },
       },
@@ -33,6 +34,7 @@ export const appOnboarding: any[] = [
       {
         text: 'Cancelar',
         action() {
+          localStorage.setItem('onboarding', 'viewed');
           this.cancel();
         },
       },
@@ -62,6 +64,7 @@ export const appOnboarding: any[] = [
       {
         text: 'Cancelar',
         action() {
+          localStorage.setItem('onboarding', 'viewed');
           this.cancel();
         },
       },
@@ -91,6 +94,7 @@ export const appOnboarding: any[] = [
       {
         text: 'Cancelar',
         action() {
+          localStorage.setItem('onboarding', 'viewed');
           this.cancel();
         },
       },
@@ -117,6 +121,7 @@ export const appOnboarding: any[] = [
         classes: 'shepherd-button-primary',
         text: 'Completar',
         action() {
+          localStorage.setItem('onboarding', 'viewed');
           this.complete();
         },
       },

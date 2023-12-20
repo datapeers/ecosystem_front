@@ -35,8 +35,8 @@ export class ZoomComponent implements OnInit {
           code: splicedUrl[1],
           typeIntegration: TypeIntegration.zoom,
           metadata: {
-            clientIdZoom: localStorage.getItem('clientIdZoom'),
-            clientSecretZoom: localStorage.getItem('clientSecretZoom'),
+            clientIdZoom: sessionStorage.getItem('clientIdZoom'),
+            clientSecretZoom: sessionStorage.getItem('clientSecretZoom'),
           },
         });
         this.validCode = true;
@@ -52,8 +52,8 @@ export class ZoomComponent implements OnInit {
         });
       }
     }
-    localStorage.removeItem('clientIdZoom');
-    localStorage.removeItem('clientSecretZoom');
+    sessionStorage.removeItem('clientIdZoom');
+    sessionStorage.removeItem('clientSecretZoom');
     this.loaded = true;
   }
 }

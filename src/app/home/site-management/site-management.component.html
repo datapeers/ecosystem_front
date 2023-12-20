@@ -23,21 +23,13 @@
                 <h2>Servicios</h2>
                 <div style="height: 1.5rem"></div>
                 <div class="flex gap-2">
-                    <i-tabler class="text-center" name="bulb"
-                        style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
-                    <p class="th2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pellentesque ligula
-                        ut
-                        hendrerit aliquam. Duis lacinia interdum sem at aliquet. Fusce ipsum enim, elementum ac iaculis
-                        eu,
-                        fringilla eget risus. Nullam a nisi vehicula, venenatis massa id, ultricies diam. Integer
-                        ullamcorper.
+                    <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
+                    <p class="th2">{{user?.isAdmin?"Esta es tu área de control para los Servicios. Modifica y actualiza la información detallada de cada servicio directamente desde esta vista. Ajusta los detalles, metodología, factores diferenciales y cualquier otra información relevante. Tu capacidad para personalizar la información asegura que los usuarios obtengan datos precisos y actualizados sobre los servicios proporcionados. Haz clic en cualquier tarjeta para realizar ajustes y garantizar la coherencia en la presentación de información." : "Explora una variedad de servicios ofrecidos. Desliza las tarjetas para obtener una vista previa rápida y, si encuentras algo de interés, haz clic en 'Ver' para conocer más detalles. Descubre a fondo los servicios, métodos y objetivos que cada startup tiene para ofrecer, y encuentra la solución perfecta para tus necesidades"}}
                     </p>
                 </div>
             </div>
-            <div
-                class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
-                <p-button *ngIf="user?.allowed(userPermission.sites_and_services_create)" type="button"
-                    label="Añadir servicio" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>
+            <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">
+                <p-button *ngIf="user?.allowed(userPermission.sites_and_services_create)" type="button" label="Añadir servicio" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>
             </div>
         </div>
         <p-divider></p-divider>
@@ -57,21 +49,17 @@
                     </div>
                 </ng-template>
                 <ng-template let-site pTemplate="gridItem">
-                    <div
-                        class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-20rem">
+                    <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-20rem">
                         <div class="flex flex-column">
                             <div class="flex flex-row gap-1 align-items-center justify-content-between">
                                 <i-tabler class="text-center text-tertiary size-md" name="affiliate"></i-tabler>
-                                <div
-                                    class="flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs">
+                                <div class="flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs">
                                     <i-tabler class="text-center text-xs size-sm " name="calendar"></i-tabler>
                                     <span class="font-semibold">{{site.createdAt | date: 'dd MMM yyyy'}}</span>
                                 </div>
                             </div>
                             <div class="flex flex-column pt-3 gap-1">
-                                <img width="100%" height="124px"
-                                    [src]="site?.thumbnail ? site?.thumbnail : '/assets/noPic.jpg'" alt=""
-                                    class="border-round-xl">
+                                <img width="100%" height="124px" [src]="site?.thumbnail ? site?.thumbnail : '/assets/noPic.jpg'" alt="" class="border-round-xl">
                                 <span class="font-bold">{{site.name}}</span>
                             </div>
                         </div>
@@ -81,14 +69,9 @@
                                 <span class="text-xs font-semibold">{{site.contacts.length}}</span>
                             </div>
 
-                            <p-button styleClass="p-button-quaternary"
-                                (onClick)="openCreatorSite(site, true)">Ver</p-button>
-                            <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-pencil"
-                                type="button" pTooltip="editar" label=""
-                                (onClick)="openCreatorSite(site, false)"></p-button>
-                            <p-button styleClass="button-grey"
-                                *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-trash"
-                                pTooltip="borrar" type="button" label="" (onClick)="deleteSite(site)"></p-button>
+                            <p-button styleClass="p-button-quaternary" (onClick)="openCreatorSite(site, true)">Ver</p-button>
+                            <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-pencil" type="button" pTooltip="editar" label="" (onClick)="openCreatorSite(site, false)"></p-button>
+                            <p-button styleClass="button-grey" *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-trash" pTooltip="borrar" type="button" label="" (onClick)="deleteSite(site)"></p-button>
 
                         </div>
                     </div>
@@ -120,21 +103,15 @@
     </div> -->
     </div>
 
-    <p-dialog appendTo="body" header="" [(visible)]="showCreatorSite" [draggable]="false" [resizable]="false"
-        [modal]="true" (onHide)="resetCreatorSite()" [maximizable]="true" maskStyleClass="dialog-app"
-        [breakpoints]="{'960px': '100vw'}" [style]="{ width: '95vw' }">
+    <p-dialog appendTo="body" header="" [(visible)]="showCreatorSite" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorSite()" [maximizable]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '100vw'}" [style]="{ width: '95vw' }">
         <div class="w-full flex flex-row gap-3">
             <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
             <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
                 <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Servicio
                 </h2>
                 <div class="w-full flex flex-row gap-1">
-                    <p-button *ngIf="creatingService" type="submit" label="Crear servicio" (onClick)="createSite()"
-                        [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary"
-                        [disabled]="saving"></p-button>
-                    <p-button *ngIf="editingService" type="submit" label="Guardar cambios" (onClick)="saveChanges()"
-                        [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary"
-                        [disabled]="saving"></p-button>
+                    <p-button *ngIf="creatingService" type="submit" label="Crear servicio" (onClick)="createSite()" [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
+                    <p-button *ngIf="editingService" type="submit" label="Guardar cambios" (onClick)="saveChanges()" [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>
                 </div>
             </div>
         </div>
@@ -144,29 +121,24 @@
                 <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">
                     <div class="flex flex-column gap-3">
                         <div class="w-full flex flex-row justify-content-center align-items-center">
-                            <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail"
-                                (onUpload)="uploadImage($event, newSite)" [disableRemove]="true"></app-avatar-uploader>
+                            <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail" (onUpload)="uploadImage($event, newSite)" [disableRemove]="true"></app-avatar-uploader>
                         </div>
                         <span class="w-full app-input-field field-h-1">
                             <label htmlFor="nameService" class="font-bold">Nombre</label>
-                            <input pInputText id="nameService" [(ngModel)]="newSite.name" class="inputfield field-full"
-                                placeholder="Ingresa un nombre para el servicio" />
+                            <input pInputText id="nameService" [(ngModel)]="newSite.name" class="inputfield field-full" placeholder="Ingresa un nombre para el servicio" />
                         </span>
                         <span class="w-full app-input-field">
                             <label for="service-description" class="font-bold">Descripción</label>
-                            <textarea id="service-description" style="width: 100%;" rows="8" id="resultsService"
-                                [(ngModel)]="newSite.description" pInputTextarea></textarea>
+                            <textarea id="service-description" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.description" pInputTextarea></textarea>
                         </span>
 
                         <span class="w-full app-input-field">
                             <div class="flex fle-row w-full justify-content-between align-items-center">
                                 <label for="service-description" class="font-bold">Contactos</label>
-                                <p class="text-xs" (click)="addContact()">Añadir contacto <i
-                                        class="pi pi-plus cursor-pointer"></i></p>
+                                <p class="text-xs" (click)="addContact()">Añadir contacto <i class="pi pi-plus cursor-pointer"></i></p>
                             </div>
 
-                            <p-table [value]="newSite.contacts" [columns]="cols" [reorderableColumns]="true"
-                                [tableStyle]="{'min-width': '50rem'}">
+                            <p-table [value]="newSite.contacts" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
                                         <th style="width:3rem"></th>
@@ -193,29 +165,25 @@
                     <div class="flex flex-column gap-3">
                         <span class="w-full app-input-field">
                             <label for="directedToService" class="font-bold">¿A quien va dirigido?</label>
-                            <textarea id="directedToService" style="width: 100%;" rows="8" id="resultsService"
-                                [(ngModel)]="newSite.directedTo" pInputTextarea></textarea>
+                            <textarea id="directedToService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.directedTo" pInputTextarea></textarea>
                         </span>
                     </div>
                     <div class="flex flex-column gap-3">
                         <span class="w-full app-input-field">
                             <label for="factorsServices" class="font-bold">Factores diferenciales</label>
-                            <p-chips id="factorsServices" styleClass="inputfield field-full"
-                                [(ngModel)]="newSite.factors"></p-chips>
+                            <p-chips id="factorsServices" styleClass="inputfield field-full" [(ngModel)]="newSite.factors"></p-chips>
                         </span>
                     </div>
                     <div class="flex flex-column gap-3">
                         <span class="w-full app-input-field">
                             <label for="methodService" class="font-bold">Metodología</label>
-                            <textarea id="methodService" style="width: 100%;" rows="8" id="resultsService"
-                                [(ngModel)]="newSite.methodology" pInputTextarea></textarea>
+                            <textarea id="methodService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.methodology" pInputTextarea></textarea>
                         </span>
                     </div>
                     <div class="flex flex-column gap-3">
                         <span class="w-full app-input-field">
                             <label for="resultsService" class="font-bold">Resultados</label>
-                            <textarea id="resultsService" style="width: 100%;" rows="8" id="resultsService"
-                                [(ngModel)]="newSite.results" pInputTextarea></textarea>
+                            <textarea id="resultsService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.results" pInputTextarea></textarea>
                         </span>
                     </div>
                 </div>
@@ -223,14 +191,12 @@
         </ng-container>
         <ng-template #viewTemplate>
             <div class="w-full flex flex-wrap px-3 gap-3">
-                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3"
-                    style="flex: 3">
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">
                     <div class="flex flex-column">
 
                         <div class="flex flex-row w-full align-items-center gap-3">
                             <ng-container *ngIf="newSite?.thumbnail !== ''; else noThumbnail">
-                                <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge"
-                                    shape="circle"></p-avatar>
+                                <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
                             </ng-container>
                             <ng-template #noThumbnail>
                                 <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
@@ -244,26 +210,25 @@
                         <div class="flex flex-column gap-2">
                             <span class="text-xs">Contactos</span>
                             <div class="flex flex-row align-items-center" *ngFor="let item of newSite.contacts">
-                                <p-avatar [label]="item['name'][0]" styleClass="mr-2" size="xlarge"
-                                    shape="circle"></p-avatar>
-                                <p>{{item['name']}} - </p>
-                                <p *ngIf="item['email'] !==''">{{item['email']}} - </p>
-                                <p *ngIf="item['contact'] !==''">{{item['contact']}} - </p>
-                                <p *ngIf="item['others'] !==''">{{item['others']}}</p>
+                                <p-avatar [label]="item['name'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                                <div class="w-full flex flex-column">
+                                    <p class="text-base">{{item['name']}}</p>
+                                    <p class="text-base" *ngIf="item['email'] !==''">{{item['email']}}</p>
+                                    <p class="text-sm" *ngIf="item['contact'] !==''">{{item['contact']}}</p>
+                                    <p class="text-sm" *ngIf="item['others'] !==''">{{item['others']}}</p>
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3"
-                    style="flex: 3">
+                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">
                     <h3>¿A quien va dirigido?</h3>
                     <span>{{newSite.directedTo}}</span>
                     <p-divider></p-divider>
                     <h3>Factores diferenciales</h3>
                     <div class="flex flex-wrap gap-2">
-                        <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}"
-                            *ngFor="let item of newSite.factors">
+                        <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}" *ngFor="let item of newSite.factors">
                             <div class="flex align-items-center gap-2">
                                 <span class="text-base">{{item}}</span>
                             </div>
