@@ -19,6 +19,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@appStore/app.reducer';
 import { Permission } from '@auth/models/permissions.enum';
 import { configTinyMce } from '@shared/models/configTinyMce';
+import { ShepherdService } from 'angular-shepherd';
+import { servicesOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-site-management',

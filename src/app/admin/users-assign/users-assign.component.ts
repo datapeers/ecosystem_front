@@ -28,7 +28,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
     { field: 'rolName', name: 'Rol', tooltip: '' },
     { field: 'phases', name: 'Fases asignadas', tooltip: '' },
     { field: 'batches', name: 'Batch asignados', tooltip: '' },
-    { field: 'startups', name: 'Start ups asignados', tooltip: '' },
+    { field: 'startups', name: 'Startup`s asignados', tooltip: '' },
   ];
   filterFields = this.columns.map((column) => column.field);
   users: User[] = [];
