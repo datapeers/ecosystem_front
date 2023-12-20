@@ -41,6 +41,62 @@ i-tabler {
   vertical-align: middle;
 }
 
+::ng-deep .shepherd-content {
+  border-radius: 1.125rem;  
+  outline: none;
+  padding: 0;
+  padding-bottom: 1rem;
+}
+
+::ng-deep .shepherd-element {
+  background-color: white;
+  border-radius: 1.125rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+  max-width: 400px;
+  opacity: 0;
+  outline: none;
+  padding: 0;
+  transition: opacity .3s, visibility .3s;
+  visibility: hidden;
+  width: 100%;
+  z-index: 9999;  
+}
+
+::ng-deep .shepherd-header {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;  
+  padding: 0;
+  padding-top: 0.7rem;
+  padding-right: 0.7rem;
+}
+
+::ng-deep .shepherd-has-title .shepherd-content .shepherd-header {  
+  padding: 0;
+}
+
+::ng-deep .shepherd-button {
+  font-weight: normal;  
+  background-color: $appColorFive;
+  font-family: "Montserrat";  
+  border-radius: 0.1rem;
+  border-color: $appColorFive;    
+  color: #ffff !important;
+  
+    &:hover {
+      border-color: lighten($appColorOne, 10%) !important;
+      background-color: lighten($appColorOne, 10%) !important;
+    }
+  margin-right: .5rem;
+  padding: .5rem 1.5rem;
+  transition: all .5s ease
+}
+
+::ng-deep .shepherd-button-secondary {
+  background: #f1f2f3;
+  color: rgba(0, 0, 0, .75)
+}
+
 body {
   background-color: $background-color;
   font-family: var(--font-family);

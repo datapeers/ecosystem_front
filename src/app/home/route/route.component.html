@@ -4,7 +4,8 @@
             <h2>La ruta para </h2>
             <div style="height: 1.5rem"></div>
             <div class="flex gap-2">
-                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
+                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;cursor:pointer;"
+                    (click)="launchTour()"></i-tabler>
                 <p class="description-route">Esta es la Ruta de etapas que llevas en la StartUp. Ingresa a cada una
                     de
                     las fases de
@@ -19,7 +20,7 @@
                 </p>
             </div>
         </div>
-        <div class="flex flex-none gap-2 w-auto header-panel-child justify-content-center align-items-center">
+        <div id="info" class="flex flex-none gap-2 w-auto header-panel-child justify-content-center align-items-center">
             <div class="flex flex-column justify-content-center align-items-center" style="width: 10rem;">
                 <div class="flex flex-none tag mt-4">Contenidos
                     {{lastContent?.contentCompleted}}/{{lastContent?.numberOfContent}}</div>
@@ -40,7 +41,7 @@
         </div>
     </div>
     <div class="h-3rem"></div>
-    <div
+    <div id="route"
         class="flex-grow-1 flex main flex-column xl:flex-row w-full justify-content-start align-items-end xl:justify-content-center xl:align-items-end gap-1 mt-0 md:mt-7">
         <div class="flex w-full flex-column xl:flex-row justify-content-start align-items-start xl:align-items-end"
             [style.width.%]="widthStage(stage.fases.length)" [style.height.rem]="heightStage(stage.fases.length)"

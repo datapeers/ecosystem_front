@@ -1,13 +1,13 @@
 <div class="sidenav" [ngClass]="(menuExpanded) ? '':'sidenav-collapsed'">
 
     <div class="logo-container">
-        <p-avatar image="assets/logonew.png"
+        <p-avatar id="main-ico" image="assets/logonew.png"
             [style]="{ 'background-color': '#ffffff', 'border-radius': '50%', 'padding':'0.5rem' }" size="large"
             shape="circle" class="logo" (click)="toggleMenu()"></p-avatar>
     </div>
 
 
-    <div class="scrollwrap scrollwrap_delayed">
+    <div id="side-menu" class="scrollwrap scrollwrap_delayed">
         <ul class="sidenav-nav" *ngIf="menu">
             <li class="sidenav-nav-item" *ngFor="let item of menu.options">
                 <ng-container [ngSwitch]="item.type">

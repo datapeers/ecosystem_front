@@ -5,7 +5,8 @@
             <div style="height: 1.5rem"></div>
             <div class="flex flex-column md:flex-row w-full justify-content-between mb-3 gap-3 ">
                 <div class="flex align-items-center w-9 gap-3">
-                    <i-tabler id="bulb-calendar" class="text-center" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
+                    <i-tabler id="bulb-calendar" class="text-center" name="bulb"
+                        style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
                     <p *ngIf="user?.isUser" class="th2">En este lugar encuentras tu agenda de actividades en Ecosystem,
                         desde acá puedes
                         solicitar un agendamiento específico con nuestro grupo de acompañamiento en las sigueintes áreas
@@ -19,8 +20,10 @@
                 </div>
 
                 <div class="flex flex-column gap-2">
-                    <p-button *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Acompañamientos" styleClass="w-full button-blue p-button-raised"></p-button>
-                    <p-button *ngIf="user?.isUser" (onClick)="showDialogExperts()" label="Experts" styleClass="w-full button-blue p-button-raised"></p-button>
+                    <p-button *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Acompañamientos"
+                        styleClass="w-full button-blue p-button-raised"></p-button>
+                    <p-button *ngIf="user?.isUser" (onClick)="showDialogExperts()" label="Experts"
+                        styleClass="w-full button-blue p-button-raised"></p-button>
                 </div>
 
             </div>
@@ -32,7 +35,8 @@
 
             <p-tabPanel class="w-full h-auto" [header]="'Calendario'" *ngIf="!showDifferentDesign">
                 <div class="overflow-hidden surface-0">
-                    <full-calendar #calendar [options]="calendarOptions" [events]="events" [deepChangeDetection]="true" class="px-2 lg:pr-3 lg:pl-3"></full-calendar>
+                    <full-calendar #calendar [options]="calendarOptions" [events]="events" [deepChangeDetection]="true"
+                        class="px-2 lg:pr-3 lg:pl-3"></full-calendar>
                 </div>
             </p-tabPanel>
             <p-tabPanel [header]="'Detalles'">
@@ -40,13 +44,18 @@
                     <!-- <div class="flex flex-row align-items-center justify-content-end p-2">
                             <p-button label="Descargar agenda detallada" icon="pi pi-file" iconPos="right" styleClass="p-button-raised p-button-secondary"></p-button>
                         </div> -->
-                    <p-table #dt class="table-app w-full" [value]="events" dataKey="_id" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [showCurrentPageReport]="true" [rows]="3" [rowsPerPageOptions]="[3,10,20]" [paginator]="true" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+                    <p-table #dt class="table-app w-full" [value]="events" dataKey="_id" paginatorPosition="bottom"
+                        [currentPageReportTemplate]="textSummary" [showCurrentPageReport]="true" [rows]="3"
+                        [rowsPerPageOptions]="[3,10,20]" [paginator]="true" scrollDirection="both"
+                        [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
                         <ng-template pTemplate="caption">
                             <div class="table-header">
                                 <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
                                     <span class="p-input-icon-left">
                                         <i class="pi pi-search"></i>
-                                        <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+                                        <input pInputText type="text"
+                                            (input)="dt.filterGlobal($any($event).target.value, 'contains')"
+                                            placeholder="Buscar" />
                                     </span>
 
                                 </div>
@@ -54,7 +63,8 @@
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>
-                                <th *ngFor="let col of columns" [pSortableColumn]="col.field" class="white-space-nowrap">
+                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                    class="white-space-nowrap">
                                     {{col.header}}
                                     <p-sortIcon [field]="col.field"></p-sortIcon>
                                 </th>
@@ -73,8 +83,10 @@
                                 <td>{{event?.extendedProps?.type}}</td>
                                 <td>{{event?.extendedProps?.expertsName}}</td>
                                 <td>
-                                    <ng-container *ngIf="event?.extendedProps?.acta && (user?.allowed(userPermission.actas_view) || user.isUser); else noActa">
-                                        <p-button (onClick)="showActa(event)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
+                                    <ng-container
+                                        *ngIf="event?.extendedProps?.acta && (user?.allowed(userPermission.actas_view) || user.isUser); else noActa">
+                                        <p-button (onClick)="showActa(event)" pTooltip="Ver acta" tooltipPosition="top"
+                                            icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
                                     </ng-container>
                                     <ng-template #noActa>
                                         Acta no disponible
@@ -82,13 +94,18 @@
                                 </td>
                                 <td>
                                     <span class="flex flex-row gap-2">
-                                        <ng-container *ngIf="event?.extendedProps?.files?.length && event?.extendedProps?.canViewFiles; else noFiles">
-                                            <p-button class="w-2rem" (onClick)="viewFiles(event)" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
+                                        <ng-container
+                                            *ngIf="event?.extendedProps?.files?.length && event?.extendedProps?.canViewFiles; else noFiles">
+                                            <p-button class="w-2rem" (onClick)="viewFiles(event)"
+                                                pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open"
+                                                styleClass="p-button-text"></p-button>
                                         </ng-container>
                                         <ng-template #noFiles>
 
                                         </ng-template>
-                                        <p-button class="w-2rem" *ngIf="todayAfter(event.end) && user.isUser" (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
+                                        <p-button class="w-2rem" *ngIf="todayAfter(event.end) && user.isUser"
+                                            (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top"
+                                            icon="pi pi-star" styleClass="p-button-text"></p-button>
                                     </span>
                                 </td>
                             </tr>
@@ -99,7 +116,8 @@
                         <ng-template pTemplate="emptymessage">
                             <tr>
                                 <td [attr.colspan]="6">
-                                    <div class="w-full flex flex-row justify-content-center align-items-center flex-wrap">
+                                    <div
+                                        class="w-full flex flex-row justify-content-center align-items-center flex-wrap">
                                         <span>No hay eventos disponibles</span>
                                     </div>
                                 </td>
@@ -117,23 +135,28 @@
         <app-loading></app-loading>
     </ng-template>
 
-    <p-dialog appendTo="body" [(visible)]="openFilesDialog" [dismissableMask]="true" header="Archivos" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+    <p-dialog appendTo="body" [(visible)]="openFilesDialog" [dismissableMask]="true" header="Archivos"
+        [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
         <div class="flex flex-row gap-3 flex-wrap">
-            <div class="flex flex-column gap-2 p-2 border-round shadow-elevated" *ngFor="let file of selectedEvent?.extendedProps?.files">
+            <div class="flex flex-column gap-2 p-2 border-round shadow-elevated"
+                *ngFor="let file of selectedEvent?.extendedProps?.files">
                 <span><b>Nombre:</b> {{file.name}}</span>
                 <div class="flex flex-row flex-wrap gap-2 justify-content-between pt-3">
                     <p-button label="Descargar" (onClick)="downloadFile(file.url)"></p-button>
-                    <p-button styleClass="p-button-outlined" label="Cerrar" (onClick)="openFilesDialog = false"></p-button>
+                    <p-button styleClass="p-button-outlined" label="Cerrar"
+                        (onClick)="openFilesDialog = false"></p-button>
                 </div>
             </div>
         </div>
     </p-dialog>
 
-    <p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" maskStyleClass="dialog-app" [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    <p-dialog appendTo="body" [(visible)]="dialogSolicitude" [dismissableMask]="true" maskStyleClass="dialog-app"
+        [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
         <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
             <i-tabler name="heart-handshake" class="icon-dialog hidden md:block"></i-tabler>
             <div class="content-resource w-full flex flex-column justify-content-between px-2 lg:px4 pb-2 gap-2">
-                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl" [style.color]="'black'">Acompañamientos
+                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl"
+                    [style.color]="'black'">Acompañamientos
                 </h2>
                 <span class="text-xs lg:text-base">Estos son los tipos de acompañamiento que tenemos para ofrecerte, en
                     cada uno de ellos tenemos personas altamente calificadas para ello</span>
@@ -143,14 +166,17 @@
 
         <div class="card-grid flex flex-wrap justify-content-center background p-3 gap-2 ">
             <ng-container *ngFor="let typeEvent of typesEventsWithHours">
-                <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer" *ngIf="typeEvent.isSchedulable">
+                <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer"
+                    *ngIf="typeEvent.isSchedulable">
                     <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
-                        <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-23rem">
+                        <div
+                            class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-23rem">
                             <div class="flex flex-column h-20rem gap-1">
                                 <div class="flex flex-none flex-column pt-3 gap-1">
                                     <div class="h-1rem"></div>
                                     <div class="flex justify-content-center">
-                                        <span class="primary-param-label font-bold text-overflow-ellipsis" tooltipPosition="top" [pTooltip]="typeEvent.name">
+                                        <span class="primary-param-label font-bold text-overflow-ellipsis"
+                                            tooltipPosition="top" [pTooltip]="typeEvent.name">
                                             {{typeEvent.name}}
                                         </span>
                                     </div>
@@ -164,20 +190,24 @@
                                     <table>
                                         <tr>
                                             <td><strong>Horas recibidas:</strong></td>
-                                            <td class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
+                                            <td
+                                                class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
                                                 {{typeEvent.value}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Horas restantes:</strong></td>
-                                            <td class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
+                                            <td
+                                                class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
                                                 {{(typeEvent.target - typeEvent.value) > 0 ? (typeEvent.target -
                                                 typeEvent.value) : 0}}</td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="flex flex-none justify-content-center mt-2">
-                                    <ng-container *ngIf="typeEvent.scheduleUrl && typeEvent.scheduleUrl != ''; else noScheduleUrl">
-                                        <p-button label="Agendar" (onClick)="selectEvent(typeEvent.scheduleUrl)"></p-button>
+                                    <ng-container
+                                        *ngIf="typeEvent.scheduleUrl && typeEvent.scheduleUrl != ''; else noScheduleUrl">
+                                        <p-button label="Agendar"
+                                            (onClick)="selectEvent(typeEvent.scheduleUrl)"></p-button>
                                     </ng-container>
                                     <ng-template #noScheduleUrl>
                                         <!--    <span class="font-bold">Sin calendly</span>-->
@@ -191,11 +221,13 @@
         </div>
     </p-dialog>
 
-    <p-dialog appendTo="body" [(visible)]="dialogExperts" [dismissableMask]="true" maskStyleClass="dialog-app" [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    <p-dialog appendTo="body" [(visible)]="dialogExperts" [dismissableMask]="true" maskStyleClass="dialog-app"
+        [modal]="true" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" [style]="{width: '50vw'}">
         <div class="w-full flex flex-row align-items-center gap-3" *ngIf="startup">
             <i-tabler name="heart-handshake" class="icon-dialog hidden md:block"></i-tabler>
             <div class="content-resource w-full flex flex-column justify-content-between px-2 lg:px4 pb-2 gap-2">
-                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl" [style.color]="'black'">Experts
+                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-xl lg:text-2xl xl:text-3xl"
+                    [style.color]="'black'">Experts
                 </h2>
                 <span class="text-xs lg:text-base">Este es el equipo de experts que tienes disponible para tu
                     startup en los acompañamientos de tipo mentorías y asesorías</span>
@@ -206,43 +238,57 @@
             <ng-container *ngFor="let expert of expertsDialog">
                 <div class="flex animation-elevate scale-down-vertical relative border-round cursor-pointer">
                     <div class="flex flex-column gap-1 px-2 py-2 overflow-hidden align-items-center">
-                        <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-23rem">
+                        <div
+                            class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between my-4 mx-2 w-22rem h-23rem">
                             <div class="flex flex-column h-20rem gap-1">
                                 <div class="flex flex-none flex-column pt-3 gap-1">
                                     <div class="flex justify-content-center">
-                                        <ng-container *ngIf="expert['image'] && expert['image'] != ''; else withoutImage">
-                                            <p-avatar [image]="expert['image']" shape="circle" styleClass="w-4rem h-4rem"></p-avatar>
+                                        <ng-container
+                                            *ngIf="expert['image'] && expert['image'] != ''; else withoutImage">
+                                            <p-avatar [image]="expert['image']" shape="circle"
+                                                styleClass="w-4rem h-4rem"></p-avatar>
                                         </ng-container>
                                         <ng-template #withoutImage>
-                                            <p-avatar [label]="expert['item']['nombre'][0]" shape="circle" styleClass="w-4rem h-4rem"></p-avatar>
+                                            <p-avatar [label]="expert['item']['nombre'][0]" shape="circle"
+                                                styleClass="w-4rem h-4rem"></p-avatar>
                                         </ng-template>
                                     </div>
                                     <div class="h-1rem"></div>
                                     <div class="flex justify-content-center">
-                                        <span class="primary-param-label font-bold text-overflow-ellipsis" tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
+                                        <span class="primary-param-label font-bold text-overflow-ellipsis"
+                                            tooltipPosition="top" [pTooltip]="expert['item']['nombre']??''">
                                             {{expert['item']['nombre']}}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="flex flex-column flex-grow-1 justify-content-center">
-                                    <a *ngIf="expert['item']['linkDeLinkedIn']" class="profile" [href]="expert['item']['linkDeLinkedIn']" target="_blank">
+                                    <a *ngIf="expert['item']['linkDeLinkedIn']" class="profile"
+                                        [href]="expert['item']['linkDeLinkedIn']" target="_blank">
                                         <i-tabler name="brand-linkedin"></i-tabler>
                                     </a>
-                                    <span *ngIf="expert['item']['indicanosLosAnosDeExperienciaEnTuTrayectoriaProfesional']" class="profile" tooltipPosition="top">
+                                    <span
+                                        *ngIf="expert['item']['indicanosLosAnosDeExperienciaEnTuTrayectoriaProfesional']"
+                                        class="profile" tooltipPosition="top">
                                         <strong>Años de experiencia:</strong>
                                         {{expert['item']['indicanosLosAnosDeExperienciaEnTuTrayectoriaProfesional']}}
                                     </span>
-                                    <span *ngIf="expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'] && expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'].length > 0" class="profile">
+                                    <span
+                                        *ngIf="expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'] && expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'].length > 0"
+                                        class="profile">
                                         <strong>Enfoques:</strong>
                                         {{expert['item']['cualConsiderasQueEsTuMayorEnfoqueEnElAcompanamientoAEmpresasOStartups'].join(',
                                         ')}}
                                     </span>
-                                    <span *ngIf="expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'] && expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'].length > 0" class="profile">
+                                    <span
+                                        *ngIf="expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'] && expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'].length > 0"
+                                        class="profile">
                                         <strong>Sectores:</strong>
                                         {{expert['item']['enCualesDeLosSiguientesSectoresTienesConocimiento'].join(',
                                         ')}}
                                     </span>
-                                    <span *ngIf="expert['item']['enQueAreasPodriasApoyar'] && expert['item']['enQueAreasPodriasApoyar'].length > 0" class="profile">
+                                    <span
+                                        *ngIf="expert['item']['enQueAreasPodriasApoyar'] && expert['item']['enQueAreasPodriasApoyar'].length > 0"
+                                        class="profile">
                                         <strong>Areas:</strong>
                                         {{expert['item']['enQueAreasPodriasApoyar'].join(',
                                         ')}}
@@ -264,12 +310,14 @@
         </div>
     </p-dialog>
 
-    <p-dialog appendTo="body" [(visible)]="openEventDialog" [dismissableMask]="true" [style]="{width: '50vw'}" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" maskStyleClass="dialog-app" [modal]="true">
+    <p-dialog appendTo="body" [(visible)]="openEventDialog" [dismissableMask]="true" [style]="{width: '50vw'}"
+        [breakpoints]="{'960px': '85vw', '640px': '100vw'}" maskStyleClass="dialog-app" [modal]="true">
         <div class="flex flex-column w-full" *ngIf="eventShow">
             <div class="w-full flex flex-row gap-3">
                 <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>
                 <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
-                    <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
+                    <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis"
+                        [style.color]="'black'">
                         {{eventShow.title}}</h2>
                     <p>{{eventShow.start | date: 'yyyy/MM/dd, h:mm a'}} - {{eventShow.end | date: 'h:mm a'}} </p>
                 </div>
@@ -277,14 +325,20 @@
             <p-divider></p-divider>
             <div style="height: 1.5rem;"></div>
             <span class="flex flex-column lg:flex-row justify-content-center align-items-center gap-2 p-3">
-                <ng-container *ngIf="eventShow.extendedProps.acta && (user?.allowed(userPermission.actas_view) || user.isUser);">
-                    <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
+                <ng-container
+                    *ngIf="eventShow.extendedProps.acta && (user?.allowed(userPermission.actas_view) || user.isUser);">
+                    <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top"
+                        icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
                 </ng-container>
                 <ng-container *ngIf="eventShow.extendedProps?.files?.length && eventShow.extendedProps?.canViewFiles;">
-                    <p-button (onClick)="viewFiles(eventShow)" label="Ver archivos" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
+                    <p-button (onClick)="viewFiles(eventShow)" label="Ver archivos" pTooltip="Ver archivos"
+                        tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
                 </ng-container>
-                <p-button *ngIf="eventShow.extendedProps?.zoom" (onClick)="openZoom(eventShow)" label="Abrir en zoom" pTooltip="Zoom" tooltipPosition="top" icon="pi pi-reply" styleClass="p-button-text"></p-button>
-                <p-button *ngIf="todayAfter(eventShow.end) && user.isUser" label="Calificar evento" (onClick)="showRating(eventShow)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
+                <p-button *ngIf="eventShow.extendedProps?.zoom" (onClick)="openZoom(eventShow)" label="Abrir en zoom"
+                    pTooltip="Zoom" tooltipPosition="top" icon="pi pi-reply" styleClass="p-button-text"></p-button>
+                <p-button *ngIf="todayAfter(eventShow.end) && user.isUser" label="Calificar evento"
+                    (onClick)="showRating(eventShow)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star"
+                    styleClass="p-button-text"></p-button>
             </span>
         </div>
 

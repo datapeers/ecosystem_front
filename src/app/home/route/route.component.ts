@@ -12,6 +12,8 @@ import { lastContent } from '@shared/models/lastContent';
 import { ToastService } from '@shared/services/toast.service';
 import { getNameBase } from '@shared/utils/phases.utils';
 import { firstValueFrom, first, Subscription, takeUntil, Subject } from 'rxjs';
+import { ShepherdService } from 'angular-shepherd';
+import { routeOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-route',
@@ -39,7 +41,8 @@ export class RouteComponent implements OnInit, OnDestroy {
     private toast: ToastService,
     private store: Store<AppState>,
     private phasesService: PhasesService,
-    private contentService: PhaseContentService
+    private contentService: PhaseContentService,
+    private readonly shepherdService: ShepherdService
   ) {
     this.store.dispatch(new NoBtnReturn());
   }
@@ -53,6 +56,22 @@ export class RouteComponent implements OnInit, OnDestroy {
     this.stages$?.unsubscribe();
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  ngAfterViewInit() {
+    this.shepherdService.defaultStepOptions = {
+      scrollTo: true,
+      cancelIcon: {
+        enabled: true,
+      },
+    };
+    this.shepherdService.modal = true;
+    this.shepherdService.confirmCancel = false;
+    this.shepherdService.addSteps(routeOnboarding);
+  }
+
+  launchTour() {
+    this.shepherdService.start();
   }
 
   async loadComponent() {
