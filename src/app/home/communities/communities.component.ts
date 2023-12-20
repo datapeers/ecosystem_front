@@ -20,6 +20,8 @@ import { RowConfigColumn } from '@shared/models/row-config-column';
 import { User } from '@auth/models/user';
 import { Permission } from '@auth/models/permissions.enum';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ShepherdService } from 'angular-shepherd';
+import { communitiesOnboarding } from '@shared/onboarding/onboarding.config';
 
 @Component({
   selector: 'app-communities',
@@ -53,7 +55,8 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private readonly toast: ToastService,
     private readonly service: CommunitiesService,
-    private readonly formService: FormService
+    private readonly formService: FormService,
+    private readonly shepherdService: ShepherdService
   ) {
     this.optionsTable = {
       save: true,
@@ -109,6 +112,12 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  launchTour() {
+    if (!this.user.isUser) return;
+    this.shepherdService.addSteps(communitiesOnboarding);
+    this.shepherdService.start();
   }
 
   async loadComponent() {

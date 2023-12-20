@@ -11,7 +11,7 @@
         <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
           <span class="p-input-icon-right search placeholder-bold">
             <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
+            <input pInputText type="text" id="searchTable" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
           </span>
           <ng-container>
             <ng-container *ngIf="actionsMenu?.length > 0">
@@ -139,7 +139,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-row>
-      <tr ngClass="{{row.classRow}}" (click)="onRowClick.emit(row)" [ngClass]="{'cursor-pointer' : onRowClick.observed}">
+      <tr id="rowDynamic" ngClass="{{row.classRow}}" (click)="onRowClick.emit(row)" [ngClass]="{'cursor-pointer' : onRowClick.observed}">
         <td *ngIf="options.selection">
           <p-tableCheckbox [value]="row" (click)="$event.stopPropagation()"></p-tableCheckbox>
         </td>

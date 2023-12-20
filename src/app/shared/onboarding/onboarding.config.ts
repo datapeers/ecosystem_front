@@ -456,3 +456,73 @@ export const helpDeskOnboarding: any[] = [
     ],
   },
 ];
+
+export const communitiesOnboarding: any[] = [
+  {
+    attachTo: {
+      element: '#comunityTable',
+      on: 'top',
+    },
+    text: `Mira el listado de las comunidades públicas en este momento, su etapa actual y que hacen`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#searchTable',
+      on: 'bottom',
+    },
+    text: `Busca alguna comunidad según su nombre, descripción o cualquier campo visible que tengas desde aquí`,
+    buttons: [
+      {
+        text: 'Cancelar',
+        action() {
+          this.cancel();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Anterior',
+        action() {
+          this.back();
+        },
+      },
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Siguiente',
+        action() {
+          this.next();
+        },
+      },
+    ],
+  },
+  {
+    attachTo: {
+      element: '#rowDynamic',
+      on: 'top',
+    },
+    text: 'Al dar click sobre la comunidad puedes comunicarte con ellos ahora mismo',
+    buttons: [
+      {
+        classes: 'shepherd-button-primary',
+        text: 'Completar',
+        action() {
+          this.complete();
+        },
+      },
+    ],
+  },
+];
