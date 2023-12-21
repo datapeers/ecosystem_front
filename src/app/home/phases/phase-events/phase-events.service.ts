@@ -115,7 +115,6 @@ export class PhaseEventsService {
       map((request) => request.data.eventsBatch),
       map((events) =>
         events.map((eventDoc) => {
-          console.log(eventDoc);
           return Event.fromJson(eventDoc);
         })
       )
