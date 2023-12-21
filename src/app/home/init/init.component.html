@@ -174,11 +174,11 @@
                     </div>
                     <div class="flex gap-3">
                         <div class="icon-panel">
-                            <i-tabler name="chart-dots"></i-tabler>
+                            <i-tabler name="file-digit"></i-tabler>
                         </div>
                         <div class="flex flex-column justify-content-center">
-                            <h2>67</h2>
-                            <p class="th2">Horas de enfoque</p>
+                            <h2>{{lastContent? lastContent.numberOfResourcesPending : 0}}</h2>
+                            <p class="th2">Tareas pendientes</p>
                         </div>
                     </div>
                 </ng-container>

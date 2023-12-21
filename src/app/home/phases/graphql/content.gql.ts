@@ -70,6 +70,7 @@ const query = {
         }
         contentCompleted
         numberOfContent
+        numberOfResourcesPending
       }
     }
     ${fragments.contentFields}

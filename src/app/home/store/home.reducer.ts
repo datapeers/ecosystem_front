@@ -2,6 +2,7 @@ import { IMenu } from '@shared/models/menu';
 import * as fromHome from './home.actions';
 import { Phase } from '@home/phases/model/phase.model';
 import { Content } from '@home/phases/model/content.model';
+import { lastContent } from '@shared/models/lastContent';
 
 export interface IHomeState {
   menuExpanded: boolean;
@@ -12,11 +13,7 @@ export interface IHomeState {
   breadcrumb: string[];
   currentBatch: Phase | 'without batch' | null;
   returnBtn: boolean;
-  lastContent: {
-    lastContent: Content;
-    contentCompleted: number;
-    numberOfContent: number;
-  };
+  lastContent: lastContent;
 }
 
 const initialState: IHomeState = {
