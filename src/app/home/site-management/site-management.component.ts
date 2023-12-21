@@ -21,6 +21,7 @@ import { Permission } from '@auth/models/permissions.enum';
 import { configTinyMce } from '@shared/models/configTinyMce';
 import { ShepherdService } from 'angular-shepherd';
 import { servicesOnboarding } from '@shared/onboarding/onboarding.config';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-site-management',
@@ -128,7 +129,7 @@ export class SiteManagementComponent
   }
 
   openCreatorSite(prevSite?: Site, onlyView?: boolean) {
-    this.newSite = Site.newSite(prevSite);
+    this.newSite = Site.newSite(cloneDeep(prevSite));
     this.showCreatorSite = true;
     this.creatingService = prevSite ? false : true;
     this.editingService = prevSite && !onlyView ? true : false;
@@ -337,5 +338,9 @@ export class SiteManagementComponent
           life: 12000,
         });
       });
+  }
+
+  removeContact(index) {
+    this.newSite.contacts.splice(index);
   }
 }
