@@ -75,19 +75,19 @@ export class StartupsService implements DocumentProvider {
     );
   }
 
-  async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
-    const mutationRef = this.graphql.refMutation(
-      startupQueries.mutation.deleteStartups,
-      { ids },
-      [],
-      { auth: true }
-    );
-    return firstValueFrom(
-      this.graphql
-        .mutation(mutationRef)
-        .pipe(map((request) => request.data.deleteBusinesses))
-    );
-  }
+  // async deleteDocuments(ids: string[]): Promise<UpdateResultPayload> {
+  //   const mutationRef = this.graphql.refMutation(
+  //     startupQueries.mutation.deleteStartups,
+  //     { ids },
+  //     [],
+  //     { auth: true }
+  //   );
+  //   return firstValueFrom(
+  //     this.graphql
+  //       .mutation(mutationRef)
+  //       .pipe(map((request) => request.data.deleteBusinesses))
+  //   );
+  // }
 
   async linkWithEntrepreneursByRequest(
     request: PageRequest,
