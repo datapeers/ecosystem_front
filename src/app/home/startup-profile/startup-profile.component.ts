@@ -84,6 +84,8 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   }
 
   async loadComponent() {
+    const hasChanged = sessionStorage.getItem('changedStartup');
+    if (hasChanged) sessionStorage.removeItem('changedStartup');
     this.loaded = false;
     this.profileDoc = await firstValueFrom(
       this.store
