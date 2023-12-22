@@ -15,6 +15,7 @@ import {
   faTimes,
   faUserTie,
   faClock,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons';
 import { configTinyMce } from '@shared/models/configTinyMce';
 import { cloneDeep } from '@apollo/client/utilities';
@@ -47,11 +48,14 @@ export class ActaComponent implements OnInit {
   faCalendar = faCalendar;
   faTimes = faTimes;
   faClock = faClock;
+  faEye = faEye;
   configTiny = configTinyMce;
   currentExpert;
   expertsHours = {};
   user: User;
   onlyView = false;
+  configHoursExpert;
+  readOnlyHours;
   public get userPermission(): typeof Permission {
     return Permission;
   }

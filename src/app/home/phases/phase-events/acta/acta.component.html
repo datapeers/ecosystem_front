@@ -74,7 +74,8 @@
                     </td>
                     <td>
                         <div class="flex align-items-center justify-content-center">
-                            <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=expert; expertHoursOverlay.toggle($event)" *ngIf="!actaDoc.closed && !onlyView"></fa-icon>
+                            <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=expert; configHoursExpert = true" *ngIf="!actaDoc.closed && !onlyView"></fa-icon>
+                            <fa-icon [icon]="faEye" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="readOnlyHours = true; currentExpert=expert; configHoursExpert = true" *ngIf="onlyView && !user.isUser"></fa-icon>
                         </div>
                     </td>
                 </tr>
@@ -114,21 +115,20 @@
     </div>
 </div>
 
-<p-overlayPanel #expertHoursOverlay [dismissable]="true" [style]="{'width':'100px'}">
-    <ng-template pTemplate>
-        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">
-            <div class="flex-auto">
-                <label for="integeronly">Horas Realizadas</label>
-                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="doneHours" [(ngModel)]="expertsHours[currentExpert._id].done" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="'Horas hechas'">
+<p-dialog [header]="currentExpert?.name" [(visible)]="configHoursExpert" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
+    <div class="w-full flex flex-column gap-2 py-2 px-6" *ngIf="currentExpert">
+        <div class="formgrid grid gap-2">
+            <span class="app-input-field">
+                <label for="name">Horas hechas</label>
+                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="doneHours" [(ngModel)]="expertsHours[currentExpert._id].done" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="'Horas hechas'" [readonly]="readOnlyHours">
                 </p-inputNumber>
-            </div>
-            <div class="flex-auto">
-                <label for="integeronly">Horas Donadas</label>
-                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="donatedHours" [(ngModel)]="expertsHours[currentExpert._id].donated" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="'Horas donadas'">
+            </span>
+            <span class="app-input-field">
+                <label for="name">Horas donadas</label>
+                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="donatedHours" [(ngModel)]="expertsHours[currentExpert._id].donated" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="'Horas donadas'" [readonly]="readOnlyHours">
                 </p-inputNumber>
-            </div>
-            <!-- "space_management_add_acta" "Hours" : "Horas",, -->
-
+            </span>
         </div>
-    </ng-template>
-</p-overlayPanel>
+
+    </div>
+</p-dialog>

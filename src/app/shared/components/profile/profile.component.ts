@@ -54,14 +54,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
   viewRating = false;
   form;
   fields = [];
-  notificationsConfig: { type: EmailNotificationTypes, label: string }[] = [
-    { label: "Invitación a evento", type: EmailNotificationTypes.invitationToEvent },
-    { label: "Actualización Evento", type: EmailNotificationTypes.eventUpdate },
-    { label: "Recurso calificado", type: EmailNotificationTypes.qualifiedResource },
-    { label: "Recurso próximo a vencer", type: EmailNotificationTypes.resourceExpiringSoon },
-    { label: "Culminación de fase", type: EmailNotificationTypes.phaseCompletion },
-    { label: "Evaluación disponible", type: EmailNotificationTypes.assessmentAvailable },
-    { label: "Actualización ticket mesa de ayuda", type: EmailNotificationTypes.helpdeskTicketUpdate },
+  notificationsConfig: { type: EmailNotificationTypes; label: string }[] = [
+    {
+      label: 'Invitación a evento',
+      type: EmailNotificationTypes.invitationToEvent,
+    },
+    { label: 'Actualización Evento', type: EmailNotificationTypes.eventUpdate },
+    {
+      label: 'Recurso calificado',
+      type: EmailNotificationTypes.qualifiedResource,
+    },
+    // { label: "Recurso próximo a vencer", type: EmailNotificationTypes.resourceExpiringSoon },
+    {
+      label: 'Culminación de fase',
+      type: EmailNotificationTypes.phaseCompletion,
+    },
+    {
+      label: 'Evaluación disponible',
+      type: EmailNotificationTypes.assessmentAvailable,
+    },
+    {
+      label: 'Actualización ticket mesa de ayuda',
+      type: EmailNotificationTypes.helpdeskTicketUpdate,
+    },
   ];
 
   // -----------
