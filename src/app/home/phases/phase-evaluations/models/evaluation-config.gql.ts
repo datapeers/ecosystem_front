@@ -7,6 +7,7 @@ const fragments = {
         endAt
         evaluated
         form
+        phase
         isDeleted
         reviewer
         startAt
@@ -36,6 +37,14 @@ const query = {
   getEvaluationsByPhase: `
     query ConfigEvaluationsByPhase($phase: String!) {
       configEvaluationsByPhase(phase: $phase) {
+        ...evaluationConfigFields
+      }
+    }
+    ${fragments.evaluationConfigFields}
+  `,
+  configEvaluation: `
+    query ConfigEvaluation($configEvaluationId: String!) {
+      configEvaluation(id: $configEvaluationId) {
         ...evaluationConfigFields
       }
     }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ToastService } from '@shared/services/toast.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-evaluation-user',
@@ -20,4 +22,20 @@ export class EvaluationUserComponent {
       notes: '',
     },
   ];
+
+  constructor(
+    public config: DynamicDialogConfig,
+    private readonly ref: DynamicDialogRef,
+    private toast: ToastService
+  ) {}
+  ngOnInit(): void {
+    this.loadComponent();
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+  }
+
+  async loadComponent() {}
 }

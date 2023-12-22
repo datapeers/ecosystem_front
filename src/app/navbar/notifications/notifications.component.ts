@@ -8,13 +8,16 @@ import { AppState } from '@appStore/app.reducer';
 import { NotificationsService } from './notifications.service';
 import { Subscription, Subject, firstValueFrom, first } from 'rxjs';
 import { channelsNotificationEnum } from './models/chanels-notification.enum';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { User } from '@auth/models/user';
 import { ToastService } from '@shared/services/toast.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EvaluationUserComponent } from '@shared/components/evaluation-user/evaluation-user.component';
+import { FormService } from '@shared/form/form.service';
+import { PhaseEvaluationsService } from '@home/phases/phase-evaluations/phase-evaluations.service';
+import { ExpertsService } from '@shared/services/experts/experts.service';
 
 @Component({
   selector: 'app-notifications',
@@ -31,6 +34,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   notifications$: Subscription;
   onDestroy$: Subject<void> = new Subject();
   user: User;
+  profileDoc;
   public get notificationTypes(): typeof NotificationTypes {
     return NotificationTypes;
   }
@@ -40,7 +44,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     private toast: ToastService,
     private service: NotificationsService,
     private router: Router,
-    public dialogService: DialogService
+    private expertService: ExpertsService,
+    public dialogService: DialogService,
+    private readonly formService: FormService,
+    private readonly evaluationsService: PhaseEvaluationsService
   ) {}
 
   ngOnInit(): void {
@@ -125,34 +132,84 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  goToNotification(notification: Notification) {
+  async goToNotification(notification: Notification) {
     switch (notification.type) {
       case 'rate':
-        // if (notification.state !== NotificationStates.read)
-        //   this.action(notification, 'read');
-        this.dialogService.open(EvaluationUserComponent, {
-          header: '',
-          width: '95vw',
-          modal: true,
-          maskStyleClass: 'dialog-app',
-          data: { user: this.user },
-        });
+        this.evaluation(notification);
         break;
       case 'homework':
+        if (notification.url === '') return;
+        this.router.navigate([notification.url.replace(location.origin, '')]);
         break;
       case 'approved':
+        if (notification.url === '') return;
+        this.router.navigate([notification.url.replace(location.origin, '')]);
         break;
       case 'advise':
+        if (notification.url === '') return;
+        this.router.navigate([notification.url.replace(location.origin, '')]);
         break;
       case 'notes':
+        if (notification.url === '') return;
+        this.router.navigate([notification.url.replace(location.origin, '')]);
         break;
       case 'calendar':
+        if (notification.url === '') return;
+        this.router.navigate([notification.url.replace(location.origin, '')]);
         break;
       default:
         break;
     }
-    if (notification.url === '') return;
-    const rutaRelativa = notification.url.replace(location.origin, '');
-    this.router.navigate([rutaRelativa]);
+  }
+
+  async evaluation(notification: Notification) {
+    // if (notification.state !== NotificationStates.read)
+    //   this.action(notification, 'read');
+    this.toast.info({ summary: 'Cargando...', detail: '', life: 12000 });
+    const config = await this.evaluationsService.getConfigEvaluation(
+      notification.url
+    );
+    if (!config) return;
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
+    const startup = this.profileDoc.startups[0];
+    let experts = await this.expertService.getExpertsByStartup(startup._id);
+    experts = experts.filter((expert) =>
+      expert.phases.find(
+        (i) =>
+          i._id === config.phase &&
+          i.startUps.find((o) => o._id === startup._id)
+      )
+    );
+    for (const iterator of experts) {
+      const prevEvaluation = await this.evaluationsService.evaluationByReviewer(
+        config._id,
+        iterator._id,
+        startup._id
+      );
+      const subscription = await this.formService.createFormSubscription({
+        form: config.form,
+        reason: 'Evaluar',
+        data: {
+          evaluated: iterator._id,
+          reviewer: startup._id,
+          config: config._id,
+          form: config.form,
+        },
+        doc: prevEvaluation ? prevEvaluation._id : undefined,
+      });
+      const ref = this.formService.openFormFromSubscription(
+        subscription,
+        'Evaluar'
+      );
+      const doc = await firstValueFrom(
+        ref.pipe(take(1), takeUntil(this.onDestroy$))
+      );
+      if (notification.state === 'pending' && (doc || prevEvaluation))
+        this.notificationMove(notification);
+    }
   }
 }

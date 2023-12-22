@@ -217,4 +217,22 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
       this.canBeEvaluated.includes(i.value)
     );
   }
+
+  changeCanBeEvaluated() {
+    if (!this.user.isAdmin) return;
+    if (this.newConfigEvaluation.get('reviewer').value === ValidRoles.user) {
+      this.canBeEvaluated = [ValidRoles.teamCoach, ValidRoles.expert];
+    } else {
+      this.canBeEvaluated = [
+        ValidRoles.user,
+        ValidRoles.teamCoach,
+        ValidRoles.expert,
+      ];
+    }
+    this.canBeEvaluated = [...this.canBeEvaluated];
+    this.evaluated = rolesListApp.filter((i) =>
+      this.canBeEvaluated.includes(i.value)
+    );
+    this.newConfigEvaluation.get('evaluated').setValue(undefined);
+  }
 }

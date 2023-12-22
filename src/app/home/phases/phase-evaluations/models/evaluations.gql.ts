@@ -42,6 +42,14 @@ const query = {
     }
     ${fragments.evaluationFields}
   `,
+  evaluationByReviewer: `
+    query EvaluationByReviewer($config: String!, $evaluated: String!, $reviewer: String!) {
+      evaluationByReviewer(config: $config, evaluated: $evaluated, reviewer: $reviewer) {
+        ...evaluationFields
+      }
+    }
+    ${fragments.evaluationFields}
+  `,
 };
 
 const mutation = {

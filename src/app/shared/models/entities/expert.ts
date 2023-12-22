@@ -1,6 +1,6 @@
-import { Document } from "../common/document";
+import { Document } from '../common/document';
 
 export interface Expert extends Document {
-  phase: any[];
+  phases: any[];
   item: any;
 }

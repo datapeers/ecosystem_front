@@ -41,7 +41,10 @@ export class User implements IUser {
     return this.rol.type === ValidRoles.superAdmin;
   }
   get isAdmin() {
-    return this.rol.type === ValidRoles.admin;
+    return (
+      this.rol.type === ValidRoles.admin ||
+      this.rol.type === ValidRoles.superAdmin
+    );
   }
   get isTeamCoach() {
     return this.rol.type === ValidRoles.teamCoach;

@@ -53,6 +53,23 @@ export class PhaseEvaluationsService implements DocumentProvider {
       )
     );
   }
+  async getConfigEvaluation(configEvaluationId: string) {
+    const getEvaluation = this.graphql.refQuery(
+      evaluationsConfigQueries.query.configEvaluation,
+      { configEvaluationId },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(getEvaluation)
+        .pipe(
+          map((request) =>
+            ConfigEvaluation.fromJson(request.data.configEvaluation)
+          )
+        )
+    );
+  }
 
   async createConfigsEvaluation(
     createConfigEvaluationInput
@@ -115,6 +132,24 @@ export class PhaseEvaluationsService implements DocumentProvider {
       this.graphql
         .query(queryRef)
         .pipe(map((request) => request.data.evaluationsByConfig))
+    );
+  }
+
+  async evaluationByReviewer(
+    config: string,
+    evaluated: string,
+    reviewer: string
+  ): Promise<Evaluation> {
+    const queryRef = this.graphql.refQuery(
+      evaluationsQueries.query.evaluationByReviewer,
+      { config, evaluated, reviewer },
+      'no-cache',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.evaluationByReviewer))
     );
   }
 }
