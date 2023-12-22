@@ -143,9 +143,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       case 'approved':
         break;
       case 'advise':
-        if (notification.url === '') return;
-        const rutaRelativa = notification.url.replace(location.origin, '');
-        this.router.navigate([rutaRelativa]);
         break;
       case 'notes':
         break;
@@ -154,5 +151,8 @@ export class NotificationsComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+    if (notification.url === '') return;
+    const rutaRelativa = notification.url.replace(location.origin, '');
+    this.router.navigate([rutaRelativa]);
   }
 }

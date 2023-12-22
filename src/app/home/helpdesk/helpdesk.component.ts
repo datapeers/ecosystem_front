@@ -146,12 +146,14 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
-    if (this.user.isUser) {
+    if (this.user.isExpert || this.user.isUser) {
       this.profileDoc = await firstValueFrom(
         this.store
           .select((store) => store.auth.profileDoc)
           .pipe(first((i) => i !== null))
       );
+    }
+    if (this.user.isUser) {
       if (this.user.isUser) this.startup = this.profileDoc.startups[0];
     }
     this.service
@@ -442,6 +444,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
         data.id = this.startup._id;
         break;
       case ValidRoles.expert:
+        console.log(this.profileDoc);
         data.name = this.profileDoc.item['nombre'];
         data.id = this.profileDoc._id;
         break;

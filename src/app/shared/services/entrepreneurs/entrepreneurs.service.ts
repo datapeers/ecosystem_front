@@ -100,7 +100,6 @@ export class EntrepreneursService implements DocumentProvider {
 
   async getUserDoc(user: User) {
     let doc = await this.findByUser(user.uid);
-    console.log(doc);
     if (!doc) {
       const forms = await this.formService.getFormByCollection(
         FormCollections.entrepreneurs
