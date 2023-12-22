@@ -18,6 +18,7 @@ const fragments = {
           name
         }
         item
+        state
       }
     }
   `,

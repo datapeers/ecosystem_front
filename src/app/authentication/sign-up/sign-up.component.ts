@@ -76,7 +76,15 @@ export class SignUpComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.invitationCode) {
+      this.toast.alert({
+        summary: 'No cuentas con una invitación a la app de ecosystem',
+        detail: '',
+      });
+      this.router.navigate(['/sign-in']);
+    }
+  }
 
   ngOnDestroy(): void {
     this.onDestroy$.next();

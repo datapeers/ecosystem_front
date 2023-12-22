@@ -20,7 +20,7 @@
                                 </ng-container>
                                 <ng-template #avatarTemplateSimple>
                                     <ng-container *ngIf="startup.thumbnail && startup.thumbnail !== '' else noChangeThubnail">
-                                        <p-avatar [image]="startup.thumbnail" shape="circle" class="startup-thumbnail">
+                                        <p-avatar styleClass="w-10rem h-10rem" [image]="startup.thumbnail" shape="circle" class="startup-thumbnail">
                                         </p-avatar>
                                     </ng-container>
                                     <ng-template #noChangeThubnail>

@@ -297,6 +297,7 @@ export class AuthService {
       this.signOut();
       return;
     }
+    doc['startups'] = doc['startups'].filter((i) => i.state === 'member');
     this.store.dispatch(new SetProfileDocAction(doc));
     return;
   }

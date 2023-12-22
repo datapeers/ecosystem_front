@@ -59,10 +59,10 @@
                 <i-tabler name="calendar-event" style="width: 2.5rem; height: 2.5rem"></i-tabler>
                 <span class="mt-2">Termina</span>
                 <div class="flex flex-row align-content-center gap-2">
-                  <span class="text-3xl" style="font-weight: 500;">{{phase.endAt | date:'d'}}</span>
+                  <span class="text-3xl" style="font-weight: 500;">{{phase.calcEndDate | date:'d'}}</span>
                   <div class="flex flex-column  justify-content-center">
-                    <span class="text-xs">{{phase.endAt | date:'LLLL'}}</span>
-                    <span class="text-xs">{{phase.endAt | date:'yyyy'}}</span>
+                    <span class="text-xs">{{phase.calcEndDate | date:'LLLL'}}</span>
+                    <span class="text-xs">{{phase.calcEndDate | date:'yyyy'}}</span>
                   </div>
                 </div>
 

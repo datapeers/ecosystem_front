@@ -163,7 +163,10 @@ export class PhaseHomeworkTableComponent implements OnInit, OnDestroy {
     };
     if (this.user.allowed(Permission.download_all_tables))
       this.optionsTable.download = true;
-    if (this.allowEvaluate(this.user.rolType))
+    if (
+      this.allowEvaluate(this.user.rolType) &&
+      !this.optionsTable.actionsPerRow.length
+    )
       this.optionsTable.actionsPerRow.push({
         action: 'evaluated',
         label: `Calificar`,

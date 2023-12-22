@@ -8,35 +8,22 @@
                 <form [formGroup]="signUpForm" class="formgrid grid mt-2" (keydown)="onKeyUp($event)">
                     <div class="field col-12 flex flex-column align-items-center">
                         <label htmlFor="username">Usuario</label>
-                        <input pInputText id="username" formControlName="name"
-                            placeholder="Ingresa tu correo de registro" aria-describedby="username-help"
-                            [ngClass]="{'ng-invalid ng-dirty': signUpForm.touched && formControls['name'].errors}"
-                            class="w-full" />
-                        <small id="username-help"
-                            *ngIf="signUpForm.touched && formControls['name'].errors?.['required']"
-                            class="error-message">Ingrese un nombre</small>
+                        <input pInputText id="username" formControlName="name" placeholder="Ingresa tu nombre" aria-describedby="username-help" [ngClass]="{'ng-invalid ng-dirty': signUpForm.touched && formControls['name'].errors}" class="w-full" />
+                        <small id="username-help" *ngIf="signUpForm.touched && formControls['name'].errors?.['required']" class="error-message">Ingrese un nombre</small>
                     </div>
                     <div class="field col-12 flex flex-column align-items-center password-input">
                         <label htmlFor="password">Clave de ingreso</label>
-                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false"
-                            formControlName="password" placeholder="Ingresa tu clave"
-                            aria-describedby="password-main-help"
-                            [ngClass]="{'ng-invalid ng-dirty': formControls['password'].errors}"></p-password>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Ingresa tu clave" aria-describedby="password-main-help" [ngClass]="{'ng-invalid ng-dirty': formControls['password'].errors}"></p-password>
                         <div [hidden]="signUpForm.valid || !signUpForm.dirty" class="alert alert-danger">
-                            <small id="password-help" *ngIf="formControls['password'].errors?.['required']"
-                                class="error-message">La
+                            <small id="password-help" *ngIf="formControls['password'].errors?.['required']" class="error-message">La
                                 clave de ingreso es obligatoria</small>
-                            <small id="password-help" *ngIf="formControls['password'].errors?.['minlength']"
-                                class="error-message">La
+                            <small id="password-help" *ngIf="formControls['password'].errors?.['minlength']" class="error-message">La
                                 clave de ingreso debe tener al menos 6 caracteres</small>
                         </div>
                     </div>
                     <div class="field col-12 flex flex-column align-items-center password-input">
                         <label htmlFor="passwordConfirm">Confirmar clave</label>
-                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false"
-                            formControlName="confirmPassword" placeholder="Ingresa tu clave de ingreso"
-                            aria-describedby="password-confirm-help"
-                            [ngClass]="{'ng-invalid ng-dirty': formControls['confirmPassword'].errors}"></p-password>
+                        <p-password inputStyleClass="w-full" [toggleMask]="true" [feedback]="false" formControlName="confirmPassword" placeholder="Ingresa tu clave de ingreso" aria-describedby="password-confirm-help" [ngClass]="{'ng-invalid ng-dirty': formControls['confirmPassword'].errors}"></p-password>
                         <div [hidden]="signUpForm.valid || !signUpForm.dirty" class="alert alert-danger">
                             <small *ngIf="formControls['confirmPassword'].errors?.['required']" class="error-message">
                                 Se necesita confirmar que ambas claves sean similares
@@ -50,12 +37,10 @@
                 </form>
                 <div style="height: 4rem;"></div>
                 <div class="w-full flex flex-column gap-4 mb-2">
-                    <p-button styleClass="w-full align-items-center justify-content-center" [loading]="loading"
-                        loadingIcon="pi pi-spinner" (onClick)="onSubmit()" [disabled]="signUpForm.invalid">
+                    <p-button styleClass="w-full align-items-center justify-content-center" [loading]="loading" loadingIcon="pi pi-spinner" (onClick)="onSubmit()" [disabled]="signUpForm.invalid">
                         <span class="mx-2 font-semibold	">Ingresar ahora</span>
                     </p-button>
-                    <p-button styleClass="button-grey w-full align-items-center justify-content-center"
-                        (onClick)="googleAuth()">
+                    <p-button styleClass="button-grey w-full align-items-center justify-content-center" (onClick)="googleAuth()">
                         <img alt="logoGoogle" src="/assets/googleLogo.svg" style="width: 1.5rem" />
                         <span class="mx-2 font-semibold	">Regístrate con google</span>
                     </p-button>

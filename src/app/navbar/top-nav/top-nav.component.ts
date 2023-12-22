@@ -396,27 +396,33 @@ export class TopNavComponent {
           break;
       }
     }
-    const spaceItems = search.ansPhases.map((result: searchResult) => ({
-      label: result.label,
-      tag: result.metadata['tag'],
-      command: () => {
-        this.goBatchByResult(result.metadata['_id']);
-      },
-    }));
-    const resourceItems = search.ansResource.map((result: searchResult) => ({
-      label: result.label,
-      tag: 'Recurso',
-      command: () => {
-        this.goTooltipByResult(result.metadata['batch']);
-      },
-    }));
-    const contentItems = search.ansContent.map((result: searchResult) => ({
-      label: result.label,
-      tag: 'Contenido',
-      command: () => {
-        this.goBatchByResult(result.metadata['batch']);
-      },
-    }));
+    const spaceItems = this.user.isUser
+      ? search.ansPhases.map((result: searchResult) => ({
+          label: result.label,
+          tag: result.metadata['tag'],
+          command: () => {
+            this.goBatchByResult(result.metadata['_id']);
+          },
+        }))
+      : [];
+    const resourceItems = this.user.isUser
+      ? search.ansResource.map((result: searchResult) => ({
+          label: result.label,
+          tag: 'Recurso',
+          command: () => {
+            this.goTooltipByResult(result.metadata['batch']);
+          },
+        }))
+      : [];
+    const contentItems = this.user.isUser
+      ? search.ansContent.map((result: searchResult) => ({
+          label: result.label,
+          tag: 'Contenido',
+          command: () => {
+            this.goBatchByResult(result.metadata['batch']);
+          },
+        }))
+      : [];
     this.searchResults = [
       ...sectionItems,
       ...spaceItems,
