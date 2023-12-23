@@ -221,7 +221,7 @@ export class PhaseEvaluationsComponent implements OnInit, OnDestroy {
   changeCanBeEvaluated() {
     if (!this.user.isAdmin) return;
     if (this.newConfigEvaluation.get('reviewer').value === ValidRoles.user) {
-      this.canBeEvaluated = [ValidRoles.teamCoach, ValidRoles.expert];
+      this.canBeEvaluated = [ValidRoles.expert];
     } else {
       this.canBeEvaluated = [
         ValidRoles.user,
