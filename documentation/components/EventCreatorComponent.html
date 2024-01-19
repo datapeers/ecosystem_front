@@ -1,0 +1,3876 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EventCreatorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/phases/phase-events/event-creator/event-creator.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-event-creator</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./event-creator.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./event-creator.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allowEdit" >allowEdit</a>
+                            </li>
+                            <li>
+                                <a href="#allowFiles" >allowFiles</a>
+                            </li>
+                            <li>
+                                <a href="#batch" >batch</a>
+                            </li>
+                            <li>
+                                <a href="#changeType$" >changeType$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                <a href="#currentExpert" >currentExpert</a>
+                            </li>
+                            <li>
+                                <a href="#editedDates" >editedDates</a>
+                            </li>
+                            <li>
+                                <a href="#editingEvent" >editingEvent</a>
+                            </li>
+                            <li>
+                                <a href="#entrepreneurList" >entrepreneurList</a>
+                            </li>
+                            <li>
+                                <a href="#event" >event</a>
+                            </li>
+                            <li>
+                                <a href="#experts" >experts</a>
+                            </li>
+                            <li>
+                                <a href="#expertsList" >expertsList</a>
+                            </li>
+                            <li>
+                                <a href="#extra_options" >extra_options</a>
+                            </li>
+                            <li>
+                                <a href="#faClock" >faClock</a>
+                            </li>
+                            <li>
+                                <a href="#faPaperclip" >faPaperclip</a>
+                            </li>
+                            <li>
+                                <a href="#faPlus" >faPlus</a>
+                            </li>
+                            <li>
+                                <a href="#faTimes" >faTimes</a>
+                            </li>
+                            <li>
+                                <a href="#faUsers" >faUsers</a>
+                            </li>
+                            <li>
+                                <a href="#faUserTie" >faUserTie</a>
+                            </li>
+                            <li>
+                                <a href="#fileSizeLimit" >fileSizeLimit</a>
+                            </li>
+                            <li>
+                                <a href="#filesLimit" >filesLimit</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#nameEvents" >nameEvents</a>
+                            </li>
+                            <li>
+                                <a href="#participants" >participants</a>
+                            </li>
+                            <li>
+                                <a href="#previousEvent" >previousEvent</a>
+                            </li>
+                            <li>
+                                <a href="#selectedExperts" >selectedExperts</a>
+                            </li>
+                            <li>
+                                <a href="#selectedFiles" >selectedFiles</a>
+                            </li>
+                            <li>
+                                <a href="#selectedParticipants" >selectedParticipants</a>
+                            </li>
+                            <li>
+                                <a href="#selectedStartups" >selectedStartups</a>
+                            </li>
+                            <li>
+                                <a href="#selectedTeamCoach" >selectedTeamCoach</a>
+                            </li>
+                            <li>
+                                <a href="#startups" >startups</a>
+                            </li>
+                            <li>
+                                <a href="#startupsList" >startupsList</a>
+                            </li>
+                            <li>
+                                <a href="#stateOptionsAssistant" >stateOptionsAssistant</a>
+                            </li>
+                            <li>
+                                <a href="#teamCoaches" >teamCoaches</a>
+                            </li>
+                            <li>
+                                <a href="#teamCoachList" >teamCoachList</a>
+                            </li>
+                            <li>
+                                <a href="#typeEvents" >typeEvents</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addExperts" >addExperts</a>
+                            </li>
+                            <li>
+                                <a href="#addParticipant" >addParticipant</a>
+                            </li>
+                            <li>
+                                <a href="#addStartup" >addStartup</a>
+                            </li>
+                            <li>
+                                <a href="#addTeamCoach" >addTeamCoach</a>
+                            </li>
+                            <li>
+                                <a href="#close" >close</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createEvent" >createEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadUrl" >downloadUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#eventEdit" >eventEdit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadExperts" >loadExperts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadStartUps" >loadStartUps</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadTeamCoaches" >loadTeamCoaches</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onUpload" >onUpload</a>
+                            </li>
+                            <li>
+                                <a href="#removeExpert" >removeExpert</a>
+                            </li>
+                            <li>
+                                <a href="#removeFile" >removeFile</a>
+                            </li>
+                            <li>
+                                <a href="#removeParticipant" >removeParticipant</a>
+                            </li>
+                            <li>
+                                <a href="#removeTeamCoach" >removeTeamCoach</a>
+                            </li>
+                            <li>
+                                <a href="#selectionType" >selectionType</a>
+                            </li>
+                            <li>
+                                <a href="#setEditVars" >setEditVars</a>
+                            </li>
+                            <li>
+                                <a href="#setMainVars" >setMainVars</a>
+                            </li>
+                            <li>
+                                <a href="#subscriptionChanges" >subscriptionChanges</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadFiles" >uploadFiles</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#userPermission" >userPermission</a>
+                                </li>
+                                <li>
+                                    <a href="#attendanceTypes" >attendanceTypes</a>
+                                </li>
+                                <li>
+                                    <a href="#phaseEventsConstant" >phaseEventsConstant</a>
+                                </li>
+                                <li>
+                                    <a href="#generalConstant" >generalConstant</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(config: DynamicDialogConfig, ref: DynamicDialogRef, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, service: <a href="../injectables/PhaseEventsService.html" target="_self">PhaseEventsService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>, expertsServices: <a href="../injectables/PhaseExpertsService.html" target="_self">PhaseExpertsService</a>, phaseStartupsService: <a href="../injectables/PhaseStartupsService.html" target="_self">PhaseStartupsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="106" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:106</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>config</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ref</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseEventsService.html" target="_self" >PhaseEventsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>expertsServices</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseExpertsService.html" target="_self" >PhaseExpertsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseStartupsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseStartupsService.html" target="_self" >PhaseStartupsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addExperts"></a>
+                    <span class="name">
+                        <span ><b>addExperts</b></span>
+                        <a href="#addExperts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addExperts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="378"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:378</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addParticipant"></a>
+                    <span class="name">
+                        <span ><b>addParticipant</b></span>
+                        <a href="#addParticipant"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addParticipant()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="406"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:406</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addStartup"></a>
+                    <span class="name">
+                        <span ><b>addStartup</b></span>
+                        <a href="#addStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addStartup()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="358"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:358</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTeamCoach"></a>
+                    <span class="name">
+                        <span ><b>addTeamCoach</b></span>
+                        <a href="#addTeamCoach"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addTeamCoach()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="392"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:392</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <span ><b>close</b></span>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close(update?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>update</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createEvent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createEvent</b></span>
+                        <a href="#createEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createEvent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="457"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:457</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadFile(file: <a href="../interfaces/IFileUploadExtended.html" target="_self">IFileUploadExtended</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="351"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:351</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IFileUploadExtended.html" target="_self" >IFileUploadExtended</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadUrl"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadUrl</b></span>
+                        <a href="#downloadUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadUrl(urlFile: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="343"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:343</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>urlFile</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventEdit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>eventEdit</b></span>
+                        <a href="#eventEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>eventEdit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="420"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:420</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadExperts"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadExperts</b></span>
+                        <a href="#loadExperts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadExperts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadStartUps"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadStartUps</b></span>
+                        <a href="#loadStartUps"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadStartUps()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:203</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadTeamCoaches"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadTeamCoaches</b></span>
+                        <a href="#loadTeamCoaches"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadTeamCoaches()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:249</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onUpload"></a>
+                    <span class="name">
+                        <span ><b>onUpload</b></span>
+                        <a href="#onUpload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onUpload(event, target)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="321"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:321</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>target</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeExpert"></a>
+                    <span class="name">
+                        <span ><b>removeExpert</b></span>
+                        <a href="#removeExpert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeExpert(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="388"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:388</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeFile"></a>
+                    <span class="name">
+                        <span ><b>removeFile</b></span>
+                        <a href="#removeFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeFile(fileName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="337"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:337</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeParticipant"></a>
+                    <span class="name">
+                        <span ><b>removeParticipant</b></span>
+                        <a href="#removeParticipant"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeParticipant(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="416"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:416</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeTeamCoach"></a>
+                    <span class="name">
+                        <span ><b>removeTeamCoach</b></span>
+                        <a href="#removeTeamCoach"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeTeamCoach(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="402"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:402</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectionType"></a>
+                    <span class="name">
+                        <span ><b>selectionType</b></span>
+                        <a href="#selectionType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectionType(selected)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="265"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:265</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selected</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setEditVars"></a>
+                    <span class="name">
+                        <span ><b>setEditVars</b></span>
+                        <a href="#setEditVars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setEditVars()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setMainVars"></a>
+                    <span class="name">
+                        <span ><b>setMainVars</b></span>
+                        <a href="#setMainVars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setMainVars()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subscriptionChanges"></a>
+                    <span class="name">
+                        <span ><b>subscriptionChanges</b></span>
+                        <a href="#subscriptionChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>subscriptionChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="276"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:276</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadFiles</b></span>
+                        <a href="#uploadFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadFiles()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="293"
+                                    class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:293</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allowEdit"></a>
+                    <span class="name">
+                        <span ><b>allowEdit</b></span>
+                        <a href="#allowEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allowFiles"></a>
+                    <span class="name">
+                        <span ><b>allowFiles</b></span>
+                        <a href="#allowFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="batch"></a>
+                    <span class="name">
+                        <span ><b>batch</b></span>
+                        <a href="#batch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeType$"></a>
+                    <span class="name">
+                        <span ><b>changeType$</b></span>
+                        <a href="#changeType$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DynamicDialogConfig</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentExpert"></a>
+                    <span class="name">
+                        <span ><b>currentExpert</b></span>
+                        <a href="#currentExpert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editedDates"></a>
+                    <span class="name">
+                        <span ><b>editedDates</b></span>
+                        <a href="#editedDates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editingEvent"></a>
+                    <span class="name">
+                        <span ><b>editingEvent</b></span>
+                        <a href="#editingEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="entrepreneurList"></a>
+                    <span class="name">
+                        <span ><b>entrepreneurList</b></span>
+                        <a href="#entrepreneurList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="event"></a>
+                    <span class="name">
+                        <span ><b>event</b></span>
+                        <a href="#event"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="experts"></a>
+                    <span class="name">
+                        <span ><b>experts</b></span>
+                        <a href="#experts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expertsList"></a>
+                    <span class="name">
+                        <span ><b>expertsList</b></span>
+                        <a href="#expertsList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extra_options"></a>
+                    <span class="name">
+                        <span ><b>extra_options</b></span>
+                        <a href="#extra_options"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faClock"></a>
+                    <span class="name">
+                        <span ><b>faClock</b></span>
+                        <a href="#faClock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faClock</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faPaperclip"></a>
+                    <span class="name">
+                        <span ><b>faPaperclip</b></span>
+                        <a href="#faPaperclip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faPaperclip</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faPlus"></a>
+                    <span class="name">
+                        <span ><b>faPlus</b></span>
+                        <a href="#faPlus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faPlus</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faTimes"></a>
+                    <span class="name">
+                        <span ><b>faTimes</b></span>
+                        <a href="#faTimes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faTimes</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faUsers"></a>
+                    <span class="name">
+                        <span ><b>faUsers</b></span>
+                        <a href="#faUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faUsers</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faUserTie"></a>
+                    <span class="name">
+                        <span ><b>faUserTie</b></span>
+                        <a href="#faUserTie"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faUserTie</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileSizeLimit"></a>
+                    <span class="name">
+                        <span ><b>fileSizeLimit</b></span>
+                        <a href="#fileSizeLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1000000</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filesLimit"></a>
+                    <span class="name">
+                        <span ><b>filesLimit</b></span>
+                        <a href="#filesLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>5</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nameEvents"></a>
+                    <span class="name">
+                        <span ><b>nameEvents</b></span>
+                        <a href="#nameEvents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Evento&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="participants"></a>
+                    <span class="name">
+                        <span ><b>participants</b></span>
+                        <a href="#participants"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="previousEvent"></a>
+                    <span class="name">
+                        <span ><b>previousEvent</b></span>
+                        <a href="#previousEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedExperts"></a>
+                    <span class="name">
+                        <span ><b>selectedExperts</b></span>
+                        <a href="#selectedExperts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedFiles"></a>
+                    <span class="name">
+                        <span ><b>selectedFiles</b></span>
+                        <a href="#selectedFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IFileUploadExtended[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedParticipants"></a>
+                    <span class="name">
+                        <span ><b>selectedParticipants</b></span>
+                        <a href="#selectedParticipants"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedStartups"></a>
+                    <span class="name">
+                        <span ><b>selectedStartups</b></span>
+                        <a href="#selectedStartups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IItemStartup[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedTeamCoach"></a>
+                    <span class="name">
+                        <span ><b>selectedTeamCoach</b></span>
+                        <a href="#selectedTeamCoach"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startups"></a>
+                    <span class="name">
+                        <span ><b>startups</b></span>
+                        <a href="#startups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IItemStartup[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startupsList"></a>
+                    <span class="name">
+                        <span ><b>startupsList</b></span>
+                        <a href="#startupsList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IItemStartup[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stateOptionsAssistant"></a>
+                    <span class="name">
+                        <span ><b>stateOptionsAssistant</b></span>
+                        <a href="#stateOptionsAssistant"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>stateOptionsAssistant</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="teamCoaches"></a>
+                    <span class="name">
+                        <span ><b>teamCoaches</b></span>
+                        <a href="#teamCoaches"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="teamCoachList"></a>
+                    <span class="name">
+                        <span ><b>teamCoachList</b></span>
+                        <a href="#teamCoachList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEntityEvent.html" target="_self" >IEntityEvent[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="typeEvents"></a>
+                    <span class="name">
+                        <span ><b>typeEvents</b></span>
+                        <a href="#typeEvents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>TypeEvent[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userPermission"></a>
+                        <span class="name"><b>userPermission</b><a href="#userPermission"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userPermission()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:92</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="attendanceTypes"></a>
+                        <span class="name"><b>attendanceTypes</b><a href="#attendanceTypes"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>attendanceTypes()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:96</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="phaseEventsConstant"></a>
+                        <span class="name"><b>phaseEventsConstant</b><a href="#phaseEventsConstant"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>phaseEventsConstant()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:100</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generalConstant"></a>
+                        <span class="name"><b>generalConstant</b><a href="#generalConstant"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>generalConstant()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/app/home/phases/phase-events/event-creator/event-creator.component.ts:104</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { PhaseEventsService } from &#x27;../phase-events.service&#x27;;
+import * as moment from &#x27;moment&#x27;;
+import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import FileSaver from &#x27;file-saver&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import { UserService } from &#x27;@auth/user.service&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { PhaseExpertsService } from &#x27;@home/phases/phase-experts/phase-experts.service&#x27;;
+import { PhaseStartupsService } from &#x27;@home/phases/phase-startups/phase-startups.service&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { IEntityEvent, IItemStartup, newEvent } from &#x27;../models/events.model&#x27;;
+import {
+  faClock,
+  faPaperclip,
+  faPlus,
+  faTimes,
+  faUserTie,
+  faUsers,
+} from &#x27;@fortawesome/free-solid-svg-icons&#x27;;
+import { ValidRoles } from &#x27;@auth/models/valid-roles.enum&#x27;;
+import { TypeEvent } from &#x27;../models/types-events.model&#x27;;
+import { FormGroup } from &#x27;@angular/forms&#x27;;
+import { Subscription, first, firstValueFrom } from &#x27;rxjs&#x27;;
+import {
+  attendanceType,
+  stateOptionsAssistant,
+} from &#x27;../models/assistant-type.enum&#x27;;
+import { DynamicDialogConfig, DynamicDialogRef } from &#x27;primeng/dynamicdialog&#x27;;
+import { Event } from &#x27;@home/phases/phase-events/models/events.model&#x27;;
+import { GeneralConstant } from &#x27;@shared/constant/general.constant&#x27;;
+import { PhaseEventsConstant } from &#x27;../constant/phase-events.constant&#x27;;
+import { IFileUploadExtended } from &#x27;@shared/models/file&#x27;;
+@Component({
+  selector: &#x27;app-event-creator&#x27;,
+  templateUrl: &#x27;./event-creator.component.html&#x27;,
+  styleUrls: [&#x27;./event-creator.component.scss&#x27;],
+})
+export class EventCreatorComponent implements OnInit {
+  // Main vars
+  loaded &#x3D; false;
+  batch: Phase;
+  user: User;
+  typeEvents: TypeEvent[] &#x3D; [];
+  previousEvent: Event;
+  event: FormGroup;
+  extra_options: any &#x3D; {};
+  editingEvent &#x3D; false;
+  nameEvents &#x3D; &#x27;Evento&#x27;;
+  allowEdit &#x3D; true;
+
+  // ? Vars for change name
+  changeType$: Subscription;
+
+  // ? List options
+  stateOptionsAssistant &#x3D; stateOptionsAssistant;
+  expertsList: IEntityEvent[] &#x3D; [];
+  startupsList: IItemStartup[] &#x3D; [];
+  entrepreneurList: IEntityEvent[] &#x3D; [];
+  teamCoachList: IEntityEvent[] &#x3D; [];
+
+  // ? Selected display
+  experts: IEntityEvent[] &#x3D; [];
+  teamCoaches: IEntityEvent[] &#x3D; [];
+  participants: IEntityEvent[] &#x3D; [];
+  startups: IItemStartup[] &#x3D; [];
+
+  // ? vars for dropdowns
+  selectedExperts: IEntityEvent[] &#x3D; [];
+  selectedParticipants: IEntityEvent[] &#x3D; [];
+  selectedStartups: IItemStartup[] &#x3D; [];
+  selectedTeamCoach: IEntityEvent[] &#x3D; [];
+
+  // ? File vars
+  currentExpert;
+  fileSizeLimit &#x3D; 1000000;
+  filesLimit &#x3D; 5;
+  allowFiles &#x3D; false;
+  selectedFiles: IFileUploadExtended[] &#x3D; [];
+
+  // ? Icons
+  faPaperclip &#x3D; faPaperclip;
+  faTimes &#x3D; faTimes;
+  faUserTie &#x3D; faUserTie;
+  faPlus &#x3D; faPlus;
+  faClock &#x3D; faClock;
+  faUsers &#x3D; faUsers;
+
+  editedDates &#x3D; false;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+
+  public get attendanceTypes(): typeof attendanceType {
+    return attendanceType;
+  }
+
+  public get phaseEventsConstant(): typeof PhaseEventsConstant {
+    return PhaseEventsConstant;
+  }
+
+  public get generalConstant(): typeof GeneralConstant {
+    return GeneralConstant;
+  }
+
+  constructor(
+    public config: DynamicDialogConfig,
+    private ref: DynamicDialogRef,
+    private toast: ToastService,
+    private service: PhaseEventsService,
+    private readonly userService: UserService,
+    private readonly storageService: StorageService,
+    private readonly expertsServices: PhaseExpertsService,
+    private readonly phaseStartupsService: PhaseStartupsService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadComponent();
+  }
+
+  close(update?: boolean) {
+    this.changeType$?.unsubscribe();
+    this.ref.close(update);
+  }
+
+  async loadComponent() {
+    this.loaded &#x3D; false;
+    this.setMainVars();
+
+    // ? vars mandatory for component
+    if (!this.batch) this.close();
+    if (this.typeEvents.length &#x3D;&#x3D;&#x3D; 0) this.close();
+    await this.loadExperts();
+    await this.loadStartUps();
+    await this.loadTeamCoaches();
+
+    if (this.previousEvent) this.setEditVars();
+    this.subscriptionChanges();
+    this.loaded &#x3D; true;
+  }
+
+  setMainVars() {
+    this.batch &#x3D; this.config.data.batch;
+    this.user &#x3D; this.config.data.user;
+    this.typeEvents &#x3D; this.config.data.typeEvents;
+    this.previousEvent &#x3D; this.config.data.event;
+    this.event &#x3D; newEvent(this.batch, this.typeEvents, this.previousEvent);
+    this.extra_options &#x3D; {
+      userCreated: this.user._id,
+    };
+    this.allowFiles &#x3D; this.typeEvents[0].extra_options.allow_files;
+  }
+
+  setEditVars() {
+    this.editingEvent &#x3D; true;
+    this.event.get(&#x27;type&#x27;).disable();
+    this.event.get(&#x27;attendanceType&#x27;).disable();
+    this.experts &#x3D; [...this.previousEvent.experts];
+    this.teamCoaches &#x3D; [...this.previousEvent.teamCoaches];
+    this.participants &#x3D; [...this.previousEvent.participants];
+    this.extra_options &#x3D; this.previousEvent.extra_options;
+    const type &#x3D; this.typeEvents.find(
+      (i) &#x3D;&gt; this.event.get(&#x27;type&#x27;).value &#x3D;&#x3D;&#x3D; i._id
+    );
+    this.allowFiles &#x3D; type.extra_options.allow_files;
+    const startupsAdded &#x3D; new Set();
+    this.startups &#x3D; [];
+    for (const participant of this.selectedParticipants) {
+      const startup &#x3D; this.startupsList.find((s) &#x3D;&gt;
+        s.entrepreneurs.find((e) &#x3D;&gt; e._id &#x3D;&#x3D;&#x3D; participant._id)
+      );
+      if (startup &amp;&amp; !startupsAdded.has(startup._id)) {
+        this.startups.push(startup);
+        startupsAdded.add(startup._id);
+      }
+    }
+    if (this.extra_options.files)
+      for (const fileDoc of this.previousEvent.extra_options.files) {
+        this.selectedFiles.push(fileDoc);
+      }
+    if (this.previousEvent.isCanceled) {
+      this.allowEdit &#x3D; false;
+      for (const iterator of Object.keys(this.event.value)) {
+        this.event.get(iterator).disable();
+      }
+    }
+  }
+
+  async loadExperts() {
+    this.expertsList &#x3D; (
+      await this.expertsServices.getDocuments({ phase: this.batch._id })
+    ).map((doc) &#x3D;&gt; {
+      return {
+        _id: doc._id,
+        name: doc.item.nombre,
+        email: doc.item[&#x27;correoElectronico&#x27;],
+      };
+    });
+  }
+
+  async loadStartUps() {
+    const startupsPhase &#x3D; await this.phaseStartupsService.getDocuments({
+      phase: this.batch._id,
+    });
+    this.entrepreneurList &#x3D; [];
+    this.startupsList &#x3D; [];
+    let addedGeneric &#x3D; undefined;
+    for (const startUp of startupsPhase) {
+      const entrepreneurs &#x3D; startUp.entrepreneurs.map((entrepreneur) &#x3D;&gt; {
+        return {
+          _id: entrepreneur._id,
+          name: entrepreneur.item.nombre,
+          email: entrepreneur.item[&#x27;email&#x27;],
+          startupEntrepreneur: startUp._id,
+        };
+      });
+      if (startUp.item.generic) {
+        if (addedGeneric) {
+          this.startupsList[addedGeneric].entrepreneurs &#x3D;
+            this.startupsList[addedGeneric].entrepreneurs.concat(entrepreneurs);
+        } else {
+          addedGeneric &#x3D; this.startupsList.length;
+          this.startupsList.push({
+            _id: startUp._id,
+            name: startUp.item.nombre,
+            entrepreneurs: entrepreneurs,
+          });
+        }
+      } else {
+        this.startupsList.push({
+          _id: startUp._id,
+          name: startUp.item.nombre,
+          entrepreneurs: entrepreneurs,
+        });
+      }
+      for (const entrepreneur of startUp.entrepreneurs) {
+        this.entrepreneurList.push({
+          _id: entrepreneur._id,
+          name: entrepreneur.item.nombre,
+          email: entrepreneur.item[&#x27;email&#x27;],
+          startupEntrepreneur: startUp._id,
+        });
+      }
+    }
+  }
+
+  async loadTeamCoaches() {
+    const teamCoachRequest &#x3D; await this.userService.getUsers(
+      &#x27;&#x27;,
+      [ValidRoles.teamCoach],
+      { batches: this.batch._id }
+    );
+    this.teamCoachList &#x3D; [];
+    for (const teamCoach of teamCoachRequest) {
+      this.teamCoachList.push({
+        _id: teamCoach._id,
+        name: teamCoach.fullName,
+        email: teamCoach.email,
+      });
+    }
+  }
+
+  selectionType(selected) {
+    const selectedType &#x3D; this.typeEvents.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; selected);
+    if (selectedType &amp;&amp; selectedType.extra_options?.allow_files) {
+      this.allowFiles &#x3D; true;
+    } else {
+      this.allowFiles &#x3D; false;
+      this.selectedFiles &#x3D; [];
+    }
+  }
+
+  // ? Subscription for detect changes when changes type, changes name
+  subscriptionChanges() {
+    this.changeType$ &#x3D; this.event.get(&#x27;type&#x27;).valueChanges.subscribe((type) &#x3D;&gt; {
+      const currentName &#x3D; this.event.get(&#x27;name&#x27;).value;
+      const newType &#x3D; this.typeEvents.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; type);
+
+      // Construir una expresión regular dinámica para los tipos de evento
+      const typeRegex &#x3D; new RegExp(
+        &#x60;\\b${this.typeEvents.map((i) &#x3D;&gt; i.name).join(&#x27;\\b|\\b&#x27;)}\\b&#x60;,
+        &#x27;i&#x27;
+      );
+      if (typeRegex.test(currentName)) {
+        const updatedName &#x3D; currentName.replace(typeRegex, newType.name);
+        this.event.get(&#x27;name&#x27;).setValue(updatedName);
+      }
+    });
+  }
+
+  async uploadFiles() {
+    this.extra_options.files &#x3D; [];
+    for (const iterator of this.selectedFiles) {
+      this.toast.clear();
+      this.toast.info({
+        summary: GeneralConstant.uploadFile,
+        detail: GeneralConstant.noCloseTooltip,
+      });
+      if (iterator.file) {
+        const fileUploaded: any &#x3D; await firstValueFrom(
+          this.storageService
+            .uploadFile(&#x60;phases/${this.batch._id}/events&#x60;, iterator.file)
+            .pipe(first((event) &#x3D;&gt; event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response))
+        );
+        this.extra_options[&#x27;files&#x27;].push({
+          name: iterator.name,
+          url: fileUploaded.url,
+        });
+      } else {
+        this.extra_options[&#x27;files&#x27;].push({
+          name: iterator.name,
+          url: iterator.url,
+        });
+      }
+    }
+    this.toast.clear();
+  }
+
+  onUpload(event, target) {
+    for (let newFile of event.files as File[]) {
+      if (this.selectedFiles.length &gt;&#x3D; this.filesLimit) {
+        // console.log(&#x27;file limit reached&#x27;);
+        break;
+      }
+      if (!this.selectedFiles.some((f) &#x3D;&gt; f.name &#x3D;&#x3D; newFile.name)) {
+        this.selectedFiles.push({
+          file: newFile,
+          name: newFile.name,
+        });
+      }
+    }
+    target.clear();
+  }
+
+  removeFile(fileName: string) {
+    if (this.selectedFiles) {
+      this.selectedFiles &#x3D; this.selectedFiles.filter((f) &#x3D;&gt; f.name !&#x3D; fileName);
+    }
+  }
+
+  async downloadUrl(urlFile: string) {
+    const key &#x3D; this.storageService.getKey(urlFile);
+    const url &#x3D; await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      window.open(url, &#x27;_blank&#x27;);
+    }
+  }
+
+  async downloadFile(file: IFileUploadExtended) {
+    if (file.file) {
+      FileSaver.saveAs(file.file);
+      return;
+    }
+  }
+
+  addStartup() {
+    const startupAdded &#x3D; new Set();
+    for (const startup of this.startups) {
+      startupAdded.add(startup._id);
+    }
+    for (let startup of this.selectedStartups) {
+      for (const entrepreneur of startup.entrepreneurs) {
+        if (this.participants.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; entrepreneur._id)) {
+          continue;
+        }
+        this.participants.push(entrepreneur);
+        if (!startupAdded.has(startup._id)) {
+          startupAdded.add(startup._id);
+          this.startups.push(startup);
+        }
+      }
+    }
+    this.selectedStartups &#x3D; [];
+  }
+
+  addExperts() {
+    for (let res of this.selectedExperts) {
+      if (this.experts.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; res._id)) {
+        continue;
+      }
+      this.experts.push(res);
+    }
+    this.selectedExperts &#x3D; [];
+  }
+
+  removeExpert(id: string) {
+    this.experts &#x3D; this.experts.filter((r) &#x3D;&gt; r._id !&#x3D; id);
+  }
+
+  addTeamCoach() {
+    for (let res of this.selectedTeamCoach) {
+      if (this.teamCoaches.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; res._id)) {
+        continue;
+      }
+      this.teamCoaches.push(res);
+    }
+    this.selectedTeamCoach &#x3D; [];
+  }
+
+  removeTeamCoach(id: string) {
+    this.teamCoaches &#x3D; this.teamCoaches.filter((r) &#x3D;&gt; r._id !&#x3D; id);
+  }
+
+  addParticipant() {
+    for (let res of this.selectedParticipants) {
+      if (this.participants.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; res._id)) {
+        continue;
+      }
+      this.participants.push(res);
+    }
+    this.selectedParticipants &#x3D; [];
+  }
+
+  removeParticipant(id: string) {
+    this.participants &#x3D; this.participants.filter((r) &#x3D;&gt; r._id !&#x3D; id);
+  }
+
+  async eventEdit() {
+    if (moment(this.event.value.endAt).isBefore(this.event.value.startAt)) {
+      this.toast.alert({
+        summary: GeneralConstant.errorDateTooltip,
+        detail: PhaseEventsConstant.errorDates,
+      });
+      return;
+    }
+    await this.uploadFiles();
+    this.toast.info({ detail: &#x27;&#x27;, summary: GeneralConstant.saving });
+    const updatedItems &#x3D; this.event.value;
+    delete updatedItems[&#x27;type&#x27;];
+    delete updatedItems[&#x27;attendanceType&#x27;];
+    delete updatedItems[&#x27;batch&#x27;];
+    this.service
+      .updateEvent({
+        ...updatedItems,
+        extra_options: { ...this.extra_options, editedDates: this.editedDates },
+        batch: this.batch._id,
+        experts: this.experts,
+        teamCoaches: this.teamCoaches,
+        participants: this.participants,
+      })
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.close(true);
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x60;${GeneralConstant} ${this.nameEvents.toLowerCase()}&#x60;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  async createEvent() {
+    if (moment(this.event.value.endAt).isBefore(this.event.value.startAt)) {
+      this.toast.alert({
+        summary: GeneralConstant.errorDateTooltip,
+        detail: PhaseEventsConstant.errorDates,
+      });
+      return;
+    }
+    if (this.allowFiles &amp;&amp; this.selectedFiles.length &gt; 0) {
+      await this.uploadFiles();
+    }
+    this.toast.clear();
+    this.toast.info({ detail: &#x27;&#x27;, summary: GeneralConstant.saving });
+    this.service
+      .createEvent({
+        ...this.event.value,
+        extra_options: this.extra_options,
+        batch: this.batch._id,
+        experts: this.experts,
+        teamCoaches: this.teamCoaches,
+        participants: this.participants,
+      })
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.close(true);
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x60;${
+            GeneralConstant.errorCreateTooltip
+          } ${this.nameEvents.toLowerCase()}&#x60;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;!loaded; else formTemplate&quot;&gt;
+    &lt;app-loading&gt;&lt;/app-loading&gt;
+&lt;/ng-container&gt;
+&lt;ng-template #formTemplate&gt;
+    &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+        &lt;i-tabler name&#x3D;&quot;bulb&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+        &lt;div class&#x3D;&quot;content-resource w-10 flex flex-column justify-content-center pb-2 pr-4&quot;&gt;
+            &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;Evento&lt;/h2&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row gap-1&quot;&gt;
+                &lt;span class&#x3D;&quot;text-sm text-color-other&quot;&gt;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;form [formGroup]&#x3D;&quot;event&quot; class&#x3D;&quot;px-6&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-row gap-2 align-items-center&quot;&gt;
+            &lt;div class&#x3D;&quot;field&quot;&gt;
+                &lt;label for&#x3D;&quot;assistantType&quot;&gt;{{phaseEventsConstant.typesAssistant}}&lt;/label&gt;
+                &lt;p-selectButton inputId&#x3D;&quot;assistantType&quot; [options]&#x3D;&quot;stateOptionsAssistant&quot; formControlName&#x3D;&quot;attendanceType&quot; class&#x3D;&quot;inputfield mt-2&quot;&gt;&lt;/p-selectButton&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field&quot; *ngIf&#x3D;&quot;event.value.attendanceType &#x3D;&#x3D;&#x3D; attendanceTypes.virtual&quot; style&#x3D;&quot;flex: 1&quot;&gt;
+                &lt;span class&#x3D;&quot;app-input-field&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                    &lt;label for&#x3D;&quot;url&quot;&gt;{{generalConstant.url}}&lt;/label&gt;
+                    &lt;input pInputText type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;extra_options[&#x27;url&#x27;]&quot; placeholder&#x3D;&quot;Url&quot; [readOnly]&#x3D;&quot;editingEvent&quot; required&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;formgrid grid pt-2&quot;&gt;
+            &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-12 md:col-6&quot;&gt;
+                &lt;span class&#x3D;&quot;app-input-field&quot;&gt;
+                    &lt;label for&#x3D;&quot;name&quot;&gt;{{generalConstant.name}}&lt;/label&gt;
+                    &lt;input pInputText type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;name&quot; placeholder&#x3D;&quot;Nombre&quot; required&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-12 md:col-6&quot;&gt;
+                &lt;span class&#x3D;&quot;app-input-field&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                    &lt;label for&#x3D;&quot;typeEvent&quot;&gt;{{phaseEventsConstant.typeEvent}}&lt;/label&gt;
+                    &lt;p-dropdown inputId&#x3D;&quot;typeEvent&quot; [autoDisplayFirst]&#x3D;&quot;true&quot; [options]&#x3D;&quot;typeEvents&quot; optionLabel&#x3D;&quot;name&quot; appendTo&#x3D;&quot;body&quot; optionValue&#x3D;&quot;_id&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; formControlName&#x3D;&quot;type&quot; (onChange)&#x3D;&quot;selectionType($event.value)&quot;&gt;
+                    &lt;/p-dropdown&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-6 pt-3 md:col-6&quot;&gt;
+                &lt;span class&#x3D;&quot;app-input-field&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                    &lt;label for&#x3D;&quot;calendar-first&quot;&gt;{{generalConstant.begin}}&lt;/label&gt;
+                    &lt;p-calendar inputId&#x3D;&quot;calendar-first&quot; [readonlyInput]&#x3D;&quot;true&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; formControlName&#x3D;&quot;startAt&quot; [showTime]&#x3D;&quot;true&quot; (ngModelChange)&#x3D;&quot;editedDates &#x3D; true&quot;&gt;&lt;/p-calendar&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-6 pt-3 md:col-6&quot;&gt;
+                &lt;span class&#x3D;&quot;app-input-field&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                    &lt;label for&#x3D;&quot;calendar-first&quot;&gt;{{generalConstant.end}}&lt;/label&gt;
+                    &lt;p-calendar inputId&#x3D;&quot;calendar-first&quot; [readonlyInput]&#x3D;&quot;true&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; formControlName&#x3D;&quot;endAt&quot; [showTime]&#x3D;&quot;true&quot; (ngModelChange)&#x3D;&quot;editedDates &#x3D; true&quot;&gt;&lt;/p-calendar&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-12 pt-3 md:col-12 &quot;&gt;
+                &lt;span class&#x3D;&quot;app-input-field&quot;&gt;
+                    &lt;label for&#x3D;&quot;descEvent&quot;&gt;{{generalConstant.description}}&lt;/label&gt;
+                    &lt;textarea id&#x3D;&quot;descEvent&quot; rows&#x3D;&quot;3&quot; style&#x3D;&quot;width: 100%;&quot; formControlName&#x3D;&quot;description&quot; pInputTextarea&gt;&lt;/textarea&gt;
+                &lt;/span&gt;
+
+            &lt;/div&gt;
+            &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;flex flex-row w-full align-items-center px-6&quot;&gt;
+        &lt;h3&gt;Participantes&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;flex flex-row gap-3 pl-3 justify-content-end&quot; style&#x3D;&quot;flex: 1&quot;&gt;
+            &lt;span (click)&#x3D;&quot;opParticipants.toggle($event)&quot; class&#x3D;&quot;button-blue cursor-pointer p-3 border-round&quot;&gt;
+                &lt;fa-icon [icon]&#x3D;&quot;faPlus&quot;&gt;&lt;/fa-icon&gt; Añadir Participante(s)
+            &lt;/span&gt;
+            &lt;span (click)&#x3D;&quot;opStartUps.toggle($event)&quot; class&#x3D;&quot;button-blue cursor-pointer p-3 border-round&quot;&gt;
+                &lt;fa-icon [icon]&#x3D;&quot;faPlus&quot;&gt;&lt;/fa-icon&gt; Añadir StartUp(s)
+            &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;flex w-full justify-content-center align-items-center&quot;&gt;
+        &lt;p-table class&#x3D;&quot;table-container border-round-2xl table-dialog w-11&quot; [value]&#x3D;&quot;participants&quot; dataKey&#x3D;&quot;_id&quot; editMode&#x3D;&quot;row&quot; [rows]&#x3D;&quot;5&quot; [paginator]&#x3D;&quot;true&quot; [rowsPerPageOptions]&#x3D;&quot;[5, 10, 15]&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th style&#x3D;&quot;width:90%&quot;&gt;Nombre&lt;/th&gt;
+                    &lt;th style&#x3D;&quot;width:10%&quot; class&#x3D;&quot;text-center&quot;&gt;
+                    &lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-participant let-ri&#x3D;&quot;rowIndex&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td [pTooltip]&#x3D;&quot;(ri+1) + &#x27; - &#x27; + participant.name&quot;&gt;
+                        {{participant.name.length&gt;15 ? (participant.name | slice:0:15) : participant.name}}
+                    &lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;div class&#x3D;&quot;flex align-items-center justify-content-center&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;trash&quot; class&#x3D;&quot;ml-1 cursor-pointer&quot; pTooltip&#x3D;&quot;Quitar participante&quot; (click)&#x3D;&quot;removeParticipant(participant._id)&quot; *ngIf&#x3D;&quot;allowEdit&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;flex flex-row w-full align-items-center px-6&quot;&gt;
+        &lt;h3&gt;Experts y team coaches&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;flex flex-row gap-3 pl-3 justify-content-end&quot; style&#x3D;&quot;flex: 1&quot;&gt;
+            &lt;span (click)&#x3D;&quot;opTeamCoach.toggle($event)&quot; class&#x3D;&quot;button-blue cursor-pointer p-3 border-round&quot;&gt;
+                &lt;fa-icon [icon]&#x3D;&quot;faPlus&quot;&gt;&lt;/fa-icon&gt; Añadir team coach(s)
+            &lt;/span&gt;
+            &lt;span (click)&#x3D;&quot;opExperts.toggle($event)&quot; class&#x3D;&quot;button-blue cursor-pointer p-3 border-round&quot;&gt;
+                &lt;fa-icon [icon]&#x3D;&quot;faPlus&quot;&gt;&lt;/fa-icon&gt; Añadir experts
+            &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;flex w-full flex-row px6 justify-content-between gap-4 px-6&quot;&gt;
+        &lt;!-- Team Coaches --&gt;
+        &lt;p-table class&#x3D;&quot;table-container border-round-2xl table-dialog w-5&quot; [value]&#x3D;&quot;teamCoaches&quot; dataKey&#x3D;&quot;_id&quot; editMode&#x3D;&quot;row&quot; [rows]&#x3D;&quot;3&quot; [paginator]&#x3D;&quot;true&quot; [rowsPerPageOptions]&#x3D;&quot;[3, 10, 15]&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th style&#x3D;&quot;width:90%&quot;&gt;Team coach&lt;/th&gt;
+                    &lt;th style&#x3D;&quot;width:10%&quot; class&#x3D;&quot;text-center&quot;&gt;
+                    &lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-teamCoach let-ri&#x3D;&quot;rowIndex&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td [pTooltip]&#x3D;&quot;(ri+1) + &#x27; - &#x27; + teamCoach.name&quot;&gt;
+                        {{teamCoach.name.length&gt;15 ? (teamCoach.name | slice:0:15) : teamCoach.name}}
+                    &lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;div class&#x3D;&quot;flex align-items-center justify-content-center&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;trash&quot; class&#x3D;&quot;ml-1 cursor-pointer&quot; pTooltip&#x3D;&quot;Quitar team Coach&quot; (click)&#x3D;&quot;
+                                    removeTeamCoach(teamCoach._id)&quot; *ngIf&#x3D;&quot;allowEdit&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+
+        &lt;!-- Expertos --&gt;
+        &lt;p-table class&#x3D;&quot;table-container border-round-2xl table-dialog w-5&quot; [value]&#x3D;&quot;experts&quot; dataKey&#x3D;&quot;_id&quot; editMode&#x3D;&quot;row&quot; [rows]&#x3D;&quot;3&quot; [paginator]&#x3D;&quot;true&quot; [rowsPerPageOptions]&#x3D;&quot;[3, 10, 15]&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th style&#x3D;&quot;width:90%&quot;&gt;Expert&lt;/th&gt;
+                    &lt;th style&#x3D;&quot;width:10%&quot; class&#x3D;&quot;text-center&quot;&gt;
+                    &lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-expert let-ri&#x3D;&quot;rowIndex&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td [pTooltip]&#x3D;&quot;(ri+1) + &#x27; - &#x27; + expert.name&quot;&gt;
+                        {{expert.name.length&gt;15 ? (expert.name | slice:0:15) : expert.name}}
+                    &lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;div class&#x3D;&quot;flex align-items-center justify-content-center&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;trash&quot; class&#x3D;&quot;ml-1 cursor-pointer&quot; pTooltip&#x3D;&quot;Quitar experto&quot; (click)&#x3D;&quot;
+                            removeExpert(expert._id)&quot; *ngIf&#x3D;&quot;allowEdit&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;w-full px-6&quot; *ngIf&#x3D;&quot;allowFiles&quot;&gt;
+        &lt;!-- &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-center&quot;&gt;
+            &lt;h3 class&#x3D;&quot;mt-0 mb-1&quot;&gt;Archivos&lt;/h3&gt;
+        &lt;/div&gt; --&gt;
+        &lt;p-fileUpload #fileuploader [auto]&#x3D;&quot;true&quot; [customUpload]&#x3D;&quot;true&quot; chooseLabel&#x3D;&quot;Añadir archivos&quot; [multiple]&#x3D;&quot;true&quot; [maxFileSize]&#x3D;&quot;fileSizeLimit&quot; accept&#x3D;&quot;&quot; name&#x3D;&quot;myfile[]&quot; (uploadHandler)&#x3D;&quot;onUpload($event, fileuploader)&quot; [disabled]&#x3D;&quot;!allowEdit&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;toolbar&quot;&gt;
+                &lt;p-checkbox [binary]&#x3D;&quot;true&quot; [label]&#x3D;&quot;&#x27;Se habilitará la opción para que los participantes puedan visualizar los archivos.&#x27;&quot; [(ngModel)]&#x3D;&quot;extra_options.allow_viewFiles&quot; inputId&#x3D;&quot;allowViewFiles&quot; [disabled]&#x3D;&quot;!allowEdit&quot;&gt;&lt;/p-checkbox&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template let-file pTemplate&#x3D;&quot;file&quot;&gt;
+                &lt;div&gt;&lt;/div&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;content&quot;&gt;
+                &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-start m-2 cursor-pointer&quot; *ngFor&#x3D;&quot;let file of selectedFiles&quot;&gt;
+                    &lt;fa-icon [icon]&#x3D;&quot;faPaperclip&quot; class&#x3D;&quot;mr-1&quot;&gt;&lt;/fa-icon&gt;
+                    &lt;a pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;file.url&quot; (click)&#x3D;&quot;downloadUrl(file.url)&quot;&gt;{{file.name}}&lt;/a&gt;
+                    &lt;span pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;!file.url&quot; (click)&#x3D;&quot;downloadFile(file)&quot;&gt;{{file.name}}&lt;/span&gt;
+                    &lt;fa-icon [icon]&#x3D;&quot;faTimes&quot; class&#x3D;&quot;ml-1&quot; (click)&#x3D;&quot;removeFile(file.name)&quot; *ngIf&#x3D;&quot;allowEdit&quot;&gt;&lt;/fa-icon&gt;
+                &lt;/div&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-fileUpload&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;flex align-items-center justify-content-center&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;!editingEvent; else editButton&quot;&gt;
+            &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Crear&quot; (onClick)&#x3D;&quot;createEvent()&quot; [disabled]&#x3D;&quot;event.invalid || !allowEdit&quot; styleClass&#x3D;&quot;  border-round-2xl my-2 p-3 bg-primary&quot;&gt;&lt;/p-button&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #editButton&gt;
+            &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Guardar cambios&quot; (onClick)&#x3D;&quot;eventEdit()&quot; [disabled]&#x3D;&quot;event.invalid || !allowEdit&quot; styleClass&#x3D;&quot;  border-round-2xl my-2 p-3 bg-primary&quot;&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt;
+    &lt;/div&gt;
+
+&lt;/ng-template&gt;
+
+&lt;p-overlayPanel #opTeamCoach [dismissable]&#x3D;&quot;false&quot; [showCloseIcon]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{&#x27;width&#x27;:&#x27;500px&#x27;}&quot;&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;div class&#x3D;&quot;flex flex-row grid align-content-center align-items-center justify-content-center&quot;&gt;
+            &lt;div class&#x3D;&quot;formgrid grid col-10&quot;&gt;
+                &lt;div class&#x3D;&quot;field col-12 md:col-12 pt-3&quot; style&#x3D;&quot;max-width: 400px;&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex&quot;&gt;
+                        &lt;span class&#x3D;&quot;p-float-label&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                            &lt;p-multiSelect inputId&#x3D;&quot;dropdownTeamCoach&quot; [options]&#x3D;&quot;teamCoachList&quot; optionLabel&#x3D;&quot;name&quot; selectedItemsLabel&#x3D;&quot;{0} Experto(s)&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; appendTo&#x3D;&quot;body&quot; display&#x3D;&quot;chip&quot; [(ngModel)]&#x3D;&quot;selectedTeamCoach&quot;&gt;&lt;/p-multiSelect&gt;
+                            &lt;label for&#x3D;&quot;dropdownTeamCoach&quot;&gt;Team Coach(s)&lt;/label&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p-button class&#x3D;&quot;h-2rem ml-2 p-button-raised field col-2&quot; type&#x3D;&quot;button&quot; icon&#x3D;&quot;pi pi-check&quot; label&#x3D;&quot;&quot; pTooltip&#x3D;&quot;Aceptar&quot; (onClick)&#x3D;&quot;addTeamCoach(); opTeamCoach.hide()&quot;&gt;
+            &lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;p-overlayPanel #opExperts [dismissable]&#x3D;&quot;false&quot; [showCloseIcon]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{&#x27;width&#x27;:&#x27;500px&#x27;}&quot;&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;div class&#x3D;&quot;flex flex-row grid align-content-center align-items-center justify-content-center&quot;&gt;
+            &lt;div class&#x3D;&quot;formgrid grid col-10&quot;&gt;
+                &lt;div class&#x3D;&quot;field col-12 md:col-12 pt-3&quot; style&#x3D;&quot;max-width: 400px;&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex&quot;&gt;
+                        &lt;span class&#x3D;&quot;p-float-label&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                            &lt;p-multiSelect inputId&#x3D;&quot;dropdownExperts&quot; [options]&#x3D;&quot;expertsList&quot; optionLabel&#x3D;&quot;name&quot; selectedItemsLabel&#x3D;&quot;{0} Experto(s)&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; appendTo&#x3D;&quot;body&quot; display&#x3D;&quot;chip&quot; [(ngModel)]&#x3D;&quot;selectedExperts&quot;&gt;&lt;/p-multiSelect&gt;
+                            &lt;label for&#x3D;&quot;dropdownExperts&quot;&gt;Experto(s)&lt;/label&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p-button class&#x3D;&quot;h-2rem ml-2 p-button-raised field col-2&quot; type&#x3D;&quot;button&quot; icon&#x3D;&quot;pi pi-check&quot; label&#x3D;&quot;&quot; pTooltip&#x3D;&quot;Aceptar&quot; (onClick)&#x3D;&quot;addExperts(); opExperts.hide()&quot;&gt;
+            &lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;p-overlayPanel #opParticipants [dismissable]&#x3D;&quot;false&quot; [showCloseIcon]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{&#x27;width&#x27;:&#x27;500px&#x27;}&quot;&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;div class&#x3D;&quot;flex flex-row grid align-content-center align-items-center justify-content-center&quot;&gt;
+            &lt;div class&#x3D;&quot;formgrid grid col-10&quot;&gt;
+                &lt;div class&#x3D;&quot;field col-12 md:col-12 pt-3&quot; style&#x3D;&quot;max-width: 400px;&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex&quot;&gt;
+                        &lt;span class&#x3D;&quot;p-float-label&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                            &lt;p-multiSelect inputId&#x3D;&quot;dropdownParticipants&quot; [options]&#x3D;&quot;entrepreneurList&quot; optionLabel&#x3D;&quot;name&quot; selectedItemsLabel&#x3D;&quot;{0} Participante(s)&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; appendTo&#x3D;&quot;body&quot; display&#x3D;&quot;chip&quot; [(ngModel)]&#x3D;&quot;selectedParticipants&quot;&gt;&lt;/p-multiSelect&gt;
+                            &lt;label for&#x3D;&quot;dropdownParticipants&quot;&gt;Participante(s)&lt;/label&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p-button class&#x3D;&quot;h-2rem ml-2 p-button-raised field col-2&quot; type&#x3D;&quot;button&quot; icon&#x3D;&quot;pi pi-check&quot; label&#x3D;&quot;&quot; pTooltip&#x3D;&quot;Aceptar&quot; (onClick)&#x3D;&quot;addParticipant(); opParticipants.hide()&quot;&gt;
+            &lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-overlayPanel&gt;
+
+&lt;p-overlayPanel #opStartUps [dismissable]&#x3D;&quot;false&quot; [showCloseIcon]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{&#x27;width&#x27;:&#x27;500px&#x27;}&quot;&gt;
+    &lt;ng-template pTemplate&gt;
+        &lt;div class&#x3D;&quot;flex flex-row grid align-content-center align-items-center justify-content-center&quot;&gt;
+            &lt;div class&#x3D;&quot;formgrid grid col-10&quot;&gt;
+                &lt;div class&#x3D;&quot;field col-12 md:col-12 pt-3&quot; style&#x3D;&quot;max-width: 400px;&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex&quot;&gt;
+                        &lt;span class&#x3D;&quot;p-float-label&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+                            &lt;p-multiSelect inputId&#x3D;&quot;dropdownStartups&quot; [options]&#x3D;&quot;startupsList&quot; optionLabel&#x3D;&quot;name&quot; selectedItemsLabel&#x3D;&quot;{0} Startups&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; appendTo&#x3D;&quot;body&quot; display&#x3D;&quot;chip&quot; [(ngModel)]&#x3D;&quot;selectedStartups&quot;&gt;&lt;/p-multiSelect&gt;
+                            &lt;label for&#x3D;&quot;dropdownStartups&quot;&gt;StartUp(s)&lt;/label&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p-button class&#x3D;&quot;h-2rem ml-2 p-button-raised field col-2&quot; type&#x3D;&quot;button&quot; icon&#x3D;&quot;pi pi-check&quot; label&#x3D;&quot;&quot; pTooltip&#x3D;&quot;Aceptar&quot; (onClick)&#x3D;&quot;addStartup(); opStartUps.hide()&quot;&gt;
+            &lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/p-overlayPanel&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./event-creator.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../../styles.scss&quot;;
+
+.table-container {
+  background-color: $grayThird;
+  height: 100%;
+  max-height: 100%;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th {
+  background-color: transparent;
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  // border-top: 1px solid $appText;
+  border-bottom: 1px solid $appText;
+}
+
+.table-dialog::ng-deep .p-datatable {
+  margin: 0;
+
+  .p-paginator {
+    margin: 1rem 0.5rem;
+    background-color: $grayThird;
+    gap: 0.5rem;
+    .p-paginator-current {
+      color: $appTextTwo;
+      font-weight: 500;
+      margin-right: auto;
+    }
+  }
+  .p-paginator-right-content {
+    color: $appTextTwo;
+    font-weight: 500;
+  }
+
+  .p-paginator .p-paginator-first,
+  .p-paginator .p-paginator-prev,
+  .p-paginator .p-paginator-next,
+  .p-paginator .p-paginator-last {
+    border-radius: 0.625rem;
+    background-color: $appColorSix;
+    stroke-width: 2px;
+    color: $appColorFive;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    border-radius: 0.625rem;
+    background-color: white;
+    font-weight: 600;
+    color: $appTextTwo;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: $appColorFive;
+    color: white;
+  }
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td {
+  background-color: white;
+  border: none;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:first-child {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:last-child {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr:hover {
+  //  border-radius: 0.625rem;
+  box-shadow: 0px 3px 30px #0f213326;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr {
+  border-radius: 0.625rem;
+  background-color: transparent;
+}
+
+.table-dialog::ng-deep .p-datatable-table {
+  // background-color: $grayThird;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 0 0.5rem;
+}
+.table-dialog::ng-deep .p-datatable .p-datatable-header {
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 1rem 1rem;
+  border: none;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="!loaded; else formTemplate">    <app-loading></app-loading></ng-container><ng-template #formTemplate>    <div class="w-full flex flex-row gap-3">        <i-tabler name="bulb" class="icon-dialog"></i-tabler>        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">Evento</h2>            <div class="w-full flex flex-row gap-1">                <span class="text-sm text-color-other"></span>            </div>        </div>    </div>    <p-divider></p-divider>    <form [formGroup]="event" class="px-6">        <div class="flex flex-row gap-2 align-items-center">            <div class="field">                <label for="assistantType">{{phaseEventsConstant.typesAssistant}}</label>                <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" formControlName="attendanceType" class="inputfield mt-2"></p-selectButton>            </div>            <div class="field" *ngIf="event.value.attendanceType === attendanceTypes.virtual" style="flex: 1">                <span class="app-input-field" style="width: 100%">                    <label for="url">{{generalConstant.url}}</label>                    <input pInputText type="text" [(ngModel)]="extra_options[\'url\']" placeholder="Url" [readOnly]="editingEvent" required>                </span>            </div>        </div>        <div class="formgrid grid pt-2">            <div style="height: 1rem;"></div>            <div class="field col-12 md:col-6">                <span class="app-input-field">                    <label for="name">{{generalConstant.name}}</label>                    <input pInputText type="text" formControlName="name" placeholder="Nombre" required>                </span>            </div>            <div class="field col-12 md:col-6">                <span class="app-input-field" style="width: 100%">                    <label for="typeEvent">{{phaseEventsConstant.typeEvent}}</label>                    <p-dropdown inputId="typeEvent" [autoDisplayFirst]="true" [options]="typeEvents" optionLabel="name" appendTo="body" optionValue="_id" [style]="{ width: \'100%\' }" formControlName="type" (onChange)="selectionType($event.value)">                    </p-dropdown>                </span>            </div>            <div class="field col-6 pt-3 md:col-6">                <span class="app-input-field" style="width: 100%">                    <label for="calendar-first">{{generalConstant.begin}}</label>                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: \'100%\' }" formControlName="startAt" [showTime]="true" (ngModelChange)="editedDates = true"></p-calendar>                </span>            </div>            <div class="field col-6 pt-3 md:col-6">                <span class="app-input-field" style="width: 100%">                    <label for="calendar-first">{{generalConstant.end}}</label>                    <p-calendar inputId="calendar-first" [readonlyInput]="true" appendTo="body" [style]="{ width: \'100%\' }" formControlName="endAt" [showTime]="true" (ngModelChange)="editedDates = true"></p-calendar>                </span>            </div>            <div class="field col-12 pt-3 md:col-12 ">                <span class="app-input-field">                    <label for="descEvent">{{generalConstant.description}}</label>                    <textarea id="descEvent" rows="3" style="width: 100%;" formControlName="description" pInputTextarea></textarea>                </span>            </div>            <div style="height: 1rem;"></div>        </div>    </form>    <p-divider></p-divider>    <div class="flex flex-row w-full align-items-center px-6">        <h3>Participantes</h3>        <div class="flex flex-row gap-3 pl-3 justify-content-end" style="flex: 1">            <span (click)="opParticipants.toggle($event)" class="button-blue cursor-pointer p-3 border-round">                <fa-icon [icon]="faPlus"></fa-icon> Añadir Participante(s)            </span>            <span (click)="opStartUps.toggle($event)" class="button-blue cursor-pointer p-3 border-round">                <fa-icon [icon]="faPlus"></fa-icon> Añadir StartUp(s)            </span>        </div>    </div>    <div class="flex w-full justify-content-center align-items-center">        <p-table class="table-container border-round-2xl table-dialog w-11" [value]="participants" dataKey="_id" editMode="row" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 15]">            <ng-template pTemplate="header">                <tr>                    <th style="width:90%">Nombre</th>                    <th style="width:10%" class="text-center">                    </th>                </tr>            </ng-template>            <ng-template pTemplate="body" let-participant let-ri="rowIndex">                <tr>                    <td [pTooltip]="(ri+1) + \' - \' + participant.name">                        {{participant.name.length>15 ? (participant.name | slice:0:15) : participant.name}}                    </td>                    <td>                        <div class="flex align-items-center justify-content-center">                            <i-tabler name="trash" class="ml-1 cursor-pointer" pTooltip="Quitar participante" (click)="removeParticipant(participant._id)" *ngIf="allowEdit"></i-tabler>                        </div>                    </td>                </tr>            </ng-template>        </p-table>    </div>    <p-divider></p-divider>    <div class="flex flex-row w-full align-items-center px-6">        <h3>Experts y team coaches</h3>        <div class="flex flex-row gap-3 pl-3 justify-content-end" style="flex: 1">            <span (click)="opTeamCoach.toggle($event)" class="button-blue cursor-pointer p-3 border-round">                <fa-icon [icon]="faPlus"></fa-icon> Añadir team coach(s)            </span>            <span (click)="opExperts.toggle($event)" class="button-blue cursor-pointer p-3 border-round">                <fa-icon [icon]="faPlus"></fa-icon> Añadir experts            </span>        </div>    </div>    <div class="flex w-full flex-row px6 justify-content-between gap-4 px-6">        <!-- Team Coaches -->        <p-table class="table-container border-round-2xl table-dialog w-5" [value]="teamCoaches" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 10, 15]">            <ng-template pTemplate="header">                <tr>                    <th style="width:90%">Team coach</th>                    <th style="width:10%" class="text-center">                    </th>                </tr>            </ng-template>            <ng-template pTemplate="body" let-teamCoach let-ri="rowIndex">                <tr>                    <td [pTooltip]="(ri+1) + \' - \' + teamCoach.name">                        {{teamCoach.name.length>15 ? (teamCoach.name | slice:0:15) : teamCoach.name}}                    </td>                    <td>                        <div class="flex align-items-center justify-content-center">                            <i-tabler name="trash" class="ml-1 cursor-pointer" pTooltip="Quitar team Coach" (click)="                                    removeTeamCoach(teamCoach._id)" *ngIf="allowEdit"></i-tabler>                        </div>                    </td>                </tr>            </ng-template>        </p-table>        <!-- Expertos -->        <p-table class="table-container border-round-2xl table-dialog w-5" [value]="experts" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 10, 15]">            <ng-template pTemplate="header">                <tr>                    <th style="width:90%">Expert</th>                    <th style="width:10%" class="text-center">                    </th>                </tr>            </ng-template>            <ng-template pTemplate="body" let-expert let-ri="rowIndex">                <tr>                    <td [pTooltip]="(ri+1) + \' - \' + expert.name">                        {{expert.name.length>15 ? (expert.name | slice:0:15) : expert.name}}                    </td>                    <td>                        <div class="flex align-items-center justify-content-center">                            <i-tabler name="trash" class="ml-1 cursor-pointer" pTooltip="Quitar experto" (click)="                            removeExpert(expert._id)" *ngIf="allowEdit"></i-tabler>                        </div>                    </td>                </tr>            </ng-template>        </p-table>    </div>    <p-divider></p-divider>    <div class="w-full px-6" *ngIf="allowFiles">        <!-- <div class="flex flex-row align-items-center justify-content-center">            <h3 class="mt-0 mb-1">Archivos</h3>        </div> -->        <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="!allowEdit">            <ng-template pTemplate="toolbar">                <p-checkbox [binary]="true" [label]="\'Se habilitará la opción para que los participantes puedan visualizar los archivos.\'" [(ngModel)]="extra_options.allow_viewFiles" inputId="allowViewFiles" [disabled]="!allowEdit"></p-checkbox>            </ng-template>            <ng-template let-file pTemplate="file">                <div></div>            </ng-template>            <ng-template pTemplate="content">                <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">                    <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>                    <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>                    <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>                    <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)" *ngIf="allowEdit"></fa-icon>                </div>            </ng-template>        </p-fileUpload>    </div>    <div class="flex align-items-center justify-content-center">        <ng-container *ngIf="!editingEvent; else editButton">            <p-button type="submit" label="Crear" (onClick)="createEvent()" [disabled]="event.invalid || !allowEdit" styleClass="  border-round-2xl my-2 p-3 bg-primary"></p-button>        </ng-container>        <ng-template #editButton>            <p-button type="submit" label="Guardar cambios" (onClick)="eventEdit()" [disabled]="event.invalid || !allowEdit" styleClass="  border-round-2xl my-2 p-3 bg-primary"></p-button>        </ng-template>    </div></ng-template><p-overlayPanel #opTeamCoach [dismissable]="false" [showCloseIcon]="true" [style]="{\'width\':\'500px\'}">    <ng-template pTemplate>        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">            <div class="formgrid grid col-10">                <div class="field col-12 md:col-12 pt-3" style="max-width: 400px;">                    <div class="flex">                        <span class="p-float-label" style="width: 100%">                            <p-multiSelect inputId="dropdownTeamCoach" [options]="teamCoachList" optionLabel="name" selectedItemsLabel="{0} Experto(s)" [style]="{ width: \'100%\' }" appendTo="body" display="chip" [(ngModel)]="selectedTeamCoach"></p-multiSelect>                            <label for="dropdownTeamCoach">Team Coach(s)</label>                        </span>                    </div>                </div>            </div>            <p-button class="h-2rem ml-2 p-button-raised field col-2" type="button" icon="pi pi-check" label="" pTooltip="Aceptar" (onClick)="addTeamCoach(); opTeamCoach.hide()">            </p-button>        </div>    </ng-template></p-overlayPanel><p-overlayPanel #opExperts [dismissable]="false" [showCloseIcon]="true" [style]="{\'width\':\'500px\'}">    <ng-template pTemplate>        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">            <div class="formgrid grid col-10">                <div class="field col-12 md:col-12 pt-3" style="max-width: 400px;">                    <div class="flex">                        <span class="p-float-label" style="width: 100%">                            <p-multiSelect inputId="dropdownExperts" [options]="expertsList" optionLabel="name" selectedItemsLabel="{0} Experto(s)" [style]="{ width: \'100%\' }" appendTo="body" display="chip" [(ngModel)]="selectedExperts"></p-multiSelect>                            <label for="dropdownExperts">Experto(s)</label>                        </span>                    </div>                </div>            </div>            <p-button class="h-2rem ml-2 p-button-raised field col-2" type="button" icon="pi pi-check" label="" pTooltip="Aceptar" (onClick)="addExperts(); opExperts.hide()">            </p-button>        </div>    </ng-template></p-overlayPanel><p-overlayPanel #opParticipants [dismissable]="false" [showCloseIcon]="true" [style]="{\'width\':\'500px\'}">    <ng-template pTemplate>        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">            <div class="formgrid grid col-10">                <div class="field col-12 md:col-12 pt-3" style="max-width: 400px;">                    <div class="flex">                        <span class="p-float-label" style="width: 100%">                            <p-multiSelect inputId="dropdownParticipants" [options]="entrepreneurList" optionLabel="name" selectedItemsLabel="{0} Participante(s)" [style]="{ width: \'100%\' }" appendTo="body" display="chip" [(ngModel)]="selectedParticipants"></p-multiSelect>                            <label for="dropdownParticipants">Participante(s)</label>                        </span>                    </div>                </div>            </div>            <p-button class="h-2rem ml-2 p-button-raised field col-2" type="button" icon="pi pi-check" label="" pTooltip="Aceptar" (onClick)="addParticipant(); opParticipants.hide()">            </p-button>        </div>    </ng-template></p-overlayPanel><p-overlayPanel #opStartUps [dismissable]="false" [showCloseIcon]="true" [style]="{\'width\':\'500px\'}">    <ng-template pTemplate>        <div class="flex flex-row grid align-content-center align-items-center justify-content-center">            <div class="formgrid grid col-10">                <div class="field col-12 md:col-12 pt-3" style="max-width: 400px;">                    <div class="flex">                        <span class="p-float-label" style="width: 100%">                            <p-multiSelect inputId="dropdownStartups" [options]="startupsList" optionLabel="name" selectedItemsLabel="{0} Startups" [style]="{ width: \'100%\' }" appendTo="body" display="chip" [(ngModel)]="selectedStartups"></p-multiSelect>                            <label for="dropdownStartups">StartUp(s)</label>                        </span>                    </div>                </div>            </div>            <p-button class="h-2rem ml-2 p-button-raised field col-2" type="button" icon="pi pi-check" label="" pTooltip="Aceptar" (onClick)="addStartup(); opStartUps.hide()">            </p-button>        </div>    </ng-template></p-overlayPanel></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EventCreatorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EventCreatorComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

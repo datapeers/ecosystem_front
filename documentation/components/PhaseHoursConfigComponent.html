@@ -1,0 +1,1949 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PhaseHoursConfigComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/phases/phase-hours-config/phase-hours-config.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-phase-hours-config</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./phase-hours-config.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./phase-hours-config.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activitiesConfig" >activitiesConfig</a>
+                            </li>
+                            <li>
+                                <a href="#activitiesExpert" >activitiesExpert</a>
+                            </li>
+                            <li>
+                                <a href="#activitiesTeamCoach" >activitiesTeamCoach</a>
+                            </li>
+                            <li>
+                                <a href="#changesExperts" >changesExperts</a>
+                            </li>
+                            <li>
+                                <a href="#changesStartups" >changesStartups</a>
+                            </li>
+                            <li>
+                                <a href="#changesTeamCoaches" >changesTeamCoaches</a>
+                            </li>
+                            <li>
+                                <a href="#columnsExpertsHours" >columnsExpertsHours</a>
+                            </li>
+                            <li>
+                                <a href="#columnsTeamCoachesHours" >columnsTeamCoachesHours</a>
+                            </li>
+                            <li>
+                                <a href="#idTeamCoachActivities" >idTeamCoachActivities</a>
+                            </li>
+                            <li>
+                                <a href="#listExperts" >listExperts</a>
+                            </li>
+                            <li>
+                                <a href="#listStartups" >listStartups</a>
+                            </li>
+                            <li>
+                                <a href="#listTeamCoaches" >listTeamCoaches</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#phase" >phase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#sanitizer" >sanitizer</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                            <li>
+                                <a href="#showActivityConfig" >showActivityConfig</a>
+                            </li>
+                            <li>
+                                <a href="#typesActivities" >typesActivities</a>
+                            </li>
+                            <li>
+                                <a href="#urlSafe" >urlSafe</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                            <li>
+                                <a href="#watchConfig$" >watchConfig$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveConfig" >saveConfig</a>
+                            </li>
+                            <li>
+                                <a href="#setLists" >setLists</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateCalcHours" >updateCalcHours</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateConfig" >updateConfig</a>
+                            </li>
+                            <li>
+                                <a href="#updateExpertAssign" >updateExpertAssign</a>
+                            </li>
+                            <li>
+                                <a href="#updateStartupsAssign" >updateStartupsAssign</a>
+                            </li>
+                            <li>
+                                <a href="#updateTeamCoachAssign" >updateTeamCoachAssign</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#userPermission" >userPermission</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(sanitizer: DomSanitizer, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, service: <a href="../injectables/PhaseHourConfigService.html" target="_self">PhaseHourConfigService</a>, activitiesTypesService: <a href="../injectables/PhaseEventsService.html" target="_self">PhaseEventsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:84</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>sanitizer</td>
+                                                  
+                                                        <td>
+                                                                    <code>DomSanitizer</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseHourConfigService.html" target="_self" >PhaseHourConfigService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>activitiesTypesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseEventsService.html" target="_self" >PhaseEventsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveConfig"></a>
+                    <span class="name">
+                        <span ><b>saveConfig</b></span>
+                        <a href="#saveConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveConfig()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setLists"></a>
+                    <span class="name">
+                        <span ><b>setLists</b></span>
+                        <a href="#setLists"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setLists()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateCalcHours"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateCalcHours</b></span>
+                        <a href="#updateCalcHours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateCalcHours()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateConfig"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateConfig</b></span>
+                        <a href="#updateConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateConfig()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateExpertAssign"></a>
+                    <span class="name">
+                        <span ><b>updateExpertAssign</b></span>
+                        <a href="#updateExpertAssign"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateExpertAssign()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="244"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:244</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/IAssign.html" target="_self" >IAssign[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStartupsAssign"></a>
+                    <span class="name">
+                        <span ><b>updateStartupsAssign</b></span>
+                        <a href="#updateStartupsAssign"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateStartupsAssign()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="228"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:228</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/IAssign.html" target="_self" >IAssign[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateTeamCoachAssign"></a>
+                    <span class="name">
+                        <span ><b>updateTeamCoachAssign</b></span>
+                        <a href="#updateTeamCoachAssign"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateTeamCoachAssign()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="261"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:261</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/IAssign.html" target="_self" >IAssign[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activitiesConfig"></a>
+                    <span class="name">
+                        <span ><b>activitiesConfig</b></span>
+                        <a href="#activitiesConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/ActivitiesConfig.html" target="_self" >ActivitiesConfig</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activitiesExpert"></a>
+                    <span class="name">
+                        <span ><b>activitiesExpert</b></span>
+                        <a href="#activitiesExpert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IActivityConfigInput[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activitiesTeamCoach"></a>
+                    <span class="name">
+                        <span ><b>activitiesTeamCoach</b></span>
+                        <a href="#activitiesTeamCoach"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IActivityConfigInput[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changesExperts"></a>
+                    <span class="name">
+                        <span ><b>changesExperts</b></span>
+                        <a href="#changesExperts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changesStartups"></a>
+                    <span class="name">
+                        <span ><b>changesStartups</b></span>
+                        <a href="#changesStartups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changesTeamCoaches"></a>
+                    <span class="name">
+                        <span ><b>changesTeamCoaches</b></span>
+                        <a href="#changesTeamCoaches"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columnsExpertsHours"></a>
+                    <span class="name">
+                        <span ><b>columnsExpertsHours</b></span>
+                        <a href="#columnsExpertsHours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ColumnHour.html" target="_self" >ColumnHour[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      property: columnsHours.allocated,
+      label: columnsHoursLabels.allocated,
+      canEdit: true,
+    },
+    {
+      property: columnsHours.donated,
+      label: columnsHoursLabels.donated,
+      canEdit: false,
+    },
+    {
+      property: columnsHours.done,
+      label: columnsHoursLabels.done,
+      canEdit: false,
+    },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columnsTeamCoachesHours"></a>
+                    <span class="name">
+                        <span ><b>columnsTeamCoachesHours</b></span>
+                        <a href="#columnsTeamCoachesHours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ColumnHour.html" target="_self" >ColumnHour[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      property: columnsHours.allocated,
+      label: columnsHoursLabels.allocated,
+      canEdit: true,
+    },
+    {
+      property: columnsHours.done,
+      label: columnsHoursLabels.done,
+      canEdit: false,
+    },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="idTeamCoachActivities"></a>
+                    <span class="name">
+                        <span ><b>idTeamCoachActivities</b></span>
+                        <a href="#idTeamCoachActivities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;646f953cc2305c411d73f700&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listExperts"></a>
+                    <span class="name">
+                        <span ><b>listExperts</b></span>
+                        <a href="#listExperts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listStartups"></a>
+                    <span class="name">
+                        <span ><b>listStartups</b></span>
+                        <a href="#listStartups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listTeamCoaches"></a>
+                    <span class="name">
+                        <span ><b>listTeamCoaches</b></span>
+                        <a href="#listTeamCoaches"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phase"></a>
+                    <span class="name">
+                        <span ><b>phase</b></span>
+                        <a href="#phase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sanitizer"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>sanitizer</b></span>
+                        <a href="#sanitizer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DomSanitizer</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showActivityConfig"></a>
+                    <span class="name">
+                        <span ><b>showActivityConfig</b></span>
+                        <a href="#showActivityConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IActivityConfigInput[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="typesActivities"></a>
+                    <span class="name">
+                        <span ><b>typesActivities</b></span>
+                        <a href="#typesActivities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>TypeEvent[]</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="urlSafe"></a>
+                    <span class="name">
+                        <span ><b>urlSafe</b></span>
+                        <a href="#urlSafe"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="watchConfig$"></a>
+                    <span class="name">
+                        <span ><b>watchConfig$</b></span>
+                        <a href="#watchConfig$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userPermission"></a>
+                        <span class="name"><b>userPermission</b><a href="#userPermission"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userPermission()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/home/phases/phase-hours-config/phase-hours-config.component.ts:82</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { cloneDeep } from &#x27;@apollo/client/utilities&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { PhaseHourConfigService } from &#x27;./phase-hour-config.service&#x27;;
+import { Subscription, first, firstValueFrom, filter } from &#x27;rxjs&#x27;;
+import { Phase } from &#x27;../model/phase.model&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import {
+  ActivitiesConfig,
+  IActivityConfigInput,
+  IAssign,
+} from &#x27;./models/activities.model&#x27;;
+import { PhaseEventsService } from &#x27;../phase-events/phase-events.service&#x27;;
+
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import {
+  ColumnHour,
+  columnsHours,
+  columnsHoursLabels,
+} from &#x27;./models/columns-hours.enum&#x27;;
+import { TypeEvent } from &#x27;../phase-events/models/types-events.model&#x27;;
+import { DomSanitizer } from &#x27;@angular/platform-browser&#x27;;
+
+@Component({
+  selector: &#x27;app-phase-hours-config&#x27;,
+  templateUrl: &#x27;./phase-hours-config.component.html&#x27;,
+  styleUrls: [&#x27;./phase-hours-config.component.scss&#x27;],
+})
+export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
+  loaded &#x3D; false;
+  saving: boolean &#x3D; false;
+  activitiesConfig: ActivitiesConfig;
+  watchConfig$: Subscription;
+  phase: Phase;
+  typesActivities: TypeEvent[];
+  showActivityConfig: IActivityConfigInput[] &#x3D; [];
+  user: User;
+
+  listStartups &#x3D; [];
+  changesStartups &#x3D; [];
+
+  listExperts &#x3D; [];
+  changesExperts &#x3D; [];
+  columnsExpertsHours: ColumnHour[] &#x3D; [
+    {
+      property: columnsHours.allocated,
+      label: columnsHoursLabels.allocated,
+      canEdit: true,
+    },
+    {
+      property: columnsHours.donated,
+      label: columnsHoursLabels.donated,
+      canEdit: false,
+    },
+    {
+      property: columnsHours.done,
+      label: columnsHoursLabels.done,
+      canEdit: false,
+    },
+  ];
+  activitiesExpert: IActivityConfigInput[] &#x3D; [];
+
+  listTeamCoaches &#x3D; [];
+  changesTeamCoaches &#x3D; [];
+  columnsTeamCoachesHours: ColumnHour[] &#x3D; [
+    {
+      property: columnsHours.allocated,
+      label: columnsHoursLabels.allocated,
+      canEdit: true,
+    },
+    {
+      property: columnsHours.done,
+      label: columnsHoursLabels.done,
+      canEdit: false,
+    },
+  ];
+  idTeamCoachActivities &#x3D; [&#x27;646f953cc2305c411d73f700&#x27;];
+  activitiesTeamCoach: IActivityConfigInput[] &#x3D; [];
+  urlSafe;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+
+  constructor(
+    public sanitizer: DomSanitizer,
+    private store: Store&lt;AppState&gt;,
+    private readonly toast: ToastService,
+    private readonly service: PhaseHourConfigService,
+    private readonly activitiesTypesService: PhaseEventsService
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+    this.urlSafe &#x3D; this.sanitizer.bypassSecurityTrustResourceUrl(
+      &#x27;https://ecometabase.vinku.co/public/dashboard/2b8bf28e-a974-4948-80b9-ffff7df43d79&#x27;
+    );
+  }
+
+  ngOnInit() {
+    this.loadComponent();
+  }
+
+  ngOnDestroy() {
+    this.watchConfig$?.unsubscribe();
+  }
+
+  async loadComponent() {
+    this.phase &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.phase.phase)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.typesActivities &#x3D; (
+      await this.activitiesTypesService.getTypesEvents()
+    ).filter((x) &#x3D;&gt; !x.isDeleted);
+    this.watchConfig$ &#x3D; (
+      await this.service.watchConfig(this.phase._id)
+    ).subscribe(async (i) &#x3D;&gt; {
+      this.loaded &#x3D; false;
+      this.activitiesConfig &#x3D; cloneDeep(i);
+      console.log(this.activitiesConfig);
+
+      // Lists
+      this.listStartups &#x3D; this.activitiesConfig.calcHours.hoursAssignStartups;
+      this.listExperts &#x3D; this.activitiesConfig.calcHours.hoursAssignExperts;
+      this.listTeamCoaches &#x3D;
+        this.activitiesConfig.calcHours.hoursAssignTeamCoaches;
+
+      // Vars
+      let index &#x3D; 0;
+      this.setLists();
+      for (const activity of this.typesActivities) {
+        const prevConfig &#x3D; this.activitiesConfig.activities.find(
+          (i) &#x3D;&gt; i.id &#x3D;&#x3D;&#x3D; activity._id
+        );
+        const expertFocus &#x3D; activity.expertFocus;
+        const teamCoachFocus &#x3D; this.idTeamCoachActivities.includes(
+          activity._id
+        );
+        const configActivity: IActivityConfigInput &#x3D; {
+          id: activity._id,
+          limit: 0,
+          ...prevConfig,
+          activityName: activity.name,
+          expertFocus,
+          teamCoachFocus,
+        };
+        delete configActivity[&#x27;__typename&#x27;];
+        this.showActivityConfig.push(configActivity);
+        index++;
+
+        if (expertFocus) this.activitiesExpert.push(configActivity);
+        if (teamCoachFocus) this.activitiesTeamCoach.push(configActivity);
+      }
+      this.loaded &#x3D; true;
+    });
+  }
+
+  setLists() {
+    // Lists
+    this.showActivityConfig &#x3D; [];
+    this.activitiesExpert &#x3D; [];
+    this.activitiesTeamCoach &#x3D; [];
+
+    // Changes
+    this.changesStartups &#x3D; [];
+    this.changesExperts &#x3D; [];
+    this.changesTeamCoaches &#x3D; [];
+  }
+
+  saveConfig() {
+    this.saving &#x3D; true;
+    this.updateConfig();
+  }
+
+  async updateConfig() {
+    this.service
+      .updateConfig(this.activitiesConfig._id, {
+        activities: this.showActivityConfig.map((i) &#x3D;&gt;
+          this.service.setActivityToSave(i)
+        ),
+        experts: this.updateExpertAssign(),
+        teamCoaches: this.updateTeamCoachAssign(),
+        startups: this.updateStartupsAssign(),
+        limit: this.activitiesConfig.limit,
+      })
+      .then((res) &#x3D;&gt; {
+        if (res) {
+          this.toast.success({
+            summary: &#x27;Éxito&#x27;,
+            detail: &#x27;Configuración guardada&#x27;,
+          });
+        }
+      })
+      .catch((reason) &#x3D;&gt; {
+        console.error(reason);
+        this.toast.error({
+          summary: &#x27;Error&#x27;,
+          detail: &#x27;Ocurrió un error al intentar guardar la configuración&#x27;,
+        });
+      })
+      .finally(() &#x3D;&gt; {
+        this.saving &#x3D; false;
+      });
+  }
+
+  async updateCalcHours() {
+    let totalHours &#x3D; 0;
+    this.activitiesExpert &#x3D; [];
+    this.activitiesTeamCoach &#x3D; [];
+    for (const configActivity of this.showActivityConfig) {
+      totalHours +&#x3D; configActivity.limit;
+      if (configActivity.expertFocus)
+        this.activitiesExpert.push(configActivity);
+      if (configActivity.teamCoachFocus)
+        this.activitiesTeamCoach.push(configActivity);
+    }
+    this.showActivityConfig &#x3D; [...this.showActivityConfig];
+    this.activitiesExpert &#x3D; [...this.activitiesExpert];
+    this.activitiesTeamCoach &#x3D; [...this.activitiesTeamCoach];
+    this.activitiesConfig.limit &#x3D; totalHours;
+  }
+
+  updateStartupsAssign(): IAssign[] {
+    const ans: IAssign[] &#x3D; [];
+    for (const activity of this.showActivityConfig) {
+      for (const startup of this.listStartups) {
+        const config &#x3D; this.service.configOrChangeStartup(
+          activity,
+          startup,
+          this.activitiesConfig,
+          this.changesStartups
+        );
+        if (config) ans.push(config);
+      }
+    }
+    return ans;
+  }
+
+  updateExpertAssign(): IAssign[] {
+    const ans: IAssign[] &#x3D; [];
+    for (const activity of this.activitiesExpert) {
+      for (const expert of this.listExperts) {
+        const config &#x3D; this.service.configOrChangeEntity(
+          activity,
+          expert,
+          this.activitiesConfig,
+          this.changesExperts,
+          &#x27;experts&#x27;
+        );
+        if (config) ans.push(config);
+      }
+    }
+    return ans;
+  }
+
+  updateTeamCoachAssign(): IAssign[] {
+    const ans: IAssign[] &#x3D; [];
+    for (const activity of this.activitiesTeamCoach) {
+      for (const teamCoach of this.listTeamCoaches) {
+        const config &#x3D; this.service.configOrChangeEntity(
+          activity,
+          teamCoach,
+          this.activitiesConfig,
+          this.changesTeamCoaches,
+          &#x27;teamCoaches&#x27;
+        );
+        if (config) ans.push(config);
+      }
+    }
+    return ans;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;loaded else loadingTemplate&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column xl:flex-row gap-4 align-items-end px-4&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-column gap-3 flex-grown-1 &quot;&gt;
+            &lt;h3&gt;Configuración bolsa de horas&lt;/h3&gt;
+            &lt;div class&#x3D;&quot;flex gap-2 w-10&quot;&gt;
+                &lt;i-tabler class&#x3D;&quot;text-center&quot; name&#x3D;&quot;bulb&quot; style&#x3D;&quot;color:#18E4E6; height:2rem; width:2rem;&quot;&gt;&lt;/i-tabler&gt;
+                &lt;p class&#x3D;&quot;th2&quot;&gt;Asigna la cantidad de horas objetivo para cada las actividades dentro del batch, asigna horas tanto a startups como experts y team coach.
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3&quot;&gt;
+            &lt;p-button *ngIf&#x3D;&quot;activitiesConfig&quot; label&#x3D;&quot;Guardar cambios&quot; class&#x3D;&quot;mx-3&quot; (click)&#x3D;&quot;updateConfig()&quot;&gt;&lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-tabView styleClass&#x3D;&quot;ml-4 mr-4 mt-2&quot;&gt;
+        &lt;p-tabPanel header&#x3D;&quot;Actividades&quot; *ngIf&#x3D;&quot;user?.allowed(userPermission.hours_edit_activities)&quot;&gt;
+            &lt;div class&#x3D;&quot;px-4 pb-4 border-round&quot;&gt;
+                &lt;div class&#x3D;&quot;card w-full flex flex-column justify-content-center align-items-center&quot;&gt;
+                    &lt;p class&#x3D;&quot;font-bold&quot;&gt;Horas globales&lt;/p&gt;
+                    &lt;p-knob [(ngModel)]&#x3D;&quot;activitiesConfig.limit&quot; [readonly]&#x3D;&quot;true&quot;&gt;&lt;/p-knob&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex flex-wrap gap-3 p-fluid pt-2&quot;&gt;
+                    &lt;ng-container *ngFor&#x3D;&quot;let item of showActivityConfig&quot;&gt;
+                        &lt;div class&#x3D;&quot;app-input-field&quot;&gt;
+                            &lt;label [for]&#x3D;&quot;&#x27;config&#x27; + item.id&quot; class&#x3D;&quot;font-bold&quot;&gt;{{item.activityName}} &lt;/label&gt;
+                            &lt;p-inputNumber [(ngModel)]&#x3D;&quot;item.limit&quot; [min]&#x3D;&quot;0&quot; suffix&#x3D;&quot; hora(s)&quot; (ngModelChange)&#x3D;&quot;updateCalcHours()&quot; [showButtons]&#x3D;&quot;true&quot; [inputId]&#x3D;&quot;&#x27;config&#x27; + item.id&quot;&gt; &lt;/p-inputNumber&gt;
+                        &lt;/div&gt;
+                    &lt;/ng-container&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header&#x3D;&quot;Startups&quot; *ngIf&#x3D;&quot;!phase.basePhase &amp;&amp; user?.allowed(userPermission.hours_edit_startups)&quot;&gt;
+            &lt;app-assign-startups-hours class&#x3D;&quot;h-full w-full&quot; [config]&#x3D;&quot;activitiesConfig&quot; [listStartups]&#x3D;&quot;listStartups&quot; [activitiesConfig]&#x3D;&quot;showActivityConfig&quot; [changes]&#x3D;&quot;changesStartups&quot;&gt; &lt;/app-assign-startups-hours&gt;
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header&#x3D;&quot;Expertos&quot; *ngIf&#x3D;&quot;!phase.basePhase &amp;&amp; user?.allowed(userPermission.hours_edit_experts)&quot;&gt;
+            &lt;app-assign-hours class&#x3D;&quot;h-full w-full&quot; [config]&#x3D;&quot;activitiesConfig&quot; [list]&#x3D;&quot;listExperts&quot; [activitiesConfig]&#x3D;&quot;activitiesExpert&quot; [changes]&#x3D;&quot;changesExperts&quot; [type]&#x3D;&quot;&#x27;experts&#x27;&quot; [columnsHours]&#x3D;&quot;columnsExpertsHours&quot;&gt;&lt;/app-assign-hours&gt;
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header&#x3D;&quot;Team Coach&quot; *ngIf&#x3D;&quot;!phase.basePhase &amp;&amp; user?.allowed(userPermission.hours_edit_startups)&quot;&gt;
+            &lt;app-assign-hours class&#x3D;&quot;h-full w-full&quot; [config]&#x3D;&quot;activitiesConfig&quot; [list]&#x3D;&quot;listTeamCoaches&quot; [activitiesConfig]&#x3D;&quot;activitiesTeamCoach&quot; [changes]&#x3D;&quot;changesTeamCoaches&quot; [type]&#x3D;&quot;&#x27;teamCoaches&#x27;&quot; [columnsHours]&#x3D;&quot;columnsTeamCoachesHours&quot;&gt;&lt;/app-assign-hours&gt;
+        &lt;/p-tabPanel&gt;
+
+        &lt;p-tabPanel header&#x3D;&quot;Reporte&quot;&gt;
+            &lt;div class&#x3D;&quot;iframe-container&quot;&gt;
+                &lt;iframe frameBorder&#x3D;&quot;0&quot; [src]&#x3D;&quot;urlSafe&quot;&gt;&lt;/iframe&gt;
+            &lt;/div&gt;
+
+        &lt;/p-tabPanel&gt;
+    &lt;/p-tabView&gt;
+
+&lt;/ng-container&gt;
+
+&lt;ng-template #loadingTemplate&gt;
+    &lt;app-loading&gt;&lt;/app-loading&gt;
+&lt;/ng-template&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./phase-hours-config.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.iframe-container {
+  height: 65vh;
+}
+
+iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="loaded else loadingTemplate">    <div class="flex flex-column xl:flex-row gap-4 align-items-end px-4">        <div class="flex flex-column gap-3 flex-grown-1 ">            <h3>Configuración bolsa de horas</h3>            <div class="flex gap-2 w-10">                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>                <p class="th2">Asigna la cantidad de horas objetivo para cada las actividades dentro del batch, asigna horas tanto a startups como experts y team coach.                </p>            </div>        </div>        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3">            <p-button *ngIf="activitiesConfig" label="Guardar cambios" class="mx-3" (click)="updateConfig()"></p-button>        </div>    </div>    <p-tabView styleClass="ml-4 mr-4 mt-2">        <p-tabPanel header="Actividades" *ngIf="user?.allowed(userPermission.hours_edit_activities)">            <div class="px-4 pb-4 border-round">                <div class="card w-full flex flex-column justify-content-center align-items-center">                    <p class="font-bold">Horas globales</p>                    <p-knob [(ngModel)]="activitiesConfig.limit" [readonly]="true"></p-knob>                </div>                <div class="flex flex-wrap gap-3 p-fluid pt-2">                    <ng-container *ngFor="let item of showActivityConfig">                        <div class="app-input-field">                            <label [for]="\'config\' + item.id" class="font-bold">{{item.activityName}} </label>                            <p-inputNumber [(ngModel)]="item.limit" [min]="0" suffix=" hora(s)" (ngModelChange)="updateCalcHours()" [showButtons]="true" [inputId]="\'config\' + item.id"> </p-inputNumber>                        </div>                    </ng-container>                </div>            </div>        </p-tabPanel>        <p-tabPanel header="Startups" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">            <app-assign-startups-hours class="h-full w-full" [config]="activitiesConfig" [listStartups]="listStartups" [activitiesConfig]="showActivityConfig" [changes]="changesStartups"> </app-assign-startups-hours>        </p-tabPanel>        <p-tabPanel header="Expertos" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_experts)">            <app-assign-hours class="h-full w-full" [config]="activitiesConfig" [list]="listExperts" [activitiesConfig]="activitiesExpert" [changes]="changesExperts" [type]="\'experts\'" [columnsHours]="columnsExpertsHours"></app-assign-hours>        </p-tabPanel>        <p-tabPanel header="Team Coach" *ngIf="!phase.basePhase && user?.allowed(userPermission.hours_edit_startups)">            <app-assign-hours class="h-full w-full" [config]="activitiesConfig" [list]="listTeamCoaches" [activitiesConfig]="activitiesTeamCoach" [changes]="changesTeamCoaches" [type]="\'teamCoaches\'" [columnsHours]="columnsTeamCoachesHours"></app-assign-hours>        </p-tabPanel>        <p-tabPanel header="Reporte">            <div class="iframe-container">                <iframe frameBorder="0" [src]="urlSafe"></iframe>            </div>        </p-tabPanel>    </p-tabView></ng-container><ng-template #loadingTemplate>    <app-loading></app-loading></ng-template></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PhaseHoursConfigComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PhaseHoursConfigComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

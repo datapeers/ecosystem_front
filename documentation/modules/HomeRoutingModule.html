@@ -1,0 +1,490 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content module">
+                   <div class="content-data">
+
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Modules</li>
+    <li class="breadcrumb-item" >HomeRoutingModule</li>
+</ol>
+
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a href="#info" 
+            class="nav-link"
+            class="nav-link active"
+            role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+    </li>
+    <li class="nav-item">
+        <a href="#source" 
+            class="nav-link"
+            
+            role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/home/home-routing.module.ts</code>
+        </p>
+
+
+
+
+
+        <div class="container-fluid module">
+            <div class="row">
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
+import { ExtraOptions, RouterModule, Routes } from &#x27;@angular/router&#x27;;
+import { HomeComponent } from &#x27;./home.component&#x27;;
+import { RoleGuard } from &#x27;@auth/guards/role.guard&#x27;;
+import { ValidRoles } from &#x27;@auth/models/valid-roles.enum&#x27;;
+import { PhasesComponent } from &#x27;./phases/phases.component&#x27;;
+import { PhasesConfigComponent } from &#x27;./phases/phases-config/phases-config.component&#x27;;
+import { ProfileComponent } from &#x27;@shared/components/profile/profile.component&#x27;;
+import { PhasesEditComponent } from &#x27;./phases/phases-edit/phases-edit.component&#x27;;
+import { PhaseLoadComponent } from &#x27;./phases/phase-load/phase-load.component&#x27;;
+import { PhaseContentComponent } from &#x27;./phases/phase-content/phase-content.component&#x27;;
+import { PhaseContentViewComponent } from &#x27;./phases/phase-content/phase-content-view/phase-content-view.component&#x27;;
+import { FormsComponent } from &#x27;./forms/forms.component&#x27;;
+import { EntrepreneursComponent } from &#x27;./entrepreneurs/entrepreneurs.component&#x27;;
+import { StartupsComponent } from &#x27;./startups/startups.component&#x27;;
+import { InvestorsComponent } from &#x27;./investors/investors.component&#x27;;
+import { ExpertsComponent } from &#x27;./experts/experts.component&#x27;;
+import { AnnouncementsComponent } from &#x27;./announcements/announcements.component&#x27;;
+import { AnnouncementLoadComponent } from &#x27;./announcements/announcement-load/announcement-load.component&#x27;;
+import { AnnouncementEditComponent } from &#x27;./announcements/announcement-edit/announcement-edit.component&#x27;;
+import { PhaseHoursConfigComponent } from &#x27;./phases/phase-hours-config/phase-hours-config.component&#x27;;
+import { PhaseEventsComponent } from &#x27;./phases/phase-events/phase-events.component&#x27;;
+import { BusinessesComponent } from &#x27;./businesses/businesses.component&#x27;;
+import { ApplicantsComponent } from &#x27;./announcements/applicants/applicants.component&#x27;;
+import { PhaseExpertsComponent } from &#x27;./phases/phase-experts/phase-experts.component&#x27;;
+import { PhaseStartupsComponent } from &#x27;./phases/phase-startups/phase-startups.component&#x27;;
+import { CommunitiesComponent } from &#x27;./communities/communities.component&#x27;;
+import { SiteManagementComponent } from &#x27;./site-management/site-management.component&#x27;;
+import { SiteServicesManagementComponent } from &#x27;./site-management/site-services-management/site-services-management.component&#x27;;
+import { ValidateParticipationComponent } from &#x27;./phases/phase-events/validate-participation/validate-participation.component&#x27;;
+import { PhaseEvaluationsComponent } from &#x27;./phases/phase-evaluations/phase-evaluations.component&#x27;;
+import { CalendarComponent } from &#x27;./calendar/calendar.component&#x27;;
+import { PhaseHomeworksComponent } from &#x27;./phases/phase-homeworks/phase-homeworks.component&#x27;;
+import { ToolkitComponent } from &#x27;./toolkit/toolkit.component&#x27;;
+import { ContentsComponent } from &#x27;./contents/contents.component&#x27;;
+import { InitComponent } from &#x27;./init/init.component&#x27;;
+import { HelpdeskComponent } from &#x27;./helpdesk/helpdesk.component&#x27;;
+import { RouteComponent } from &#x27;./route/route.component&#x27;;
+import { StagesComponent } from &#x27;./phases/stages/stages.component&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { StartupProfileComponent } from &#x27;./startup-profile/startup-profile.component&#x27;;
+import { ConfigurationComponent } from &#x27;./configuration/configuration.component&#x27;;
+import { RouteStageDescriptionComponent } from &#x27;./route-stage-description/route-stage-description.component&#x27;;
+import { StartupInvitationComponent } from &#x27;./startup-profile/startup-invitation/startup-invitation.component&#x27;;
+import { ReportsComponent } from &#x27;./reports/reports.component&#x27;;
+
+const routes: Routes &#x3D; [
+  {
+    path: &#x27;&#x27;,
+    component: HomeComponent,
+    children: [
+      {
+        path: &#x27;&#x27;,
+        redirectTo: &#x27;inicio&#x27;,
+        pathMatch: &#x27;full&#x27;,
+      },
+      {
+        path: &#x27;admin&#x27;,
+        canMatch: [RoleGuard],
+        data: {
+          roles: [ValidRoles.admin, ValidRoles.superAdmin],
+        },
+        loadChildren: () &#x3D;&gt;
+          &quot;import(&#x27;../admin/admin.module&#x27;).then((m) &#x3D;&gt; m.AdminModule)&quot;,
+      },
+      {
+        path: &#x27;inicio&#x27;,
+        component: InitComponent,
+      },
+      {
+        path: &#x27;profile&#x27;,
+        component: ProfileComponent,
+      },
+      {
+        path: &#x27;forms&#x27;,
+        component: FormsComponent,
+      },
+      {
+        path: &#x27;settings&#x27;,
+        component: ConfigurationComponent,
+      },
+      {
+        path: &#x27;entrepreneurs&#x27;,
+        component: EntrepreneursComponent,
+      },
+      {
+        path: &#x27;entrepreneursProspects&#x27;,
+        component: EntrepreneursComponent,
+      },
+      {
+        path: &#x27;businesses&#x27;,
+        component: BusinessesComponent,
+      },
+      {
+        path: &#x27;startups&#x27;,
+        component: StartupsComponent,
+      },
+      {
+        path: &#x27;startupsProspects&#x27;,
+        component: StartupsComponent,
+      },
+      {
+        path: &#x27;investors&#x27;,
+        component: InvestorsComponent,
+      },
+      {
+        path: &#x27;experts&#x27;,
+        component: ExpertsComponent,
+      },
+      {
+        path: &#x27;expertsProspects&#x27;,
+        component: ExpertsComponent,
+      },
+      {
+        path: &#x27;communities&#x27;,
+        component: CommunitiesComponent,
+      },
+      {
+        path: &#x27;route&#x27;,
+        children: [
+          {
+            path: &#x27;&#x27;,
+            component: RouteComponent,
+          },
+          {
+            path: &#x27;stage&#x27;,
+            component: RouteStageDescriptionComponent,
+          },
+        ],
+      },
+      {
+        path: &#x27;startup&#x27;,
+        component: StartupProfileComponent,
+      },
+      {
+        path: &#x27;startup_invitation/:startupId&#x27;,
+        component: StartupInvitationComponent,
+      },
+      {
+        path: &#x27;helpdesk&#x27;,
+        component: HelpdeskComponent,
+      },
+      {
+        path: &#x27;calendar&#x27;,
+        component: CalendarComponent,
+      },
+
+      {
+        path: &#x27;site_management&#x27;,
+        children: [
+          {
+            path: &#x27;&#x27;,
+            component: SiteManagementComponent,
+          },
+          {
+            path: &#x27;:id&#x27;,
+            component: SiteServicesManagementComponent,
+          },
+        ],
+      },
+      {
+        path: &#x27;participation/:id&#x27;,
+        component: ValidateParticipationComponent,
+      },
+      {
+        path: &#x27;announcements&#x27;,
+        children: [
+          {
+            path: &#x27;&#x27;,
+            component: AnnouncementsComponent,
+          },
+          {
+            path: &#x27;:id&#x27;,
+            component: AnnouncementLoadComponent,
+            children: [
+              {
+                path: &#x27;edit&#x27;,
+                component: AnnouncementEditComponent,
+              },
+              {
+                path: &#x27;applicants/:state&#x27;,
+                component: ApplicantsComponent,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: &#x27;contents&#x27;,
+        component: ContentsComponent,
+      },
+      {
+        path: &#x27;toolkit&#x27;,
+        component: ToolkitComponent,
+      },
+      {
+        path: &#x27;reports&#x27;,
+        component: ReportsComponent,
+      },
+      {
+        // TODO: Add guards or modules if required
+        path: &#x27;phases&#x27;,
+        children: [
+          {
+            path: &#x27;&#x27;,
+            component: PhasesComponent,
+          },
+          {
+            path: &#x27;config&#x27;,
+            component: PhasesConfigComponent,
+          },
+          {
+            path: &#x27;stages&#x27;,
+            component: StagesComponent,
+          },
+          {
+            path: &#x27;:id&#x27;,
+            component: PhaseLoadComponent,
+            children: [
+              {
+                path: &#x27;edit&#x27;,
+                component: PhasesEditComponent,
+              },
+              {
+                path: &#x27;content&#x27;,
+                children: [
+                  {
+                    path: &#x27;&#x27;,
+                    component: PhaseContentComponent,
+                  },
+                  {
+                    path: &#x27;:idContent&#x27;,
+                    component: PhaseContentViewComponent,
+                  },
+                ],
+              },
+              {
+                path: &#x27;bag-hours&#x27;,
+                component: PhaseHoursConfigComponent,
+              },
+              {
+                path: &#x27;events&#x27;,
+                component: PhaseEventsComponent,
+              },
+              {
+                path: &#x27;experts&#x27;,
+                component: PhaseExpertsComponent,
+              },
+              {
+                path: &#x27;startups&#x27;,
+                component: PhaseStartupsComponent,
+              },
+              {
+                path: &#x27;evaluations&#x27;,
+                component: PhaseEvaluationsComponent,
+              },
+              {
+                path: &#x27;homeworks&#x27;,
+                component: PhaseHomeworksComponent,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class HomeRoutingModule {}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'module';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomeRoutingModule.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

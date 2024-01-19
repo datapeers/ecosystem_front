@@ -1,0 +1,1724 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TableConfigComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/components/dynamic-table/table-config/table-config.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-table-config</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./table-config.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./table-config.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#_selectedColumns" >_selectedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#columnGroups" >columnGroups</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                <a href="#config$" >config$</a>
+                            </li>
+                            <li>
+                                <a href="#context" >context</a>
+                            </li>
+                            <li>
+                                <a href="#joins" >joins</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#options" >options</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#ref" >ref</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                            <li>
+                                <a href="#selected" >selected</a>
+                            </li>
+                            <li>
+                                <a href="#table" >table</a>
+                            </li>
+                            <li>
+                                <a href="#tableConfig" >tableConfig</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addColumns" >addColumns</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addJoin" >addJoin</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#removeColumns" >removeColumns</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeJoin" >removeJoin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveChanges" >saveChanges</a>
+                            </li>
+                            <li>
+                                <a href="#toggleColumn" >toggleColumn</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#selectedColumns" >selectedColumns</a>
+                                </li>
+                                <li>
+                                    <a href="#availableKeys" >availableKeys</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(ref: DynamicDialogRef, config: DynamicDialogConfig, dynamicTableService: <a href="../injectables/DynamicTableService.html" target="_self">DynamicTableService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>ref</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>config</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dynamicTableService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DynamicTableService.html" target="_self" >DynamicTableService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addColumns"></a>
+                    <span class="name">
+                        <span ><b>addColumns</b></span>
+                        <a href="#addColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addColumns(columns: any[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addJoin"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>addJoin</b></span>
+                        <a href="#addJoin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addJoin(join: <a href="../interfaces/TableJoin.html" target="_self">TableJoin</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>join</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TableJoin.html" target="_self" >TableJoin</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeColumns"></a>
+                    <span class="name">
+                        <span ><b>removeColumns</b></span>
+                        <a href="#removeColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeColumns(columns: any[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columns</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeJoin"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>removeJoin</b></span>
+                        <a href="#removeJoin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeJoin(group: <a href="../interfaces/ColumnGroup.html" target="_self">ColumnGroup</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>group</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ColumnGroup.html" target="_self" >ColumnGroup</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveChanges"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>saveChanges</b></span>
+                        <a href="#saveChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleColumn"></a>
+                    <span class="name">
+                        <span ><b>toggleColumn</b></span>
+                        <a href="#toggleColumn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleColumn(column)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:153</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>column</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_selectedColumns"></a>
+                    <span class="name">
+                        <span ><b>_selectedColumns</b></span>
+                        <a href="#_selectedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#TableColumns" target="_self" >TableColumns</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columnGroups"></a>
+                    <span class="name">
+                        <span ><b>columnGroups</b></span>
+                        <a href="#columnGroups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ColumnGroup.html" target="_self" >ColumnGroup[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DynamicDialogConfig</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config$"></a>
+                    <span class="name">
+                        <span ><b>config$</b></span>
+                        <a href="#config$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;DynamicDialogConfig&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="context"></a>
+                    <span class="name">
+                        <span ><b>context</b></span>
+                        <a href="#context"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#TableContext" target="_self" >TableContext</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="joins"></a>
+                    <span class="name">
+                        <span ><b>joins</b></span>
+                        <a href="#joins"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TableJoin.html" target="_self" >TableJoin[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="options"></a>
+                    <span class="name">
+                        <span ><b>options</b></span>
+                        <a href="#options"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TableOptions.html" target="_self" >TableOptions</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ref"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>ref</b></span>
+                        <a href="#ref"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DynamicDialogRef</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selected"></a>
+                    <span class="name">
+                        <span ><b>selected</b></span>
+                        <a href="#selected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string | boolean&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="table"></a>
+                    <span class="name">
+                        <span ><b>table</b></span>
+                        <a href="#table"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/DynamicTable.html" target="_self" >DynamicTable</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tableConfig"></a>
+                    <span class="name">
+                        <span ><b>tableConfig</b></span>
+                        <a href="#tableConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/TableConfig.html" target="_self" >TableConfig</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedColumns"></a>
+                        <span class="name"><b>selectedColumns</b><a href="#selectedColumns"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>selectedColumns()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:35</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>selectedColumns(value: <a href="../undefineds/TableColumns.html" target="_self">TableColumns</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:38</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="../miscellaneous/typealiases.html#TableColumns" target="_self" >TableColumns</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="availableKeys"></a>
+                        <span class="name"><b>availableKeys</b><a href="#availableKeys"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>availableKeys()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/shared/components/dynamic-table/table-config/table-config.component.ts:48</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { DynamicDialogConfig, DynamicDialogRef } from &#x27;primeng/dynamicdialog&#x27;;
+import {
+  ITableConfig,
+  TableColumns,
+  TableConfig,
+} from &#x27;../models/table-config&#x27;;
+import { DynamicTable } from &#x27;../models/dynamic-table&#x27;;
+import { TableContext } from &#x27;../models/table-context&#x27;;
+import { TableJoin } from &#x27;../models/table-join&#x27;;
+import { ColumnGroup } from &#x27;../models/column-group&#x27;;
+import { DynamicTableService } from &#x27;../dynamic-table.service&#x27;;
+import { Subject, takeUntil } from &#x27;rxjs&#x27;;
+import { TableOptions } from &#x27;../models/table-options&#x27;;
+
+@Component({
+  selector: &#x27;app-table-config&#x27;,
+  templateUrl: &#x27;./table-config.component.html&#x27;,
+  styleUrls: [&#x27;./table-config.component.scss&#x27;],
+})
+export class TableConfigComponent {
+  table: DynamicTable;
+  tableConfig: TableConfig;
+  context: TableContext;
+  options: TableOptions;
+  joins: TableJoin[];
+  loading &#x3D; true;
+  saving &#x3D; false;
+  columnGroups: ColumnGroup[];
+  config$: Subject&lt;DynamicDialogConfig&gt; &#x3D; new Subject();
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+
+  selected: Record&lt;string, boolean&gt; &#x3D; {};
+  _selectedColumns: TableColumns &#x3D; [];
+  get selectedColumns() {
+    return this._selectedColumns;
+  }
+  set selectedColumns(value: TableColumns) {
+    this._selectedColumns &#x3D; value;
+    this.selected &#x3D; value
+      .map((col) &#x3D;&gt; col.key)
+      .reduce((dict, key) &#x3D;&gt; {
+        dict[key] &#x3D; true;
+        return dict;
+      }, {});
+  }
+
+  get availableKeys() {
+    return this.columnGroups
+      .map((g) &#x3D;&gt; g.columns.map((c) &#x3D;&gt; c.key))
+      .reduce((accum, arr) &#x3D;&gt; {
+        arr.map((e) &#x3D;&gt; {
+          accum[e] &#x3D; true;
+        });
+        return accum;
+      }, {});
+  }
+
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig,
+    private readonly dynamicTableService: DynamicTableService
+  ) {
+    this.config$.pipe(takeUntil(this.onDestroy$)).subscribe((config) &#x3D;&gt; {
+      const { table, tableConfig, context, options } &#x3D; config.data;
+      this.table &#x3D; table;
+      this.tableConfig &#x3D; tableConfig;
+      this.context &#x3D; context;
+      this.options &#x3D; options;
+      const availableJoins &#x3D;
+        this.context?.joins?.filter(
+          (join) &#x3D;&gt; !table.joins.some((tableJoin) &#x3D;&gt; tableJoin.key &#x3D;&#x3D;&#x3D; join.key)
+        ) ?? [];
+      this.joins &#x3D; availableJoins;
+      const defaultGroup &#x3D; {
+        name: this.context.name,
+        columns: this.table.columns,
+      };
+      const tableColumnGroups &#x3D; this.table?.columnGroups ?? [];
+      const tableExtraColumns &#x3D; this.options.extraColumnsTable;
+      const extraColumnsGroup: ColumnGroup &#x3D; {
+        name: &#x27;Columnas Adicionales&#x27;,
+        columns: tableExtraColumns,
+      };
+      this.columnGroups &#x3D; [defaultGroup];
+      if (extraColumnsGroup.columns.length) {
+        this.columnGroups.push(extraColumnsGroup);
+      }
+      this.columnGroups.push(...tableColumnGroups);
+      this.selectedColumns &#x3D; [...this.tableConfig.columns];
+    });
+    this.config$.next(this.config);
+  }
+
+  ngOnInit(): void {}
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  async addJoin(join: TableJoin) {
+    const updatedTable &#x3D; await this.dynamicTableService.addTableJoin(
+      this.table._id,
+      join,
+      this.context.locator
+    );
+    this.config$.next({
+      ...this.config,
+      data: {
+        ...this.config.data,
+        table: updatedTable,
+      },
+    });
+  }
+
+  async removeJoin(group: ColumnGroup) {
+    const updatedTable &#x3D; await this.dynamicTableService.removeTableJoin(
+      this.table._id,
+      group.key,
+      this.context.locator
+    );
+    this.config$.next({
+      ...this.config,
+      data: {
+        ...this.config.data,
+        table: updatedTable,
+      },
+    });
+  }
+
+  async saveChanges() {
+    const updatedConfig: ITableConfig &#x3D; {
+      _id: this.tableConfig._id,
+      name: this.tableConfig.name,
+      columns: this.selectedColumns,
+    };
+    this.ref.close(updatedConfig);
+  }
+
+  addColumns(columns: any[]) {
+    this.removeColumns(columns);
+    this.selectedColumns &#x3D; this.selectedColumns.concat(columns);
+  }
+
+  removeColumns(columns: any[]) {
+    const columnsKeys &#x3D; columns.map((c) &#x3D;&gt; c.key);
+    this.selectedColumns &#x3D; this.selectedColumns.filter(
+      (c) &#x3D;&gt; !columnsKeys.includes(c.key)
+    );
+  }
+
+  toggleColumn(column) {
+    if (!this.selectedColumns.some((c) &#x3D;&gt; c.key &#x3D;&#x3D;&#x3D; column.key)) {
+      this.selectedColumns &#x3D; this.selectedColumns.concat([column]);
+    } else {
+      this.removeColumns([column]);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;main-column-grid gap-2 py-2&quot;&gt;
+  &lt;div class&#x3D;&quot;main-container-grid gap-2 p-2&quot;&gt;
+      &lt;div class&#x3D;&quot;flex flex-column shadow-custom border-round max-h-full overflow-y-auto overflow-x-hidden pr-2&quot;&gt;
+          &lt;p-orderList filterPlaceholder&#x3D;&quot;Buscar&quot; filterBy&#x3D;&quot;label&quot; dragdropScope&#x3D;&quot;nodes&quot; styleClass&#x3D;&quot;p-2 h-full&quot; [dragdrop]&#x3D;&quot;true&quot;
+          [value]&#x3D;&quot;selectedColumns&quot; [listStyle]&#x3D;&quot;{&#x27;overflow-y&#x27;: &#x27;auto&#x27;}&quot; header&#x3D;&quot;Columnas visibles&quot;&gt;
+              &lt;ng-template let-selectedColumn pTemplate&#x3D;&quot;item&quot;&gt;
+                  &lt;ng-container [ngTemplateOutlet]&#x3D;&quot;selectedCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{ column: selectedColumn }&quot;&gt;
+                  &lt;/ng-container&gt;
+              &lt;/ng-template&gt;
+              &lt;ng-template pTemplate&#x3D;&quot;empty&quot;&gt;
+                  &lt;span&gt;No hay columnas visibles&lt;/span&gt;
+              &lt;/ng-template&gt;
+          &lt;/p-orderList&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;shadow-custom border-round min-w-min flex flex-column gap-2 overflow-auto h-full p-2&quot;&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;columnGroups &amp;&amp; columnGroups.length &gt; 0 else noGroupsTemplate&quot;&gt;
+              &lt;ng-container *ngFor&#x3D;&quot;let group of columnGroups&quot;&gt;
+                  &lt;div *ngIf&#x3D;&quot;group.columns.length &gt; 0&quot; class&#x3D;&quot;flex flex-column gap-2 border-round p-2 shadow-1&quot;&gt;
+                      &lt;div class&#x3D;&quot;flex flex-row gap-2 justify-content-between&quot;&gt;
+                          &lt;span class&#x3D;&quot;flex flex-row gap-1 align-items-center&quot;&gt;
+                              &lt;i tooltipPosition&#x3D;&quot;top&quot; pTooltip&#x3D;&quot;Agregar todas&quot; class&#x3D;&quot;cursor-pointer hover:text-500 text-sm pi pi-plus&quot; (click)&#x3D;&quot;addColumns(group.columns)&quot;&gt;&lt;/i&gt;
+                              &lt;i tooltipPosition&#x3D;&quot;top&quot; pTooltip&#x3D;&quot;Remover todas&quot; class&#x3D;&quot;cursor-pointer hover:text-500 text-sm pi pi-minus&quot; (click)&#x3D;&quot;removeColumns(group.columns)&quot;&gt;&lt;/i&gt;
+                              &lt;span class&#x3D;&quot;font-semibold&quot;&gt;{{group.name}}&lt;/span&gt;
+                          &lt;/span&gt;
+                          &lt;i *ngIf&#x3D;&quot;group.key&quot; tooltipPosition&#x3D;&quot;left&quot; pTooltip&#x3D;&quot;Remover grupo&quot; class&#x3D;&quot;cursor-pointer hover:text-500 text-sm pi pi-times&quot; (click)&#x3D;&quot;removeJoin(group)&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class&#x3D;&quot;container-grid gap-2&quot;&gt;
+                      &lt;ng-container *ngFor&#x3D;&quot;let availableColumn of group.columns&quot;&gt;
+                          &lt;ng-container [ngTemplateOutlet]&#x3D;&quot;availableCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{ column: availableColumn }&quot;&gt;
+                          &lt;/ng-container&gt;
+                      &lt;/ng-container&gt;
+                      &lt;/div&gt;
+                  &lt;/div&gt;
+              &lt;/ng-container&gt;
+          &lt;/ng-container&gt;
+          &lt;ng-template #noGroupsTemplate&gt;
+              &lt;span&gt;No se encontraron grupos de columnas&lt;/span&gt;
+          &lt;/ng-template&gt;
+          &lt;div *ngIf&#x3D;&quot;joins.length&quot; class&#x3D;&quot;flex flex-column gap-2 border-round p-2 shadow-1&quot;&gt;
+            &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Campos adicionales&lt;/span&gt;
+            &lt;div class&#x3D;&quot;container-grid gap-2&quot;&gt;
+              &lt;ng-container *ngFor&#x3D;&quot;let join of joins&quot;&gt;
+                &lt;p-button [label]&#x3D;&quot;join.name&quot; (onClick)&#x3D;&quot;addJoin(join)&quot; icon&#x3D;&quot;pi pi-plus&quot;&gt;&lt;/p-button&gt;
+              &lt;/ng-container&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+      &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;flex flex-row justify-content-end&quot;&gt;
+      &lt;p-button type&#x3D;&quot;button&quot; icon&#x3D;&quot;pi pi-saves&quot; label&#x3D;&quot;Guardar&quot;
+          class&#x3D;&quot;p-button-raised p-button-help&quot; (onClick)&#x3D;&quot;saveChanges()&quot; [loading]&#x3D;&quot;saving&quot;&gt;&lt;/p-button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;ng-template #availableCardTemplate let-column&#x3D;&quot;column&quot;&gt;
+  &lt;div [pTooltip]&#x3D;&quot;column.label&quot; tooltipPosition&#x3D;&quot;top&quot;
+  (mousedown)&#x3D;&quot;$event.stopPropagation()&quot; (click)&#x3D;&quot;toggleColumn(column)&quot;
+  [ngClass]&#x3D;&quot;{ &#x27;text-primary surface-200&#x27;: selected[column.key] }&quot;
+  class&#x3D;&quot;hover:text-500 tag-column flex flex-row align-items-center justify-content-between gap-2 border-round px-3 py-2 overflow-hidden cursor-pointer&quot; style&#x3D;&quot;--border-radius: 0.5rem;&quot;&gt;
+      &lt;span class&#x3D;&quot;w-10rem font-semibold white-space-nowrap text-overflow-ellipsis overflow-hidden&quot;&gt;{{column.label}}&lt;/span&gt;
+      &lt;i [ngClass]&#x3D;&quot;selected[column.key] ? &#x27;pi pi-minus&#x27; : &#x27;pi pi-plus&#x27;&quot; class&#x3D;&quot;text-sm&quot;&gt;&lt;/i&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #selectedCardTemplate let-column&#x3D;&quot;column&quot;&gt;
+  &lt;div [ngClass]&#x3D;&quot;{ &#x27;bg-pink-300&#x27; : !availableKeys[column.key] }&quot;
+  [pTooltip]&#x3D;&quot;column.label&quot; tooltipPosition&#x3D;&quot;top&quot;
+  class&#x3D;&quot;tag-column flex flex-row align-items-center justify-content-between gap-2 border-round px-3 py-2 overflow-hidden&quot; style&#x3D;&quot;--border-radius: 0.5rem;&quot;&gt;
+      &lt;span class&#x3D;&quot;w-10rem font-semibold white-space-nowrap text-overflow-ellipsis overflow-hidden&quot;&gt;{{column.label}}&lt;/span&gt;
+      &lt;i (mousedown)&#x3D;&quot;$event.stopPropagation()&quot; (click)&#x3D;&quot;removeColumns([column])&quot; class&#x3D;&quot;pi pi-minus text-sm cursor-pointer&quot;&gt;&lt;/i&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./table-config.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.tag-column {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+}
+
+.main-container-grid {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, 100%);
+  }
+  grid-auto-rows: auto auto auto;
+}
+
+.shadow-custom {
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.main-column-grid {
+  display: grid;
+  overflow: hidden;
+  grid-auto-columns: 100%;
+  grid-template-rows: 1fr min-content;
+  height: 100%;
+}
+
+::ng-deep .p-orderlist-controls {
+  padding: 0.5rem !important;
+  @media screen and (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+::ng-deep .p-orderlist-item {
+  padding: 0.25rem 0.5rem !important;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="main-column-grid gap-2 py-2">  <div class="main-container-grid gap-2 p-2">      <div class="flex flex-column shadow-custom border-round max-h-full overflow-y-auto overflow-x-hidden pr-2">          <p-orderList filterPlaceholder="Buscar" filterBy="label" dragdropScope="nodes" styleClass="p-2 h-full" [dragdrop]="true"          [value]="selectedColumns" [listStyle]="{\'overflow-y\': \'auto\'}" header="Columnas visibles">              <ng-template let-selectedColumn pTemplate="item">                  <ng-container [ngTemplateOutlet]="selectedCardTemplate" [ngTemplateOutletContext]="{ column: selectedColumn }">                  </ng-container>              </ng-template>              <ng-template pTemplate="empty">                  <span>No hay columnas visibles</span>              </ng-template>          </p-orderList>      </div>      <div class="shadow-custom border-round min-w-min flex flex-column gap-2 overflow-auto h-full p-2">          <ng-container *ngIf="columnGroups && columnGroups.length > 0 else noGroupsTemplate">              <ng-container *ngFor="let group of columnGroups">                  <div *ngIf="group.columns.length > 0" class="flex flex-column gap-2 border-round p-2 shadow-1">                      <div class="flex flex-row gap-2 justify-content-between">                          <span class="flex flex-row gap-1 align-items-center">                              <i tooltipPosition="top" pTooltip="Agregar todas" class="cursor-pointer hover:text-500 text-sm pi pi-plus" (click)="addColumns(group.columns)"></i>                              <i tooltipPosition="top" pTooltip="Remover todas" class="cursor-pointer hover:text-500 text-sm pi pi-minus" (click)="removeColumns(group.columns)"></i>                              <span class="font-semibold">{{group.name}}</span>                          </span>                          <i *ngIf="group.key" tooltipPosition="left" pTooltip="Remover grupo" class="cursor-pointer hover:text-500 text-sm pi pi-times" (click)="removeJoin(group)"></i>                      </div>                      <div class="container-grid gap-2">                      <ng-container *ngFor="let availableColumn of group.columns">                          <ng-container [ngTemplateOutlet]="availableCardTemplate" [ngTemplateOutletContext]="{ column: availableColumn }">                          </ng-container>                      </ng-container>                      </div>                  </div>              </ng-container>          </ng-container>          <ng-template #noGroupsTemplate>              <span>No se encontraron grupos de columnas</span>          </ng-template>          <div *ngIf="joins.length" class="flex flex-column gap-2 border-round p-2 shadow-1">            <span class="font-semibold">Campos adicionales</span>            <div class="container-grid gap-2">              <ng-container *ngFor="let join of joins">                <p-button [label]="join.name" (onClick)="addJoin(join)" icon="pi pi-plus"></p-button>              </ng-container>            </div>          </div>      </div>  </div>  <div class="flex flex-row justify-content-end">      <p-button type="button" icon="pi pi-saves" label="Guardar"          class="p-button-raised p-button-help" (onClick)="saveChanges()" [loading]="saving"></p-button>  </div></div><ng-template #availableCardTemplate let-column="column">  <div [pTooltip]="column.label" tooltipPosition="top"  (mousedown)="$event.stopPropagation()" (click)="toggleColumn(column)"  [ngClass]="{ \'text-primary surface-200\': selected[column.key] }"  class="hover:text-500 tag-column flex flex-row align-items-center justify-content-between gap-2 border-round px-3 py-2 overflow-hidden cursor-pointer" style="--border-radius: 0.5rem;">      <span class="w-10rem font-semibold white-space-nowrap text-overflow-ellipsis overflow-hidden">{{column.label}}</span>      <i [ngClass]="selected[column.key] ? \'pi pi-minus\' : \'pi pi-plus\'" class="text-sm"></i>  </div></ng-template><ng-template #selectedCardTemplate let-column="column">  <div [ngClass]="{ \'bg-pink-300\' : !availableKeys[column.key] }"  [pTooltip]="column.label" tooltipPosition="top"  class="tag-column flex flex-row align-items-center justify-content-between gap-2 border-round px-3 py-2 overflow-hidden" style="--border-radius: 0.5rem;">      <span class="w-10rem font-semibold white-space-nowrap text-overflow-ellipsis overflow-hidden">{{column.label}}</span>      <i (mousedown)="$event.stopPropagation()" (click)="removeColumns([column])" class="pi pi-minus text-sm cursor-pointer"></i>  </div></ng-template></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TableConfigComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TableConfigComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

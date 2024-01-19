@@ -1,0 +1,1900 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >PhasesService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/home/phases/phases.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getPhases" >_getPhases</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getStages" >_getStages</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createPhase" >createPhase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createStage" >createStage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteStage" >deleteStage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getPhase" >getPhase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getPhases" >getPhases</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getPhasesBase" >getPhasesBase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getPhasesList" >getPhasesList</a>
+                            </li>
+                            <li>
+                                <a href="#optionsMenu" >optionsMenu</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#removePhase" >removePhase</a>
+                            </li>
+                            <li>
+                                <a href="#removePhaseThumbnail" >removePhaseThumbnail</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#searchInBatch" >searchInBatch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updatePhase" >updatePhase</a>
+                            </li>
+                            <li>
+                                <a href="#updatePhaseThumbnail" >updatePhaseThumbnail</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateStage" >updateStage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateStageIndex" >updateStageIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#watchPhases" >watchPhases</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#watchStages" >watchStages</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(graphql: <a href="../injectables/GraphqlService.html" target="_self">GraphqlService</a>, storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/home/phases/phases.service.ts:18</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>graphql</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/GraphqlService.html" target="_self" >GraphqlService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createPhase"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createPhase</b></span>
+                        <a href="#createPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createPhase(createPhaseInput)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>createPhaseInput</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Phase.html" target="_self" >Promise&lt;Phase&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createStage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createStage</b></span>
+                        <a href="#createStage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createStage(createStageInput)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>createStageInput</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Stage.html" target="_self" >Promise&lt;Stage&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteStage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteStage</b></span>
+                        <a href="#deleteStage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteStage(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Stage.html" target="_self" >Promise&lt;Stage&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPhase"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getPhase</b></span>
+                        <a href="#getPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPhase(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Phase.html" target="_self" >Promise&lt;Phase&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPhases"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getPhases</b></span>
+                        <a href="#getPhases"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPhases()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Phase.html" target="_self" >Promise&lt;Phase[]&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPhasesBase"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getPhasesBase</b></span>
+                        <a href="#getPhasesBase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPhasesBase()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Phase.html" target="_self" >Promise&lt;Phase[]&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPhasesList"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getPhasesList</b></span>
+                        <a href="#getPhasesList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPhasesList(ids: string[], withExtraFields?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ids</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>withExtraFields</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Phase.html" target="_self" >Promise&lt;Phase[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="optionsMenu"></a>
+                    <span class="name">
+                        <span ><b>optionsMenu</b></span>
+                        <a href="#optionsMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>optionsMenu(phase: <a href="../interfaces/IPhase.html" target="_self">IPhase</a>, user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="244"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:244</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>phase</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IPhase.html" target="_self" >IPhase</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/IMenu.html" target="_self" >IMenu</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removePhase"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>removePhase</b></span>
+                        <a href="#removePhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removePhase(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="210"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:210</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Phase.html" target="_self" >Promise&lt;Phase&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removePhaseThumbnail"></a>
+                    <span class="name">
+                        <span ><b>removePhaseThumbnail</b></span>
+                        <a href="#removePhaseThumbnail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removePhaseThumbnail(phase: <a href="../classes/Phase.html" target="_self">Phase</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="236"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:236</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>phase</td>
+                                            <td>
+                                                            <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchInBatch"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>searchInBatch</b></span>
+                        <a href="#searchInBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>searchInBatch(batchIds: string[], searchValue: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="330"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>batchIds</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>searchValue</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updatePhase"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updatePhase</b></span>
+                        <a href="#updatePhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updatePhase(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, data: <a href="../interfaces/IPhase.html" target="_self">Partial&lt;IPhase&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IPhase.html" target="_self" >Partial&lt;IPhase&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Phase.html" target="_self" >Promise&lt;Phase&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updatePhaseThumbnail"></a>
+                    <span class="name">
+                        <span ><b>updatePhaseThumbnail</b></span>
+                        <a href="#updatePhaseThumbnail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updatePhaseThumbnail(phase: <a href="../classes/Phase.html" target="_self">Phase</a>, file: File)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="224"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:224</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>phase</td>
+                                            <td>
+                                                            <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateStage</b></span>
+                        <a href="#updateStage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateStage(data: <a href="../interfaces/IStage.html" target="_self">Partial&lt;IStage&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IStage.html" target="_self" >Partial&lt;IStage&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Stage.html" target="_self" >Promise&lt;Stage&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateStageIndex"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateStageIndex</b></span>
+                        <a href="#updateStageIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateStageIndex(newIndex, stageId, typeChange: "up" | "down")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>newIndex</td>
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>stageId</td>
+                                            <td>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>typeChange</td>
+                                            <td>
+                                                        <code>&quot;up&quot; | &quot;down&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Stage.html" target="_self" >Promise&lt;Stage&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="watchPhases"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>watchPhases</b></span>
+                        <a href="#watchPhases"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>watchPhases()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="watchStages"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>watchStages</b></span>
+                        <a href="#watchStages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>watchStages()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="24"
+                                    class="link-to-prism">src/app/home/phases/phases.service.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_getPhases"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_getPhases</b></span>
+                        <a href="#_getPhases"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/home/phases/phases.service.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_getStages"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_getStages</b></span>
+                        <a href="#_getStages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/home/phases/phases.service.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { GraphqlService } from &#x27;@graphqlApollo/graphql.service&#x27;;
+import { firstValueFrom, map } from &#x27;rxjs&#x27;;
+import phaseQueries from &#x27;./graphql/phase.gql&#x27;;
+import stageQueries from &#x27;./graphql/stage.gql&#x27;;
+import { IPhase, Phase } from &#x27;./model/phase.model&#x27;;
+import { IStage, Stage } from &#x27;./model/stage.model&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { ValidRoles } from &#x27;@auth/models/valid-roles.enum&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import { IMenu } from &#x27;@shared/models/menu&#x27;;
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class PhasesService {
+  private _getPhases;
+  private _getStages;
+  constructor(
+    private readonly graphql: GraphqlService,
+    private readonly storageService: StorageService
+  ) {}
+
+  async watchStages() {
+    this._getStages &#x3D; this.graphql.refQuery(
+      stageQueries.query.getStages,
+      {},
+      &#x27;cache-first&#x27;,
+      { auth: true }
+    );
+    return this.graphql.watch_query(this._getStages).valueChanges.pipe(
+      map((request) &#x3D;&gt; request.data.stages),
+      map((stages) &#x3D;&gt; stages.map((stage) &#x3D;&gt; Stage.fromJson(stage)))
+    );
+  }
+
+  async createStage(createStageInput): Promise&lt;Stage&gt; {
+    delete createStageInput[&#x27;_id&#x27;];
+    const mutationRef &#x3D; this.graphql.refMutation(
+      stageQueries.mutation.createStage,
+      { createStageInput },
+      [this._getStages],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
+        map((request) &#x3D;&gt; request.data.createStage),
+        map((stage) &#x3D;&gt; Stage.fromJson(stage))
+      )
+    );
+  }
+
+  async updateStage(data: Partial&lt;IStage&gt;): Promise&lt;Stage&gt; {
+    const mutRef &#x3D; this.graphql.refMutation(
+      stageQueries.mutation.updateStage,
+      { updateStageInput: data },
+      [this._getStages],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) &#x3D;&gt; request.data.updateStage),
+        map((stage) &#x3D;&gt; Stage.fromJson(stage))
+      )
+    );
+  }
+
+  async updateStageIndex(
+    newIndex,
+    stageId,
+    typeChange: &#x27;up&#x27; | &#x27;down&#x27;
+  ): Promise&lt;Stage&gt; {
+    const mutRef &#x3D; this.graphql.refMutation(
+      stageQueries.mutation.changeIndex,
+      { newIndex, stageId, typeChange },
+      [this._getStages],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) &#x3D;&gt; request.data.updateStageIndex),
+        map((stage) &#x3D;&gt; Stage.fromJson(stage))
+      )
+    );
+  }
+
+  async deleteStage(id: string): Promise&lt;Stage&gt; {
+    const mutRef &#x3D; this.graphql.refMutation(
+      stageQueries.mutation.deleteStage,
+      { id },
+      [this._getStages],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutRef).pipe(
+        map((request) &#x3D;&gt; request.data.removeStage),
+        map((stage) &#x3D;&gt; Stage.fromJson(stage))
+      )
+    );
+  }
+
+  async getPhase(id: string): Promise&lt;Phase&gt; {
+    const queryRef &#x3D; this.graphql.refQuery(
+      phaseQueries.query.getPhase,
+      { id },
+      &#x27;cache-first&#x27;,
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
+        map((request) &#x3D;&gt; request.data.phase),
+        map((phase) &#x3D;&gt; Phase.fromJson(phase))
+      )
+    );
+  }
+
+  async getPhases(): Promise&lt;Phase[]&gt; {
+    const queryRef &#x3D; this.graphql.refQuery(
+      phaseQueries.query.getPhases,
+      {},
+      &#x27;cache-first&#x27;,
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
+        map((request) &#x3D;&gt; request.data.phases),
+        map((phases) &#x3D;&gt; phases.map((phase) &#x3D;&gt; Phase.fromJson(phase)))
+      )
+    );
+  }
+
+  async getPhasesList(
+    ids: string[],
+    withExtraFields?: boolean
+  ): Promise&lt;Phase[]&gt; {
+    const queryRef &#x3D; this.graphql.refQuery(
+      withExtraFields
+        ? phaseQueries.query.phasesListWithExtra
+        : phaseQueries.query.phasesList,
+      { ids },
+      &#x27;cache-first&#x27;,
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
+        map((request) &#x3D;&gt; request.data.phasesList),
+        map((phases) &#x3D;&gt; phases.map((phase) &#x3D;&gt; Phase.fromJson(phase)))
+      )
+    );
+  }
+
+  async getPhasesBase(): Promise&lt;Phase[]&gt; {
+    const queryRef &#x3D; this.graphql.refQuery(
+      phaseQueries.query.phasesBases,
+      {},
+      &#x27;cache-first&#x27;,
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
+        map((request) &#x3D;&gt; request.data.phasesBases),
+        map((phases) &#x3D;&gt; phases.map((phase) &#x3D;&gt; Phase.fromJson(phase)))
+      )
+    );
+  }
+
+  async watchPhases() {
+    this._getPhases &#x3D; this.graphql.refQuery(
+      phaseQueries.query.getPhases,
+      {},
+      &#x27;cache-first&#x27;,
+      { auth: true }
+    );
+    return this.graphql.watch_query(this._getPhases).valueChanges.pipe(
+      map((request) &#x3D;&gt; request.data.phases),
+      map((phases) &#x3D;&gt; phases.map((phase) &#x3D;&gt; Phase.fromJson(phase)))
+    );
+  }
+
+  async createPhase(createPhaseInput): Promise&lt;Phase&gt; {
+    const mutationRef &#x3D; this.graphql.refMutation(
+      phaseQueries.mutation.createPhase,
+      { createPhaseInput },
+      [this._getPhases],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql.mutation(mutationRef).pipe(
+        map((request) &#x3D;&gt; request.data.createPhase),
+        map((phase) &#x3D;&gt; Phase.fromJson(phase))
+      )
+    );
+  }
+
+  async updatePhase(id: string, data: Partial&lt;IPhase&gt;): Promise&lt;Phase&gt; {
+    data._id &#x3D; id;
+    const mutRef &#x3D; this.graphql.refMutation(
+      phaseQueries.mutation.updatePhase,
+      { updatePhaseInput: data },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(map((request) &#x3D;&gt; request.data.updatePhase))
+    );
+  }
+
+  async removePhase(id: string): Promise&lt;Phase&gt; {
+    const mutRef &#x3D; this.graphql.refMutation(
+      phaseQueries.mutation.removePhase,
+      { removePhaseId: id },
+      [this._getPhases],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutRef)
+        .pipe(map((request) &#x3D;&gt; request.data.removePhase))
+    );
+  }
+
+  updatePhaseThumbnail(phase: Phase, file: File) {
+    const renamedFile &#x3D; new File([file], phase._id, {
+      type: file.type,
+      lastModified: file.lastModified,
+    });
+    return this.storageService.uploadFile(
+      &#x60;phases/${phase._id}/thumbnail&#x60;,
+      renamedFile,
+      true
+    );
+  }
+
+  removePhaseThumbnail(phase: Phase) {
+    return this.storageService.deleteFile(
+      &#x60;phases/${phase._id}/thumbnail&#x60;,
+      phase._id,
+      true
+    );
+  }
+
+  optionsMenu(phase: IPhase, user: User) {
+    let menu: IMenu &#x3D; {
+      header: {
+        title: &#x27;Edición&#x27;,
+      },
+      switchTypeMenu: [
+        { type: &#x27;edit&#x27;, label: &#x27;Edición&#x27; },
+        { type: &#x27;manage&#x27;, label: &#x27;Gestionar&#x27; },
+      ],
+      returnPath: [&#x27;home&#x27;, &#x27;phases&#x27;],
+      options: [
+        {
+          label: &#x27;Información&#x27;,
+          rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;edit&#x27;].join(&#x27;/&#x27;),
+          type: &#x27;single&#x27;,
+          icon: &#x27;file-description&#x27;,
+          menuType: &#x27;edit&#x27;,
+        },
+      ],
+    };
+    if (phase.basePhase || user?.allowed(Permission.phases_batch_edit)) {
+      menu.options.push({
+        label: &#x27;Contenidos&#x27;,
+        icon: &#x27;layout-board-split&#x27;,
+        rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;content&#x27;].join(&#x27;/&#x27;),
+        type: &#x27;single&#x27;,
+        menuType: &#x27;edit&#x27;,
+      });
+    }
+    if (!phase.basePhase)
+      menu.options.push({
+        label: &#x27;StartUps&#x27;,
+        rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;startups&#x27;].join(&#x27;/&#x27;),
+        icon: &#x27;seeding&#x27;,
+        type: &#x27;single&#x27;,
+        menuType: &#x27;edit&#x27;,
+      });
+    if (
+      !phase.basePhase &amp;&amp;
+      [ValidRoles.superAdmin, ValidRoles.admin, ValidRoles.host].includes(
+        user?.rolType as ValidRoles
+      )
+    ) {
+      menu.options.push({
+        label: &#x27;Experts&#x27;,
+        rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;experts&#x27;].join(&#x27;/&#x27;),
+        icon: &#x27;file-description&#x27;,
+        type: &#x27;single&#x27;,
+        menuType: &#x27;edit&#x27;,
+      });
+    }
+    if (!phase.basePhase &amp;&amp; user?.allowed(Permission.evaluation_view))
+      menu.options.push({
+        label: &#x27;Evaluaciones&#x27;,
+        rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;evaluations&#x27;].join(&#x27;/&#x27;),
+        icon: &#x27;file-description&#x27;,
+        type: &#x27;single&#x27;,
+        menuType: &#x27;manage&#x27;,
+      });
+    if (!phase.basePhase &amp;&amp; user?.allowed(Permission.events_view))
+      menu.options.push({
+        label: &#x27;Eventos&#x27;,
+        rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;events&#x27;].join(&#x27;/&#x27;),
+        icon: &#x27;file-description&#x27;,
+        type: &#x27;single&#x27;,
+        menuType: &#x27;manage&#x27;,
+      });
+    if (user?.allowed(Permission.hours_view))
+      menu.options.push({
+        label: &#x27;Bolsas de horas&#x27;,
+        rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;bag-hours&#x27;].join(&#x27;/&#x27;),
+        icon: &#x27;clock&#x27;,
+        type: &#x27;single&#x27;,
+        menuType: &#x27;edit&#x27;,
+      });
+    if (!phase.basePhase &amp;&amp; user?.allowed(Permission.homeworks_view))
+      menu.options.push({
+        label: &#x27;Tareas&#x27;,
+        rute: [&#x27;/home&#x27;, &#x27;phases&#x27;, phase._id, &#x27;homeworks&#x27;].join(&#x27;/&#x27;),
+        icon: &#x27;file-description&#x27;,
+        type: &#x27;single&#x27;,
+        menuType: &#x27;manage&#x27;,
+      });
+    return menu;
+  }
+
+  async searchInBatch(batchIds: string[], searchValue: string): Promise&lt;any&gt; {
+    const queryRef &#x3D; this.graphql.refQuery(
+      phaseQueries.query.searchInBatchOutput,
+      { othersInput: { batchIds, searchValue } },
+      &#x27;cache-first&#x27;,
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) &#x3D;&gt; request.data.searchInBatch))
+    );
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'PhasesService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

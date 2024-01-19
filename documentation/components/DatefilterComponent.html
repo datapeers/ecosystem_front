@@ -1,0 +1,2052 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DatefilterComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/shared/components/datefilter/datefilter.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-datefilter</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./datefilter.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./datefilter.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#_listOfObjects" >_listOfObjects</a>
+                            </li>
+                            <li>
+                                <a href="#currentDate" >currentDate</a>
+                            </li>
+                            <li>
+                                <a href="#currentFilterFieldName" >currentFilterFieldName</a>
+                            </li>
+                            <li>
+                                <a href="#currentFilterFieldValue" >currentFilterFieldValue</a>
+                            </li>
+                            <li>
+                                <a href="#currentFilterType" >currentFilterType</a>
+                            </li>
+                            <li>
+                                <a href="#dataStorage" >dataStorage</a>
+                            </li>
+                            <li>
+                                <a href="#debouncer" >debouncer</a>
+                            </li>
+                            <li>
+                                <a href="#eventDates" >eventDates</a>
+                            </li>
+                            <li>
+                                <a href="#maxDate" >maxDate</a>
+                            </li>
+                            <li>
+                                <a href="#minDate" >minDate</a>
+                            </li>
+                            <li>
+                                <a href="#rangeDates" >rangeDates</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#applyNewRange" >applyNewRange</a>
+                            </li>
+                            <li>
+                                <a href="#calculateInitValues" >calculateInitValues</a>
+                            </li>
+                            <li>
+                                <a href="#clearRange" >clearRange</a>
+                            </li>
+                            <li>
+                                <a href="#configure" >configure</a>
+                            </li>
+                            <li>
+                                <a href="#emitOutput" >emitOutput</a>
+                            </li>
+                            <li>
+                                <a href="#filter" >filter</a>
+                            </li>
+                            <li>
+                                <a href="#filterByDate" >filterByDate</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#sortByDates" >sortByDates</a>
+                            </li>
+                            <li>
+                                <a href="#switchStorage" >switchStorage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alwaysBetween" >alwaysBetween</a>
+                            </li>
+                            <li>
+                                <a href="#customDate" >customDate</a>
+                            </li>
+                            <li>
+                                <a href="#dateTooltip" >dateTooltip</a>
+                            </li>
+                            <li>
+                                <a href="#emitAll" >emitAll</a>
+                            </li>
+                            <li>
+                                <a href="#filterTypeOptions" >filterTypeOptions</a>
+                            </li>
+                            <li>
+                                <a href="#inputTooltip" >inputTooltip</a>
+                            </li>
+                            <li>
+                                <a href="#listOfObjects" >listOfObjects</a>
+                            </li>
+                            <li>
+                                <a href="#order" >order</a>
+                            </li>
+                            <li>
+                                <a href="#rangeSelector" >rangeSelector</a>
+                            </li>
+                            <li>
+                                <a href="#viewOptions" >viewOptions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#OnChange" >OnChange</a>
+                            </li>
+                            <li>
+                                <a href="#OnInput" >OnInput</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#listOfObjects" >listOfObjects</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:73</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="alwaysBetween"></a>
+                        <b>alwaysBetween</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:38</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="customDate"></a>
+                        <b>customDate</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:57</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dateTooltip"></a>
+                        <b>dateTooltip</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Sólo se pueden seleccionar fechas entre las que existen resultados&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:41</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="emitAll"></a>
+                        <b>emitAll</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:39</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filterTypeOptions"></a>
+                        <b>filterTypeOptions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/LabelValueConfig.html" target="_self" >LabelValueConfig[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { label: &#x27;Contiene&#x27;, value: &#x27;contains&#x27; },
+    //{ label: &#x27;Comienza con&#x27;, value: &#x27;startsWith&#x27; },
+    //{ label: &#x27;Igual&#x27;, value: &#x27;equals&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:24</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="inputTooltip"></a>
+                        <b>inputTooltip</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:43</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="listOfObjects"></a>
+                        <b>listOfObjects</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:49</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="order"></a>
+                        <b>order</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;all&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:40</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rangeSelector"></a>
+                        <b>rangeSelector</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;selectButton&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:37</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="viewOptions"></a>
+                        <b>viewOptions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/LabelValueConfig.html" target="_self" >LabelValueConfig[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { label: &#x27;Todos&#x27;, value: &#x27;all&#x27; },
+    { label: &#x27;Proximos&#x27;, value: &#x27;future&#x27; },
+    { label: &#x27;Pasados&#x27;, value: &#x27;past&#x27; },
+    { label: &#x27;Activos&#x27;, value: &#x27;current&#x27; },
+    { label: &#x27;En curso&#x27;, value: &#x27;daily&#x27; },
+    { label: &#x27;Por rango&#x27;, value: &#x27;between&#x27; },
+  ]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="OnChange"></a>
+                        <b>OnChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Event.html" target="_self" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:59</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="OnInput"></a>
+                        <b>OnInput</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Event.html" target="_self" >EventEmitter</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:58</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyNewRange"></a>
+                    <span class="name">
+                        <span ><b>applyNewRange</b></span>
+                        <a href="#applyNewRange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>applyNewRange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateInitValues"></a>
+                    <span class="name">
+                        <span ><b>calculateInitValues</b></span>
+                        <a href="#calculateInitValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateInitValues()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearRange"></a>
+                    <span class="name">
+                        <span ><b>clearRange</b></span>
+                        <a href="#clearRange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearRange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configure"></a>
+                    <span class="name">
+                        <span ><b>configure</b></span>
+                        <a href="#configure"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>configure()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emitOutput"></a>
+                    <span class="name">
+                        <span ><b>emitOutput</b></span>
+                        <a href="#emitOutput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>emitOutput()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="114"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:114</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filter"></a>
+                    <span class="name">
+                        <span ><b>filter</b></span>
+                        <a href="#filter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filter()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="271"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:271</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterByDate"></a>
+                    <span class="name">
+                        <span ><b>filterByDate</b></span>
+                        <a href="#filterByDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterByDate(minDate: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, maxDate: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, onlyBetween: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>minDate</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>maxDate</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>onlyBetween</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>true</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sortByDates"></a>
+                    <span class="name">
+                        <span ><b>sortByDates</b></span>
+                        <a href="#sortByDates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sortByDates(arr: <a href="../interfaces/ListedObject.html" target="_self">ListedObject[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>arr</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ListedObject.html" target="_self" >ListedObject[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="switchStorage"></a>
+                    <span class="name">
+                        <span ><b>switchStorage</b></span>
+                        <a href="#switchStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>switchStorage(event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_listOfObjects"></a>
+                    <span class="name">
+                        <span ><b>_listOfObjects</b></span>
+                        <a href="#_listOfObjects"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentDate"></a>
+                    <span class="name">
+                        <span ><b>currentDate</b></span>
+                        <a href="#currentDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Date()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentFilterFieldName"></a>
+                    <span class="name">
+                        <span ><b>currentFilterFieldName</b></span>
+                        <a href="#currentFilterFieldName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Titulo&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentFilterFieldValue"></a>
+                    <span class="name">
+                        <span ><b>currentFilterFieldValue</b></span>
+                        <a href="#currentFilterFieldValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentFilterType"></a>
+                    <span class="name">
+                        <span ><b>currentFilterType</b></span>
+                        <a href="#currentFilterType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;contains&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataStorage"></a>
+                    <span class="name">
+                        <span ><b>dataStorage</b></span>
+                        <a href="#dataStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/datedDataStorage.html" target="_self" >datedDataStorage</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{ all: [] }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="debouncer"></a>
+                    <span class="name">
+                        <span ><b>debouncer</b></span>
+                        <a href="#debouncer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;string&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventDates"></a>
+                    <span class="name">
+                        <span ><b>eventDates</b></span>
+                        <a href="#eventDates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="maxDate"></a>
+                    <span class="name">
+                        <span ><b>maxDate</b></span>
+                        <a href="#maxDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minDate"></a>
+                    <span class="name">
+                        <span ><b>minDate</b></span>
+                        <a href="#minDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rangeDates"></a>
+                    <span class="name">
+                        <span ><b>rangeDates</b></span>
+                        <a href="#rangeDates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Date[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[new Date(), new Date()]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="listOfObjects"></a>
+                        <span class="name"><b>listOfObjects</b><a href="#listOfObjects"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>listOfObjects()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:46</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>listOfObjects(value: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/shared/components/datefilter/datefilter.component.ts:49</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter,
+} from &#x27;@angular/core&#x27;;
+import { debounceTime } from &#x27;rxjs/operators&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
+import {
+  datedDataStorage,
+  LabelValueConfig,
+  ListedObject,
+} from &#x27;./models/datefilter.interfaces&#x27;;
+
+@Component({
+  selector: &#x27;app-datefilter&#x27;,
+  templateUrl: &#x27;./datefilter.component.html&#x27;,
+  styleUrls: [&#x27;./datefilter.component.scss&#x27;],
+})
+export class DatefilterComponent {
+  //Childs, Inputs and Outputs
+  @Input() filterTypeOptions: LabelValueConfig[] &#x3D; [
+    { label: &#x27;Contiene&#x27;, value: &#x27;contains&#x27; },
+    //{ label: &#x27;Comienza con&#x27;, value: &#x27;startsWith&#x27; },
+    //{ label: &#x27;Igual&#x27;, value: &#x27;equals&#x27; }
+  ];
+  @Input() viewOptions: LabelValueConfig[] &#x3D; [
+    { label: &#x27;Todos&#x27;, value: &#x27;all&#x27; },
+    { label: &#x27;Proximos&#x27;, value: &#x27;future&#x27; },
+    { label: &#x27;Pasados&#x27;, value: &#x27;past&#x27; },
+    { label: &#x27;Activos&#x27;, value: &#x27;current&#x27; },
+    { label: &#x27;En curso&#x27;, value: &#x27;daily&#x27; },
+    { label: &#x27;Por rango&#x27;, value: &#x27;between&#x27; },
+  ];
+  @Input() rangeSelector: string &#x3D; &#x27;selectButton&#x27;;
+  @Input() alwaysBetween: boolean &#x3D; true;
+  @Input() emitAll: boolean &#x3D; true;
+  @Input() order: string &#x3D; &#x27;all&#x27;;
+  @Input() dateTooltip: string &#x3D;
+    &#x27;Sólo se pueden seleccionar fechas entre las que existen resultados&#x27;;
+  @Input() inputTooltip: string &#x3D; &#x27;&#x27;;
+
+  _listOfObjects: any;
+  get listOfObjects() {
+    return this._listOfObjects;
+  }
+  @Input() set listOfObjects(value: any) {
+    this._listOfObjects &#x3D; value;
+    if (value &amp;&amp; value.length &gt; 0) {
+      this.configure();
+      this.calculateInitValues();
+    }
+  }
+
+  @Input() customDate: Date;
+  @Output() OnInput &#x3D; new EventEmitter&lt;string&gt;();
+  @Output() OnChange &#x3D; new EventEmitter&lt;any&gt;();
+
+  //ngModels (Value holders)
+  currentFilterType &#x3D; &#x27;contains&#x27;;
+  currentFilterFieldName &#x3D; &#x27;Titulo&#x27;;
+  currentFilterFieldValue &#x3D; &#x27;&#x27;;
+  rangeDates: Date[] &#x3D; [new Date(), new Date()];
+  minDate: Date;
+  maxDate: Date;
+  dataStorage: datedDataStorage &#x3D; { all: [] };
+  currentDate &#x3D; new Date();
+  eventDates: Date[] &#x3D; [];
+
+  //Subscriptions
+  debouncer: Subject&lt;string&gt; &#x3D; new Subject();
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.configure();
+    this.debouncer.pipe(debounceTime(150)).subscribe((valor) &#x3D;&gt; {
+      console.log(&#x27;valor?&#x27;);
+      this.OnInput.emit(valor);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.debouncer) {
+      this.debouncer.unsubscribe();
+    }
+  }
+
+  configure() {
+    if (this.alwaysBetween) {
+      this.viewOptions &#x3D; this.viewOptions.filter((vo) &#x3D;&gt; vo.value !&#x3D; &#x27;between&#x27;);
+    }
+  }
+
+  calculateInitValues() {
+    this.listOfObjects.forEach((e) &#x3D;&gt; {
+      e.state &#x3D; {};
+    });
+    this.minDate &#x3D; new Date();
+    this.maxDate &#x3D; new Date();
+    this.sortByDates(this.listOfObjects);
+    this.minDate.setTime(
+      this.listOfObjects[this.listOfObjects.length - 1].date.getTime()
+    );
+    this.maxDate.setTime(this.listOfObjects[0].date.getTime());
+    this.rangeDates[0] &#x3D; this.minDate;
+    this.rangeDates[1] &#x3D; this.maxDate;
+    this.filterByDate(this.minDate, this.maxDate, false);
+    this.emitOutput();
+  }
+
+  emitOutput() {
+    if (!this.emitAll) {
+      this.OnChange.emit(this.dataStorage[this.order]);
+      return;
+    }
+    let Output &#x3D; this.viewOptions.map((option) &#x3D;&gt; {
+      return {
+        label: option.label,
+        array: this.dataStorage[option.value],
+      };
+    });
+    this.OnChange.emit(Output);
+  }
+
+  sortByDates(arr: ListedObject[]) {
+    arr.sort((a1, a2) &#x3D;&gt; (a1.date.getTime() &lt;&#x3D; a2.date.getTime() ? 1 : -1));
+  }
+
+  clearRange() {
+    if (this.minDate &amp;&amp; this.maxDate) {
+      this.rangeDates &#x3D; [];
+      this.rangeDates.push(this.minDate);
+      this.rangeDates.push(this.maxDate);
+      this.filterByDate(this.rangeDates[0], this.rangeDates[1]);
+      this.emitOutput();
+    } else {
+      this.rangeDates &#x3D; [new Date(), new Date()];
+    }
+  }
+
+  applyNewRange() {
+    if (!this.rangeDates[0]) {
+      return;
+    }
+    if (this.rangeDates[0] &amp;&amp; !this.rangeDates[1]) {
+      this.filterByDate(this.rangeDates[0], this.rangeDates[0]);
+      return;
+    }
+    this.filterByDate(this.rangeDates[0], this.rangeDates[1]);
+    this.emitOutput();
+  }
+
+  switchStorage(event) {
+    this.emitOutput();
+  }
+
+  filterByDate(minDate: Date, maxDate: Date, onlyBetween: boolean &#x3D; true) {
+    let options: string[] &#x3D; [];
+    let arr: ListedObject[] &#x3D; this.listOfObjects;
+    let vops &#x3D; this.viewOptions.map((vo) &#x3D;&gt; vo.value);
+    let pastfutureFlag &#x3D; false;
+    if (this.alwaysBetween) {
+      options &#x3D; vops.filter((vo) &#x3D;&gt; vo !&#x3D; &#x27;between&#x27;);
+      options.splice(0, 0, &#x27;between&#x27;);
+    } else {
+      onlyBetween ? (options &#x3D; [&#x27;between&#x27;]) : (options &#x3D; vops);
+    }
+    let cdt: number &#x3D; new Date().getTime();
+    options.forEach((viewOption) &#x3D;&gt; {
+      switch (viewOption) {
+        default:
+          break;
+        case &#x27;future&#x27;:
+        case &#x27;past&#x27;:
+          if (pastfutureFlag) {
+            break;
+          }
+          pastfutureFlag &#x3D; true;
+          let past: ListedObject[] &#x3D; [];
+          let future: ListedObject[] &#x3D; [];
+          arr.forEach((e) &#x3D;&gt; (e.state.isOld &#x3D; false));
+          arr.forEach((e) &#x3D;&gt; (e.state.willCome &#x3D; false));
+          arr.forEach((e) &#x3D;&gt;
+            e.date.getTime() &lt; cdt ? past.push(e) : future.push(e)
+          );
+          past.forEach((oldObject) &#x3D;&gt; {
+            oldObject.state.isOld &#x3D; true;
+          });
+          future.forEach((futureObject) &#x3D;&gt; {
+            futureObject.state.willCome &#x3D; true;
+          });
+          this.dataStorage[&#x27;past&#x27;] &#x3D; past;
+          this.dataStorage[&#x27;future&#x27;] &#x3D; future;
+          break;
+        case &#x27;current&#x27;:
+          let current: ListedObject[] &#x3D; [];
+          if (arr.length &gt; 0) {
+            if (!arr[0].hasOwnProperty(&#x27;duration&#x27;)) {
+              this.dataStorage[&#x27;current&#x27;] &#x3D; arr;
+              break;
+            }
+          }
+          arr.forEach((e) &#x3D;&gt; (e.state.isCurrent &#x3D; false));
+          arr.forEach((e) &#x3D;&gt; {
+            if (e.duration) {
+              const et &#x3D; e.date.getTime();
+              let maxdate &#x3D; new Date(e.date.getTime());
+              let currentMinutes &#x3D; Number(maxdate.getMinutes());
+              const addedMinutes &#x3D; currentMinutes + Number(e.duration);
+              maxdate.setMinutes(addedMinutes);
+              const maxdatetime &#x3D; maxdate.getTime();
+              cdt &gt; et &amp;&amp; cdt &lt; maxdatetime ? current.push(e) : null;
+            }
+          });
+          current.forEach((currentObject) &#x3D;&gt; {
+            currentObject.state.isCurrent &#x3D; true;
+          });
+          this.dataStorage[&#x27;current&#x27;] &#x3D; current;
+          break;
+        case &#x27;between&#x27;:
+          let between: ListedObject[] &#x3D; [];
+          arr.forEach((e) &#x3D;&gt; (e.state.inRange &#x3D; false));
+          let minTime &#x3D; minDate.getTime();
+          let maxTime &#x3D; maxDate.getTime();
+          arr.forEach((e) &#x3D;&gt; {
+            let eventTime &#x3D; e.date.getTime();
+            eventTime &gt;&#x3D; minTime &amp;&amp; eventTime &lt;&#x3D; maxTime
+              ? between.push(e)
+              : null;
+          });
+          between.forEach((inRangeObject) &#x3D;&gt; {
+            inRangeObject.state.inRange &#x3D; true;
+          });
+          this.dataStorage[&#x27;between&#x27;] &#x3D; between;
+          if (this.alwaysBetween) {
+            arr &#x3D; between;
+          }
+          break;
+        case &#x27;daily&#x27;:
+          var daily: ListedObject[] &#x3D; [];
+          const Today &#x3D; new Date();
+          const ty &#x3D; Today.getFullYear();
+          const tm &#x3D; Today.getMonth();
+          const td &#x3D; Today.getDate();
+          arr.forEach((e) &#x3D;&gt; (e.state.daily &#x3D; false));
+          arr.forEach((e) &#x3D;&gt; {
+            const d &#x3D; e.date.getDate();
+            const m &#x3D; e.date.getMonth();
+            const y &#x3D; e.date.getFullYear();
+            !(y &#x3D;&#x3D; ty)
+              ? null
+              : !(m &#x3D;&#x3D; tm)
+              ? null
+              : !(d &#x3D;&#x3D; td)
+              ? null
+              : daily.push(e);
+          });
+          daily.forEach((inRangeObject) &#x3D;&gt; {
+            inRangeObject.state.daily &#x3D; true;
+          });
+          this.dataStorage[&#x27;daily&#x27;] &#x3D; daily;
+          break;
+      }
+    });
+    this.dataStorage[&#x27;all&#x27;] &#x3D; arr;
+  }
+
+  filter() {
+    this.debouncer.next(this.currentFilterFieldValue);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex flex-column card-container&quot;&gt;
+
+    &lt;div *ngIf&#x3D;&quot;!emitAll&quot; class&#x3D;&quot;flex align-items-center justify-content-start&quot;&gt;
+        &lt;div class&#x3D;&quot;flex align-items-center justify-content-center mx-1&quot;&gt;
+            &lt;div class&#x3D;&quot;flex align-items-center justify-content-center my-1 app-input-field&quot;&gt;
+                &lt;p-dropdown *ngIf&#x3D;&quot;rangeSelector &#x3D;&#x3D; &#x27;dropdown&#x27;&quot; [options]&#x3D;&quot;viewOptions&quot; [(ngModel)]&#x3D;&quot;order&quot; placeholder&#x3D;&quot;label&quot; optionLabel&#x3D;&quot;label&quot; optionValue&#x3D;&quot;value&quot; appendTo&#x3D;&quot;body&quot;&gt;&lt;/p-dropdown&gt;
+                &lt;p-selectButton *ngIf&#x3D;&quot;rangeSelector &#x3D;&#x3D; &#x27;selectButton&#x27;&quot; [options]&#x3D;&quot;viewOptions&quot; [(ngModel)]&#x3D;&quot;order&quot; optionLabel&#x3D;&quot;label&quot; optionValue&#x3D;&quot;value&quot; (onChange)&#x3D;&quot;switchStorage($event)&quot;&gt;&lt;/p-selectButton&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;flex align-items-center justify-content-start&quot;&gt;
+        &lt;div class&#x3D;&quot;flex w-full flex-row justify-content-end mt-3&quot;&gt;
+            &lt;div class&#x3D;&quot;flex align-items-center justify-content-center mx-1&quot;&gt;
+                &lt;div class&#x3D;&quot;flex align-items-center justify-content-start my-1 app-input-field&quot;&gt;
+                    &lt;input placeholder&#x3D;&quot;Buscar&quot; type&#x3D;&quot;text&quot; pInputText [(ngModel)]&#x3D;&quot;currentFilterFieldValue&quot; (input)&#x3D;&quot;filter()&quot; [pTooltip]&#x3D;&quot;inputTooltip&quot; tooltipPosition&#x3D;&quot;left&quot;&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div *ngIf&#x3D;&quot;order&#x3D;&#x3D;&#x27;between&#x27; || alwaysBetween&quot; class&#x3D;&quot;flex align-items-center justify-content-center mx-1&quot;&gt;
+                &lt;div class&#x3D;&quot;flex align-items-center justify-content-center my-1 app-input-field&quot;&gt;
+                    &lt;p-calendar #calendar1 [panelStyle]&#x3D;&quot;{&#x27;width&#x27;: &#x27;400px&#x27;}&quot; [inputStyle]&#x3D;&quot;{&#x27;width&#x27;: &#x27;220px&#x27;}&quot; [minDate]&#x3D;&quot;minDate&quot; [maxDate]&#x3D;&quot;maxDate&quot; [(ngModel)]&#x3D;&quot;rangeDates&quot; selectionMode&#x3D;&quot;range&quot; [readonlyInput]&#x3D;&quot;true&quot; inputId&#x3D;&quot;range&quot; (onSelect)&#x3D;&quot;applyNewRange()&quot; [pTooltip]&#x3D;&quot;dateTooltip&quot; tooltipPosition&#x3D;&quot;left&quot; [showButtonBar]&#x3D;&quot;true&quot; (onClearClick)&#x3D;&quot;clearRange()&quot; (onTodayClick)&#x3D;&quot;applyNewRange()&quot;&gt;
+                    &lt;/p-calendar&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div *ngIf&#x3D;&quot;filterTypeOptions.length&gt;1&quot; class&#x3D;&quot;flex align-items-center justify-content-center mx-1&quot;&gt;
+            &lt;div class&#x3D;&quot;flex align-items-center justify-content-center my-1&quot;&gt;
+                &lt;p-dropdown [options]&#x3D;&quot;filterTypeOptions&quot; [(ngModel)]&#x3D;&quot;currentFilterType&quot; placeholder&#x3D;&quot;Contiene&quot; optionLabel&#x3D;&quot;label&quot; optionValue&#x3D;&quot;value&quot; appendTo&#x3D;&quot;body&quot;&gt;&lt;/p-dropdown&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./datefilter.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex flex-column card-container">    <div *ngIf="!emitAll" class="flex align-items-center justify-content-start">        <div class="flex align-items-center justify-content-center mx-1">            <div class="flex align-items-center justify-content-center my-1 app-input-field">                <p-dropdown *ngIf="rangeSelector == \'dropdown\'" [options]="viewOptions" [(ngModel)]="order" placeholder="label" optionLabel="label" optionValue="value" appendTo="body"></p-dropdown>                <p-selectButton *ngIf="rangeSelector == \'selectButton\'" [options]="viewOptions" [(ngModel)]="order" optionLabel="label" optionValue="value" (onChange)="switchStorage($event)"></p-selectButton>            </div>        </div>    </div>    <div class="flex align-items-center justify-content-start">        <div class="flex w-full flex-row justify-content-end mt-3">            <div class="flex align-items-center justify-content-center mx-1">                <div class="flex align-items-center justify-content-start my-1 app-input-field">                    <input placeholder="Buscar" type="text" pInputText [(ngModel)]="currentFilterFieldValue" (input)="filter()" [pTooltip]="inputTooltip" tooltipPosition="left">                </div>            </div>            <div *ngIf="order==\'between\' || alwaysBetween" class="flex align-items-center justify-content-center mx-1">                <div class="flex align-items-center justify-content-center my-1 app-input-field">                    <p-calendar #calendar1 [panelStyle]="{\'width\': \'400px\'}" [inputStyle]="{\'width\': \'220px\'}" [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range" (onSelect)="applyNewRange()" [pTooltip]="dateTooltip" tooltipPosition="left" [showButtonBar]="true" (onClearClick)="clearRange()" (onTodayClick)="applyNewRange()">                    </p-calendar>                </div>            </div>        </div>        <div *ngIf="filterTypeOptions.length>1" class="flex align-items-center justify-content-center mx-1">            <div class="flex align-items-center justify-content-center my-1">                <p-dropdown [options]="filterTypeOptions" [(ngModel)]="currentFilterType" placeholder="Contiene" optionLabel="label" optionValue="value" appendTo="body"></p-dropdown>            </div>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DatefilterComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DatefilterComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,3210 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HelpdeskComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/helpdesk/helpdesk.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/HelpdeskService.html" target="_self" >{ provide: DocumentProvider, useExisting: HelpdeskService }</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-helpdesk</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./helpdesk.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./helpdesk.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <a href="#cols" >cols</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#dt" >dt</a>
+                            </li>
+                            <li>
+                                <a href="#fileSizeLimit" >fileSizeLimit</a>
+                            </li>
+                            <li>
+                                <a href="#filtersTickets" >filtersTickets</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#newTicket" >newTicket</a>
+                            </li>
+                            <li>
+                                <a href="#optionsTable" >optionsTable</a>
+                            </li>
+                            <li>
+                                <a href="#profileDoc" >profileDoc</a>
+                            </li>
+                            <li>
+                                <a href="#response" >response</a>
+                            </li>
+                            <li>
+                                <a href="#selectedFiles" >selectedFiles</a>
+                            </li>
+                            <li>
+                                <a href="#showCreatorTicket" >showCreatorTicket</a>
+                            </li>
+                            <li>
+                                <a href="#showedTickets" >showedTickets</a>
+                            </li>
+                            <li>
+                                <a href="#showFileUploadUI" >showFileUploadUI</a>
+                            </li>
+                            <li>
+                                <a href="#showTicket" >showTicket</a>
+                            </li>
+                            <li>
+                                <a href="#startup" >startup</a>
+                            </li>
+                            <li>
+                                <a href="#status" >status</a>
+                            </li>
+                            <li>
+                                <a href="#textSummary" >textSummary</a>
+                            </li>
+                            <li>
+                                <a href="#tickets" >tickets</a>
+                            </li>
+                            <li>
+                                <a href="#tickets$" >tickets$</a>
+                            </li>
+                            <li>
+                                <a href="#ticketsContext" >ticketsContext</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allowDelete" >allowDelete</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#closeTicket" >closeTicket</a>
+                            </li>
+                            <li>
+                                <a href="#colorWithOpacity" >colorWithOpacity</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createTicket" >createTicket</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteTicket" >deleteTicket</a>
+                            </li>
+                            <li>
+                                <a href="#display" >display</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadUrl" >downloadUrl</a>
+                            </li>
+                            <li>
+                                <a href="#filterTicketsFunction" >filterTicketsFunction</a>
+                            </li>
+                            <li>
+                                <a href="#getData" >getData</a>
+                            </li>
+                            <li>
+                                <a href="#launchTour" >launchTour</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onUpload" >onUpload</a>
+                            </li>
+                            <li>
+                                <a href="#openCreatorTicket" >openCreatorTicket</a>
+                            </li>
+                            <li>
+                                <a href="#paginatorRightMsg" >paginatorRightMsg</a>
+                            </li>
+                            <li>
+                                <a href="#removeFile" >removeFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendResponse" >sendResponse</a>
+                            </li>
+                            <li>
+                                <a href="#updateTicketStatus" >updateTicketStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadFiles" >uploadFiles</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#roles" >roles</a>
+                                </li>
+                                <li>
+                                    <a href="#ticketsStates" >ticketsStates</a>
+                                </li>
+                                <li>
+                                    <a href="#ticketsStatesNames" >ticketsStatesNames</a>
+                                </li>
+                                <li>
+                                    <a href="#ticketsStatesColors" >ticketsStatesColors</a>
+                                </li>
+                                <li>
+                                    <a href="#TicketCategory" >TicketCategory</a>
+                                </li>
+                                <li>
+                                    <a href="#ticketCategoryColors" >ticketCategoryColors</a>
+                                </li>
+                                <li>
+                                    <a href="#ticketCategoryNames" >ticketCategoryNames</a>
+                                </li>
+                                <li>
+                                    <a href="#userPermission" >userPermission</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, service: <a href="../injectables/HelpdeskService.html" target="_self">HelpdeskService</a>, storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>, confirmationService: ConfirmationService, shepherdService: ShepherdService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:114</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/HelpdeskService.html" target="_self" >HelpdeskService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfirmationService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>shepherdService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ShepherdService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allowDelete"></a>
+                    <span class="name">
+                        <span ><b>allowDelete</b></span>
+                        <a href="#allowDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>allowDelete(ticket: <a href="../classes/Ticket.html" target="_self">Ticket</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="414"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:414</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ticket</td>
+                                            <td>
+                                                            <code><a href="../classes/Ticket.html" target="_self" >Ticket</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeTicket"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>closeTicket</b></span>
+                        <a href="#closeTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>closeTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="349"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:349</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="colorWithOpacity"></a>
+                    <span class="name">
+                        <span ><b>colorWithOpacity</b></span>
+                        <a href="#colorWithOpacity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>colorWithOpacity(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, opacity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="429"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:429</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>opacity</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTicket"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createTicket</b></span>
+                        <a href="#createTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="217"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:217</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteTicket"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteTicket</b></span>
+                        <a href="#deleteTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="381"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:381</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="display"></a>
+                    <span class="name">
+                        <span ><b>display</b></span>
+                        <a href="#display"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>display(ticket)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="202"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:202</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ticket</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadFile(file: <a href="../interfaces/IFileUploadExtended.html" target="_self">IFileUploadExtended</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="300"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:300</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IFileUploadExtended.html" target="_self" >IFileUploadExtended</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadUrl"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadUrl</b></span>
+                        <a href="#downloadUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadUrl(urlFile: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="291"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:291</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>urlFile</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterTicketsFunction"></a>
+                    <span class="name">
+                        <span ><b>filterTicketsFunction</b></span>
+                        <a href="#filterTicketsFunction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterTicketsFunction(data: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getData"></a>
+                    <span class="name">
+                        <span ><b>getData</b></span>
+                        <a href="#getData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="435"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:435</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>{ name: string; email: string; id: string; }</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="launchTour"></a>
+                    <span class="name">
+                        <span ><b>launchTour</b></span>
+                        <a href="#launchTour"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>launchTour()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="136"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:136</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onUpload"></a>
+                    <span class="name">
+                        <span ><b>onUpload</b></span>
+                        <a href="#onUpload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onUpload(event, target)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="273"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:273</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>target</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openCreatorTicket"></a>
+                    <span class="name">
+                        <span ><b>openCreatorTicket</b></span>
+                        <a href="#openCreatorTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openCreatorTicket()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paginatorRightMsg"></a>
+                    <span class="name">
+                        <span ><b>paginatorRightMsg</b></span>
+                        <a href="#paginatorRightMsg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>paginatorRightMsg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="422"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:422</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeFile"></a>
+                    <span class="name">
+                        <span ><b>removeFile</b></span>
+                        <a href="#removeFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeFile(fileName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="285"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:285</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendResponse"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>sendResponse</b></span>
+                        <a href="#sendResponse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendResponse()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="307"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:307</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateTicketStatus"></a>
+                    <span class="name">
+                        <span ><b>updateTicketStatus</b></span>
+                        <a href="#updateTicketStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateTicketStatus(newState: <a href="../undefineds/TicketStates.html" target="_self">TicketStates</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="328"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:328</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>newState</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#TicketStates" target="_self" >TicketStates</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadFiles</b></span>
+                        <a href="#uploadFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadFiles()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="244"
+                                    class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:244</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>ticketCategoryObj</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cols"></a>
+                    <span class="name">
+                        <span ><b>cols</b></span>
+                        <a href="#cols"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { field: &#x27;category.name&#x27;, header: &#x27;Categoría&#x27; },
+    { field: &#x27;title&#x27;, header: &#x27;Título&#x27; },
+    { field: &#x27;status&#x27;, header: &#x27;Estado&#x27; },
+    { field: &#x27;createdAt&#x27;, header: &#x27;Fecha&#x27; },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>dt</b></span>
+                        <a href="#dt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Table</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;dt&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileSizeLimit"></a>
+                    <span class="name">
+                        <span ><b>fileSizeLimit</b></span>
+                        <a href="#fileSizeLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>500000</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtersTickets"></a>
+                    <span class="name">
+                        <span ><b>filtersTickets</b></span>
+                        <a href="#filtersTickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormGroup({
+    category: new FormControl(TicketCategory.support),
+    status: new FormControl(TicketStates.Open),
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newTicket"></a>
+                    <span class="name">
+                        <span ><b>newTicket</b></span>
+                        <a href="#newTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="optionsTable"></a>
+                    <span class="name">
+                        <span ><b>optionsTable</b></span>
+                        <a href="#optionsTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TableOptions.html" target="_self" >TableOptions</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileDoc"></a>
+                    <span class="name">
+                        <span ><b>profileDoc</b></span>
+                        <a href="#profileDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="response"></a>
+                    <span class="name">
+                        <span ><b>response</b></span>
+                        <a href="#response"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedFiles"></a>
+                    <span class="name">
+                        <span ><b>selectedFiles</b></span>
+                        <a href="#selectedFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCreatorTicket"></a>
+                    <span class="name">
+                        <span ><b>showCreatorTicket</b></span>
+                        <a href="#showCreatorTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showedTickets"></a>
+                    <span class="name">
+                        <span ><b>showedTickets</b></span>
+                        <a href="#showedTickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Ticket.html" target="_self" >Ticket[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showFileUploadUI"></a>
+                    <span class="name">
+                        <span ><b>showFileUploadUI</b></span>
+                        <a href="#showFileUploadUI"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showTicket"></a>
+                    <span class="name">
+                        <span ><b>showTicket</b></span>
+                        <a href="#showTicket"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startup"></a>
+                    <span class="name">
+                        <span ><b>startup</b></span>
+                        <a href="#startup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Startup.html" target="_self" >Startup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="status"></a>
+                    <span class="name">
+                        <span ><b>status</b></span>
+                        <a href="#status"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>ticketStatesObj</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="textSummary"></a>
+                    <span class="name">
+                        <span ><b>textSummary</b></span>
+                        <a href="#textSummary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;Mostrando {first} a {last} de {totalRecords}&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tickets"></a>
+                    <span class="name">
+                        <span ><b>tickets</b></span>
+                        <a href="#tickets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Ticket.html" target="_self" >Ticket[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tickets$"></a>
+                    <span class="name">
+                        <span ><b>tickets$</b></span>
+                        <a href="#tickets$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ticketsContext"></a>
+                    <span class="name">
+                        <span ><b>ticketsContext</b></span>
+                        <a href="#ticketsContext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#TicketContext" target="_self" >TicketContext</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="roles"></a>
+                        <span class="name"><b>roles</b><a href="#roles"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>roles()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:52</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ticketsStates"></a>
+                        <span class="name"><b>ticketsStates</b><a href="#ticketsStates"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>ticketsStates()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:87</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ticketsStatesNames"></a>
+                        <span class="name"><b>ticketsStatesNames</b><a href="#ticketsStatesNames"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>ticketsStatesNames()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:91</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ticketsStatesColors"></a>
+                        <span class="name"><b>ticketsStatesColors</b><a href="#ticketsStatesColors"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>ticketsStatesColors()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:95</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="TicketCategory"></a>
+                        <span class="name"><b>TicketCategory</b><a href="#TicketCategory"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>TicketCategory()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:99</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ticketCategoryColors"></a>
+                        <span class="name"><b>ticketCategoryColors</b><a href="#ticketCategoryColors"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>ticketCategoryColors()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:103</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ticketCategoryNames"></a>
+                        <span class="name"><b>ticketCategoryNames</b><a href="#ticketCategoryNames"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>ticketCategoryNames()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:107</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userPermission"></a>
+                        <span class="name"><b>userPermission</b><a href="#userPermission"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userPermission()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/app/home/helpdesk/helpdesk.component.ts:112</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, ViewChild } from &#x27;@angular/core&#x27;;
+import { FormControl, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { TicketContext } from &#x27;./model/TicketContext.model&#x27;;
+import { DocumentProvider } from &#x27;@shared/components/dynamic-table/models/document-provider&#x27;;
+import { HelpdeskService } from &#x27;./helpdesk.service&#x27;;
+import { TableOptions } from &#x27;@shared/components/dynamic-table/models/table-options&#x27;;
+import { tableLocators } from &#x27;@shared/components/dynamic-table/locators&#x27;;
+import {
+  TicketStates,
+  ticketStatesNames,
+  ticketStatesColors,
+  ticketStatesObj,
+} from &#x27;./enum/ticket-status.enum&#x27;;
+import {
+  TicketCategory,
+  ticketCategoryColors,
+  ticketCategoryNames,
+  ticketCategoryObj,
+} from &#x27;./enum/ticket-category.enum&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { firstValueFrom, first, Subscription } from &#x27;rxjs&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { newResponse, newTicket } from &#x27;./model/ticket-creator&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { Ticket } from &#x27;./model/ticket.model&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import FileSaver from &#x27;file-saver&#x27;;
+import { IFileUpload, IFileUploadExtended } from &#x27;@shared/models/file&#x27;;
+import { ConfirmationService } from &#x27;primeng/api&#x27;;
+import { Table } from &#x27;primeng/table&#x27;;
+import { hexToRgb } from &#x27;@shared/utils/hexToRgb&#x27;;
+import { ValidRoles } from &#x27;@auth/models/valid-roles.enum&#x27;;
+import { assertAbstractType } from &#x27;graphql&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import { ShepherdService } from &#x27;angular-shepherd&#x27;;
+import { helpDeskOnboarding } from &#x27;@shared/onboarding/onboarding.config&#x27;;
+@Component({
+  selector: &#x27;app-helpdesk&#x27;,
+  templateUrl: &#x27;./helpdesk.component.html&#x27;,
+  styleUrls: [&#x27;./helpdesk.component.scss&#x27;],
+  providers: [{ provide: DocumentProvider, useExisting: HelpdeskService }],
+})
+export class HelpdeskComponent implements OnInit, OnDestroy {
+  user: User;
+  loaded &#x3D; false;
+  profileDoc;
+  startup: Startup;
+
+  public get roles(): typeof ValidRoles {
+    return ValidRoles;
+  }
+
+  filtersTickets &#x3D; new FormGroup({
+    category: new FormControl(TicketCategory.support),
+    status: new FormControl(TicketStates.Open),
+  });
+
+  categories &#x3D; ticketCategoryObj;
+  status &#x3D; ticketStatesObj;
+  ticketsContext: TicketContext;
+
+  optionsTable: TableOptions;
+  textSummary &#x3D; &#x60;Mostrando {first} a {last} de {totalRecords}&#x60;;
+  newTicket: FormGroup;
+  showCreatorTicket &#x3D; false;
+
+  tickets$: Subscription;
+  tickets: Ticket[] &#x3D; [];
+  showedTickets: Ticket[] &#x3D; [];
+  cols &#x3D; [
+    { field: &#x27;category.name&#x27;, header: &#x27;Categoría&#x27; },
+    { field: &#x27;title&#x27;, header: &#x27;Título&#x27; },
+    { field: &#x27;status&#x27;, header: &#x27;Estado&#x27; },
+    { field: &#x27;createdAt&#x27;, header: &#x27;Fecha&#x27; },
+  ];
+
+  showTicket;
+  response: FormGroup;
+  // Files
+  showFileUploadUI &#x3D; false;
+  selectedFiles: { name: string; url?: string; file?: File }[] &#x3D; [];
+  fileSizeLimit &#x3D; 500000;
+
+  public get ticketsStates(): typeof TicketStates {
+    return TicketStates;
+  }
+
+  public get ticketsStatesNames(): typeof ticketStatesNames {
+    return ticketStatesNames;
+  }
+
+  public get ticketsStatesColors(): typeof ticketStatesColors {
+    return ticketStatesColors;
+  }
+
+  public get TicketCategory(): typeof TicketCategory {
+    return TicketCategory;
+  }
+
+  public get ticketCategoryColors(): typeof ticketCategoryColors {
+    return ticketCategoryColors;
+  }
+
+  public get ticketCategoryNames(): typeof ticketCategoryNames {
+    return ticketCategoryNames;
+  }
+  @ViewChild(&#x27;dt&#x27;, { static: true }) dt: Table;
+
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+  constructor(
+    private toast: ToastService,
+    private store: Store&lt;AppState&gt;,
+    private service: HelpdeskService,
+    private readonly storageService: StorageService,
+    private confirmationService: ConfirmationService,
+    private readonly shepherdService: ShepherdService
+  ) {
+    this.filtersTickets.valueChanges.subscribe((data) &#x3D;&gt; {
+      this.filterTicketsFunction(data as any);
+    });
+  }
+
+  ngOnInit() {
+    this.loadComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.tickets$?.unsubscribe();
+  }
+
+  launchTour() {
+    if (!this.user.isUser) return;
+    this.shepherdService.addSteps(helpDeskOnboarding);
+    this.shepherdService.start();
+  }
+
+  async loadComponent() {
+    this.loaded &#x3D; false;
+    await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+    if (this.user.isExpert || this.user.isUser) {
+      this.profileDoc &#x3D; await firstValueFrom(
+        this.store
+          .select((store) &#x3D;&gt; store.auth.profileDoc)
+          .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+      );
+    }
+    if (this.user.isUser) {
+      if (this.user.isUser) this.startup &#x3D; this.profileDoc.startups[0];
+    }
+    this.service
+      .watchTickets({
+        isDeleted: false,
+      })
+      .then((tickets$) &#x3D;&gt; {
+        this.loaded &#x3D; false;
+        this.tickets$ &#x3D; tickets$.subscribe((ticketsList) &#x3D;&gt; {
+          this.tickets &#x3D; ticketsList.map((i) &#x3D;&gt; Ticket.fromJson(i));
+          this.filterTicketsFunction(this.filtersTickets.value as any);
+          this.loaded &#x3D; true;
+        });
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.alert({
+          summary: &#x27;Error al cargar tickets&#x27;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  filterTicketsFunction(data: {
+    category: TicketCategory;
+    status: TicketStates;
+  }) {
+    this.showedTickets &#x3D; this.tickets.filter(
+      (i) &#x3D;&gt; i.category &#x3D;&#x3D;&#x3D; data.category
+    );
+    this.showedTickets &#x3D; this.showedTickets.sort((ticketA, ticketB) &#x3D;&gt; {
+      // Comparar los estados de los tickets
+      if (ticketA.status &#x3D;&#x3D;&#x3D; data.status &amp;&amp; ticketB.status !&#x3D;&#x3D; data.status) {
+        return -1; // ticketA va antes que ticketB
+      } else if (
+        ticketA.status !&#x3D;&#x3D; data.status &amp;&amp;
+        ticketB.status &#x3D;&#x3D;&#x3D; data.status
+      ) {
+        return 1; // ticketB va antes que ticketA
+      } else {
+        return 0; // No se cambian de posición
+      }
+    });
+  }
+
+  display(ticket) {
+    this.showTicket &#x3D; ticket;
+    this.response &#x3D; newResponse(this.user, ticket);
+    this.selectedFiles &#x3D; [];
+    this.showFileUploadUI &#x3D; false;
+  }
+
+  openCreatorTicket() {
+    this.newTicket &#x3D; newTicket();
+    this.response &#x3D; newResponse(this.user);
+    this.selectedFiles &#x3D; [];
+    this.showCreatorTicket &#x3D; true;
+    this.showFileUploadUI &#x3D; false;
+  }
+
+  async createTicket() {
+    this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Guardando...&#x27; });
+    await this.uploadFiles();
+    const data &#x3D; this.getData();
+    this.service
+      .createTicket({
+        title: this.newTicket.value.title,
+        newChild: {
+          ...this.response.value,
+          body: this.newTicket.value.body,
+        },
+        startupId: data.id,
+        startupName: data.name,
+        category: this.newTicket.value.category,
+      })
+      .then((ans) &#x3D;&gt; {
+        this.showCreatorTicket &#x3D; false;
+        this.filtersTickets.get(&#x27;category&#x27;).setValue(ans.category);
+        this.toast.clear();
+      })
+      .catch((err) &#x3D;&gt; {
+        console.warn(err);
+        this.toast.clear();
+        this.toast.error({ summary: &#x27;Error al crear ticket&#x27;, detail: err });
+      });
+  }
+
+  async uploadFiles() {
+    const attachment: IFileUpload[] &#x3D; [];
+    for (const iterator of this.selectedFiles) {
+      this.toast.clear();
+      this.toast.info({
+        summary: &#x27;Subiendo archivo...&#x27;,
+        detail: &#x27;Por favor espere, no cierre la ventana&#x27;,
+      });
+      if (iterator.file) {
+        const fileUploaded: any &#x3D; await firstValueFrom(
+          this.storageService
+            .uploadFile(&#x60;tickets/${this.user._id}/&#x60;, iterator.file)
+            .pipe(first((event) &#x3D;&gt; event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response))
+        );
+        attachment.push({
+          name: iterator.name,
+          url: fileUploaded.url,
+        });
+      } else {
+        attachment.push({
+          name: iterator.name,
+          url: iterator.url,
+        });
+      }
+    }
+    this.response.get(&#x27;attachment&#x27;).setValue(attachment);
+    this.toast.clear();
+  }
+
+  onUpload(event, target) {
+    for (let newFile of event.files as File[]) {
+      if (!this.selectedFiles.some((f) &#x3D;&gt; f.name &#x3D;&#x3D; newFile.name)) {
+        this.selectedFiles.push({
+          file: newFile,
+          name: newFile.name,
+        });
+      }
+    }
+    target.clear();
+  }
+
+  removeFile(fileName: string) {
+    if (this.selectedFiles) {
+      this.selectedFiles &#x3D; this.selectedFiles.filter((f) &#x3D;&gt; f.name !&#x3D; fileName);
+    }
+  }
+
+  async downloadUrl(urlFile: string) {
+    const key &#x3D; this.storageService.getKey(urlFile);
+    console.log(key);
+    const url &#x3D; await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      window.open(url, &#x27;_blank&#x27;);
+    }
+  }
+
+  async downloadFile(file: IFileUploadExtended) {
+    if (file.file) {
+      FileSaver.saveAs(file.file);
+      return;
+    }
+  }
+
+  async sendResponse() {
+    await this.uploadFiles();
+    this.toast.info({ summary: &#x27;Enviando respuesta&#x27;, detail: &#x27;&#x27; });
+    this.service
+      .updateTicket({
+        _id: this.showTicket._id,
+        childs: [...this.showTicket.childs, { ...this.response.value }],
+      })
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.showTicket.childs &#x3D; this.showTicket.childs.concat([
+          { ...this.response.value },
+        ]);
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.clear();
+        console.warn(err);
+        this.toast.error({ summary: &#x27;Error al responder ticket&#x27;, detail: err });
+      });
+  }
+
+  updateTicketStatus(newState: TicketStates) {
+    this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Actualizando...&#x27; });
+    this.service
+      .updateTicket({
+        _id: this.showTicket._id,
+        status: newState,
+      })
+      .then((ans) &#x3D;&gt; {
+        this.showTicket &#x3D; false;
+        this.toast.clear();
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x27;Error al intentar actualizar el estado del ticket&#x27;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  async closeTicket() {
+    this.confirmationService.confirm({
+      key: &#x27;confirmDialog&#x27;,
+      acceptLabel: &#x27;Cerrar ticket&#x27;,
+      rejectLabel: &#x27;Cancelar&#x27;,
+      header: &#x27;¿Está seguro de que desea cerrar el ticket?&#x27;,
+      message:
+        &#x27;Al cerrar el ticket, este se archivara y no permitirá ningún cambio&#x27;,
+      icon: &#x27;pi pi-exclamation-triangle&#x27;,
+      accept: async () &#x3D;&gt; {
+        this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Archivando...&#x27; });
+        this.service
+          .updateTicket({
+            _id: this.showTicket._id,
+            status: this.ticketsStates.Closed,
+          })
+          .then((ans) &#x3D;&gt; {
+            this.showTicket &#x3D; false;
+            this.toast.clear();
+          })
+          .catch((err) &#x3D;&gt; {
+            this.toast.clear();
+            this.toast.alert({
+              summary: &#x27;Error al intentar cerrar ticket&#x27;,
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
+  async deleteTicket() {
+    this.confirmationService.confirm({
+      key: &#x27;confirmDialog&#x27;,
+      acceptLabel: &#x27;Eliminar&#x27;,
+      rejectLabel: &#x27;Cancelar&#x27;,
+      header: &#x27;&#x27;,
+      message: &#x27;¿Está seguro de que desea eliminar el ticket?&#x27;,
+      icon: &#x27;pi pi-exclamation-triangle&#x27;,
+      accept: async () &#x3D;&gt; {
+        this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Eliminado...&#x27; });
+        this.service
+          .deleteTicket(this.showTicket._id)
+          .then((ans) &#x3D;&gt; {
+            this.showTicket &#x3D; false;
+            this.toast.clear();
+            this.toast.success({
+              detail: &#x27;El ticket ha sido eliminado exitosamente&#x27;,
+              summary: &#x27;Etapa eliminado!&#x27;,
+              life: 2000,
+            });
+          })
+          .catch((err) &#x3D;&gt; {
+            this.toast.clear();
+            this.toast.alert({
+              summary: &#x27;Error al intentar eliminar ticket&#x27;,
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
+  allowDelete(ticket: Ticket) {
+    if (!ticket) return false;
+    if (ticket.status &#x3D;&#x3D;&#x3D; this.ticketsStates.Closed) return false;
+    const data &#x3D; this.getData();
+    if (ticket.startupId !&#x3D;&#x3D; data.id) return false;
+    return true;
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return &#x27;&#x27;;
+    return &#x60;Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }&#x60;;
+  }
+
+  colorWithOpacity(color: string, opacity: number) {
+    const colorRgb &#x3D; hexToRgb(color);
+    const style &#x3D; &#x60;rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})&#x60;;
+    return style;
+  }
+
+  getData() {
+    const data &#x3D; {
+      name: &#x27;&#x27;,
+      email: &#x27;&#x27;,
+      id: &#x27;&#x27;,
+    };
+    switch (this.user.rolType) {
+      case ValidRoles.user:
+        data.name &#x3D; this.startup.item[&#x27;nombre&#x27;];
+        data.id &#x3D; this.startup._id;
+        break;
+      case ValidRoles.expert:
+        console.log(this.profileDoc);
+        data.name &#x3D; this.profileDoc.item[&#x27;nombre&#x27;];
+        data.id &#x3D; this.profileDoc._id;
+        break;
+      default:
+        data.name &#x3D; this.user.fullName;
+        data.id &#x3D; this.user._id;
+        break;
+    }
+    return data;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex flex-column h-max-router overflow-auto px-1 sm:px-4 gap-2&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column xl:flex-row gap-4 &quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8&quot;&gt;
+            &lt;h2&gt;Mesa de ayuda&lt;/h2&gt;
+            &lt;div style&#x3D;&quot;height: 1rem&quot;&gt;&lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex gap-2&quot;&gt;
+                &lt;i-tabler class&#x3D;&quot;text-center cursor-pointer&quot; (click)&#x3D;&quot;launchTour()&quot; name&#x3D;&quot;bulb&quot; style&#x3D;&quot;color:#18E4E6; height:4rem; width:4rem;&quot;&gt;&lt;/i-tabler&gt;
+                &lt;p class&#x3D;&quot;th2&quot;&gt;{{user?.isAdmin ? &#x27;Aquí puedes revisar y gestionar las conversaciones en la Mesa de Ayuda. Asegúrate de que los tickets sean apropiados y responde a las consultas de los usuarios para proporcionar soluciones efectivas. Si encuentras tickets inapropiados, puedes eliminarlos para mantener un entorno positivo y productivo. Tu participación es esencial para garantizar una experiencia óptima para nuestros usuarios. ¡Explora las conversaciones y toma medidas según sea necesario&#x27; : &#x27;Este espacio está diseñado para ti. Si necesitas ayuda específica para tu startup, buscas acompañamiento, deseas hacer sugerencias para eventos, o simplemente tienes algo que compartir con nosotros, ¡este es el lugar indicado! Inicia una conversación y nuestro equipo estará encantado de ayudarte y conectar contigo. Tu feedback es crucial para nosotros.&#x27;}}
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-2 app-input-field&quot; id&#x3D;&quot;filterTickType&quot;&gt;
+                &lt;label&gt;Ver por:&lt;/label&gt;
+                &lt;div class&#x3D;&quot;flex&quot;&gt;
+                    &lt;form [formGroup]&#x3D;&quot;filtersTickets&quot;&gt;
+                        &lt;p-dropdown formControlName&#x3D;&quot;category&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{&#x27;width&#x27;:&#x27;190px&#x27;}&quot; [options]&#x3D;&quot;categories&quot; optionLabel&#x3D;&quot;name&quot; optionValue&#x3D;&quot;value&quot;&gt;&lt;/p-dropdown&gt;
+                    &lt;/form&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-2 app-input-field&quot; id&#x3D;&quot;orderTickState&quot;&gt;
+                &lt;label&gt;Ordenar por:&lt;/label&gt;
+                &lt;div class&#x3D;&quot;flex&quot;&gt;
+                    &lt;form [formGroup]&#x3D;&quot;filtersTickets&quot;&gt;
+                        &lt;p-dropdown appendTo&#x3D;&quot;body&quot; formControlName&#x3D;&quot;status&quot; [options]&#x3D;&quot;status&quot; optionLabel&#x3D;&quot;name&quot; optionValue&#x3D;&quot;value&quot; [style]&#x3D;&quot;{&#x27;width&#x27;:&#x27;190px&#x27;}&quot;&gt;&lt;/p-dropdown&gt;
+                    &lt;/form&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p-button id&#x3D;&quot;createTicketBtn&quot; label&#x3D;&quot;+ Ticket&quot; (onClick)&#x3D;&quot;openCreatorTicket()&quot; class&#x3D;&quot;mt-4&quot; *ngIf&#x3D;&quot;user?.allowed(userPermission.help_desk_create) || user?.rolType&#x3D;&#x3D;roles.user&quot;&gt;&lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;flex h-4&quot;&gt;&lt;/div&gt;
+    &lt;div class&#x3D;&quot;flex w-full table-container p-1&quot; id&#x3D;&quot;tableTickets&quot;&gt;
+        &lt;p-table #dt class&#x3D;&quot;table-app w-full&quot; [value]&#x3D;&quot;showedTickets&quot; [tableStyle]&#x3D;&quot;{&#x27;min-width&#x27;: &#x27;50rem&#x27;}&quot; paginatorPosition&#x3D;&quot;bottom&quot; [currentPageReportTemplate]&#x3D;&quot;textSummary&quot; dataKey&#x3D;&quot;_id&quot; [showCurrentPageReport]&#x3D;&quot;true&quot; [rows]&#x3D;&quot;10&quot; [rowsPerPageOptions]&#x3D;&quot;[10,25,50]&quot; [paginator]&#x3D;&quot;true&quot; scrollDirection&#x3D;&quot;both&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;caption&quot;&gt;
+                &lt;div class&#x3D;&quot;table-header pt-3&quot;&gt;
+                    &lt;span class&#x3D;&quot;header color-custom ml-3&quot;&gt;Tickets&lt;/span&gt;
+                    &lt;div class&#x3D;&quot;flex flex-wrap justify-content-center&quot; style&#x3D;&quot;gap:0.5rem;&quot;&gt;
+
+
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Categoría&lt;/th&gt;
+                    &lt;th&gt;Titulo&lt;/th&gt;
+                    &lt;th&gt;Estado&lt;/th&gt;
+                    &lt;th&gt;Fecha&lt;/th&gt;
+                    &lt;th&gt;&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-ticket&gt;
+                &lt;tr (click)&#x3D;&quot;display(ticket)&quot; class&#x3D;&quot;cursor-pointer&quot;&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{ticketCategoryNames[ticket.category]}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{ticket.title}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;&lt;p-tag [value]&#x3D;&quot;ticketsStatesNames[ticket.status]&quot; [severity]&#x3D;&quot;ticketsStatesColors[ticket.status]&quot;&gt;&lt;/p-tag&gt;&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{ticket.createdAt | date : &#x27;yyyy/MM/dd&#x27;}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;paginatorright&quot;&gt;
+                &lt;span&gt;{{paginatorRightMsg()}}&lt;/span&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p-dialog appendTo&#x3D;&quot;body&quot; header&#x3D;&quot;&quot; [(visible)]&#x3D;&quot;showTicket&quot; [style]&#x3D;&quot;{width: &#x27;70vw&#x27;}&quot; [maximizable]&#x3D;&quot;true&quot; [modal]&#x3D;&quot;true&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot;&gt;
+    &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+        &lt;i-tabler name&#x3D;&quot;heart-handshake&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+        &lt;div class&#x3D;&quot;content-resource w-full flex flex-column justify-content-between pr-4&quot;&gt;
+            &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;
+                {{showTicket?.title}}&lt;/h2&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row gap-2&quot;&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; tooltipPosition&#x3D;&quot;top&quot; pTooltip&#x3D;&quot;Marcar en progreso&quot; label&#x3D;&quot;Marcar en progreso&quot; icon&#x3D;&quot;pi pi-check-square&quot; iconPos&#x3D;&quot;left&quot; (onClick)&#x3D;&quot;updateTicketStatus(ticketsStates.InProgress)&quot; styleClass&#x3D;&quot;p-button-quaternary border-round-2xl p-3&quot; *ngIf&#x3D;&quot;!(user?.isUser || user?.isExpert) &amp;&amp; showTicket?.status !&#x3D;&#x3D; ticketsStates.Closed &amp;&amp; showTicket?.status !&#x3D;&#x3D; ticketsStates.InProgress&quot;&gt;&lt;/p-button&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; tooltipPosition&#x3D;&quot;top&quot; pTooltip&#x3D;&quot;Marcar como abierto&quot; label&#x3D;&quot;Marcar como abierto&quot; icon&#x3D;&quot;pi pi-folder-open&quot; iconPos&#x3D;&quot;left&quot; (onClick)&#x3D;&quot;updateTicketStatus(ticketsStates.Open)&quot; styleClass&#x3D;&quot;p-button-quaternary border-round-2xl p-3&quot; *ngIf&#x3D;&quot;!(user?.isUser || user?.isExpert) &amp;&amp; showTicket?.status !&#x3D;&#x3D; ticketsStates.Closed &amp;&amp; showTicket?.status !&#x3D;&#x3D; ticketsStates.Open&quot;&gt;&lt;/p-button&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; tooltipPosition&#x3D;&quot;top&quot; pTooltip&#x3D;&quot;Cerrar ticket&quot; label&#x3D;&quot;Cerrar ticket&quot; icon&#x3D;&quot;pi pi-sign-out&quot; iconPos&#x3D;&quot;left&quot; (onClick)&#x3D;&quot;closeTicket()&quot; styleClass&#x3D;&quot;button-blue-second border-round-2xl p-3&quot; *ngIf&#x3D;&quot;!(user?.isUser || user?.isExpert) &amp;&amp; showTicket?.status !&#x3D;&#x3D; ticketsStates.Closed&quot;&gt;&lt;/p-button&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; tooltipPosition&#x3D;&quot;top&quot; pTooltip&#x3D;&quot;Borrar ticket&quot; icon&#x3D;&quot;pi pi-trash&quot; (onClick)&#x3D;&quot;deleteTicket()&quot; styleClass&#x3D;&quot;button-grey border-round-2xl p-3&quot; *ngIf&#x3D;&quot;allowDelete(showTicket)&quot;&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;flex flex-column w-full p-3 gap-2 &quot; *ngIf&#x3D;&quot;showTicket&quot;&gt;
+        &lt;ng-container *ngFor&#x3D;&quot;let item of showTicket.childs&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-row w-full align-items-center pt-2 gap-2&quot; [ngClass]&#x3D;&quot;{&#x27;justify-content-end&#x27; : item.isResponse, &#x27;align-items-start&#x27;: !item.isResponse}&quot;&gt;
+                &lt;p-avatar [label]&#x3D;&quot;item.answerBy[0]&quot; styleClass&#x3D;&quot;mr-2&quot; size&#x3D;&quot;large&quot; shape&#x3D;&quot;circle&quot; *ngIf&#x3D;&quot;!item.isResponse&quot;&gt;&lt;/p-avatar&gt;
+                &lt;div class&#x3D;&quot;w-full flex flex-column card-ticket w-9 p-3 gap-2&quot; [ngClass]&#x3D;&quot;{&#x27;justify-content-end text-right right-card border-none&#x27; : item.isResponse, &#x27;align-items-start left-card text-white&#x27;: !item.isResponse}&quot; [style.background-color]&#x3D;&quot;item.isResponse ? colorWithOpacity(&#x27;#18e4e6&#x27;, 0.5) : colorWithOpacity(&#x27;#196A9F&#x27;, 1)&quot;&gt;
+                    &lt;p&gt;
+                        {{item.body}}
+                    &lt;/p&gt;
+                    &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-start m-2 cursor-pointer text-sm&quot; *ngFor&#x3D;&quot;let file of item.attachment&quot;&gt;
+                        &lt;i-tabler name&#x3D;&quot;file-description&quot; class&#x3D;&quot;mr-1&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;a pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;file.url&quot; (click)&#x3D;&quot;downloadUrl(file.url)&quot;&gt;{{file.name}}&lt;/a&gt;
+                        &lt;span pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;!file.url&quot; (click)&#x3D;&quot;downloadFile(file)&quot;&gt;{{file.name}}&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;p-avatar [label]&#x3D;&quot;item.answerBy[0]&quot; styleClass&#x3D;&quot;mr-2&quot; size&#x3D;&quot;large&quot; shape&#x3D;&quot;circle&quot; *ngIf&#x3D;&quot;item.isResponse&quot;&gt;&lt;/p-avatar&gt;
+            &lt;/div&gt;
+            &lt;p class&#x3D;&quot;set-color-text-third font-semibold px-8&quot; [ngClass]&#x3D;&quot;{&#x27;justify-content-end text-right&#x27; : item.isResponse, &#x27;align-items-start&#x27;: !item.isResponse}&quot;&gt;
+                {{item.answerBy}}&lt;/p&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;showTicket.status !&#x3D;&#x3D; this.ticketsStates.Closed&quot;&gt;
+            &lt;p-divider&gt;&lt;/p-divider&gt;
+            &lt;form [formGroup]&#x3D;&quot;response&quot; class&#x3D;&quot;formgrid grid&quot;&gt;
+                &lt;span class&#x3D;&quot;field col-11&quot;&gt;
+                    &lt;textarea inputId&#x3D;&quot;msgResponse&quot; class&#x3D;&quot;mt-4&quot; style&#x3D;&quot;width: 100%;&quot; placeholder&#x3D;&quot;Escribe aquí tu respuesta&quot; rows&#x3D;&quot;3&quot; formControlName&#x3D;&quot;body&quot; pInputTextarea&gt;&lt;/textarea&gt;
+                &lt;/span&gt;
+                &lt;div class&#x3D;&quot;field col-1 p-2&quot;&gt;
+                    &lt;p-button type&#x3D;&quot;submit&quot; pTooltip&#x3D;&quot;Enviar respuesta&quot; (onClick)&#x3D;&quot;sendResponse()&quot; styleClass&#x3D;&quot;button-blue-second w-full h-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;response.invalid&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex w-full justify-content-center&quot;&gt;
+                            &lt;i-tabler class&#x3D;&quot;icon-response&quot; name&#x3D;&quot;arrow-narrow-right&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+
+                    &lt;/p-button&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+            &lt;div class&#x3D;&quot;flex flex-row&quot;&gt;
+                &lt;p-toggleButton [(ngModel)]&#x3D;&quot;showFileUploadUI&quot; [offIcon]&#x3D;&quot;&#x27;pi pi-link&#x27;&quot; [onIcon]&#x3D;&quot;&#x27;pi pi-link&#x27;&quot; [onLabel]&#x3D;&quot;&#x27;Subir archivos&#x27;&quot; offLabel&#x3D;&quot;Subir archivos&quot;&gt;&lt;/p-toggleButton&gt;
+            &lt;/div&gt;
+            &lt;span class&#x3D;&quot;field col-12&quot; *ngIf&#x3D;&quot;showFileUploadUI&quot;&gt;
+                &lt;label for&#x3D;&quot;filesTicket&quot; class&#x3D;&quot;&quot;&gt;Archivos&lt;/label&gt;
+                &lt;!-- &quot;space_management_add_acta&quot; &quot;add-file&quot; : &quot;Añadir archivo(s)&quot;,, --&gt;
+                &lt;p-fileUpload inputId&#x3D;&quot;filesTicket&quot; #fileuploader [auto]&#x3D;&quot;true&quot; [customUpload]&#x3D;&quot;true&quot; chooseLabel&#x3D;&quot;Añadir archivos a la respuesta&quot; [multiple]&#x3D;&quot;true&quot; [maxFileSize]&#x3D;&quot;fileSizeLimit&quot; accept&#x3D;&quot;&quot; name&#x3D;&quot;myfile[]&quot; (uploadHandler)&#x3D;&quot;onUpload($event, fileuploader)&quot;&gt;
+                    &lt;ng-template let-file pTemplate&#x3D;&quot;file&quot;&gt;
+                        &lt;div&gt;&lt;/div&gt;
+                    &lt;/ng-template&gt;
+                    &lt;ng-template pTemplate&#x3D;&quot;content&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-start m-2 cursor-pointer&quot; *ngFor&#x3D;&quot;let file of selectedFiles&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;file-description&quot; class&#x3D;&quot;mr-1&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;a pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;file.url&quot; (click)&#x3D;&quot;downloadUrl(file.url)&quot;&gt;{{file.name}}&lt;/a&gt;
+                            &lt;span pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;!file.url&quot; (click)&#x3D;&quot;downloadFile(file)&quot;&gt;{{file.name}}&lt;/span&gt;
+                            &lt;i-tabler name&#x3D;&quot;x&quot; class&#x3D;&quot;ml-1&quot; (click)&#x3D;&quot;removeFile(file.name)&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                    &lt;/ng-template&gt;
+                &lt;/p-fileUpload&gt;
+            &lt;/span&gt;
+        &lt;/ng-container&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;panel-hide fixed bottom-0 left-0&quot;&gt;&lt;/div&gt;
+&lt;/p-dialog&gt;
+
+&lt;p-dialog appendTo&#x3D;&quot;body&quot; header&#x3D;&quot;Ticket&quot; [(visible)]&#x3D;&quot;showCreatorTicket&quot; [style]&#x3D;&quot;{ width: &#x27;45vw&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; [modal]&#x3D;&quot;true&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot;&gt;
+    &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+        &lt;i-tabler name&#x3D;&quot;heart-handshake&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+        &lt;div class&#x3D;&quot;content-resource w-full flex flex-column justify-content-between pb-2 pr-4&quot;&gt;
+            &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;Ticket&lt;/h2&gt;
+            &lt;span&gt;Los tickets son tu pase directo a solucionar problemas de manera rápida y eficiente. Si encuentras algún inconveniente o necesitas ayuda, simplemente crea un ticket y nuestro equipo estará encantado de ayudarte.&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;flex flex-column justify-content-between h-full w-full p-3&quot; *ngIf&#x3D;&quot;newTicket&quot;&gt;
+        &lt;form [formGroup]&#x3D;&quot;newTicket&quot; class&#x3D;&quot;formgrid grid&quot;&gt;
+            &lt;div class&#x3D;&quot;field app-input-field col-6&quot;&gt;
+                &lt;label for&#x3D;&quot;titleTicket&quot;&gt;Titulo&lt;/label&gt;
+                &lt;input id&#x3D;&quot;titleTicket&quot; pInputText type&#x3D;&quot;text&quot; class&#x3D;&quot;appearance-none outline-none w-full&quot; formControlName&#x3D;&quot;title&quot; required&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field app-input-field col-6&quot;&gt;
+                &lt;label for&#x3D;&quot;categoryTicket&quot;&gt;Categoría&lt;/label&gt;
+                &lt;p-dropdown inputId&#x3D;&quot;categoryTicket&quot; appendTo&#x3D;&quot;body&quot; [options]&#x3D;&quot;categories&quot; optionLabel&#x3D;&quot;name&quot; optionValue&#x3D;&quot;value&quot; formControlName&#x3D;&quot;category&quot; styleClass&#x3D;&quot;appearance-none outline-none w-full&quot;&gt;
+                &lt;/p-dropdown&gt;
+            &lt;/div&gt;
+            &lt;span class&#x3D;&quot;field app-input-field col-12&quot;&gt;
+                &lt;label for&#x3D;&quot;msgTicket&quot;&gt;Mensaje&lt;/label&gt;
+                &lt;textarea inputId&#x3D;&quot;msgTicket&quot; style&#x3D;&quot;width: 100%;&quot; rows&#x3D;&quot;8&quot; formControlName&#x3D;&quot;body&quot; pInputTextarea&gt;&lt;/textarea&gt;
+            &lt;/span&gt;
+        &lt;/form&gt;
+        &lt;div class&#x3D;&quot;flex flex-row&quot;&gt;
+            &lt;p-toggleButton [(ngModel)]&#x3D;&quot;showFileUploadUI&quot; [offIcon]&#x3D;&quot;&#x27;pi pi-link&#x27;&quot; [onIcon]&#x3D;&quot;&#x27;pi pi-link&#x27;&quot; [onLabel]&#x3D;&quot;&#x27;Subir archivos&#x27;&quot; offLabel&#x3D;&quot;Subir archivos&quot;&gt;&lt;/p-toggleButton&gt;
+        &lt;/div&gt;
+        &lt;span class&#x3D;&quot;field col-12&quot; *ngIf&#x3D;&quot;showFileUploadUI&quot;&gt;
+            &lt;p-fileUpload inputId&#x3D;&quot;filesTicket&quot; #fileuploader [auto]&#x3D;&quot;true&quot; [customUpload]&#x3D;&quot;true&quot; chooseLabel&#x3D;&quot;Añadir archivos&quot; [multiple]&#x3D;&quot;true&quot; [maxFileSize]&#x3D;&quot;fileSizeLimit&quot; accept&#x3D;&quot;&quot; name&#x3D;&quot;myfile[]&quot; (uploadHandler)&#x3D;&quot;onUpload($event, fileuploader)&quot;&gt;
+                &lt;ng-template let-file pTemplate&#x3D;&quot;file&quot;&gt;
+                    &lt;div&gt;&lt;/div&gt;
+                &lt;/ng-template&gt;
+                &lt;ng-template pTemplate&#x3D;&quot;content&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-start m-2 cursor-pointer&quot; *ngFor&#x3D;&quot;let file of selectedFiles&quot;&gt;
+                        &lt;i-tabler name&#x3D;&quot;file-description&quot; class&#x3D;&quot;mr-1&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;a pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;file.url&quot; (click)&#x3D;&quot;downloadUrl(file.url)&quot;&gt;{{file.name}}&lt;/a&gt;
+                        &lt;span pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;!file.url&quot; (click)&#x3D;&quot;downloadFile(file)&quot;&gt;{{file.name}}&lt;/span&gt;
+                        &lt;i-tabler name&#x3D;&quot;x&quot; class&#x3D;&quot;ml-1&quot; (click)&#x3D;&quot;removeFile(file.name)&quot;&gt;&lt;/i-tabler&gt;
+
+                    &lt;/div&gt;
+                &lt;/ng-template&gt;
+            &lt;/p-fileUpload&gt;
+        &lt;/span&gt;
+        &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+        &lt;div class&#x3D;&quot;actions flex flex-column gap-1 mb-4&quot;&gt;
+            &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Crear ticket&quot; (onClick)&#x3D;&quot;createTicket()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;newTicket.invalid&quot;&gt;&lt;/p-button&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;flex md:hidden&quot; style&#x3D;&quot;height: 30rem;&quot;&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;panel-hide fixed bottom-0 left-0&quot;&gt;&lt;/div&gt;
+&lt;/p-dialog&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./helpdesk.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../styles.scss&quot;;
+
+.dpandfilters {
+  display: flex;
+  flex-direction: none;
+  @media (max-width: 1050px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.table-container {
+  background-color: $grayThird;
+  border-radius: 3.125rem;
+  padding: 5rem 0 1rem 0;
+}
+
+.card-ticket {
+  border: 1px solid;
+}
+
+.left-card {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.right-card {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.icon-response {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.panel-hide {
+  height: 3rem;
+  background-color: white;
+  border-bottom-right-radius: 3.125rem;
+  border-bottom-left-radius: 3.125rem;
+  width: 98%;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex flex-column h-max-router overflow-auto px-1 sm:px-4 gap-2">    <div class="flex flex-column xl:flex-row gap-4 ">        <div class="flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">            <h2>Mesa de ayuda</h2>            <div style="height: 1rem"></div>            <div class="flex gap-2">                <i-tabler class="text-center cursor-pointer" (click)="launchTour()" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>                <p class="th2">{{user?.isAdmin ? \'Aquí puedes revisar y gestionar las conversaciones en la Mesa de Ayuda. Asegúrate de que los tickets sean apropiados y responde a las consultas de los usuarios para proporcionar soluciones efectivas. Si encuentras tickets inapropiados, puedes eliminarlos para mantener un entorno positivo y productivo. Tu participación es esencial para garantizar una experiencia óptima para nuestros usuarios. ¡Explora las conversaciones y toma medidas según sea necesario\' : \'Este espacio está diseñado para ti. Si necesitas ayuda específica para tu startup, buscas acompañamiento, deseas hacer sugerencias para eventos, o simplemente tienes algo que compartir con nosotros, ¡este es el lugar indicado! Inicia una conversación y nuestro equipo estará encantado de ayudarte y conectar contigo. Tu feedback es crucial para nosotros.\'}}                </p>            </div>        </div>        <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">            <div class="flex flex-column gap-2 app-input-field" id="filterTickType">                <label>Ver por:</label>                <div class="flex">                    <form [formGroup]="filtersTickets">                        <p-dropdown formControlName="category" appendTo="body" [style]="{\'width\':\'190px\'}" [options]="categories" optionLabel="name" optionValue="value"></p-dropdown>                    </form>                </div>            </div>            <div class="flex flex-column gap-2 app-input-field" id="orderTickState">                <label>Ordenar por:</label>                <div class="flex">                    <form [formGroup]="filtersTickets">                        <p-dropdown appendTo="body" formControlName="status" [options]="status" optionLabel="name" optionValue="value" [style]="{\'width\':\'190px\'}"></p-dropdown>                    </form>                </div>            </div>            <p-button id="createTicketBtn" label="+ Ticket" (onClick)="openCreatorTicket()" class="mt-4" *ngIf="user?.allowed(userPermission.help_desk_create) || user?.rolType==roles.user"></p-button>        </div>    </div>    <p-divider></p-divider>    <div class="flex h-4"></div>    <div class="flex w-full table-container p-1" id="tableTickets">        <p-table #dt class="table-app w-full" [value]="showedTickets" [tableStyle]="{\'min-width\': \'50rem\'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">            <ng-template pTemplate="caption">                <div class="table-header pt-3">                    <span class="header color-custom ml-3">Tickets</span>                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">                    </div>                </div>            </ng-template>            <ng-template pTemplate="header">                <tr>                    <th>Categoría</th>                    <th>Titulo</th>                    <th>Estado</th>                    <th>Fecha</th>                    <th></th>                </tr>            </ng-template>            <ng-template pTemplate="body" let-ticket>                <tr (click)="display(ticket)" class="cursor-pointer">                    <td class="text-center">{{ticketCategoryNames[ticket.category]}}</td>                    <td class="text-center">{{ticket.title}}</td>                    <td class="text-center"><p-tag [value]="ticketsStatesNames[ticket.status]" [severity]="ticketsStatesColors[ticket.status]"></p-tag></td>                    <td class="text-center">{{ticket.createdAt | date : \'yyyy/MM/dd\'}}</td>                    <td class="text-center"></td>                </tr>            </ng-template>            <ng-template pTemplate="paginatorright">                <span>{{paginatorRightMsg()}}</span>            </ng-template>        </p-table>    </div></div><p-dialog appendTo="body" header="" [(visible)]="showTicket" [style]="{width: \'70vw\'}" [maximizable]="true" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}">    <div class="w-full flex flex-row gap-3">        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>        <div class="content-resource w-full flex flex-column justify-content-between pr-4">            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">                {{showTicket?.title}}</h2>            <div class="w-full flex flex-row gap-2">                <p-button type="submit" tooltipPosition="top" pTooltip="Marcar en progreso" label="Marcar en progreso" icon="pi pi-check-square" iconPos="left" (onClick)="updateTicketStatus(ticketsStates.InProgress)" styleClass="p-button-quaternary border-round-2xl p-3" *ngIf="!(user?.isUser || user?.isExpert) && showTicket?.status !== ticketsStates.Closed && showTicket?.status !== ticketsStates.InProgress"></p-button>                <p-button type="submit" tooltipPosition="top" pTooltip="Marcar como abierto" label="Marcar como abierto" icon="pi pi-folder-open" iconPos="left" (onClick)="updateTicketStatus(ticketsStates.Open)" styleClass="p-button-quaternary border-round-2xl p-3" *ngIf="!(user?.isUser || user?.isExpert) && showTicket?.status !== ticketsStates.Closed && showTicket?.status !== ticketsStates.Open"></p-button>                <p-button type="submit" tooltipPosition="top" pTooltip="Cerrar ticket" label="Cerrar ticket" icon="pi pi-sign-out" iconPos="left" (onClick)="closeTicket()" styleClass="button-blue-second border-round-2xl p-3" *ngIf="!(user?.isUser || user?.isExpert) && showTicket?.status !== ticketsStates.Closed"></p-button>                <p-button type="submit" tooltipPosition="top" pTooltip="Borrar ticket" icon="pi pi-trash" (onClick)="deleteTicket()" styleClass="button-grey border-round-2xl p-3" *ngIf="allowDelete(showTicket)"></p-button>            </div>        </div>    </div>    <p-divider></p-divider>    <div class="flex flex-column w-full p-3 gap-2 " *ngIf="showTicket">        <ng-container *ngFor="let item of showTicket.childs">            <div class="flex flex-row w-full align-items-center pt-2 gap-2" [ngClass]="{\'justify-content-end\' : item.isResponse, \'align-items-start\': !item.isResponse}">                <p-avatar [label]="item.answerBy[0]" styleClass="mr-2" size="large" shape="circle" *ngIf="!item.isResponse"></p-avatar>                <div class="w-full flex flex-column card-ticket w-9 p-3 gap-2" [ngClass]="{\'justify-content-end text-right right-card border-none\' : item.isResponse, \'align-items-start left-card text-white\': !item.isResponse}" [style.background-color]="item.isResponse ? colorWithOpacity(\'#18e4e6\', 0.5) : colorWithOpacity(\'#196A9F\', 1)">                    <p>                        {{item.body}}                    </p>                    <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer text-sm" *ngFor="let file of item.attachment">                        <i-tabler name="file-description" class="mr-1"></i-tabler>                        <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>                        <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>                    </div>                </div>                <p-avatar [label]="item.answerBy[0]" styleClass="mr-2" size="large" shape="circle" *ngIf="item.isResponse"></p-avatar>            </div>            <p class="set-color-text-third font-semibold px-8" [ngClass]="{\'justify-content-end text-right\' : item.isResponse, \'align-items-start\': !item.isResponse}">                {{item.answerBy}}</p>        </ng-container>        <ng-container *ngIf="showTicket.status !== this.ticketsStates.Closed">            <p-divider></p-divider>            <form [formGroup]="response" class="formgrid grid">                <span class="field col-11">                    <textarea inputId="msgResponse" class="mt-4" style="width: 100%;" placeholder="Escribe aquí tu respuesta" rows="3" formControlName="body" pInputTextarea></textarea>                </span>                <div class="field col-1 p-2">                    <p-button type="submit" pTooltip="Enviar respuesta" (onClick)="sendResponse()" styleClass="button-blue-second w-full h-full border-round-2xl my-2 p-3" [disabled]="response.invalid">                        <div class="flex w-full justify-content-center">                            <i-tabler class="icon-response" name="arrow-narrow-right"></i-tabler>                        </div>                    </p-button>                </div>            </form>            <div class="flex flex-row">                <p-toggleButton [(ngModel)]="showFileUploadUI" [offIcon]="\'pi pi-link\'" [onIcon]="\'pi pi-link\'" [onLabel]="\'Subir archivos\'" offLabel="Subir archivos"></p-toggleButton>            </div>            <span class="field col-12" *ngIf="showFileUploadUI">                <label for="filesTicket" class="">Archivos</label>                <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->                <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos a la respuesta" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">                    <ng-template let-file pTemplate="file">                        <div></div>                    </ng-template>                    <ng-template pTemplate="content">                        <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">                            <i-tabler name="file-description" class="mr-1"></i-tabler>                            <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>                            <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>                            <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>                        </div>                    </ng-template>                </p-fileUpload>            </span>        </ng-container>    </div>    <div class="panel-hide fixed bottom-0 left-0"></div></p-dialog><p-dialog appendTo="body" header="Ticket" [(visible)]="showCreatorTicket" [style]="{ width: \'45vw\' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}">    <div class="w-full flex flex-row gap-3">        <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>        <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">Ticket</h2>            <span>Los tickets son tu pase directo a solucionar problemas de manera rápida y eficiente. Si encuentras algún inconveniente o necesitas ayuda, simplemente crea un ticket y nuestro equipo estará encantado de ayudarte.</span>        </div>    </div>    <p-divider></p-divider>    <div class="flex flex-column justify-content-between h-full w-full p-3" *ngIf="newTicket">        <form [formGroup]="newTicket" class="formgrid grid">            <div class="field app-input-field col-6">                <label for="titleTicket">Titulo</label>                <input id="titleTicket" pInputText type="text" class="appearance-none outline-none w-full" formControlName="title" required>            </div>            <div class="field app-input-field col-6">                <label for="categoryTicket">Categoría</label>                <p-dropdown inputId="categoryTicket" appendTo="body" [options]="categories" optionLabel="name" optionValue="value" formControlName="category" styleClass="appearance-none outline-none w-full">                </p-dropdown>            </div>            <span class="field app-input-field col-12">                <label for="msgTicket">Mensaje</label>                <textarea inputId="msgTicket" style="width: 100%;" rows="8" formControlName="body" pInputTextarea></textarea>            </span>        </form>        <div class="flex flex-row">            <p-toggleButton [(ngModel)]="showFileUploadUI" [offIcon]="\'pi pi-link\'" [onIcon]="\'pi pi-link\'" [onLabel]="\'Subir archivos\'" offLabel="Subir archivos"></p-toggleButton>        </div>        <span class="field col-12" *ngIf="showFileUploadUI">            <p-fileUpload inputId="filesTicket" #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)">                <ng-template let-file pTemplate="file">                    <div></div>                </ng-template>                <ng-template pTemplate="content">                    <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">                        <i-tabler name="file-description" class="mr-1"></i-tabler>                        <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>                        <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>                        <i-tabler name="x" class="ml-1" (click)="removeFile(file.name)"></i-tabler>                    </div>                </ng-template>            </p-fileUpload>        </span>        <div style="height: 1rem;"></div>        <div class="actions flex flex-column gap-1 mb-4">            <p-button type="submit" label="Crear ticket" (onClick)="createTicket()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newTicket.invalid"></p-button>        </div>        <div class="flex md:hidden" style="height: 30rem;">        </div>    </div>    <div class="panel-hide fixed bottom-0 left-0"></div></p-dialog></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HelpdeskComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HelpdeskComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

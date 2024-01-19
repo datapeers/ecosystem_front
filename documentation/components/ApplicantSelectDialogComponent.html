@@ -1,0 +1,1204 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ApplicantSelectDialogComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-applicant-select-dialog</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./applicant-select-dialog.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./applicant-select-dialog.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#announcement" >announcement</a>
+                            </li>
+                            <li>
+                                <a href="#announcementId" >announcementId</a>
+                            </li>
+                            <li>
+                                <a href="#applicant" >applicant</a>
+                            </li>
+                            <li>
+                                <a href="#applicantId" >applicantId</a>
+                            </li>
+                            <li>
+                                <a href="#batchSelected" >batchSelected</a>
+                            </li>
+                            <li>
+                                <a href="#currentState" >currentState</a>
+                            </li>
+                            <li>
+                                <a href="#emailField" >emailField</a>
+                            </li>
+                            <li>
+                                <a href="#formFields" >formFields</a>
+                            </li>
+                            <li>
+                                <a href="#listBatch" >listBatch</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#nameField" >nameField</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                            <li>
+                                <a href="#selectFields" >selectFields</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#close" >close</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveSelected" >saveSelected</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(ref: DynamicDialogRef, config: DynamicDialogConfig, applicantsService: <a href="../injectables/ApplicantsService.html" target="_self">ApplicantsService</a>, toastService: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, phaseService: <a href="../injectables/PhasesService.html" target="_self">PhasesService</a>, formService: <a href="../injectables/FormService.html" target="_self">FormService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>ref</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>config</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>applicantsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ApplicantsService.html" target="_self" >ApplicantsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toastService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhasesService.html" target="_self" >PhasesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormService.html" target="_self" >FormService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <span ><b>close</b></span>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveSelected"></a>
+                    <span class="name">
+                        <span ><b>saveSelected</b></span>
+                        <a href="#saveSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveSelected()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="announcement"></a>
+                    <span class="name">
+                        <span ><b>announcement</b></span>
+                        <a href="#announcement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Announcement.html" target="_self" >Announcement</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="announcementId"></a>
+                    <span class="name">
+                        <span ><b>announcementId</b></span>
+                        <a href="#announcementId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applicant"></a>
+                    <span class="name">
+                        <span ><b>applicant</b></span>
+                        <a href="#applicant"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Applicant.html" target="_self" >Applicant</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applicantId"></a>
+                    <span class="name">
+                        <span ><b>applicantId</b></span>
+                        <a href="#applicantId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="batchSelected"></a>
+                    <span class="name">
+                        <span ><b>batchSelected</b></span>
+                        <a href="#batchSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentState"></a>
+                    <span class="name">
+                        <span ><b>currentState</b></span>
+                        <a href="#currentState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ApplicationStates" target="_self" >ApplicationStates</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emailField"></a>
+                    <span class="name">
+                        <span ><b>emailField</b></span>
+                        <a href="#emailField"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formFields"></a>
+                    <span class="name">
+                        <span ><b>formFields</b></span>
+                        <a href="#formFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listBatch"></a>
+                    <span class="name">
+                        <span ><b>listBatch</b></span>
+                        <a href="#listBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nameField"></a>
+                    <span class="name">
+                        <span ><b>nameField</b></span>
+                        <a href="#nameField"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectFields"></a>
+                    <span class="name">
+                        <span ><b>selectFields</b></span>
+                        <a href="#selectFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/announcements/applicants/applicant-select-dialog/applicant-select-dialog.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { DynamicDialogConfig, DynamicDialogRef } from &#x27;primeng/dynamicdialog&#x27;;
+import { ApplicantsService } from &#x27;@shared/services/applicants/applicants.service&#x27;;
+import {
+  ApplicantState,
+  Attachment,
+} from &#x27;@home/announcements/model/applicant-state&#x27;;
+import { FormArray, FormControl, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { Applicant } from &#x27;@shared/models/entities/applicant&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import {
+  ApplicationStates,
+  applicationStatesUtilities,
+} from &#x27;../../model/application-states.enum&#x27;;
+import { PhasesService } from &#x27;@home/phases/phases.service&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { Announcement } from &#x27;@home/announcements/model/announcement&#x27;;
+import { AnnouncementTargets } from &#x27;@home/announcements/model/announcement-targets.enum&#x27;;
+import { FormService } from &#x27;@shared/form/form.service&#x27;;
+
+@Component({
+  selector: &#x27;app-applicant-select-dialog&#x27;,
+  templateUrl: &#x27;./applicant-select-dialog.component.html&#x27;,
+  styleUrls: [&#x27;./applicant-select-dialog.component.scss&#x27;],
+})
+export class ApplicantSelectDialogComponent implements OnInit {
+  announcementId: string;
+  applicantId: string;
+  applicant: Applicant;
+  currentState: ApplicationStates;
+  announcement: Announcement;
+  loaded &#x3D; false;
+  listBatch: Phase[] &#x3D; [];
+  batchSelected: Phase;
+  saving &#x3D; false;
+  selectFields &#x3D; false;
+  formFields &#x3D; [];
+  nameField;
+  emailField;
+  constructor(
+    private readonly ref: DynamicDialogRef,
+    private readonly config: DynamicDialogConfig,
+    private readonly applicantsService: ApplicantsService,
+    private readonly toastService: ToastService,
+    private readonly phaseService: PhasesService,
+    private readonly formService: FormService
+  ) {
+    const { announcement, currentState, id, announcementId } &#x3D; this.config.data;
+    this.applicantId &#x3D; id;
+    this.announcementId &#x3D; announcementId;
+    this.currentState &#x3D; currentState;
+    this.announcement &#x3D; announcement;
+  }
+
+  ngOnInit() {
+    this.loadComponent();
+  }
+
+  async loadComponent() {
+    this.loaded &#x3D; false;
+    const applicant &#x3D; await this.applicantsService.getApplicant(
+      this.applicantId,
+      this.currentState
+    );
+    if (!applicant) return;
+    this.applicant &#x3D; applicant;
+    if (
+      this.applicant.states.find((i) &#x3D;&gt; i.type &#x3D;&#x3D;&#x3D; ApplicationStates.selected)
+    ) {
+      this.toastService.info({
+        summary: &#x27;El participante ya ha sido seleccionado&#x27;,
+        detail: &#x60;Este participante ya figura como que ha sido seleccionado previamente&#x60;,
+        life: 3000,
+      });
+      this.close();
+      return;
+    }
+    // ------------Load phase -----------------------------------
+    // --- LOAD PHASES -------------------
+    this.listBatch &#x3D; (await this.phaseService.getPhases()).filter(
+      (i) &#x3D;&gt; !(i.basePhase || !i.isActive)
+    );
+    // Load form
+    if (this.announcement.target &#x3D;&#x3D;&#x3D; AnnouncementTargets.entrepreneurs) {
+      this.selectFields &#x3D; true;
+      const form &#x3D; await this.formService.getForm(this.announcement.form._id);
+      const formComponents &#x3D; this.formService.getFormComponents(form);
+      this.formFields &#x3D; this.formService.getInputComponents(formComponents);
+    }
+    this.loaded &#x3D; true;
+  }
+
+  close() {
+    this.ref.close();
+  }
+
+  saveSelected() {
+    if (
+      this.announcement.target &#x3D;&#x3D;&#x3D; AnnouncementTargets.entrepreneurs &amp;&amp;
+      this.emailField
+    ) {
+      const pattern &#x3D; new RegExp(&#x27;[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$&#x27;);
+      if (!pattern.test(this.applicant.item[this.emailField])) {
+        this.toastService.info({
+          summary: &#x27;Email invalido&#x27;,
+          detail:
+            &#x27;El email del participante es invalido, no es un correo electrónico correctamente escrito&#x27;,
+          life: 30000,
+        });
+        return;
+      }
+    }
+    this.saving &#x3D; true;
+    this.toastService.info({
+      summary: &#x27;Guardando...&#x27;,
+      detail: &#x27;Por favor espere&#x27;,
+      life: 30000,
+    });
+    this.applicantsService
+      .selectApplicant(
+        this.applicant._id,
+        this.batchSelected._id,
+        this.batchSelected.name,
+        this.announcement.target,
+        {
+          nameField: this.nameField,
+          emailField: this.emailField,
+          phaseBase: this.batchSelected.childrenOf,
+        }
+      )
+      .then((ans) &#x3D;&gt; {
+        this.toastService.clear();
+        this.close();
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toastService.clear();
+        this.toastService.alert({
+          detail: err,
+          summary: &#x27;Acción invalida&#x27;,
+          life: 10000,
+        });
+        this.saving &#x3D; false;
+        console.warn(err);
+      });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+    &lt;i-tabler name&#x3D;&quot;bulb&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+    &lt;div class&#x3D;&quot;content-resource w-10 flex flex-column justify-content-center pb-2 pr-4&quot;&gt;
+        &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;
+            Seleccionar participante&lt;/h2&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-row gap-1&quot;&gt;
+            &lt;span class&#x3D;&quot;text-sm text-color-other&quot;&gt;Escoge un batch al cual el participante será seleccionado, este será invitado a formar parte de Ecosystem y tener una cuenta&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p-divider&gt;&lt;/p-divider&gt;
+&lt;ng-container *ngIf&#x3D;&quot;loaded; else loadingShow&quot;&gt;
+
+    &lt;div class&#x3D;&quot;w-full px-4&quot;&gt;
+        &lt;span class&#x3D;&quot;w-full app-input-field&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+            &lt;label for&#x3D;&quot;float-label&quot;&gt;Batch&lt;/label&gt;
+            &lt;p-dropdown [autoDisplayFirst]&#x3D;&quot;false&quot; [options]&#x3D;&quot;listBatch&quot; [(ngModel)]&#x3D;&quot;batchSelected&quot; dataKey&#x3D;&quot;_id&quot; optionLabel&#x3D;&quot;name&quot; placeholder&#x3D;&quot;Seleccione un batch&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; [filter]&#x3D;&quot;true&quot; filterBy&#x3D;&quot;name&quot;&gt;
+            &lt;/p-dropdown&gt;
+        &lt;/span&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;selectFields&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-row justify-content-between align-items-center pt-3&quot;&gt;
+                &lt;span class&#x3D;&quot;app-input-field&quot; style&#x3D;&quot;width: 45%&quot;&gt;
+                    &lt;label for&#x3D;&quot;nameFieldInput&quot;&gt;Campo con el nombre&lt;/label&gt;
+                    &lt;p-dropdown [autoDisplayFirst]&#x3D;&quot;false&quot; [options]&#x3D;&quot;formFields&quot; [(ngModel)]&#x3D;&quot;nameField&quot; dataKey&#x3D;&quot;key&quot; optionLabel&#x3D;&quot;label&quot; optionValue&#x3D;&quot;key&quot; placeholder&#x3D;&quot;Seleccione el campo que contiene el nombre&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; [filter]&#x3D;&quot;true&quot; filterBy&#x3D;&quot;label&quot;&gt;
+                    &lt;/p-dropdown&gt;
+                &lt;/span&gt;&lt;span class&#x3D;&quot;app-input-field&quot; style&#x3D;&quot;width: 45%&quot;&gt;
+                    &lt;label for&#x3D;&quot;emailFieldInput&quot;&gt;Campo con el email&lt;/label&gt;
+                    &lt;p-dropdown [autoDisplayFirst]&#x3D;&quot;false&quot; [options]&#x3D;&quot;formFields&quot; [(ngModel)]&#x3D;&quot;emailField&quot; dataKey&#x3D;&quot;key&quot; optionLabel&#x3D;&quot;label&quot; optionValue&#x3D;&quot;key&quot; placeholder&#x3D;&quot;Seleccione el campo que contiene el email&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; [filter]&#x3D;&quot;true&quot; filterBy&#x3D;&quot;label&quot;&gt;
+                    &lt;/p-dropdown&gt;
+                &lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/ng-container&gt;
+        &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-center pt-3&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;!selectFields; else otherBtn&quot;&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Seleccionar&quot; (onClick)&#x3D;&quot;saveSelected()&quot; styleClass&#x3D;&quot;bg-primary&quot; [disabled]&#x3D;&quot;saving || !batchSelected&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #otherBtn&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Seleccionar&quot; (onClick)&#x3D;&quot;saveSelected()&quot; styleClass&#x3D;&quot;bg-primary&quot; [disabled]&#x3D;&quot;saving || !batchSelected || !nameField || !emailField&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-template&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/ng-container&gt;
+&lt;ng-template #loadingShow&gt;
+    &lt;app-loading&gt;&lt;/app-loading&gt;
+&lt;/ng-template&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./applicant-select-dialog.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="w-full flex flex-row gap-3">    <i-tabler name="bulb" class="icon-dialog"></i-tabler>    <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">        <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">            Seleccionar participante</h2>        <div class="w-full flex flex-row gap-1">            <span class="text-sm text-color-other">Escoge un batch al cual el participante será seleccionado, este será invitado a formar parte de Ecosystem y tener una cuenta</span>        </div>    </div></div><p-divider></p-divider><ng-container *ngIf="loaded; else loadingShow">    <div class="w-full px-4">        <span class="w-full app-input-field" style="width: 100%">            <label for="float-label">Batch</label>            <p-dropdown [autoDisplayFirst]="false" [options]="listBatch" [(ngModel)]="batchSelected" dataKey="_id" optionLabel="name" placeholder="Seleccione un batch" appendTo="body" [style]="{ width: \'100%\' }" [filter]="true" filterBy="name">            </p-dropdown>        </span>        <ng-container *ngIf="selectFields">            <div class="flex flex-row justify-content-between align-items-center pt-3">                <span class="app-input-field" style="width: 45%">                    <label for="nameFieldInput">Campo con el nombre</label>                    <p-dropdown [autoDisplayFirst]="false" [options]="formFields" [(ngModel)]="nameField" dataKey="key" optionLabel="label" optionValue="key" placeholder="Seleccione el campo que contiene el nombre" appendTo="body" [style]="{ width: \'100%\' }" [filter]="true" filterBy="label">                    </p-dropdown>                </span><span class="app-input-field" style="width: 45%">                    <label for="emailFieldInput">Campo con el email</label>                    <p-dropdown [autoDisplayFirst]="false" [options]="formFields" [(ngModel)]="emailField" dataKey="key" optionLabel="label" optionValue="key" placeholder="Seleccione el campo que contiene el email" appendTo="body" [style]="{ width: \'100%\' }" [filter]="true" filterBy="label">                    </p-dropdown>                </span>            </div>        </ng-container>        <div class="flex flex-row align-items-center justify-content-center pt-3">            <ng-container *ngIf="!selectFields; else otherBtn">                <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected"></p-button>            </ng-container>            <ng-template #otherBtn>                <p-button type="submit" label="Seleccionar" (onClick)="saveSelected()" styleClass="bg-primary" [disabled]="saving || !batchSelected || !nameField || !emailField"></p-button>            </ng-template>        </div>    </div></ng-container><ng-template #loadingShow>    <app-loading></app-loading></ng-template></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ApplicantSelectDialogComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ApplicantSelectDialogComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

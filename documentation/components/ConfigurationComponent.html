@@ -1,0 +1,2454 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ConfigurationComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/configuration/configuration.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-configuration</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./configuration.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./configuration.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                <a href="#configBackup" >configBackup</a>
+                            </li>
+                            <li>
+                                <a href="#editing" >editing</a>
+                            </li>
+                            <li>
+                                <a href="#enableBtnEdit" >enableBtnEdit</a>
+                            </li>
+                            <li>
+                                <a href="#listIconsVerticals" >listIconsVerticals</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#newBenefactor" >newBenefactor</a>
+                            </li>
+                            <li>
+                                <a href="#newInterestContent" >newInterestContent</a>
+                            </li>
+                            <li>
+                                <a href="#newVertical" >newVertical</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                            <li>
+                                <a href="#showCreatorBenefactor" >showCreatorBenefactor</a>
+                            </li>
+                            <li>
+                                <a href="#showCreatorInterestContent" >showCreatorInterestContent</a>
+                            </li>
+                            <li>
+                                <a href="#showCreatorVertical" >showCreatorVertical</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                            <li>
+                                <a href="#watchConfig$" >watchConfig$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createBenefactor" >createBenefactor</a>
+                            </li>
+                            <li>
+                                <a href="#createInterestContent" >createInterestContent</a>
+                            </li>
+                            <li>
+                                <a href="#createVertical" >createVertical</a>
+                            </li>
+                            <li>
+                                <a href="#deleteBenefactor" >deleteBenefactor</a>
+                            </li>
+                            <li>
+                                <a href="#deleteInterestContent" >deleteInterestContent</a>
+                            </li>
+                            <li>
+                                <a href="#deleteVertical" >deleteVertical</a>
+                            </li>
+                            <li>
+                                <a href="#editBenefactor" >editBenefactor</a>
+                            </li>
+                            <li>
+                                <a href="#editInterestContent" >editInterestContent</a>
+                            </li>
+                            <li>
+                                <a href="#editVertical" >editVertical</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openCreatorBenefactor" >openCreatorBenefactor</a>
+                            </li>
+                            <li>
+                                <a href="#openCreatorInterestContent" >openCreatorInterestContent</a>
+                            </li>
+                            <li>
+                                <a href="#openCreatorVertical" >openCreatorVertical</a>
+                            </li>
+                            <li>
+                                <a href="#resetCreatorBenefactor" >resetCreatorBenefactor</a>
+                            </li>
+                            <li>
+                                <a href="#resetCreatorInterestContent" >resetCreatorInterestContent</a>
+                            </li>
+                            <li>
+                                <a href="#resetCreatorVertical" >resetCreatorVertical</a>
+                            </li>
+                            <li>
+                                <a href="#revertChanges" >revertChanges</a>
+                            </li>
+                            <li>
+                                <a href="#saveChanges" >saveChanges</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#formControlsVertical" >formControlsVertical</a>
+                                </li>
+                                <li>
+                                    <a href="#formControlsBenefactor" >formControlsBenefactor</a>
+                                </li>
+                                <li>
+                                    <a href="#formControlsInterestContent" >formControlsInterestContent</a>
+                                </li>
+                                <li>
+                                    <a href="#configTiny" >configTiny</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, service: <a href="../injectables/ConfigurationService.html" target="_self">ConfigurationService</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, confirmationService: ConfirmationService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/home/configuration/configuration.component.ts:58</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ConfigurationService.html" target="_self" >ConfigurationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfirmationService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createBenefactor"></a>
+                    <span class="name">
+                        <span ><b>createBenefactor</b></span>
+                        <a href="#createBenefactor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createBenefactor()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createInterestContent"></a>
+                    <span class="name">
+                        <span ><b>createInterestContent</b></span>
+                        <a href="#createInterestContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createInterestContent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createVertical"></a>
+                    <span class="name">
+                        <span ><b>createVertical</b></span>
+                        <a href="#createVertical"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createVertical()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteBenefactor"></a>
+                    <span class="name">
+                        <span ><b>deleteBenefactor</b></span>
+                        <a href="#deleteBenefactor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteBenefactor(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteInterestContent"></a>
+                    <span class="name">
+                        <span ><b>deleteInterestContent</b></span>
+                        <a href="#deleteInterestContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteInterestContent(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:222</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteVertical"></a>
+                    <span class="name">
+                        <span ><b>deleteVertical</b></span>
+                        <a href="#deleteVertical"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteVertical(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editBenefactor"></a>
+                    <span class="name">
+                        <span ><b>editBenefactor</b></span>
+                        <a href="#editBenefactor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editBenefactor()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="183"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:183</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editInterestContent"></a>
+                    <span class="name">
+                        <span ><b>editInterestContent</b></span>
+                        <a href="#editInterestContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editInterestContent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="214"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:214</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editVertical"></a>
+                    <span class="name">
+                        <span ><b>editVertical</b></span>
+                        <a href="#editVertical"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editVertical()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:154</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openCreatorBenefactor"></a>
+                    <span class="name">
+                        <span ><b>openCreatorBenefactor</b></span>
+                        <a href="#openCreatorBenefactor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openCreatorBenefactor(previousIndex?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>previousIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openCreatorInterestContent"></a>
+                    <span class="name">
+                        <span ><b>openCreatorInterestContent</b></span>
+                        <a href="#openCreatorInterestContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openCreatorInterestContent(previousIndex?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="196"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:196</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>previousIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openCreatorVertical"></a>
+                    <span class="name">
+                        <span ><b>openCreatorVertical</b></span>
+                        <a href="#openCreatorVertical"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openCreatorVertical(previousIndex?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>previousIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetCreatorBenefactor"></a>
+                    <span class="name">
+                        <span ><b>resetCreatorBenefactor</b></span>
+                        <a href="#resetCreatorBenefactor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetCreatorBenefactor()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetCreatorInterestContent"></a>
+                    <span class="name">
+                        <span ><b>resetCreatorInterestContent</b></span>
+                        <a href="#resetCreatorInterestContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetCreatorInterestContent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetCreatorVertical"></a>
+                    <span class="name">
+                        <span ><b>resetCreatorVertical</b></span>
+                        <a href="#resetCreatorVertical"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetCreatorVertical()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:145</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="revertChanges"></a>
+                    <span class="name">
+                        <span ><b>revertChanges</b></span>
+                        <a href="#revertChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>revertChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveChanges"></a>
+                    <span class="name">
+                        <span ><b>saveChanges</b></span>
+                        <a href="#saveChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/home/configuration/configuration.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/ConfigurationApp.html" target="_self" >ConfigurationApp</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/home/configuration/configuration.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configBackup"></a>
+                    <span class="name">
+                        <span ><b>configBackup</b></span>
+                        <a href="#configBackup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/ConfigurationApp.html" target="_self" >ConfigurationApp</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/home/configuration/configuration.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editing"></a>
+                    <span class="name">
+                        <span ><b>editing</b></span>
+                        <a href="#editing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>undefined</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/home/configuration/configuration.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enableBtnEdit"></a>
+                    <span class="name">
+                        <span ><b>enableBtnEdit</b></span>
+                        <a href="#enableBtnEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/configuration/configuration.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listIconsVerticals"></a>
+                    <span class="name">
+                        <span ><b>listIconsVerticals</b></span>
+                        <a href="#listIconsVerticals"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;leaf&#x27;, &#x27;affiliate&#x27;, &#x27;dna-2&#x27;, &#x27;replace&#x27;, &#x27;api-app&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/configuration/configuration.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/home/configuration/configuration.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newBenefactor"></a>
+                    <span class="name">
+                        <span ><b>newBenefactor</b></span>
+                        <a href="#newBenefactor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/configuration/configuration.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newInterestContent"></a>
+                    <span class="name">
+                        <span ><b>newInterestContent</b></span>
+                        <a href="#newInterestContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/configuration/configuration.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newVertical"></a>
+                    <span class="name">
+                        <span ><b>newVertical</b></span>
+                        <a href="#newVertical"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/configuration/configuration.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/home/configuration/configuration.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCreatorBenefactor"></a>
+                    <span class="name">
+                        <span ><b>showCreatorBenefactor</b></span>
+                        <a href="#showCreatorBenefactor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/configuration/configuration.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCreatorInterestContent"></a>
+                    <span class="name">
+                        <span ><b>showCreatorInterestContent</b></span>
+                        <a href="#showCreatorInterestContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/configuration/configuration.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCreatorVertical"></a>
+                    <span class="name">
+                        <span ><b>showCreatorVertical</b></span>
+                        <a href="#showCreatorVertical"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/configuration/configuration.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/home/configuration/configuration.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="watchConfig$"></a>
+                    <span class="name">
+                        <span ><b>watchConfig$</b></span>
+                        <a href="#watchConfig$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/home/configuration/configuration.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formControlsVertical"></a>
+                        <span class="name"><b>formControlsVertical</b><a href="#formControlsVertical"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>formControlsVertical()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/configuration/configuration.component.ts:44</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formControlsBenefactor"></a>
+                        <span class="name"><b>formControlsBenefactor</b><a href="#formControlsBenefactor"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>formControlsBenefactor()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/configuration/configuration.component.ts:48</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formControlsInterestContent"></a>
+                        <span class="name"><b>formControlsInterestContent</b><a href="#formControlsInterestContent"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>formControlsInterestContent()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/configuration/configuration.component.ts:52</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="configTiny"></a>
+                        <span class="name"><b>configTiny</b><a href="#configTiny"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>configTiny()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/home/configuration/configuration.component.ts:56</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { ConfigurationService } from &#x27;./configuration.service&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { firstValueFrom, first, Subscription } from &#x27;rxjs&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { ConfigurationApp } from &#x27;./model/configurationApp&#x27;;
+import { configTinyMce } from &#x27;@shared/models/configTinyMce&#x27;;
+import { ConfirmationService } from &#x27;primeng/api&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { FormGroup } from &#x27;@angular/forms&#x27;;
+import { newVertical } from &#x27;./model/vertical&#x27;;
+import { cloneDeep } from &#x27;lodash&#x27;;
+import { newBenefactor } from &#x27;./model/benefactor&#x27;;
+import { newInterestContent } from &#x27;./model/interest-content&#x27;;
+@Component({
+  selector: &#x27;app-configuration&#x27;,
+  templateUrl: &#x27;./configuration.component.html&#x27;,
+  styleUrls: [&#x27;./configuration.component.scss&#x27;],
+})
+export class ConfigurationComponent implements OnInit, OnDestroy {
+  user: User;
+  configBackup: ConfigurationApp;
+  config: ConfigurationApp;
+  loaded &#x3D; false;
+  saving &#x3D; false;
+  watchConfig$: Subscription;
+
+  editing: number &#x3D; undefined;
+  enableBtnEdit &#x3D; false;
+  // Creator vertical
+  listIconsVerticals &#x3D; [&#x27;leaf&#x27;, &#x27;affiliate&#x27;, &#x27;dna-2&#x27;, &#x27;replace&#x27;, &#x27;api-app&#x27;];
+  showCreatorVertical &#x3D; false;
+  newVertical: FormGroup;
+
+  // Creator Benefactor
+  showCreatorBenefactor &#x3D; false;
+  newBenefactor: FormGroup;
+
+  // Creator content interest
+  showCreatorInterestContent &#x3D; false;
+  newInterestContent: FormGroup;
+
+  get formControlsVertical() {
+    return this.newVertical?.controls;
+  }
+
+  get formControlsBenefactor() {
+    return this.newBenefactor?.controls;
+  }
+
+  get formControlsInterestContent() {
+    return this.newInterestContent?.controls;
+  }
+
+  public get configTiny(): typeof configTinyMce {
+    return configTinyMce;
+  }
+
+  constructor(
+    private store: Store&lt;AppState&gt;,
+    private service: ConfigurationService,
+    private toast: ToastService,
+    private confirmationService: ConfirmationService
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+    this.newVertical &#x3D; newVertical();
+    this.newBenefactor &#x3D; newBenefactor();
+    this.newInterestContent &#x3D; newInterestContent();
+  }
+
+  ngOnInit(): void {
+    this.loadComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.watchConfig$?.unsubscribe();
+  }
+
+  async loadComponent() {
+    this.watchConfig$ &#x3D; (await this.service.watchConfig()).subscribe(
+      async (i) &#x3D;&gt; {
+        this.loaded &#x3D; false;
+        this.config &#x3D; cloneDeep(i);
+        this.configBackup &#x3D; i;
+        this.loaded &#x3D; true;
+      }
+    );
+  }
+
+  revertChanges() {
+    this.config &#x3D; cloneDeep(this.configBackup);
+  }
+
+  saveChanges() {
+    this.confirmationService.confirm({
+      key: &#x27;confirmDialog&#x27;,
+      acceptLabel: &#x27;Guardar&#x27;,
+      rejectLabel: &#x27;Cancelar&#x27;,
+      header: &#x27;¿Está usted seguro de que desea guardar los cambios?&#x27;,
+      rejectButtonStyleClass: &#x27;button-grey&#x27;,
+      message:
+        &#x27;Le recordamos que al proceder con la acción de guardar, dichas modificaciones se actualizarán de manera inmediata y estarán disponibles para todos los usuarios. ¿Desea continuar con esta acción?&#x27;,
+      icon: &#x27;pi pi-exclamation-triangle&#x27;,
+      accept: async () &#x3D;&gt; {
+        this.saving &#x3D; true;
+        this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Guardando...&#x27; });
+        this.service
+          .updateConfig(this.config._id, this.config.save())
+          .then((ans) &#x3D;&gt; {
+            this.saving &#x3D; false;
+            this.toast.clear();
+            this.toast.success({
+              detail: &#x27;&#x27;,
+              summary: &#x27;Cambios guardados!&#x27;,
+              life: 2000,
+            });
+          })
+          .catch((err) &#x3D;&gt; {
+            this.saving &#x3D; false;
+            this.toast.clear();
+            this.toast.alert({
+              summary: &#x27;Error al intentar guardar cambios&#x27;,
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
+  // Vertical
+
+  openCreatorVertical(previousIndex?: number) {
+    this.newVertical &#x3D; newVertical(this.config.verticals[previousIndex]);
+    this.showCreatorVertical &#x3D; true;
+    this.editing &#x3D; previousIndex ?? undefined;
+    this.enableBtnEdit &#x3D; previousIndex &gt;&#x3D; 0 ? true : false;
+  }
+
+  resetCreatorVertical() {
+    this.showCreatorVertical &#x3D; false;
+  }
+
+  createVertical() {
+    this.config.verticals.push(this.newVertical.value);
+    this.resetCreatorVertical();
+  }
+
+  editVertical() {
+    this.config.verticals[this.editing] &#x3D; {
+      ...this.config.verticals[this.editing],
+      ...this.newVertical.value,
+    };
+    this.resetCreatorVertical();
+  }
+
+  deleteVertical(index: number) {
+    this.config.verticals.splice(index, 1);
+  }
+
+  // Benefactor
+  openCreatorBenefactor(previousIndex?: number) {
+    this.newBenefactor &#x3D; newBenefactor(this.config.benefactors[previousIndex]);
+    this.showCreatorBenefactor &#x3D; true;
+    this.editing &#x3D; previousIndex ?? undefined;
+    this.enableBtnEdit &#x3D; previousIndex &gt;&#x3D; 0 ? true : false;
+  }
+
+  resetCreatorBenefactor() {
+    this.showCreatorBenefactor &#x3D; false;
+  }
+
+  createBenefactor() {
+    this.config.benefactors.push(this.newBenefactor.value);
+    this.resetCreatorBenefactor();
+  }
+
+  editBenefactor() {
+    this.config.benefactors[this.editing] &#x3D; {
+      ...this.config.benefactors[this.editing],
+      ...this.newBenefactor.value,
+    };
+    this.resetCreatorBenefactor();
+  }
+
+  deleteBenefactor(index: number) {
+    this.config.benefactors.splice(index, 1);
+  }
+
+  // Content interest
+  openCreatorInterestContent(previousIndex?: number) {
+    this.newInterestContent &#x3D; newInterestContent(
+      this.config.contentOfInterest[previousIndex]
+    );
+    this.showCreatorInterestContent &#x3D; true;
+    this.editing &#x3D; previousIndex ?? undefined;
+    this.enableBtnEdit &#x3D; previousIndex &gt;&#x3D; 0 ? true : false;
+  }
+
+  resetCreatorInterestContent() {
+    this.showCreatorInterestContent &#x3D; false;
+  }
+
+  createInterestContent() {
+    this.config.contentOfInterest.push(this.newInterestContent.value);
+    this.resetCreatorInterestContent();
+  }
+
+  editInterestContent() {
+    this.config.contentOfInterest[this.editing] &#x3D; {
+      ...this.config.contentOfInterest[this.editing],
+      ...this.newInterestContent.value,
+    };
+    this.resetCreatorInterestContent();
+  }
+
+  deleteInterestContent(index: number) {
+    this.config.contentOfInterest.splice(index, 1);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;loaded; else noLoadedComponent&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column px-4 py-3 h-full w-full scrollwrap scrollwrap_delayed&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-column xl:flex-row gap-4 justify-content-between&quot;&gt;
+            &lt;div class&#x3D;&quot;fex flex-column flex-grown-1 px-1 sm:px-2 md:px-4&quot;&gt;
+                &lt;h2&gt;Configuración&lt;/h2&gt;
+                &lt;div style&#x3D;&quot;height: 1.5rem&quot;&gt;&lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex gap-2&quot;&gt;
+                    &lt;i-tabler class&#x3D;&quot;text-center&quot; name&#x3D;&quot;bulb&quot; style&#x3D;&quot;color:#18E4E6; height:2rem; width:2rem;&quot;&gt;&lt;/i-tabler&gt;
+                    &lt;p class&#x3D;&quot;th2&quot;&gt;Modifica en cualquier momento el dashboard, los servicios y los contenidos de interés para los usuarios de la app.
+                    &lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-none flex-column sm:flex-row align-items-end gap-3 px-6 mt2 &quot;&gt;
+                &lt;p-button styleClass&#x3D;&quot;button-yellow-second&quot; label&#x3D;&quot;Revertir cambios&quot; icon&#x3D;&quot;pi pi-refresh&quot; [disabled]&#x3D;&quot;saving&quot; (onClick)&#x3D;&quot;revertChanges()&quot;&gt;&lt;/p-button&gt;
+                &lt;p-button label&#x3D;&quot;Guardar cambios&quot; [disabled]&#x3D;&quot;saving&quot; (onClick)&#x3D;&quot;saveChanges()&quot;&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p-divider&gt;&lt;/p-divider&gt;
+        &lt;div class&#x3D;&quot;w-full&quot; *ngIf&#x3D;&quot;config&quot;&gt;
+            &lt;tinymce id&#x3D;&quot;float-details&quot; [(ngModel)]&#x3D;&quot;config.dashboard&quot; [config]&#x3D;&quot;configTiny&quot;&gt;&lt;/tinymce&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-between align-items-center pt-3&quot;&gt;
+                &lt;span class&#x3D;&quot;font-semibold text-3xl&quot;&gt;Verticales&lt;/span&gt;
+                &lt;p-button label&#x3D;&quot;+ Vertical&quot; (onClick)&#x3D;&quot;openCreatorVertical()&quot;&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-row flex-wrap align-items-center justify-content-center px-3 py-2 gap-3&quot;&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let vertical of config.verticals; let i&#x3D;index&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+                        &lt;div class&#x3D;&quot;card-vertical&quot; [style.background-color]&#x3D;&quot;vertical.color&quot;&gt;
+                            &lt;div class&#x3D;&quot;w-full content-vertical flex flex-column align-items-center justify-content-center&quot; style&#x3D;&quot;flex: 1&quot;&gt;
+                                &lt;i-tabler [name]&#x3D;&quot;vertical.icon&quot; [style.color]&#x3D;&quot;vertical.color&quot;&gt;&lt;/i-tabler&gt;
+                                &lt;span&gt;{{vertical.name}}&lt;/span&gt;
+                            &lt;/div&gt;
+                            &lt;div class&#x3D;&quot;w-full separator-vertical&quot;&gt;&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row p-3 align-items-center justify-content-between&quot;&gt;
+                            &lt;p-button styleClass&#x3D;&quot;button-blue-second button-border-mid align-items-center&quot; icon&#x3D;&quot;pi pi-pencil&quot; pTooltip&#x3D;&quot;Editar&quot; (onClick)&#x3D;&quot;openCreatorVertical(i)&quot;&gt;
+                            &lt;/p-button&gt;
+                            &lt;p-button styleClass&#x3D;&quot;button-blue-second button-border-mid align-items-center&quot; icon&#x3D;&quot;pi pi-trash&quot; pTooltip&#x3D;&quot;Borrar&quot; (onClick)&#x3D;&quot;deleteVertical(i)&quot;&gt;
+                            &lt;/p-button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-between align-items-center pt-3&quot;&gt;
+                &lt;span class&#x3D;&quot;font-semibold text-3xl&quot;&gt;Aliados&lt;/span&gt;
+                &lt;p-button label&#x3D;&quot;+ Aliado&quot; (onClick)&#x3D;&quot;openCreatorBenefactor()&quot;&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-row flex-wrap align-items-center justify-content-center px-3 py-2 gap-3&quot;&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let benefactor of config.benefactors; let i&#x3D;index&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+                        &lt;img class&#x3D;&quot;card-benefactor&quot; [src]&#x3D;&quot;benefactor.image&quot; alt&#x3D;&quot;&quot; [pTooltip]&#x3D;&quot;benefactor.name&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row p-3 align-items-center justify-content-between&quot;&gt;
+                            &lt;p-button styleClass&#x3D;&quot;button-blue-second button-border-mid align-items-center&quot; icon&#x3D;&quot;pi pi-pencil&quot; pTooltip&#x3D;&quot;Editar&quot; (onClick)&#x3D;&quot;openCreatorBenefactor(i)&quot;&gt;
+                            &lt;/p-button&gt;
+                            &lt;p-button styleClass&#x3D;&quot;button-blue-second button-border-mid align-items-center&quot; icon&#x3D;&quot;pi pi-trash&quot; pTooltip&#x3D;&quot;Borrar&quot; (onClick)&#x3D;&quot;deleteBenefactor(i)&quot;&gt;
+                            &lt;/p-button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-between align-items-center pt-3&quot;&gt;
+                &lt;span class&#x3D;&quot;font-semibold text-3xl&quot;&gt;Contenido de interés&lt;/span&gt;
+                &lt;p-button label&#x3D;&quot;+ Contenido de interés&quot; (onClick)&#x3D;&quot;openCreatorInterestContent()&quot;&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-row flex-wrap align-items-center justify-content-center px-3 py-2 gap-3&quot;&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let interestContent of config.contentOfInterest; let i&#x3D;index&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+                        &lt;div class&#x3D;&quot;card-interest-content flex flex-column align-items-center&quot;&gt;
+                            &lt;img class&#x3D;&quot;card-benefactor pt-2&quot; [src]&#x3D;&quot;interestContent.image&quot; alt&#x3D;&quot;&quot; [pTooltip]&#x3D;&quot;interestContent.name&quot;&gt;
+                            &lt;div class&#x3D;&quot;w-full flex flex-column p-5 gap-3&quot;&gt;
+                                &lt;span class&#x3D;&quot;font-semibold&quot;&gt;{{interestContent.name}}&lt;/span&gt;
+                                &lt;span class&#x3D;&quot;set-color-text-third&quot;&gt;{{interestContent.description}}&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row p-3 align-items-center justify-content-between&quot;&gt;
+                            &lt;p-button styleClass&#x3D;&quot;button-blue-second button-border-mid align-items-center&quot; icon&#x3D;&quot;pi pi-pencil&quot; pTooltip&#x3D;&quot;Editar&quot; (onClick)&#x3D;&quot;openCreatorInterestContent(i)&quot;&gt;
+                            &lt;/p-button&gt;
+                            &lt;p-button styleClass&#x3D;&quot;button-blue-second button-border-mid align-items-center&quot; icon&#x3D;&quot;pi pi-trash&quot; pTooltip&#x3D;&quot;Borrar&quot; (onClick)&#x3D;&quot;deleteInterestContent(i)&quot;&gt;
+                            &lt;/p-button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/ng-container&gt;
+&lt;ng-template #noLoadedComponent&gt;
+    &lt;app-loading&gt;&lt;/app-loading&gt;
+&lt;/ng-template&gt;
+
+
+&lt;p-dialog header&#x3D;&quot;Vertical&quot; [(visible)]&#x3D;&quot;showCreatorVertical&quot; [style]&#x3D;&quot;{ width: &#x27;45vw&#x27;, height: &#x27;70vh&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; [modal]&#x3D;&quot;true&quot; (onHide)&#x3D;&quot;resetCreatorVertical()&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column justify-content-between h-full w-full&quot; *ngIf&#x3D;&quot;newVertical&quot;&gt;
+        &lt;form [formGroup]&#x3D;&quot;newVertical&quot; class&#x3D;&quot;formgrid grid&quot;&gt;
+            &lt;div class&#x3D;&quot;field col-5&quot;&gt;
+                &lt;label for&#x3D;&quot;stageName&quot;&gt;Nombre&lt;/label&gt;
+                &lt;input id&#x3D;&quot;stageName&quot; pInputText type&#x3D;&quot;text&quot; class&#x3D;&quot;appearance-none outline-none w-full&quot; formControlName&#x3D;&quot;name&quot; required&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-5&quot;&gt;
+                &lt;label for&#x3D;&quot;stageIcon&quot;&gt;Icono&lt;/label&gt;
+                &lt;p-dropdown [options]&#x3D;&quot;listIconsVerticals&quot; formControlName&#x3D;&quot;icon&quot; styleClass&#x3D;&quot;appearance-none outline-none w-full&quot;&gt;
+                    &lt;ng-template pTemplate&#x3D;&quot;selectedItem&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex align-items-center gap-2&quot; *ngIf&#x3D;&quot;newVertical.get(&#x27;icon&#x27;).value&quot;&gt;
+                            &lt;i-tabler [name]&#x3D;&quot;newVertical.get(&#x27;icon&#x27;).value&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                    &lt;/ng-template&gt;
+                    &lt;ng-template let-iconStage pTemplate&#x3D;&quot;item&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex align-items-center gap-2&quot;&gt;
+                            &lt;i-tabler [name]&#x3D;&quot;iconStage&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                    &lt;/ng-template&gt;
+                &lt;/p-dropdown&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-4 flex flex-column align-items-center justify-content-center&quot;&gt;
+                &lt;label for&#x3D;&quot;stageColor&quot; class&#x3D;&quot;text-center &quot;&gt;Color&lt;/label&gt;
+                &lt;p-colorPicker inputId&#x3D;&quot;stageColor&quot; formControlName&#x3D;&quot;color&quot; [inline]&#x3D;&quot;true&quot; appendTo&#x3D;&quot;body&quot;&gt;&lt;/p-colorPicker&gt;
+            &lt;/div&gt;
+            &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+        &lt;/form&gt;
+        &lt;div class&#x3D;&quot;actions flex flex-column gap-1&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;enableBtnEdit; else createBtn&quot;&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Cambiar&quot; icon&#x3D;&quot;pi pi-save&quot; iconPos&#x3D;&quot;right&quot; (onClick)&#x3D;&quot;editVertical()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;newVertical.invalid&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #createBtn&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Agregar vertical&quot; (onClick)&#x3D;&quot;createVertical()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;newVertical.invalid&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-template&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/p-dialog&gt;
+
+&lt;p-dialog header&#x3D;&quot;Aliado&quot; [(visible)]&#x3D;&quot;showCreatorBenefactor&quot; [style]&#x3D;&quot;{ width: &#x27;45vw&#x27;, height: &#x27;70vh&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; [modal]&#x3D;&quot;true&quot; (onHide)&#x3D;&quot;resetCreatorBenefactor()&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column justify-content-between h-full w-full&quot; *ngIf&#x3D;&quot;newBenefactor&quot;&gt;
+        &lt;form [formGroup]&#x3D;&quot;newBenefactor&quot; class&#x3D;&quot;formgrid grid&quot;&gt;
+            &lt;div class&#x3D;&quot;field col-5&quot;&gt;
+                &lt;label for&#x3D;&quot;stageName&quot;&gt;Nombre&lt;/label&gt;
+                &lt;input id&#x3D;&quot;stageName&quot; pInputText type&#x3D;&quot;text&quot; class&#x3D;&quot;appearance-none outline-none w-full&quot; formControlName&#x3D;&quot;name&quot; required&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-5&quot;&gt;
+                &lt;label for&#x3D;&quot;stageName&quot;&gt;Imagen&lt;/label&gt;
+                &lt;input id&#x3D;&quot;stageName&quot; pInputText type&#x3D;&quot;text&quot; class&#x3D;&quot;appearance-none outline-none w-full&quot; formControlName&#x3D;&quot;image&quot; required&gt;
+            &lt;/div&gt;
+            &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+        &lt;/form&gt;
+        &lt;div class&#x3D;&quot;actions flex flex-column gap-1&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;enableBtnEdit; else createBtn&quot;&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Cambiar&quot; icon&#x3D;&quot;pi pi-save&quot; iconPos&#x3D;&quot;right&quot; (onClick)&#x3D;&quot;editBenefactor()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;newBenefactor.invalid&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #createBtn&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Agregar aliado&quot; (onClick)&#x3D;&quot;createBenefactor()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;newBenefactor.invalid&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-template&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/p-dialog&gt;
+
+&lt;p-dialog header&#x3D;&quot;Contenido de interés&quot; [(visible)]&#x3D;&quot;showCreatorInterestContent&quot; [style]&#x3D;&quot;{ width: &#x27;45vw&#x27;, height: &#x27;70vh&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; [modal]&#x3D;&quot;true&quot; (onHide)&#x3D;&quot;resetCreatorInterestContent()&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column justify-content-between h-full w-full&quot; *ngIf&#x3D;&quot;newInterestContent&quot;&gt;
+        &lt;form [formGroup]&#x3D;&quot;newInterestContent&quot; class&#x3D;&quot;formgrid grid&quot;&gt;
+            &lt;div class&#x3D;&quot;field col-6&quot;&gt;
+                &lt;label for&#x3D;&quot;stageName&quot;&gt;Nombre&lt;/label&gt;
+                &lt;input id&#x3D;&quot;stageName&quot; pInputText type&#x3D;&quot;text&quot; class&#x3D;&quot;appearance-none outline-none w-full&quot; formControlName&#x3D;&quot;name&quot; required&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-6&quot;&gt;
+                &lt;label for&#x3D;&quot;stageName&quot;&gt;Imagen&lt;/label&gt;
+                &lt;input id&#x3D;&quot;stageName&quot; pInputText type&#x3D;&quot;text&quot; class&#x3D;&quot;appearance-none outline-none w-full&quot; formControlName&#x3D;&quot;image&quot; required&gt;
+            &lt;/div&gt;
+            &lt;span class&#x3D;&quot;field col-12&quot;&gt;
+                &lt;label for&#x3D;&quot;textarea&quot;&gt;Descripción - {{newInterestContent.controls[&#x27;description&#x27;].value?.length}}/120
+                    caracteres
+                    permitidos&lt;/label&gt;
+                &lt;textarea inputId&#x3D;&quot;textarea&quot; style&#x3D;&quot;width: 100%;&quot; rows&#x3D;&quot;8&quot; formControlName&#x3D;&quot;description&quot; [maxlength]&#x3D;&quot;120&quot; pInputTextarea&gt;&lt;/textarea&gt;
+            &lt;/span&gt;a
+            &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+        &lt;/form&gt;
+        &lt;div class&#x3D;&quot;actions flex flex-column gap-1&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;enableBtnEdit; else createBtn&quot;&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Cambiar&quot; icon&#x3D;&quot;pi pi-save&quot; iconPos&#x3D;&quot;right&quot; (onClick)&#x3D;&quot;editInterestContent()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;newInterestContent.invalid&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #createBtn&gt;
+                &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Agregar contenido&quot; (onClick)&#x3D;&quot;createInterestContent()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot; [disabled]&#x3D;&quot;newInterestContent.invalid&quot;&gt;&lt;/p-button&gt;
+            &lt;/ng-template&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/p-dialog&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./configuration.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;/src/styles.scss&quot;;
+
+.card-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 12.1875rem;
+  height: 15.375rem;
+  border-radius: 1.875rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  i-tabler {
+    width: 5rem;
+    height: 5rem;
+  }
+  span {
+    color: $appColorOne;
+  }
+  .content-vertical {
+    background-color: white;
+    border-radius: 1.875rem;
+  }
+  .separator-vertical {
+    height: 1.5rem;
+  }
+}
+
+.card-benefactor {
+  border-radius: 1.875rem;
+  width: 15.625rem;
+  height: 9.375rem;
+}
+
+.card-interest-content {
+  border-radius: 1.875rem;
+  width: 16.875rem;
+  height: 25rem;
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  img {
+    border-radius: 1.875rem;
+    width: 15.625rem;
+    height: 13.625rem;
+  }
+}
+
+.scrollwrap {
+  overflow-y: auto;
+  height: calc(100vh - 102px - 2.5rem) !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="loaded; else noLoadedComponent">    <div class="flex flex-column px-4 py-3 h-full w-full scrollwrap scrollwrap_delayed">        <div class="flex flex-column xl:flex-row gap-4 justify-content-between">            <div class="fex flex-column flex-grown-1 px-1 sm:px-2 md:px-4">                <h2>Configuración</h2>                <div style="height: 1.5rem"></div>                <div class="flex gap-2">                    <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>                    <p class="th2">Modifica en cualquier momento el dashboard, los servicios y los contenidos de interés para los usuarios de la app.                    </p>                </div>            </div>            <div class="flex flex-none flex-column sm:flex-row align-items-end gap-3 px-6 mt2 ">                <p-button styleClass="button-yellow-second" label="Revertir cambios" icon="pi pi-refresh" [disabled]="saving" (onClick)="revertChanges()"></p-button>                <p-button label="Guardar cambios" [disabled]="saving" (onClick)="saveChanges()"></p-button>            </div>        </div>        <p-divider></p-divider>        <div class="w-full" *ngIf="config">            <tinymce id="float-details" [(ngModel)]="config.dashboard" [config]="configTiny"></tinymce>            <div class="w-full flex flex-row justify-content-between align-items-center pt-3">                <span class="font-semibold text-3xl">Verticales</span>                <p-button label="+ Vertical" (onClick)="openCreatorVertical()"></p-button>            </div>            <div class="flex flex-row flex-wrap align-items-center justify-content-center px-3 py-2 gap-3">                <ng-container *ngFor="let vertical of config.verticals; let i=index">                    <div class="flex flex-column">                        <div class="card-vertical" [style.background-color]="vertical.color">                            <div class="w-full content-vertical flex flex-column align-items-center justify-content-center" style="flex: 1">                                <i-tabler [name]="vertical.icon" [style.color]="vertical.color"></i-tabler>                                <span>{{vertical.name}}</span>                            </div>                            <div class="w-full separator-vertical"></div>                        </div>                        <div class="flex flex-row p-3 align-items-center justify-content-between">                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-pencil" pTooltip="Editar" (onClick)="openCreatorVertical(i)">                            </p-button>                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-trash" pTooltip="Borrar" (onClick)="deleteVertical(i)">                            </p-button>                        </div>                    </div>                </ng-container>            </div>            <div class="w-full flex flex-row justify-content-between align-items-center pt-3">                <span class="font-semibold text-3xl">Aliados</span>                <p-button label="+ Aliado" (onClick)="openCreatorBenefactor()"></p-button>            </div>            <div class="flex flex-row flex-wrap align-items-center justify-content-center px-3 py-2 gap-3">                <ng-container *ngFor="let benefactor of config.benefactors; let i=index">                    <div class="flex flex-column">                        <img class="card-benefactor" [src]="benefactor.image" alt="" [pTooltip]="benefactor.name">                        <div class="flex flex-row p-3 align-items-center justify-content-between">                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-pencil" pTooltip="Editar" (onClick)="openCreatorBenefactor(i)">                            </p-button>                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-trash" pTooltip="Borrar" (onClick)="deleteBenefactor(i)">                            </p-button>                        </div>                    </div>                </ng-container>            </div>            <div class="w-full flex flex-row justify-content-between align-items-center pt-3">                <span class="font-semibold text-3xl">Contenido de interés</span>                <p-button label="+ Contenido de interés" (onClick)="openCreatorInterestContent()"></p-button>            </div>            <div class="flex flex-row flex-wrap align-items-center justify-content-center px-3 py-2 gap-3">                <ng-container *ngFor="let interestContent of config.contentOfInterest; let i=index">                    <div class="flex flex-column">                        <div class="card-interest-content flex flex-column align-items-center">                            <img class="card-benefactor pt-2" [src]="interestContent.image" alt="" [pTooltip]="interestContent.name">                            <div class="w-full flex flex-column p-5 gap-3">                                <span class="font-semibold">{{interestContent.name}}</span>                                <span class="set-color-text-third">{{interestContent.description}}</span>                            </div>                        </div>                        <div class="flex flex-row p-3 align-items-center justify-content-between">                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-pencil" pTooltip="Editar" (onClick)="openCreatorInterestContent(i)">                            </p-button>                            <p-button styleClass="button-blue-second button-border-mid align-items-center" icon="pi pi-trash" pTooltip="Borrar" (onClick)="deleteInterestContent(i)">                            </p-button>                        </div>                    </div>                </ng-container>            </div>        </div>    </div></ng-container><ng-template #noLoadedComponent>    <app-loading></app-loading></ng-template><p-dialog header="Vertical" [(visible)]="showCreatorVertical" [style]="{ width: \'45vw\', height: \'70vh\' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorVertical()">    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newVertical">        <form [formGroup]="newVertical" class="formgrid grid">            <div class="field col-5">                <label for="stageName">Nombre</label>                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="name" required>            </div>            <div class="field col-5">                <label for="stageIcon">Icono</label>                <p-dropdown [options]="listIconsVerticals" formControlName="icon" styleClass="appearance-none outline-none w-full">                    <ng-template pTemplate="selectedItem">                        <div class="flex align-items-center gap-2" *ngIf="newVertical.get(\'icon\').value">                            <i-tabler [name]="newVertical.get(\'icon\').value"></i-tabler>                        </div>                    </ng-template>                    <ng-template let-iconStage pTemplate="item">                        <div class="flex align-items-center gap-2">                            <i-tabler [name]="iconStage"></i-tabler>                        </div>                    </ng-template>                </p-dropdown>            </div>            <div class="field col-4 flex flex-column align-items-center justify-content-center">                <label for="stageColor" class="text-center ">Color</label>                <p-colorPicker inputId="stageColor" formControlName="color" [inline]="true" appendTo="body"></p-colorPicker>            </div>            <div style="height: 1rem;"></div>        </form>        <div class="actions flex flex-column gap-1">            <ng-container *ngIf="enableBtnEdit; else createBtn">                <p-button type="submit" label="Cambiar" icon="pi pi-save" iconPos="right" (onClick)="editVertical()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newVertical.invalid"></p-button>            </ng-container>            <ng-template #createBtn>                <p-button type="submit" label="Agregar vertical" (onClick)="createVertical()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newVertical.invalid"></p-button>            </ng-template>        </div>    </div></p-dialog><p-dialog header="Aliado" [(visible)]="showCreatorBenefactor" [style]="{ width: \'45vw\', height: \'70vh\' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorBenefactor()">    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newBenefactor">        <form [formGroup]="newBenefactor" class="formgrid grid">            <div class="field col-5">                <label for="stageName">Nombre</label>                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="name" required>            </div>            <div class="field col-5">                <label for="stageName">Imagen</label>                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="image" required>            </div>            <div style="height: 1rem;"></div>        </form>        <div class="actions flex flex-column gap-1">            <ng-container *ngIf="enableBtnEdit; else createBtn">                <p-button type="submit" label="Cambiar" icon="pi pi-save" iconPos="right" (onClick)="editBenefactor()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newBenefactor.invalid"></p-button>            </ng-container>            <ng-template #createBtn>                <p-button type="submit" label="Agregar aliado" (onClick)="createBenefactor()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newBenefactor.invalid"></p-button>            </ng-template>        </div>    </div></p-dialog><p-dialog header="Contenido de interés" [(visible)]="showCreatorInterestContent" [style]="{ width: \'45vw\', height: \'70vh\' }" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorInterestContent()">    <div class="flex flex-column justify-content-between h-full w-full" *ngIf="newInterestContent">        <form [formGroup]="newInterestContent" class="formgrid grid">            <div class="field col-6">                <label for="stageName">Nombre</label>                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="name" required>            </div>            <div class="field col-6">                <label for="stageName">Imagen</label>                <input id="stageName" pInputText type="text" class="appearance-none outline-none w-full" formControlName="image" required>            </div>            <span class="field col-12">                <label for="textarea">Descripción - {{newInterestContent.controls[\'description\'].value?.length}}/120                    caracteres                    permitidos</label>                <textarea inputId="textarea" style="width: 100%;" rows="8" formControlName="description" [maxlength]="120" pInputTextarea></textarea>            </span>a            <div style="height: 1rem;"></div>        </form>        <div class="actions flex flex-column gap-1">            <ng-container *ngIf="enableBtnEdit; else createBtn">                <p-button type="submit" label="Cambiar" icon="pi pi-save" iconPos="right" (onClick)="editInterestContent()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newInterestContent.invalid"></p-button>            </ng-container>            <ng-template #createBtn>                <p-button type="submit" label="Agregar contenido" (onClick)="createInterestContent()" styleClass="p-button-lg w-full border-round-2xl my-2 p-3" [disabled]="newInterestContent.invalid"></p-button>            </ng-template>        </div>    </div></p-dialog></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ConfigurationComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ConfigurationComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

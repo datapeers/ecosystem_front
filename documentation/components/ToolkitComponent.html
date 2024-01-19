@@ -1,0 +1,2061 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ToolkitComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/toolkit/toolkit.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-toolkit</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./toolkit.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./toolkit.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cards" >cards</a>
+                            </li>
+                            <li>
+                                <a href="#currentBatch" >currentBatch</a>
+                            </li>
+                            <li>
+                                <a href="#dialogRef" >dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#onCloseDialogSub$" >onCloseDialogSub$</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#paramSub$" >paramSub$</a>
+                            </li>
+                            <li>
+                                <a href="#phasesUser" >phasesUser</a>
+                            </li>
+                            <li>
+                                <a href="#profileDoc" >profileDoc</a>
+                            </li>
+                            <li>
+                                <a href="#selected" >selected</a>
+                            </li>
+                            <li>
+                                <a href="#selectedItem" >selectedItem</a>
+                            </li>
+                            <li>
+                                <a href="#sprints" >sprints</a>
+                            </li>
+                            <li>
+                                <a href="#sprintSelected" >sprintSelected</a>
+                            </li>
+                            <li>
+                                <a href="#startup" >startup</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                            <li>
+                                <a href="#watchContent$" >watchContent$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadFileReply" >downloadFileReply</a>
+                            </li>
+                            <li>
+                                <a href="#launchTour" >launchTour</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#openForm" >openForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#preload" >preload</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#selectFile" >selectFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setCards" >setCards</a>
+                            </li>
+                            <li>
+                                <a href="#setItem" >setItem</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#resourcesTypes" >resourcesTypes</a>
+                                </li>
+                                <li>
+                                    <a href="#resourcesStates" >resourcesStates</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(route: ActivatedRoute, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, phasesService: <a href="../injectables/PhasesService.html" target="_self">PhasesService</a>, phaseContentService: <a href="../injectables/PhaseContentService.html" target="_self">PhaseContentService</a>, phaseHomeworksService: <a href="../injectables/PhaseHomeworksService.html" target="_self">PhaseHomeworksService</a>, shepherdService: ShepherdService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:62</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phasesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhasesService.html" target="_self" >PhasesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseContentService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseContentService.html" target="_self" >PhaseContentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseHomeworksService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseHomeworksService.html" target="_self" >PhaseHomeworksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>shepherdService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ShepherdService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>downloadFile(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFileReply"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadFileReply</b></span>
+                        <a href="#downloadFileReply"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadFileReply(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="launchTour"></a>
+                    <span class="name">
+                        <span ><b>launchTour</b></span>
+                        <a href="#launchTour"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>launchTour()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent(batch)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>batch</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openForm"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>openForm</b></span>
+                        <a href="#openForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openForm(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:154</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="preload"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>preload</b></span>
+                        <a href="#preload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>preload()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:120</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>selectFile</b></span>
+                        <a href="#selectFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectFile(element: HTMLInputElement, reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>element</td>
+                                            <td>
+                                                        <code>HTMLInputElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setCards"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>setCards</b></span>
+                        <a href="#setCards"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setCards()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setItem"></a>
+                    <span class="name">
+                        <span ><b>setItem</b></span>
+                        <a href="#setItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setItem(item)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cards"></a>
+                    <span class="name">
+                        <span ><b>cards</b></span>
+                        <a href="#cards"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ResourceReply[]</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentBatch"></a>
+                    <span class="name">
+                        <span ><b>currentBatch</b></span>
+                        <a href="#currentBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogRef"></a>
+                    <span class="name">
+                        <span ><b>dialogRef</b></span>
+                        <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCloseDialogSub$"></a>
+                    <span class="name">
+                        <span ><b>onCloseDialogSub$</b></span>
+                        <a href="#onCloseDialogSub$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paramSub$"></a>
+                    <span class="name">
+                        <span ><b>paramSub$</b></span>
+                        <a href="#paramSub$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phasesUser"></a>
+                    <span class="name">
+                        <span ><b>phasesUser</b></span>
+                        <a href="#phasesUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileDoc"></a>
+                    <span class="name">
+                        <span ><b>profileDoc</b></span>
+                        <a href="#profileDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selected"></a>
+                    <span class="name">
+                        <span ><b>selected</b></span>
+                        <a href="#selected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;grid&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedItem"></a>
+                    <span class="name">
+                        <span ><b>selectedItem</b></span>
+                        <a href="#selectedItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sprints"></a>
+                    <span class="name">
+                        <span ><b>sprints</b></span>
+                        <a href="#sprints"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Content.html" target="_self" >Content[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sprintSelected"></a>
+                    <span class="name">
+                        <span ><b>sprintSelected</b></span>
+                        <a href="#sprintSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startup"></a>
+                    <span class="name">
+                        <span ><b>startup</b></span>
+                        <a href="#startup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Startup.html" target="_self" >Startup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="watchContent$"></a>
+                    <span class="name">
+                        <span ><b>watchContent$</b></span>
+                        <a href="#watchContent$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resourcesTypes"></a>
+                        <span class="name"><b>resourcesTypes</b><a href="#resourcesTypes"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>resourcesTypes()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:51</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resourcesStates"></a>
+                        <span class="name"><b>resourcesStates</b><a href="#resourcesStates"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>resourcesStates()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/toolkit/toolkit.component.ts:55</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { PhaseHomeworksService } from &#x27;@home/phases/phase-homeworks/phase-homeworks.service&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import {
+  first,
+  firstValueFrom,
+  Subject,
+  Subscription,
+  take,
+  takeUntil,
+} from &#x27;rxjs&#x27;;
+import { PhaseContentService } from &#x27;../phases/phase-content/phase-content.service&#x27;;
+import { Content } from &#x27;@home/phases/model/content.model&#x27;;
+import * as moment from &#x27;moment&#x27;;
+import { ResourceReply } from &#x27;@home/phases/phase-homeworks/model/resource-reply.model&#x27;;
+import { ResourcesTypes } from &#x27;@home/phases/model/resources-types.model&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { ResourceReplyState } from &#x27;@home/phases/phase-homeworks/model/resource-reply-states&#x27;;
+import { PhasesService } from &#x27;@home/phases/phases.service&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { ShepherdService } from &#x27;angular-shepherd&#x27;;
+import { toolkitOnboarding } from &#x27;@shared/onboarding/onboarding.config&#x27;;
+
+@Component({
+  selector: &#x27;app-toolkit&#x27;,
+  templateUrl: &#x27;./toolkit.component.html&#x27;,
+  styleUrls: [&#x27;./toolkit.component.scss&#x27;],
+})
+export class ToolkitComponent implements OnInit, OnDestroy {
+  loaded &#x3D; false;
+  currentBatch: Phase;
+  user: User;
+  profileDoc;
+  startup: Startup;
+  watchContent$: Subscription;
+  paramSub$: Subscription;
+  dialogRef;
+  onCloseDialogSub$: Subscription;
+  sprints: Content[];
+  sprintSelected: Content;
+  cards: ResourceReply[];
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+  selected &#x3D; &#x27;grid&#x27;;
+  phasesUser: Phase[] &#x3D; [];
+  selectedItem: any;
+  public get resourcesTypes(): typeof ResourcesTypes {
+    return ResourcesTypes;
+  }
+
+  public get resourcesStates(): typeof ResourceReplyState {
+    return ResourceReplyState;
+  }
+
+  launchTour() {
+    this.shepherdService.addSteps(toolkitOnboarding);
+    this.shepherdService.start();
+  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store&lt;AppState&gt;,
+    private toast: ToastService,
+    private phasesService: PhasesService,
+    private phaseContentService: PhaseContentService,
+    private phaseHomeworksService: PhaseHomeworksService,
+    private readonly shepherdService: ShepherdService
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+  }
+
+  ngOnInit(): void {
+    this.preload();
+  }
+
+  ngOnDestroy(): void {
+    this.watchContent$?.unsubscribe();
+    this.onCloseDialogSub$?.unsubscribe();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+    this.paramSub$?.unsubscribe();
+  }
+
+  async loadComponent(batch) {
+    this.loaded &#x3D; false;
+    if (batch &#x3D;&#x3D;&#x3D; &#x27;without batch&#x27;) {
+      this.toast.info({
+        summary: &#x27;Aun no participas&#x27;,
+        detail: &#x27;Tu startup aun no esta en ninguna etapa&#x27;,
+      });
+      this.loaded &#x3D; false;
+      return;
+    }
+    this.currentBatch &#x3D; batch;
+    this.watchContent$ &#x3D; (
+      await this.phaseContentService.watchContents(this.currentBatch._id)
+    ).subscribe(async (i) &#x3D;&gt; {
+      this.loaded &#x3D; false;
+      this.sprints &#x3D; i;
+      this.sprintSelected &#x3D;
+        this.sprints.find((i) &#x3D;&gt;
+          moment(new Date()).isBetween(
+            i.extra_options.start,
+            i.extra_options.end
+          )
+        ) ?? this.sprints[this.sprints.length - 1];
+      await this.setCards();
+      this.loaded &#x3D; true;
+    });
+  }
+
+  async preload() {
+    this.profileDoc &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.profileDoc)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.startup &#x3D; this.profileDoc.startups[0];
+    const userPhases &#x3D; await this.phasesService.getPhasesList(
+      this.profileDoc[&#x27;startups&#x27;][0].phases.map((i) &#x3D;&gt; i._id),
+      true
+    );
+    this.phasesUser &#x3D; userPhases.filter((i) &#x3D;&gt; !i.basePhase);
+    this.paramSub$ &#x3D; this.route.queryParamMap.subscribe(async (params) &#x3D;&gt; {
+      const batchId &#x3D; params.get(&#x27;batch&#x27;);
+      let batch: any &#x3D; this.phasesUser.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; batchId);
+      if (!batch) {
+        batch &#x3D; await firstValueFrom(
+          this.store
+            .select((store) &#x3D;&gt; store.home.currentBatch)
+            .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+        );
+      }
+      this.loadComponent(batch);
+    });
+  }
+
+  async setCards() {
+    this.cards &#x3D; await this.phaseHomeworksService.setResourcesRepliesSprint(
+      this.startup,
+      this.currentBatch,
+      this.sprintSelected
+    );
+  }
+
+  async openForm(reply: ResourceReply) {
+    const ref &#x3D; await this.phaseHomeworksService.openFormResource(reply);
+    if (ref)
+      ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) &#x3D;&gt; {
+        if (doc) {
+          this.setCards();
+        }
+      });
+  }
+
+  downloadFile(reply: ResourceReply) {
+    this.phaseHomeworksService
+      .downloadFileAndCheck(reply, this.user)
+      .then((updated) &#x3D;&gt; {
+        if (updated) {
+          this.setCards();
+        }
+      });
+  }
+
+  async downloadFileReply(reply: ResourceReply) {
+    this.phaseHomeworksService.downloadFileReply(reply);
+  }
+
+  async selectFile(element: HTMLInputElement, reply: ResourceReply) {
+    const files &#x3D; element.files;
+    if (files &amp;&amp; files.item(0)) {
+      await this.phaseHomeworksService.uploadTaskReply(
+        files.item(0),
+        reply,
+        this.user
+      );
+      this.setCards();
+    }
+  }
+
+  setItem(item) {
+    this.selectedItem &#x3D; item;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex flex-column h-max-router overflow-auto&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-none flex-column xl:flex-row gap-4 sm:p-2 &quot;&gt;
+        &lt;div class&#x3D;&quot;fex flex-column flex-grown-1 px-2 sm:px-4 md:px-8&quot;&gt;
+            &lt;h2&gt;Tu contenido de valor&lt;/h2&gt;
+            &lt;div style&#x3D;&quot;height: 1.5rem&quot;&gt;&lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex gap-2&quot;&gt;
+                &lt;i-tabler class&#x3D;&quot;text-center&quot; name&#x3D;&quot;bulb&quot; style&#x3D;&quot;color:#18E4E6; height:4rem; width:4rem;cursor:pointer;&quot; (click)&#x3D;&quot;launchTour()&quot;&gt;&lt;/i-tabler&gt;
+                &lt;p class&#x3D;&quot;th2&quot;&gt;Estas viendo el Kit de entregables de las Fases que has aprobado, todos son contenidos de
+                    alto valor que has trabajado a
+                    lo largo de la Ruta. Tu decides que quieres ver y como aprovecharlo al máximo, para ello puedes
+                    filtrar la lista por
+                    Fase o verlas todas.
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id&#x3D;&quot;toolkit-filter&quot; class&#x3D;&quot;flex flex-none align-items-end gap-3 px-1 md:px-6 mt2&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-2&quot;&gt;
+                &lt;label&gt;Ver por:&lt;/label&gt;
+                &lt;p-dropdown [options]&#x3D;&quot;sprints&quot; [(ngModel)]&#x3D;&quot;sprintSelected&quot; optionLabel&#x3D;&quot;name&quot; [filter]&#x3D;&quot;true&quot; filterBy&#x3D;&quot;name&quot; placeholder&#x3D;&quot;Seleccione un sprint&quot; (onChange)&#x3D;&quot;setCards()&quot;&gt;
+                    &lt;ng-template let-sprint pTemplate&#x3D;&quot;item&quot;&gt;
+                        &lt;div&gt;{{ sprint.name }}&lt;/div&gt;
+                    &lt;/ng-template&gt;
+                &lt;/p-dropdown&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-2&quot;&gt;
+                &lt;label&gt;Batch:&lt;/label&gt;
+                &lt;p-dropdown [options]&#x3D;&quot;phasesUser&quot; [(ngModel)]&#x3D;&quot;currentBatch&quot; optionLabel&#x3D;&quot;name&quot; [filter]&#x3D;&quot;true&quot; filterBy&#x3D;&quot;name&quot; placeholder&#x3D;&quot;Seleccione un batch&quot; (onChange)&#x3D;&quot;loadComponent(this.currentBatch)&quot;&gt;
+                    &lt;ng-template let-batch pTemplate&#x3D;&quot;item&quot;&gt;
+                        &lt;div&gt;{{ batch.name }}&lt;/div&gt;
+                    &lt;/ng-template&gt;
+                &lt;/p-dropdown&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;w-2&quot;&gt;&lt;/div&gt;
+            &lt;div class&#x3D;&quot;panel-icon cursor-pointer&quot; [ngClass]&#x3D;&quot;{&#x27;panel-icon-active&#x27;: selected &#x3D;&#x3D;&#x3D; &#x27;list&#x27;}&quot; (click)&#x3D;&quot;selected &#x3D; &#x27;list&#x27;&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;list&quot;&gt;&lt;/i-tabler&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;panel-icon cursor-pointer&quot; [ngClass]&#x3D;&quot;{&#x27;panel-icon-active&#x27;: selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;}&quot; (click)&#x3D;&quot;selected &#x3D; &#x27;grid&#x27;&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;layout-grid&quot;&gt;&lt;/i-tabler&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;loaded; else loadingTemplates&quot;&gt;
+        &lt;div id&#x3D;&quot;resources&quot; class&#x3D;&quot;flex flex-grown-1 p-4 cards-container&quot; *ngIf&#x3D;&quot;cards.length &gt; 0&quot;&gt;
+            &lt;div class&#x3D;&quot;flex w-full gap-4&quot; [ngClass]&#x3D;&quot;{&#x27;flex-column&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;list&#x27;, &#x27;flex-wrap justify-content-center&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;}&quot;&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let item of cards&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex container&quot; (click)&#x3D;&quot;setItem(item)&quot; [ngClass]&#x3D;&quot;{&#x27;w-full flex-row align-items-center mt-2 gap-4&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;list&#x27;, &#x27;flex-column max-w-20rem&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;}&quot;&gt;
+                        &lt;ng-container *ngTemplateOutlet&#x3D;&quot;itemCard; context: { &#x27;$implicit&#x27;: item }&quot;&gt;&lt;/ng-container&gt;
+                    &lt;/div&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-container&gt;
+&lt;/div&gt;
+&lt;ng-template #loadingTemplates&gt;
+    &lt;app-loading&gt;&lt;/app-loading&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #itemCard let-item&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;item&quot;&gt;
+        &lt;div class&#x3D;&quot;flex container&quot; class&#x3D;&quot;flex justify-content-between color-seven align-items-center flex-none&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;layout-board-split&quot; *ngIf&#x3D;&quot;selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;&quot;&gt;&lt;/i-tabler&gt;
+            &lt;div class&#x3D;&quot;flex panel-date&quot;&gt;
+                &lt;div class&#x3D;&quot;flex justify-content-between align-items-center gap-2&quot;&gt;
+                    &lt;i-tabler name&#x3D;&quot;calendar-bolt&quot;&gt;&lt;/i-tabler&gt;
+                    &lt;p class&#x3D;&quot;th2&quot;&gt;{{item.resource.extra_options.expiration | date : &#x27;dd MMM yyyy&#x27;}}&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p class&#x3D;&quot;sh1&quot; [ngClass]&#x3D;&quot;{&#x27;mt-0&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;list&#x27;, &#x27;mt-5&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;}&quot;&gt;
+            {{item.resource.name}}&lt;/p&gt;
+        &lt;div class&#x3D;&quot;flex flex-column gap-4 flex-grown-1&quot;&gt;
+            &lt;p class&#x3D;&quot;th1&quot; [ngClass]&#x3D;&quot;{&#x27;mt-0&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;list&#x27;, &#x27;mt-2&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;}&quot;&gt;
+                Contenido de {{item.phase.name}} - Etapa {{item.phase.stageDoc.name}}&lt;/p&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;item.resource.type !&#x3D;&#x3D; resourcesTypes.downloadable&quot;&gt;
+                &lt;p class&#x3D;&quot;th1&quot; [ngClass]&#x3D;&quot;{&#x27;mt-0&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;list&#x27;, &#x27;mt-4&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;}&quot;&gt;
+                    Observaciones:&lt;/p&gt;
+                &lt;p class&#x3D;&quot;overflow-hidden max-h-5rem&quot;&gt;{{item.observations ?? &#x27;&#x27;}}&lt;/p&gt;
+            &lt;/ng-container&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;flex w-full flex-row&quot; [ngClass]&#x3D;&quot;{&#x27;mt-0  justify-content-end gap-2&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;list&#x27;, &#x27; justify-content-between mt-4&#x27; : selected &#x3D;&#x3D;&#x3D; &#x27;grid&#x27;}&quot; style&#x3D;&quot;flex: 1&quot;&gt;
+            &lt;div class&#x3D;&quot;flex gap-2 h-full align-items-end&quot;&gt;
+                &lt;ng-container [ngSwitch]&#x3D;&quot;item.resource.type&quot;&gt;
+                    &lt;ng-container *ngSwitchCase&#x3D;&quot;resourcesTypes.form&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex panel-icon&quot; pTooltip&#x3D;&quot;Ver formulario&quot; (click)&#x3D;&quot;openForm(item)&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;download&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                    &lt;/ng-container&gt;
+                    &lt;ng-container *ngSwitchCase&#x3D;&quot;resourcesTypes.downloadable&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex panel-icon&quot; pTooltip&#x3D;&quot;Descargar&quot; (click)&#x3D;&quot;downloadFile(item)&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;download&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+
+                    &lt;/ng-container&gt;
+                    &lt;ng-container *ngSwitchCase&#x3D;&quot;resourcesTypes.task&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex panel-icon&quot; *ngIf&#x3D;&quot;item.resource.extra_options.file&quot; (click)&#x3D;&quot;downloadFile(item)&quot; pTooltip&#x3D;&quot;Plantilla&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;eye&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;flex panel-icon&quot; *ngIf&#x3D;&quot;item.state !&#x3D;&#x3D; resourcesStates.Aprobado&quot; [pTooltip]&#x3D;&quot;item.item?.file ? &#x27;Cambiar&#x27; : &#x27;Subir&#x27;&quot; (click)&#x3D;&quot;fileInput.click()&quot;&gt;
+                            &lt;i-tabler [name]&#x3D;&quot;item.item?.file ? &#x27;download&#x27; : &#x27;upload&#x27;&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                        &lt;ng-container *ngIf&#x3D;&quot;item.state !&#x3D;&#x3D; resourcesStates.Pendiente&quot;&gt;
+                            &lt;div class&#x3D;&quot;flex panel-icon&quot; pTooltip&#x3D;&quot;Ver archivo&quot; (click)&#x3D;&quot;downloadFileReply(item)&quot;&gt;
+                                &lt;i-tabler name&#x3D;&quot;eye&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;/div&gt;
+                        &lt;/ng-container&gt;
+                        &lt;input #fileInput type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&quot; class&#x3D;&quot;hidden&quot; (change)&#x3D;&quot;selectFile(fileInput, item)&quot;&gt;
+                    &lt;/ng-container&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex h-full align-items-end&quot;&gt;
+                &lt;p class&#x3D;&quot;text-base text-center tag&quot;&gt;
+                    {{item.state}}&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-container&gt;
+&lt;/ng-template&gt;
+
+&lt;p-dialog appendTo&#x3D;&quot;body&quot; [header]&#x3D;&quot;selectedItem?.resource?.name&quot; [(visible)]&#x3D;&quot;!!selectedItem&quot; [style]&#x3D;&quot;{ width: &#x27;45vw&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; [modal]&#x3D;&quot;true&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot;&gt;
+    &lt;div class&#x3D;&quot;px-5&quot;&gt;
+        &lt;ng-container *ngTemplateOutlet&#x3D;&quot;itemCard; context: { &#x27;$implicit&#x27;: selectedItem }&quot;&gt;&lt;/ng-container&gt;
+    &lt;/div&gt;
+&lt;/p-dialog&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./toolkit.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../styles.scss&quot;;
+
+label {
+  font-size: 0.8rem;
+}
+
+.panel-icon {
+  border-radius: 0.625rem;
+  padding: 0.625rem;
+  background-color: $grayThird;
+  i-tabler {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+}
+
+.panel-icon-active {
+  background-color: #fff1dc;
+  i-tabler {
+    color: $appColorSeven;
+  }
+}
+
+.cards-container {
+  background-color: $grayThird;
+  border-radius: 3.125rem;
+  margin: 0 1rem;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 1.875rem;
+  padding: 1.875rem;
+  cursor: pointer;
+  .sh1 {
+    font-weight: 500;
+  }
+  .th1 {
+    color: $appTextTwo;
+    font-weight: 450;
+  }
+}
+
+.container:hover {
+  -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+}
+
+.panel-date {
+  border-radius: 2.5rem;
+  background-color: #fff1dc;
+  padding: 0.5rem 1rem;
+  color: $appColorSeven;
+}
+
+.color-seven {
+  color: $appColorSeven;
+}
+
+.panel-icon {
+  border-radius: 0.625rem;
+  padding: 0.625rem;
+  background-color: $grayThird;
+  color: $appTextThree;
+  height: 40px;
+  i-tabler {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+}
+
+.tag {
+  border-radius: 2.5rem;
+  background-color: #e7f2ff;
+  padding: 0.625rem 1.75rem;
+  color: $appColorFive;
+  height: 40px;
+  p {
+    font-weight: 500;
+    font-size: 1.1875rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex flex-column h-max-router overflow-auto">    <div class="flex flex-none flex-column xl:flex-row gap-4 sm:p-2 ">        <div class="fex flex-column flex-grown-1 px-2 sm:px-4 md:px-8">            <h2>Tu contenido de valor</h2>            <div style="height: 1.5rem"></div>            <div class="flex gap-2">                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;cursor:pointer;" (click)="launchTour()"></i-tabler>                <p class="th2">Estas viendo el Kit de entregables de las Fases que has aprobado, todos son contenidos de                    alto valor que has trabajado a                    lo largo de la Ruta. Tu decides que quieres ver y como aprovecharlo al máximo, para ello puedes                    filtrar la lista por                    Fase o verlas todas.                </p>            </div>        </div>        <div id="toolkit-filter" class="flex flex-none align-items-end gap-3 px-1 md:px-6 mt2">            <div class="flex flex-column gap-2">                <label>Ver por:</label>                <p-dropdown [options]="sprints" [(ngModel)]="sprintSelected" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un sprint" (onChange)="setCards()">                    <ng-template let-sprint pTemplate="item">                        <div>{{ sprint.name }}</div>                    </ng-template>                </p-dropdown>            </div>            <div class="flex flex-column gap-2">                <label>Batch:</label>                <p-dropdown [options]="phasesUser" [(ngModel)]="currentBatch" optionLabel="name" [filter]="true" filterBy="name" placeholder="Seleccione un batch" (onChange)="loadComponent(this.currentBatch)">                    <ng-template let-batch pTemplate="item">                        <div>{{ batch.name }}</div>                    </ng-template>                </p-dropdown>            </div>            <div class="w-2"></div>            <div class="panel-icon cursor-pointer" [ngClass]="{\'panel-icon-active\': selected === \'list\'}" (click)="selected = \'list\'">                <i-tabler name="list"></i-tabler>            </div>            <div class="panel-icon cursor-pointer" [ngClass]="{\'panel-icon-active\': selected === \'grid\'}" (click)="selected = \'grid\'">                <i-tabler name="layout-grid"></i-tabler>            </div>        </div>    </div>    <p-divider></p-divider>    <ng-container *ngIf="loaded; else loadingTemplates">        <div id="resources" class="flex flex-grown-1 p-4 cards-container" *ngIf="cards.length > 0">            <div class="flex w-full gap-4" [ngClass]="{\'flex-column\' : selected === \'list\', \'flex-wrap justify-content-center\' : selected === \'grid\'}">                <ng-container *ngFor="let item of cards">                    <div class="flex container" (click)="setItem(item)" [ngClass]="{\'w-full flex-row align-items-center mt-2 gap-4\' : selected === \'list\', \'flex-column max-w-20rem\' : selected === \'grid\'}">                        <ng-container *ngTemplateOutlet="itemCard; context: { \'$implicit\': item }"></ng-container>                    </div>                </ng-container>            </div>        </div>    </ng-container></div><ng-template #loadingTemplates>    <app-loading></app-loading></ng-template><ng-template #itemCard let-item>    <ng-container *ngIf="item">        <div class="flex container" class="flex justify-content-between color-seven align-items-center flex-none">            <i-tabler name="layout-board-split" *ngIf="selected === \'grid\'"></i-tabler>            <div class="flex panel-date">                <div class="flex justify-content-between align-items-center gap-2">                    <i-tabler name="calendar-bolt"></i-tabler>                    <p class="th2">{{item.resource.extra_options.expiration | date : \'dd MMM yyyy\'}}</p>                </div>            </div>        </div>        <p class="sh1" [ngClass]="{\'mt-0\' : selected === \'list\', \'mt-5\' : selected === \'grid\'}">            {{item.resource.name}}</p>        <div class="flex flex-column gap-4 flex-grown-1">            <p class="th1" [ngClass]="{\'mt-0\' : selected === \'list\', \'mt-2\' : selected === \'grid\'}">                Contenido de {{item.phase.name}} - Etapa {{item.phase.stageDoc.name}}</p>            <ng-container *ngIf="item.resource.type !== resourcesTypes.downloadable">                <p class="th1" [ngClass]="{\'mt-0\' : selected === \'list\', \'mt-4\' : selected === \'grid\'}">                    Observaciones:</p>                <p class="overflow-hidden max-h-5rem">{{item.observations ?? \'\'}}</p>            </ng-container>        </div>        <div class="flex w-full flex-row" [ngClass]="{\'mt-0  justify-content-end gap-2\' : selected === \'list\', \' justify-content-between mt-4\' : selected === \'grid\'}" style="flex: 1">            <div class="flex gap-2 h-full align-items-end">                <ng-container [ngSwitch]="item.resource.type">                    <ng-container *ngSwitchCase="resourcesTypes.form">                        <div class="flex panel-icon" pTooltip="Ver formulario" (click)="openForm(item)">                            <i-tabler name="download"></i-tabler>                        </div>                    </ng-container>                    <ng-container *ngSwitchCase="resourcesTypes.downloadable">                        <div class="flex panel-icon" pTooltip="Descargar" (click)="downloadFile(item)">                            <i-tabler name="download"></i-tabler>                        </div>                    </ng-container>                    <ng-container *ngSwitchCase="resourcesTypes.task">                        <div class="flex panel-icon" *ngIf="item.resource.extra_options.file" (click)="downloadFile(item)" pTooltip="Plantilla">                            <i-tabler name="eye"></i-tabler>                        </div>                        <div class="flex panel-icon" *ngIf="item.state !== resourcesStates.Aprobado" [pTooltip]="item.item?.file ? \'Cambiar\' : \'Subir\'" (click)="fileInput.click()">                            <i-tabler [name]="item.item?.file ? \'download\' : \'upload\'"></i-tabler>                        </div>                        <ng-container *ngIf="item.state !== resourcesStates.Pendiente">                            <div class="flex panel-icon" pTooltip="Ver archivo" (click)="downloadFileReply(item)">                                <i-tabler name="eye"></i-tabler>                            </div>                        </ng-container>                        <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, item)">                    </ng-container>                </ng-container>            </div>            <div class="flex h-full align-items-end">                <p class="text-base text-center tag">                    {{item.state}}</p>            </div>        </div>    </ng-container></ng-template><p-dialog appendTo="body" [header]="selectedItem?.resource?.name" [(visible)]="!!selectedItem" [style]="{ width: \'45vw\' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}">    <div class="px-5">        <ng-container *ngTemplateOutlet="itemCard; context: { \'$implicit\': selectedItem }"></ng-container>    </div></p-dialog></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ToolkitComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ToolkitComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

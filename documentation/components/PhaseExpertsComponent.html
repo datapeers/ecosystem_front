@@ -1,0 +1,1731 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PhaseExpertsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/phases/phase-experts/phase-experts.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>{ provide: DocumentProvider, useExisting: PhaseExpertsService }</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-phase-experts</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./phase-experts.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./phase-experts.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#callbackTable" >callbackTable</a>
+                            </li>
+                            <li>
+                                <a href="#configTable" >configTable</a>
+                            </li>
+                            <li>
+                                <a href="#dynamicTable" >dynamicTable</a>
+                            </li>
+                            <li>
+                                <a href="#entityForm" >entityForm</a>
+                            </li>
+                            <li>
+                                <a href="#listExperts" >listExperts</a>
+                            </li>
+                            <li>
+                                <a href="#listStartups" >listStartups</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#optionsTable" >optionsTable</a>
+                            </li>
+                            <li>
+                                <a href="#phase" >phase</a>
+                            </li>
+                            <li>
+                                <a href="#selectedExpert" >selectedExpert</a>
+                            </li>
+                            <li>
+                                <a href="#selectedExperts" >selectedExperts</a>
+                            </li>
+                            <li>
+                                <a href="#selectedStartups" >selectedStartups</a>
+                            </li>
+                            <li>
+                                <a href="#showAddExpert" >showAddExpert</a>
+                            </li>
+                            <li>
+                                <a href="#showAddStartups" >showAddStartups</a>
+                            </li>
+                            <li>
+                                <a href="#tableContext" >tableContext</a>
+                            </li>
+                            <li>
+                                <a href="#tableTitle" >tableTitle</a>
+                            </li>
+                            <li>
+                                <a href="#titleStartupDialog" >titleStartupDialog</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#actionFromTable" >actionFromTable</a>
+                            </li>
+                            <li>
+                                <a href="#addExpertPhase" >addExpertPhase</a>
+                            </li>
+                            <li>
+                                <a href="#addExpertStartupPhase" >addExpertStartupPhase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#resetExpertsDialog" >resetExpertsDialog</a>
+                            </li>
+                            <li>
+                                <a href="#resetStartupsExpertDialog" >resetStartupsExpertDialog</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(service: <a href="../injectables/PhaseExpertsService.html" target="_self">PhaseExpertsService</a>, expertsService: <a href="../injectables/ExpertsService.html" target="_self">ExpertsService</a>, startupsService: <a href="../injectables/PhaseStartupsService.html" target="_self">PhaseStartupsService</a>, formService: <a href="../injectables/FormService.html" target="_self">FormService</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:49</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseExpertsService.html" target="_self" >PhaseExpertsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>expertsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ExpertsService.html" target="_self" >ExpertsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>startupsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseStartupsService.html" target="_self" >PhaseStartupsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormService.html" target="_self" >FormService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionFromTable"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>actionFromTable</b></span>
+                        <a href="#actionFromTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>actionFromTable(undefined: <a href="../interfaces/TableActionEvent.html" target="_self">TableActionEvent</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                            <code><a href="../interfaces/TableActionEvent.html" target="_self" >TableActionEvent</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addExpertPhase"></a>
+                    <span class="name">
+                        <span ><b>addExpertPhase</b></span>
+                        <a href="#addExpertPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addExpertPhase()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="198"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addExpertStartupPhase"></a>
+                    <span class="name">
+                        <span ><b>addExpertStartupPhase</b></span>
+                        <a href="#addExpertStartupPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addExpertStartupPhase()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="224"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:224</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetExpertsDialog"></a>
+                    <span class="name">
+                        <span ><b>resetExpertsDialog</b></span>
+                        <a href="#resetExpertsDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetExpertsDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="218"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:218</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetStartupsExpertDialog"></a>
+                    <span class="name">
+                        <span ><b>resetStartupsExpertDialog</b></span>
+                        <a href="#resetStartupsExpertDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetStartupsExpertDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:249</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="callbackTable"></a>
+                    <span class="name">
+                        <span ><b>callbackTable</b></span>
+                        <a href="#callbackTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configTable"></a>
+                    <span class="name">
+                        <span ><b>configTable</b></span>
+                        <a href="#configTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/TableConfig.html" target="_self" >TableConfig</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dynamicTable"></a>
+                    <span class="name">
+                        <span ><b>dynamicTable</b></span>
+                        <a href="#dynamicTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/DynamicTable.html" target="_self" >DynamicTable</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="entityForm"></a>
+                    <span class="name">
+                        <span ><b>entityForm</b></span>
+                        <a href="#entityForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/AppForm.html" target="_self" >AppForm</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listExperts"></a>
+                    <span class="name">
+                        <span ><b>listExperts</b></span>
+                        <a href="#listExperts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listStartups"></a>
+                    <span class="name">
+                        <span ><b>listStartups</b></span>
+                        <a href="#listStartups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="optionsTable"></a>
+                    <span class="name">
+                        <span ><b>optionsTable</b></span>
+                        <a href="#optionsTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/TableOptions.html" target="_self" >TableOptions</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phase"></a>
+                    <span class="name">
+                        <span ><b>phase</b></span>
+                        <a href="#phase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedExpert"></a>
+                    <span class="name">
+                        <span ><b>selectedExpert</b></span>
+                        <a href="#selectedExpert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedExperts"></a>
+                    <span class="name">
+                        <span ><b>selectedExperts</b></span>
+                        <a href="#selectedExperts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedStartups"></a>
+                    <span class="name">
+                        <span ><b>selectedStartups</b></span>
+                        <a href="#selectedStartups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showAddExpert"></a>
+                    <span class="name">
+                        <span ><b>showAddExpert</b></span>
+                        <a href="#showAddExpert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showAddStartups"></a>
+                    <span class="name">
+                        <span ><b>showAddStartups</b></span>
+                        <a href="#showAddStartups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tableContext"></a>
+                    <span class="name">
+                        <span ><b>tableContext</b></span>
+                        <a href="#tableContext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#TableContext" target="_self" >TableContext</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tableTitle"></a>
+                    <span class="name">
+                        <span ><b>tableTitle</b></span>
+                        <a href="#tableTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="titleStartupDialog"></a>
+                    <span class="name">
+                        <span ><b>titleStartupDialog</b></span>
+                        <a href="#titleStartupDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/phases/phase-experts/phase-experts.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { DocumentProvider } from &#x27;@shared/components/dynamic-table/models/document-provider&#x27;;
+import { DynamicTable } from &#x27;@shared/components/dynamic-table/models/dynamic-table&#x27;;
+import { TableActionEvent } from &#x27;@shared/components/dynamic-table/models/table-action&#x27;;
+import { TableConfig } from &#x27;@shared/components/dynamic-table/models/table-config&#x27;;
+import { TableContext } from &#x27;@shared/components/dynamic-table/models/table-context&#x27;;
+import { TableOptions } from &#x27;@shared/components/dynamic-table/models/table-options&#x27;;
+import { FormCollections } from &#x27;@shared/form/enums/form-collections&#x27;;
+import { FormService } from &#x27;@shared/form/form.service&#x27;;
+import { AppForm } from &#x27;@shared/form/models/form&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { Subject, first, firstValueFrom } from &#x27;rxjs&#x27;;
+import { PhaseExpertsService } from &#x27;./phase-experts.service&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { Phase } from &#x27;../model/phase.model&#x27;;
+import { ExpertsService } from &#x27;@shared/services/experts/experts.service&#x27;;
+import { StartupsService } from &#x27;@shared/services/startups/startups.service&#x27;;
+import { Expert } from &#x27;@shared/models/entities/expert&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import { PhaseStartupsService } from &#x27;../phase-startups/phase-startups.service&#x27;;
+
+@Component({
+  selector: &#x27;app-phase-experts&#x27;,
+  templateUrl: &#x27;./phase-experts.component.html&#x27;,
+  styleUrls: [&#x27;./phase-experts.component.scss&#x27;],
+  providers: [{ provide: DocumentProvider, useExisting: PhaseExpertsService }],
+})
+export class PhaseExpertsComponent implements OnInit, OnDestroy {
+  optionsTable: TableOptions;
+  dynamicTable: DynamicTable;
+  tableContext: TableContext;
+  loading: boolean &#x3D; false;
+  tableTitle: string &#x3D; &#x27;&#x27;;
+  configTable: TableConfig;
+  entityForm: AppForm;
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+  showAddExpert &#x3D; false;
+  listExperts &#x3D; [];
+  selectedExperts &#x3D; [];
+  phase: Phase;
+  showAddStartups &#x3D; false;
+  listStartups &#x3D; [];
+  selectedStartups &#x3D; [];
+  selectedExpert &#x3D; null;
+  titleStartupDialog &#x3D; &#x27;&#x27;;
+  callbackTable;
+  user: User;
+  constructor(
+    private service: PhaseExpertsService,
+    private readonly expertsService: ExpertsService,
+    private readonly startupsService: PhaseStartupsService,
+    private readonly formService: FormService,
+    private readonly toast: ToastService,
+    private store: Store&lt;AppState&gt;
+  ) {
+    this.optionsTable &#x3D; {
+      save: true,
+      download: false,
+      details: true,
+      summary: &#x27;Expertos&#x27;,
+      showConfigButton: true,
+      redirect: null,
+      selection: true,
+      actions_row: &#x27;compress&#x27;,
+      actionsPerRow: [
+        {
+          action: &#x27;expert_startup_link&#x27;,
+          label: &#x60;Vincular startUps&#x60;,
+          icon: &#x27;pi pi-link&#x27;,
+          featured: true,
+        },
+      ],
+      extraColumnsTable: [],
+      actionsTable: [
+        {
+          action: &#x27;link_expert&#x27;,
+          label: &#x60;Añadir experto&#x60;,
+          icon: &#x27;pi pi-plus&#x27;,
+          featured: true,
+        },
+      ],
+    };
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+  }
+
+  ngOnInit(): void {
+    this.loadComponent();
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  async loadComponent() {
+    this.phase &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.phase.phase)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.optionsTable.summary &#x3D; &#x27;Expertos&#x27;;
+    this.tableTitle &#x3D; &#x27;Expertos&#x27;;
+    this.loading &#x3D; true;
+    const forms &#x3D; await this.formService.getFormByCollection(
+      FormCollections.experts
+    );
+    if (!forms.length) {
+      return;
+    }
+    this.entityForm &#x3D; forms.find(() &#x3D;&gt; true);
+    this.tableContext &#x3D; {
+      locator: &#x60;experts phase ${this.phase._id}&#x60;,
+      name: &#x27;Expertos&#x27;,
+      form: this.entityForm._id,
+      data: {
+        phase: this.phase._id,
+      },
+    };
+    if (this.user.allowed(Permission.download_all_tables))
+      this.optionsTable.download &#x3D; true;
+    this.loading &#x3D; false;
+  }
+
+  async actionFromTable({
+    action,
+    element,
+    event,
+    callbacks,
+    rawDataTable,
+  }: TableActionEvent) {
+    switch (action) {
+      case &#x27;link_expert&#x27;:
+        const posibleExperts &#x3D; (await this.expertsService.getDocuments({})).map(
+          (doc) &#x3D;&gt; {
+            return {
+              _id: doc._id,
+              name: doc.item.nombre,
+            };
+          }
+        );
+        this.listExperts &#x3D; [];
+        for (const iterator of posibleExperts) {
+          if (rawDataTable.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; iterator._id)) continue;
+          this.listExperts.push(iterator);
+        }
+        this.callbackTable &#x3D; callbacks;
+        this.showAddExpert &#x3D; true;
+        break;
+      case &#x27;expert_startup_link&#x27;:
+        const listStartups &#x3D; (
+          await this.startupsService.getDocuments({
+            phase: this.phase._id,
+          })
+        )
+          .filter((i) &#x3D;&gt; !i.item.generic)
+          .map((doc) &#x3D;&gt; {
+            return {
+              _id: doc._id,
+              name: doc.item.nombre,
+            };
+          });
+        let startupsWithExpert &#x3D; new Set();
+        this.selectedExpert &#x3D; rawDataTable.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; element._id);
+        for (const expert of rawDataTable) {
+          if (this.selectedExpert._id &#x3D;&#x3D;&#x3D; expert._id) continue;
+          const expertPhase &#x3D; expert[&#x27;phases&#x27;].find(
+            (i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; this.phase._id
+          );
+          for (const iterator of expertPhase.startUps) {
+            startupsWithExpert.add(iterator._id);
+          }
+        }
+        this.listStartups &#x3D; [];
+        for (const iterator of listStartups) {
+          this.listStartups.push(iterator);
+        }
+        const phaseProfile &#x3D; this.selectedExpert.phases.find(
+          (i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; this.phase._id
+        );
+        this.selectedStartups &#x3D; [
+          ...phaseProfile.startUps
+            .filter((i) &#x3D;&gt; listStartups.map((o) &#x3D;&gt; o._id).includes(i._id))
+            .map(({ __typename, ...rest }) &#x3D;&gt; rest),
+        ];
+        this.titleStartupDialog &#x3D; &#x60;Modificar startups para ${this.selectedExpert[&#x27;item&#x27;][&#x27;nombre&#x27;]}&#x60;;
+        this.callbackTable &#x3D; callbacks;
+        this.showAddStartups &#x3D; true;
+        break;
+    }
+  }
+
+  addExpertPhase() {
+    this.toast.info({ summary: &#x27;Agregando...&#x27;, detail: &#x27;&#x27; });
+    this.service
+      .linkExpertToBatch(this.phase._id, this.phase.name, this.selectedExperts)
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.callbackTable.refresh();
+        this.resetExpertsDialog();
+      })
+      .catch((err) &#x3D;&gt; {
+        console.warn(err);
+        this.resetExpertsDialog;
+        this.toast.clear();
+        this.toast.error({
+          summary: &#x27;Error al intentar vincular expertos&#x27;,
+          detail: err,
+        });
+      });
+  }
+
+  resetExpertsDialog() {
+    this.selectedExperts &#x3D; [];
+    this.showAddExpert &#x3D; false;
+    this.callbackTable &#x3D; undefined;
+  }
+
+  addExpertStartupPhase() {
+    this.toast.info({ summary: &#x27;Agregando...&#x27;, detail: &#x27;&#x27; });
+    const expertPhase &#x3D; this.selectedExpert[&#x27;phases&#x27;].find(
+      (i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; this.phase._id
+    );
+    this.service
+      .linkStartups(this.selectedExpert._id, this.phase._id, [
+        ...this.selectedStartups,
+      ])
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.callbackTable.refresh();
+        this.resetStartupsExpertDialog();
+      })
+      .catch((err) &#x3D;&gt; {
+        console.warn(err);
+        this.resetExpertsDialog;
+        this.toast.clear();
+        this.toast.error({
+          summary: &#x27;Error al intentar vincular startups a experto&#x27;,
+          detail: err,
+        });
+      });
+  }
+
+  resetStartupsExpertDialog() {
+    this.selectedStartups &#x3D; [];
+    this.showAddStartups &#x3D; false;
+    this.selectedExpert &#x3D; null;
+    this.callbackTable &#x3D; undefined;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex px-4 py-3 h-full w-full&quot;&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;tableContext&quot;&gt;
+        &lt;app-dynamic-table [context]&#x3D;&quot;tableContext&quot; [options]&#x3D;&quot;optionsTable&quot; [loading]&#x3D;&quot;loading&quot; [title]&#x3D;&quot;tableTitle&quot; (action)&#x3D;&quot;actionFromTable($event)&quot;&gt;
+        &lt;/app-dynamic-table&gt;
+    &lt;/ng-container&gt;
+&lt;/div&gt;a
+
+&lt;p-dialog header&#x3D;&quot;&quot; [(visible)]&#x3D;&quot;showAddExpert&quot; [modal]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{ width: &#x27;50vw&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; (onHide)&#x3D;&quot;resetExpertsDialog()&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot; appendTo&#x3D;&quot;body&quot;&gt;
+    &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+        &lt;i-tabler name&#x3D;&quot;bulb&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+        &lt;div class&#x3D;&quot;content-resource w-10 flex flex-column justify-content-center pb-2 pr-4&quot;&gt;
+            &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;Agregar experto&lt;/h2&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row gap-1&quot;&gt;
+                &lt;span class&#x3D;&quot;text-sm text-color-other&quot;&gt;Escoge que experts quieres que participen en el batch&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;w-full px-4&quot;&gt;
+        &lt;span class&#x3D;&quot;w-full app-input-field&quot; style&#x3D;&quot;width: 100%&quot;&gt;
+            &lt;p-multiSelect display&#x3D;&quot;chip&quot; appendTo&#x3D;&quot;body&quot; [options]&#x3D;&quot;listExperts&quot; [(ngModel)]&#x3D;&quot;selectedExperts&quot; placeholder&#x3D;&quot;Seleccione experts&quot; optionLabel&#x3D;&quot;name&quot; optionValue&#x3D;&quot;_id&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27;, height: &#x27;auto&#x27; }&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27;, height: &#x27;auto&#x27; }&quot; placeholder&#x3D;&quot;Seleccione expertos&quot;&gt;&lt;/p-multiSelect&gt;
+        &lt;/span&gt;
+        &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+        &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Agregar&quot; (onClick)&#x3D;&quot;addExpertPhase()&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-1 p-2 bg-primary&quot;&gt;&lt;/p-button&gt;
+    &lt;/div&gt;
+
+&lt;/p-dialog&gt;
+
+&lt;p-dialog [header]&#x3D;&quot;&quot; [(visible)]&#x3D;&quot;showAddStartups&quot; [modal]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{ width: &#x27;50vw&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; (onHide)&#x3D;&quot;resetStartupsExpertDialog()&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot; appendTo&#x3D;&quot;body&quot;&gt;
+    &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+        &lt;i-tabler name&#x3D;&quot;bulb&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+        &lt;div class&#x3D;&quot;content-resource w-10 flex flex-column justify-content-center pb-2 pr-4&quot;&gt;
+            &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;{{titleStartupDialog}}&lt;/h2&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row gap-1&quot;&gt;
+                &lt;span class&#x3D;&quot;text-sm text-color-other&quot;&gt;Escoge las startups que manejara&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p-divider&gt;&lt;/p-divider&gt;
+    &lt;div class&#x3D;&quot;w full px-3&quot;&gt;
+        &lt;div class&#x3D;&quot;flex justify-content-center w-full app-input-field&quot;&gt;
+            &lt;p-multiSelect display&#x3D;&quot;chip&quot; appendTo&#x3D;&quot;body&quot; [options]&#x3D;&quot;listStartups&quot; [(ngModel)]&#x3D;&quot;selectedStartups&quot; optionLabel&#x3D;&quot;name&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27;, height: &#x27;auto&#x27; }&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27;, height: &#x27;auto&#x27; }&quot; placeholder&#x3D;&quot;Seleccione startUps&quot;&gt;&lt;/p-multiSelect&gt;
+        &lt;/div&gt;
+        &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+        &lt;div class&#x3D;&quot;flex justify-content-center align-items-center&quot;&gt;
+            &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Guardar cambios&quot; (onClick)&#x3D;&quot;addExpertStartupPhase()&quot; styleClass&#x3D;&quot;p-button-lg border-round-2xl my-1 py-2 px-4 bg-primary&quot;&gt;&lt;/p-button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+&lt;/p-dialog&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./phase-experts.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex px-4 py-3 h-full w-full">    <ng-container *ngIf="tableContext">        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)">        </app-dynamic-table>    </ng-container></div>a<p-dialog header="" [(visible)]="showAddExpert" [modal]="true" [style]="{ width: \'50vw\' }" [draggable]="false" [resizable]="false" (onHide)="resetExpertsDialog()" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}" appendTo="body">    <div class="w-full flex flex-row gap-3">        <i-tabler name="bulb" class="icon-dialog"></i-tabler>        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">Agregar experto</h2>            <div class="w-full flex flex-row gap-1">                <span class="text-sm text-color-other">Escoge que experts quieres que participen en el batch</span>            </div>        </div>    </div>    <p-divider></p-divider>    <div class="w-full px-4">        <span class="w-full app-input-field" style="width: 100%">            <p-multiSelect display="chip" appendTo="body" [options]="listExperts" [(ngModel)]="selectedExperts" placeholder="Seleccione experts" optionLabel="name" optionValue="_id" [style]="{ width: \'100%\', height: \'auto\' }" [style]="{ width: \'100%\', height: \'auto\' }" placeholder="Seleccione expertos"></p-multiSelect>        </span>        <div style="height: 1rem;"></div>        <p-button type="submit" label="Agregar" (onClick)="addExpertPhase()" styleClass="p-button-lg w-full border-round-2xl my-1 p-2 bg-primary"></p-button>    </div></p-dialog><p-dialog [header]="" [(visible)]="showAddStartups" [modal]="true" [style]="{ width: \'50vw\' }" [draggable]="false" [resizable]="false" (onHide)="resetStartupsExpertDialog()" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}" appendTo="body">    <div class="w-full flex flex-row gap-3">        <i-tabler name="bulb" class="icon-dialog"></i-tabler>        <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">{{titleStartupDialog}}</h2>            <div class="w-full flex flex-row gap-1">                <span class="text-sm text-color-other">Escoge las startups que manejara</span>            </div>        </div>    </div>    <p-divider></p-divider>    <div class="w full px-3">        <div class="flex justify-content-center w-full app-input-field">            <p-multiSelect display="chip" appendTo="body" [options]="listStartups" [(ngModel)]="selectedStartups" optionLabel="name" [style]="{ width: \'100%\', height: \'auto\' }" [style]="{ width: \'100%\', height: \'auto\' }" placeholder="Seleccione startUps"></p-multiSelect>        </div>        <div style="height: 1rem;"></div>        <div class="flex justify-content-center align-items-center">            <p-button type="submit" label="Guardar cambios" (onClick)="addExpertStartupPhase()" styleClass="p-button-lg border-round-2xl my-1 py-2 px-4 bg-primary"></p-button>        </div>    </div></p-dialog></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PhaseExpertsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PhaseExpertsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

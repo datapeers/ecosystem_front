@@ -1,0 +1,2387 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ActaComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/phases/phase-events/acta/acta.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-acta</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./acta.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./acta.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#acta" >acta</a>
+                            </li>
+                            <li>
+                                <a href="#actaDoc" >actaDoc</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                <a href="#configHoursExpert" >configHoursExpert</a>
+                            </li>
+                            <li>
+                                <a href="#configTiny" >configTiny</a>
+                            </li>
+                            <li>
+                                <a href="#currentExpert" >currentExpert</a>
+                            </li>
+                            <li>
+                                <a href="#event" >event</a>
+                            </li>
+                            <li>
+                                <a href="#expertsHours" >expertsHours</a>
+                            </li>
+                            <li>
+                                <a href="#faCalendar" >faCalendar</a>
+                            </li>
+                            <li>
+                                <a href="#faClock" >faClock</a>
+                            </li>
+                            <li>
+                                <a href="#faEye" >faEye</a>
+                            </li>
+                            <li>
+                                <a href="#faPaperclip" >faPaperclip</a>
+                            </li>
+                            <li>
+                                <a href="#faTimes" >faTimes</a>
+                            </li>
+                            <li>
+                                <a href="#faUserTie" >faUserTie</a>
+                            </li>
+                            <li>
+                                <a href="#fileSizeLimit" >fileSizeLimit</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#onlyView" >onlyView</a>
+                            </li>
+                            <li>
+                                <a href="#phase" >phase</a>
+                            </li>
+                            <li>
+                                <a href="#readOnlyHours" >readOnlyHours</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#ref" >ref</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                            <li>
+                                <a href="#selectedFiles" >selectedFiles</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#actaEdit" >actaEdit</a>
+                            </li>
+                            <li>
+                                <a href="#action" >action</a>
+                            </li>
+                            <li>
+                                <a href="#close" >close</a>
+                            </li>
+                            <li>
+                                <a href="#closeActa" >closeActa</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createActa" >createActa</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadUrl" >downloadUrl</a>
+                            </li>
+                            <li>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onUpload" >onUpload</a>
+                            </li>
+                            <li>
+                                <a href="#removeFile" >removeFile</a>
+                            </li>
+                            <li>
+                                <a href="#setVars" >setVars</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadFiles" >uploadFiles</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#userPermission" >userPermission</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(ref: DynamicDialogRef, config: DynamicDialogConfig, service: <a href="../injectables/ActaService.html" target="_self">ActaService</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>, confirmationService: ConfirmationService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:61</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>ref</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>config</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ActaService.html" target="_self" >ActaService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfirmationService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actaEdit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>actaEdit</b></span>
+                        <a href="#actaEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>actaEdit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="226"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:226</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="action"></a>
+                    <span class="name">
+                        <span ><b>action</b></span>
+                        <a href="#action"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>action(type: "create" | "edit")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;create&quot; | &quot;edit&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <span ><b>close</b></span>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="292"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:292</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeActa"></a>
+                    <span class="name">
+                        <span ><b>closeActa</b></span>
+                        <a href="#closeActa"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeActa()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="257"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:257</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createActa"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createActa</b></span>
+                        <a href="#createActa"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createActa()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadFile(file: <a href="../interfaces/IFileUploadExtended.html" target="_self">IFileUploadExtended</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="206"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:206</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>file</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IFileUploadExtended.html" target="_self" >IFileUploadExtended</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadUrl"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadUrl</b></span>
+                        <a href="#downloadUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadUrl(urlFile: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="198"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>urlFile</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onUpload"></a>
+                    <span class="name">
+                        <span ><b>onUpload</b></span>
+                        <a href="#onUpload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onUpload(event, target)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>target</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeFile"></a>
+                    <span class="name">
+                        <span ><b>removeFile</b></span>
+                        <a href="#removeFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeFile(fileName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="192"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:192</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setVars"></a>
+                    <span class="name">
+                        <span ><b>setVars</b></span>
+                        <a href="#setVars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setVars()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadFiles"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadFiles</b></span>
+                        <a href="#uploadFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadFiles()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="acta"></a>
+                    <span class="name">
+                        <span ><b>acta</b></span>
+                        <a href="#acta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actaDoc"></a>
+                    <span class="name">
+                        <span ><b>actaDoc</b></span>
+                        <a href="#actaDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Acta.html" target="_self" >Acta</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DynamicDialogConfig</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configHoursExpert"></a>
+                    <span class="name">
+                        <span ><b>configHoursExpert</b></span>
+                        <a href="#configHoursExpert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configTiny"></a>
+                    <span class="name">
+                        <span ><b>configTiny</b></span>
+                        <a href="#configTiny"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>configTinyMce</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentExpert"></a>
+                    <span class="name">
+                        <span ><b>currentExpert</b></span>
+                        <a href="#currentExpert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="event"></a>
+                    <span class="name">
+                        <span ><b>event</b></span>
+                        <a href="#event"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expertsHours"></a>
+                    <span class="name">
+                        <span ><b>expertsHours</b></span>
+                        <a href="#expertsHours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faCalendar"></a>
+                    <span class="name">
+                        <span ><b>faCalendar</b></span>
+                        <a href="#faCalendar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faCalendar</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faClock"></a>
+                    <span class="name">
+                        <span ><b>faClock</b></span>
+                        <a href="#faClock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faClock</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faEye"></a>
+                    <span class="name">
+                        <span ><b>faEye</b></span>
+                        <a href="#faEye"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faEye</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faPaperclip"></a>
+                    <span class="name">
+                        <span ><b>faPaperclip</b></span>
+                        <a href="#faPaperclip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faPaperclip</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faTimes"></a>
+                    <span class="name">
+                        <span ><b>faTimes</b></span>
+                        <a href="#faTimes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faTimes</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faUserTie"></a>
+                    <span class="name">
+                        <span ><b>faUserTie</b></span>
+                        <a href="#faUserTie"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>faUserTie</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileSizeLimit"></a>
+                    <span class="name">
+                        <span ><b>fileSizeLimit</b></span>
+                        <a href="#fileSizeLimit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1000000</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onlyView"></a>
+                    <span class="name">
+                        <span ><b>onlyView</b></span>
+                        <a href="#onlyView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phase"></a>
+                    <span class="name">
+                        <span ><b>phase</b></span>
+                        <a href="#phase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="readOnlyHours"></a>
+                    <span class="name">
+                        <span ><b>readOnlyHours</b></span>
+                        <a href="#readOnlyHours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ref"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>ref</b></span>
+                        <a href="#ref"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DynamicDialogRef</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedFiles"></a>
+                    <span class="name">
+                        <span ><b>selectedFiles</b></span>
+                        <a href="#selectedFiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IFileUploadExtended[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userPermission"></a>
+                        <span class="name"><b>userPermission</b><a href="#userPermission"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userPermission()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/home/phases/phase-events/acta/acta.component.ts:59</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { Event } from &#x27;@home/phases/phase-events/models/events.model&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { Acta, newActa } from &#x27;@home/phases/phase-events/models/acta.model&#x27;;
+import { ActaService } from &#x27;./acta.service&#x27;;
+import { DynamicDialogConfig, DynamicDialogRef } from &#x27;primeng/dynamicdialog&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import FileSaver from &#x27;file-saver&#x27;;
+import { first, firstValueFrom } from &#x27;rxjs&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import {
+  faCalendar,
+  faPaperclip,
+  faTimes,
+  faUserTie,
+  faClock,
+  faEye,
+} from &#x27;@fortawesome/free-solid-svg-icons&#x27;;
+import { configTinyMce } from &#x27;@shared/models/configTinyMce&#x27;;
+import { cloneDeep } from &#x27;@apollo/client/utilities&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { ConfirmationService } from &#x27;primeng/api&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import { FormGroup } from &#x27;@angular/forms&#x27;;
+import { IFileUploadExtended } from &#x27;@shared/models/file&#x27;;
+
+@Component({
+  selector: &#x27;app-acta&#x27;,
+  templateUrl: &#x27;./acta.component.html&#x27;,
+  styleUrls: [&#x27;./acta.component.scss&#x27;],
+})
+export class ActaComponent implements OnInit {
+  acta: FormGroup;
+  actaDoc: Acta;
+  event: Event;
+  phase: Phase;
+  saving &#x3D; false;
+  loaded &#x3D; false;
+
+  // Files
+  selectedFiles: IFileUploadExtended[] &#x3D; [];
+  fileSizeLimit &#x3D; 1000000;
+
+  // ? Icons
+  faUserTie &#x3D; faUserTie;
+  faPaperclip &#x3D; faPaperclip;
+  faCalendar &#x3D; faCalendar;
+  faTimes &#x3D; faTimes;
+  faClock &#x3D; faClock;
+  faEye &#x3D; faEye;
+  configTiny &#x3D; configTinyMce;
+  currentExpert;
+  expertsHours &#x3D; {};
+  user: User;
+  onlyView &#x3D; false;
+  configHoursExpert;
+  readOnlyHours;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+  constructor(
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig,
+    private readonly service: ActaService,
+    private readonly toast: ToastService,
+    private readonly storageService: StorageService,
+    private confirmationService: ConfirmationService
+  ) {
+    this.event &#x3D; this.config.data.event;
+    this.phase &#x3D; this.config.data.phase;
+    this.user &#x3D; this.config.data.user;
+    this.onlyView &#x3D; this.config.data.onlyView;
+  }
+
+  ngOnInit(): void {
+    this.loadComponent();
+  }
+
+  loadComponent() {
+    this.loaded &#x3D; false;
+    if (!this.event) this.close();
+    if (!this.phase) this.close();
+    this.service
+      .getActa(this.event._id)
+      .then((acta) &#x3D;&gt; {
+        this.acta &#x3D; acta
+          ? newActa(this.phase, this.event, acta)
+          : newActa(this.phase, this.event);
+        this.actaDoc &#x3D; acta;
+        this.setVars();
+        this.loaded &#x3D; true;
+      })
+      .catch((err) &#x3D;&gt; {
+        console.warn(err);
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x27;Error al intentar cargar acta&#x27;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  setVars() {
+    for (const fileDoc of this.actaDoc?.extra_options.files) {
+      this.selectedFiles.push(fileDoc);
+    }
+    for (const iterator of this.event.experts) {
+      this.expertsHours[iterator._id] &#x3D; this.actaDoc?.extra_options.expertHours
+        ? this.actaDoc.extra_options.expertHours[iterator._id]
+        : { done: 0, donated: 0 };
+    }
+
+    if (this.actaDoc.closed || this.onlyView) {
+      for (const keyControl of Object.keys(this.acta.value)) {
+        this.acta.get(keyControl).disable();
+      }
+    }
+  }
+
+  async createActa() {
+    this.saving &#x3D; true;
+    if (this.selectedFiles.length &gt; 0) await this.uploadFiles();
+    this.actaDoc.extra_options[&#x27;expertHours&#x27;] &#x3D; this.expertsHours;
+    this.toast.info({ summary: &#x27;Guardando&#x27;, detail: &#x27;&#x27; });
+    this.service
+      .createActa({
+        ...this.actaDoc,
+        ...this.acta.value,
+        event: this.event._id,
+        phase: this.phase._id,
+      })
+      .then((act) &#x3D;&gt; {
+        this.toast.clear();
+        this.actaDoc &#x3D; act;
+        this.close();
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x27;Error al intentar crear acta&#x27;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  async uploadFiles() {
+    this.actaDoc.extra_options.files &#x3D; [];
+    for (const iterator of this.selectedFiles) {
+      this.toast.clear();
+      this.toast.info({
+        summary: &#x27;Subiendo archivo...&#x27;,
+        detail: &#x27;Por favor espere, no cierre la ventana&#x27;,
+      });
+      if (iterator.file) {
+        const fileUploaded: any &#x3D; await firstValueFrom(
+          this.storageService
+            .uploadFile(
+              &#x60;phases/${this.phase._id}/events/${this.event._id}/actas/&#x60;,
+              iterator.file
+            )
+            .pipe(first((event) &#x3D;&gt; event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response))
+        );
+        this.actaDoc.extra_options[&#x27;files&#x27;].push({
+          name: iterator.name,
+          url: fileUploaded.url,
+        });
+      } else {
+        this.actaDoc.extra_options[&#x27;files&#x27;].push({
+          name: iterator.name,
+          url: iterator.url,
+        });
+      }
+    }
+    this.toast.clear();
+  }
+
+  onUpload(event, target) {
+    for (let newFile of event.files as File[]) {
+      if (!this.selectedFiles.some((f) &#x3D;&gt; f.name &#x3D;&#x3D; newFile.name)) {
+        this.selectedFiles.push({
+          file: newFile,
+          name: newFile.name,
+        });
+      }
+    }
+    target.clear();
+  }
+
+  removeFile(fileName: string) {
+    if (this.selectedFiles) {
+      this.selectedFiles &#x3D; this.selectedFiles.filter((f) &#x3D;&gt; f.name !&#x3D; fileName);
+    }
+  }
+
+  async downloadUrl(urlFile: string) {
+    const key &#x3D; this.storageService.getKey(urlFile);
+    const url &#x3D; await firstValueFrom(this.storageService.getFile(key));
+    if (url) {
+      window.open(url, &#x27;_blank&#x27;);
+    }
+  }
+
+  async downloadFile(file: IFileUploadExtended) {
+    if (file.file) {
+      FileSaver.saveAs(file.file);
+      return;
+    }
+  }
+
+  action(type: &#x27;create&#x27; | &#x27;edit&#x27;) {
+    switch (type) {
+      case &#x27;create&#x27;:
+        this.createActa();
+        break;
+      case &#x27;edit&#x27;:
+        this.actaEdit();
+        break;
+      default:
+        break;
+    }
+  }
+
+  async actaEdit() {
+    await this.uploadFiles();
+    this.actaDoc.extra_options[&#x27;expertHours&#x27;] &#x3D; this.expertsHours;
+    this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Guardando...&#x27; });
+    this.service
+      .updateActa({
+        ...this.actaDoc,
+        ...this.acta.value,
+        event: this.event._id,
+        phase: this.phase._id,
+      })
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.actaDoc &#x3D; ans;
+        this.toast.success({
+          summary: &#x27;Cambios guardados!&#x27;,
+          detail: &#x27;&#x27;,
+          life: 2000,
+        });
+        this.close();
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x27;Error al editar acta&#x27;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  closeActa() {
+    this.confirmationService.confirm({
+      key: &#x27;confirmDialog&#x27;,
+      acceptLabel: &#x27;Cerrar acta&#x27;,
+      rejectLabel: &#x27;Cancelar&#x27;,
+      header: &#x27;¿Está seguro de que quiere continuar?&#x27;,
+      message:
+        &#x27;Al cerrar el acta esta no se permitirá editar nunca mas, ¿Desea cerrarla?&#x27;,
+      icon: &#x27;pi pi-exclamation-triangle&#x27;,
+      accept: async () &#x3D;&gt; {
+        this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Cerrando acta...&#x27; });
+        this.service
+          .updateActa({ _id: this.actaDoc._id, closed: true })
+          .then((ans) &#x3D;&gt; {
+            this.toast.clear();
+            this.actaDoc &#x3D; ans;
+            this.toast.success({
+              summary: &#x27;Acta cerrada!&#x27;,
+              detail: &#x27;&#x27;,
+              life: 2000,
+            });
+            this.close();
+          })
+          .catch((err) &#x3D;&gt; {
+            this.toast.clear();
+            this.toast.alert({
+              summary: &#x27;Error al cerrar acta&#x27;,
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
+  close() {
+    this.ref.close(this.actaDoc);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+    &lt;i-tabler name&#x3D;&quot;bulb&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+    &lt;div class&#x3D;&quot;content-resource w-10 flex flex-column justify-content-center pb-2 pr-4&quot;&gt;
+        &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;Acta&lt;/h2&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-row gap-1&quot;&gt;
+            &lt;span class&#x3D;&quot;text-sm text-color-other&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p-divider&gt;&lt;/p-divider&gt;
+&lt;div *ngIf&#x3D;&quot;loaded&quot; class&#x3D;&quot;flex flex-column px-4 overflow-hidden&quot;&gt;
+    &lt;form [formGroup]&#x3D;&quot;acta&quot; class&#x3D;&quot;flex-grow-1 flex flex-column align-items-start justify-content-start m-2 border-round&quot;&gt;
+
+        &lt;div class&#x3D;&quot;formgrid grid&quot;&gt;
+            &lt;div class&#x3D;&quot;field col-12 app-input-field&quot;&gt;
+                &lt;label for&#x3D;&quot;inputtitulo&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                    &lt;b&gt;Nombre de la sesión&lt;/b&gt;
+                &lt;/label&gt;
+                &lt;input id&#x3D;&quot;inputtitulo&quot; type&#x3D;&quot;text&quot; pInputText formControlName&#x3D;&quot;name&quot; class&#x3D;&quot;inputfield w-full&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-12 md:col-6 app-input-field&quot;&gt;
+                &lt;label for&#x3D;&quot;time&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                    &lt;b&gt;Fecha&lt;/b&gt;
+                &lt;/label&gt;
+                &lt;p-calendar class&#x3D;&quot;inputfield&quot; [showTime]&#x3D;&quot;true&quot; formControlName&#x3D;&quot;date&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; inputId&#x3D;&quot;time&quot; appendTo&#x3D;&quot;body&quot; [showButtonBar]&#x3D;&quot;true&quot;&gt;&lt;/p-calendar&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-12 md:col-6 app-input-field&quot;&gt;
+                &lt;label for&#x3D;&quot;ojectiveField&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                    &lt;b&gt;Objetivo&lt;/b&gt;
+                &lt;/label&gt;
+                &lt;input id&#x3D;&quot;ojectiveField&quot; type&#x3D;&quot;text&quot; pInputText formControlName&#x3D;&quot;objective&quot; class&#x3D;&quot;inputfield w-full&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-12 md:col-6 app-input-field&quot;&gt;
+                &lt;label for&#x3D;&quot;solutionField&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                    &lt;b&gt;Nombre de la solución&lt;/b&gt;
+                &lt;/label&gt;
+                &lt;input id&#x3D;&quot;solutionField&quot; type&#x3D;&quot;text&quot; pInputText formControlName&#x3D;&quot;solution&quot; class&#x3D;&quot;inputfield w-full&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;field col-12 md:col-6 app-input-field&quot;&gt;
+                &lt;label for&#x3D;&quot;conclusionField&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                    &lt;b&gt;Conclusiones&lt;/b&gt;
+                &lt;/label&gt;
+                &lt;input id&#x3D;&quot;conclusionField&quot; type&#x3D;&quot;text&quot; pInputText formControlName&#x3D;&quot;conclusions&quot; class&#x3D;&quot;inputfield w-full&quot;&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-center w-full&quot;&gt;
+            &lt;!-- &quot;space_management_add_acta&quot; &quot;cuerpo&quot;: &quot;Cuerpo del acta&quot;,, --&gt;
+            &lt;label&gt;
+                &lt;h3 class&#x3D;&quot;my-1&quot;&gt;Temas tratados&lt;/h3&gt;
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;tinymce style&#x3D;&quot;width: 100%;&quot; formControlName&#x3D;&quot;topics_covered&quot; [config]&#x3D;&quot;configTiny&quot;&gt;&lt;/tinymce&gt;
+        &lt;div style&#x3D;&quot;height: 10px;&quot;&gt;&lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-center pt-2&quot;&gt;
+        &lt;h3 class&#x3D;&quot;my-2&quot;&gt;
+            &lt;fa-icon [icon]&#x3D;&quot;faUserTie&quot;&gt;&lt;/fa-icon&gt; Expertos
+        &lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;flex flex-column align-items-center justify-content-start px-1&quot; style&#x3D;&quot;max-height: 240px; overflow-y: auto;&quot;&gt;
+        &lt;p-table class&#x3D;&quot;table-container border-round-2xl table-dialog&quot; [value]&#x3D;&quot;event.experts&quot; dataKey&#x3D;&quot;_id&quot; editMode&#x3D;&quot;row&quot; [rows]&#x3D;&quot;3&quot; [paginator]&#x3D;&quot;true&quot; [rowsPerPageOptions]&#x3D;&quot;[3, 10, 15]&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th style&#x3D;&quot;width:90%&quot;&gt;Expert&lt;/th&gt;
+                    &lt;th style&#x3D;&quot;width:10%&quot; class&#x3D;&quot;text-center&quot;&gt;
+                    &lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-expert let-ri&#x3D;&quot;rowIndex&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td [pTooltip]&#x3D;&quot;(ri+1) + &#x27; - &#x27; + expert.name&quot;&gt;
+                        {{expert.name.length&gt;15 ? (expert.name | slice:0:15) : expert.name}}
+                    &lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;div class&#x3D;&quot;flex align-items-center justify-content-center&quot;&gt;
+                            &lt;fa-icon [icon]&#x3D;&quot;faClock&quot; class&#x3D;&quot;mr-1 cursor-pointer&quot; pTooltip&#x3D;&quot;Fijar Horas&quot; (click)&#x3D;&quot;currentExpert&#x3D;expert; configHoursExpert &#x3D; true&quot; *ngIf&#x3D;&quot;!actaDoc.closed &amp;&amp; !onlyView&quot;&gt;&lt;/fa-icon&gt;
+                            &lt;fa-icon [icon]&#x3D;&quot;faEye&quot; class&#x3D;&quot;mr-1 cursor-pointer&quot; pTooltip&#x3D;&quot;Fijar Horas&quot; (click)&#x3D;&quot;readOnlyHours &#x3D; true; currentExpert&#x3D;expert; configHoursExpert &#x3D; true&quot; *ngIf&#x3D;&quot;onlyView &amp;&amp; !user.isUser&quot;&gt;&lt;/fa-icon&gt;
+                        &lt;/div&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+    &lt;/div&gt;
+
+
+    &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-center pt-3&quot;&gt;
+        &lt;h3 class&#x3D;&quot;mt-0 mb-1&quot;&gt;Evidencias&lt;/h3&gt;
+    &lt;/div&gt;
+    &lt;!-- &quot;space_management_add_acta&quot; &quot;add-file&quot; : &quot;Añadir archivo(s)&quot;,, --&gt;
+    &lt;p-fileUpload #fileuploader [auto]&#x3D;&quot;true&quot; [customUpload]&#x3D;&quot;true&quot; chooseLabel&#x3D;&quot;Añadir archivos&quot; [multiple]&#x3D;&quot;true&quot; [maxFileSize]&#x3D;&quot;fileSizeLimit&quot; accept&#x3D;&quot;&quot; name&#x3D;&quot;myfile[]&quot; (uploadHandler)&#x3D;&quot;onUpload($event, fileuploader)&quot; [disabled]&#x3D;&quot;actaDoc.closed || onlyView&quot;&gt;
+        &lt;ng-template let-file pTemplate&#x3D;&quot;file&quot;&gt;
+            &lt;div&gt;&lt;/div&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate&#x3D;&quot;content&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-start m-2 cursor-pointer&quot; *ngFor&#x3D;&quot;let file of selectedFiles&quot;&gt;
+                &lt;fa-icon [icon]&#x3D;&quot;faPaperclip&quot; class&#x3D;&quot;mr-1&quot;&gt;&lt;/fa-icon&gt;
+                &lt;a pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;file.url&quot; (click)&#x3D;&quot;downloadUrl(file.url)&quot;&gt;{{file.name}}&lt;/a&gt;
+                &lt;span pTooltip&#x3D;&quot;Descargar&quot; tooltipPosition&#x3D;&quot;top&quot; *ngIf&#x3D;&quot;!file.url&quot; (click)&#x3D;&quot;downloadFile(file)&quot;&gt;{{file.name}}&lt;/span&gt;
+                &lt;fa-icon [icon]&#x3D;&quot;faTimes&quot; class&#x3D;&quot;ml-1&quot; (click)&#x3D;&quot;removeFile(file.name)&quot; *ngIf&#x3D;&quot;actaDoc.closed || onlyView&quot;&gt;&lt;/fa-icon&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-fileUpload&gt;
+
+    &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-center gap-2 pt-3&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;actaDoc._id; else createButtonActa&quot;&gt;
+            &lt;p-button label&#x3D;&quot;Guardar cambios&quot; (onClick)&#x3D;&quot;action(&#x27;edit&#x27;)&quot; [disabled]&#x3D;&quot;saving || acta.invalid&quot; *ngIf&#x3D;&quot;!actaDoc.closed &amp;&amp; user?.allowed(userPermission.actas_edit)&quot;&gt;&lt;/p-button&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #createButtonActa&gt;
+            &lt;p-button label&#x3D;&quot;Crear Acta&quot; (onClick)&#x3D;&quot;action(&#x27;create&#x27;)&quot; [disabled]&#x3D;&quot;saving || acta.invalid&quot; *ngIf&#x3D;&quot;!actaDoc.closed &amp;&amp; user?.allowed(userPermission.actas_create)&quot;&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt;
+
+        &lt;p-button [label]&#x3D;&quot;&#x27;Cerrar acta&#x27;&quot; [disabled]&#x3D;&quot;saving&quot; *ngIf&#x3D;&quot;!actaDoc.closed &amp;&amp; actaDoc._id &amp;&amp; user?.allowed(userPermission.actas_close)&quot; (onClick)&#x3D;&quot;closeActa()&quot;&gt;&lt;/p-button&gt;
+        &lt;span *ngIf&#x3D;&quot;actaDoc.closed&quot;&gt;Acta cerrada el {{actaDoc.updatedAt | date}}&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p-dialog [header]&#x3D;&quot;currentExpert?.name&quot; [(visible)]&#x3D;&quot;configHoursExpert&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; [modal]&#x3D;&quot;true&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot; appendTo&#x3D;&quot;body&quot;&gt;
+    &lt;div class&#x3D;&quot;w-full flex flex-column gap-2 py-2 px-6&quot; *ngIf&#x3D;&quot;currentExpert&quot;&gt;
+        &lt;div class&#x3D;&quot;formgrid grid gap-2&quot;&gt;
+            &lt;span class&#x3D;&quot;app-input-field&quot;&gt;
+                &lt;label for&#x3D;&quot;name&quot;&gt;Horas hechas&lt;/label&gt;
+                &lt;p-inputNumber placeholder&#x3D;&quot;Horas&quot; mode&#x3D;&quot;decimal&quot; [minFractionDigits]&#x3D;&quot;1&quot; [maxFractionDigits]&#x3D;&quot;1&quot; [size]&#x3D;&quot;1&quot; inputId&#x3D;&quot;doneHours&quot; [(ngModel)]&#x3D;&quot;expertsHours[currentExpert._id].done&quot; [useGrouping]&#x3D;&quot;false&quot; [min]&#x3D;&quot;0&quot; [max]&#x3D;&quot;99.0&quot; [ariaLabel]&#x3D;&quot;&#x27;Horas hechas&#x27;&quot; [readonly]&#x3D;&quot;readOnlyHours&quot;&gt;
+                &lt;/p-inputNumber&gt;
+            &lt;/span&gt;
+            &lt;span class&#x3D;&quot;app-input-field&quot;&gt;
+                &lt;label for&#x3D;&quot;name&quot;&gt;Horas donadas&lt;/label&gt;
+                &lt;p-inputNumber placeholder&#x3D;&quot;Horas&quot; mode&#x3D;&quot;decimal&quot; [minFractionDigits]&#x3D;&quot;1&quot; [maxFractionDigits]&#x3D;&quot;1&quot; [size]&#x3D;&quot;1&quot; inputId&#x3D;&quot;donatedHours&quot; [(ngModel)]&#x3D;&quot;expertsHours[currentExpert._id].donated&quot; [useGrouping]&#x3D;&quot;false&quot; [min]&#x3D;&quot;0&quot; [max]&#x3D;&quot;99.0&quot; [ariaLabel]&#x3D;&quot;&#x27;Horas donadas&#x27;&quot; [readonly]&#x3D;&quot;readOnlyHours&quot;&gt;
+                &lt;/p-inputNumber&gt;
+            &lt;/span&gt;
+        &lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/p-dialog&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./acta.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../../styles.scss&quot;;
+
+.table-container {
+  background-color: $grayThird;
+  height: 100%;
+  max-height: 100%;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th {
+  background-color: transparent;
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  // border-top: 1px solid $appText;
+  border-bottom: 1px solid $appText;
+}
+
+.table-dialog::ng-deep .p-datatable {
+  margin: 0;
+
+  .p-paginator {
+    margin: 1rem 0.5rem;
+    background-color: $grayThird;
+    gap: 0.5rem;
+    .p-paginator-current {
+      color: $appTextTwo;
+      font-weight: 500;
+      margin-right: auto;
+    }
+  }
+  .p-paginator-right-content {
+    color: $appTextTwo;
+    font-weight: 500;
+  }
+
+  .p-paginator .p-paginator-first,
+  .p-paginator .p-paginator-prev,
+  .p-paginator .p-paginator-next,
+  .p-paginator .p-paginator-last {
+    border-radius: 0.625rem;
+    background-color: $appColorSix;
+    stroke-width: 2px;
+    color: $appColorFive;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    border-radius: 0.625rem;
+    background-color: white;
+    font-weight: 600;
+    color: $appTextTwo;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: $appColorFive;
+    color: white;
+  }
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td {
+  background-color: white;
+  border: none;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:first-child {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:last-child {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr:hover {
+  //  border-radius: 0.625rem;
+  box-shadow: 0px 3px 30px #0f213326;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr {
+  border-radius: 0.625rem;
+  background-color: transparent;
+}
+
+.table-dialog::ng-deep .p-datatable-table {
+  // background-color: $grayThird;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 0 0.5rem;
+}
+.table-dialog::ng-deep .p-datatable .p-datatable-header {
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 1rem 1rem;
+  border: none;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="w-full flex flex-row gap-3">    <i-tabler name="bulb" class="icon-dialog"></i-tabler>    <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">        <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">Acta</h2>        <div class="w-full flex flex-row gap-1">            <span class="text-sm text-color-other"></span>        </div>    </div></div><p-divider></p-divider><div *ngIf="loaded" class="flex flex-column px-4 overflow-hidden">    <form [formGroup]="acta" class="flex-grow-1 flex flex-column align-items-start justify-content-start m-2 border-round">        <div class="formgrid grid">            <div class="field col-12 app-input-field">                <label for="inputtitulo" class="w-full text-center">                    <b>Nombre de la sesión</b>                </label>                <input id="inputtitulo" type="text" pInputText formControlName="name" class="inputfield w-full">            </div>            <div class="field col-12 md:col-6 app-input-field">                <label for="time" class="w-full text-center">                    <b>Fecha</b>                </label>                <p-calendar class="inputfield" [showTime]="true" formControlName="date" [style]="{ width: \'100%\' }" inputId="time" appendTo="body" [showButtonBar]="true"></p-calendar>            </div>            <div class="field col-12 md:col-6 app-input-field">                <label for="ojectiveField" class="w-full text-center">                    <b>Objetivo</b>                </label>                <input id="ojectiveField" type="text" pInputText formControlName="objective" class="inputfield w-full">            </div>            <div class="field col-12 md:col-6 app-input-field">                <label for="solutionField" class="w-full text-center">                    <b>Nombre de la solución</b>                </label>                <input id="solutionField" type="text" pInputText formControlName="solution" class="inputfield w-full">            </div>            <div class="field col-12 md:col-6 app-input-field">                <label for="conclusionField" class="w-full text-center">                    <b>Conclusiones</b>                </label>                <input id="conclusionField" type="text" pInputText formControlName="conclusions" class="inputfield w-full">            </div>        </div>        <div class="flex flex-row align-items-center justify-content-center w-full">            <!-- "space_management_add_acta" "cuerpo": "Cuerpo del acta",, -->            <label>                <h3 class="my-1">Temas tratados</h3>            </label>        </div>        <tinymce style="width: 100%;" formControlName="topics_covered" [config]="configTiny"></tinymce>        <div style="height: 10px;"></div>    </form>    <div class="flex flex-row align-items-center justify-content-center pt-2">        <h3 class="my-2">            <fa-icon [icon]="faUserTie"></fa-icon> Expertos        </h3>    </div>    <div class="flex flex-column align-items-center justify-content-start px-1" style="max-height: 240px; overflow-y: auto;">        <p-table class="table-container border-round-2xl table-dialog" [value]="event.experts" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 10, 15]">            <ng-template pTemplate="header">                <tr>                    <th style="width:90%">Expert</th>                    <th style="width:10%" class="text-center">                    </th>                </tr>            </ng-template>            <ng-template pTemplate="body" let-expert let-ri="rowIndex">                <tr>                    <td [pTooltip]="(ri+1) + \' - \' + expert.name">                        {{expert.name.length>15 ? (expert.name | slice:0:15) : expert.name}}                    </td>                    <td>                        <div class="flex align-items-center justify-content-center">                            <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=expert; configHoursExpert = true" *ngIf="!actaDoc.closed && !onlyView"></fa-icon>                            <fa-icon [icon]="faEye" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="readOnlyHours = true; currentExpert=expert; configHoursExpert = true" *ngIf="onlyView && !user.isUser"></fa-icon>                        </div>                    </td>                </tr>            </ng-template>        </p-table>    </div>    <div class="flex flex-row align-items-center justify-content-center pt-3">        <h3 class="mt-0 mb-1">Evidencias</h3>    </div>    <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->    <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="actaDoc.closed || onlyView">        <ng-template let-file pTemplate="file">            <div></div>        </ng-template>        <ng-template pTemplate="content">            <div class="flex flex-row align-items-center justify-content-start m-2 cursor-pointer" *ngFor="let file of selectedFiles">                <fa-icon [icon]="faPaperclip" class="mr-1"></fa-icon>                <a pTooltip="Descargar" tooltipPosition="top" *ngIf="file.url" (click)="downloadUrl(file.url)">{{file.name}}</a>                <span pTooltip="Descargar" tooltipPosition="top" *ngIf="!file.url" (click)="downloadFile(file)">{{file.name}}</span>                <fa-icon [icon]="faTimes" class="ml-1" (click)="removeFile(file.name)" *ngIf="actaDoc.closed || onlyView"></fa-icon>            </div>        </ng-template>    </p-fileUpload>    <div class="flex flex-row align-items-center justify-content-center gap-2 pt-3">        <ng-container *ngIf="actaDoc._id; else createButtonActa">            <p-button label="Guardar cambios" (onClick)="action(\'edit\')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_edit)"></p-button>        </ng-container>        <ng-template #createButtonActa>            <p-button label="Crear Acta" (onClick)="action(\'create\')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_create)"></p-button>        </ng-template>        <p-button [label]="\'Cerrar acta\'" [disabled]="saving" *ngIf="!actaDoc.closed && actaDoc._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>        <span *ngIf="actaDoc.closed">Acta cerrada el {{actaDoc.updatedAt | date}}</span>    </div></div><p-dialog [header]="currentExpert?.name" [(visible)]="configHoursExpert" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}" appendTo="body">    <div class="w-full flex flex-column gap-2 py-2 px-6" *ngIf="currentExpert">        <div class="formgrid grid gap-2">            <span class="app-input-field">                <label for="name">Horas hechas</label>                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="doneHours" [(ngModel)]="expertsHours[currentExpert._id].done" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="\'Horas hechas\'" [readonly]="readOnlyHours">                </p-inputNumber>            </span>            <span class="app-input-field">                <label for="name">Horas donadas</label>                <p-inputNumber placeholder="Horas" mode="decimal" [minFractionDigits]="1" [maxFractionDigits]="1" [size]="1" inputId="donatedHours" [(ngModel)]="expertsHours[currentExpert._id].donated" [useGrouping]="false" [min]="0" [max]="99.0" [ariaLabel]="\'Horas donadas\'" [readonly]="readOnlyHours">                </p-inputNumber>            </span>        </div>    </div></p-dialog></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ActaComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ActaComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

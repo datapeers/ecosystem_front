@@ -1,0 +1,1877 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  StartupDialogComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-startup-dialog</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./startup-dialog.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./startup-dialog.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#dt" >dt</a>
+                            </li>
+                            <li>
+                                <a href="#formNegociosFields" >formNegociosFields</a>
+                            </li>
+                            <li>
+                                <a href="#formStartup" >formStartup</a>
+                            </li>
+                            <li>
+                                <a href="#leaderStartup" >leaderStartup</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#noValuePlaceholder" >noValuePlaceholder</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#resources" >resources</a>
+                            </li>
+                            <li>
+                                <a href="#startup" >startup</a>
+                            </li>
+                            <li>
+                                <a href="#startupId" >startupId</a>
+                            </li>
+                            <li>
+                                <a href="#textSummary" >textSummary</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadFileReply" >downloadFileReply</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#openForm" >openForm</a>
+                            </li>
+                            <li>
+                                <a href="#paginatorRightMsg" >paginatorRightMsg</a>
+                            </li>
+                            <li>
+                                <a href="#valueFieldMultiple" >valueFieldMultiple</a>
+                            </li>
+                            <li>
+                                <a href="#viewResource" >viewResource</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#rolStartups" >rolStartups</a>
+                                </li>
+                                <li>
+                                    <a href="#rolStartupsNames" >rolStartupsNames</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(config: DynamicDialogConfig, ref: DynamicDialogRef, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, startupService: <a href="../injectables/StartupsService.html" target="_self">StartupsService</a>, formService: <a href="../injectables/FormService.html" target="_self">FormService</a>, phasesService: <a href="../injectables/PhasesService.html" target="_self">PhasesService</a>, phaseContentService: <a href="../injectables/PhaseContentService.html" target="_self">PhaseContentService</a>, phaseHomeworksService: <a href="../injectables/PhaseHomeworksService.html" target="_self">PhaseHomeworksService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>config</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ref</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDialogRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>startupService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StartupsService.html" target="_self" >StartupsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormService.html" target="_self" >FormService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phasesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhasesService.html" target="_self" >PhasesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseContentService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseContentService.html" target="_self" >PhaseContentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseHomeworksService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseHomeworksService.html" target="_self" >PhaseHomeworksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFileReply"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadFileReply</b></span>
+                        <a href="#downloadFileReply"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadFileReply(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openForm"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>openForm</b></span>
+                        <a href="#openForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openForm(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paginatorRightMsg"></a>
+                    <span class="name">
+                        <span ><b>paginatorRightMsg</b></span>
+                        <a href="#paginatorRightMsg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>paginatorRightMsg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:112</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="valueFieldMultiple"></a>
+                    <span class="name">
+                        <span ><b>valueFieldMultiple</b></span>
+                        <a href="#valueFieldMultiple"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>valueFieldMultiple(values: string[], text: Record<string | any>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>values</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                        <code>Record&lt;string | any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewResource"></a>
+                    <span class="name">
+                        <span ><b>viewResource</b></span>
+                        <a href="#viewResource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewResource(resource: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>resource</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DynamicDialogConfig</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>dt</b></span>
+                        <a href="#dt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Table</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;dt&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formNegociosFields"></a>
+                    <span class="name">
+                        <span ><b>formNegociosFields</b></span>
+                        <a href="#formNegociosFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formStartup"></a>
+                    <span class="name">
+                        <span ><b>formStartup</b></span>
+                        <a href="#formStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="leaderStartup"></a>
+                    <span class="name">
+                        <span ><b>leaderStartup</b></span>
+                        <a href="#leaderStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="noValuePlaceholder"></a>
+                    <span class="name">
+                        <span ><b>noValuePlaceholder</b></span>
+                        <a href="#noValuePlaceholder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;- - - -&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resources"></a>
+                    <span class="name">
+                        <span ><b>resources</b></span>
+                        <a href="#resources"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startup"></a>
+                    <span class="name">
+                        <span ><b>startup</b></span>
+                        <a href="#startup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Startup.html" target="_self" >Startup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startupId"></a>
+                    <span class="name">
+                        <span ><b>startupId</b></span>
+                        <a href="#startupId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="textSummary"></a>
+                    <span class="name">
+                        <span ><b>textSummary</b></span>
+                        <a href="#textSummary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;Visualizando {first} a {last} de {totalRecords} entradas&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rolStartups"></a>
+                        <span class="name"><b>rolStartups</b><a href="#rolStartups"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>rolStartups()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:38</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rolStartupsNames"></a>
+                        <span class="name"><b>rolStartupsNames</b><a href="#rolStartupsNames"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>rolStartupsNames()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/startup-profile/startup-dialog/startup-dialog.component.ts:42</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { StartupsService } from &#x27;@shared/services/startups/startups.service&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { DynamicDialogConfig, DynamicDialogRef } from &#x27;primeng/dynamicdialog&#x27;;
+import { Table } from &#x27;primeng/table&#x27;;
+import { Subject, take, takeUntil } from &#x27;rxjs&#x27;;
+import { RolStartup, rolStartupNames } from &#x27;../models/rol-startup.enum&#x27;;
+import { FormService } from &#x27;@shared/form/form.service&#x27;;
+import { FormCollections } from &#x27;@shared/form/enums/form-collections&#x27;;
+import { textField } from &#x27;@shared/utils/order-field-multiple&#x27;;
+import { PhasesService } from &#x27;@home/phases/phases.service&#x27;;
+import { PhaseContentService } from &#x27;@home/phases/phase-content/phase-content.service&#x27;;
+import { PhaseHomeworksService } from &#x27;@home/phases/phase-homeworks/phase-homeworks.service&#x27;;
+import { ResourceReply } from &#x27;@home/phases/phase-homeworks/model/resource-reply.model&#x27;;
+import { ResourcesTypes } from &#x27;@home/phases/model/resources-types.model&#x27;;
+
+@Component({
+  selector: &#x27;app-startup-dialog&#x27;,
+  templateUrl: &#x27;./startup-dialog.component.html&#x27;,
+  styleUrls: [&#x27;./startup-dialog.component.scss&#x27;],
+})
+export class StartupDialogComponent implements OnInit, OnDestroy {
+  loaded &#x3D; false;
+  user: User;
+  startupId: string;
+  startup: Startup;
+  leaderStartup;
+  resources: { label: string; resources: ResourceReply[] }[];
+  formStartup;
+  formNegociosFields &#x3D; [];
+  noValuePlaceholder: string &#x3D; &#x27;- - - -&#x27;;
+  textSummary &#x3D; &#x60;Visualizando {first} a {last} de {totalRecords} entradas&#x60;;
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+
+  @ViewChild(&#x27;dt&#x27;, { static: true }) dt: Table;
+  public get rolStartups(): typeof RolStartup {
+    return RolStartup;
+  }
+
+  public get rolStartupsNames(): typeof rolStartupNames {
+    return rolStartupNames;
+  }
+
+  constructor(
+    public config: DynamicDialogConfig,
+    private readonly ref: DynamicDialogRef,
+    private toast: ToastService,
+    private startupService: StartupsService,
+    private formService: FormService,
+    private phasesService: PhasesService,
+    private phaseContentService: PhaseContentService,
+    private phaseHomeworksService: PhaseHomeworksService
+  ) {
+    this.startupId &#x3D; this.config.data.startupId;
+    this.user &#x3D; this.config.data.user;
+  }
+
+  async ngOnInit() {
+    this.loaded &#x3D; false;
+    this.startup &#x3D; await this.startupService.getDocument(this.startupId);
+    this.leaderStartup &#x3D; this.startup.entrepreneurs.find(
+      (i) &#x3D;&gt; i.rol &#x3D;&#x3D;&#x3D; &#x27;leader&#x27;
+    );
+    const formsStartups &#x3D; await this.formService.getFormByCollection(
+      FormCollections.startups
+    );
+    if (!formsStartups.length) {
+      return;
+    }
+    this.formStartup &#x3D; formsStartups.find(() &#x3D;&gt; true);
+    const formNegociosComponents &#x3D; this.formService.getFormComponents(
+      this.formStartup
+    );
+    const ignore &#x3D; [&#x27;nombre&#x27;, &#x27;descripcion&#x27;];
+    this.formNegociosFields &#x3D; this.formService
+      .getInputComponents(formNegociosComponents)
+      .filter((i) &#x3D;&gt; !ignore.includes(i.key));
+    // console.log(this.formNegociosFields);
+
+    if (this.user.isExpert) {
+      this.resources &#x3D; [];
+      const startupBatchList &#x3D; (
+        await this.phasesService.getPhasesList(
+          this.startup.phases.map((i) &#x3D;&gt; i._id),
+          true
+        )
+      ).filter((i) &#x3D;&gt; !i.basePhase);
+      for (const batch of startupBatchList) {
+        const resources &#x3D; (
+          await this.phaseHomeworksService.getResourcesByBatch(
+            this.startup._id,
+            batch._id
+          )
+        ).filter((i) &#x3D;&gt; i.resource.type !&#x3D;&#x3D; ResourcesTypes.downloadable);
+        this.resources.push({
+          label: batch.name,
+          resources,
+        });
+      }
+      console.log(this.resources);
+    }
+    this.loaded &#x3D; true;
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return &#x27;&#x27;;
+    return &#x60;Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }&#x60;;
+  }
+
+  valueFieldMultiple(values: string[], text: Record&lt;string, any&gt;) {
+    return textField(values, text);
+  }
+
+  viewResource(resource: ResourceReply) {
+    console.log(resource);
+    switch (resource.resource.type) {
+      case ResourcesTypes.form:
+        console.log(&#x27;formulario&#x27;);
+        this.openForm(resource);
+        break;
+      case ResourcesTypes.task:
+        console.log(&#x27;reply&#x27;);
+        this.downloadFileReply(resource);
+        break;
+      default:
+        break;
+    }
+  }
+
+  async openForm(reply: ResourceReply) {
+    const ref &#x3D; await this.phaseHomeworksService.openFormResource(reply, true);
+    if (ref) ref.pipe(take(1), takeUntil(this.onDestroy$));
+  }
+
+  async downloadFileReply(reply: ResourceReply) {
+    this.phaseHomeworksService.downloadFileReply(reply);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;w-full h-full p-3&quot;&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;!loaded; else elseTemplate&quot;&gt;
+        &lt;app-loading&gt; &lt;/app-loading&gt;
+    &lt;/ng-container&gt;
+    &lt;ng-template #elseTemplate&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;!startup; else componentTemplate&quot;&gt;
+            &lt;p class&#x3D;&quot;w-full&quot;&gt;
+                Aun no perteneces a ninguna startup
+            &lt;/p&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #componentTemplate&gt;
+            &lt;div class&#x3D;&quot;flex w-full flex-column md:flex-row &quot;&gt;
+                &lt;div class&#x3D;&quot;normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between&quot; style&#x3D;&quot;height: 85vh;&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+                        &lt;div&gt;
+                            &lt;div class&#x3D;&quot;flex flex-row&quot;&gt;
+                                &lt;i-tabler name&#x3D;&quot;fence&quot; class&#x3D;&quot;startup-thumbnail&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;/div&gt;
+
+                            &lt;div class&#x3D;&quot;h-3rem&quot;&gt;&lt;/div&gt;
+                            &lt;h2&gt;{{startup.item[&#x27;nombre&#x27;]}}&lt;/h2&gt;
+                            &lt;p class&#x3D;&quot;mt-3&quot;&gt;{{startup.item[&#x27;descripcion&#x27;]}}&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-2&quot;&gt;
+                        &lt;span class&#x3D;&quot;text-xs&quot;&gt;Responsable&lt;/span&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row align-items-center&quot;&gt;
+                            &lt;p-avatar [label]&#x3D;&quot;leaderStartup.item[&#x27;nombre&#x27;][0]&quot; styleClass&#x3D;&quot;mr-2&quot; size&#x3D;&quot;xlarge&quot; shape&#x3D;&quot;circle&quot;&gt;&lt;/p-avatar&gt;
+                            &lt;p&gt;{{leaderStartup.item[&#x27;nombre&#x27;]}}&lt;/p&gt;
+                        &lt;/div&gt;
+
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+
+                &lt;div class&#x3D;&quot;hidden md:flex flex-column gap-4 w-full md:w-8 px-4 display-content scrollwrap scrollwrap_delayed&quot;&gt;
+                    &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;sideContent&quot;&gt;&lt;/ng-template&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex md:hidden flex-column gap-4 w-full md:w-8 px-4 display-content&quot;&gt;
+                    &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;sideContent&quot;&gt;&lt;/ng-template&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+
+    &lt;/ng-template&gt;
+&lt;/div&gt;
+
+&lt;ng-template #sideContent&gt;
+    &lt;div class&#x3D;&quot;flex flex-column gap-4&quot;&gt;
+
+        &lt;p-table #dt class&#x3D;&quot;w-full table-container table-dialog&quot; [value]&#x3D;&quot;startup.entrepreneurs&quot; [tableStyle]&#x3D;&quot;{&#x27;min-width&#x27;: &#x27;50rem&#x27;}&quot; paginatorPosition&#x3D;&quot;bottom&quot; [currentPageReportTemplate]&#x3D;&quot;textSummary&quot; dataKey&#x3D;&quot;_id&quot; [showCurrentPageReport]&#x3D;&quot;true&quot; [rows]&#x3D;&quot;10&quot; [rowsPerPageOptions]&#x3D;&quot;[10,25,50]&quot; [paginator]&#x3D;&quot;true&quot; scrollDirection&#x3D;&quot;both&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;caption&quot;&gt;
+                &lt;div class&#x3D;&quot;table-header&quot;&gt;
+                    &lt;span class&#x3D;&quot;header color-custom ml-3&quot;&gt;Equipo&lt;/span&gt;
+                    &lt;div class&#x3D;&quot;flex flex-wrap justify-content-center&quot; style&#x3D;&quot;gap:0.5rem;&quot;&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Emprendedor&lt;/th&gt;
+                    &lt;th&gt;Rol&lt;/th&gt;
+                    &lt;th&gt;Funciones&lt;/th&gt;
+                    &lt;th&gt;&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-entrepreneur&gt;
+                &lt;tr class&#x3D;&quot;cursor-pointer&quot;&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{entrepreneur.item[&#x27;nombre&#x27;]}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{rolStartupsNames[entrepreneur[&#x27;rol&#x27;]]}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{entrepreneur[&#x27;description&#x27;]}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-table&gt;
+
+        &lt;div class&#x3D;&quot;normal-panel justify-center align-items-center h-auto&quot; style&#x3D;&quot;padding: 1.875rem; border-radius: 3.25rem&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-4&quot;&gt;
+                &lt;div class&#x3D;&quot;grid-container&quot;&gt;
+                    &lt;ng-container *ngFor&#x3D;&quot;let item of formNegociosFields&quot;&gt;
+                        &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;fieldFormTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{ component: item, doc: startup }&quot;&gt;&lt;/ng-template&gt;
+                    &lt;/ng-container&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;normal-panel justify-center align-items-center h-auto&quot; style&#x3D;&quot;padding: 1.875rem; border-radius: 3.25rem&quot; *ngIf&#x3D;&quot;resources?.length&quot;&gt;
+            &lt;p-accordion&gt;
+                &lt;p-accordionTab *ngFor&#x3D;&quot;let item of resources&quot; [header]&#x3D;&quot;item.label&quot;&gt;
+                    &lt;div class&#x3D;&quot;w-full flex flex-wrap gap-3&quot;&gt;
+                        &lt;ng-container *ngFor&#x3D;&quot;let resource of item.resources&quot;&gt;
+                            &lt;p-button styleClass&#x3D;&quot;p-button-quaternary&quot; (onClick)&#x3D;&quot;viewResource(resource)&quot;&gt;{{resource.resource[&#x27;name&#x27;]}}&lt;/p-button&gt;
+                        &lt;/ng-container&gt;
+                    &lt;/div&gt;
+                &lt;/p-accordionTab&gt;
+            &lt;/p-accordion&gt;
+
+        &lt;/div&gt;
+        &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #fieldFormTemplate let-component&#x3D;&quot;component&quot; let-doc&#x3D;&quot;doc&quot;&gt;
+    &lt;ng-container [ngSwitch]&#x3D;&quot;true&quot;&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;datamap&#x27;, &#x27;editgrid&#x27;, &#x27;datagrid&#x27;, &#x27;fieldset&#x27;, &#x27;html&#x27;, &#x27;htmlelement&#x27;].includes(component.type)&quot;&gt;
+            &lt;!-- Skip --&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;datetime&#x27;, &#x27;dateAndTime&#x27;, &#x27;time&#x27;].includes(component.type)&quot;&gt;
+            &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                        data: {
+                            label: component.label,
+                            value: doc.item[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder
+                        }
+                    }&quot;&gt;&lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;selectboxes&#x27;].includes(component.type)&quot;&gt;
+            &lt;ng-container *ngFor&#x3D;&quot;let item of component.values | keyvalue&quot;&gt;
+                &lt;ng-template *ngIf&#x3D;&quot;doc.item[component.key][$any(item.key)]&quot; [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                                                                data: {
+                                                                    label: component.label,
+                                                                    value: $any(item.value)
+                                                                }
+                                                            }&quot;&gt;&lt;/ng-template&gt;
+            &lt;/ng-container&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;select&#x27;].includes(component.type)&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;component.multiple; else onlyAOption&quot;&gt;
+                &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                                                                    data: {
+                                                                        label: component.label,
+                                                                        value: doc.item[component.key] ?  valueFieldMultiple(doc.item[component.key], component.values) : noValuePlaceholder
+                                                                    }
+                                                                }&quot;&gt;&lt;/ng-template&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #onlyAOption&gt;
+                &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                                                                                    data: {
+                                                                                        label: component.label,
+                                                                                        value: doc.item[component.key] ?  doc.item[component.key] : noValuePlaceholder
+                                                                                    }
+                                                                                }&quot;&gt;&lt;/ng-template&gt;
+            &lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchDefault&gt;
+            &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                        data: {
+                            label: component.label,
+                            value: doc.item[component.key] ? doc.item[component.key] : noValuePlaceholder
+                        }
+                    }&quot;&gt;&lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+    &lt;/ng-container&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #paramCardTemplate let-data&#x3D;&quot;data&quot;&gt;
+    &lt;div class&#x3D;&quot;info-grid-cell p-2 border-round&quot;&gt;
+        &lt;span class&#x3D;&quot;cell-label&quot; [pTooltip]&#x3D;&quot;data.label&quot; tooltipPosition&#x3D;&quot;top&quot;&gt;
+            {{data.label | uppercase}}
+        &lt;/span&gt;
+        &lt;div class&#x3D;&quot;cell-line&quot;&gt;&lt;/div&gt;
+        &lt;span class&#x3D;&quot;cell-value&quot; [pTooltip]&#x3D;&quot;data.value&quot; tooltipPosition&#x3D;&quot;top&quot;&gt;{{data.value}}&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/ng-template&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./startup-dialog.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;/src/styles.scss&quot;;
+
+.scrollwrap {
+  overflow-y: auto;
+  visibility: hidden;
+  height: 85vh !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
+}
+
+.display-content,
+.scrollwrap:hover,
+.scrollwrap:focus {
+  visibility: visible;
+}
+
+.statics-panel {
+  border-radius: 1.25rem;
+  padding: 1.875rem;
+}
+
+.bg-pastel-1 {
+  background-color: #e7f2ff;
+}
+
+.bg-pastel-2 {
+  background-color: #fff1dc;
+}
+
+.panel-startup {
+  padding: 1.875rem;
+  border-radius: 3.25rem;
+}
+
+.startup-thumbnail {
+  background-color: #2196f3;
+  color: #ffffff;
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 50%;
+  padding: 1.5rem;
+}
+
+.edit-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.65rem;
+  border-radius: 0.625rem;
+  background-color: #f6f6f6;
+  color: $appTextThree;
+  &amp;:hover {
+    border-color: darken(#f6f6f6, 5%) !important;
+    background-color: darken(#f6f6f6, 5%) !important;
+  }
+}
+
+.info-grid-cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.cell-label {
+  color: #6b6b6b;
+  flex-basis: auto; // Deja que el ancho sea automático
+  white-space: nowrap; // Evita que el texto del label se rompa en varias líneas
+  overflow: hidden; // Oculta el exceso de texto si el label es muy largo
+  text-overflow: ellipsis; // Muestra puntos suspensivos (...) si el texto del label es muy largo
+  max-width: 45%;
+  @media (max-width: 576px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.cell-line {
+  flex-grow: 1;
+  border-bottom: solid 1px #f6f6f6;
+  margin: 0 10px 3px 10px;
+}
+
+.cell-value {
+  background-color: #f6f6f6;
+  color: black;
+  padding: 0.65rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  flex-basis: 50%; // Ancho fijo del 50%
+}
+
+.table-container {
+  background-color: $grayThird;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 3.125rem;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th {
+  background-color: transparent;
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  // border-top: 1px solid $appText;
+  border-bottom: 1px solid $appText;
+}
+
+.table-dialog::ng-deep .p-datatable {
+  margin: 0;
+
+  .p-paginator {
+    margin: 1rem 0.5rem;
+    background-color: $grayThird;
+    gap: 0.5rem;
+    .p-paginator-current {
+      color: $appTextTwo;
+      font-weight: 500;
+      margin-right: auto;
+    }
+  }
+  .p-paginator-right-content {
+    color: $appTextTwo;
+    font-weight: 500;
+  }
+
+  .p-paginator .p-paginator-first,
+  .p-paginator .p-paginator-prev,
+  .p-paginator .p-paginator-next,
+  .p-paginator .p-paginator-last {
+    border-radius: 0.625rem;
+    background-color: $appColorSix;
+    stroke-width: 2px;
+    color: $appColorFive;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    border-radius: 0.625rem;
+    background-color: white;
+    font-weight: 600;
+    color: $appTextTwo;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: $appColorFive;
+    color: white;
+  }
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td {
+  background-color: white;
+  border: none;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:first-child {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:last-child {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr:hover {
+  //  border-radius: 0.625rem;
+  box-shadow: 0px 3px 30px #0f213326;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr {
+  border-radius: 0.625rem;
+  background-color: transparent;
+}
+
+.table-dialog::ng-deep .p-datatable-table {
+  // background-color: $grayThird;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 0 0.5rem;
+}
+.table-dialog::ng-deep .p-datatable .p-datatable-header {
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 1rem 1rem;
+  border: none;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="w-full h-full p-3">    <ng-container *ngIf="!loaded; else elseTemplate">        <app-loading> </app-loading>    </ng-container>    <ng-template #elseTemplate>        <ng-container *ngIf="!startup; else componentTemplate">            <p class="w-full">                Aun no perteneces a ninguna startup            </p>        </ng-container>        <ng-template #componentTemplate>            <div class="flex w-full flex-column md:flex-row ">                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between" style="height: 85vh;">                    <div class="flex flex-column">                        <div>                            <div class="flex flex-row">                                <i-tabler name="fence" class="startup-thumbnail"></i-tabler>                            </div>                            <div class="h-3rem"></div>                            <h2>{{startup.item[\'nombre\']}}</h2>                            <p class="mt-3">{{startup.item[\'descripcion\']}}</p>                        </div>                    </div>                    <div class="flex flex-column gap-2">                        <span class="text-xs">Responsable</span>                        <div class="flex flex-row align-items-center">                            <p-avatar [label]="leaderStartup.item[\'nombre\'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>                            <p>{{leaderStartup.item[\'nombre\']}}</p>                        </div>                    </div>                </div>                <div class="hidden md:flex flex-column gap-4 w-full md:w-8 px-4 display-content scrollwrap scrollwrap_delayed">                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>                </div>                <div class="flex md:hidden flex-column gap-4 w-full md:w-8 px-4 display-content">                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>                </div>            </div>        </ng-template>    </ng-template></div><ng-template #sideContent>    <div class="flex flex-column gap-4">        <p-table #dt class="w-full table-container table-dialog" [value]="startup.entrepreneurs" [tableStyle]="{\'min-width\': \'50rem\'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">            <ng-template pTemplate="caption">                <div class="table-header">                    <span class="header color-custom ml-3">Equipo</span>                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">                    </div>                </div>            </ng-template>            <ng-template pTemplate="header">                <tr>                    <th>Emprendedor</th>                    <th>Rol</th>                    <th>Funciones</th>                    <th></th>                </tr>            </ng-template>            <ng-template pTemplate="body" let-entrepreneur>                <tr class="cursor-pointer">                    <td class="text-center">{{entrepreneur.item[\'nombre\']}}</td>                    <td class="text-center">{{rolStartupsNames[entrepreneur[\'rol\']]}}</td>                    <td class="text-center">{{entrepreneur[\'description\']}}</td>                    <td class="text-center"></td>                </tr>            </ng-template>        </p-table>        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">            <div class="flex flex-column gap-4">                <div class="grid-container">                    <ng-container *ngFor="let item of formNegociosFields">                        <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>                    </ng-container>                </div>            </div>        </div>        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem" *ngIf="resources?.length">            <p-accordion>                <p-accordionTab *ngFor="let item of resources" [header]="item.label">                    <div class="w-full flex flex-wrap gap-3">                        <ng-container *ngFor="let resource of item.resources">                            <p-button styleClass="p-button-quaternary" (onClick)="viewResource(resource)">{{resource.resource[\'name\']}}</p-button>                        </ng-container>                    </div>                </p-accordionTab>            </p-accordion>        </div>        <div style="height: 1rem;"></div>    </div></ng-template><ng-template #fieldFormTemplate let-component="component" let-doc="doc">    <ng-container [ngSwitch]="true">        <ng-container *ngSwitchCase="[\'datamap\', \'editgrid\', \'datagrid\', \'fieldset\', \'html\', \'htmlelement\'].includes(component.type)">            <!-- Skip -->        </ng-container>        <ng-container *ngSwitchCase="[\'datetime\', \'dateAndTime\', \'time\'].includes(component.type)">            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                        data: {                            label: component.label,                            value: doc.item[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder                        }                    }"></ng-template>        </ng-container>        <ng-container *ngSwitchCase="[\'selectboxes\'].includes(component.type)">            <ng-container *ngFor="let item of component.values | keyvalue">                <ng-template *ngIf="doc.item[component.key][$any(item.key)]" [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                                                                data: {                                                                    label: component.label,                                                                    value: $any(item.value)                                                                }                                                            }"></ng-template>            </ng-container>        </ng-container>        <ng-container *ngSwitchCase="[\'select\'].includes(component.type)">            <ng-container *ngIf="component.multiple; else onlyAOption">                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                                                                    data: {                                                                        label: component.label,                                                                        value: doc.item[component.key] ?  valueFieldMultiple(doc.item[component.key], component.values) : noValuePlaceholder                                                                    }                                                                }"></ng-template>            </ng-container>            <ng-template #onlyAOption>                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                                                                                    data: {                                                                                        label: component.label,                                                                                        value: doc.item[component.key] ?  doc.item[component.key] : noValuePlaceholder                                                                                    }                                                                                }"></ng-template>            </ng-template>        </ng-container>        <ng-container *ngSwitchDefault>            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                        data: {                            label: component.label,                            value: doc.item[component.key] ? doc.item[component.key] : noValuePlaceholder                        }                    }"></ng-template>        </ng-container>    </ng-container></ng-template><ng-template #paramCardTemplate let-data="data">    <div class="info-grid-cell p-2 border-round">        <span class="cell-label" [pTooltip]="data.label" tooltipPosition="top">            {{data.label | uppercase}}        </span>        <div class="cell-line"></div>        <span class="cell-value" [pTooltip]="data.value" tooltipPosition="top">{{data.value}}</span>    </div></ng-template></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'StartupDialogComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'StartupDialogComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1544 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AssignHoursComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnChanges</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-assign-hours</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./assign-hours.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./assign-hours.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#dt" >dt</a>
+                            </li>
+                            <li>
+                                <a href="#filterFields" >filterFields</a>
+                            </li>
+                            <li>
+                                <a href="#flagsActivity" >flagsActivity</a>
+                            </li>
+                            <li>
+                                <a href="#footer" >footer</a>
+                            </li>
+                            <li>
+                                <a href="#header" >header</a>
+                            </li>
+                            <li>
+                                <a href="#page" >page</a>
+                            </li>
+                            <li>
+                                <a href="#scrollHeight" >scrollHeight</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#flagsAlert" >flagsAlert</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#onResize" >onResize</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#screenChange" >screenChange</a>
+                            </li>
+                            <li>
+                                <a href="#updateAllValues" >updateAllValues</a>
+                            </li>
+                            <li>
+                                <a href="#updateValuesActivity" >updateValuesActivity</a>
+                            </li>
+                            <li>
+                                <a href="#validateHeight" >validateHeight</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#activitiesConfig" >activitiesConfig</a>
+                            </li>
+                            <li>
+                                <a href="#changes" >changes</a>
+                            </li>
+                            <li>
+                                <a href="#columnsHours" >columnsHours</a>
+                            </li>
+                            <li>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                <a href="#list" >list</a>
+                            </li>
+                            <li>
+                                <a href="#type" >type</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:fullscreenchange" >window:fullscreenchange</a>
+                            </li>
+                            <li>
+                                <a href="#window:resize" >window:resize</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(service: <a href="../injectables/PhaseHourConfigService.html" target="_self">PhaseHourConfigService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:50</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseHourConfigService.html" target="_self" >PhaseHourConfigService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="activitiesConfig"></a>
+                        <b>activitiesConfig</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IActivityConfigInput[]</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="changes"></a>
+                        <b>changes</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IAssign.html" target="_self" >IAssign[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="columnsHours"></a>
+                        <b>columnsHours</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ColumnHour.html" target="_self" >ColumnHour[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="config"></a>
+                        <b>config</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/ActivitiesConfig.html" target="_self" >ActivitiesConfig</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="list"></a>
+                        <b>list</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>IConfigExpert[] | IConfigTeamCoach[]</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="type"></a>
+                        <b>type</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;experts&quot; | &quot;teamCoaches&quot;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:31</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:fullscreenchange"></a>
+                    <span class="name">
+                        <span ><b>window:fullscreenchange</b></span>
+                        <a href="#window:fullscreenchange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:fullscreenchange(event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:resize"></a>
+                    <span class="name">
+                        <span ><b>window:resize</b></span>
+                        <a href="#window:resize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:resize(event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="flagsAlert"></a>
+                    <span class="name">
+                        <span ><b>flagsAlert</b></span>
+                        <a href="#flagsAlert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>flagsAlert(activity: <a href="../interfaces/IActivityConfigInput.html" target="_self">IActivityConfigInput</a>, hoursCount: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="110"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>activity</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IActivityConfigInput.html" target="_self" >IActivityConfigInput</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>hoursCount</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <span ><b>ngOnChanges</b></span>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onResize"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>onResize</b></span>
+                        <a href="#onResize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onResize(event)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;window:resize&#x27;, [&#x27;$event&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="screenChange"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>screenChange</b></span>
+                        <a href="#screenChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>screenChange(event)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;window:fullscreenchange&#x27;, [&#x27;$event&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateAllValues"></a>
+                    <span class="name">
+                        <span ><b>updateAllValues</b></span>
+                        <a href="#updateAllValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateAllValues()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateValuesActivity"></a>
+                    <span class="name">
+                        <span ><b>updateValuesActivity</b></span>
+                        <a href="#updateValuesActivity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateValuesActivity(activity: <a href="../interfaces/IActivityConfigInput.html" target="_self">IActivityConfigInput</a>, config?: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>activity</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IActivityConfigInput.html" target="_self" >IActivityConfigInput</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>config</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateHeight"></a>
+                    <span class="name">
+                        <span ><b>validateHeight</b></span>
+                        <a href="#validateHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateHeight()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>dt</b></span>
+                        <a href="#dt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Table</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;dt&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterFields"></a>
+                    <span class="name">
+                        <span ><b>filterFields</b></span>
+                        <a href="#filterFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;item.nombre&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="flagsActivity"></a>
+                    <span class="name">
+                        <span ><b>flagsActivity</b></span>
+                        <a href="#flagsActivity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Message[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="footer"></a>
+                    <span class="name">
+                        <span ><b>footer</b></span>
+                        <a href="#footer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Element</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="header"></a>
+                    <span class="name">
+                        <span ><b>header</b></span>
+                        <a href="#header"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Element</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="page"></a>
+                    <span class="name">
+                        <span ><b>page</b></span>
+                        <a href="#page"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollHeight"></a>
+                    <span class="name">
+                        <span ><b>scrollHeight</b></span>
+                        <a href="#scrollHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/phases/phase-hours-config/assign-hours/assign-hours.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+} from &#x27;@angular/core&#x27;;
+import {
+  ActivitiesConfig,
+  IActivityConfigInput,
+  IAssign,
+} from &#x27;@home/phases/phase-hours-config/models/activities.model&#x27;;
+import { IConfigExpert, IConfigTeamCoach } from &#x27;../models/config-startup&#x27;;
+import { Table } from &#x27;primeng/table&#x27;;
+import { PhaseHourConfigService } from &#x27;../phase-hour-config.service&#x27;;
+import { Message } from &#x27;primeng/api&#x27;;
+import { ColumnHour, columnsHours } from &#x27;../models/columns-hours.enum&#x27;;
+
+@Component({
+  selector: &#x27;app-assign-hours&#x27;,
+  templateUrl: &#x27;./assign-hours.component.html&#x27;,
+  styleUrls: [&#x27;./assign-hours.component.scss&#x27;],
+})
+export class AssignHoursComponent implements OnChanges {
+  // Inputs component
+  @Input() config: ActivitiesConfig;
+  @Input() list: IConfigExpert[] | IConfigTeamCoach[];
+  @Input() activitiesConfig: IActivityConfigInput[];
+  @Input() changes: IAssign[] &#x3D; []; // Variable for notice when assign hours change
+  @Input() type: &#x27;experts&#x27; | &#x27;teamCoaches&#x27;;
+  @Input() columnsHours: ColumnHour[] &#x3D; [];
+  // Table vars
+  scrollHeight;
+  @ViewChild(&#x27;dt&#x27;, { static: true }) dt: Table;
+  header: Element;
+  footer: Element;
+  page: number &#x3D; 0;
+  @HostListener(&#x27;window:fullscreenchange&#x27;, [&#x27;$event&#x27;])
+  screenChange(event) {
+    this.validateHeight();
+  }
+  @HostListener(&#x27;window:resize&#x27;, [&#x27;$event&#x27;])
+  onResize(event) {
+    this.validateHeight();
+  }
+
+  // Vars
+  flagsActivity: Message[] &#x3D; [];
+  filterFields &#x3D; [&#x27;item.nombre&#x27;];
+
+  constructor(private service: PhaseHourConfigService) {
+    this.validateHeight();
+  }
+
+  ngOnChanges() {
+    this.updateAllValues();
+  }
+
+  validateHeight() {
+    let availableHeight: number;
+    availableHeight &#x3D; window.outerHeight - 440;
+    availableHeight -&#x3D; this.header ? this.header.scrollHeight : 0;
+    availableHeight -&#x3D; this.footer ? this.footer.scrollHeight : 0;
+    const tabViewHeight &#x3D; 50;
+    const finalHeight &#x3D; availableHeight - tabViewHeight;
+    const minHeight &#x3D; 300;
+    const height &#x3D; Math.max(finalHeight, minHeight);
+    this.scrollHeight &#x3D; &#x60;${height}px&#x60;;
+  }
+
+  updateAllValues() {
+    for (const iterator of this.activitiesConfig) {
+      this.updateValuesActivity(iterator);
+    }
+  }
+
+  updateValuesActivity(
+    activity: IActivityConfigInput,
+    config?: { item: IConfigExpert | IConfigTeamCoach; column: ColumnHour }
+  ) {
+    let limitHours &#x3D; activity.limit;
+    let totalHours &#x3D; 0;
+    for (const entityConfig of this.list) {
+      const previousConfig &#x3D; this.service.configOrChangeEntity(
+        activity,
+        entityConfig,
+        this.config,
+        this.changes,
+        this.type
+      );
+      if (previousConfig) {
+        limitHours -&#x3D; previousConfig.limit;
+        totalHours +&#x3D; previousConfig.limit;
+      } else {
+        if (entityConfig._id &#x3D;&#x3D;&#x3D; config?.item._id) {
+          limitHours -&#x3D; config.item.hours[activity.id][config.column.property];
+          totalHours +&#x3D; config.item.hours[activity.id][config.column.property];
+          this.changes.push({
+            entityID: config.item._id,
+            activityID: activity.id,
+            limit: config.item.hours[activity.id][config.column.property],
+          });
+        }
+      }
+    }
+    this.flagsAlert(activity, limitHours);
+  }
+
+  flagsAlert(activity: IActivityConfigInput, hoursCount: number) {
+    if (hoursCount &lt; 0) {
+      const indexFlag &#x3D; this.flagsActivity.findIndex(
+        (i) &#x3D;&gt; i.id &#x3D;&#x3D;&#x3D; activity.id
+      );
+      if (indexFlag &#x3D;&#x3D;&#x3D; -1) {
+        this.flagsActivity.push({
+          severity: &#x27;warn&#x27;,
+          summary: &#x27;Error:&#x27;,
+          detail: &#x60;Se ha excedido el límite de horas asignadas para la actividad &#x27;${
+            activity.activityName
+          }&#x27;. La asignación actual excede dicho límite en ${Math.abs(
+            hoursCount
+          )} hora(s).&#x60;,
+          id: activity.id,
+        });
+      } else {
+        this.flagsActivity[
+          indexFlag
+        ].detail &#x3D; &#x60;Se ha excedido el límite de horas asignadas para la actividad &#x27;${
+          activity.activityName
+        }&#x27;. La asignación actual excede dicho límite en ${Math.abs(
+          hoursCount
+        )} hora(s).&#x60;;
+      }
+    } else {
+      this.flagsActivity &#x3D; this.flagsActivity.filter(
+        (i) &#x3D;&gt; i.id !&#x3D;&#x3D; activity.id
+      );
+    }
+    this.flagsActivity &#x3D; [...this.flagsActivity];
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+&lt;p-messages [(value)]&#x3D;&quot;flagsActivity&quot; [enableService]&#x3D;&quot;true&quot; [closable]&#x3D;&quot;false&quot;&gt;&lt;/p-messages&gt;
+&lt;div #tableWrapper class&#x3D;&quot;table-container overflow-hidden&quot;&gt;
+    &lt;p-table #dt class&#x3D;&quot;table-app w-full&quot; [value]&#x3D;&quot;list&quot; [tableStyle]&#x3D;&quot;{&#x27;min-width&#x27;: &#x27;50rem&#x27;}&quot; dataKey&#x3D;&quot;_id&quot; [filterDelay]&#x3D;&quot;2&quot; [globalFilterFields]&#x3D;&quot;filterFields&quot; [ngStyle]&#x3D;&quot;{ &#x27;height&#x27;: scrollHeight + &#x27;px&#x27;}&quot; [rowHover]&#x3D;&quot;true&quot; scrollDirection&#x3D;&quot;both&quot; [scrollHeight]&#x3D;&quot;scrollHeight&quot; responsiveLayout&#x3D;&quot;scroll&quot;&gt;
+        &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+            &lt;tr&gt;
+                &lt;th rowspan&#x3D;&quot;2&quot;&gt;&lt;/th&gt;
+                &lt;th rowspan&#x3D;&quot;2&quot;&gt;Nombre&lt;/th&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let activity of activitiesConfig&quot;&gt;
+                    &lt;th colspan&#x3D;&quot;3&quot;&gt;{{activity.activityName}}&lt;/th&gt;
+                &lt;/ng-container&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let activity of activitiesConfig&quot;&gt;
+                    &lt;ng-container *ngFor&#x3D;&quot;let columnHour of columnsHours&quot;&gt;
+                        &lt;th&gt;{{columnHour.label}}&lt;/th&gt;
+                    &lt;/ng-container&gt;
+                &lt;/ng-container&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-item let-expanded&#x3D;&quot;expanded&quot;&gt;
+            &lt;tr&gt;
+                &lt;td&gt;
+                    &lt;button type&#x3D;&quot;button&quot; pButton pRipple [pRowToggler]&#x3D;&quot;item&quot; class&#x3D;&quot;p-button-text p-button-rounded p-button-plain&quot; [icon]&#x3D;&quot;expanded ? &#x27;pi pi-chevron-down&#x27; : &#x27;pi pi-chevron-right&#x27;&quot;&gt;&lt;/button&gt;
+                &lt;/td&gt;
+                &lt;td&gt;{{item.item.nombre}}&lt;/td&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let activity of activitiesConfig&quot;&gt;
+                    &lt;ng-container *ngFor&#x3D;&quot;let columnHour of columnsHours&quot;&gt;
+                        &lt;ng-container *ngIf&#x3D;&quot;columnHour.canEdit; else onlyDisplayValue&quot;&gt;
+                            &lt;td&gt;
+                                &lt;p-inputNumber type&#x3D;&quot;number&quot; [(ngModel)]&#x3D;&quot;item.hours[activity.id][columnHour.property]&quot; [min]&#x3D;&quot;0&quot; [max]&#x3D;&quot;activity.limit&quot; suffix&#x3D;&quot; hora(s)&quot; [showButtons]&#x3D;&quot;true&quot; (ngModelChange)&#x3D;&quot;updateValuesActivity(activity, {item, column: columnHour})&quot; [id]&#x3D;&quot;activity.id + item._id&quot; /&gt;
+                            &lt;/td&gt;
+                        &lt;/ng-container&gt;
+                        &lt;ng-template #onlyDisplayValue&gt;
+                            &lt;td&gt;{{item.hours[activity.id][columnHour.property]}} hora(s)&lt;/td&gt;
+                        &lt;/ng-template&gt;
+
+                    &lt;/ng-container&gt;
+                &lt;/ng-container&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate&#x3D;&quot;rowexpansion&quot; let-item&gt;
+            &lt;tr&gt;
+                &lt;td [attr.colspan]&#x3D;&quot;2 + (activitiesConfig.length * 3)&quot;&gt;
+                    &lt;div class&#x3D;&quot;p-3&quot;&gt;
+                        &lt;p-table [value]&#x3D;&quot;item.startups&quot; dataKey&#x3D;&quot;_id&quot;&gt;
+                            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+            &lt;tr&gt;
+                &lt;th style&#x3D;&quot;width:90%&quot;&gt;Nombre startup&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-innerItem&gt;
+            &lt;tr&gt;
+                &lt;td&gt;{{ innerItem.item.nombre }}&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+        &lt;ng-template pTemplate&#x3D;&quot;emptymessage&quot;&gt;
+            &lt;tr&gt;
+                &lt;td colspan&#x3D;&quot;6&quot;&gt;No hay startups vinculadas&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/ng-template&gt;
+    &lt;/p-table&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/ng-template&gt;
+&lt;/p-table&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./assign-hours.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../../../styles.scss&quot;;
+
+.table-container {
+  background-color: $grayThird;
+  border-radius: 3.125rem;
+  padding: 0 0 1rem 0;
+  height: 100%;
+  max-height: 100%;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div style="height: 1rem;"></div><p-messages [(value)]="flagsActivity" [enableService]="true" [closable]="false"></p-messages><div #tableWrapper class="table-container overflow-hidden">    <p-table #dt class="table-app w-full" [value]="list" [tableStyle]="{\'min-width\': \'50rem\'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ \'height\': scrollHeight + \'px\'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">        <ng-template pTemplate="header">            <tr>                <th rowspan="2"></th>                <th rowspan="2">Nombre</th>                <ng-container *ngFor="let activity of activitiesConfig">                    <th colspan="3">{{activity.activityName}}</th>                </ng-container>            </tr>            <tr>                <ng-container *ngFor="let activity of activitiesConfig">                    <ng-container *ngFor="let columnHour of columnsHours">                        <th>{{columnHour.label}}</th>                    </ng-container>                </ng-container>            </tr>        </ng-template>        <ng-template pTemplate="body" let-item let-expanded="expanded">            <tr>                <td>                    <button type="button" pButton pRipple [pRowToggler]="item" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? \'pi pi-chevron-down\' : \'pi pi-chevron-right\'"></button>                </td>                <td>{{item.item.nombre}}</td>                <ng-container *ngFor="let activity of activitiesConfig">                    <ng-container *ngFor="let columnHour of columnsHours">                        <ng-container *ngIf="columnHour.canEdit; else onlyDisplayValue">                            <td>                                <p-inputNumber type="number" [(ngModel)]="item.hours[activity.id][columnHour.property]" [min]="0" [max]="activity.limit" suffix=" hora(s)" [showButtons]="true" (ngModelChange)="updateValuesActivity(activity, {item, column: columnHour})" [id]="activity.id + item._id" />                            </td>                        </ng-container>                        <ng-template #onlyDisplayValue>                            <td>{{item.hours[activity.id][columnHour.property]}} hora(s)</td>                        </ng-template>                    </ng-container>                </ng-container>            </tr>        </ng-template>        <ng-template pTemplate="rowexpansion" let-item>            <tr>                <td [attr.colspan]="2 + (activitiesConfig.length * 3)">                    <div class="p-3">                        <p-table [value]="item.startups" dataKey="_id">                            <ng-template pTemplate="header">            <tr>                <th style="width:90%">Nombre startup</th>            </tr>        </ng-template>        <ng-template pTemplate="body" let-innerItem>            <tr>                <td>{{ innerItem.item.nombre }}</td>            </tr>        </ng-template>        <ng-template pTemplate="emptymessage">            <tr>                <td colspan="6">No hay startups vinculadas</td>            </tr>        </ng-template>    </p-table></div></td></tr></ng-template></p-table></div></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AssignHoursComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AssignHoursComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

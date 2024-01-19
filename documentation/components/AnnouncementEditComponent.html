@@ -1,0 +1,1630 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AnnouncementEditComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/announcements/announcement-edit/announcement-edit.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-announcement-edit</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./announcement-edit.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./announcement-edit.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#announcement" >announcement</a>
+                            </li>
+                            <li>
+                                <a href="#announcementEditForm" >announcementEditForm</a>
+                            </li>
+                            <li>
+                                <a href="#canCreateForm" >canCreateForm</a>
+                            </li>
+                            <li>
+                                <a href="#configTiny" >configTiny</a>
+                            </li>
+                            <li>
+                                <a href="#editEnabled" >editEnabled</a>
+                            </li>
+                            <li>
+                                <a href="#forms" >forms</a>
+                            </li>
+                            <li>
+                                <a href="#landingUrl" >landingUrl</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancelEdit" >cancelEdit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#copyText" >copyText</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createForm" >createForm</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#previewForm" >previewForm</a>
+                            </li>
+                            <li>
+                                <a href="#publish" >publish</a>
+                            </li>
+                            <li>
+                                <a href="#removeImage" >removeImage</a>
+                            </li>
+                            <li>
+                                <a href="#saveFormChanges" >saveFormChanges</a>
+                            </li>
+                            <li>
+                                <a href="#unpublish" >unpublish</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadImage" >uploadImage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(service: <a href="../injectables/AnnouncementsService.html" target="_self">AnnouncementsService</a>, formService: <a href="../injectables/FormService.html" target="_self">FormService</a>, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, clipboard: Clipboard, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:56</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AnnouncementsService.html" target="_self" >AnnouncementsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormService.html" target="_self" >FormService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>clipboard</td>
+                                                  
+                                                        <td>
+                                                                    <code>Clipboard</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelEdit"></a>
+                    <span class="name">
+                        <span ><b>cancelEdit</b></span>
+                        <a href="#cancelEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancelEdit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="copyText"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>copyText</b></span>
+                        <a href="#copyText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>copyText(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createForm"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createForm</b></span>
+                        <a href="#createForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:106</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="previewForm"></a>
+                    <span class="name">
+                        <span ><b>previewForm</b></span>
+                        <a href="#previewForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>previewForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="publish"></a>
+                    <span class="name">
+                        <span ><b>publish</b></span>
+                        <a href="#publish"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>publish()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeImage"></a>
+                    <span class="name">
+                        <span ><b>removeImage</b></span>
+                        <a href="#removeImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeImage(announcement: <a href="../classes/Announcement.html" target="_self">Announcement</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="168"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:168</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>announcement</td>
+                                            <td>
+                                                            <code><a href="../classes/Announcement.html" target="_self" >Announcement</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveFormChanges"></a>
+                    <span class="name">
+                        <span ><b>saveFormChanges</b></span>
+                        <a href="#saveFormChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveFormChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unpublish"></a>
+                    <span class="name">
+                        <span ><b>unpublish</b></span>
+                        <a href="#unpublish"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>unpublish()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadImage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadImage</b></span>
+                        <a href="#uploadImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadImage(fileToUpload: File, announcement: <a href="../classes/Announcement.html" target="_self">Announcement</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:148</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileToUpload</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>announcement</td>
+                                            <td>
+                                                            <code><a href="../classes/Announcement.html" target="_self" >Announcement</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="announcement"></a>
+                    <span class="name">
+                        <span ><b>announcement</b></span>
+                        <a href="#announcement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Announcement.html" target="_self" >Announcement</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="announcementEditForm"></a>
+                    <span class="name">
+                        <span ><b>announcementEditForm</b></span>
+                        <a href="#announcementEditForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormGroup(
+    {
+      name: new FormControl&lt;string&gt;(null, {
+        validators: [Validators.required],
+      }),
+      description: new FormControl&lt;string&gt;(null, { validators: [] }),
+      landing: new FormControl&lt;string&gt;(null, { validators: [] }),
+      exitText: new FormControl&lt;string&gt;(null, { validators: [] }),
+      redirectLink: new FormControl&lt;string&gt;(null, { validators: [] }),
+      form: new FormControl&lt;string&gt;(null, {
+        validators: [Validators.required],
+      }),
+      startAt: new FormControl&lt;Date&gt;(null, {
+        validators: [Validators.required],
+      }),
+      endAt: new FormControl&lt;Date&gt;(null, { validators: [Validators.required] }),
+    },
+    { validators: [CustomValidators.dateRangeValidator(&#x27;startAt&#x27;, &#x27;endAt&#x27;)] }
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canCreateForm"></a>
+                    <span class="name">
+                        <span ><b>canCreateForm</b></span>
+                        <a href="#canCreateForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configTiny"></a>
+                    <span class="name">
+                        <span ><b>configTiny</b></span>
+                        <a href="#configTiny"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>configTinyMce</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editEnabled"></a>
+                    <span class="name">
+                        <span ><b>editEnabled</b></span>
+                        <a href="#editEnabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="forms"></a>
+                    <span class="name">
+                        <span ><b>forms</b></span>
+                        <a href="#forms"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="landingUrl"></a>
+                    <span class="name">
+                        <span ><b>landingUrl</b></span>
+                        <a href="#landingUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/announcements/announcement-edit/announcement-edit.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import { Component } from &#x27;@angular/core&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { configTinyMce } from &#x27;@shared/models/configTinyMce&#x27;;
+import { Subject, filter, takeUntil, tap } from &#x27;rxjs&#x27;;
+import { AnnouncementsService } from &#x27;../announcements.service&#x27;;
+import { Announcement } from &#x27;../model/announcement&#x27;;
+import {
+  UpdateAnnouncementImageAction,
+  UpdateAnnouncementAction,
+  PublishAnnouncementAction,
+  UnpublishAnnouncementAction,
+} from &#x27;../store/announcement.actions&#x27;;
+import { cloneDeep } from &#x27;lodash&#x27;;
+import { FormCollections } from &#x27;@shared/form/enums/form-collections&#x27;;
+import { FormService } from &#x27;@shared/form/form.service&#x27;;
+import { FormControl, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { CustomValidators } from &#x27;@shared/forms/custom-validators&#x27;;
+import { UpdateAnnouncementInput } from &#x27;../model/update-announcement.input&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { Clipboard } from &#x27;@angular/cdk/clipboard&#x27;;
+
+@Component({
+  selector: &#x27;app-announcement-edit&#x27;,
+  templateUrl: &#x27;./announcement-edit.component.html&#x27;,
+  styleUrls: [&#x27;./announcement-edit.component.scss&#x27;],
+})
+export class AnnouncementEditComponent {
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+  announcement: Announcement;
+  forms: { id: string; label: string }[] &#x3D; [];
+  configTiny &#x3D; configTinyMce;
+  landingUrl: string &#x3D; &#x27;&#x27;;
+  announcementEditForm &#x3D; new FormGroup(
+    {
+      name: new FormControl&lt;string&gt;(null, {
+        validators: [Validators.required],
+      }),
+      description: new FormControl&lt;string&gt;(null, { validators: [] }),
+      landing: new FormControl&lt;string&gt;(null, { validators: [] }),
+      exitText: new FormControl&lt;string&gt;(null, { validators: [] }),
+      redirectLink: new FormControl&lt;string&gt;(null, { validators: [] }),
+      form: new FormControl&lt;string&gt;(null, {
+        validators: [Validators.required],
+      }),
+      startAt: new FormControl&lt;Date&gt;(null, {
+        validators: [Validators.required],
+      }),
+      endAt: new FormControl&lt;Date&gt;(null, { validators: [Validators.required] }),
+    },
+    { validators: [CustomValidators.dateRangeValidator(&#x27;startAt&#x27;, &#x27;endAt&#x27;)] }
+  );
+  editEnabled: boolean &#x3D; false;
+  saving: boolean &#x3D; false;
+  canCreateForm: boolean &#x3D; false;
+
+  constructor(
+    private readonly service: AnnouncementsService,
+    private readonly formService: FormService,
+    private readonly store: Store&lt;AppState&gt;,
+    private readonly clipboard: Clipboard,
+    private readonly toast: ToastService
+  ) {
+    this.store
+      .select((state) &#x3D;&gt; state.auth.user)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((user) &#x3D;&gt; user !&#x3D; null)
+      )
+      .subscribe((user) &#x3D;&gt; {
+        this.canCreateForm &#x3D; user.isAdmin || user.isSuperAdmin;
+      });
+    this.store
+      .select((state) &#x3D;&gt; state.announcement.announcement)
+      .pipe(
+        takeUntil(this.onDestroy$),
+        filter((announcement) &#x3D;&gt; announcement !&#x3D; null)
+      )
+      .subscribe((announcement) &#x3D;&gt; {
+        this.announcement &#x3D; Announcement.fromJson(cloneDeep(announcement));
+        this.announcementEditForm.reset({
+          name: announcement.name,
+          description: announcement.description,
+          landing: announcement.landing,
+          exitText: announcement.exitText,
+          redirectLink: announcement.redirectLink,
+          form: announcement.form._id,
+          startAt: announcement.startAt,
+          endAt: announcement.endAt,
+        });
+        this.saving &#x3D; false;
+        this.editEnabled &#x3D; false;
+      });
+    this.landingUrl &#x3D; &#x60;/landing/${this.announcement._id}&#x60;;
+  }
+
+  ngOnInit() {
+    this.formService
+      .getFormByCollection(FormCollections.announcements)
+      .then((forms) &#x3D;&gt; {
+        this.forms &#x3D; forms.map((form) &#x3D;&gt; ({ id: form._id, label: form.name }));
+      });
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  previewForm() {
+    const { form: id } &#x3D; this.announcementEditForm.getRawValue();
+    const formName &#x3D; this.forms.find((form) &#x3D;&gt; form.id &#x3D;&#x3D;&#x3D; id).label;
+    this.formService.openFormPreview(id, formName);
+  }
+
+  async createForm() {
+    await this.formService.openFormApp();
+  }
+
+  publish() {
+    this.store.dispatch(new PublishAnnouncementAction());
+  }
+
+  unpublish() {
+    this.store.dispatch(new UnpublishAnnouncementAction());
+  }
+
+  cancelEdit() {
+    this.editEnabled &#x3D; false;
+  }
+
+  saveFormChanges() {
+    this.saving &#x3D; true;
+    let formValues &#x3D; this.announcementEditForm.getRawValue();
+    let updates: Partial&lt;typeof formValues&gt; &#x3D; {};
+    const updatedItems: UpdateAnnouncementInput &#x3D; Object.entries(
+      formValues
+    ).reduce((accu, [key, value]) &#x3D;&gt; {
+      if (value !&#x3D;&#x3D; this.announcement[key]) {
+        accu[key] &#x3D; value;
+      }
+      return accu;
+    }, updates);
+    this.store.dispatch(new UpdateAnnouncementAction(updatedItems));
+  }
+
+  async uploadImage(fileToUpload: File, announcement: Announcement) {
+    this.service
+      .updateAnnouncementThumbnail(announcement, fileToUpload)
+      .pipe(
+        tap((event) &#x3D;&gt; {
+          if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.DownloadProgress) {
+            // Display upload progress if required
+          }
+        })
+      )
+      .subscribe((event) &#x3D;&gt; {
+        if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response) {
+          this.service.updateAnnouncement(announcement._id, {
+            thumbnail: event.url,
+          });
+          this.store.dispatch(new UpdateAnnouncementImageAction(event.url));
+        }
+      });
+  }
+
+  removeImage(announcement: Announcement) {
+    this.service
+      .removeAnnouncementThumbnail(announcement)
+      .subscribe((event) &#x3D;&gt; {
+        if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response) {
+          this.store.dispatch(new UpdateAnnouncementImageAction(&#x27;&#x27;));
+        }
+      });
+  }
+
+  async copyText(value: string) {
+    //console.log(location.origin);
+    this.clipboard.copy(&#x60;${location.origin}${value}&#x60;);
+    // await this.clipboard.writeText(value);
+    this.toast.success({
+      detail: &#x27;Texto copiado.&#x27;,
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;announcement else loadingTemplate&quot;&gt;
+  &lt;form [formGroup]&#x3D;&quot;announcementEditForm&quot;&gt;
+    &lt;div class&#x3D;&quot;p-4&quot;&gt;
+      &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-between px-3&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-row align-items-center gap-3&quot;&gt;
+          &lt;label class&#x3D;&quot;font-semibold text-color-other text-2xl&quot;&gt;Información&lt;/label&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;!editEnabled; else saveBtn&quot;&gt;
+            &lt;div class&#x3D;&quot;button-grey cursor-pointer border-round p-1&quot; (click)&#x3D;&quot;editEnabled &#x3D; true&quot; pTooltip&#x3D;&quot;Editar&quot;&gt;
+              &lt;i-tabler name&#x3D;&quot;edit&quot;&gt;&lt;/i-tabler&gt;
+            &lt;/div&gt;
+          &lt;/ng-container&gt;
+          &lt;ng-template #saveBtn&gt;
+            &lt;p-button icon&#x3D;&quot;pi pi-save&quot; label&#x3D;&quot;Aplicar cambios&quot; [loading]&#x3D;&quot;saving&quot; [disabled]&#x3D;&quot;announcementEditForm.pristine || announcementEditForm.invalid&quot; (onClick)&#x3D;&quot;saveFormChanges()&quot;&gt;&lt;/p-button&gt;
+            &lt;p-button icon&#x3D;&quot;pi pi-times&quot; styleClass&#x3D;&quot;p-button-outlined&quot; label&#x3D;&quot;Cancelar&quot; (onClick)&#x3D;&quot;cancelEdit()&quot;&gt;&lt;/p-button&gt;
+          &lt;/ng-template&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;flex flex-row flex-wrap gap-2&quot;&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;!announcement.published else publishedTemplate&quot;&gt;
+            &lt;p-button icon&#x3D;&quot;pi pi-send&quot; styleClass&#x3D;&quot;button-yellow-second&quot; label&#x3D;&quot;Publicar&quot; pTooltip&#x3D;&quot;Publicar&quot; tooltipPosition&#x3D;&quot;top&quot; (onClick)&#x3D;&quot;publish()&quot;&gt;&lt;/p-button&gt;
+          &lt;/ng-container&gt;
+          &lt;ng-template #publishedTemplate&gt;
+            &lt;p-button icon&#x3D;&quot;pi pi-check&quot; styleClass&#x3D;&quot;button-blue p-button-oulined&quot; label&#x3D;&quot;Publicada&quot; pTooltip&#x3D;&quot;Ocultar&quot; tooltipPosition&#x3D;&quot;top&quot; (onClick)&#x3D;&quot;unpublish()&quot;&gt;&lt;/p-button&gt;
+          &lt;/ng-template&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;flex flex-column w-full align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-row w-full align-items-center gap-4 section-surface p-3&quot;&gt;
+          &lt;app-avatar-uploader styleClass&#x3D;&quot;w-16rem h-12rem&quot; shape&#x3D;&quot;square&quot; [imageUrl]&#x3D;&quot;announcement.thumbnail | getImage | async&quot; (onUpload)&#x3D;&quot;uploadImage($event, announcement)&quot; (onRemove)&#x3D;&quot;removeImage(announcement)&quot;&gt;&lt;/app-avatar-uploader&gt;
+          &lt;div class&#x3D;&quot;flex flex-row flex-grow-1&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-2 justify-content-between w-full&quot;&gt;
+              &lt;ng-container *ngIf&#x3D;&quot;!editEnabled else editTemplate&quot;&gt;
+                &lt;div class&#x3D;&quot;flex flex-column gap-1&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-xl font-semibold&quot;&gt;{{announcement.name}}&lt;/span&gt;
+                  &lt;div class&#x3D;&quot;flex flex-row gap-2&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-1 border-round-2xl text-white text-sm bg-primary py-3 px-2&quot; style&#x3D;&quot;width: 8rem&quot;&gt;
+                      &lt;i-tabler name&#x3D;&quot;calendar-event&quot; style&#x3D;&quot;width: 2.5rem; height: 2.5rem&quot;&gt;&lt;/i-tabler&gt;
+                      &lt;span class&#x3D;&quot;mt-2&quot;&gt;Inicia&lt;/span&gt;
+                      &lt;span&gt;{{announcement.startAt | date}}&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-1 border-round-2xl text-white text-sm bg-second-color py-3 px-2&quot; style&#x3D;&quot;width: 8rem&quot;&gt;
+                      &lt;i-tabler name&#x3D;&quot;calendar-event&quot; style&#x3D;&quot;width: 2.5rem; height: 2.5rem&quot;&gt;&lt;/i-tabler&gt;
+                      &lt;span class&#x3D;&quot;mt-2&quot;&gt;Termina&lt;/span&gt;
+                      &lt;span&gt;{{announcement.endAt | date}}&lt;/span&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+              &lt;/ng-container&gt;
+              &lt;ng-template #editTemplate&gt;
+                &lt;div class&#x3D;&quot;grid formgrid&quot;&gt;
+                  &lt;div class&#x3D;&quot;field col-12&quot;&gt;
+                    &lt;label class&#x3D;&quot;font-semibold&quot; for&#x3D;&quot;nameAnnouncement&quot;&gt;Nombre&lt;/label&gt;
+                    &lt;input pInputText id&#x3D;&quot;nameAnnouncement&quot; formControlName&#x3D;&quot;name&quot; class&#x3D;&quot;inputfield field-full&quot; /&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;field col-12 md:col-6&quot;&gt;
+                    &lt;label class&#x3D;&quot;font-semibold&quot; for&#x3D;&quot;calendar-first&quot;&gt;Comienza&lt;/label&gt;
+                    &lt;p-calendar inputId&#x3D;&quot;calendar-first&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; formControlName&#x3D;&quot;startAt&quot;&gt;&lt;/p-calendar&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;field col-12 md:col-6&quot;&gt;
+                    &lt;label class&#x3D;&quot;font-semibold&quot; for&#x3D;&quot;calendar-last&quot;&gt;Termina&lt;/label&gt;
+                    &lt;p-calendar inputId&#x3D;&quot;calendar-last&quot; appendTo&#x3D;&quot;body&quot; [style]&#x3D;&quot;{ width: &#x27;100%&#x27; }&quot; formControlName&#x3D;&quot;endAt&quot;&gt;&lt;/p-calendar&gt;
+                  &lt;/div&gt;
+                  &lt;div *ngIf&#x3D;&quot;announcementEditForm.errors &amp;&amp; announcementEditForm.errors[&#x27;dateRange&#x27;]&quot; class&#x3D;&quot;field col-12 flex&quot;&gt;
+                    &lt;label class&#x3D;&quot;m-auto p-error&quot;&gt;La fecha de fin debe ser superior a la de inicio&lt;/label&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+              &lt;/ng-template&gt;
+
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;w-full mt-3 flex flex-row flex-wrap gap-2 align-items-center justify-content-between&quot;&gt;
+          &lt;label class&#x3D;&quot;text-xl font-semibold text-color-other text-2xl&quot;&gt;Formulario&lt;/label&gt;
+          &lt;div class&#x3D;&quot;flex gap-2&quot;&gt;
+            &lt;p-button pTooltip&#x3D;&quot;Ver Formulario&quot; tooltipPosition&#x3D;&quot;left&quot; icon&#x3D;&quot;pi pi-eye&quot; styleClass&#x3D;&quot;button-yellow-second&quot; (onClick)&#x3D;&quot;previewForm()&quot;&gt;&lt;/p-button&gt;
+            &lt;p-button *ngIf&#x3D;&quot;canCreateForm&quot; styleClass&#x3D;&quot;button-grey&quot; pTooltip&#x3D;&quot;Nuevo Formulario&quot; tooltipPosition&#x3D;&quot;left&quot; icon&#x3D;&quot;pi pi-plus&quot; (onClick)&#x3D;&quot;createForm()&quot;&gt;&lt;/p-button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;flex flex-column w-full gap-2 section-surface p-3&quot;&gt;
+          &lt;p-dropdown *ngIf&#x3D;&quot;editEnabled&quot; styleClass&#x3D;&quot;w-full&quot; id&#x3D;&quot;form&quot; [options]&#x3D;&quot;forms&quot; formControlName&#x3D;&quot;form&quot; optionLabel&#x3D;&quot;label&quot; optionValue&#x3D;&quot;id&quot;&gt;&lt;/p-dropdown&gt;
+          &lt;label *ngIf&#x3D;&quot;!editEnabled&quot;&gt;{{ announcement.form.name }}&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;label class&#x3D;&quot;w-full mt-3 text-xl font-semibold text-color-other text-2xl&quot;&gt;Enlace para redirigir después de entregar formulario.&lt;/label&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-column w-full gap-2 section-surface p-3&quot;&gt;
+          &lt;input *ngIf&#x3D;&quot;editEnabled&quot; pInputText formControlName&#x3D;&quot;redirectLink&quot; class&#x3D;&quot;inputfield field-full&quot; /&gt;
+          &lt;p *ngIf&#x3D;&quot;!editEnabled&quot;&gt;{{announcement.redirectLink ? announcement.redirectLink : &quot;Sin asignar&quot;}}&lt;/p&gt;
+        &lt;/div&gt;
+
+
+        &lt;label class&#x3D;&quot;w-full mt-3 text-xl font-semibold text-color-other text-2xl&quot;&gt;Texto para después de entregar formulario.&lt;/label&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-column w-full gap-2 section-surface p-3&quot;&gt;
+          &lt;textarea *ngIf&#x3D;&quot;editEnabled&quot; pInputTextarea formControlName&#x3D;&quot;exitText&quot; [maxlength]&#x3D;&quot;500&quot; [rows]&#x3D;&quot;5&quot; style&#x3D;&quot;width: 100% !important;&quot;&gt;&lt;/textarea&gt;
+          &lt;p *ngIf&#x3D;&quot;!editEnabled&quot;&gt;{{announcement.exitText ? announcement.exitText : &quot;Sin asignar&quot;}}&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;label class&#x3D;&quot;w-full mt-3 text-xl font-semibold text-color-other text-2xl&quot;&gt;Descripción&lt;/label&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-column w-full gap-2 section-surface p-3&quot;&gt;
+          &lt;textarea *ngIf&#x3D;&quot;editEnabled&quot; pInputTextarea formControlName&#x3D;&quot;description&quot; [maxlength]&#x3D;&quot;120&quot; [rows]&#x3D;&quot;5&quot; style&#x3D;&quot;width: 100% !important;&quot;&gt;&lt;/textarea&gt;
+          &lt;p *ngIf&#x3D;&quot;!editEnabled&quot;&gt;{{announcement.description}}&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;w-full mt-3 flex flex-row justify-content-between&quot;&gt;
+          &lt;label class&#x3D;&quot; text-xl font-semibold text-color-other text-2xl&quot;&gt;Landing&lt;/label&gt;
+          &lt;div class&#x3D;&quot;flex gap-2&quot;&gt;
+            &lt;p-button styleClass&#x3D;&quot;button-yellow-second&quot; icon&#x3D;&quot;pi pi-external-link&quot; pTooltip&#x3D;&quot;Ir a landing&quot; tooltipPosition&#x3D;&quot;top&quot; [routerLink]&#x3D;&quot;landingUrl&quot;&gt;&lt;/p-button&gt;
+            &lt;p-button styleClass&#x3D;&quot;button-grey&quot; icon&#x3D;&quot;pi pi-copy&quot; pTooltip&#x3D;&quot;Copiar enlace&quot; tooltipPosition&#x3D;&quot;top&quot; (onClick)&#x3D;&quot;copyText(landingUrl)&quot;&gt;&lt;/p-button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-column w-full gap-2 section-surface p-3&quot;&gt;
+          &lt;tinymce *ngIf&#x3D;&quot;editEnabled&quot; formControlName&#x3D;&quot;landing&quot; [config]&#x3D;&quot;configTiny&quot; class&#x3D;&quot;w-full&quot;&gt;&lt;/tinymce&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;!editEnabled&quot;&gt;
+            &lt;p-button *ngIf&#x3D;&quot;!announcement.landing&quot; class&#x3D;&quot;m-auto&quot; label&#x3D;&quot;Agregar landing&quot; (onClick)&#x3D;&quot;editEnabled &#x3D; true&quot;&gt;&lt;/p-button&gt;
+            &lt;div class&#x3D;&quot;w-full&quot; [innerHtml]&#x3D;&quot;(announcement.landing | safe:&#x27;html&#x27;)&quot;&gt;&lt;/div&gt;
+          &lt;/ng-container&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/ng-container&gt;
+
+
+&lt;ng-template #loadingTemplate&gt;
+  &lt;app-loading&gt;&lt;/app-loading&gt;
+&lt;/ng-template&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./announcement-edit.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="announcement else loadingTemplate">  <form [formGroup]="announcementEditForm">    <div class="p-4">      <div class="flex flex-row align-items-center justify-content-between px-3">        <div class="flex flex-row align-items-center gap-3">          <label class="font-semibold text-color-other text-2xl">Información</label>          <ng-container *ngIf="!editEnabled; else saveBtn">            <div class="button-grey cursor-pointer border-round p-1" (click)="editEnabled = true" pTooltip="Editar">              <i-tabler name="edit"></i-tabler>            </div>          </ng-container>          <ng-template #saveBtn>            <p-button icon="pi pi-save" label="Aplicar cambios" [loading]="saving" [disabled]="announcementEditForm.pristine || announcementEditForm.invalid" (onClick)="saveFormChanges()"></p-button>            <p-button icon="pi pi-times" styleClass="p-button-outlined" label="Cancelar" (onClick)="cancelEdit()"></p-button>          </ng-template>        </div>        <div class="flex flex-row flex-wrap gap-2">          <ng-container *ngIf="!announcement.published else publishedTemplate">            <p-button icon="pi pi-send" styleClass="button-yellow-second" label="Publicar" pTooltip="Publicar" tooltipPosition="top" (onClick)="publish()"></p-button>          </ng-container>          <ng-template #publishedTemplate>            <p-button icon="pi pi-check" styleClass="button-blue p-button-oulined" label="Publicada" pTooltip="Ocultar" tooltipPosition="top" (onClick)="unpublish()"></p-button>          </ng-template>        </div>      </div>      <div class="flex flex-column w-full align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">        <div class="flex flex-row w-full align-items-center gap-4 section-surface p-3">          <app-avatar-uploader styleClass="w-16rem h-12rem" shape="square" [imageUrl]="announcement.thumbnail | getImage | async" (onUpload)="uploadImage($event, announcement)" (onRemove)="removeImage(announcement)"></app-avatar-uploader>          <div class="flex flex-row flex-grow-1">            <div class="flex flex-column gap-2 justify-content-between w-full">              <ng-container *ngIf="!editEnabled else editTemplate">                <div class="flex flex-column gap-1">                  <span class="text-xl font-semibold">{{announcement.name}}</span>                  <div class="flex flex-row gap-2">                    <div class="flex flex-column gap-1 border-round-2xl text-white text-sm bg-primary py-3 px-2" style="width: 8rem">                      <i-tabler name="calendar-event" style="width: 2.5rem; height: 2.5rem"></i-tabler>                      <span class="mt-2">Inicia</span>                      <span>{{announcement.startAt | date}}</span>                    </div>                    <div class="flex flex-column gap-1 border-round-2xl text-white text-sm bg-second-color py-3 px-2" style="width: 8rem">                      <i-tabler name="calendar-event" style="width: 2.5rem; height: 2.5rem"></i-tabler>                      <span class="mt-2">Termina</span>                      <span>{{announcement.endAt | date}}</span>                    </div>                  </div>                </div>              </ng-container>              <ng-template #editTemplate>                <div class="grid formgrid">                  <div class="field col-12">                    <label class="font-semibold" for="nameAnnouncement">Nombre</label>                    <input pInputText id="nameAnnouncement" formControlName="name" class="inputfield field-full" />                  </div>                  <div class="field col-12 md:col-6">                    <label class="font-semibold" for="calendar-first">Comienza</label>                    <p-calendar inputId="calendar-first" appendTo="body" [style]="{ width: \'100%\' }" formControlName="startAt"></p-calendar>                  </div>                  <div class="field col-12 md:col-6">                    <label class="font-semibold" for="calendar-last">Termina</label>                    <p-calendar inputId="calendar-last" appendTo="body" [style]="{ width: \'100%\' }" formControlName="endAt"></p-calendar>                  </div>                  <div *ngIf="announcementEditForm.errors && announcementEditForm.errors[\'dateRange\']" class="field col-12 flex">                    <label class="m-auto p-error">La fecha de fin debe ser superior a la de inicio</label>                  </div>                </div>              </ng-template>            </div>          </div>        </div>        <div class="w-full mt-3 flex flex-row flex-wrap gap-2 align-items-center justify-content-between">          <label class="text-xl font-semibold text-color-other text-2xl">Formulario</label>          <div class="flex gap-2">            <p-button pTooltip="Ver Formulario" tooltipPosition="left" icon="pi pi-eye" styleClass="button-yellow-second" (onClick)="previewForm()"></p-button>            <p-button *ngIf="canCreateForm" styleClass="button-grey" pTooltip="Nuevo Formulario" tooltipPosition="left" icon="pi pi-plus" (onClick)="createForm()"></p-button>          </div>        </div>        <div class="flex flex-column w-full gap-2 section-surface p-3">          <p-dropdown *ngIf="editEnabled" styleClass="w-full" id="form" [options]="forms" formControlName="form" optionLabel="label" optionValue="id"></p-dropdown>          <label *ngIf="!editEnabled">{{ announcement.form.name }}</label>        </div>        <label class="w-full mt-3 text-xl font-semibold text-color-other text-2xl">Enlace para redirigir después de entregar formulario.</label>        <div class="w-full flex flex-column w-full gap-2 section-surface p-3">          <input *ngIf="editEnabled" pInputText formControlName="redirectLink" class="inputfield field-full" />          <p *ngIf="!editEnabled">{{announcement.redirectLink ? announcement.redirectLink : "Sin asignar"}}</p>        </div>        <label class="w-full mt-3 text-xl font-semibold text-color-other text-2xl">Texto para después de entregar formulario.</label>        <div class="w-full flex flex-column w-full gap-2 section-surface p-3">          <textarea *ngIf="editEnabled" pInputTextarea formControlName="exitText" [maxlength]="500" [rows]="5" style="width: 100% !important;"></textarea>          <p *ngIf="!editEnabled">{{announcement.exitText ? announcement.exitText : "Sin asignar"}}</p>        </div>        <label class="w-full mt-3 text-xl font-semibold text-color-other text-2xl">Descripción</label>        <div class="w-full flex flex-column w-full gap-2 section-surface p-3">          <textarea *ngIf="editEnabled" pInputTextarea formControlName="description" [maxlength]="120" [rows]="5" style="width: 100% !important;"></textarea>          <p *ngIf="!editEnabled">{{announcement.description}}</p>        </div>        <div class="w-full mt-3 flex flex-row justify-content-between">          <label class=" text-xl font-semibold text-color-other text-2xl">Landing</label>          <div class="flex gap-2">            <p-button styleClass="button-yellow-second" icon="pi pi-external-link" pTooltip="Ir a landing" tooltipPosition="top" [routerLink]="landingUrl"></p-button>            <p-button styleClass="button-grey" icon="pi pi-copy" pTooltip="Copiar enlace" tooltipPosition="top" (onClick)="copyText(landingUrl)"></p-button>          </div>        </div>        <div class="w-full flex flex-column w-full gap-2 section-surface p-3">          <tinymce *ngIf="editEnabled" formControlName="landing" [config]="configTiny" class="w-full"></tinymce>          <ng-container *ngIf="!editEnabled">            <p-button *ngIf="!announcement.landing" class="m-auto" label="Agregar landing" (onClick)="editEnabled = true"></p-button>            <div class="w-full" [innerHtml]="(announcement.landing | safe:\'html\')"></div>          </ng-container>        </div>      </div>    </div>  </form></ng-container><ng-template #loadingTemplate>  <app-loading></app-loading></ng-template></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AnnouncementEditComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AnnouncementEditComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

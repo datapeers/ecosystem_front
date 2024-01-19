@@ -1,0 +1,2424 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  StartupProfileComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/startup-profile/startup-profile.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-startup-profile</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./startup-profile.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./startup-profile.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#canInvite" >canInvite</a>
+                            </li>
+                            <li>
+                                <a href="#currentBatch" >currentBatch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#dt" >dt</a>
+                            </li>
+                            <li>
+                                <a href="#editEntrepreneur" >editEntrepreneur</a>
+                            </li>
+                            <li>
+                                <a href="#formNegociosFields" >formNegociosFields</a>
+                            </li>
+                            <li>
+                                <a href="#formStartup" >formStartup</a>
+                            </li>
+                            <li>
+                                <a href="#invite" >invite</a>
+                            </li>
+                            <li>
+                                <a href="#leaderStartup" >leaderStartup</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#noValuePlaceholder" >noValuePlaceholder</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#profileDoc" >profileDoc</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                            <li>
+                                <a href="#showDialogInvite" >showDialogInvite</a>
+                            </li>
+                            <li>
+                                <a href="#startup" >startup</a>
+                            </li>
+                            <li>
+                                <a href="#textSummary" >textSummary</a>
+                            </li>
+                            <li>
+                                <a href="#thumbnail" >thumbnail</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeDataEntrepreneur" >closeDataEntrepreneur</a>
+                            </li>
+                            <li>
+                                <a href="#editDataEntrepreneur" >editDataEntrepreneur</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#editStartup" >editStartup</a>
+                            </li>
+                            <li>
+                                <a href="#inviteDialog" >inviteDialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#inviteToStartup" >inviteToStartup</a>
+                            </li>
+                            <li>
+                                <a href="#launchTour" >launchTour</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#paginatorRightMsg" >paginatorRightMsg</a>
+                            </li>
+                            <li>
+                                <a href="#returnUrlThumbnail" >returnUrlThumbnail</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveDataEntrepreneur" >saveDataEntrepreneur</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadImage" >uploadImage</a>
+                            </li>
+                            <li>
+                                <a href="#valueFieldMultiple" >valueFieldMultiple</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#rolStartups" >rolStartups</a>
+                                </li>
+                                <li>
+                                    <a href="#rolStartupsNames" >rolStartupsNames</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, startupService: <a href="../injectables/StartupsService.html" target="_self">StartupsService</a>, formService: <a href="../injectables/FormService.html" target="_self">FormService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>, shepherdService: ShepherdService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:54</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>startupService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StartupsService.html" target="_self" >StartupsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormService.html" target="_self" >FormService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>shepherdService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ShepherdService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDataEntrepreneur"></a>
+                    <span class="name">
+                        <span ><b>closeDataEntrepreneur</b></span>
+                        <a href="#closeDataEntrepreneur"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDataEntrepreneur()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editDataEntrepreneur"></a>
+                    <span class="name">
+                        <span ><b>editDataEntrepreneur</b></span>
+                        <a href="#editDataEntrepreneur"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editDataEntrepreneur(data)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editStartup"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>editStartup</b></span>
+                        <a href="#editStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>editStartup()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="136"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:136</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inviteDialog"></a>
+                    <span class="name">
+                        <span ><b>inviteDialog</b></span>
+                        <a href="#inviteDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>inviteDialog()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inviteToStartup"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>inviteToStartup</b></span>
+                        <a href="#inviteToStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>inviteToStartup()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="199"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:199</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="launchTour"></a>
+                    <span class="name">
+                        <span ><b>launchTour</b></span>
+                        <a href="#launchTour"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>launchTour()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paginatorRightMsg"></a>
+                    <span class="name">
+                        <span ><b>paginatorRightMsg</b></span>
+                        <a href="#paginatorRightMsg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>paginatorRightMsg()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="returnUrlThumbnail"></a>
+                    <span class="name">
+                        <span ><b>returnUrlThumbnail</b></span>
+                        <a href="#returnUrlThumbnail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>returnUrlThumbnail()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="259"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:259</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveDataEntrepreneur"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>saveDataEntrepreneur</b></span>
+                        <a href="#saveDataEntrepreneur"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveDataEntrepreneur()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadImage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadImage</b></span>
+                        <a href="#uploadImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadImage(fileToUpload: File)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:222</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileToUpload</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="valueFieldMultiple"></a>
+                    <span class="name">
+                        <span ><b>valueFieldMultiple</b></span>
+                        <a href="#valueFieldMultiple"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>valueFieldMultiple(values: string[], text: Record<string | any>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>values</td>
+                                            <td>
+                                                        <code>string[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                        <code>Record&lt;string | any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canInvite"></a>
+                    <span class="name">
+                        <span ><b>canInvite</b></span>
+                        <a href="#canInvite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentBatch"></a>
+                    <span class="name">
+                        <span ><b>currentBatch</b></span>
+                        <a href="#currentBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase | any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dt"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>dt</b></span>
+                        <a href="#dt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Table</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;dt&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editEntrepreneur"></a>
+                    <span class="name">
+                        <span ><b>editEntrepreneur</b></span>
+                        <a href="#editEntrepreneur"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formNegociosFields"></a>
+                    <span class="name">
+                        <span ><b>formNegociosFields</b></span>
+                        <a href="#formNegociosFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formStartup"></a>
+                    <span class="name">
+                        <span ><b>formStartup</b></span>
+                        <a href="#formStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="invite"></a>
+                    <span class="name">
+                        <span ><b>invite</b></span>
+                        <a href="#invite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="leaderStartup"></a>
+                    <span class="name">
+                        <span ><b>leaderStartup</b></span>
+                        <a href="#leaderStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="noValuePlaceholder"></a>
+                    <span class="name">
+                        <span ><b>noValuePlaceholder</b></span>
+                        <a href="#noValuePlaceholder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;- - - -&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileDoc"></a>
+                    <span class="name">
+                        <span ><b>profileDoc</b></span>
+                        <a href="#profileDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showDialogInvite"></a>
+                    <span class="name">
+                        <span ><b>showDialogInvite</b></span>
+                        <a href="#showDialogInvite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startup"></a>
+                    <span class="name">
+                        <span ><b>startup</b></span>
+                        <a href="#startup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Startup.html" target="_self" >Startup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="textSummary"></a>
+                    <span class="name">
+                        <span ><b>textSummary</b></span>
+                        <a href="#textSummary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;Visualizando {first} a {last} de {totalRecords} entradas&#x60;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="thumbnail"></a>
+                    <span class="name">
+                        <span ><b>thumbnail</b></span>
+                        <a href="#thumbnail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rolStartups"></a>
+                        <span class="name"><b>rolStartups</b><a href="#rolStartups"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>rolStartups()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:48</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rolStartupsNames"></a>
+                        <span class="name"><b>rolStartupsNames</b><a href="#rolStartupsNames"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>rolStartupsNames()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/startup-profile/startup-profile.component.ts:52</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy, ViewChild } from &#x27;@angular/core&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { StartupsService } from &#x27;@shared/services/startups/startups.service&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { Subject, first, firstValueFrom, take, takeUntil, tap } from &#x27;rxjs&#x27;;
+import { FormService } from &#x27;../../shared/form/form.service&#x27;;
+import { FormCollections } from &#x27;@shared/form/enums/form-collections&#x27;;
+import { Table } from &#x27;primeng/table&#x27;;
+import { RolStartup, rolStartupNames } from &#x27;./models/rol-startup.enum&#x27;;
+import { textField } from &#x27;@shared/utils/order-field-multiple&#x27;;
+import { cloneDeep } from &#x27;lodash&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { UserService } from &#x27;@auth/user.service&#x27;;
+import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { ShepherdService } from &#x27;angular-shepherd&#x27;;
+import { startupProfileOnboarding } from &#x27;@shared/onboarding/onboarding.config&#x27;;
+
+@Component({
+  selector: &#x27;app-startup-profile&#x27;,
+  templateUrl: &#x27;./startup-profile.component.html&#x27;,
+  styleUrls: [&#x27;./startup-profile.component.scss&#x27;],
+})
+export class StartupProfileComponent implements OnInit, OnDestroy {
+  user: User;
+  loaded &#x3D; false;
+  profileDoc;
+  startup: Startup;
+  formStartup;
+  formNegociosFields &#x3D; [];
+  noValuePlaceholder: string &#x3D; &#x27;- - - -&#x27;;
+  textSummary &#x3D; &#x60;Visualizando {first} a {last} de {totalRecords} entradas&#x60;;
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+  leaderStartup;
+  editEntrepreneur;
+
+  canInvite;
+  showDialogInvite;
+  invite &#x3D; &#x27;&#x27;;
+  currentBatch: Phase | any;
+  saving &#x3D; false;
+  thumbnail;
+  @ViewChild(&#x27;dt&#x27;, { static: true }) dt: Table;
+
+  public get rolStartups(): typeof RolStartup {
+    return RolStartup;
+  }
+
+  public get rolStartupsNames(): typeof rolStartupNames {
+    return rolStartupNames;
+  }
+
+  constructor(
+    private store: Store&lt;AppState&gt;,
+    private toast: ToastService,
+    private startupService: StartupsService,
+    private formService: FormService,
+    private userService: UserService,
+    private storageService: StorageService,
+    private readonly shepherdService: ShepherdService
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+  }
+
+  ngOnInit(): void {
+    this.loadComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  launchTour() {
+    this.shepherdService.addSteps(startupProfileOnboarding);
+    this.shepherdService.start();
+  }
+
+  async loadComponent() {
+    const hasChanged &#x3D; sessionStorage.getItem(&#x27;changedStartup&#x27;);
+    if (hasChanged) sessionStorage.removeItem(&#x27;changedStartup&#x27;);
+    this.loaded &#x3D; false;
+    this.profileDoc &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.profileDoc)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    const startup &#x3D; this.profileDoc.startups[0];
+    this.startup &#x3D; await this.startupService.getDocument(startup._id);
+    this.leaderStartup &#x3D; this.startup.entrepreneurs.find(
+      (i) &#x3D;&gt; i.rol &#x3D;&#x3D;&#x3D; &#x27;leader&#x27;
+    );
+    const formsStartups &#x3D; await this.formService.getFormByCollection(
+      FormCollections.startups
+    );
+    if (!formsStartups.length) {
+      return;
+    }
+    this.formStartup &#x3D; formsStartups.find(() &#x3D;&gt; true);
+    const formNegociosComponents &#x3D; this.formService.getFormComponents(
+      this.formStartup
+    );
+    const ignore &#x3D; [&#x27;nombre&#x27;, &#x27;descripcion&#x27;];
+    this.formNegociosFields &#x3D; this.formService
+      .getInputComponents(formNegociosComponents)
+      .filter((i) &#x3D;&gt; !ignore.includes(i.key));
+    // console.log(this.formNegociosFields);
+    this.currentBatch &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.home.currentBatch)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    if (
+      this.currentBatch &amp;&amp;
+      this.currentBatch[&#x27;childrenOf&#x27;] &#x3D;&#x3D;&#x3D; &#x27;65242ea3baa24cae19bd5baf&#x27;
+    ) {
+      this.canInvite &#x3D; true;
+    }
+    this.loaded &#x3D; true;
+  }
+
+  paginatorRightMsg() {
+    if (!this.dt) return &#x27;&#x27;;
+    return &#x60;Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+      Math.floor(this.dt._totalRecords / this.dt._rows) + 1
+    }&#x60;;
+  }
+
+  async editStartup() {
+    this.toast.loading();
+    const subscription &#x3D; await this.formService.createFormSubscription({
+      form: this.formStartup._id,
+      reason: &#x27;Editar startup&#x27;,
+      data: {},
+      doc: this.startup._id,
+    });
+    this.toast.clear();
+    const ref &#x3D; this.formService.openFormFromSubscription(
+      subscription,
+      &#x27;Editar startup&#x27;
+    );
+    ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe(async (doc) &#x3D;&gt; {
+      if (doc) {
+        this.startup &#x3D; await this.startupService.getDocument(this.startup._id);
+      }
+    });
+  }
+
+  valueFieldMultiple(values: string[], text: Record&lt;string, any&gt;) {
+    return textField(values, text);
+  }
+
+  editDataEntrepreneur(data) {
+    this.editEntrepreneur &#x3D; cloneDeep(data);
+    // updateDataEntrepreneur;
+  }
+
+  async saveDataEntrepreneur() {
+    this.toast.info({
+      summary: &#x27;Guardando cambios&#x27;,
+      detail: &#x27;por favor espere&#x27;,
+      life: 120000000,
+    });
+    try {
+      await this.startupService.updateDataEntrepreneur(
+        this.editEntrepreneur[&#x27;_id&#x27;],
+        this.editEntrepreneur[&#x27;description&#x27;],
+        this.editEntrepreneur[&#x27;rol&#x27;],
+        this.startup._id
+      );
+      this.startup &#x3D; await this.startupService.getDocument(this.startup._id);
+      this.toast.clear();
+      this.closeDataEntrepreneur();
+    } catch (error) {
+      this.toast.clear();
+      this.toast.error({
+        summary: &#x27;Error al intentar cambiar datos&#x27;,
+        detail: error,
+        life: 10000,
+      });
+    }
+  }
+
+  closeDataEntrepreneur() {
+    this.editEntrepreneur &#x3D; undefined;
+  }
+
+  inviteDialog() {
+    this.showDialogInvite &#x3D; true;
+  }
+
+  async inviteToStartup() {
+    this.saving &#x3D; true;
+    this.toast.info({ summary: &#x27;Invitando...&#x27;, detail: &#x27;&#x27;, life: 12000000 });
+    try {
+      await this.userService.inviteUserStartup(
+        &#x27;aaaaaaaaaaa&#x27;,
+        this.user.fullName,
+        &#x60;Forma parte de ${this.startup.item[&#x27;nombre&#x27;]} en EcosystemBT&#x60;,
+        this.invite,
+        this.startup._id,
+        this.startup.item[&#x27;nombre&#x27;]
+      );
+      this.toast.clear();
+      this.showDialogInvite &#x3D; false;
+      this.invite &#x3D; &#x27;&#x27;;
+      this.saving &#x3D; false;
+      this.toast.success({ summary: &#x27;Invitación enviada&#x27;, detail: &#x27;&#x27; });
+    } catch (error) {
+      this.saving &#x3D; false;
+      this.toast.error({ summary: &#x27;Error al invitar&#x27;, detail: error });
+    }
+  }
+
+  async uploadImage(fileToUpload: File) {
+    this.toast.info({
+      summary: &#x27;Subiendo imagen...&#x27;,
+      detail: &#x27;Por favor espere&#x27;,
+      life: 10000,
+    });
+    this.startupService
+      .updateStartupThumbnail(this.startup, fileToUpload)
+      .pipe(
+        tap((event) &#x3D;&gt; {
+          if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.DownloadProgress) {
+            // Display upload progress if required
+          }
+        })
+      )
+      .subscribe((event) &#x3D;&gt; {
+        if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response) {
+          const realUrl &#x3D; this.storageService.getPureUrl(event.url);
+          this.startupService
+            .updateThumbnailDB(this.startup._id, realUrl)
+            .then(async (phase) &#x3D;&gt; {
+              this.toast.clear();
+              this.startup &#x3D; await this.startupService.getDocument(
+                this.startup._id
+              );
+            })
+            .catch((err) &#x3D;&gt; {
+              this.toast.clear();
+              this.toast.error({
+                detail: err,
+                summary: &#x27;Error al cambiar imagen de startup&#x27;,
+              });
+            });
+        }
+      });
+  }
+
+  returnUrlThumbnail(): string {
+    return this.startup.thumbnail;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;w-full h-max-router overflow-auto px-2 md:px-4&quot;&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;!loaded; else elseTemplate&quot;&gt;
+        &lt;app-loading&gt; &lt;/app-loading&gt;
+    &lt;/ng-container&gt;
+    &lt;ng-template #elseTemplate&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;!startup; else componentTemplate&quot;&gt;
+            &lt;p class&#x3D;&quot;w-full&quot;&gt;
+                Aun no perteneces a ninguna startup
+            &lt;/p&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #componentTemplate&gt;
+            &lt;div class&#x3D;&quot;flex w-full flex-column xl:flex-row &quot;&gt;
+                &lt;div class&#x3D;&quot;mt-4 normal-panel panel-startup w-full xl:w-4 flex flex-column justify-content-between&quot; style&#x3D;&quot;height: 85vh;&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+                        &lt;div&gt;
+                            &lt;div class&#x3D;&quot;flex flex-row justify-content-between&quot;&gt;
+
+                                &lt;ng-container *ngIf&#x3D;&quot;leaderStartup._id &#x3D;&#x3D;&#x3D; profileDoc._id; else avatarTemplateSimple&quot;&gt;
+                                    &lt;app-avatar-uploader id&#x3D;&quot;avatarChange&quot; styleClass&#x3D;&quot;w-10rem h-10rem&quot; shape&#x3D;&quot;circle&quot; [imageUrl]&#x3D;&quot;returnUrlThumbnail()&quot; (onUpload)&#x3D;&quot;uploadImage($event)&quot; [disableRemove]&#x3D;&quot;true&quot;&gt;&lt;/app-avatar-uploader&gt;
+                                &lt;/ng-container&gt;
+                                &lt;ng-template #avatarTemplateSimple&gt;
+                                    &lt;ng-container *ngIf&#x3D;&quot;startup.thumbnail &amp;&amp; startup.thumbnail !&#x3D;&#x3D; &#x27;&#x27; else noChangeThubnail&quot;&gt;
+                                        &lt;p-avatar styleClass&#x3D;&quot;w-10rem h-10rem&quot; [image]&#x3D;&quot;startup.thumbnail&quot; shape&#x3D;&quot;circle&quot; class&#x3D;&quot;startup-thumbnail&quot;&gt;
+                                        &lt;/p-avatar&gt;
+                                    &lt;/ng-container&gt;
+                                    &lt;ng-template #noChangeThubnail&gt;
+                                        &lt;i-tabler name&#x3D;&quot;fence&quot; class&#x3D;&quot;startup-thumbnail&quot;&gt;&lt;/i-tabler&gt;
+                                    &lt;/ng-template&gt;
+                                &lt;/ng-template&gt;
+                                &lt;i-tabler id&#x3D;&quot;editInfoStartup&quot; name&#x3D;&quot;edit&quot; class&#x3D;&quot;edit-btn cursor-pointer&quot; pTooltip&#x3D;&quot;Editar datos de startUp&quot; (click)&#x3D;&quot;editStartup()&quot; *ngIf&#x3D;&quot;leaderStartup._id &#x3D;&#x3D;&#x3D; profileDoc._id&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;/div&gt;
+
+                            &lt;div class&#x3D;&quot;h-3rem&quot;&gt;&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;flex flex-row align-items-center gap-2&quot;&gt;
+                                &lt;i-tabler *ngIf&#x3D;&quot;leaderStartup._id &#x3D;&#x3D;&#x3D; profileDoc._id&quot; name&#x3D;&quot;&quot; class&#x3D;&quot;text-center&quot; name&#x3D;&quot;bulb&quot; style&#x3D;&quot;color:#18E4E6; cursor:pointer;&quot; (click)&#x3D;&quot;launchTour()&quot;&gt;&lt;/i-tabler&gt;
+                                &lt;h2&gt;{{startup.item[&#x27;nombre&#x27;]}}&lt;/h2&gt;
+                            &lt;/div&gt;
+
+                            &lt;p class&#x3D;&quot;mt-3&quot;&gt;{{startup.item[&#x27;descripcion&#x27;]}}&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-2&quot;&gt;
+                        &lt;span class&#x3D;&quot;text-xs&quot;&gt;Responsable&lt;/span&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row align-items-center&quot;&gt;
+                            &lt;p-avatar [label]&#x3D;&quot;leaderStartup.item[&#x27;nombre&#x27;][0]&quot; styleClass&#x3D;&quot;mr-2&quot; size&#x3D;&quot;xlarge&quot; shape&#x3D;&quot;circle&quot;&gt;&lt;/p-avatar&gt;
+                            &lt;p&gt;{{leaderStartup.item[&#x27;nombre&#x27;]}}&lt;/p&gt;
+                        &lt;/div&gt;
+
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+
+                &lt;div class&#x3D;&quot;hidden xl:flex flex-column gap-4 w-full xl:w-8 px-4 display-content scrollwrap scrollwrap_delayed&quot;&gt;
+                    &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;sideContent&quot;&gt;&lt;/ng-template&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex xl:hidden flex-column gap-4 w-full xl:w-8 px-4 display-content&quot;&gt;
+                    &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;sideContent&quot;&gt;&lt;/ng-template&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-template&gt;
+
+    &lt;/ng-template&gt;
+&lt;/div&gt;
+
+&lt;ng-template #sideContent&gt;
+    &lt;div class&#x3D;&quot;flex flex-column gap-4&quot;&gt;
+        &lt;!-- &lt;div class&#x3D;&quot;flex w-auto gap-4 mt-4&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-4 w-full&quot;&gt;
+                &lt;label style&#x3D;&quot;font-weight: 600; margin-left:2rem; font-size:1.5rem&quot;&gt;Reporte Ingresos -
+                    costos&lt;/label&gt;
+                &lt;div class&#x3D;&quot;statics-panel bg-pastel-1&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-4 w-full&quot;&gt;
+                &lt;label style&#x3D;&quot;font-weight: 600; margin-left:2rem; font-size:1.5rem&quot;&gt;Reporte horas
+                    invertidas&lt;/label&gt;
+                &lt;div class&#x3D;&quot;statics-panel bg-pastel-2&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt; --&gt;
+
+        &lt;p-table #dt class&#x3D;&quot;w-full table-container table-dialog&quot; [value]&#x3D;&quot;startup.entrepreneurs&quot; [tableStyle]&#x3D;&quot;{&#x27;min-width&#x27;: &#x27;50rem&#x27;}&quot; paginatorPosition&#x3D;&quot;bottom&quot; [currentPageReportTemplate]&#x3D;&quot;textSummary&quot; dataKey&#x3D;&quot;_id&quot; [showCurrentPageReport]&#x3D;&quot;true&quot; [rows]&#x3D;&quot;10&quot; [rowsPerPageOptions]&#x3D;&quot;[10,25,50]&quot; [paginator]&#x3D;&quot;true&quot; scrollDirection&#x3D;&quot;both&quot;&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;caption&quot;&gt;
+                &lt;div class&#x3D;&quot;table-header w-full flex flex-row justify-content-between align-items-center &quot;&gt;
+                    &lt;span class&#x3D;&quot;header color-custom ml-3&quot;&gt;Equipo&lt;/span&gt;
+                    &lt;div class&#x3D;&quot;flex flex-wrap justify-content-center&quot; style&#x3D;&quot;gap:0.5rem;&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;i-tabler name&#x3D;&quot;user-plus&quot; pTooltip&#x3D;&quot;Invitar&quot; tooltipPosition&#x3D;&quot;left&quot; class&#x3D;&quot;edit-btn cursor-pointer&quot; (click)&#x3D;&quot;inviteDialog()&quot; *ngIf&#x3D;&quot;canInvite &amp;&amp; leaderStartup._id &#x3D;&#x3D;&#x3D; profileDoc._id&quot;&gt;&lt;/i-tabler&gt;
+                &lt;/div&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Emprendedor&lt;/th&gt;
+                    &lt;th&gt;Rol&lt;/th&gt;
+                    &lt;th&gt;Funciones&lt;/th&gt;
+                    &lt;th&gt;&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-entrepreneur&gt;
+                &lt;tr class&#x3D;&quot;cursor-pointer&quot;&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{entrepreneur.item[&#x27;nombre&#x27;]}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{rolStartupsNames[entrepreneur[&#x27;rol&#x27;]]}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;{{entrepreneur[&#x27;description&#x27;]}}&lt;/td&gt;
+                    &lt;td class&#x3D;&quot;text-center&quot;&gt;
+                        &lt;i-tabler *ngIf&#x3D;&quot;leaderStartup._id &#x3D;&#x3D;&#x3D; profileDoc._id&quot; name&#x3D;&quot;&quot; name&#x3D;&quot;edit&quot; class&#x3D;&quot;edit-btn cursor-pointer&quot; (click)&#x3D;&quot;editDataEntrepreneur(entrepreneur)&quot; id&#x3D;&quot;functionsStartup&quot;&gt;&lt;/i-tabler&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/ng-template&gt;
+            &lt;ng-template pTemplate&#x3D;&quot;paginatorright&quot;&gt;
+                &lt;span&gt;{{paginatorRightMsg()}}&lt;/span&gt;
+            &lt;/ng-template&gt;
+            &lt;!-- &lt;ng-template pTemplate&#x3D;&quot;paginatorright&quot;&gt;
+              
+            &lt;/ng-template&gt; --&gt;
+        &lt;/p-table&gt;
+
+        &lt;div class&#x3D;&quot;normal-panel justify-center align-items-center h-auto&quot; style&#x3D;&quot;padding: 1.875rem; border-radius: 3.25rem&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column gap-4&quot;&gt;
+                &lt;div class&#x3D;&quot;grid-container&quot;&gt;
+                    &lt;ng-container *ngFor&#x3D;&quot;let item of formNegociosFields&quot;&gt;
+                        &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;fieldFormTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{ component: item, doc: startup }&quot;&gt;&lt;/ng-template&gt;
+                    &lt;/ng-container&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+
+    &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #fieldFormTemplate let-component&#x3D;&quot;component&quot; let-doc&#x3D;&quot;doc&quot;&gt;
+    &lt;ng-container [ngSwitch]&#x3D;&quot;true&quot;&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;datamap&#x27;, &#x27;editgrid&#x27;, &#x27;datagrid&#x27;, &#x27;fieldset&#x27;, &#x27;html&#x27;, &#x27;htmlelement&#x27;].includes(component.type)&quot;&gt;
+            &lt;!-- Skip --&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;datetime&#x27;, &#x27;dateAndTime&#x27;, &#x27;time&#x27;].includes(component.type)&quot;&gt;
+            &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                        data: {
+                            label: component.label,
+                            value: doc.item[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder
+                        }
+                    }&quot;&gt;&lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;selectboxes&#x27;].includes(component.type)&quot;&gt;
+            &lt;ng-container *ngFor&#x3D;&quot;let item of component.values | keyvalue&quot;&gt;
+                &lt;ng-template *ngIf&#x3D;&quot;doc.item[component.key][$any(item.key)]&quot; [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                                                                data: {
+                                                                    label: component.label,
+                                                                    value: $any(item.value)
+                                                                }
+                                                            }&quot;&gt;&lt;/ng-template&gt;
+            &lt;/ng-container&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchCase&#x3D;&quot;[&#x27;select&#x27;].includes(component.type)&quot;&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;component.multiple; else onlyAOption&quot;&gt;
+                &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                                                                    data: {
+                                                                        label: component.label,
+                                                                        value: doc.item[component.key] ?  doc.item[component.key].join(&#x27;,&#x27;) : noValuePlaceholder
+                                                                    }
+                                                                }&quot;&gt;&lt;/ng-template&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #onlyAOption&gt;
+                &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                                                                                    data: {
+                                                                                        label: component.label,
+                                                                                        value: doc.item[component.key] ?  doc.item[component.key] : noValuePlaceholder
+                                                                                    }
+                                                                                }&quot;&gt;&lt;/ng-template&gt;
+            &lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-container *ngSwitchDefault&gt;
+            &lt;ng-template [ngTemplateOutlet]&#x3D;&quot;paramCardTemplate&quot; [ngTemplateOutletContext]&#x3D;&quot;{
+                        data: {
+                            label: component.label,
+                            value: doc.item[component.key] ? doc.item[component.key] : noValuePlaceholder
+                        }
+                    }&quot;&gt;&lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+    &lt;/ng-container&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #paramCardTemplate let-data&#x3D;&quot;data&quot;&gt;
+    &lt;div class&#x3D;&quot;info-grid-cell p-2 border-round&quot;&gt;
+        &lt;span class&#x3D;&quot;cell-label&quot; [pTooltip]&#x3D;&quot;data.label&quot; tooltipPosition&#x3D;&quot;top&quot;&gt;
+            {{data.label | uppercase}}
+        &lt;/span&gt;
+        &lt;div class&#x3D;&quot;cell-line&quot;&gt;&lt;/div&gt;
+        &lt;span class&#x3D;&quot;cell-value&quot; [pTooltip]&#x3D;&quot;data.value&quot; tooltipPosition&#x3D;&quot;top&quot;&gt;{{data.value}}&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;p-dialog appendTo&#x3D;&quot;body&quot; [(visible)]&#x3D;&quot;editEntrepreneur&quot; [dismissableMask]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{width: &#x27;50vw&#x27;}&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [modal]&#x3D;&quot;true&quot; (onHide)&#x3D;&quot;closeDataEntrepreneur()&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column w-full&quot; *ngIf&#x3D;&quot;editEntrepreneur&quot;&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;calendar-bolt&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+            &lt;div class&#x3D;&quot;content-resource w-full flex flex-column justify-content-between pb-2 pr-4&quot;&gt;
+                &lt;h2 class&#x3D;&quot;overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;
+                    Editar información&lt;/h2&gt;
+                &lt;p&gt;{{editEntrepreneur[&#x27;item&#x27;][&#x27;nombre&#x27;]}} &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p-divider&gt;&lt;/p-divider&gt;
+        &lt;div style&#x3D;&quot;height: 1.5rem;&quot;&gt;&lt;/div&gt;
+        &lt;span class&#x3D;&quot;w-full flex flex-column justify-content-center align-items-center gap-2 p-3&quot;&gt;
+            &lt;span class&#x3D;&quot;w-full app-input-field field-h-1&quot;&gt;
+                &lt;label htmlFor&#x3D;&quot;textFunctions&quot;&gt;Funciones - {{editEntrepreneur.description.length}}/120
+                    caracteres
+                    permitidos&lt;/label&gt;
+                &lt;textarea maxlength&#x3D;&quot;120&quot; inputId&#x3D;&quot;textFunctions&quot; rows&#x3D;&quot;5&quot; style&#x3D;&quot;width: 100%; resize: none;&quot; [maxlength]&#x3D;&quot;120&quot; [(ngModel)]&#x3D;&quot;editEntrepreneur.description&quot; placeholder&#x3D;&quot;Ingresa las funciones que cumple&quot; pInputTextarea&gt;&lt;/textarea&gt;
+            &lt;/span&gt;
+
+            &lt;p-button (onClick)&#x3D;&quot;saveDataEntrepreneur()&quot; pTooltip&#x3D;&quot;Guardar cambios&quot; tooltipPosition&#x3D;&quot;top&quot; icon&#x3D;&quot;pi pi-save&quot; styleClass&#x3D;&quot;p-button-text&quot;&gt;&lt;/p-button&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+
+&lt;/p-dialog&gt;
+
+&lt;p-dialog appendTo&#x3D;&quot;body&quot; [(visible)]&#x3D;&quot;showDialogInvite&quot; [dismissableMask]&#x3D;&quot;true&quot; [style]&#x3D;&quot;{width: &#x27;50vw&#x27;}&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [modal]&#x3D;&quot;true&quot; (onHide)&#x3D;&quot;invite &#x3D; &#x27;&#x27;&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column w-full&quot;&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;calendar-bolt&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+            &lt;div class&#x3D;&quot;content-resource w-full flex flex-column justify-content-between pb-2 pr-4&quot;&gt;
+                &lt;h2 class&#x3D;&quot;overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;
+                    Invitar a emprendedor&lt;/h2&gt;
+                &lt;p&gt;Por favor, introduce la dirección de correo electrónico del usuario que deseas invitar al grupo. Nos aseguraremos de enviarle una invitación para que se una a nosotros &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p-divider&gt;&lt;/p-divider&gt;
+        &lt;span class&#x3D;&quot;w-full flex flex-column justify-content-center align-items-center gap-2 p-3&quot;&gt;
+            &lt;span class&#x3D;&quot;w-full app-input-field field-h-1&quot;&gt;
+                &lt;label htmlFor&#x3D;&quot;emailInvite&quot;&gt;Email&lt;/label&gt;
+                &lt;input pInputText id&#x3D;&quot;emailInvite&quot; [(ngModel)]&#x3D;&quot;invite&quot; class&#x3D;&quot;inputfield field-full&quot; placeholder&#x3D;&quot;Ingresa el correo &quot; /&gt;
+            &lt;/span&gt;
+
+            &lt;p-button icon&#x3D;&quot;pi pi-send&quot; (onClick)&#x3D;&quot;inviteToStartup()&quot; [loading]&#x3D;&quot;saving&quot; label&#x3D;&quot;Invitar&quot; styleClass&#x3D;&quot;p-button-text&quot;&gt;&lt;/p-button&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+
+&lt;/p-dialog&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./startup-profile.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;/src/styles.scss&quot;;
+
+.scrollwrap {
+  overflow-y: auto;
+  visibility: hidden;
+  height: 85vh !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
+}
+
+.display-content,
+.scrollwrap:hover,
+.scrollwrap:focus {
+  visibility: visible;
+}
+
+.statics-panel {
+  border-radius: 1.25rem;
+  padding: 1.875rem;
+}
+
+.bg-pastel-1 {
+  background-color: #e7f2ff;
+}
+
+.bg-pastel-2 {
+  background-color: #fff1dc;
+}
+
+.panel-startup {
+  padding: 1.875rem;
+  border-radius: 3.25rem;
+}
+
+.startup-thumbnail {
+  background-color: #2196f3;
+  color: #ffffff;
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 50%;
+  padding: 1.5rem;
+}
+
+.edit-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.65rem;
+  border-radius: 0.625rem;
+  background-color: #f6f6f6;
+  color: $appTextThree;
+  &amp;:hover {
+    border-color: darken(#f6f6f6, 5%) !important;
+    background-color: darken(#f6f6f6, 5%) !important;
+  }
+}
+
+.info-grid-cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.cell-label {
+  color: #6b6b6b;
+  flex-basis: auto; // Deja que el ancho sea automático
+  white-space: nowrap; // Evita que el texto del label se rompa en varias líneas
+  overflow: hidden; // Oculta el exceso de texto si el label es muy largo
+  text-overflow: ellipsis; // Muestra puntos suspensivos (...) si el texto del label es muy largo
+  max-width: 45%;
+  @media (max-width: 576px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.cell-line {
+  flex-grow: 1;
+  border-bottom: solid 1px #f6f6f6;
+  margin: 0 10px 3px 10px;
+}
+
+.cell-value {
+  background-color: #f6f6f6;
+  color: black;
+  padding: 0.65rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  flex-basis: 50%; // Ancho fijo del 50%
+}
+
+.table-container {
+  background-color: $grayThird;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 3.125rem;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-thead &gt; tr &gt; th {
+  background-color: transparent;
+  color: black;
+  font-weight: 600;
+  text-align: center;
+  // border-top: 1px solid $appText;
+  border-bottom: 1px solid $appText;
+}
+
+.table-dialog::ng-deep .p-datatable {
+  margin: 0;
+
+  .p-paginator {
+    margin: 1rem 0.5rem;
+    background-color: $grayThird;
+    gap: 0.5rem;
+    .p-paginator-current {
+      color: $appTextTwo;
+      font-weight: 500;
+      margin-right: auto;
+    }
+  }
+  .p-paginator-right-content {
+    color: $appTextTwo;
+    font-weight: 500;
+  }
+
+  .p-paginator .p-paginator-first,
+  .p-paginator .p-paginator-prev,
+  .p-paginator .p-paginator-next,
+  .p-paginator .p-paginator-last {
+    border-radius: 0.625rem;
+    background-color: $appColorSix;
+    stroke-width: 2px;
+    color: $appColorFive;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page {
+    border-radius: 0.625rem;
+    background-color: white;
+    font-weight: 600;
+    color: $appTextTwo;
+  }
+
+  .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+    background-color: $appColorFive;
+    color: white;
+  }
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td {
+  background-color: white;
+  border: none;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:first-child {
+  border-radius: 0.625rem 0 0 0.625rem;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr &gt; td:last-child {
+  border-radius: 0 0.625rem 0.625rem 0;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr:hover {
+  //  border-radius: 0.625rem;
+  box-shadow: 0px 3px 30px #0f213326;
+}
+
+.table-dialog::ng-deep .p-datatable .p-datatable-tbody &gt; tr {
+  border-radius: 0.625rem;
+  background-color: transparent;
+}
+
+.table-dialog::ng-deep .p-datatable-table {
+  // background-color: $grayThird;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 0 0.5rem;
+}
+.table-dialog::ng-deep .p-datatable .p-datatable-header {
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0 0.625rem;
+  padding: 1rem 1rem;
+  border: none;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="w-full h-max-router overflow-auto px-2 md:px-4">    <ng-container *ngIf="!loaded; else elseTemplate">        <app-loading> </app-loading>    </ng-container>    <ng-template #elseTemplate>        <ng-container *ngIf="!startup; else componentTemplate">            <p class="w-full">                Aun no perteneces a ninguna startup            </p>        </ng-container>        <ng-template #componentTemplate>            <div class="flex w-full flex-column xl:flex-row ">                <div class="mt-4 normal-panel panel-startup w-full xl:w-4 flex flex-column justify-content-between" style="height: 85vh;">                    <div class="flex flex-column">                        <div>                            <div class="flex flex-row justify-content-between">                                <ng-container *ngIf="leaderStartup._id === profileDoc._id; else avatarTemplateSimple">                                    <app-avatar-uploader id="avatarChange" styleClass="w-10rem h-10rem" shape="circle" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event)" [disableRemove]="true"></app-avatar-uploader>                                </ng-container>                                <ng-template #avatarTemplateSimple>                                    <ng-container *ngIf="startup.thumbnail && startup.thumbnail !== \'\' else noChangeThubnail">                                        <p-avatar styleClass="w-10rem h-10rem" [image]="startup.thumbnail" shape="circle" class="startup-thumbnail">                                        </p-avatar>                                    </ng-container>                                    <ng-template #noChangeThubnail>                                        <i-tabler name="fence" class="startup-thumbnail"></i-tabler>                                    </ng-template>                                </ng-template>                                <i-tabler id="editInfoStartup" name="edit" class="edit-btn cursor-pointer" pTooltip="Editar datos de startUp" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>                            </div>                            <div class="h-3rem"></div>                            <div class="flex flex-row align-items-center gap-2">                                <i-tabler *ngIf="leaderStartup._id === profileDoc._id" name="" class="text-center" name="bulb" style="color:#18E4E6; cursor:pointer;" (click)="launchTour()"></i-tabler>                                <h2>{{startup.item[\'nombre\']}}</h2>                            </div>                            <p class="mt-3">{{startup.item[\'descripcion\']}}</p>                        </div>                    </div>                    <div class="flex flex-column gap-2">                        <span class="text-xs">Responsable</span>                        <div class="flex flex-row align-items-center">                            <p-avatar [label]="leaderStartup.item[\'nombre\'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>                            <p>{{leaderStartup.item[\'nombre\']}}</p>                        </div>                    </div>                </div>                <div class="hidden xl:flex flex-column gap-4 w-full xl:w-8 px-4 display-content scrollwrap scrollwrap_delayed">                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>                </div>                <div class="flex xl:hidden flex-column gap-4 w-full xl:w-8 px-4 display-content">                    <ng-template [ngTemplateOutlet]="sideContent"></ng-template>                </div>            </div>        </ng-template>    </ng-template></div><ng-template #sideContent>    <div class="flex flex-column gap-4">        <!-- <div class="flex w-auto gap-4 mt-4">            <div class="flex flex-column gap-4 w-full">                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -                    costos</label>                <div class="statics-panel bg-pastel-1"></div>            </div>            <div class="flex flex-column gap-4 w-full">                <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte horas                    invertidas</label>                <div class="statics-panel bg-pastel-2"></div>            </div>        </div> -->        <p-table #dt class="w-full table-container table-dialog" [value]="startup.entrepreneurs" [tableStyle]="{\'min-width\': \'50rem\'}" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" dataKey="_id" [showCurrentPageReport]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [paginator]="true" scrollDirection="both">            <ng-template pTemplate="caption">                <div class="table-header w-full flex flex-row justify-content-between align-items-center ">                    <span class="header color-custom ml-3">Equipo</span>                    <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">                    </div>                    <i-tabler name="user-plus" pTooltip="Invitar" tooltipPosition="left" class="edit-btn cursor-pointer" (click)="inviteDialog()" *ngIf="canInvite && leaderStartup._id === profileDoc._id"></i-tabler>                </div>            </ng-template>            <ng-template pTemplate="header">                <tr>                    <th>Emprendedor</th>                    <th>Rol</th>                    <th>Funciones</th>                    <th></th>                </tr>            </ng-template>            <ng-template pTemplate="body" let-entrepreneur>                <tr class="cursor-pointer">                    <td class="text-center">{{entrepreneur.item[\'nombre\']}}</td>                    <td class="text-center">{{rolStartupsNames[entrepreneur[\'rol\']]}}</td>                    <td class="text-center">{{entrepreneur[\'description\']}}</td>                    <td class="text-center">                        <i-tabler *ngIf="leaderStartup._id === profileDoc._id" name="" name="edit" class="edit-btn cursor-pointer" (click)="editDataEntrepreneur(entrepreneur)" id="functionsStartup"></i-tabler>                    </td>                </tr>            </ng-template>            <ng-template pTemplate="paginatorright">                <span>{{paginatorRightMsg()}}</span>            </ng-template>            <!-- <ng-template pTemplate="paginatorright">                          </ng-template> -->        </p-table>        <div class="normal-panel justify-center align-items-center h-auto" style="padding: 1.875rem; border-radius: 3.25rem">            <div class="flex flex-column gap-4">                <div class="grid-container">                    <ng-container *ngFor="let item of formNegociosFields">                        <ng-template [ngTemplateOutlet]="fieldFormTemplate" [ngTemplateOutletContext]="{ component: item, doc: startup }"></ng-template>                    </ng-container>                </div>            </div>        </div>    </div></ng-template><ng-template #fieldFormTemplate let-component="component" let-doc="doc">    <ng-container [ngSwitch]="true">        <ng-container *ngSwitchCase="[\'datamap\', \'editgrid\', \'datagrid\', \'fieldset\', \'html\', \'htmlelement\'].includes(component.type)">            <!-- Skip -->        </ng-container>        <ng-container *ngSwitchCase="[\'datetime\', \'dateAndTime\', \'time\'].includes(component.type)">            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                        data: {                            label: component.label,                            value: doc.item[component.key] ? (doc.item[component.key] | date: component.format) : noValuePlaceholder                        }                    }"></ng-template>        </ng-container>        <ng-container *ngSwitchCase="[\'selectboxes\'].includes(component.type)">            <ng-container *ngFor="let item of component.values | keyvalue">                <ng-template *ngIf="doc.item[component.key][$any(item.key)]" [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                                                                data: {                                                                    label: component.label,                                                                    value: $any(item.value)                                                                }                                                            }"></ng-template>            </ng-container>        </ng-container>        <ng-container *ngSwitchCase="[\'select\'].includes(component.type)">            <ng-container *ngIf="component.multiple; else onlyAOption">                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                                                                    data: {                                                                        label: component.label,                                                                        value: doc.item[component.key] ?  doc.item[component.key].join(\',\') : noValuePlaceholder                                                                    }                                                                }"></ng-template>            </ng-container>            <ng-template #onlyAOption>                <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                                                                                    data: {                                                                                        label: component.label,                                                                                        value: doc.item[component.key] ?  doc.item[component.key] : noValuePlaceholder                                                                                    }                                                                                }"></ng-template>            </ng-template>        </ng-container>        <ng-container *ngSwitchDefault>            <ng-template [ngTemplateOutlet]="paramCardTemplate" [ngTemplateOutletContext]="{                        data: {                            label: component.label,                            value: doc.item[component.key] ? doc.item[component.key] : noValuePlaceholder                        }                    }"></ng-template>        </ng-container>    </ng-container></ng-template><ng-template #paramCardTemplate let-data="data">    <div class="info-grid-cell p-2 border-round">        <span class="cell-label" [pTooltip]="data.label" tooltipPosition="top">            {{data.label | uppercase}}        </span>        <div class="cell-line"></div>        <span class="cell-value" [pTooltip]="data.value" tooltipPosition="top">{{data.value}}</span>    </div></ng-template><p-dialog appendTo="body" [(visible)]="editEntrepreneur" [dismissableMask]="true" [style]="{width: \'50vw\'}" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}" maskStyleClass="dialog-app" [modal]="true" (onHide)="closeDataEntrepreneur()">    <div class="flex flex-column w-full" *ngIf="editEntrepreneur">        <div class="w-full flex flex-row gap-3">            <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>            <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">                <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">                    Editar información</h2>                <p>{{editEntrepreneur[\'item\'][\'nombre\']}} </p>            </div>        </div>        <p-divider></p-divider>        <div style="height: 1.5rem;"></div>        <span class="w-full flex flex-column justify-content-center align-items-center gap-2 p-3">            <span class="w-full app-input-field field-h-1">                <label htmlFor="textFunctions">Funciones - {{editEntrepreneur.description.length}}/120                    caracteres                    permitidos</label>                <textarea maxlength="120" inputId="textFunctions" rows="5" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="editEntrepreneur.description" placeholder="Ingresa las funciones que cumple" pInputTextarea></textarea>            </span>            <p-button (onClick)="saveDataEntrepreneur()" pTooltip="Guardar cambios" tooltipPosition="top" icon="pi pi-save" styleClass="p-button-text"></p-button>        </span>    </div></p-dialog><p-dialog appendTo="body" [(visible)]="showDialogInvite" [dismissableMask]="true" [style]="{width: \'50vw\'}" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}" maskStyleClass="dialog-app" [modal]="true" (onHide)="invite = \'\'">    <div class="flex flex-column w-full">        <div class="w-full flex flex-row gap-3">            <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>            <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">                <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">                    Invitar a emprendedor</h2>                <p>Por favor, introduce la dirección de correo electrónico del usuario que deseas invitar al grupo. Nos aseguraremos de enviarle una invitación para que se una a nosotros </p>            </div>        </div>        <p-divider></p-divider>        <span class="w-full flex flex-column justify-content-center align-items-center gap-2 p-3">            <span class="w-full app-input-field field-h-1">                <label htmlFor="emailInvite">Email</label>                <input pInputText id="emailInvite" [(ngModel)]="invite" class="inputfield field-full" placeholder="Ingresa el correo " />            </span>            <p-button icon="pi pi-send" (onClick)="inviteToStartup()" [loading]="saving" label="Invitar" styleClass="p-button-text"></p-button>        </span>    </div></p-dialog></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'StartupProfileComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'StartupProfileComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

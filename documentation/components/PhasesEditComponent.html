@@ -1,0 +1,1686 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PhasesEditComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/phases/phases-edit/phases-edit.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-phases-edit</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./phases-edit.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./phases-edit.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clonedEdit" >clonedEdit</a>
+                            </li>
+                            <li>
+                                <a href="#configTiny" >configTiny</a>
+                            </li>
+                            <li>
+                                <a href="#phase" >phase</a>
+                            </li>
+                            <li>
+                                <a href="#phase$" >phase$</a>
+                            </li>
+                            <li>
+                                <a href="#showClosedBatch" >showClosedBatch</a>
+                            </li>
+                            <li>
+                                <a href="#thumbnail" >thumbnail</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancelEdit" >cancelEdit</a>
+                            </li>
+                            <li>
+                                <a href="#closeBatch" >closeBatch</a>
+                            </li>
+                            <li>
+                                <a href="#failChange" >failChange</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openEdit" >openEdit</a>
+                            </li>
+                            <li>
+                                <a href="#removeImage" >removeImage</a>
+                            </li>
+                            <li>
+                                <a href="#returnUrlThumbnail" >returnUrlThumbnail</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#saveEdit" >saveEdit</a>
+                            </li>
+                            <li>
+                                <a href="#successChange" >successChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadImage" >uploadImage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#userPermission" >userPermission</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(service: <a href="../injectables/PhasesService.html" target="_self">PhasesService</a>, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:31</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhasesService.html" target="_self" >PhasesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelEdit"></a>
+                    <span class="name">
+                        <span ><b>cancelEdit</b></span>
+                        <a href="#cancelEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancelEdit(property: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>property</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeBatch"></a>
+                    <span class="name">
+                        <span ><b>closeBatch</b></span>
+                        <a href="#closeBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeBatch()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="failChange"></a>
+                    <span class="name">
+                        <span ><b>failChange</b></span>
+                        <a href="#failChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>failChange(err)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>err</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="53"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openEdit"></a>
+                    <span class="name">
+                        <span ><b>openEdit</b></span>
+                        <a href="#openEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openEdit(property: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>property</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeImage"></a>
+                    <span class="name">
+                        <span ><b>removeImage</b></span>
+                        <a href="#removeImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeImage(phase: <a href="../classes/Phase.html" target="_self">Phase</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>phase</td>
+                                            <td>
+                                                            <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="returnUrlThumbnail"></a>
+                    <span class="name">
+                        <span ><b>returnUrlThumbnail</b></span>
+                        <a href="#returnUrlThumbnail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>returnUrlThumbnail()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:117</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveEdit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>saveEdit</b></span>
+                        <a href="#saveEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveEdit(property: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>property</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="successChange"></a>
+                    <span class="name">
+                        <span ><b>successChange</b></span>
+                        <a href="#successChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>successChange(property, phase)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>property</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>phase</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadImage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadImage</b></span>
+                        <a href="#uploadImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadImage(fileToUpload: File, phase: <a href="../classes/Phase.html" target="_self">Phase</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileToUpload</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>phase</td>
+                                            <td>
+                                                            <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clonedEdit"></a>
+                    <span class="name">
+                        <span ><b>clonedEdit</b></span>
+                        <a href="#clonedEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configTiny"></a>
+                    <span class="name">
+                        <span ><b>configTiny</b></span>
+                        <a href="#configTiny"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>configTinyMce</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phase"></a>
+                    <span class="name">
+                        <span ><b>phase</b></span>
+                        <a href="#phase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phase$"></a>
+                    <span class="name">
+                        <span ><b>phase$</b></span>
+                        <a href="#phase$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showClosedBatch"></a>
+                    <span class="name">
+                        <span ><b>showClosedBatch</b></span>
+                        <a href="#showClosedBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="thumbnail"></a>
+                    <span class="name">
+                        <span ><b>thumbnail</b></span>
+                        <a href="#thumbnail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userPermission"></a>
+                        <span class="name"><b>userPermission</b><a href="#userPermission"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userPermission()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/home/phases/phases-edit/phases-edit.component.ts:29</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+import { Phase } from &#x27;../model/phase.model&#x27;;
+import { PhasesService } from &#x27;../phases.service&#x27;;
+import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import { Subscription, first, firstValueFrom, tap } from &#x27;rxjs&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { SetPhaseAction, UpdatePhaseImageAction } from &#x27;../store/phase.actions&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { cloneDeep } from &#x27;lodash&#x27;;
+import { configTinyMce } from &#x27;@shared/models/configTinyMce&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+
+@Component({
+  selector: &#x27;app-phases-edit&#x27;,
+  templateUrl: &#x27;./phases-edit.component.html&#x27;,
+  styleUrls: [&#x27;./phases-edit.component.scss&#x27;],
+})
+export class PhasesEditComponent implements OnInit, OnDestroy {
+  phase: Phase;
+  phase$: Subscription;
+  clonedEdit: { [s: string]: Phase } &#x3D; {};
+  configTiny &#x3D; configTinyMce;
+  user: User;
+  thumbnail;
+  showClosedBatch &#x3D; false;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+  constructor(
+    private readonly service: PhasesService,
+    private readonly store: Store&lt;AppState&gt;,
+    private storageService: StorageService,
+    private toast: ToastService
+  ) {
+    this.phase$ &#x3D; this.store
+      .select((state) &#x3D;&gt; state.phase.phase)
+      .subscribe((phase) &#x3D;&gt; {
+        this.phase &#x3D; cloneDeep(phase);
+        this.thumbnail &#x3D; this.phase?.thumbnail;
+      });
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+  }
+
+  ngOnInit() {}
+
+  ngOnDestroy() {
+    this.phase$?.unsubscribe();
+  }
+
+  openEdit(property: string) {
+    this.clonedEdit[property] &#x3D; this.phase[property];
+  }
+
+  async saveEdit(property: string) {
+    this.toast.info({ summary: &#x27;Guardando...&#x27;, detail: &#x27;&#x27; });
+    const updateItem &#x3D; {};
+    updateItem[property] &#x3D; this.clonedEdit[property];
+    this.service
+      .updatePhase(this.phase._id, updateItem)
+      .then((phase) &#x3D;&gt; {
+        this.successChange(property, phase);
+      })
+      .catch((err) &#x3D;&gt; {
+        this.failChange(err);
+      });
+  }
+
+  cancelEdit(property: string) {
+    this.phase[property] &#x3D; this.clonedEdit[property];
+    delete this.clonedEdit[property];
+  }
+
+  async uploadImage(fileToUpload: File, phase: Phase) {
+    this.toast.info({
+      summary: &#x27;Subiendo imagen...&#x27;,
+      detail: &#x27;Por favor espere&#x27;,
+      life: 10000,
+    });
+    this.thumbnail &#x3D; &#x27;assets/noPic.jpg&#x27;;
+    this.service
+      .updatePhaseThumbnail(phase, fileToUpload)
+      .pipe(
+        tap((event) &#x3D;&gt; {
+          if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.DownloadProgress) {
+            // Display upload progress if required
+          }
+        })
+      )
+      .subscribe((event) &#x3D;&gt; {
+        if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response) {
+          const realUrl &#x3D; this.storageService.getPureUrl(event.url);
+          this.store.dispatch(new UpdatePhaseImageAction(realUrl));
+          this.service
+            .updatePhase(this.phase._id, { thumbnail: realUrl })
+            .then((phase) &#x3D;&gt; {
+              this.toast.clear();
+              this.successChange(&#x27;thumbnail&#x27;, phase);
+            })
+            .catch((err) &#x3D;&gt; {
+              this.toast.clear();
+              this.failChange(err);
+            })
+            .finally(() &#x3D;&gt; {
+              this.thumbnail &#x3D; this.phase.thumbnail;
+            });
+        }
+      });
+  }
+
+  returnUrlThumbnail(): string {
+    return this.thumbnail;
+  }
+
+  removeImage(phase: Phase) {
+    this.service.removePhaseThumbnail(phase).subscribe((event) &#x3D;&gt; {
+      if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response) {
+        this.store.dispatch(new UpdatePhaseImageAction(&#x27;&#x27;));
+      }
+    });
+  }
+  successChange(property, phase) {
+    this.toast.clear();
+    this.cancelEdit(property);
+    this.store.dispatch(new SetPhaseAction(phase));
+  }
+
+  failChange(err) {
+    this.toast.clear();
+    // this.cancelEdit(property);
+    this.toast.error({ summary: &#x27;Error al guardar cambios&#x27;, detail: err });
+    console.warn(err);
+  }
+
+  closeBatch() {
+    this.showClosedBatch &#x3D; true;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;phase else loadingTemplate&quot;&gt;
+  &lt;div class&#x3D;&quot;p-4&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column w-full align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2&quot;&gt;
+      &lt;div class&#x3D;&quot;flex flex-row align-items-center gap-3&quot;&gt;
+        &lt;label class&#x3D;&quot;text-xl font-semibold text-color-other text-2xl&quot;&gt;Información&lt;/label&gt;
+        &lt;!-- &lt;ng-container *ngIf&#x3D;&quot;!editEnabled; else saveBtn&quot;&gt;
+          &lt;div class&#x3D;&quot;button-grey cursor-pointer border-round p-1&quot; pTooltip&#x3D;&quot;Editar&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;edit&quot;&gt;&lt;/i-tabler&gt;
+          &lt;/div&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #saveBtn&gt;
+          &lt;p-button icon&#x3D;&quot;pi pi-save&quot; label&#x3D;&quot;Aplicar cambios&quot;&gt;&lt;/p-button&gt;
+          &lt;p-button icon&#x3D;&quot;pi pi-times&quot; styleClass&#x3D;&quot;p-button-outlined&quot; label&#x3D;&quot;Cancelar&quot;&gt;&lt;/p-button&gt;
+        &lt;/ng-template&gt; --&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;info-card w-full gap-4 section-surface p-3&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;user.allowed(userPermission.phases_batch_edit) else noChangeThubnail&quot;&gt;
+          &lt;app-avatar-uploader styleClass&#x3D;&quot;w-16rem h-13rem&quot; shape&#x3D;&quot;square&quot; [imageUrl]&#x3D;&quot;returnUrlThumbnail()&quot; (onUpload)&#x3D;&quot;uploadImage($event, phase)&quot; [disableRemove]&#x3D;&quot;true&quot;&gt;&lt;/app-avatar-uploader&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #noChangeThubnail&gt;
+          &lt;div class&#x3D;&quot;w-16rem h-13rem relative&quot;&gt;
+            &lt;img [src]&#x3D;&quot;phase.thumbnail&quot; styleClass&#x3D;&quot;w-full h-full&quot; /&gt;
+          &lt;/div&gt;
+        &lt;/ng-template&gt;
+
+
+        &lt;div class&#x3D;&quot;h-13rem flex flex-column gap-1 justify-content-between&quot; style&#x3D;&quot;flex: 1&quot;&gt;
+          &lt;span class&#x3D;&quot;text-xl font-semibold pt-3&quot;&gt;{{phase.name}}&lt;/span&gt;
+          &lt;div class&#x3D;&quot;flex flex-row gap-3&quot;&gt;
+            &lt;div class&#x3D;&quot;border-round-2xl flex flex-column py-3 px-4 gap-2 text-white text-sm&quot; [style.background-color]&#x3D;&quot;phase.stageDoc.color&quot;&gt;
+              &lt;span&gt;Etapa&lt;/span&gt;
+              &lt;div class&#x3D;&quot;flex flex-row align-items-center gap-3&quot;&gt;
+                &lt;i-tabler [name]&#x3D;&quot;phase.stageDoc.icon&quot; style&#x3D;&quot;width: 2rem; height: 2rem&quot;&gt;&lt;/i-tabler&gt;
+                &lt;span&gt;{{phase.stageDoc.name | uppercase}}&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-between gap-2 mt-2&quot;&gt;
+                &lt;span&gt;Creación: &lt;/span&gt;
+                &lt;div [style.background-color]&#x3D;&quot;&#x27;rgba(255, 255, 255, 0.2)&#x27;&quot; class&#x3D;&quot;py-1 pr-6 pl-3 flex flex-row align-items-center border-round-2xl gap-2 &quot;&gt;
+                  &lt;i-tabler name&#x3D;&quot;calendar&quot;&gt;&lt;/i-tabler&gt;
+                  &lt;span class&#x3D;&quot;text-sm&quot;&gt;{{phase.createdAt | date}}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;!phase.basePhase&quot;&gt;
+              &lt;div class&#x3D;&quot;flex flex-column gap-1 border-round-2xl text-white text-sm bg-primary py-3 px-3&quot; style&#x3D;&quot;width: 8rem&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;calendar-event&quot; style&#x3D;&quot;width: 2.5rem; height: 2.5rem&quot;&gt;&lt;/i-tabler&gt;
+                &lt;span class&#x3D;&quot;mt-2&quot;&gt;Inicia&lt;/span&gt;
+                &lt;div class&#x3D;&quot;flex flex-row align-content-center gap-2&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-3xl&quot; style&#x3D;&quot;font-weight: 500;&quot;&gt;{{phase.startAt | date:&#x27;d&#x27;}}&lt;/span&gt;
+                  &lt;div class&#x3D;&quot;flex flex-column  justify-content-center&quot;&gt;
+                    &lt;span class&#x3D;&quot;text-xs&quot;&gt;{{phase.startAt | date:&#x27;LLLL&#x27;}}&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;text-xs&quot;&gt;{{phase.startAt | date:&#x27;yyyy&#x27;}}&lt;/span&gt;
+                  &lt;/div&gt;
+
+                &lt;/div&gt;
+
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;flex flex-column gap-1 border-round-2xl text-white text-sm bg-second-color py-3 px-3&quot; style&#x3D;&quot;width: 8rem&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;calendar-event&quot; style&#x3D;&quot;width: 2.5rem; height: 2.5rem&quot;&gt;&lt;/i-tabler&gt;
+                &lt;span class&#x3D;&quot;mt-2&quot;&gt;Termina&lt;/span&gt;
+                &lt;div class&#x3D;&quot;flex flex-row align-content-center gap-2&quot;&gt;
+                  &lt;span class&#x3D;&quot;text-3xl&quot; style&#x3D;&quot;font-weight: 500;&quot;&gt;{{phase.calcEndDate | date:&#x27;d&#x27;}}&lt;/span&gt;
+                  &lt;div class&#x3D;&quot;flex flex-column  justify-content-center&quot;&gt;
+                    &lt;span class&#x3D;&quot;text-xs&quot;&gt;{{phase.calcEndDate | date:&#x27;LLLL&#x27;}}&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;text-xs&quot;&gt;{{phase.calcEndDate | date:&#x27;yyyy&#x27;}}&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+
+              &lt;/div&gt;
+            &lt;/ng-container&gt;
+          &lt;/div&gt;
+
+          &lt;!-- &lt;ng-container *ngIf&#x3D;&quot;phase.basePhase; else normalPhase&quot;&gt;
+            &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Creado el {{phase.createdAt | date}}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Actualizado el {{phase.updatedAt | date}}&lt;/span&gt;
+          &lt;/ng-container&gt;
+          &lt;ng-template #normalPhase&gt;
+            &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Inicia el {{phase.startAt | date}}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Finaliza el {{phase.calcEndDate | date}}&lt;/span&gt;
+          &lt;/ng-template&gt; --&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;!-- &lt;p-button styleClass&#x3D;&quot;button-yellow-second button-border-mid w-full align-items-center justify-content-between mt-2 gap-4&quot; (onClick)&#x3D;&quot;closeBatch()&quot; *ngIf&#x3D;&quot;!phase.basePhase &amp;&amp; !phase.finished &amp;&amp; user.allowed(userPermission.phases_batch_close)&quot;&gt;
+            &lt;span class&#x3D;&quot;mx-2 font-semibold	&quot;&gt;Cerrar batch&lt;/span&gt;
+            &lt;i-tabler class&#x3D;&quot;sidenav-link-icon&quot; name&#x3D;&quot;minimize&quot;&gt;&lt;/i-tabler&gt;
+          &lt;/p-button&gt; --&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;p-divider [style.width]&#x3D;&quot;&#x27;100%&#x27;&quot;&gt;&lt;/p-divider&gt;
+      &lt;div class&#x3D;&quot;w-full&quot;&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;clonedEdit[&#x27;description&#x27;] !&#x3D;&#x3D; undefined; else showDescription&quot;&gt;
+          &lt;div class&#x3D;&quot;w-full flex flex-column align-items-baseline w-full inline-flex gap-2 p-2&quot;&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-between gap-2&quot;&gt;
+              &lt;span class&#x3D;&quot;text-xl font-semibold&quot;&gt;Descripción&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;textarea pInputTextarea [(ngModel)]&#x3D;&quot;clonedEdit[&#x27;description&#x27;]&quot; [rows]&#x3D;&quot;5&quot; style&#x3D;&quot;width: 100% !important;&quot;&gt;&lt;/textarea&gt;
+          &lt;/div&gt;
+          &lt;p-button [icon]&#x3D;&quot;&#x27;pi pi-save&#x27;&quot; class&#x3D;&quot;mx-2&quot; label&#x3D;&quot;Guardar&quot; [pTooltip]&#x3D;&quot;&#x27;Guardar cambios&#x27;&quot; (onClick)&#x3D;&quot;saveEdit(&#x27;description&#x27;)&quot;&gt;&lt;/p-button&gt;
+          &lt;p-button [icon]&#x3D;&quot;&#x27;pi pi-times&#x27;&quot; class&#x3D;&quot;mx-2&quot; label&#x3D;&quot;Cancelar&quot; [pTooltip]&#x3D;&quot;&#x27;Cancelar cambios&#x27;&quot; (onClick)&#x3D;&quot;cancelEdit(&#x27;description&#x27;)&quot;&gt;&lt;/p-button&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #showDescription&gt;
+          &lt;div class&#x3D;&quot;flex flex-column align-items-baseline w-full inline-flex gap-2&quot;&gt;
+
+            &lt;div class&#x3D;&quot;flex flex-row align-items-center gap-4&quot;&gt;
+              &lt;span class&#x3D;&quot;font-semibold text-color-other text-2xl&quot;&gt;Descripción &lt;/span&gt;
+              &lt;div class&#x3D;&quot;button-grey cursor-pointer border-round p-1&quot; pTooltip&#x3D;&quot;Editar&quot; (click)&#x3D;&quot;openEdit(&#x27;description&#x27;)&quot; *ngIf&#x3D;&quot;user.allowed(userPermission.phases_batch_edit)&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;edit&quot;&gt;&lt;/i-tabler&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;section-surface p-5 w-full&quot;&gt;
+              &lt;p class&#x3D;&quot;px-5&quot;&gt;{{phase.description}}&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/ng-template&gt;
+      &lt;/div&gt;
+
+      &lt;p-divider styleClass&#x3D;&quot;w-full&quot;&gt;&lt;/p-divider&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;clonedEdit[&#x27;landing&#x27;] !&#x3D;&#x3D; undefined; else showLanding&quot;&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-column align-items-baseline w-full inline-flex gap-2 p-2&quot;&gt;
+          &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-between&quot;&gt;
+            &lt;span class&#x3D;&quot;text-xl font-semibold&quot;&gt;Landing&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;tinymce [(ngModel)]&#x3D;&quot;clonedEdit[&#x27;landing&#x27;]&quot; [config]&#x3D;&quot;configTiny&quot; class&#x3D;&quot;w-full&quot;&gt;&lt;/tinymce&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-row align-items-center justify-content-start&quot;&gt;
+          &lt;p-button [icon]&#x3D;&quot;&#x27;pi pi-save&#x27;&quot; class&#x3D;&quot;mx-2&quot; label&#x3D;&quot;Guardar&quot; [pTooltip]&#x3D;&quot;&#x27;Guardar cambios&#x27;&quot; (onClick)&#x3D;&quot;saveEdit(&#x27;landing&#x27;)&quot;&gt;&lt;/p-button&gt;
+          &lt;p-button [icon]&#x3D;&quot;&#x27;pi pi-times&#x27;&quot; class&#x3D;&quot;mx-2&quot; label&#x3D;&quot;Cancelar&quot; [pTooltip]&#x3D;&quot;&#x27;Cancelar cambios&#x27;&quot; (onClick)&#x3D;&quot;cancelEdit(&#x27;landing&#x27;)&quot;&gt;&lt;/p-button&gt;
+        &lt;/div&gt;
+      &lt;/ng-container&gt;
+      &lt;ng-template #showLanding&gt;
+        &lt;div class&#x3D;&quot;flex flex-column align-items-baseline w-full inline-flex gap-2&quot;&gt;
+          &lt;div class&#x3D;&quot;flex flex-row align-items-center gap-4&quot;&gt;
+            &lt;span class&#x3D;&quot;font-semibold text-color-other text-2xl&quot;&gt;Landing &lt;/span&gt;
+            &lt;div class&#x3D;&quot;button-grey cursor-pointer border-round p-1&quot; pTooltip&#x3D;&quot;Editar&quot; (click)&#x3D;&quot;openEdit(&#x27;landing&#x27;)&quot; *ngIf&#x3D;&quot;user.allowed(userPermission.phases_batch_edit)&quot;&gt;
+              &lt;i-tabler name&#x3D;&quot;edit&quot;&gt;&lt;/i-tabler&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;section-surface p-5 w-full&quot;&gt;
+            &lt;div *ngIf&#x3D;&quot;phase.landing&quot; class&#x3D;&quot;w-full px-5&quot; [innerHtml]&#x3D;&quot;(phase.landing | safe:&#x27;html&#x27;)&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/ng-template&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/ng-container&gt;
+
+
+&lt;ng-template #loadingTemplate&gt;
+  &lt;app-loading&gt;&lt;/app-loading&gt;
+&lt;/ng-template&gt;
+
+&lt;p-dialog appendTo&#x3D;&quot;body&quot; header&#x3D;&quot;&quot; [(visible)]&#x3D;&quot;showClosedBatch&quot; [style]&#x3D;&quot;{ width: &#x27;70vw&#x27;, height: &#x27;80vh&#x27; }&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;true&quot; [modal]&#x3D;&quot;true&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot;&gt;
+  &lt;div class&#x3D;&quot;w-full flex flex-row align-items-center gap-3&quot;&gt;
+    &lt;i-tabler name&#x3D;&quot;heart-handshake&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+    &lt;div class&#x3D;&quot;content-resource w-full flex flex-column justify-content-between pb-2 pr-4 gap-3&quot;&gt;
+      &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;Cerrar batch&lt;/h2&gt;
+      &lt;span&gt;Para concluir el batch, seleccione las startups que ha aprobado. Aquellas que han completado satisfactoriamente todo el contenido y las tareas requeridas se marcarán automáticamente. Sin embargo, usted tiene la opción de editar manualmente la aprobación de cada startup según sea necesario&lt;/span&gt;
+      &lt;span&gt;Al finalizar este proceso, todas las startups recibirán una solicitud para evaluar a sus respectivos team coach y expertos asignados, lo que permitirá obtener valiosos comentarios sobre la experiencia colaborativa.&quot;&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p-divider&gt;&lt;/p-divider&gt;
+  &lt;div class&#x3D;&quot;flex flex-column justify-content-between w-full p-3&quot;&gt;
+    &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+    &lt;div class&#x3D;&quot;actions flex flex-column gap-1 mb-4&quot;&gt;
+      &lt;p-button type&#x3D;&quot;submit&quot; label&#x3D;&quot;Crear ticket&quot; styleClass&#x3D;&quot;p-button-lg w-full border-round-2xl my-2 p-3&quot;&gt;&lt;/p-button&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;flex md:hidden&quot; style&#x3D;&quot;height: 30rem;&quot;&gt;
+      &lt;span class&#x3D;&quot;text-white&quot;&gt;aaaa&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;panel-hide fixed bottom-0 left-0&quot;&gt;&lt;/div&gt;
+&lt;/p-dialog&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./phases-edit.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.info-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="phase else loadingTemplate">  <div class="p-4">    <div class="flex flex-column w-full align-items-stretch justify-content-start border-round-2xl p-3 align-items-center gap-2">      <div class="flex flex-row align-items-center gap-3">        <label class="text-xl font-semibold text-color-other text-2xl">Información</label>        <!-- <ng-container *ngIf="!editEnabled; else saveBtn">          <div class="button-grey cursor-pointer border-round p-1" pTooltip="Editar">            <i-tabler name="edit"></i-tabler>          </div>        </ng-container>        <ng-template #saveBtn>          <p-button icon="pi pi-save" label="Aplicar cambios"></p-button>          <p-button icon="pi pi-times" styleClass="p-button-outlined" label="Cancelar"></p-button>        </ng-template> -->      </div>      <div class="info-card w-full gap-4 section-surface p-3">        <ng-container *ngIf="user.allowed(userPermission.phases_batch_edit) else noChangeThubnail">          <app-avatar-uploader styleClass="w-16rem h-13rem" shape="square" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event, phase)" [disableRemove]="true"></app-avatar-uploader>        </ng-container>        <ng-template #noChangeThubnail>          <div class="w-16rem h-13rem relative">            <img [src]="phase.thumbnail" styleClass="w-full h-full" />          </div>        </ng-template>        <div class="h-13rem flex flex-column gap-1 justify-content-between" style="flex: 1">          <span class="text-xl font-semibold pt-3">{{phase.name}}</span>          <div class="flex flex-row gap-3">            <div class="border-round-2xl flex flex-column py-3 px-4 gap-2 text-white text-sm" [style.background-color]="phase.stageDoc.color">              <span>Etapa</span>              <div class="flex flex-row align-items-center gap-3">                <i-tabler [name]="phase.stageDoc.icon" style="width: 2rem; height: 2rem"></i-tabler>                <span>{{phase.stageDoc.name | uppercase}}</span>              </div>              <div class="flex flex-row align-items-center justify-content-between gap-2 mt-2">                <span>Creación: </span>                <div [style.background-color]="\'rgba(255, 255, 255, 0.2)\'" class="py-1 pr-6 pl-3 flex flex-row align-items-center border-round-2xl gap-2 ">                  <i-tabler name="calendar"></i-tabler>                  <span class="text-sm">{{phase.createdAt | date}}</span>                </div>              </div>            </div>            <ng-container *ngIf="!phase.basePhase">              <div class="flex flex-column gap-1 border-round-2xl text-white text-sm bg-primary py-3 px-3" style="width: 8rem">                <i-tabler name="calendar-event" style="width: 2.5rem; height: 2.5rem"></i-tabler>                <span class="mt-2">Inicia</span>                <div class="flex flex-row align-content-center gap-2">                  <span class="text-3xl" style="font-weight: 500;">{{phase.startAt | date:\'d\'}}</span>                  <div class="flex flex-column  justify-content-center">                    <span class="text-xs">{{phase.startAt | date:\'LLLL\'}}</span>                    <span class="text-xs">{{phase.startAt | date:\'yyyy\'}}</span>                  </div>                </div>              </div>              <div class="flex flex-column gap-1 border-round-2xl text-white text-sm bg-second-color py-3 px-3" style="width: 8rem">                <i-tabler name="calendar-event" style="width: 2.5rem; height: 2.5rem"></i-tabler>                <span class="mt-2">Termina</span>                <div class="flex flex-row align-content-center gap-2">                  <span class="text-3xl" style="font-weight: 500;">{{phase.calcEndDate | date:\'d\'}}</span>                  <div class="flex flex-column  justify-content-center">                    <span class="text-xs">{{phase.calcEndDate | date:\'LLLL\'}}</span>                    <span class="text-xs">{{phase.calcEndDate | date:\'yyyy\'}}</span>                  </div>                </div>              </div>            </ng-container>          </div>          <!-- <ng-container *ngIf="phase.basePhase; else normalPhase">            <span class="font-semibold">Creado el {{phase.createdAt | date}}</span>            <span class="font-semibold">Actualizado el {{phase.updatedAt | date}}</span>          </ng-container>          <ng-template #normalPhase>            <span class="font-semibold">Inicia el {{phase.startAt | date}}</span>            <span class="font-semibold">Finaliza el {{phase.calcEndDate | date}}</span>          </ng-template> -->        </div>        <div>          <!-- <p-button styleClass="button-yellow-second button-border-mid w-full align-items-center justify-content-between mt-2 gap-4" (onClick)="closeBatch()" *ngIf="!phase.basePhase && !phase.finished && user.allowed(userPermission.phases_batch_close)">            <span class="mx-2 font-semibold	">Cerrar batch</span>            <i-tabler class="sidenav-link-icon" name="minimize"></i-tabler>          </p-button> -->        </div>      </div>      <p-divider [style.width]="\'100%\'"></p-divider>      <div class="w-full">        <ng-container *ngIf="clonedEdit[\'description\'] !== undefined; else showDescription">          <div class="w-full flex flex-column align-items-baseline w-full inline-flex gap-2 p-2">            <div class="w-full flex flex-row justify-content-between gap-2">              <span class="text-xl font-semibold">Descripción</span>            </div>            <textarea pInputTextarea [(ngModel)]="clonedEdit[\'description\']" [rows]="5" style="width: 100% !important;"></textarea>          </div>          <p-button [icon]="\'pi pi-save\'" class="mx-2" label="Guardar" [pTooltip]="\'Guardar cambios\'" (onClick)="saveEdit(\'description\')"></p-button>          <p-button [icon]="\'pi pi-times\'" class="mx-2" label="Cancelar" [pTooltip]="\'Cancelar cambios\'" (onClick)="cancelEdit(\'description\')"></p-button>        </ng-container>        <ng-template #showDescription>          <div class="flex flex-column align-items-baseline w-full inline-flex gap-2">            <div class="flex flex-row align-items-center gap-4">              <span class="font-semibold text-color-other text-2xl">Descripción </span>              <div class="button-grey cursor-pointer border-round p-1" pTooltip="Editar" (click)="openEdit(\'description\')" *ngIf="user.allowed(userPermission.phases_batch_edit)">                <i-tabler name="edit"></i-tabler>              </div>            </div>            <div class="section-surface p-5 w-full">              <p class="px-5">{{phase.description}}</p>            </div>          </div>        </ng-template>      </div>      <p-divider styleClass="w-full"></p-divider>      <ng-container *ngIf="clonedEdit[\'landing\'] !== undefined; else showLanding">        <div class="w-full flex flex-column align-items-baseline w-full inline-flex gap-2 p-2">          <div class="w-full flex flex-row justify-content-between">            <span class="text-xl font-semibold">Landing</span>          </div>          <tinymce [(ngModel)]="clonedEdit[\'landing\']" [config]="configTiny" class="w-full"></tinymce>        </div>        <div class="w-full flex flex-row align-items-center justify-content-start">          <p-button [icon]="\'pi pi-save\'" class="mx-2" label="Guardar" [pTooltip]="\'Guardar cambios\'" (onClick)="saveEdit(\'landing\')"></p-button>          <p-button [icon]="\'pi pi-times\'" class="mx-2" label="Cancelar" [pTooltip]="\'Cancelar cambios\'" (onClick)="cancelEdit(\'landing\')"></p-button>        </div>      </ng-container>      <ng-template #showLanding>        <div class="flex flex-column align-items-baseline w-full inline-flex gap-2">          <div class="flex flex-row align-items-center gap-4">            <span class="font-semibold text-color-other text-2xl">Landing </span>            <div class="button-grey cursor-pointer border-round p-1" pTooltip="Editar" (click)="openEdit(\'landing\')" *ngIf="user.allowed(userPermission.phases_batch_edit)">              <i-tabler name="edit"></i-tabler>            </div>          </div>          <div class="section-surface p-5 w-full">            <div *ngIf="phase.landing" class="w-full px-5" [innerHtml]="(phase.landing | safe:\'html\')"></div>          </div>        </div>      </ng-template>    </div>  </div></ng-container><ng-template #loadingTemplate>  <app-loading></app-loading></ng-template><p-dialog appendTo="body" header="" [(visible)]="showClosedBatch" [style]="{ width: \'70vw\', height: \'80vh\' }" [draggable]="false" [resizable]="true" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}">  <div class="w-full flex flex-row align-items-center gap-3">    <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>    <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4 gap-3">      <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">Cerrar batch</h2>      <span>Para concluir el batch, seleccione las startups que ha aprobado. Aquellas que han completado satisfactoriamente todo el contenido y las tareas requeridas se marcarán automáticamente. Sin embargo, usted tiene la opción de editar manualmente la aprobación de cada startup según sea necesario</span>      <span>Al finalizar este proceso, todas las startups recibirán una solicitud para evaluar a sus respectivos team coach y expertos asignados, lo que permitirá obtener valiosos comentarios sobre la experiencia colaborativa."</span>    </div>  </div>  <p-divider></p-divider>  <div class="flex flex-column justify-content-between w-full p-3">    <div style="height: 1rem;"></div>    <div class="actions flex flex-column gap-1 mb-4">      <p-button type="submit" label="Crear ticket" styleClass="p-button-lg w-full border-round-2xl my-2 p-3"></p-button>    </div>    <div class="flex md:hidden" style="height: 30rem;">      <span class="text-white">aaaa</span>    </div>  </div>  <div class="panel-hide fixed bottom-0 left-0"></div></p-dialog></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PhasesEditComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PhasesEditComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

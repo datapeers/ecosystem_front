@@ -1,0 +1,2422 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  RouteComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/route/route.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-route</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./route.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./route.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#break" >break</a>
+                            </li>
+                            <li>
+                                <a href="#completed" >completed</a>
+                            </li>
+                            <li>
+                                <a href="#completedString" >completedString</a>
+                            </li>
+                            <li>
+                                <a href="#currentBatch" >currentBatch</a>
+                            </li>
+                            <li>
+                                <a href="#lastContent" >lastContent</a>
+                            </li>
+                            <li>
+                                <a href="#listBasesDone" >listBasesDone</a>
+                            </li>
+                            <li>
+                                <a href="#minWidth" >minWidth</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#phasesBases" >phasesBases</a>
+                            </li>
+                            <li>
+                                <a href="#phasesUser" >phasesUser</a>
+                            </li>
+                            <li>
+                                <a href="#profileDoc" >profileDoc</a>
+                            </li>
+                            <li>
+                                <a href="#stages" >stages</a>
+                            </li>
+                            <li>
+                                <a href="#stages$" >stages$</a>
+                            </li>
+                            <li>
+                                <a href="#startup" >startup</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkScreen" >checkScreen</a>
+                            </li>
+                            <li>
+                                <a href="#dotedHeightLine" >dotedHeightLine</a>
+                            </li>
+                            <li>
+                                <a href="#dotedWidthLine" >dotedWidthLine</a>
+                            </li>
+                            <li>
+                                <a href="#goContent" >goContent</a>
+                            </li>
+                            <li>
+                                <a href="#goToDescription" >goToDescription</a>
+                            </li>
+                            <li>
+                                <a href="#gradient" >gradient</a>
+                            </li>
+                            <li>
+                                <a href="#heightStage" >heightStage</a>
+                            </li>
+                            <li>
+                                <a href="#hexToRgb" >hexToRgb</a>
+                            </li>
+                            <li>
+                                <a href="#lastContentSub" >lastContentSub</a>
+                            </li>
+                            <li>
+                                <a href="#launchTour" >launchTour</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#onResize" >onResize</a>
+                            </li>
+                            <li>
+                                <a href="#widthStage" >widthStage</a>
+                            </li>
+                            <li>
+                                <a href="#withOpacity" >withOpacity</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:resize" >window:resize</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, phasesService: <a href="../injectables/PhasesService.html" target="_self">PhasesService</a>, contentService: <a href="../injectables/PhaseContentService.html" target="_self">PhaseContentService</a>, shepherdService: ShepherdService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/route/route.component.ts:38</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phasesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhasesService.html" target="_self" >PhasesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>contentService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseContentService.html" target="_self" >PhaseContentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>shepherdService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ShepherdService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:resize"></a>
+                    <span class="name">
+                        <span ><b>window:resize</b></span>
+                        <a href="#window:resize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:resize(event: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkScreen"></a>
+                    <span class="name">
+                        <span ><b>checkScreen</b></span>
+                        <a href="#checkScreen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkScreen()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dotedHeightLine"></a>
+                    <span class="name">
+                        <span ><b>dotedHeightLine</b></span>
+                        <a href="#dotedHeightLine"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>dotedHeightLine(faseOrder: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="189"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:189</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>faseOrder</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dotedWidthLine"></a>
+                    <span class="name">
+                        <span ><b>dotedWidthLine</b></span>
+                        <a href="#dotedWidthLine"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>dotedWidthLine(faseOrder: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="196"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:196</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>faseOrder</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>number | &quot;0.0625&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goContent"></a>
+                    <span class="name">
+                        <span ><b>goContent</b></span>
+                        <a href="#goContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goContent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToDescription"></a>
+                    <span class="name">
+                        <span ><b>goToDescription</b></span>
+                        <a href="#goToDescription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToDescription(stage: <a href="../classes/Stage.html" target="_self">Stage</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:222</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>stage</td>
+                                            <td>
+                                                            <code><a href="../classes/Stage.html" target="_self" >Stage</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gradient"></a>
+                    <span class="name">
+                        <span ><b>gradient</b></span>
+                        <a href="#gradient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>gradient(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:148</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="heightStage"></a>
+                    <span class="name">
+                        <span ><b>heightStage</b></span>
+                        <a href="#heightStage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>heightStage(fasesNumber: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fasesNumber</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;auto&quot; | &quot;fasesNumber * 100&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hexToRgb"></a>
+                    <span class="name">
+                        <span ><b>hexToRgb</b></span>
+                        <a href="#hexToRgb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hexToRgb(hex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>hex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>{ r: any; g: any; b: any; }</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastContentSub"></a>
+                    <span class="name">
+                        <span ><b>lastContentSub</b></span>
+                        <a href="#lastContentSub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>lastContentSub()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="launchTour"></a>
+                    <span class="name">
+                        <span ><b>launchTour</b></span>
+                        <a href="#launchTour"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>launchTour()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onResize"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>onResize</b></span>
+                        <a href="#onResize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onResize(event: <a href="../classes/Event.html" target="_self">Event</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;window:resize&#x27;, [&#x27;$event&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="../classes/Event.html" target="_self" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="widthStage"></a>
+                    <span class="name">
+                        <span ><b>widthStage</b></span>
+                        <a href="#widthStage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>widthStage(fasesNumber: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="181"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:181</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fasesNumber</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;auto&quot; | &quot;fasesNumber * 10rem&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="withOpacity"></a>
+                    <span class="name">
+                        <span ><b>withOpacity</b></span>
+                        <a href="#withOpacity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>withOpacity(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, opacity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/home/route/route.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>opacity</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="break"></a>
+                    <span class="name">
+                        <span ><b>break</b></span>
+                        <a href="#break"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/home/route/route.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="completed"></a>
+                    <span class="name">
+                        <span ><b>completed</b></span>
+                        <a href="#completed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/route/route.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="completedString"></a>
+                    <span class="name">
+                        <span ><b>completedString</b></span>
+                        <a href="#completedString"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;0%&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/route/route.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentBatch"></a>
+                    <span class="name">
+                        <span ><b>currentBatch</b></span>
+                        <a href="#currentBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase | any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/home/route/route.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastContent"></a>
+                    <span class="name">
+                        <span ><b>lastContent</b></span>
+                        <a href="#lastContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/lastContent.html" target="_self" >lastContent</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/route/route.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listBasesDone"></a>
+                    <span class="name">
+                        <span ><b>listBasesDone</b></span>
+                        <a href="#listBasesDone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/route/route.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minWidth"></a>
+                    <span class="name">
+                        <span ><b>minWidth</b></span>
+                        <a href="#minWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1200</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/home/route/route.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/route/route.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phasesBases"></a>
+                    <span class="name">
+                        <span ><b>phasesBases</b></span>
+                        <a href="#phasesBases"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/home/route/route.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phasesUser"></a>
+                    <span class="name">
+                        <span ><b>phasesUser</b></span>
+                        <a href="#phasesUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/home/route/route.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileDoc"></a>
+                    <span class="name">
+                        <span ><b>profileDoc</b></span>
+                        <a href="#profileDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/home/route/route.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stages"></a>
+                    <span class="name">
+                        <span ><b>stages</b></span>
+                        <a href="#stages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/home/route/route.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stages$"></a>
+                    <span class="name">
+                        <span ><b>stages$</b></span>
+                        <a href="#stages$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/home/route/route.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startup"></a>
+                    <span class="name">
+                        <span ><b>startup</b></span>
+                        <a href="#startup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Startup.html" target="_self" >Startup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/home/route/route.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, HostListener, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { Stage } from &#x27;@home/phases/model/stage.model&#x27;;
+import { PhaseContentService } from &#x27;@home/phases/phase-content/phase-content.service&#x27;;
+import { PhasesService } from &#x27;@home/phases/phases.service&#x27;;
+import { NoBtnReturn } from &#x27;@home/store/home.actions&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { lastContent } from &#x27;@shared/models/lastContent&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { getNameBase } from &#x27;@shared/utils/phases.utils&#x27;;
+import { firstValueFrom, first, Subscription, takeUntil, Subject } from &#x27;rxjs&#x27;;
+import { ShepherdService } from &#x27;angular-shepherd&#x27;;
+import { routeOnboarding } from &#x27;@shared/onboarding/onboarding.config&#x27;;
+
+@Component({
+  selector: &#x27;app-route&#x27;,
+  templateUrl: &#x27;./route.component.html&#x27;,
+  styleUrls: [&#x27;./route.component.scss&#x27;],
+})
+export class RouteComponent implements OnInit, OnDestroy {
+  minWidth &#x3D; 1200;
+
+  break &#x3D; false;
+  stages$: Subscription;
+  stages &#x3D; [];
+  profileDoc;
+  startup: Startup;
+  phasesBases: Phase[];
+  phasesUser: Phase[];
+  currentBatch: Phase | any;
+  listBasesDone &#x3D; [];
+  lastContent: lastContent;
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+  completed &#x3D; 0;
+  completedString &#x3D; &#x27;0%&#x27;;
+  constructor(
+    private router: Router,
+    private toast: ToastService,
+    private store: Store&lt;AppState&gt;,
+    private phasesService: PhasesService,
+    private contentService: PhaseContentService,
+    private readonly shepherdService: ShepherdService
+  ) {
+    this.store.dispatch(new NoBtnReturn());
+  }
+
+  ngOnInit() {
+    this.checkScreen();
+    this.loadComponent();
+  }
+
+  ngOnDestroy(): void {
+    this.stages$?.unsubscribe();
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  ngAfterViewInit() {
+    this.shepherdService.defaultStepOptions &#x3D; {
+      scrollTo: true,
+      cancelIcon: {
+        enabled: true,
+      },
+    };
+    this.shepherdService.modal &#x3D; true;
+    this.shepherdService.confirmCancel &#x3D; false;
+    this.shepherdService.addSteps(routeOnboarding);
+  }
+
+  launchTour() {
+    this.shepherdService.start();
+  }
+
+  async loadComponent() {
+    this.profileDoc &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.profileDoc)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.startup &#x3D; this.profileDoc.startups[0];
+    const userPhases &#x3D; await this.phasesService.getPhasesList(
+      this.profileDoc[&#x27;startups&#x27;][0].phases.map((i) &#x3D;&gt; i._id),
+      true
+    );
+    this.currentBatch &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.home.currentBatch)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.phasesBases &#x3D; userPhases.filter((i) &#x3D;&gt; i.basePhase);
+    this.phasesUser &#x3D; userPhases.filter((i) &#x3D;&gt; !i.basePhase);
+
+    this.listBasesDone &#x3D; [];
+    for (const iterator of this.phasesUser) {
+      if (this.listBasesDone.includes(iterator.childrenOf)) continue;
+      this.listBasesDone.push(iterator.childrenOf);
+    }
+    this.completed &#x3D;
+      (this.listBasesDone.length / this.phasesBases.length) * 100;
+    this.completedString &#x3D; this.completed.toString() + &#x27;%&#x27;;
+    this.lastContentSub();
+    this.phasesService
+      .watchStages()
+      .then((stages$) &#x3D;&gt; {
+        this.stages$ &#x3D; stages$.subscribe((stageList) &#x3D;&gt; {
+          this.stages &#x3D; [];
+          let numbPhase &#x3D; 1;
+          for (const stage of stageList) {
+            if (stage.isDeleted) continue;
+            const phasesStage &#x3D; this.phasesBases
+              .filter((i) &#x3D;&gt; i.stage &#x3D;&#x3D;&#x3D; stage._id)
+              .map((i) &#x3D;&gt; ({
+                ...i,
+                number: numbPhase++,
+                done: this.listBasesDone.includes(i._id),
+                currentBatch: this.currentBatch.childrenOf &#x3D;&#x3D;&#x3D; i._id,
+                nameLabel: getNameBase(i),
+              }));
+            const phasesDone &#x3D; phasesStage.filter((fase) &#x3D;&gt;
+              this.listBasesDone.includes(fase._id)
+            );
+            this.stages.push({
+              ...stage,
+              fases: phasesStage,
+              hasPhasesDone: phasesDone.length !&#x3D;&#x3D; 0,
+              hasAllPhasesDone: phasesDone.length &#x3D;&#x3D;&#x3D; phasesStage.length,
+            });
+          }
+        });
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.alert({
+          summary: &#x27;Error al cargar etapas&#x27;,
+          detail: err,
+          life: 12000,
+        });
+        this.stages &#x3D; [];
+      });
+  }
+
+  checkScreen() {
+    this.break &#x3D; window.innerWidth &lt; 1200;
+  }
+
+  gradient(color: string) {
+    const colorRgb &#x3D; this.hexToRgb(color);
+    const style &#x3D; &#x60;linear-gradient(${
+      this.break ? &#x27;270deg&#x27; : &#x27;180deg&#x27;
+    }, ${this.withOpacity(color, 0.3)} 0%, #ffffff 100%)&#x60;;
+    return style;
+  }
+
+  hexToRgb(hex: string) {
+    var result &#x3D; /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb &#x3D; this.hexToRgb(color);
+    const style &#x3D; &#x60;rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})&#x60;;
+    return style;
+  }
+
+  heightStage(fasesNumber: number) {
+    if (this.break) {
+      return &#x27;auto&#x27;;
+    }
+
+    return &#x60;fasesNumber * 100&#x60;;
+  }
+
+  widthStage(fasesNumber: number) {
+    if (!this.break) {
+      return &#x27;auto&#x27;;
+    }
+
+    return &#x60;fasesNumber * 10rem&#x60;;
+  }
+
+  dotedHeightLine(faseOrder: number) {
+    if (this.break) {
+      return 0.0625;
+    }
+    return 1.5 + faseOrder * 0.5;
+  }
+
+  dotedWidthLine(faseOrder: number) {
+    if (!this.break) {
+      return &#x27;0.0625&#x27;;
+    }
+
+    return 1.5 + faseOrder * 0.3;
+  }
+
+  @HostListener(&#x27;window:resize&#x27;, [&#x27;$event&#x27;])
+  onResize(event: Event): void {
+    this.break &#x3D; window.innerWidth &lt; 1200;
+  }
+
+  goContent() {
+    this.router.navigate([&#x27;/home/contents&#x27;]);
+  }
+
+  lastContentSub() {
+    this.store
+      .select((store) &#x3D;&gt; store.home.lastContent)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (i) &#x3D;&gt; {
+        this.lastContent &#x3D; i;
+      });
+  }
+
+  goToDescription(stage: Stage) {
+    this.router.navigate([&#x60;/home/route/stage&#x60;], {
+      queryParams: { stageId: stage._id },
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex w-auto flex-column h-max-router px-2 lg:px-3 xl:px-8 overflow-auto py-4 gap-4&quot;&gt;
+    &lt;div class&#x3D;&quot;header-panel flex flex-column lg:flex-row align-content-center gap-4&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+            &lt;h2&gt;La ruta para &lt;/h2&gt;
+            &lt;div style&#x3D;&quot;height: 1.5rem&quot;&gt;&lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex gap-2&quot;&gt;
+                &lt;i-tabler class&#x3D;&quot;text-center&quot; name&#x3D;&quot;bulb&quot; style&#x3D;&quot;color:#18E4E6; height:4rem; width:4rem;cursor:pointer;&quot;
+                    (click)&#x3D;&quot;launchTour()&quot;&gt;&lt;/i-tabler&gt;
+                &lt;p class&#x3D;&quot;description-route&quot;&gt;Esta es la Ruta de etapas que llevas en la StartUp. Ingresa a cada una
+                    de
+                    las fases de
+                    las
+                    etapas aprobadas para
+                    detallar el progreso y sus contenidos. No podrás visualizar las fases posteriores a la cual
+                    estas
+                    cursando actualmente
+                    hasta no completarla. Recuerda que los contenidos entregados en las fases completadas los puedes
+                    consultar también en el
+                    módulo Toolkit del menú lateral.
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id&#x3D;&quot;info&quot; class&#x3D;&quot;flex flex-none gap-2 w-auto header-panel-child justify-content-center align-items-center&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column justify-content-center align-items-center&quot; style&#x3D;&quot;width: 10rem;&quot;&gt;
+                &lt;div class&#x3D;&quot;flex flex-none tag mt-4&quot;&gt;Contenidos
+                    {{lastContent?.contentCompleted}}/{{lastContent?.numberOfContent}}&lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex flex-grow-1 px-2 py-4 justify-content-end align-items-end&quot; style&#x3D;&quot;font-weight: 500;&quot;&gt;
+                    &lt;p class&#x3D;&quot;titles-route&quot; class&#x3D;&quot;text-right &quot;&gt;Progreso global de la ruta&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex align-items-center justify-content-center&quot;&gt;
+                &lt;div class&#x3D;&quot;indicator flex align-items-center justify-content-center&quot;&gt;
+                    &lt;p-knob [(ngModel)]&#x3D;&quot;completed&quot; [strokeWidth]&#x3D;&quot;5&quot; [readonly]&#x3D;&quot;true&quot; [size]&#x3D;&quot;100&quot;
+                        [valueTemplate]&#x3D;&quot;completedString&quot; [valueColor]&#x3D;&quot;&#x27;#18E4E6&#x27;&quot;
+                        [rangeColor]&#x3D;&quot;withOpacity(&#x27;#18E4E6&#x27;, 0.2)&quot; [min]&#x3D;&quot;0&quot; [max]&#x3D;&quot;100&quot;&gt;
+
+                    &lt;/p-knob&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-col&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;h-3rem&quot;&gt;&lt;/div&gt;
+    &lt;div id&#x3D;&quot;route&quot;
+        class&#x3D;&quot;flex-grow-1 flex main flex-column xl:flex-row w-full justify-content-start align-items-end xl:justify-content-center xl:align-items-end gap-1 mt-0 md:mt-7&quot;&gt;
+        &lt;div class&#x3D;&quot;flex w-full flex-column xl:flex-row justify-content-start align-items-start xl:align-items-end&quot;
+            [style.width.%]&#x3D;&quot;widthStage(stage.fases.length)&quot; [style.height.rem]&#x3D;&quot;heightStage(stage.fases.length)&quot;
+            *ngFor&#x3D;&quot;let stage of stages; let i&#x3D;index;&quot;&gt;
+            &lt;div class&#x3D;&quot;flex w-full xl:flex-grow-1 flex-row-reverse justify-content-end xl:flex-column&quot;
+                [style.color]&#x3D;&quot;stage.color&quot;&gt;
+                &lt;div
+                    class&#x3D;&quot;flex xl:w-full flex-column xl:flex-row py-4 xl:py-0 xl:px-4 gap-4 justify-content-center align-items-end&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-row-reverse xl:flex-column w-full justify-content-end align-items-center&quot;
+                        *ngFor&#x3D;&quot;let fase of stage.fases&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row-reverse xl:flex-column align-items-center&quot;
+                            *ngIf&#x3D;&quot;stage.hasPhasesDone &amp;&amp; fase.done &amp;&amp; !fase.currentBatch&quot;&gt;
+                            &lt;div class&#x3D;&quot;flex fase-finished border-circle justify-content-center align-items-center&quot;
+                                [style.background-color]&#x3D;&quot;stage.color&quot;&gt;
+                                &lt;i-tabler class&#x3D;&quot;text-center&quot; name&#x3D;&quot;checks&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;/div&gt;
+                            &lt;div class&#x3D;&quot;fase-finished-body&quot; [style.background-color]&#x3D;&quot;withOpacity(stage.color, 0.21)&quot;&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;ng-container *ngIf&#x3D;&quot;fase.done &amp;&amp; fase.currentBatch&quot;&gt;
+                            &lt;div class&#x3D;&quot;text-white justify-center hat-current&quot; [style.background-color]&#x3D;&quot;stage.color&quot;&gt;
+                                &lt;p class&#x3D;&quot;text-center stage-label cursor-pointer&quot; (click)&#x3D;&quot;goContent()&quot;&gt;Retomar&lt;/p&gt;
+                            &lt;/div&gt;
+                        &lt;/ng-container&gt;
+                        &lt;div class&#x3D;&quot;flex flex-column normal-panel fase justify-content-center align-items-center py-7&quot;
+                            [style.color]&#x3D;&quot;fase.done ? stage.color : &#x27;#AEAEAE&#x27;&quot;&gt;
+                            &lt;h2 class&#x3D;&quot;text-center&quot;&gt;{{fase.number}}&lt;/h2&gt;
+                            &lt;p class&#x3D;&quot;label-phase text-center&quot;&gt;{{fase.nameLabel}}&lt;/p&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;line&quot; [style.height.rem]&#x3D;&quot;dotedHeightLine(fase.number)&quot;
+                            [style.width.rem]&#x3D;&quot;dotedWidthLine(fase.number)&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;stage justify-content-center align-items-center align-content-center cursor-pointer &quot;
+                    [style.border-color]&#x3D;&quot;stage.color&quot; [style.background]&#x3D;&quot;gradient(stage.color)&quot;
+                    (click)&#x3D;&quot;goToDescription(stage)&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column align-items-center justify-content-center h-full md:h-auto&quot;&gt;
+                        &lt;div style&#x3D;&quot;height: 0.5rem&quot;&gt;&lt;/div&gt;
+                        &lt;i-tabler class&#x3D;&quot;text-center&quot; [name]&#x3D;&quot;stage.icon&quot;&gt;&lt;/i-tabler&gt;
+                        &lt;div style&#x3D;&quot;height: 0.5rem&quot;&gt;&lt;/div&gt;
+                        &lt;p class&#x3D;&quot;text-center stage-label&quot;&gt;{{stage.label | uppercase}}&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex flex-none border-white stage-medal border-circle w-3rem h-3rem justify-content-center align-items-center&quot;
+                [style.background-color]&#x3D;&quot;stage.color&quot; *ngIf&#x3D;&quot;stage.hasAllPhasesDone&quot;&gt;
+                &lt;i-tabler class&#x3D;&quot;text-center&quot; name&#x3D;&quot;award&quot;&gt;&lt;/i-tabler&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./route.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;../../../styles.scss&quot;;
+
+.titles-route {
+  font-size: 1.5rem;
+  line-height: 1.675rem;
+  @media (max-width: 576px) {
+    font-size: 1rem;
+    line-height: 1.31rem;
+  }
+}
+
+.description-route {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 350;
+  @media (max-width: 576px) {
+    font-size: 0.68rem;
+    line-height: 1rem;
+  }
+}
+
+.stage {
+  border-top: solid 0.625rem;
+  border-right: none;
+  height: 8rem;
+  letter-spacing: 0.3rem;
+  font-weight: 500;
+
+  i-tabler {
+    height: 2.875rem;
+    width: 2.875rem;
+    stroke-width: 1.3px;
+  }
+
+  @media (max-width: 1199px) {
+    border-right: solid 0.625rem;
+    border-top: none;
+    height: auto;
+    width: 4rem;
+    padding: 0.5rem 0;
+  }
+}
+
+.stage-label {
+  @media (max-width: 1199px) {
+    writing-mode: vertical-rl;
+    font-size: 0.8rem;
+  }
+}
+
+.stage-medal {
+  margin: 0 -1.5rem 3rem -1.5rem;
+  border: solid 4px;
+  z-index: 1;
+  color: white;
+  @media (max-width: 1199px) {
+    margin: -1.5rem 0 -1.5rem 0.5rem;
+  }
+}
+
+.hat-finished {
+}
+
+.fase-finished {
+  margin: 0 0 -1.5rem 0;
+  width: 3rem;
+  height: 3rem;
+  color: white;
+  @media (max-width: 1199px) {
+    margin: 0 0 0 -1.5rem;
+  }
+}
+
+.fase-finished-body {
+  height: 2.8rem;
+  width: 2.4rem;
+  @media (max-width: 1199px) {
+    height: 2.4rem;
+    width: 2.8rem;
+  }
+}
+
+.hat-current {
+  margin: 0 0 -2rem 0;
+  width: 7rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  height: 5rem;
+  padding-top: 0.5rem;
+  @media (max-width: 1199px) {
+    margin: 0 0 0 -1rem;
+    border-radius: 0 1.5rem 1.5rem 0;
+    width: 3rem;
+    height: 7rem;
+    padding-right: 0.5rem;
+    writing-mode: vertical-rl;
+  }
+}
+
+.fase {
+  width: 7rem;
+  height: 7rem;
+  z-index: 2;
+}
+
+.line {
+  border-right: dashed 1px #000;
+  width: 1px;
+  @media (max-width: 1199px) {
+    border-top: dashed 1px #000;
+    height: 1px;
+    width: 2rem;
+  }
+}
+
+.main {
+  width: 100%; // Por defecto, ocupa el 100% del ancho
+
+  @media (min-width: 992px) {
+    min-width: 1400px; // Cuando la pantalla tenga al menos 992px de ancho, establece el ancho mínimo a 1400px
+    width: auto; // Elimina la restricción del ancho máximo para que pueda ser mayor de 1400px si es necesario
+  }
+}
+
+.tag {
+  background-color: $appColorOne;
+  color: #ffffff;
+  border-radius: 0.625rem;
+  padding: 0.625rem 0.9375rem;
+}
+
+.indicator {
+  background-color: $appColorOne;
+  border: solid 6px $appText;
+  border-radius: 100%;
+  height: 10rem;
+  width: 10rem;
+  position: relative;
+  p-knob {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    top: 17%;
+    left: 17%;
+  }
+}
+
+.header-panel {
+  @media (min-width: 992px) {
+    border-radius: 1.25rem;
+    background-image: linear-gradient(to right, #dcdcdc, #fafafa);
+    padding: 2.5rem 3.75rem;
+  }
+}
+
+.header-panel-child {
+  @media (max-width: 992px) {
+    border-radius: 1.25rem;
+    background-image: linear-gradient(to right, #dcdcdc, #fafafa);
+    padding: 0.3rem 1rem;
+  }
+}
+
+.label-phase {
+  font-size: 0.675rem;
+  line-height: 1rem;
+  font-weight: 600;
+  @media (max-width: 576px) {
+    font-size: 0.58rem;
+    line-height: 0.5rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex w-auto flex-column h-max-router px-2 lg:px-3 xl:px-8 overflow-auto py-4 gap-4">    <div class="header-panel flex flex-column lg:flex-row align-content-center gap-4">        <div class="flex flex-column">            <h2>La ruta para </h2>            <div style="height: 1.5rem"></div>            <div class="flex gap-2">                <i-tabler class="text-center" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;cursor:pointer;"                    (click)="launchTour()"></i-tabler>                <p class="description-route">Esta es la Ruta de etapas que llevas en la StartUp. Ingresa a cada una                    de                    las fases de                    las                    etapas aprobadas para                    detallar el progreso y sus contenidos. No podrás visualizar las fases posteriores a la cual                    estas                    cursando actualmente                    hasta no completarla. Recuerda que los contenidos entregados en las fases completadas los puedes                    consultar también en el                    módulo Toolkit del menú lateral.                </p>            </div>        </div>        <div id="info" class="flex flex-none gap-2 w-auto header-panel-child justify-content-center align-items-center">            <div class="flex flex-column justify-content-center align-items-center" style="width: 10rem;">                <div class="flex flex-none tag mt-4">Contenidos                    {{lastContent?.contentCompleted}}/{{lastContent?.numberOfContent}}</div>                <div class="flex flex-grow-1 px-2 py-4 justify-content-end align-items-end" style="font-weight: 500;">                    <p class="titles-route" class="text-right ">Progreso global de la ruta</p>                </div>            </div>            <div class="flex align-items-center justify-content-center">                <div class="indicator flex align-items-center justify-content-center">                    <p-knob [(ngModel)]="completed" [strokeWidth]="5" [readonly]="true" [size]="100"                        [valueTemplate]="completedString" [valueColor]="\'#18E4E6\'"                        [rangeColor]="withOpacity(\'#18E4E6\', 0.2)" [min]="0" [max]="100">                    </p-knob>                </div>            </div>            <div class="flex flex-col"></div>        </div>    </div>    <div class="h-3rem"></div>    <div id="route"        class="flex-grow-1 flex main flex-column xl:flex-row w-full justify-content-start align-items-end xl:justify-content-center xl:align-items-end gap-1 mt-0 md:mt-7">        <div class="flex w-full flex-column xl:flex-row justify-content-start align-items-start xl:align-items-end"            [style.width.%]="widthStage(stage.fases.length)" [style.height.rem]="heightStage(stage.fases.length)"            *ngFor="let stage of stages; let i=index;">            <div class="flex w-full xl:flex-grow-1 flex-row-reverse justify-content-end xl:flex-column"                [style.color]="stage.color">                <div                    class="flex xl:w-full flex-column xl:flex-row py-4 xl:py-0 xl:px-4 gap-4 justify-content-center align-items-end">                    <div class="flex flex-row-reverse xl:flex-column w-full justify-content-end align-items-center"                        *ngFor="let fase of stage.fases">                        <div class="flex flex-row-reverse xl:flex-column align-items-center"                            *ngIf="stage.hasPhasesDone && fase.done && !fase.currentBatch">                            <div class="flex fase-finished border-circle justify-content-center align-items-center"                                [style.background-color]="stage.color">                                <i-tabler class="text-center" name="checks"></i-tabler>                            </div>                            <div class="fase-finished-body" [style.background-color]="withOpacity(stage.color, 0.21)">                            </div>                        </div>                        <ng-container *ngIf="fase.done && fase.currentBatch">                            <div class="text-white justify-center hat-current" [style.background-color]="stage.color">                                <p class="text-center stage-label cursor-pointer" (click)="goContent()">Retomar</p>                            </div>                        </ng-container>                        <div class="flex flex-column normal-panel fase justify-content-center align-items-center py-7"                            [style.color]="fase.done ? stage.color : \'#AEAEAE\'">                            <h2 class="text-center">{{fase.number}}</h2>                            <p class="label-phase text-center">{{fase.nameLabel}}</p>                        </div>                        <div class="line" [style.height.rem]="dotedHeightLine(fase.number)"                            [style.width.rem]="dotedWidthLine(fase.number)">                        </div>                    </div>                </div>                <div class="stage justify-content-center align-items-center align-content-center cursor-pointer "                    [style.border-color]="stage.color" [style.background]="gradient(stage.color)"                    (click)="goToDescription(stage)">                    <div class="flex flex-column align-items-center justify-content-center h-full md:h-auto">                        <div style="height: 0.5rem"></div>                        <i-tabler class="text-center" [name]="stage.icon"></i-tabler>                        <div style="height: 0.5rem"></div>                        <p class="text-center stage-label">{{stage.label | uppercase}}</p>                    </div>                </div>            </div>            <div class="flex flex-none border-white stage-medal border-circle w-3rem h-3rem justify-content-center align-items-center"                [style.background-color]="stage.color" *ngIf="stage.hasAllPhasesDone">                <i-tabler class="text-center" name="award"></i-tabler>            </div>        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'RouteComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'RouteComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

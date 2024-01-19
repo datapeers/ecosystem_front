@@ -1,0 +1,3912 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TopNavComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/navbar/top-nav/top-nav.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-top-nav</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./top-nav.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./top-nav.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#_searchResults" >_searchResults</a>
+                            </li>
+                            <li>
+                                <a href="#allowAdmin" >allowAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#colorPhase" >colorPhase</a>
+                            </li>
+                            <li>
+                                <a href="#currentBatch" >currentBatch</a>
+                            </li>
+                            <li>
+                                <a href="#idsPhasesUser" >idsPhasesUser</a>
+                            </li>
+                            <li>
+                                <a href="#items" >items</a>
+                            </li>
+                            <li>
+                                <a href="#lastContent" >lastContent</a>
+                            </li>
+                            <li>
+                                <a href="#loadingLastContent" >loadingLastContent</a>
+                            </li>
+                            <li>
+                                <a href="#mainMenu" >mainMenu</a>
+                            </li>
+                            <li>
+                                <a href="#menu$" >menu$</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#overlayLoading" >overlayLoading</a>
+                            </li>
+                            <li>
+                                <a href="#overlayVisible" >overlayVisible</a>
+                            </li>
+                            <li>
+                                <a href="#pendingNotification" >pendingNotification</a>
+                            </li>
+                            <li>
+                                <a href="#percentCompleted" >percentCompleted</a>
+                            </li>
+                            <li>
+                                <a href="#percentCompletedString" >percentCompletedString</a>
+                            </li>
+                            <li>
+                                <a href="#phaseName" >phaseName</a>
+                            </li>
+                            <li>
+                                <a href="#phaseNumb" >phaseNumb</a>
+                            </li>
+                            <li>
+                                <a href="#phasesBases" >phasesBases</a>
+                            </li>
+                            <li>
+                                <a href="#phasesUser" >phasesUser</a>
+                            </li>
+                            <li>
+                                <a href="#profileDoc" >profileDoc</a>
+                            </li>
+                            <li>
+                                <a href="#returnBtn$" >returnBtn$</a>
+                            </li>
+                            <li>
+                                <a href="#rolesAdmin" >rolesAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#rolName" >rolName</a>
+                            </li>
+                            <li>
+                                <a href="#search$" >search$</a>
+                            </li>
+                            <li>
+                                <a href="#searchEnabled" >searchEnabled</a>
+                            </li>
+                            <li>
+                                <a href="#searchValue" >searchValue</a>
+                            </li>
+                            <li>
+                                <a href="#stage" >stage</a>
+                            </li>
+                            <li>
+                                <a href="#startup" >startup</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                            <li>
+                                <a href="#viewNotificationBoard" >viewNotificationBoard</a>
+                            </li>
+                            <li>
+                                <a href="#viewSearchItem" >viewSearchItem</a>
+                            </li>
+                            <li>
+                                <a href="#viewUserBoard" >viewUserBoard</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#adminPanel" >adminPanel</a>
+                            </li>
+                            <li>
+                                <a href="#clearSearch" >clearSearch</a>
+                            </li>
+                            <li>
+                                <a href="#closeAll" >closeAll</a>
+                            </li>
+                            <li>
+                                <a href="#colorStageBackground" >colorStageBackground</a>
+                            </li>
+                            <li>
+                                <a href="#getHeadClass" >getHeadClass</a>
+                            </li>
+                            <li>
+                                <a href="#goBatchByResult" >goBatchByResult</a>
+                            </li>
+                            <li>
+                                <a href="#goContent" >goContent</a>
+                            </li>
+                            <li>
+                                <a href="#goTo" >goTo</a>
+                            </li>
+                            <li>
+                                <a href="#goTooltipByResult" >goTooltipByResult</a>
+                            </li>
+                            <li>
+                                <a href="#gradient" >gradient</a>
+                            </li>
+                            <li>
+                                <a href="#lastContentSub" >lastContentSub</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#logOut" >logOut</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#notificationSub" >notificationSub</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#openFormApp" >openFormApp</a>
+                            </li>
+                            <li>
+                                <a href="#profileSetting" >profileSetting</a>
+                            </li>
+                            <li>
+                                <a href="#profileStartup" >profileStartup</a>
+                            </li>
+                            <li>
+                                <a href="#return" >return</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#searchMethod" >searchMethod</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setUserOptions" >setUserOptions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setUserVars" >setUserVars</a>
+                            </li>
+                            <li>
+                                <a href="#showSidenavButton" >showSidenavButton</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMenu" >toggleMenu</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSearch" >toggleSearch</a>
+                            </li>
+                            <li>
+                                <a href="#withOpacity" >withOpacity</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#menuExpanded" >menuExpanded</a>
+                            </li>
+                            <li>
+                                <a href="#screenWith" >screenWith</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#searchResults" >searchResults</a>
+                                </li>
+                                <li>
+                                    <a href="#rolStartups" >rolStartups</a>
+                                </li>
+                                <li>
+                                    <a href="#rolStartupsNames" >rolStartupsNames</a>
+                                </li>
+                                <li>
+                                    <a href="#userPermission" >userPermission</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, auth: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, _location: Location, primengConfig: PrimeNGConfig, phasesService: <a href="../injectables/PhasesService.html" target="_self">PhasesService</a>, contentService: <a href="../injectables/PhaseContentService.html" target="_self">PhaseContentService</a>, startupService: <a href="../injectables/StartupsService.html" target="_self">StartupsService</a>, notificationService: <a href="../injectables/NotificationsService.html" target="_self">NotificationsService</a>, formService: <a href="../injectables/FormService.html" target="_self">FormService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:114</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>auth</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_location</td>
+                                                  
+                                                        <td>
+                                                                    <code>Location</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>primengConfig</td>
+                                                  
+                                                        <td>
+                                                                    <code>PrimeNGConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phasesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhasesService.html" target="_self" >PhasesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>contentService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseContentService.html" target="_self" >PhaseContentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>startupService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StartupsService.html" target="_self" >StartupsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>notificationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/NotificationsService.html" target="_self" >NotificationsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>formService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FormService.html" target="_self" >FormService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="menuExpanded"></a>
+                        <b>menuExpanded</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:68</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="screenWith"></a>
+                        <b>screenWith</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:69</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="adminPanel"></a>
+                    <span class="name">
+                        <span ><b>adminPanel</b></span>
+                        <a href="#adminPanel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>adminPanel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="335"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:335</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearSearch"></a>
+                    <span class="name">
+                        <span ><b>clearSearch</b></span>
+                        <a href="#clearSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearSearch()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="262"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:262</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeAll"></a>
+                    <span class="name">
+                        <span ><b>closeAll</b></span>
+                        <a href="#closeAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeAll()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="434"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:434</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="colorStageBackground"></a>
+                    <span class="name">
+                        <span ><b>colorStageBackground</b></span>
+                        <a href="#colorStageBackground"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>colorStageBackground()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="340"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:340</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getHeadClass"></a>
+                    <span class="name">
+                        <span ><b>getHeadClass</b></span>
+                        <a href="#getHeadClass"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getHeadClass()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="277"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:277</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goBatchByResult"></a>
+                    <span class="name">
+                        <span ><b>goBatchByResult</b></span>
+                        <a href="#goBatchByResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goBatchByResult(batch: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="446"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:446</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>batch</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goContent"></a>
+                    <span class="name">
+                        <span ><b>goContent</b></span>
+                        <a href="#goContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goContent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="441"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:441</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goTo"></a>
+                    <span class="name">
+                        <span ><b>goTo</b></span>
+                        <a href="#goTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goTo(option: <a href="../interfaces/IMenuOption.html" target="_self">IMenuOption</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>option</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IMenuOption.html" target="_self" >IMenuOption</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goTooltipByResult"></a>
+                    <span class="name">
+                        <span ><b>goTooltipByResult</b></span>
+                        <a href="#goTooltipByResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goTooltipByResult(batch: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="451"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:451</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>batch</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gradient"></a>
+                    <span class="name">
+                        <span ><b>gradient</b></span>
+                        <a href="#gradient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>gradient()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="344"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:344</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastContentSub"></a>
+                    <span class="name">
+                        <span ><b>lastContentSub</b></span>
+                        <a href="#lastContentSub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>lastContentSub()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:163</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logOut"></a>
+                    <span class="name">
+                        <span ><b>logOut</b></span>
+                        <a href="#logOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logOut()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="320"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:320</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:154</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notificationSub"></a>
+                    <span class="name">
+                        <span ><b>notificationSub</b></span>
+                        <a href="#notificationSub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>notificationSub()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openFormApp"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>openFormApp</b></span>
+                        <a href="#openFormApp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openFormApp()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="456"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:456</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileSetting"></a>
+                    <span class="name">
+                        <span ><b>profileSetting</b></span>
+                        <a href="#profileSetting"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>profileSetting()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="325"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:325</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileStartup"></a>
+                    <span class="name">
+                        <span ><b>profileStartup</b></span>
+                        <a href="#profileStartup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>profileStartup()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="330"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="return"></a>
+                    <span class="name">
+                        <span ><b>return</b></span>
+                        <a href="#return"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>return()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="315"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:315</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchMethod"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>searchMethod</b></span>
+                        <a href="#searchMethod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>searchMethod(searchValue: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="358"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:358</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>searchValue</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setUserOptions"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>setUserOptions</b></span>
+                        <a href="#setUserOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setUserOptions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="226"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:226</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setUserVars"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>setUserVars</b></span>
+                        <a href="#setUserVars"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setUserVars()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="292"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:292</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showSidenavButton"></a>
+                    <span class="name">
+                        <span ><b>showSidenavButton</b></span>
+                        <a href="#showSidenavButton"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showSidenavButton()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="287"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:287</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleMenu</b></span>
+                        <a href="#toggleMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="273"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:273</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSearch"></a>
+                    <span class="name">
+                        <span ><b>toggleSearch</b></span>
+                        <a href="#toggleSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSearch()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="269"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:269</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="withOpacity"></a>
+                    <span class="name">
+                        <span ><b>withOpacity</b></span>
+                        <a href="#withOpacity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>withOpacity(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, opacity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="352"
+                                    class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:352</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>opacity</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_searchResults"></a>
+                    <span class="name">
+                        <span ><b>_searchResults</b></span>
+                        <a href="#_searchResults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MenuItem[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allowAdmin"></a>
+                    <span class="name">
+                        <span ><b>allowAdmin</b></span>
+                        <a href="#allowAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="colorPhase"></a>
+                    <span class="name">
+                        <span ><b>colorPhase</b></span>
+                        <a href="#colorPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;#EA4254&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentBatch"></a>
+                    <span class="name">
+                        <span ><b>currentBatch</b></span>
+                        <a href="#currentBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase | any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="idsPhasesUser"></a>
+                    <span class="name">
+                        <span ><b>idsPhasesUser</b></span>
+                        <a href="#idsPhasesUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:114</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="items"></a>
+                    <span class="name">
+                        <span ><b>items</b></span>
+                        <a href="#items"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ProtectedMenuItem.html" target="_self" >ProtectedMenuItem[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastContent"></a>
+                    <span class="name">
+                        <span ><b>lastContent</b></span>
+                        <a href="#lastContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/lastContent.html" target="_self" >lastContent</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadingLastContent"></a>
+                    <span class="name">
+                        <span ><b>loadingLastContent</b></span>
+                        <a href="#loadingLastContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mainMenu"></a>
+                    <span class="name">
+                        <span ><b>mainMenu</b></span>
+                        <a href="#mainMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menu$"></a>
+                    <span class="name">
+                        <span ><b>menu$</b></span>
+                        <a href="#menu$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IMenu.html" target="_self" >Observable&lt;IMenu&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="overlayLoading"></a>
+                    <span class="name">
+                        <span ><b>overlayLoading</b></span>
+                        <a href="#overlayLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="overlayVisible"></a>
+                    <span class="name">
+                        <span ><b>overlayVisible</b></span>
+                        <a href="#overlayVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="pendingNotification"></a>
+                    <span class="name">
+                        <span ><b>pendingNotification</b></span>
+                        <a href="#pendingNotification"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:113</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="percentCompleted"></a>
+                    <span class="name">
+                        <span ><b>percentCompleted</b></span>
+                        <a href="#percentCompleted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>75</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="percentCompletedString"></a>
+                    <span class="name">
+                        <span ><b>percentCompletedString</b></span>
+                        <a href="#percentCompletedString"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;75%&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phaseName"></a>
+                    <span class="name">
+                        <span ><b>phaseName</b></span>
+                        <a href="#phaseName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phaseNumb"></a>
+                    <span class="name">
+                        <span ><b>phaseNumb</b></span>
+                        <a href="#phaseNumb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phasesBases"></a>
+                    <span class="name">
+                        <span ><b>phasesBases</b></span>
+                        <a href="#phasesBases"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phasesUser"></a>
+                    <span class="name">
+                        <span ><b>phasesUser</b></span>
+                        <a href="#phasesUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileDoc"></a>
+                    <span class="name">
+                        <span ><b>profileDoc</b></span>
+                        <a href="#profileDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="returnBtn$"></a>
+                    <span class="name">
+                        <span ><b>returnBtn$</b></span>
+                        <a href="#returnBtn$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rolesAdmin"></a>
+                    <span class="name">
+                        <span ><b>rolesAdmin</b></span>
+                        <a href="#rolesAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[ValidRoles.superAdmin, ValidRoles.admin]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:112</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rolName"></a>
+                    <span class="name">
+                        <span ><b>rolName</b></span>
+                        <a href="#rolName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="search$"></a>
+                    <span class="name">
+                        <span ><b>search$</b></span>
+                        <a href="#search$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;String&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;String&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchEnabled"></a>
+                    <span class="name">
+                        <span ><b>searchEnabled</b></span>
+                        <a href="#searchEnabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchValue"></a>
+                    <span class="name">
+                        <span ><b>searchValue</b></span>
+                        <a href="#searchValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stage"></a>
+                    <span class="name">
+                        <span ><b>stage</b></span>
+                        <a href="#stage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Stage.html" target="_self" >Stage</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startup"></a>
+                    <span class="name">
+                        <span ><b>startup</b></span>
+                        <a href="#startup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Startup.html" target="_self" >Startup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewNotificationBoard"></a>
+                    <span class="name">
+                        <span ><b>viewNotificationBoard</b></span>
+                        <a href="#viewNotificationBoard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewSearchItem"></a>
+                    <span class="name">
+                        <span ><b>viewSearchItem</b></span>
+                        <a href="#viewSearchItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewUserBoard"></a>
+                    <span class="name">
+                        <span ><b>viewUserBoard</b></span>
+                        <a href="#viewUserBoard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchResults"></a>
+                        <span class="name"><b>searchResults</b><a href="#searchResults"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>searchResults(results: MenuItem[])</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:89</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>results</td>
+                                                    
+                                                            <td>
+                                                                        <code>MenuItem[]</code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rolStartups"></a>
+                        <span class="name"><b>rolStartups</b><a href="#rolStartups"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>rolStartups()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:99</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rolStartupsNames"></a>
+                        <span class="name"><b>rolStartupsNames</b><a href="#rolStartupsNames"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>rolStartupsNames()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:103</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userPermission"></a>
+                        <span class="name"><b>userPermission</b><a href="#userPermission"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userPermission()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/navbar/top-nav/top-nav.component.ts:107</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, ViewChild } from &#x27;@angular/core&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { AuthService } from &#x27;@auth/auth.service&#x27;;
+
+import {
+  SetLastContentRequest,
+  ToggleMenuAction,
+} from &#x27;@home/store/home.actions&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { ValidRoles } from &#x27;@auth/models/valid-roles.enum&#x27;;
+import { IMenu, IMenuOption } from &#x27;@shared/models/menu&#x27;;
+import { ProtectedMenuItem } from &#x27;@shared/models/primeng/protected-menu-item&#x27;;
+import {
+  debounceTime,
+  filter,
+  first,
+  firstValueFrom,
+  Observable,
+  Subject,
+  takeUntil,
+} from &#x27;rxjs&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { Location } from &#x27;@angular/common&#x27;;
+import { fadeInOut } from &#x27;../helper&#x27;;
+import { hexToRgb } from &#x27;@shared/utils/hexToRgb&#x27;;
+import { MenuItem, PrimeNGConfig, ResponsiveOverlayOptions } from &#x27;primeng/api&#x27;;
+import { PhasesService } from &#x27;@home/phases/phases.service&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { Stage } from &#x27;@home/phases/model/stage.model&#x27;;
+import { getPhaseAndNumb } from &#x27;@shared/utils/phases.utils&#x27;;
+import { PhaseContentService } from &#x27;@home/phases/phase-content/phase-content.service&#x27;;
+import { lastContent } from &#x27;@shared/models/lastContent&#x27;;
+import { StartupsService } from &#x27;@shared/services/startups/startups.service&#x27;;
+import {
+  RolStartup,
+  rolStartupNames,
+} from &#x27;@home/startup-profile/models/rol-startup.enum&#x27;;
+import { NotificationsService } from &#x27;../notifications/notifications.service&#x27;;
+import { channelsNotificationEnum } from &#x27;../notifications/models/chanels-notification.enum&#x27;;
+import { NotificationTypes } from &#x27;../notifications/models/notification-types.enum&#x27;;
+import { NotificationStates } from &#x27;../notifications/models/notification-states.enum&#x27;;
+import { searchResult } from &#x27;@shared/models/common/search-result.model&#x27;;
+import { FormService } from &#x27;@shared/form/form.service&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+@Component({
+  selector: &#x27;app-top-nav&#x27;,
+  templateUrl: &#x27;./top-nav.component.html&#x27;,
+  styleUrls: [&#x27;./top-nav.component.scss&#x27;],
+  animations: [fadeInOut],
+})
+export class TopNavComponent {
+  items: ProtectedMenuItem[];
+  user: User;
+  profileDoc;
+  startup: Startup;
+
+  menu$: Observable&lt;IMenu&gt;;
+  returnBtn$: Observable&lt;boolean&gt;;
+
+  searchValue: string;
+  search$: Subject&lt;String&gt; &#x3D; new Subject&lt;String&gt;();
+  searchEnabled: boolean &#x3D; false;
+
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+
+  @Input() menuExpanded: boolean &#x3D; true;
+  @Input() screenWith &#x3D; 0;
+
+  percentCompleted &#x3D; 75;
+  percentCompletedString &#x3D; &#x27;75%&#x27;;
+  rolName &#x3D; &#x27;&#x27;;
+  viewUserBoard &#x3D; false;
+  viewNotificationBoard &#x3D; false;
+  viewSearchItem &#x3D; false;
+  colorPhase &#x3D; &#x27;#EA4254&#x27;;
+  overlayLoading &#x3D; true;
+  mainMenu;
+  overlayVisible &#x3D; false;
+
+  phasesBases &#x3D; 0;
+  phasesUser &#x3D; 0;
+  phaseName &#x3D; &#x27;&#x27;;
+  phaseNumb &#x3D; &#x27;&#x27;;
+  currentBatch: Phase | any;
+  stage: Stage;
+
+  set searchResults(results: MenuItem[]) {
+    if (results) {
+      this.overlayLoading &#x3D; false;
+    }
+    this._searchResults &#x3D; results;
+  }
+  _searchResults: MenuItem[] &#x3D; [];
+  lastContent: lastContent;
+  loadingLastContent &#x3D; false;
+
+  public get rolStartups(): typeof RolStartup {
+    return RolStartup;
+  }
+
+  public get rolStartupsNames(): typeof rolStartupNames {
+    return rolStartupNames;
+  }
+
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+
+  allowAdmin &#x3D; false;
+  rolesAdmin &#x3D; [ValidRoles.superAdmin, ValidRoles.admin];
+  pendingNotification &#x3D; false;
+  idsPhasesUser &#x3D; [];
+  constructor(
+    private router: Router,
+    private readonly store: Store&lt;AppState&gt;,
+    private readonly auth: AuthService,
+    private _location: Location,
+    private primengConfig: PrimeNGConfig,
+    private phasesService: PhasesService,
+    private contentService: PhaseContentService,
+    private startupService: StartupsService,
+    private notificationService: NotificationsService,
+    private readonly formService: FormService
+  ) {
+    const responsiveOptions: ResponsiveOverlayOptions &#x3D; {
+      style: &#x27;width: 500px&#x27;,
+      breakpoint: &#x27;640px&#x27;,
+      media: &#x27;640px&#x27;,
+    };
+    this.primengConfig.overlayOptions &#x3D; {
+      appendTo: &#x27;body&#x27;,
+      responsive: responsiveOptions,
+    };
+    this.menu$ &#x3D; this.store.select((storeState) &#x3D;&gt; storeState.home.menu);
+    this.returnBtn$ &#x3D; this.store.select(
+      (storeState) &#x3D;&gt; storeState.home.returnBtn
+    );
+    this.search$
+      .pipe(debounceTime(500), takeUntil(this.onDestroy$))
+      .subscribe((value: string) &#x3D;&gt; {
+        const stringSearch &#x3D; value?.trim();
+        if (!stringSearch || stringSearch &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+          this.clearSearch();
+          return;
+        }
+        this.overlayLoading &#x3D; true;
+        this.overlayVisible &#x3D; true;
+        this.searchMethod(stringSearch);
+      });
+  }
+
+  ngOnInit() {
+    this.loadComponent();
+  }
+
+  ngOnDestroy() {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  async loadComponent() {
+    this.store
+      .select((store) &#x3D;&gt; store.auth.user)
+      .pipe(
+        filter((user) &#x3D;&gt; !!user), // Avoid null and undefined values
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe(async (user) &#x3D;&gt; {
+        this.user &#x3D; user;
+        this.setUserVars();
+        this.mainMenu &#x3D; await firstValueFrom(
+          this.store.select((s) &#x3D;&gt; s.home.menu).pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+        );
+        this.allowAdmin &#x3D; this.rolesAdmin.includes(this.user.rolType);
+        if (this.user.isUser) {
+          this.setUserOptions();
+        }
+        this.notificationSub();
+      });
+  }
+
+  lastContentSub() {
+    this.store
+      .select((store) &#x3D;&gt; store.home.lastContent)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(async (i) &#x3D;&gt; {
+        if (!this.lastContent &amp;&amp; !this.loadingLastContent) {
+          this.loadingLastContent &#x3D; true;
+          const req &#x3D; await this.contentService.getLastContent(
+            this.currentBatch._id,
+            this.startup._id
+          );
+          this.store.dispatch(new SetLastContentRequest(req));
+          return;
+        }
+        this.lastContent &#x3D; i;
+        if (this.lastContent) {
+          this.percentCompleted &#x3D; Math.round(
+            (i.contentCompleted / i.numberOfContent) * 100
+          );
+          this.percentCompletedString &#x3D; &#x60;${this.percentCompleted}%&#x60;;
+        }
+      });
+  }
+
+  notificationSub() {
+    this.notificationService
+      .watchNotifications([
+        &#x60;${channelsNotificationEnum.userNotification} ${this.user._id};&#x60;,
+      ])
+      .then((notifications$) &#x3D;&gt; {
+        notifications$
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe((notificationList) &#x3D;&gt; {
+            this.pendingNotification &#x3D; notificationList.find(
+              (i) &#x3D;&gt; i.state &#x3D;&#x3D;&#x3D; NotificationStates.pending
+            )
+              ? true
+              : false;
+          });
+      });
+  }
+
+  async setUserOptions() {
+    this.profileDoc &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.profileDoc)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.startup &#x3D; this.profileDoc.startups[0];
+    const userPhases &#x3D; await this.phasesService.getPhasesList(
+      this.profileDoc[&#x27;startups&#x27;][0].phases.map((i) &#x3D;&gt; i._id),
+      true
+    );
+    const basesPhase &#x3D; userPhases.filter((i) &#x3D;&gt; i.basePhase);
+    this.phasesBases &#x3D; basesPhase.length;
+    this.idsPhasesUser &#x3D; userPhases
+      .filter((i) &#x3D;&gt; !i.basePhase)
+      .map((i) &#x3D;&gt; i._id);
+    this.phasesUser &#x3D; this.idsPhasesUser.length;
+
+    this.currentBatch &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.home.currentBatch)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.colorPhase &#x3D; this.currentBatch.stageDoc.color;
+    [this.phaseName, this.phaseNumb] &#x3D; getPhaseAndNumb(this.currentBatch.name);
+
+    this.stage &#x3D; this.currentBatch.stageDoc;
+    this.lastContentSub();
+  }
+
+  goTo(option: IMenuOption) {
+    option.command();
+    this.clearSearch();
+    this.closeAll();
+  }
+
+  clearSearch() {
+    this.overlayLoading &#x3D; false;
+    this.overlayVisible &#x3D; false;
+    this.searchValue &#x3D; null;
+    this.searchEnabled &#x3D; false;
+  }
+
+  toggleSearch() {
+    this.searchEnabled &#x3D; !this.searchEnabled;
+  }
+
+  toggleMenu() {
+    this.store.dispatch(new ToggleMenuAction());
+  }
+
+  getHeadClass() {
+    let styleClass &#x3D; &#x27;&#x27;;
+    if (this.menuExpanded &amp;&amp; this.screenWith &gt; 992) {
+      styleClass &#x3D; &#x27;head-trimmed&#x27;;
+    } else {
+      styleClass &#x3D; &#x27;head-md-screen&#x27;;
+    }
+    return styleClass;
+  }
+
+  showSidenavButton() {
+    return true;
+    //return this.screenWith &gt; 768 ? true : false;
+  }
+
+  async setUserVars() {
+    if (this.user.isUser) {
+      this.profileDoc &#x3D; await firstValueFrom(
+        this.store
+          .select((store) &#x3D;&gt; store.auth.profileDoc)
+          .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+      );
+      const startup &#x3D; this.profileDoc.startups[0];
+      this.startup &#x3D; await this.startupService.getDocument(startup._id);
+      const currentBatch &#x3D; await firstValueFrom(
+        this.store
+          .select((store) &#x3D;&gt; store.home.currentBatch)
+          .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+      );
+      const profileInStartup &#x3D; this.startup.entrepreneurs.find(
+        (i) &#x3D;&gt; this.profileDoc._id &#x3D;&#x3D;&#x3D; i._id
+      );
+      this.rolName &#x3D; this.rolStartupsNames[profileInStartup.rol];
+    } else {
+      this.rolName &#x3D; this.user.rolName;
+    }
+  }
+
+  return() {
+    this._location.back();
+    this.closeAll();
+  }
+
+  logOut() {
+    this.auth.signOut();
+    this.closeAll();
+  }
+
+  profileSetting() {
+    this.router.navigate([&#x27;/home/profile&#x27;]);
+    this.closeAll();
+  }
+
+  profileStartup() {
+    this.router.navigate([&#x27;/home/startup&#x27;]);
+    this.closeAll();
+  }
+
+  adminPanel() {
+    this.router.navigate([&#x27;/home/admin&#x27;]);
+    this.closeAll();
+  }
+
+  colorStageBackground() {
+    return &#x60;{background-color}&#x60;;
+  }
+
+  gradient() {
+    const style &#x3D; &#x60;linear-gradient(90deg, ${this.withOpacity(
+      this.colorPhase,
+      0.2
+    )} 0%, #ffffff 100%)&#x60;;
+    return style;
+  }
+
+  withOpacity(color: string, opacity: number) {
+    const colorRgb &#x3D; hexToRgb(color);
+    const style &#x3D; &#x60;rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})&#x60;;
+    return style;
+  }
+
+  async searchMethod(searchValue: string) {
+    // const { spaceList, resourceList, contentList } &#x3D;
+    //   await this.service.getSearchResult(this.idsSpacesUser, searchValue);
+    const search &#x3D; await this.phasesService.searchInBatch(
+      this.idsPhasesUser,
+      searchValue
+    );
+    const sectionItems &#x3D; [];
+    const optionsMenu &#x3D; this.mainMenu.options;
+    for (const menuItem of optionsMenu) {
+      switch (menuItem.type) {
+        case &#x27;single&#x27;:
+          if (menuItem.label.match(new RegExp(searchValue, &#x27;i&#x27;)) !&#x3D;&#x3D; null)
+            sectionItems.push({
+              label: menuItem.label,
+              tag: &#x27;Sección&#x27;,
+              command: () &#x3D;&gt; {
+                this.router.navigate([menuItem.rute], {
+                  queryParams: menuItem.queryParamsRute,
+                });
+              },
+            });
+          break;
+        case &#x27;dropdown&#x27;:
+          for (const subItem of menuItem.children) {
+            if (subItem.label.match(new RegExp(searchValue, &#x27;i&#x27;)) !&#x3D;&#x3D; null)
+              sectionItems.push({
+                label: subItem.label,
+                tag: &#x27;Sección&#x27;,
+                command: () &#x3D;&gt; {
+                  this.router.navigate([subItem.rute], {
+                    queryParams: subItem.queryParamsRute,
+                  });
+                },
+              });
+          }
+          break;
+        default:
+          break;
+      }
+    }
+    const spaceItems &#x3D; this.user.isUser
+      ? search.ansPhases.map((result: searchResult) &#x3D;&gt; ({
+          label: result.label,
+          tag: result.metadata[&#x27;tag&#x27;],
+          command: () &#x3D;&gt; {
+            this.goBatchByResult(result.metadata[&#x27;_id&#x27;]);
+          },
+        }))
+      : [];
+    const resourceItems &#x3D; this.user.isUser
+      ? search.ansResource.map((result: searchResult) &#x3D;&gt; ({
+          label: result.label,
+          tag: &#x27;Recurso&#x27;,
+          command: () &#x3D;&gt; {
+            this.goTooltipByResult(result.metadata[&#x27;batch&#x27;]);
+          },
+        }))
+      : [];
+    const contentItems &#x3D; this.user.isUser
+      ? search.ansContent.map((result: searchResult) &#x3D;&gt; ({
+          label: result.label,
+          tag: &#x27;Contenido&#x27;,
+          command: () &#x3D;&gt; {
+            this.goBatchByResult(result.metadata[&#x27;batch&#x27;]);
+          },
+        }))
+      : [];
+    this.searchResults &#x3D; [
+      ...sectionItems,
+      ...spaceItems,
+      ...resourceItems,
+      ...contentItems,
+    ];
+  }
+
+  closeAll() {
+    this.viewUserBoard &#x3D; false;
+    this.viewNotificationBoard &#x3D; false;
+    this.viewSearchItem &#x3D; false;
+    this.overlayVisible &#x3D; false;
+  }
+
+  goContent() {
+    this.router.navigate([&#x27;/home/contents&#x27;]);
+    this.closeAll();
+  }
+
+  goBatchByResult(batch: string) {
+    this.router.navigate([&#x27;/home/contents&#x27;], { queryParams: { batch } });
+    this.closeAll();
+  }
+
+  goTooltipByResult(batch: string) {
+    this.router.navigate([&#x27;/home/toolkit&#x27;], { queryParams: { batch } });
+    this.closeAll();
+  }
+
+  async openFormApp() {
+    this.formService.openFormApp();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;head&quot; [ngClass]&#x3D;&quot;getHeadClass()&quot;&gt;
+    &lt;div id&#x3D;&quot;top-menu&quot; class&#x3D;&quot;head-content&quot;&gt;
+        &lt;div class&#x3D;&quot;flex-none head-content-left flex-row justify-content-between&quot;&gt;
+            &lt;i-tabler id&#x3D;&quot;toggle-icon&quot; name&#x3D;&quot;align-justified&quot;
+                class&#x3D;&quot;head-menu-item-btn app-backgrounds menu-icon size-2xl&quot; *ngIf&#x3D;&quot;showSidenavButton()&quot;
+                (click)&#x3D;&quot;toggleMenu()&quot;&gt;&lt;/i-tabler&gt;
+            &lt;i-tabler @fadeInOut name&#x3D;&quot;arrow-left&quot; class&#x3D;&quot;head-menu-item-btn app-backgrounds menu-icon size-2xl&quot;
+                *ngIf&#x3D;&quot;returnBtn$ | async&quot; (click)&#x3D;&quot;return()&quot;&gt;&lt;/i-tabler&gt;
+            &lt;div class&#x3D;&quot;panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2 sm:gap-3&quot;
+                [style.background]&#x3D;&quot;gradient()&quot; *ngIf&#x3D;&quot;stage&quot;&gt;
+                &lt;div class&#x3D;&quot;completed elipse-panel p-2 min-h-full flex align-items-center justify-content-center&quot;
+                    [style.background-color]&#x3D;&quot;colorPhase&quot;&gt;
+                    &lt;span class&#x3D;&quot;font-semibold text-white progress-label&quot;&gt;{{phasesUser}}/{{phasesBases}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex flex-column labels&quot; [style.color]&#x3D;&quot;colorPhase&quot;&gt;
+                    &lt;span class&#x3D;&quot;font-bold text-base&quot;&gt;{{stage.name}}&lt;/span&gt;
+                    &lt;div style&#x3D;&quot;height: 3px;&quot;&gt;&lt;/div&gt;
+                    &lt;span class&#x3D;&quot;text-sm&quot;&gt;{{phaseName}} {{phaseNumb}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;p-knob [(ngModel)]&#x3D;&quot;percentCompleted&quot; [strokeWidth]&#x3D;&quot;10&quot; [readonly]&#x3D;&quot;true&quot; [size]&#x3D;&quot;58&quot;
+                    [valueTemplate]&#x3D;&quot;percentCompletedString&quot; [valueColor]&#x3D;&quot;colorPhase&quot;
+                    [rangeColor]&#x3D;&quot;withOpacity(colorPhase, 0.2)&quot; class&#x3D;&quot;hidden sm:flex&quot;&gt;
+                &lt;/p-knob&gt;
+            &lt;/div&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;!user.isUser&quot;&gt;
+                &lt;app-side-nav-route-icon&gt;&lt;/app-side-nav-route-icon&gt;
+            &lt;/ng-container&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;flex-grow-1&quot;&gt;
+            &lt;div class&#x3D;&quot;hidden lg:flex w-full&quot;&gt;
+                &lt;ng-container [ngTemplateOutlet]&#x3D;&quot;searchBar&quot;&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;icon-btn-top-nav search-mobile flex lg:hidden&quot; (click)&#x3D;&quot;viewSearchItem &#x3D; true&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;search&quot; class&#x3D;&quot;app-backgrounds border-circle&quot;&gt;&lt;/i-tabler&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;flex-none head-content-right flex align-items-center gap-2 &quot;&gt;
+            &lt;div class&#x3D;&quot;head-menu gap-2 sm:gap-4 align-items-center justify-content-center&quot;&gt;
+                &lt;div class&#x3D;&quot;pt-2&quot;&gt;
+                    &lt;div class&#x3D;&quot;notify-btn icon-btn-top-nav&quot; *ngIf&#x3D;&quot;showSidenavButton()&quot;
+                        (click)&#x3D;&quot;viewNotificationBoard &#x3D; true&quot;&gt;
+                        &lt;i-tabler name&#x3D;&quot;bell&quot;&gt;&lt;/i-tabler&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;circle-indicator pulse&quot; *ngIf&#x3D;&quot;pendingNotification&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;panel-user elipse-panel flex flex-row align-items-center justify-content-between gap-2&quot;&gt;
+                    &lt;div class&#x3D;&quot;user-name-rol w-8 &quot;&gt;
+                        &lt;span
+                            class&#x3D;&quot;cursor-default font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis&quot;
+                            [pTooltip]&#x3D;&quot;user.fullName&quot; tooltipPosition&#x3D;&quot;left&quot;&gt;{{user.fullName}}&lt;/span&gt;
+                        &lt;span
+                            class&#x3D;&quot;cursor-default font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis&quot;
+                            [pTooltip]&#x3D;&quot;user.fullName&quot; tooltipPosition&#x3D;&quot;left&quot;&gt;{{rolName}}&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;ng-container *ngIf&#x3D;&quot;!user?.profileImageUrl else imageTemplate&quot;&gt;
+                        &lt;p-avatar id&#x3D;&quot;user-profile&quot; [label]&#x3D;&quot;user.nameInitial&quot; shape&#x3D;&quot;circle&quot;
+                            class&#x3D;&quot;avatar-app flex cursor-pointer&quot; pTooltip&#x3D;&quot;Opciones&quot; tooltipPosition&#x3D;&quot;left&quot;
+                            size&#x3D;&quot;large&quot; (click)&#x3D;&quot;viewUserBoard &#x3D; true&quot;&gt;
+                        &lt;/p-avatar&gt;
+                    &lt;/ng-container&gt;
+                    &lt;ng-template #imageTemplate&gt;
+                        &lt;p-avatar id&#x3D;&quot;user-profile&quot; [image]&#x3D;&quot;user.profileImageUrl&quot; shape&#x3D;&quot;circle&quot;
+                            class&#x3D;&quot;avatar-app flex cursor-pointer&quot; pTooltip&#x3D;&quot;Opciones&quot; tooltipPosition&#x3D;&quot;left&quot;
+                            size&#x3D;&quot;large&quot; (click)&#x3D;&quot;viewUserBoard &#x3D; true&quot;&gt;
+                        &lt;/p-avatar&gt;
+                    &lt;/ng-template&gt;
+
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p-sidebar [(visible)]&#x3D;&quot;viewUserBoard&quot; position&#x3D;&quot;right&quot; styleClass&#x3D;&quot;border-sidebar&quot; appendTo&#x3D;&quot;body&quot; [modal]&#x3D;&quot;false&quot;
+    [showCloseIcon]&#x3D;&quot;true&quot;&gt;
+    &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;&lt;/ng-template&gt;
+    &lt;ng-template pTemplate&#x3D;&quot;content&quot; styleClass&#x3D;&quot;m-0 p-0&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-column w-full h-full gap-2 align-items-center justify-content-between&quot;&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-column p-2 gap-2&quot;&gt;
+                &lt;div class&#x3D;&quot;w-full flex flex-row align-items-center justify-content-center gap-3&quot;&gt;
+                    &lt;ng-container *ngIf&#x3D;&quot;!user?.profileImageUrl else imageTemplate&quot;&gt;
+                        &lt;p-avatar [label]&#x3D;&quot;user.nameInitial&quot; shape&#x3D;&quot;circle&quot;
+                            class&#x3D;&quot;avatar-app big-avatar flex cursor-pointer &quot; pTooltip&#x3D;&quot;Opciones&quot;
+                            tooltipPosition&#x3D;&quot;left&quot;&gt;
+                        &lt;/p-avatar&gt;
+                    &lt;/ng-container&gt;
+                    &lt;ng-template #imageTemplate&gt;
+                        &lt;p-avatar [image]&#x3D;&quot;user.profileImageUrl&quot; shape&#x3D;&quot;circle&quot;
+                            class&#x3D;&quot;avatar-app big-avatar flex cursor-pointer&quot; pTooltip&#x3D;&quot;Opciones&quot;
+                            tooltipPosition&#x3D;&quot;left&quot;&gt;
+                        &lt;/p-avatar&gt;
+                    &lt;/ng-template&gt;
+                    &lt;div class&#x3D;&quot;info-user flex flex-column gap-2&quot;&gt;
+                        &lt;span
+                            class&#x3D;&quot;font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis&quot;
+                            [pTooltip]&#x3D;&quot;user.fullName&quot; tooltipPosition&#x3D;&quot;left&quot;&gt;{{user.fullName}}&lt;/span&gt;
+                        &lt;span
+                            class&#x3D;&quot;font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis&quot;
+                            [pTooltip]&#x3D;&quot;user.fullName&quot; tooltipPosition&#x3D;&quot;left&quot;&gt;{{rolName}}&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;p-button
+                    styleClass&#x3D;&quot;option button-grey button-border-mid w-full align-items-center justify-content-between mt-2&quot;
+                    (onClick)&#x3D;&quot;profileStartup()&quot; *ngIf&#x3D;&quot;user.isUser&quot;&gt;
+                    &lt;span class&#x3D;&quot;mx-2 font-semibold	&quot;&gt;Perfil startup&lt;/span&gt;
+                    &lt;i-tabler class&#x3D;&quot;sidenav-link-icon&quot; name&#x3D;&quot;rocket&quot;&gt;&lt;/i-tabler&gt;
+                &lt;/p-button&gt;
+                &lt;p-button
+                    styleClass&#x3D;&quot;option button-grey button-border-mid w-full align-items-center justify-content-between mt-2&quot;
+                    (onClick)&#x3D;&quot;openFormApp()&quot; *ngIf&#x3D;&quot;user?.allowed(userPermission.form_view)&quot;&gt;
+                    &lt;span class&#x3D;&quot;mx-2 font-semibold	&quot;&gt;Formularios&lt;/span&gt;
+                    &lt;i-tabler class&#x3D;&quot;sidenav-link-icon&quot; name&#x3D;&quot;forms&quot;&gt;&lt;/i-tabler&gt;
+                &lt;/p-button&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;option normal-panel flex flex-column gap-2 p-5 m-2&quot; *ngIf&#x3D;&quot;lastContent&quot;&gt;
+                &lt;i-tabler class&#x3D;&quot;set-color-appSeven&quot; name&#x3D;&quot;layout-board-split&quot;&gt;&lt;/i-tabler&gt;
+                &lt;span class&#x3D;&quot;font-bold&quot;&gt;{{lastContent.lastContent[&#x27;name&#x27;]}}&lt;/span&gt;
+                &lt;span class&#x3D;&quot;text-xs content-description&quot;&gt;Contenido de {{phaseName}} {{phaseNumb}} -
+                    {{currentBatch.stageDoc.name}}&lt;/span&gt;
+                &lt;p-button styleClass&#x3D;&quot;w-full button-yellow button-border-mid mt-3&quot; (onClick)&#x3D;&quot;goContent()&quot;&gt;
+                    &lt;span class&#x3D;&quot;w-full text-center&quot;&gt;Retomar ultimo contenido&lt;/span&gt;
+                &lt;/p-button&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;option flex flex-column gap-2&quot;&gt;
+                &lt;p-button
+                    styleClass&#x3D;&quot;w-full button-yellow-second button-border-mid w-full align-items-center justify-content-between &quot;
+                    (onClick)&#x3D;&quot;logOut()&quot;&gt;
+                    &lt;span class&#x3D;&quot;mx-2 font-semibold	&quot;&gt;Cerrar Sesión&lt;/span&gt;
+                    &lt;i-tabler class&#x3D;&quot;sidenav-link-icon&quot; name&#x3D;&quot;door-exit&quot;&gt;&lt;/i-tabler&gt;
+                &lt;/p-button&gt;
+                &lt;p-button
+                    styleClass&#x3D;&quot;w-full button-grey button-border-mid w-full align-items-center justify-content-between &quot;
+                    (onClick)&#x3D;&quot;profileSetting()&quot;&gt;
+                    &lt;span class&#x3D;&quot;mx-2 font-semibold	&quot;&gt;Configuración de cuenta&lt;/span&gt;
+                    &lt;i-tabler class&#x3D;&quot;sidenav-link-icon&quot; name&#x3D;&quot;settings&quot;&gt;&lt;/i-tabler&gt;
+                &lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate&#x3D;&quot;footer&quot;&gt;&lt;/ng-template&gt;
+&lt;/p-sidebar&gt;
+
+&lt;p-sidebar [(visible)]&#x3D;&quot;viewNotificationBoard&quot; position&#x3D;&quot;right&quot; styleClass&#x3D;&quot;border-sidebar&quot; appendTo&#x3D;&quot;body&quot;
+    [modal]&#x3D;&quot;false&quot; [showCloseIcon]&#x3D;&quot;true&quot;&gt;
+    &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+        &lt;div
+            class&#x3D;&quot;panel-info elipse-panel w-9 h-full notifications-header p-2 flex flex-row align-items-center justify-content-center gap-3&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;bell&quot;&gt;&lt;/i-tabler&gt;
+            &lt;span&gt;NOTIFICACIONES&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+    &lt;ng-template pTemplate&#x3D;&quot;content&quot; styleClass&#x3D;&quot;m-0 p-0&quot;&gt;&lt;app-notifications&gt;&lt;/app-notifications&gt;&lt;/ng-template&gt;
+    &lt;ng-template pTemplate&#x3D;&quot;footer&quot;&gt;&lt;/ng-template&gt;
+&lt;/p-sidebar&gt;
+
+&lt;p-sidebar [(visible)]&#x3D;&quot;viewSearchItem&quot; position&#x3D;&quot;top&quot; (onHide)&#x3D;&quot;clearSearch()&quot;&gt;
+    &lt;div class&#x3D;&quot;w-full h-full flex flex-column align-content-center justify-content-center mt-2&quot;&gt;
+        &lt;ng-container [ngTemplateOutlet]&#x3D;&quot;searchBar&quot;&gt;
+        &lt;/ng-container&gt;
+    &lt;/div&gt;
+&lt;/p-sidebar&gt;
+
+&lt;ng-template #searchBar&gt;
+    &lt;div #searchBarInput class&#x3D;&quot;head-content-mid w-full&quot;&gt;
+        &lt;span class&#x3D;&quot;p-input-icon-right search placeholder-bold&quot;&gt;
+            &lt;i class&#x3D;&quot;pi pi-search font-semibold&quot;&gt;&lt;/i&gt;
+            &lt;input type&#x3D;&quot;text&quot; pInputText [(ngModel)]&#x3D;&quot;searchValue&quot; (ngModelChange)&#x3D;&quot;search$.next($event)&quot;
+                placeholder&#x3D;&quot;¿Que deseas buscar?&quot; /&gt;
+        &lt;/span&gt;
+    &lt;/div&gt;
+&lt;/ng-template&gt;
+
+&lt;ng-template #searchResultsTemp&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;overlayLoading; else elseTemplate&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-row justify-content-center align-items-center&quot;&gt;
+            &lt;p-progressSpinner&gt;&lt;/p-progressSpinner&gt;
+        &lt;/div&gt;
+    &lt;/ng-container&gt;
+    &lt;ng-template #elseTemplate&gt;
+        &lt;p-listbox [options]&#x3D;&quot;_searchResults&quot; (onChange)&#x3D;&quot;goTo($event.value)&quot; [styleClass]&#x3D;&quot;&#x27;listbox-search&#x27;&quot;&gt;
+            &lt;ng-template let-item pTemplate&#x3D;&quot;item&quot;&gt;
+                &lt;div class&#x3D;&quot;flex w-full&quot;&gt;
+                    &lt;p class&#x3D;&quot;font-bold text-black-alpha-90 absolute opacity-80 text-xs border-round-lg p-1&quot;&gt;
+                        {{item.tag}}&lt;/p&gt;
+                    &lt;p class&#x3D;&quot;overflow-hidden text-sm mt-4 ml-2&quot;&gt;{{item.label}}&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/ng-template&gt;
+        &lt;/p-listbox&gt;
+    &lt;/ng-template&gt;
+&lt;/ng-template&gt;
+
+&lt;p-overlay styleClass&#x3D;&quot;overlay-search&quot; #overlayPanel [(visible)]&#x3D;&quot;overlayVisible&quot;
+    [responsive]&#x3D;&quot;{ breakpoint: &#x27;640px&#x27;, direction: &#x27;bottom&#x27; }&quot; (onHide)&#x3D;&quot;clearSearch()&quot; [appendTo]&#x3D;&quot;&#x27;body&#x27;&quot;&gt;
+    &lt;ng-container [ngTemplateOutlet]&#x3D;&quot;searchResultsTemp&quot;&gt;
+    &lt;/ng-container&gt;
+&lt;/p-overlay&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./top-nav.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;/src/styles.scss&quot;;
+
+$optionsSidePanel: 21.125rem;
+$heightPanels: 4.375rem;
+
+:host {
+  background-color: $appColorOne;
+}
+
+.icon-btn-top-nav {
+  i-tabler {
+    // margin: 0.5rem;
+    height: 3.4375rem;
+    width: 3.4375rem;
+    padding: 0.715rem;
+    @media (max-width: 576px) {
+      height: 2.5rem;
+      width: 2.5rem;
+      padding: 0.6rem;
+    }
+  }
+}
+
+.head {
+  width: calc(100% - 5rem);
+  height: 100px !important;
+  margin-left: 5rem;
+  z-index: 5;
+  transition: all 0.5s ease;
+  //position: fixed;
+  border-radius: 3.125rem 0 0 0;
+  background-color: #ffffff;
+  top: 0;
+  @media (max-width: 576px) {
+    margin-left: 0;
+  }
+  .head-content {
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    @media (max-width: 576px) {
+      padding: 0.5rem 0.5rem;
+    }
+
+    .head-menu-item-btn {
+      height: 2.5rem;
+      width: 2.5rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      outline: 0;
+      color: #495057;
+      border-radius: 25%;
+      padding: 0.5625rem;
+      stroke-width: 2.5px;
+      @media (max-width: 576px) {
+        height: 1rem;
+        width: 1rem;
+        padding: 0.3rem;
+      }
+    }
+    .search-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+}
+
+.head-content-left {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  .panel-info {
+    height: $heightPanels;
+    width: 24rem;
+    .progress-label {
+      font-size: 1.25rem;
+    }
+    .completed {
+      width: 5rem;
+    }
+    .labels {
+      flex: 1;
+      text-align: left;
+    }
+    @media (max-width: 1580px) {
+      width: auto;
+    }
+    @media (max-width: 1280px) {
+      .labels {
+        display: none !important;
+      }
+    }
+    @media (max-width: 576px) {
+      .progress-label {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.head-content-mid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .search {
+    width: 32.625rem;
+    ::ng-deep .p-inputtext {
+      width: 100%;
+      height: 3.4375rem;
+      background-color: var(--app-backgrounds);
+      border: none;
+    }
+    @media (max-width: 1680px) {
+      width: 100%;
+    }
+    @media (max-width: 1280px) {
+      width: 100%;
+    }
+  }
+  ::ng-deep .p-input-icon-right &gt; .p-icon-wrapper,
+  .p-input-icon-right &gt; i:last-of-type {
+    color: $appTextThree;
+  }
+}
+
+.head-content-right {
+  .head-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .panel-user {
+      background-color: var(--app-backgrounds);
+      height: $heightPanels;
+      width: 17.875rem;
+      padding: 0.625rem 0.625rem 0.625rem 1.875rem;
+      @media (max-width: 1280px) {
+        width: 15rem;
+      }
+      ::ng-deep .p-avatar {
+        width: 3.65rem !important;
+        height: 3.65rem !important;
+        -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.15);
+      }
+      .info-user {
+        width: 11.5rem;
+        @media (max-width: 1024px) {
+          width: auto;
+        }
+      }
+      .user-name-rol {
+        display: flex;
+        flex-direction: column;
+        padding: 0 0.5rem;
+      }
+      @media (max-width: 800px) {
+        width: auto !important;
+        padding: 0;
+        background-color: transparent;
+        .user-name-rol {
+          display: none !important;
+        }
+      }
+    }
+    .notify-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $appColorTwo;
+      border-radius: 50%;
+      color: #ffffff;
+      cursor: pointer;
+      &amp;:hover {
+        background-color: darken($appColorTwo, 10%);
+      }
+    }
+  }
+}
+
+::ng-deep .avatar-app .p-avatar {
+  border: 4px solid white;
+  border-radius: 50%;
+}
+
+::ng-deep .big-avatar .p-avatar {
+  width: 6.25rem !important;
+  height: 6.25rem !important;  
+}
+
+::ng-deep .option {
+  width: $optionsSidePanel !important;
+}
+
+.content-description {
+  color: $appTextTwo;
+}
+
+.head-trimmed {
+  width: calc(100% - 16.5625rem);
+  margin-left: 16.5625rem;
+}
+
+.head-md-screen {
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+  @media (max-width: 576px) {
+    margin-left: 0;
+    width: auto;
+  }
+}
+
+.circle-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+  top: -60px;
+  right: 0;
+  background: $appColorTwo;
+  &amp;.pulse {
+    animation: pulse-animation 1.2s infinite;
+  }
+  @media (max-width: 576px) {
+    top: -50px;
+  }
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0 rgba(26, 104, 206, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 13px rgba(17, 64, 126, 0);
+  }
+}
+
+.notifications-header {
+  position: relative;
+  background-color: $appColorFour;
+  color: $appColorTwo;
+  font-weight: 600;
+  padding: 1rem;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="head" [ngClass]="getHeadClass()">    <div id="top-menu" class="head-content">        <div class="flex-none head-content-left flex-row justify-content-between">            <i-tabler id="toggle-icon" name="align-justified"                class="head-menu-item-btn app-backgrounds menu-icon size-2xl" *ngIf="showSidenavButton()"                (click)="toggleMenu()"></i-tabler>            <i-tabler @fadeInOut name="arrow-left" class="head-menu-item-btn app-backgrounds menu-icon size-2xl"                *ngIf="returnBtn$ | async" (click)="return()"></i-tabler>            <div class="panel-info elipse-panel p-2 flex flex-row align-items-center justify-content-between gap-2 sm:gap-3"                [style.background]="gradient()" *ngIf="stage">                <div class="completed elipse-panel p-2 min-h-full flex align-items-center justify-content-center"                    [style.background-color]="colorPhase">                    <span class="font-semibold text-white progress-label">{{phasesUser}}/{{phasesBases}}</span>                </div>                <div class="flex flex-column labels" [style.color]="colorPhase">                    <span class="font-bold text-base">{{stage.name}}</span>                    <div style="height: 3px;"></div>                    <span class="text-sm">{{phaseName}} {{phaseNumb}}</span>                </div>                <p-knob [(ngModel)]="percentCompleted" [strokeWidth]="10" [readonly]="true" [size]="58"                    [valueTemplate]="percentCompletedString" [valueColor]="colorPhase"                    [rangeColor]="withOpacity(colorPhase, 0.2)" class="hidden sm:flex">                </p-knob>            </div>            <ng-container *ngIf="!user.isUser">                <app-side-nav-route-icon></app-side-nav-route-icon>            </ng-container>        </div>        <div class="flex-grow-1">            <div class="hidden lg:flex w-full">                <ng-container [ngTemplateOutlet]="searchBar">                </ng-container>            </div>            <div class="icon-btn-top-nav search-mobile flex lg:hidden" (click)="viewSearchItem = true">                <i-tabler name="search" class="app-backgrounds border-circle"></i-tabler>            </div>        </div>        <div class="flex-none head-content-right flex align-items-center gap-2 ">            <div class="head-menu gap-2 sm:gap-4 align-items-center justify-content-center">                <div class="pt-2">                    <div class="notify-btn icon-btn-top-nav" *ngIf="showSidenavButton()"                        (click)="viewNotificationBoard = true">                        <i-tabler name="bell"></i-tabler>                    </div>                    <div class="circle-indicator pulse" *ngIf="pendingNotification"></div>                </div>                <div class="panel-user elipse-panel flex flex-row align-items-center justify-content-between gap-2">                    <div class="user-name-rol w-8 ">                        <span                            class="cursor-default font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis"                            [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>                        <span                            class="cursor-default font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis"                            [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>                    </div>                    <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">                        <p-avatar id="user-profile" [label]="user.nameInitial" shape="circle"                            class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left"                            size="large" (click)="viewUserBoard = true">                        </p-avatar>                    </ng-container>                    <ng-template #imageTemplate>                        <p-avatar id="user-profile" [image]="user.profileImageUrl" shape="circle"                            class="avatar-app flex cursor-pointer" pTooltip="Opciones" tooltipPosition="left"                            size="large" (click)="viewUserBoard = true">                        </p-avatar>                    </ng-template>                </div>            </div>        </div>    </div></div><p-sidebar [(visible)]="viewUserBoard" position="right" styleClass="border-sidebar" appendTo="body" [modal]="false"    [showCloseIcon]="true">    <ng-template pTemplate="header"></ng-template>    <ng-template pTemplate="content" styleClass="m-0 p-0">        <div class="flex flex-column w-full h-full gap-2 align-items-center justify-content-between">            <div class="w-full flex flex-column p-2 gap-2">                <div class="w-full flex flex-row align-items-center justify-content-center gap-3">                    <ng-container *ngIf="!user?.profileImageUrl else imageTemplate">                        <p-avatar [label]="user.nameInitial" shape="circle"                            class="avatar-app big-avatar flex cursor-pointer " pTooltip="Opciones"                            tooltipPosition="left">                        </p-avatar>                    </ng-container>                    <ng-template #imageTemplate>                        <p-avatar [image]="user.profileImageUrl" shape="circle"                            class="avatar-app big-avatar flex cursor-pointer" pTooltip="Opciones"                            tooltipPosition="left">                        </p-avatar>                    </ng-template>                    <div class="info-user flex flex-column gap-2">                        <span                            class="font-semibold text-base uppercase  overflow-hidden white-space-nowrap text-overflow-ellipsis"                            [pTooltip]="user.fullName" tooltipPosition="left">{{user.fullName}}</span>                        <span                            class="font-semibold set-color-appTwo text-sm  overflow-hidden white-space-nowrap text-overflow-ellipsis"                            [pTooltip]="user.fullName" tooltipPosition="left">{{rolName}}</span>                    </div>                </div>                <p-button                    styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2"                    (onClick)="profileStartup()" *ngIf="user.isUser">                    <span class="mx-2 font-semibold	">Perfil startup</span>                    <i-tabler class="sidenav-link-icon" name="rocket"></i-tabler>                </p-button>                <p-button                    styleClass="option button-grey button-border-mid w-full align-items-center justify-content-between mt-2"                    (onClick)="openFormApp()" *ngIf="user?.allowed(userPermission.form_view)">                    <span class="mx-2 font-semibold	">Formularios</span>                    <i-tabler class="sidenav-link-icon" name="forms"></i-tabler>                </p-button>            </div>            <div class="option normal-panel flex flex-column gap-2 p-5 m-2" *ngIf="lastContent">                <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>                <span class="font-bold">{{lastContent.lastContent[\'name\']}}</span>                <span class="text-xs content-description">Contenido de {{phaseName}} {{phaseNumb}} -                    {{currentBatch.stageDoc.name}}</span>                <p-button styleClass="w-full button-yellow button-border-mid mt-3" (onClick)="goContent()">                    <span class="w-full text-center">Retomar ultimo contenido</span>                </p-button>            </div>            <div class="option flex flex-column gap-2">                <p-button                    styleClass="w-full button-yellow-second button-border-mid w-full align-items-center justify-content-between "                    (onClick)="logOut()">                    <span class="mx-2 font-semibold	">Cerrar Sesión</span>                    <i-tabler class="sidenav-link-icon" name="door-exit"></i-tabler>                </p-button>                <p-button                    styleClass="w-full button-grey button-border-mid w-full align-items-center justify-content-between "                    (onClick)="profileSetting()">                    <span class="mx-2 font-semibold	">Configuración de cuenta</span>                    <i-tabler class="sidenav-link-icon" name="settings"></i-tabler>                </p-button>            </div>        </div>    </ng-template>    <ng-template pTemplate="footer"></ng-template></p-sidebar><p-sidebar [(visible)]="viewNotificationBoard" position="right" styleClass="border-sidebar" appendTo="body"    [modal]="false" [showCloseIcon]="true">    <ng-template pTemplate="header">        <div            class="panel-info elipse-panel w-9 h-full notifications-header p-2 flex flex-row align-items-center justify-content-center gap-3">            <i-tabler name="bell"></i-tabler>            <span>NOTIFICACIONES</span>        </div>    </ng-template>    <ng-template pTemplate="content" styleClass="m-0 p-0"><app-notifications></app-notifications></ng-template>    <ng-template pTemplate="footer"></ng-template></p-sidebar><p-sidebar [(visible)]="viewSearchItem" position="top" (onHide)="clearSearch()">    <div class="w-full h-full flex flex-column align-content-center justify-content-center mt-2">        <ng-container [ngTemplateOutlet]="searchBar">        </ng-container>    </div></p-sidebar><ng-template #searchBar>    <div #searchBarInput class="head-content-mid w-full">        <span class="p-input-icon-right search placeholder-bold">            <i class="pi pi-search font-semibold"></i>            <input type="text" pInputText [(ngModel)]="searchValue" (ngModelChange)="search$.next($event)"                placeholder="¿Que deseas buscar?" />        </span>    </div></ng-template><ng-template #searchResultsTemp>    <ng-container *ngIf="overlayLoading; else elseTemplate">        <div class="flex flex-row justify-content-center align-items-center">            <p-progressSpinner></p-progressSpinner>        </div>    </ng-container>    <ng-template #elseTemplate>        <p-listbox [options]="_searchResults" (onChange)="goTo($event.value)" [styleClass]="\'listbox-search\'">            <ng-template let-item pTemplate="item">                <div class="flex w-full">                    <p class="font-bold text-black-alpha-90 absolute opacity-80 text-xs border-round-lg p-1">                        {{item.tag}}</p>                    <p class="overflow-hidden text-sm mt-4 ml-2">{{item.label}}</p>                </div>            </ng-template>        </p-listbox>    </ng-template></ng-template><p-overlay styleClass="overlay-search" #overlayPanel [(visible)]="overlayVisible"    [responsive]="{ breakpoint: \'640px\', direction: \'bottom\' }" (onHide)="clearSearch()" [appendTo]="\'body\'">    <ng-container [ngTemplateOutlet]="searchResultsTemp">    </ng-container></p-overlay></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TopNavComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TopNavComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

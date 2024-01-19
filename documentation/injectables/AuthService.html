@@ -1,0 +1,1698 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >AuthService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/authentication/auth.service.ts</code>
+        </p>
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#authStatusSub" >authStatusSub</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser" >currentUser</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialogService" >dialogService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#fireAuth" >fireAuth</a>
+                            </li>
+                            <li>
+                                <a href="#notificationSubscription" >notificationSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#ref" >ref</a>
+                            </li>
+                            <li>
+                                <a href="#renewTimer" >renewTimer</a>
+                            </li>
+                            <li>
+                                <a href="#renewToken$" >renewToken$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#toast" >toast</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#authStatusListener" >authStatusListener</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#entrepreneurDoc" >entrepreneurDoc</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#expertDoc" >expertDoc</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#fireAuthError" >fireAuthError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#listenNotifications" >listenNotifications</a>
+                            </li>
+                            <li>
+                                <a href="#sendPasswordResetEmail" >sendPasswordResetEmail</a>
+                            </li>
+                            <li>
+                                <a href="#signIn" >signIn</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#signInGoogle" >signInGoogle</a>
+                            </li>
+                            <li>
+                                <a href="#signOut" >signOut</a>
+                            </li>
+                            <li>
+                                <a href="#signUpGoogle" >signUpGoogle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateUserPassword" >updateUserPassword</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fireAuth: AngularFireAuth, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, router: Router, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, expertsService: <a href="../injectables/ExpertsService.html" target="_self">ExpertsService</a>, entrepreneursService: <a href="../injectables/EntrepreneursService.html" target="_self">EntrepreneursService</a>, dialogService: DialogService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/authentication/auth.service.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fireAuth</td>
+                                                  
+                                                        <td>
+                                                                    <code>AngularFireAuth</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>expertsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ExpertsService.html" target="_self" >ExpertsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>entrepreneursService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EntrepreneursService.html" target="_self" >EntrepreneursService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialogService</td>
+                                                  
+                                                        <td>
+                                                                    <code>DialogService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authStatusListener"></a>
+                    <span class="name">
+                        <span ><b>authStatusListener</b></span>
+                        <a href="#authStatusListener"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>authStatusListener()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="entrepreneurDoc"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>entrepreneurDoc</b></span>
+                        <a href="#entrepreneurDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>entrepreneurDoc(user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="288"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:288</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expertDoc"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>expertDoc</b></span>
+                        <a href="#expertDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>expertDoc(user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="234"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:234</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fireAuthError"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>fireAuthError</b></span>
+                        <a href="#fireAuthError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>fireAuthError(code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, error?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, email?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>code</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>error</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listenNotifications"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>listenNotifications</b></span>
+                        <a href="#listenNotifications"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>listenNotifications(notificationSubscriptor: Observable<any>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="305"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:305</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>notificationSubscriptor</td>
+                                            <td>
+                                                        <code>Observable&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendPasswordResetEmail"></a>
+                    <span class="name">
+                        <span ><b>sendPasswordResetEmail</b></span>
+                        <a href="#sendPasswordResetEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sendPasswordResetEmail(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:148</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signIn"></a>
+                    <span class="name">
+                        <span ><b>signIn</b></span>
+                        <a href="#signIn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>signIn(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="114"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:114</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>email</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>password</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signInGoogle"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>signInGoogle</b></span>
+                        <a href="#signInGoogle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>signInGoogle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signOut"></a>
+                    <span class="name">
+                        <span ><b>signOut</b></span>
+                        <a href="#signOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>signOut()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signUpGoogle"></a>
+                    <span class="name">
+                        <span ><b>signUpGoogle</b></span>
+                        <a href="#signUpGoogle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>signUpGoogle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUserPassword"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateUserPassword</b></span>
+                        <a href="#updateUserPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateUserPassword(currentPassword: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, newPassword: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="192"
+                                    class="link-to-prism">src/app/authentication/auth.service.ts:192</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>currentPassword</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>newPassword</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authStatusSub"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>authStatusSub</b></span>
+                        <a href="#authStatusSub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject(this.currentUser)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/authentication/auth.service.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUser"></a>
+                    <span class="name">
+                        <span ><b>currentUser</b></span>
+                        <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/authentication/auth.service.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialogService</b></span>
+                        <a href="#dialogService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DialogService</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/authentication/auth.service.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fireAuth"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>fireAuth</b></span>
+                        <a href="#fireAuth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AngularFireAuth</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/authentication/auth.service.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notificationSubscription"></a>
+                    <span class="name">
+                        <span ><b>notificationSubscription</b></span>
+                        <a href="#notificationSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/authentication/auth.service.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ref"></a>
+                    <span class="name">
+                        <span ><b>ref</b></span>
+                        <a href="#ref"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>DynamicDialogRef | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/authentication/auth.service.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renewTimer"></a>
+                    <span class="name">
+                        <span ><b>renewTimer</b></span>
+                        <a href="#renewTimer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/authentication/auth.service.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renewToken$"></a>
+                    <span class="name">
+                        <span ><b>renewToken$</b></span>
+                        <a href="#renewToken$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/authentication/auth.service.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toast"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>toast</b></span>
+                        <a href="#toast"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/authentication/auth.service.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  Subscription,
+  combineLatest,
+  filter,
+  firstValueFrom,
+  take,
+} from &#x27;rxjs&#x27;;
+import { AngularFireAuth } from &#x27;@angular/fire/compat/auth&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import {
+  ClearAuthStoreAction,
+  SetProfileDocAction,
+  SetUserAction,
+} from &#x27;@auth/store/auth.actions&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { UserService } from &#x27;./user.service&#x27;;
+import firebase from &#x27;firebase/compat/app&#x27;;
+import { AppJwt } from &#x27;@shared/models/common/app-jwt&#x27;;
+import { GoogleAuthProvider } from &#x27;firebase/auth&#x27;;
+import { User } from &#x27;./models/user&#x27;;
+import { ExpertsService } from &#x27;@shared/services/experts/experts.service&#x27;;
+import { EntrepreneursService } from &#x27;@shared/services/entrepreneurs/entrepreneurs.service&#x27;;
+import { DialogService, DynamicDialogRef } from &#x27;primeng/dynamicdialog&#x27;;
+import { TermsDialogComponent } from &#x27;@shared/components/terms-dialog/terms-dialog.component&#x27;;
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class AuthService {
+  currentUser &#x3D; null;
+  private authStatusSub &#x3D; new BehaviorSubject(this.currentUser);
+
+  notificationSubscription!: Subscription;
+
+  renewToken$: Subject&lt;void&gt; &#x3D; new Subject();
+  renewTimer: any;
+  ref: DynamicDialogRef | undefined;
+  constructor(
+    public fireAuth: AngularFireAuth,
+    public toast: ToastService,
+    private store: Store&lt;AppState&gt;,
+    private router: Router,
+    private userService: UserService,
+    private readonly expertsService: ExpertsService,
+    private readonly entrepreneursService: EntrepreneursService,
+    public dialogService: DialogService
+  ) {
+    this.authStatusListener();
+    // Renew token subscription
+    const delayedRenew &#x3D; this.renewToken$.asObservable();
+    combineLatest([this.fireAuth.authState, delayedRenew])
+      .pipe(filter(([user]) &#x3D;&gt; !!user))
+      .subscribe(async ([user]) &#x3D;&gt; {
+        await user
+          .getIdToken(true)
+          .then(() &#x3D;&gt; {
+            // Do anything when token gets renewed
+          })
+          .catch((reason) &#x3D;&gt; {
+            // Failed to renew token sign out user
+            console.error(
+              &#x27;Failed to renew account credentials, this may be due to network issues.&#x27;
+            );
+            this.signOut();
+          });
+      });
+
+    this.fireAuth.idToken.subscribe((idToken) &#x3D;&gt; {
+      // If exists clears the timeout
+      if (this.renewTimer) {
+        window.clearTimeout(this.renewTimer);
+      }
+      // Set renew strategy only if the token is set
+      if (!idToken) {
+        return;
+      }
+      const jwtObject &#x3D; new AppJwt(idToken);
+      // Renew token 1 minute before expiration
+      const milisecondsForTokenRenew &#x3D; Math.max(
+        1,
+        jwtObject.milisecondsTillExpiration - 60000
+      );
+      // Set trigger to renew token before expiration
+      this.renewTimer &#x3D; setTimeout(() &#x3D;&gt; {
+        this.renewToken$.next();
+      }, milisecondsForTokenRenew);
+    });
+  }
+
+  authStatusListener() {
+    this.fireAuth.authState.subscribe(async (credential) &#x3D;&gt; {
+      if (credential) {
+        const userData &#x3D; await this.userService.getUserByUid(credential.uid);
+        this.store.dispatch(new SetUserAction(userData));
+        const instanceUser &#x3D; new User(userData);
+        if (instanceUser.isExpert) {
+          this.expertDoc(instanceUser);
+        }
+        if (instanceUser.isUser) {
+          this.entrepreneurDoc(instanceUser);
+        }
+        this.authStatusSub.next(true);
+      } else {
+        this.authStatusSub.next(null);
+      }
+    });
+  }
+
+  signIn(email: string, password: string) {
+    return this.fireAuth.signInWithEmailAndPassword(email, password);
+  }
+
+  signUpGoogle() {
+    return this.fireAuth.signInWithPopup(new GoogleAuthProvider());
+  }
+
+  async signInGoogle() {
+    return this.fireAuth
+      .signInWithPopup(new GoogleAuthProvider())
+      .then(async (result) &#x3D;&gt; {
+        if (result &amp;&amp; result.additionalUserInfo.isNewUser) {
+          (await this.fireAuth.currentUser).delete();
+          this.toast.alert({
+            detail:
+              &#x27;No estas registrado actualmente con la cuenta especificada&#x27;,
+            summary: &#x27;Cuenta no existente&#x27;,
+            life: 15000,
+          });
+          this.signOut();
+          return;
+        }
+      });
+  }
+
+  signOut() {
+    // localStorage.clear();
+    sessionStorage.clear();
+    this.store.dispatch(new ClearAuthStoreAction());
+    this.fireAuth.signOut();
+    this.router.navigate([&#x27;/sign-in&#x27;]);
+  }
+
+  sendPasswordResetEmail(email: string): Promise&lt;void&gt; {
+    return this.fireAuth.sendPasswordResetEmail(email);
+  }
+
+  async fireAuthError(code: string, error?: any, email?: string) {
+    let msg &#x3D; &#x27;&#x27;;
+    switch (code) {
+      case &#x27;auth/id-token-expired&#x27;:
+        msg &#x3D; &#x27;El token de ID de Firebase que se proporcionó está vencido.&#x27;;
+        break;
+      case &#x27;auth/invalid-argument&#x27;:
+        msg &#x3D;
+          &#x27;Se proporcionó un argumento no válido para un método de autenticación. El mensaje de error debe incluir información adicional.&#x27;;
+        break;
+      case &#x27;auth/wrong-password&#x27;:
+        msg &#x3D;
+          &#x27;Verifique que el usuario o contraseña sean correctos o pruebe ingresando por Google&#x27;;
+        // if (email) {
+        //   const user &#x3D; await this.searchUserByEmail(email);
+        //   // if (user.logIn !&#x3D;&#x3D; &#x27;email/psw&#x27;) {
+        //   msg &#x3D; &#x60;La cuenta de ${email} tiene que ingresar por medio de&#x60;;
+        //   // }
+        // }
+        break;
+      case &#x27;auth/user-not-found&#x27;:
+        msg &#x3D;
+          &#x27;No existe ningún registro de usuario que corresponda al correo proporcionado.&#x27;;
+        break;
+      case &#x27;auth/too-many-requests&#x27;:
+        msg &#x3D;
+          &#x27;El acceso a esta cuenta se ha desactivado temporalmente debido a muchos intentos fallidos de inicio de sesión. Puede restablecerlo inmediatamente restableciendo su contraseña o puede volver a intentarlo más tarde&#x27;;
+        break;
+      default:
+        msg &#x3D; error;
+        break;
+    }
+    this.toast.clear();
+    this.toast.error({
+      summary: &#x27;Error al intentar ingresar&#x27;,
+      detail: msg,
+      life: 5000,
+    });
+  }
+
+  async updateUserPassword(currentPassword: string, newPassword: string) {
+    // First, get the current user object from Firebase Authentication
+    const user &#x3D; await this.fireAuth.currentUser;
+    // Next, reauthenticate the user with their current password
+    const credentials &#x3D; firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    );
+
+    user
+      .reauthenticateWithCredential(credentials)
+      .then(() &#x3D;&gt; {
+        // The user has been successfully reauthenticated with their current password
+        // Now, update the user&#x27;s password to a new value
+        user
+          .updatePassword(newPassword)
+          .then(() &#x3D;&gt; {
+            // The user&#x27;s password has been successfully updated
+            this.toast.success({
+              summary: &#x27;Éxito&#x27;,
+              detail: &#x27;Contraseña actualizada con éxito&#x27;,
+            });
+          })
+          .catch((error) &#x3D;&gt; {
+            // An error occurred while updating the user&#x27;s password
+            console.error(error);
+            this.toast.error({
+              summary: &#x27;Error&#x27;,
+              detail: &#x27;Fallo al intentar cambiar la contraseña&#x27;,
+            });
+          });
+      })
+      .catch((error) &#x3D;&gt; {
+        console.error(error);
+        this.toast.error({
+          summary: &#x27;Error&#x27;,
+          detail: &#x27;Fallo al intentar validar la contraseña&#x27;,
+        });
+        // An error occurred while reauthenticating the user with their current password
+      });
+  }
+
+  async expertDoc(user: User) {
+    const doc &#x3D; await this.expertsService.getUserDoc(user);
+    if (!user.relationsAssign.expertFull &amp;&amp; doc) {
+      await this.userService.updateUser(user._id, {
+        relationsAssign: { ...user.relationsAssign, expertFull: true },
+      });
+      user.relationsAssign &#x3D; { ...user.relationsAssign, expertFull: true };
+      this.store.dispatch(new SetUserAction(user));
+    }
+    if (!doc) {
+      this.toast.clear();
+      this.toast.alert({
+        summary: &#x27;No se puede continuar&#x27;,
+        detail:
+          &#x27;Debes tener una ficha de experto para operar dentro de Ecosystem&#x27;,
+      });
+      this.signOut();
+      return;
+    }
+
+    if (!user.relationsAssign.termsAccepted) {
+      const ref &#x3D; this.dialogService.open(TermsDialogComponent, {
+        header: &#x60;&#x60;,
+        width: &#x27;55vw&#x27;,
+        maskStyleClass: &#x27;dialog-app&#x27;,
+        data: {
+          expert: doc,
+          user,
+        },
+      });
+      const accepted &#x3D; await firstValueFrom(ref.onClose.pipe(take(1)));
+      if (!accepted.hoursDonated) {
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x27;No se puede continuar&#x27;,
+          detail:
+            &#x27;Debes aceptar los términos de uso, y asignar unas horas a donar para operar dentro de Ecosystem&#x27;,
+        });
+        this.signOut();
+        return;
+      } else {
+        user.relationsAssign &#x3D; {
+          ...user.relationsAssign,
+          termsAccepted: true,
+          hoursDonated: accepted.hoursDonated,
+        };
+        this.store.dispatch(new SetUserAction(user));
+      }
+    }
+    this.store.dispatch(new SetProfileDocAction(doc));
+
+    return;
+  }
+
+  async entrepreneurDoc(user: User) {
+    const doc &#x3D; await this.entrepreneursService.getUserDoc(user);
+    if (!doc) {
+      this.toast.clear();
+      this.toast.alert({
+        summary: &#x27;No se puede continuar&#x27;,
+        detail:
+          &#x27;Debes tener una ficha de experto para operar dentro de Ecosystem&#x27;,
+      });
+      this.signOut();
+      return;
+    }
+    doc[&#x27;startups&#x27;] &#x3D; doc[&#x27;startups&#x27;].filter((i) &#x3D;&gt; i.state &#x3D;&#x3D;&#x3D; &#x27;member&#x27;);
+    this.store.dispatch(new SetProfileDocAction(doc));
+    return;
+  }
+
+  async listenNotifications(notificationSubscriptor: Observable&lt;any&gt;) {
+    if (this.notificationSubscription) return;
+    this.notificationSubscription &#x3D; notificationSubscriptor.subscribe(
+      (notification) &#x3D;&gt; console.log(notification)
+    );
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

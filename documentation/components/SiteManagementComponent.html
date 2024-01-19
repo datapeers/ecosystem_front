@@ -1,0 +1,2606 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SiteManagementComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/site-management/site-management.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-site-management</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./site-management.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./site-management.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allMarkersSites" >allMarkersSites</a>
+                            </li>
+                            <li>
+                                <a href="#assignMap" >assignMap</a>
+                            </li>
+                            <li>
+                                <a href="#cols" >cols</a>
+                            </li>
+                            <li>
+                                <a href="#configTiny" >configTiny</a>
+                            </li>
+                            <li>
+                                <a href="#creatingService" >creatingService</a>
+                            </li>
+                            <li>
+                                <a href="#editingService" >editingService</a>
+                            </li>
+                            <li>
+                                <a href="#factoresDiferenciales" >factoresDiferenciales</a>
+                            </li>
+                            <li>
+                                <a href="#latLong" >latLong</a>
+                            </li>
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                <a href="#mainMap" >mainMap</a>
+                            </li>
+                            <li>
+                                <a href="#markerAdded" >markerAdded</a>
+                            </li>
+                            <li>
+                                <a href="#newSite" >newSite</a>
+                            </li>
+                            <li>
+                                <a href="#saving" >saving</a>
+                            </li>
+                            <li>
+                                <a href="#selectedSite" >selectedSite</a>
+                            </li>
+                            <li>
+                                <a href="#showCreatorSite" >showCreatorSite</a>
+                            </li>
+                            <li>
+                                <a href="#sites" >sites</a>
+                            </li>
+                            <li>
+                                <a href="#sites$" >sites$</a>
+                            </li>
+                            <li>
+                                <a href="#tabIndex" >tabIndex</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addContact" >addContact</a>
+                            </li>
+                            <li>
+                                <a href="#changeTab" >changeTab</a>
+                            </li>
+                            <li>
+                                <a href="#createSite" >createSite</a>
+                            </li>
+                            <li>
+                                <a href="#deleteSite" >deleteSite</a>
+                            </li>
+                            <li>
+                                <a href="#initializeMainMap" >initializeMainMap</a>
+                            </li>
+                            <li>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                <a href="#navigateToEdit" >navigateToEdit</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openCreatorSite" >openCreatorSite</a>
+                            </li>
+                            <li>
+                                <a href="#removeContact" >removeContact</a>
+                            </li>
+                            <li>
+                                <a href="#resetCreatorSite" >resetCreatorSite</a>
+                            </li>
+                            <li>
+                                <a href="#resizeMap" >resizeMap</a>
+                            </li>
+                            <li>
+                                <a href="#saveChanges" >saveChanges</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#uploadImage" >uploadImage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#userPermission" >userPermission</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, router: Router, confirmationService: ConfirmationService, service: <a href="../injectables/SiteManagementService.html" target="_self">SiteManagementService</a>, storageService: <a href="../injectables/StorageService.html" target="_self">StorageService</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/home/site-management/site-management.component.ts:68</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>confirmationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>ConfirmationService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SiteManagementService.html" target="_self" >SiteManagementService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>storageService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/StorageService.html" target="_self" >StorageService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addContact"></a>
+                    <span class="name">
+                        <span ><b>addContact</b></span>
+                        <a href="#addContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addContact()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="309"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:309</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeTab"></a>
+                    <span class="name">
+                        <span ><b>changeTab</b></span>
+                        <a href="#changeTab"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeTab(event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="252"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:252</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createSite"></a>
+                    <span class="name">
+                        <span ><b>createSite</b></span>
+                        <a href="#createSite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createSite()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="204"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteSite"></a>
+                    <span class="name">
+                        <span ><b>deleteSite</b></span>
+                        <a href="#deleteSite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteSite(site: <a href="../classes/Site.html" target="_self">Site</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="147"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:147</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>site</td>
+                                            <td>
+                                                            <code><a href="../classes/Site.html" target="_self" >Site</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initializeMainMap"></a>
+                    <span class="name">
+                        <span ><b>initializeMainMap</b></span>
+                        <a href="#initializeMainMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initializeMainMap()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="260"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:260</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadComponent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateToEdit"></a>
+                    <span class="name">
+                        <span ><b>navigateToEdit</b></span>
+                        <a href="#navigateToEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>navigateToEdit(site: <a href="../classes/Site.html" target="_self">Site</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>site</td>
+                                            <td>
+                                                            <code><a href="../classes/Site.html" target="_self" >Site</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openCreatorSite"></a>
+                    <span class="name">
+                        <span ><b>openCreatorSite</b></span>
+                        <a href="#openCreatorSite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openCreatorSite(prevSite?: <a href="../classes/Site.html" target="_self">Site</a>, onlyView?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>prevSite</td>
+                                            <td>
+                                                            <code><a href="../classes/Site.html" target="_self" >Site</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>onlyView</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeContact"></a>
+                    <span class="name">
+                        <span ><b>removeContact</b></span>
+                        <a href="#removeContact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeContact(index)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="343"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:343</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetCreatorSite"></a>
+                    <span class="name">
+                        <span ><b>resetCreatorSite</b></span>
+                        <a href="#resetCreatorSite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetCreatorSite()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resizeMap"></a>
+                    <span class="name">
+                        <span ><b>resizeMap</b></span>
+                        <a href="#resizeMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resizeMap()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="231"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:231</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveChanges"></a>
+                    <span class="name">
+                        <span ><b>saveChanges</b></span>
+                        <a href="#saveChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveChanges()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="318"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:318</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadImage"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>uploadImage</b></span>
+                        <a href="#uploadImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>uploadImage(fileToUpload: File, site: <a href="../classes/Site.html" target="_self">Site | any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="186"
+                                    class="link-to-prism">src/app/home/site-management/site-management.component.ts:186</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileToUpload</td>
+                                            <td>
+                                                        <code>File</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>site</td>
+                                            <td>
+                                                            <code><a href="../classes/Site.html" target="_self" >Site | any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allMarkersSites"></a>
+                    <span class="name">
+                        <span ><b>allMarkersSites</b></span>
+                        <a href="#allMarkersSites"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/site-management/site-management.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="assignMap"></a>
+                    <span class="name">
+                        <span ><b>assignMap</b></span>
+                        <a href="#assignMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Map</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/home/site-management/site-management.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cols"></a>
+                    <span class="name">
+                        <span ><b>cols</b></span>
+                        <a href="#cols"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { field: &#x27;name&#x27;, header: &#x27;Nombre&#x27; },
+    { field: &#x27;email&#x27;, header: &#x27;Correo&#x27; },
+    { field: &#x27;contact&#x27;, header: &#x27;Telefono&#x27; },
+    { field: &#x27;others&#x27;, header: &#x27;Otros&#x27; },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/home/site-management/site-management.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configTiny"></a>
+                    <span class="name">
+                        <span ><b>configTiny</b></span>
+                        <a href="#configTiny"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>configTinyMce</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/home/site-management/site-management.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="creatingService"></a>
+                    <span class="name">
+                        <span ><b>creatingService</b></span>
+                        <a href="#creatingService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/site-management/site-management.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editingService"></a>
+                    <span class="name">
+                        <span ><b>editingService</b></span>
+                        <a href="#editingService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/home/site-management/site-management.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="factoresDiferenciales"></a>
+                    <span class="name">
+                        <span ><b>factoresDiferenciales</b></span>
+                        <a href="#factoresDiferenciales"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/home/site-management/site-management.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="latLong"></a>
+                    <span class="name">
+                        <span ><b>latLong</b></span>
+                        <a href="#latLong"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[5.0710225, -75.4927164]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/home/site-management/site-management.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/site-management/site-management.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mainMap"></a>
+                    <span class="name">
+                        <span ><b>mainMap</b></span>
+                        <a href="#mainMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Map</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/home/site-management/site-management.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markerAdded"></a>
+                    <span class="name">
+                        <span ><b>markerAdded</b></span>
+                        <a href="#markerAdded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/home/site-management/site-management.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newSite"></a>
+                    <span class="name">
+                        <span ><b>newSite</b></span>
+                        <a href="#newSite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Site.newSite()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/home/site-management/site-management.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saving"></a>
+                    <span class="name">
+                        <span ><b>saving</b></span>
+                        <a href="#saving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/home/site-management/site-management.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedSite"></a>
+                    <span class="name">
+                        <span ><b>selectedSite</b></span>
+                        <a href="#selectedSite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/site-management/site-management.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCreatorSite"></a>
+                    <span class="name">
+                        <span ><b>showCreatorSite</b></span>
+                        <a href="#showCreatorSite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/site-management/site-management.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sites"></a>
+                    <span class="name">
+                        <span ><b>sites</b></span>
+                        <a href="#sites"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Site.html" target="_self" >Site[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/site-management/site-management.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sites$"></a>
+                    <span class="name">
+                        <span ><b>sites$</b></span>
+                        <a href="#sites$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/home/site-management/site-management.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tabIndex"></a>
+                    <span class="name">
+                        <span ><b>tabIndex</b></span>
+                        <a href="#tabIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/home/site-management/site-management.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/site-management/site-management.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userPermission"></a>
+                        <span class="name"><b>userPermission</b><a href="#userPermission"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>userPermission()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/site-management/site-management.component.ts:55</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  HostListener,
+} from &#x27;@angular/core&#x27;;
+import { SiteManagementService } from &#x27;./site-management.service&#x27;;
+import { Site } from &#x27;./model/site.model&#x27;;
+import { Subscription, first, firstValueFrom, tap } from &#x27;rxjs&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import { StorageService } from &#x27;@shared/storage/storage.service&#x27;;
+import { Map, tileLayer, marker, Marker } from &#x27;leaflet&#x27;;
+import { ConfirmationService } from &#x27;primeng/api&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { Permission } from &#x27;@auth/models/permissions.enum&#x27;;
+import { configTinyMce } from &#x27;@shared/models/configTinyMce&#x27;;
+import { ShepherdService } from &#x27;angular-shepherd&#x27;;
+import { servicesOnboarding } from &#x27;@shared/onboarding/onboarding.config&#x27;;
+import { cloneDeep } from &#x27;lodash&#x27;;
+
+@Component({
+  selector: &#x27;app-site-management&#x27;,
+  templateUrl: &#x27;./site-management.component.html&#x27;,
+  styleUrls: [&#x27;./site-management.component.scss&#x27;],
+})
+export class SiteManagementComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
+  sites$: Subscription;
+  sites: Site[] &#x3D; [];
+  loading &#x3D; true;
+  showCreatorSite &#x3D; false;
+  newSite &#x3D; Site.newSite();
+  saving &#x3D; false;
+
+  tabIndex &#x3D; 0;
+
+  mainMap: Map;
+  assignMap: Map;
+  latLong &#x3D; [5.0710225, -75.4927164];
+  markerAdded;
+
+  allMarkersSites &#x3D; [];
+  selectedSite;
+  user: User;
+  factoresDiferenciales &#x3D; [];
+  creatingService &#x3D; false;
+  editingService &#x3D; false;
+  configTiny &#x3D; configTinyMce;
+  public get userPermission(): typeof Permission {
+    return Permission;
+  }
+
+  // @HostListener(&#x27;window:resize&#x27;, [&#x27;$event&#x27;])
+  // onResize() {
+  //   this.resizeMap();
+  // }
+  cols &#x3D; [
+    { field: &#x27;name&#x27;, header: &#x27;Nombre&#x27; },
+    { field: &#x27;email&#x27;, header: &#x27;Correo&#x27; },
+    { field: &#x27;contact&#x27;, header: &#x27;Telefono&#x27; },
+    { field: &#x27;others&#x27;, header: &#x27;Otros&#x27; },
+  ];
+  constructor(
+    private store: Store&lt;AppState&gt;,
+    private readonly router: Router,
+    private confirmationService: ConfirmationService,
+    private readonly service: SiteManagementService,
+    private readonly storageService: StorageService,
+    private readonly toast: ToastService
+  ) {
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+  }
+
+  ngOnInit() {
+    this.loadComponent();
+  }
+
+  ngOnDestroy() {
+    this.sites$?.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    if (!navigator.geolocation) {
+      console.log(&#x27;locations is not supported&#x27;);
+    }
+    // this.initializeMainMap();
+  }
+
+  loadComponent() {
+    this.service
+      .watchSites()
+      .then(
+        (obsSites$) &#x3D;&gt;
+          (this.sites$ &#x3D; obsSites$.subscribe((sitesList: Site[]) &#x3D;&gt; {
+            this.loading &#x3D; true;
+            this.sites &#x3D; sitesList;
+            // for (const iterator of this.allMarkersSites) {
+            //   this.mainMap.removeControl(iterator);
+            // }
+            // this.allMarkersSites &#x3D; [];
+            // for (const site of this.sites) {
+            //   const markerSite &#x3D; new Marker([site.coords.lat, site.coords.lng])
+            //     .addTo(this.mainMap)
+            //     .bindPopup(site.name);
+            //   this.allMarkersSites.push(markerSite);
+            // }
+            this.loading &#x3D; false;
+          }))
+      )
+      .catch((err) &#x3D;&gt; {
+        this.toast.alert({
+          summary: &#x27;Error al cargar sedes&#x27;,
+          detail: err,
+          life: 12000,
+        });
+        this.sites &#x3D; [];
+        this.loading &#x3D; false;
+      });
+  }
+
+  openCreatorSite(prevSite?: Site, onlyView?: boolean) {
+    this.newSite &#x3D; Site.newSite(cloneDeep(prevSite));
+    this.showCreatorSite &#x3D; true;
+    this.creatingService &#x3D; prevSite ? false : true;
+    this.editingService &#x3D; prevSite &amp;&amp; !onlyView ? true : false;
+    // if (!this.assignMap) {
+    //   setTimeout(() &#x3D;&gt; {
+    //     this.initializeAssignMap();
+    //   }, 100);
+    // }
+  }
+
+  navigateToEdit(site: Site) {
+    this.router.navigate([&#x60;/home/site_management/${site._id}&#x60;]);
+  }
+
+  deleteSite(site: Site) {
+    this.confirmationService.confirm({
+      key: &#x27;confirmDialog&#x27;,
+      acceptLabel: &#x27;Eliminar&#x27;,
+      rejectLabel: &#x27;Cancelar&#x27;,
+      header: &#x27;¿Está seguro de que desea continuar?&#x27;,
+      message: &#x27;¿Está seguro de que desea eliminar esta sede?&#x27;,
+      icon: &#x27;pi pi-exclamation-triangle&#x27;,
+      accept: async () &#x3D;&gt; {
+        this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Eliminado...&#x27; });
+        this.service
+          .deleteSite(site._id)
+          .then((ans) &#x3D;&gt; {
+            this.toast.clear();
+            this.toast.success({
+              detail: &#x27;El servicio ha sido eliminado exitosamente&#x27;,
+              summary: &#x27;Evento eliminado!&#x27;,
+              life: 1500,
+            });
+          })
+          .catch((err) &#x3D;&gt; {
+            this.toast.clear();
+            this.toast.alert({
+              summary: &#x27;Error al intentar eliminar servicio&#x27;,
+              detail: err,
+              life: 12000,
+            });
+          });
+      },
+    });
+  }
+
+  resetCreatorSite() {
+    this.newSite &#x3D; Site.newSite();
+    this.showCreatorSite &#x3D; false;
+    this.markerAdded &#x3D; undefined;
+    this.saving &#x3D; false;
+  }
+
+  async uploadImage(fileToUpload: File, site: Site | any) {
+    this.service
+      .updateSiteThumbnail(fileToUpload)
+      .pipe(
+        tap((event) &#x3D;&gt; {
+          if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.DownloadProgress) {
+            // Display upload progress if required
+          }
+        })
+      )
+      .subscribe((event) &#x3D;&gt; {
+        if (event.type &#x3D;&#x3D;&#x3D; HttpEventType.Response) {
+          const realUrl &#x3D; this.storageService.getPureUrl(event.url);
+          site.thumbnail &#x3D; realUrl;
+        }
+      });
+  }
+
+  createSite() {
+    // if (!this.markerAdded) {
+    //   this.toast.alert({
+    //     summary: &#x27;Falta ubicación&#x27;,
+    //     detail: &#x27;No ha seleccionado una ubicación para la sede&#x27;,
+    //   });
+    //   return;
+    // }
+    this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Guardando...&#x27; });
+    this.saving &#x3D; true;
+    this.service
+      .createSite(this.newSite)
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.resetCreatorSite();
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x27;Error al crear sede&#x27;,
+          detail: err,
+          life: 12000,
+        });
+        this.resetCreatorSite();
+      });
+  }
+
+  resizeMap() {
+    if (this.mainMap) {
+      this.mainMap.on(&#x27;viewreset&#x27;, (value) &#x3D;&gt; {
+        this.mainMap.invalidateSize();
+      });
+
+      this.mainMap.on(&#x27;resize&#x27;, (value) &#x3D;&gt; {
+        this.mainMap.invalidateSize();
+      });
+    }
+    if (this.assignMap) {
+      this.assignMap.on(&#x27;viewreset&#x27;, (value) &#x3D;&gt; {
+        this.assignMap.invalidateSize();
+      });
+
+      this.assignMap.on(&#x27;resize&#x27;, (value) &#x3D;&gt; {
+        this.assignMap.invalidateSize();
+      });
+    }
+  }
+
+  changeTab(event) {
+    if (this.tabIndex &#x3D;&#x3D;&#x3D; 1 &amp;&amp; this.mainMap) {
+      setTimeout(() &#x3D;&gt; {
+        this.mainMap.invalidateSize();
+      }, 100);
+    }
+  }
+
+  initializeMainMap() {
+    if (!this.mainMap) {
+      this.mainMap &#x3D; new Map(&#x27;map&#x27;).setView(this.latLong as any, 15);
+      tileLayer(&#x27;https://tile.openstreetmap.org/{z}/{x}/{y}.png&#x27;, {
+        minZoom: 1,
+        maxZoom: 20,
+        attribution:
+          &#x27;&amp;copy; &lt;a href&#x3D;&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;&#x27;,
+      }).addTo(this.mainMap);
+    }
+  }
+
+  // initializeAssignMap() {
+  //   if (!this.assignMap) {
+  //     this.assignMap &#x3D; new Map(&#x27;mapAssign&#x27;).setView(this.latLong as any, 17);
+  //     tileLayer(&#x27;https://tile.openstreetmap.org/{z}/{x}/{y}.png&#x27;, {
+  //       minZoom: 1,
+  //       maxZoom: 20,
+  //       attribution:
+  //         &#x27;&amp;copy; &lt;a href&#x3D;&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;&#x27;,
+  //     }).addTo(this.assignMap);
+
+  //     this.assignMap.on(&#x27;click&#x27;, (e) &#x3D;&gt; {
+  //       this.newSite.coords &#x3D; e.latlng;
+  //       if (this.markerAdded) {
+  //         this.assignMap.removeControl(this.markerAdded);
+  //       }
+  //       this.markerAdded &#x3D; new Marker([
+  //         this.newSite.coords.lat,
+  //         this.newSite.coords.lng,
+  //       ])
+  //         .addTo(this.assignMap)
+  //         .bindPopup(&#x27;Ubicación seleccionado&#x27;);
+  //     });
+  //   }
+  // }
+
+  // changeOnCoords(event) {
+  //   if (this.markerAdded) {
+  //     this.assignMap.removeControl(this.markerAdded);
+  //   }
+  //   this.markerAdded &#x3D; new Marker([
+  //     this.newSite.coords.lat,
+  //     this.newSite.coords.lng,
+  //   ])
+  //     .addTo(this.assignMap)
+  //     .bindPopup(&#x27;Ubicación seleccionado&#x27;);
+  // }
+
+  addContact() {
+    this.newSite.contacts.push({
+      name: &#x27;&#x27;,
+      contact: &#x27;&#x27;,
+      email: &#x27;&#x27;,
+      others: &#x27;&#x27;,
+    });
+  }
+
+  saveChanges() {
+    this.saving &#x3D; true;
+    this.toast.info({ detail: &#x27;&#x27;, summary: &#x27;Guardando...&#x27; });
+    this.service
+      .updateSite(this.newSite._id, this.newSite)
+      .then((ans) &#x3D;&gt; {
+        this.toast.clear();
+        this.toast.success({
+          detail: &#x27;Los cambios al servicio han sido guardados&#x27;,
+          summary: &#x27;Servicio editado!&#x27;,
+          life: 2000,
+        });
+        this.saving &#x3D; false;
+      })
+      .catch((err) &#x3D;&gt; {
+        this.saving &#x3D; false;
+        this.toast.clear();
+        this.toast.alert({
+          summary: &#x27;Error al editar servicio&#x27;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  removeContact(index) {
+    this.newSite.contacts.splice(index);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-between align-items-center py-4 px-4&quot;&gt;
+    &lt;div class&#x3D;&quot;text-wrapper flex flex-row align-items-center text-center &quot;&gt;
+        &lt;span class&#x3D;&quot;subheader text-white &quot;&gt;Servicios&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p-button *ngIf&#x3D;&quot;user?.allowed(userPermission.sites_and_services_create)&quot; type&#x3D;&quot;button&quot; label&#x3D;&quot;Añadir sede&quot; icon&#x3D;&quot;pi pi-plus&quot; (onClick)&#x3D;&quot;openCreatorSite()&quot;&gt;&lt;/p-button&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;w-full p-4&quot;&gt;
+    &lt;p-tabView [(activeIndex)]&#x3D;&quot;tabIndex&quot; [scrollable]&#x3D;&quot;true&quot; (onChange)&#x3D;&quot;changeTab($event)&quot;&gt;
+        &lt;p-tabPanel header&#x3D;&quot;Lista sedes&quot;&gt;
+            
+
+        &lt;/p-tabPanel&gt;
+        &lt;p-tabPanel header&#x3D;&quot;Mapa de sedes&quot;&gt;
+            &lt;div id&#x3D;&quot;map&quot; class&#x3D;&quot;w-full&quot;&gt;
+            &lt;/div&gt;
+        &lt;/p-tabPanel&gt;
+    &lt;/p-tabView&gt;
+&lt;/div&gt; --&gt;
+&lt;div class&#x3D;&quot;w-full h-max-router overflow-auto&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-column px-1 sm:px-4 gap-2 pt-4&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-column xl:flex-row gap-4 align-items-center&quot;&gt;
+            &lt;div class&#x3D;&quot;flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8&quot;&gt;
+                &lt;h2&gt;Servicios&lt;/h2&gt;
+                &lt;div style&#x3D;&quot;height: 1.5rem&quot;&gt;&lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex gap-2&quot;&gt;
+                    &lt;p class&#x3D;&quot;th2&quot;&gt;{{user?.isAdmin?&quot;Esta es tu área de control para los Servicios. Modifica y actualiza la información detallada de cada servicio directamente desde esta vista. Ajusta los detalles, metodología, factores diferenciales y cualquier otra información relevante. Tu capacidad para personalizar la información asegura que los usuarios obtengan datos precisos y actualizados sobre los servicios proporcionados. Haz clic en cualquier tarjeta para realizar ajustes y garantizar la coherencia en la presentación de información.&quot; : &quot;Explora una variedad de servicios ofrecidos. Desliza las tarjetas para obtener una vista previa rápida y, si encuentras algo de interés, haz clic en &#x27;Ver&#x27; para conocer más detalles. Descubre a fondo los servicios, métodos y objetivos que cada startup tiene para ofrecer, y encuentra la solución perfecta para tus necesidades&quot;}}
+                    &lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8&quot;&gt;
+                &lt;p-button *ngIf&#x3D;&quot;user?.allowed(userPermission.sites_and_services_create)&quot; type&#x3D;&quot;button&quot; label&#x3D;&quot;Añadir servicio&quot; icon&#x3D;&quot;pi pi-plus&quot; (onClick)&#x3D;&quot;openCreatorSite()&quot;&gt;&lt;/p-button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p-divider&gt;&lt;/p-divider&gt;
+        &lt;div class&#x3D;&quot;px-4&quot;&gt;
+            &lt;p-dataView #dv [value]&#x3D;&quot;sites&quot; [paginator]&#x3D;&quot;false&quot; filterBy&#x3D;&quot;name&quot; layout&#x3D;&quot;grid&quot;&gt;
+                &lt;ng-template pTemplate&#x3D;&quot;header&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-wrap align-items-center justify-content-between py-2&quot;&gt;
+                        &lt;span class&#x3D;&quot;p-input-icon-left&quot;&gt;
+                            &lt;span class&#x3D;&quot;font-bold&quot;&gt;&lt;/span&gt;
+                        &lt;/span&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row gap-3&quot;&gt;
+                            &lt;div class&#x3D;&quot;flex flex-row gap-2 align-items-center text-primary&quot;&gt;
+                                &lt;span class&#x3D;&quot;font-semibold text-2xl&quot;&gt;{{sites.length}}&lt;/span&gt;
+                                &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Servicios {{sites.length &gt; 1 ? &#x27;s&#x27; : &#x27;&#x27;}} &lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/ng-template&gt;
+                &lt;ng-template let-site pTemplate&#x3D;&quot;gridItem&quot;&gt;
+                    &lt;div class&#x3D;&quot;surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-20rem&quot;&gt;
+                        &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+                            &lt;div class&#x3D;&quot;flex flex-row gap-1 align-items-center justify-content-between&quot;&gt;
+                                &lt;i-tabler class&#x3D;&quot;text-center text-tertiary size-md&quot; name&#x3D;&quot;affiliate&quot;&gt;&lt;/i-tabler&gt;
+                                &lt;div class&#x3D;&quot;flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs&quot;&gt;
+                                    &lt;i-tabler class&#x3D;&quot;text-center text-xs size-sm &quot; name&#x3D;&quot;calendar&quot;&gt;&lt;/i-tabler&gt;
+                                    &lt;span class&#x3D;&quot;font-semibold&quot;&gt;{{site.createdAt | date: &#x27;dd MMM yyyy&#x27;}}&lt;/span&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class&#x3D;&quot;flex flex-column pt-3 gap-1&quot;&gt;
+                                &lt;img width&#x3D;&quot;100%&quot; height&#x3D;&quot;124px&quot; [src]&#x3D;&quot;site?.thumbnail ? site?.thumbnail : &#x27;/assets/noPic.jpg&#x27;&quot; alt&#x3D;&quot;&quot; class&#x3D;&quot;border-round-xl&quot;&gt;
+                                &lt;span class&#x3D;&quot;font-bold&quot;&gt;{{site.name}}&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row gap-1 justify-content-between align-items-center&quot;&gt;
+                            &lt;div class&#x3D;&quot;flex flex-row gap-2 align-items-center&quot; pTooltip&#x3D;&quot;Contactos&quot;&gt;
+                                &lt;i-tabler class&#x3D;&quot;size-md&quot; name&#x3D;&quot;map-search&quot;&gt;&lt;/i-tabler&gt;
+                                &lt;span class&#x3D;&quot;text-xs font-semibold&quot;&gt;{{site.contacts.length}}&lt;/span&gt;
+                            &lt;/div&gt;
+
+                            &lt;p-button styleClass&#x3D;&quot;p-button-quaternary&quot; (onClick)&#x3D;&quot;openCreatorSite(site, true)&quot;&gt;Ver&lt;/p-button&gt;
+                            &lt;p-button *ngIf&#x3D;&quot;user?.allowed(userPermission.sites_and_services_edit)&quot; icon&#x3D;&quot;pi pi-pencil&quot; type&#x3D;&quot;button&quot; pTooltip&#x3D;&quot;editar&quot; label&#x3D;&quot;&quot; (onClick)&#x3D;&quot;openCreatorSite(site, false)&quot;&gt;&lt;/p-button&gt;
+                            &lt;p-button styleClass&#x3D;&quot;button-grey&quot; *ngIf&#x3D;&quot;user?.allowed(userPermission.sites_and_services_edit)&quot; icon&#x3D;&quot;pi pi-trash&quot; pTooltip&#x3D;&quot;borrar&quot; type&#x3D;&quot;button&quot; label&#x3D;&quot;&quot; (onClick)&#x3D;&quot;deleteSite(site)&quot;&gt;&lt;/p-button&gt;
+
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/ng-template&gt;
+                &lt;ng-template pTemplate&#x3D;&quot;empty&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-row justify-content-center align-items-center w-full h-20rem&quot;&gt;
+                        &lt;span class&#x3D;&quot;text-2xl text-500 font-semibold&quot;&gt;No hay servicios&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/ng-template&gt;
+            &lt;/p-dataView&gt;
+        &lt;/div&gt;
+        &lt;!-- &lt;div class&#x3D;&quot;flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center &quot;&gt;
+        &lt;ng-container *ngFor&#x3D;&quot;let site of sites&quot;&gt;
+            &lt;div class&#x3D;&quot;tour-card bg-white&quot; style&#x3D;&quot;margin:0.5rem;&quot; (mouseenter)&#x3D;&quot;selectedSite &#x3D; site;&quot; (mouseleave)&#x3D;&quot;selectedSite &#x3D; undefined;&quot;&gt;
+                &lt;img width&#x3D;&quot;100%&quot; height&#x3D;&quot;144px&quot; [src]&#x3D;&quot;site?.thumbnail ? site?.thumbnail : &#x27;/assets/noPic.jpg&#x27;&quot; alt&#x3D;&quot;&quot;&gt;
+                &lt;div class&#x3D;&quot;title-wrapper&quot;&gt;
+                    &lt;span class&#x3D;&quot;subheader-small card-title&quot;&gt;{{site.name}}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex flex-row align-items-center justify-content-between&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-row&quot; style&#x3D;&quot;gap:0.5rem;&quot;&gt;
+                        &lt;p-button type&#x3D;&quot;button&quot; label&#x3D;&quot;Ver&quot; (onClick)&#x3D;&quot;navigateToEdit(site)&quot;&gt;&lt;/p-button&gt;
+                        &lt;p-button *ngIf&#x3D;&quot;user?.allowed(userPermission.sites_and_services_edit)&quot; type&#x3D;&quot;button&quot; label&#x3D;&quot;Eliminar&quot; (onClick)&#x3D;&quot;deleteSite(site)&quot;&gt;&lt;/p-button&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;flex flex-row align-items-center&quot; style&#x3D;&quot;gap: 0.5rem;&quot;&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-container&gt;
+    &lt;/div&gt; --&gt;
+    &lt;/div&gt;
+
+    &lt;p-dialog appendTo&#x3D;&quot;body&quot; header&#x3D;&quot;&quot; [(visible)]&#x3D;&quot;showCreatorSite&quot; [draggable]&#x3D;&quot;false&quot; [resizable]&#x3D;&quot;false&quot; [modal]&#x3D;&quot;true&quot; (onHide)&#x3D;&quot;resetCreatorSite()&quot; [maximizable]&#x3D;&quot;true&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;100vw&#x27;}&quot; [style]&#x3D;&quot;{ width: &#x27;95vw&#x27; }&quot;&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-row gap-3&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;heart-handshake&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+            &lt;div class&#x3D;&quot;content-resource w-full flex flex-column justify-content-between pb-2 pr-4&quot;&gt;
+                &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;Servicio
+                &lt;/h2&gt;
+                &lt;div class&#x3D;&quot;w-full flex flex-row gap-1&quot;&gt;
+                    &lt;p-button *ngIf&#x3D;&quot;creatingService&quot; type&#x3D;&quot;submit&quot; label&#x3D;&quot;Crear servicio&quot; (onClick)&#x3D;&quot;createSite()&quot; [disabled]&#x3D;&quot;saving&quot; styleClass&#x3D;&quot; field p-button-lg border-round-2xl my-2 p-3 bg-primary&quot; [disabled]&#x3D;&quot;saving&quot;&gt;&lt;/p-button&gt;
+                    &lt;p-button *ngIf&#x3D;&quot;editingService&quot; type&#x3D;&quot;submit&quot; label&#x3D;&quot;Guardar cambios&quot; (onClick)&#x3D;&quot;saveChanges()&quot; [disabled]&#x3D;&quot;saving&quot; styleClass&#x3D;&quot; field p-button-lg border-round-2xl my-2 p-3 bg-primary&quot; [disabled]&#x3D;&quot;saving&quot;&gt;&lt;/p-button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p-divider&gt;&lt;/p-divider&gt;
+        &lt;ng-container *ngIf&#x3D;&quot;creatingService || editingService; else viewTemplate&quot;&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-wrap px-3 gap-3&quot;&gt;
+                &lt;div class&#x3D;&quot;normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3&quot; style&#x3D;&quot;flex: 3&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-3&quot;&gt;
+                        &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-center align-items-center&quot;&gt;
+                            &lt;app-avatar-uploader id&#x3D;&quot;logoField&quot; [imageUrl]&#x3D;&quot;newSite.thumbnail&quot; (onUpload)&#x3D;&quot;uploadImage($event, newSite)&quot; [disableRemove]&#x3D;&quot;true&quot;&gt;&lt;/app-avatar-uploader&gt;
+                        &lt;/div&gt;
+                        &lt;span class&#x3D;&quot;w-full app-input-field field-h-1&quot;&gt;
+                            &lt;label htmlFor&#x3D;&quot;nameService&quot; class&#x3D;&quot;font-bold&quot;&gt;Nombre&lt;/label&gt;
+                            &lt;input pInputText id&#x3D;&quot;nameService&quot; [(ngModel)]&#x3D;&quot;newSite.name&quot; class&#x3D;&quot;inputfield field-full&quot; placeholder&#x3D;&quot;Ingresa un nombre para el servicio&quot; /&gt;
+                        &lt;/span&gt;
+                        &lt;span class&#x3D;&quot;w-full app-input-field&quot;&gt;
+                            &lt;label for&#x3D;&quot;service-description&quot; class&#x3D;&quot;font-bold&quot;&gt;Descripción&lt;/label&gt;
+                            &lt;textarea id&#x3D;&quot;service-description&quot; style&#x3D;&quot;width: 100%;&quot; rows&#x3D;&quot;8&quot; id&#x3D;&quot;resultsService&quot; [(ngModel)]&#x3D;&quot;newSite.description&quot; pInputTextarea&gt;&lt;/textarea&gt;
+                        &lt;/span&gt;
+
+                        &lt;span class&#x3D;&quot;w-full app-input-field&quot;&gt;
+                            &lt;div class&#x3D;&quot;flex fle-row w-full justify-content-between align-items-center&quot;&gt;
+                                &lt;label for&#x3D;&quot;service-description&quot; class&#x3D;&quot;font-bold&quot;&gt;Contactos&lt;/label&gt;
+                                &lt;p class&#x3D;&quot;text-xs&quot; (click)&#x3D;&quot;addContact()&quot;&gt;Añadir contacto &lt;i class&#x3D;&quot;pi pi-plus cursor-pointer&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+                            &lt;/div&gt;
+
+                            &lt;p-table [value]&#x3D;&quot;newSite.contacts&quot; [columns]&#x3D;&quot;cols&quot; [reorderableColumns]&#x3D;&quot;true&quot; [tableStyle]&#x3D;&quot;{&#x27;min-width&#x27;: &#x27;50rem&#x27;}&quot;&gt;
+                                &lt;ng-template pTemplate&#x3D;&quot;header&quot; let-columns&gt;
+                                    &lt;tr&gt;
+                                        &lt;th style&#x3D;&quot;width:3rem&quot;&gt;&lt;/th&gt;
+                                        &lt;th *ngFor&#x3D;&quot;let col of columns&quot; pReorderableColumn&gt;
+                                            {{col.header}}
+                                        &lt;/th&gt;
+                                    &lt;/tr&gt;
+                                &lt;/ng-template&gt;
+                                &lt;ng-template pTemplate&#x3D;&quot;body&quot; let-rowData let-columns&#x3D;&quot;columns&quot; let-index&#x3D;&quot;rowIndex&quot;&gt;
+                                    &lt;tr [pReorderableRow]&#x3D;&quot;index&quot;&gt;
+                                        &lt;td&gt;
+                                            &lt;span class&#x3D;&quot;pi pi-bars&quot; pReorderableRowHandle&gt;&lt;/span&gt;
+                                        &lt;/td&gt;
+                                        &lt;td *ngFor&#x3D;&quot;let col of columns&quot;&gt;
+                                            &lt;input pInputText [(ngModel)]&#x3D;&quot;rowData[col.field]&quot; /&gt;
+                                        &lt;/td&gt;
+                                        &lt;td&gt;
+                                            &lt;p-button styleClass&#x3D;&quot;p-button-quaternary&quot; (onClick)&#x3D;&quot;removeContact(index)&quot; icon&#x3D;&quot;pi pi-trash&quot;&gt;&lt;/p-button&gt;
+                                        &lt;/td&gt;
+                                    &lt;/tr&gt;
+                                &lt;/ng-template&gt;
+                            &lt;/p-table&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3&quot; style&#x3D;&quot;flex: 3&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-3&quot;&gt;
+                        &lt;span class&#x3D;&quot;w-full app-input-field&quot;&gt;
+                            &lt;label for&#x3D;&quot;directedToService&quot; class&#x3D;&quot;font-bold&quot;&gt;¿A quien va dirigido?&lt;/label&gt;
+                            &lt;textarea id&#x3D;&quot;directedToService&quot; style&#x3D;&quot;width: 100%;&quot; rows&#x3D;&quot;8&quot; id&#x3D;&quot;resultsService&quot; [(ngModel)]&#x3D;&quot;newSite.directedTo&quot; pInputTextarea&gt;&lt;/textarea&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-3&quot;&gt;
+                        &lt;span class&#x3D;&quot;w-full app-input-field&quot;&gt;
+                            &lt;label for&#x3D;&quot;factorsServices&quot; class&#x3D;&quot;font-bold&quot;&gt;Factores diferenciales&lt;/label&gt;
+                            &lt;p-chips id&#x3D;&quot;factorsServices&quot; styleClass&#x3D;&quot;inputfield field-full&quot; [(ngModel)]&#x3D;&quot;newSite.factors&quot;&gt;&lt;/p-chips&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-3&quot;&gt;
+                        &lt;span class&#x3D;&quot;w-full app-input-field&quot;&gt;
+                            &lt;label for&#x3D;&quot;methodService&quot; class&#x3D;&quot;font-bold&quot;&gt;Metodología&lt;/label&gt;
+                            &lt;textarea id&#x3D;&quot;methodService&quot; style&#x3D;&quot;width: 100%;&quot; rows&#x3D;&quot;8&quot; id&#x3D;&quot;resultsService&quot; [(ngModel)]&#x3D;&quot;newSite.methodology&quot; pInputTextarea&gt;&lt;/textarea&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column gap-3&quot;&gt;
+                        &lt;span class&#x3D;&quot;w-full app-input-field&quot;&gt;
+                            &lt;label for&#x3D;&quot;resultsService&quot; class&#x3D;&quot;font-bold&quot;&gt;Resultados&lt;/label&gt;
+                            &lt;textarea id&#x3D;&quot;resultsService&quot; style&#x3D;&quot;width: 100%;&quot; rows&#x3D;&quot;8&quot; id&#x3D;&quot;resultsService&quot; [(ngModel)]&#x3D;&quot;newSite.results&quot; pInputTextarea&gt;&lt;/textarea&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/ng-container&gt;
+        &lt;ng-template #viewTemplate&gt;
+            &lt;div class&#x3D;&quot;w-full flex flex-wrap px-3 gap-3&quot;&gt;
+                &lt;div class&#x3D;&quot;normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3&quot; style&#x3D;&quot;flex: 3&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-column&quot;&gt;
+
+                        &lt;div class&#x3D;&quot;flex flex-row w-full align-items-center gap-3&quot;&gt;
+                            &lt;ng-container *ngIf&#x3D;&quot;newSite?.thumbnail !&#x3D;&#x3D; &#x27;&#x27;; else noThumbnail&quot;&gt;
+                                &lt;p-avatar image&#x3D;&quot;newSite.thumbnail&quot; styleClass&#x3D;&quot;mr-2&quot; size&#x3D;&quot;xlarge&quot; shape&#x3D;&quot;circle&quot;&gt;&lt;/p-avatar&gt;
+                            &lt;/ng-container&gt;
+                            &lt;ng-template #noThumbnail&gt;
+                                &lt;i-tabler name&#x3D;&quot;fence&quot; class&#x3D;&quot;startup-thumbnail&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;/ng-template&gt;
+                            &lt;h2&gt;{{newSite.name}}&lt;/h2&gt;
+                        &lt;/div&gt;
+                        &lt;span class&#x3D;&quot;pt-3&quot;&gt;
+                            {{newSite.description}}
+                        &lt;/span&gt;
+                        &lt;p-divider&gt;&lt;/p-divider&gt;
+                        &lt;div class&#x3D;&quot;flex flex-column gap-2&quot;&gt;
+                            &lt;span class&#x3D;&quot;text-xs&quot;&gt;Contactos&lt;/span&gt;
+                            &lt;div class&#x3D;&quot;flex flex-row align-items-center&quot; *ngFor&#x3D;&quot;let item of newSite.contacts&quot;&gt;
+                                &lt;p-avatar [label]&#x3D;&quot;item[&#x27;name&#x27;][0]&quot; styleClass&#x3D;&quot;mr-2&quot; size&#x3D;&quot;xlarge&quot; shape&#x3D;&quot;circle&quot;&gt;&lt;/p-avatar&gt;
+                                &lt;div class&#x3D;&quot;w-full flex flex-column&quot;&gt;
+                                    &lt;p class&#x3D;&quot;text-base&quot;&gt;{{item[&#x27;name&#x27;]}}&lt;/p&gt;
+                                    &lt;p class&#x3D;&quot;text-base&quot; *ngIf&#x3D;&quot;item[&#x27;email&#x27;] !&#x3D;&#x3D;&#x27;&#x27;&quot;&gt;{{item[&#x27;email&#x27;]}}&lt;/p&gt;
+                                    &lt;p class&#x3D;&quot;text-sm&quot; *ngIf&#x3D;&quot;item[&#x27;contact&#x27;] !&#x3D;&#x3D;&#x27;&#x27;&quot;&gt;{{item[&#x27;contact&#x27;]}}&lt;/p&gt;
+                                    &lt;p class&#x3D;&quot;text-sm&quot; *ngIf&#x3D;&quot;item[&#x27;others&#x27;] !&#x3D;&#x3D;&#x27;&#x27;&quot;&gt;{{item[&#x27;others&#x27;]}}&lt;/p&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3&quot; style&#x3D;&quot;flex: 3&quot;&gt;
+                    &lt;h3&gt;¿A quien va dirigido?&lt;/h3&gt;
+                    &lt;span&gt;{{newSite.directedTo}}&lt;/span&gt;
+                    &lt;p-divider&gt;&lt;/p-divider&gt;
+                    &lt;h3&gt;Factores diferenciales&lt;/h3&gt;
+                    &lt;div class&#x3D;&quot;flex flex-wrap gap-2&quot;&gt;
+                        &lt;p-tag [style]&#x3D;&quot;{ &#x27;background&#x27;: &#x27;#317bf4&#x27;}&quot; *ngFor&#x3D;&quot;let item of newSite.factors&quot;&gt;
+                            &lt;div class&#x3D;&quot;flex align-items-center gap-2&quot;&gt;
+                                &lt;span class&#x3D;&quot;text-base&quot;&gt;{{item}}&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/p-tag&gt;
+                    &lt;/div&gt;
+                    &lt;p-divider&gt;&lt;/p-divider&gt;
+                    &lt;h3&gt;Metodología&lt;/h3&gt;
+                    &lt;span&gt;{{newSite.methodology}}&lt;/span&gt;
+                    &lt;p-divider&gt;&lt;/p-divider&gt;
+                    &lt;h3&gt;Resultados&lt;/h3&gt;
+                    &lt;span&gt;{{newSite.results}}&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+        &lt;/ng-template&gt;
+
+
+        &lt;!-- &lt;div class&#x3D;&quot;formgrid grid px-3&quot;&gt;
+        
+        &lt;div class&#x3D;&quot;field col-12 md:col-9 pl-6&quot;&gt;
+            &lt;label for&#x3D;&quot;nameField&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                &lt;b&gt;Nombre del servicio&lt;/b&gt;
+            &lt;/label&gt;
+            &lt;input id&#x3D;&quot;nameField&quot; type&#x3D;&quot;text&quot; pInputText [(ngModel)]&#x3D;&quot;newSite.name&quot; class&#x3D;&quot;inputfield w-full&quot;&gt;
+            &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+            &lt;label for&#x3D;&quot;descriptionField&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                &lt;b&gt;Descripción&lt;/b&gt;
+            &lt;/label&gt;
+            &lt;textarea id&#x3D;&quot;descriptionField&quot; maxlength&#x3D;&quot;300&quot; inputId&#x3D;&quot;textarea&quot; rows&#x3D;&quot;3&quot; style&#x3D;&quot;width: 100%; resize: none;&quot; [maxlength]&#x3D;&quot;120&quot; [(ngModel)]&#x3D;&quot;newSite.description&quot; pInputTextarea&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;field col-12 md:col-12&quot;&gt;
+            &lt;p-divider [align]&#x3D;&quot;&#x27;center&#x27;&quot;&gt;
+                &lt;p class&#x3D;&quot;font-medium&quot;&gt;Ubicación&lt;/p&gt;
+            &lt;/p-divider&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;field col-12 md:col-6&quot;&gt;
+            &lt;label for&#x3D;&quot;nameField&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                &lt;b&gt;Latitud&lt;/b&gt;
+            &lt;/label&gt;
+            &lt;input id&#x3D;&quot;nameField&quot; type&#x3D;&quot;text&quot; pInputText [(ngModel)]&#x3D;&quot;newSite.coords.lat&quot; class&#x3D;&quot;inputfield w-full&quot; (keyup)&#x3D;&quot;changeOnCoords($event)&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;field col-12 md:col-6&quot;&gt;
+            &lt;label for&#x3D;&quot;nameField&quot; class&#x3D;&quot;w-full text-center&quot;&gt;
+                &lt;b&gt;Longitud&lt;/b&gt;
+            &lt;/label&gt;
+            &lt;input id&#x3D;&quot;nameField&quot; type&#x3D;&quot;text&quot; pInputText [(ngModel)]&#x3D;&quot;newSite.coords.lng&quot; class&#x3D;&quot;inputfield w-full&quot; (keyup)&#x3D;&quot;changeOnCoords($event)&quot;&gt;
+        &lt;/div&gt;
+        &lt;div id&#x3D;&quot;mapAssign&quot; class&#x3D;&quot;w-full&quot;&gt;
+        &lt;/div&gt;
+        &lt;div style&#x3D;&quot;height: 1rem;&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt; --&gt;
+
+
+
+    &lt;/p-dialog&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./site-management.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">#map {
+  height: 60vh;
+}
+
+#mapAssign {
+  height: 30vh;
+}
+
+.tour-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.25),
+    0px 2px 1px 0px rgba(0, 0, 0, 0.05), 0px 2px 1px rgba(0, 0, 0, 0.05),
+    0px 0px 1px rgba(0, 0, 0, 0.25);
+  .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card-title {
+    height: 40px;
+    overflow: hidden;
+  }
+
+  .card-description {
+    height: 80px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.startup-thumbnail {
+  background-color: #2196f3;
+  color: #ffffff;
+  height: 7.5rem;
+  width: 7.5rem;
+  border-radius: 50%;
+  padding: 1.5rem;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- <div class="w-full flex flex-row justify-content-between align-items-center py-4 px-4">    <div class="text-wrapper flex flex-row align-items-center text-center ">        <span class="subheader text-white ">Servicios</span>    </div>    <p-button *ngIf="user?.allowed(userPermission.sites_and_services_create)" type="button" label="Añadir sede" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button></div><div class="w-full p-4">    <p-tabView [(activeIndex)]="tabIndex" [scrollable]="true" (onChange)="changeTab($event)">        <p-tabPanel header="Lista sedes">                    </p-tabPanel>        <p-tabPanel header="Mapa de sedes">            <div id="map" class="w-full">            </div>        </p-tabPanel>    </p-tabView></div> --><div class="w-full h-max-router overflow-auto">    <div class="flex flex-column px-1 sm:px-4 gap-2 pt-4">        <div class="flex flex-column xl:flex-row gap-4 align-items-center">            <div class="flex flex-column flex-grown-1 px-1 sm:px-4 md:px-8">                <h2>Servicios</h2>                <div style="height: 1.5rem"></div>                <div class="flex gap-2">                    <p class="th2">{{user?.isAdmin?"Esta es tu área de control para los Servicios. Modifica y actualiza la información detallada de cada servicio directamente desde esta vista. Ajusta los detalles, metodología, factores diferenciales y cualquier otra información relevante. Tu capacidad para personalizar la información asegura que los usuarios obtengan datos precisos y actualizados sobre los servicios proporcionados. Haz clic en cualquier tarjeta para realizar ajustes y garantizar la coherencia en la presentación de información." : "Explora una variedad de servicios ofrecidos. Desliza las tarjetas para obtener una vista previa rápida y, si encuentras algo de interés, haz clic en \'Ver\' para conocer más detalles. Descubre a fondo los servicios, métodos y objetivos que cada startup tiene para ofrecer, y encuentra la solución perfecta para tus necesidades"}}                    </p>                </div>            </div>            <div class="dpandfilters align-items-center justify-content-center sm:justify-content-end gap-1 sm:gap-3 px-1 sm:px-4 md:px-8">                <p-button *ngIf="user?.allowed(userPermission.sites_and_services_create)" type="button" label="Añadir servicio" icon="pi pi-plus" (onClick)="openCreatorSite()"></p-button>            </div>        </div>        <p-divider></p-divider>        <div class="px-4">            <p-dataView #dv [value]="sites" [paginator]="false" filterBy="name" layout="grid">                <ng-template pTemplate="header">                    <div class="flex flex-wrap align-items-center justify-content-between py-2">                        <span class="p-input-icon-left">                            <span class="font-bold"></span>                        </span>                        <div class="flex flex-row gap-3">                            <div class="flex flex-row gap-2 align-items-center text-primary">                                <span class="font-semibold text-2xl">{{sites.length}}</span>                                <span class="font-semibold">Servicios {{sites.length > 1 ? \'s\' : \'\'}} </span>                            </div>                        </div>                    </div>                </ng-template>                <ng-template let-site pTemplate="gridItem">                    <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-20rem">                        <div class="flex flex-column">                            <div class="flex flex-row gap-1 align-items-center justify-content-between">                                <i-tabler class="text-center text-tertiary size-md" name="affiliate"></i-tabler>                                <div class="flex flex-row gap-2 align-items-center bg-tertiary-light text-tertiary px-3 py-1 border-round-xl text-xs">                                    <i-tabler class="text-center text-xs size-sm " name="calendar"></i-tabler>                                    <span class="font-semibold">{{site.createdAt | date: \'dd MMM yyyy\'}}</span>                                </div>                            </div>                            <div class="flex flex-column pt-3 gap-1">                                <img width="100%" height="124px" [src]="site?.thumbnail ? site?.thumbnail : \'/assets/noPic.jpg\'" alt="" class="border-round-xl">                                <span class="font-bold">{{site.name}}</span>                            </div>                        </div>                        <div class="flex flex-row gap-1 justify-content-between align-items-center">                            <div class="flex flex-row gap-2 align-items-center" pTooltip="Contactos">                                <i-tabler class="size-md" name="map-search"></i-tabler>                                <span class="text-xs font-semibold">{{site.contacts.length}}</span>                            </div>                            <p-button styleClass="p-button-quaternary" (onClick)="openCreatorSite(site, true)">Ver</p-button>                            <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-pencil" type="button" pTooltip="editar" label="" (onClick)="openCreatorSite(site, false)"></p-button>                            <p-button styleClass="button-grey" *ngIf="user?.allowed(userPermission.sites_and_services_edit)" icon="pi pi-trash" pTooltip="borrar" type="button" label="" (onClick)="deleteSite(site)"></p-button>                        </div>                    </div>                </ng-template>                <ng-template pTemplate="empty">                    <div class="flex flex-row justify-content-center align-items-center w-full h-20rem">                        <span class="text-2xl text-500 font-semibold">No hay servicios</span>                    </div>                </ng-template>            </p-dataView>        </div>        <!-- <div class="flex flex-row flex-wrap gap-10 px-4 align-items-center justify-content-center ">        <ng-container *ngFor="let site of sites">            <div class="tour-card bg-white" style="margin:0.5rem;" (mouseenter)="selectedSite = site;" (mouseleave)="selectedSite = undefined;">                <img width="100%" height="144px" [src]="site?.thumbnail ? site?.thumbnail : \'/assets/noPic.jpg\'" alt="">                <div class="title-wrapper">                    <span class="subheader-small card-title">{{site.name}}</span>                </div>                <div class="flex flex-row align-items-center justify-content-between">                    <div class="flex flex-row" style="gap:0.5rem;">                        <p-button type="button" label="Ver" (onClick)="navigateToEdit(site)"></p-button>                        <p-button *ngIf="user?.allowed(userPermission.sites_and_services_edit)" type="button" label="Eliminar" (onClick)="deleteSite(site)"></p-button>                    </div>                    <div class="flex flex-row align-items-center" style="gap: 0.5rem;">                    </div>                </div>            </div>        </ng-container>    </div> -->    </div>    <p-dialog appendTo="body" header="" [(visible)]="showCreatorSite" [draggable]="false" [resizable]="false" [modal]="true" (onHide)="resetCreatorSite()" [maximizable]="true" maskStyleClass="dialog-app" [breakpoints]="{\'960px\': \'100vw\'}" [style]="{ width: \'95vw\' }">        <div class="w-full flex flex-row gap-3">            <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>            <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">                <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="\'black\'">Servicio                </h2>                <div class="w-full flex flex-row gap-1">                    <p-button *ngIf="creatingService" type="submit" label="Crear servicio" (onClick)="createSite()" [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>                    <p-button *ngIf="editingService" type="submit" label="Guardar cambios" (onClick)="saveChanges()" [disabled]="saving" styleClass=" field p-button-lg border-round-2xl my-2 p-3 bg-primary" [disabled]="saving"></p-button>                </div>            </div>        </div>        <p-divider></p-divider>        <ng-container *ngIf="creatingService || editingService; else viewTemplate">            <div class="w-full flex flex-wrap px-3 gap-3">                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">                    <div class="flex flex-column gap-3">                        <div class="w-full flex flex-row justify-content-center align-items-center">                            <app-avatar-uploader id="logoField" [imageUrl]="newSite.thumbnail" (onUpload)="uploadImage($event, newSite)" [disableRemove]="true"></app-avatar-uploader>                        </div>                        <span class="w-full app-input-field field-h-1">                            <label htmlFor="nameService" class="font-bold">Nombre</label>                            <input pInputText id="nameService" [(ngModel)]="newSite.name" class="inputfield field-full" placeholder="Ingresa un nombre para el servicio" />                        </span>                        <span class="w-full app-input-field">                            <label for="service-description" class="font-bold">Descripción</label>                            <textarea id="service-description" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.description" pInputTextarea></textarea>                        </span>                        <span class="w-full app-input-field">                            <div class="flex fle-row w-full justify-content-between align-items-center">                                <label for="service-description" class="font-bold">Contactos</label>                                <p class="text-xs" (click)="addContact()">Añadir contacto <i class="pi pi-plus cursor-pointer"></i></p>                            </div>                            <p-table [value]="newSite.contacts" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{\'min-width\': \'50rem\'}">                                <ng-template pTemplate="header" let-columns>                                    <tr>                                        <th style="width:3rem"></th>                                        <th *ngFor="let col of columns" pReorderableColumn>                                            {{col.header}}                                        </th>                                    </tr>                                </ng-template>                                <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">                                    <tr [pReorderableRow]="index">                                        <td>                                            <span class="pi pi-bars" pReorderableRowHandle></span>                                        </td>                                        <td *ngFor="let col of columns">                                            <input pInputText [(ngModel)]="rowData[col.field]" />                                        </td>                                        <td>                                            <p-button styleClass="p-button-quaternary" (onClick)="removeContact(index)" icon="pi pi-trash"></p-button>                                        </td>                                    </tr>                                </ng-template>                            </p-table>                        </span>                    </div>                </div>                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column p-5 gap-3" style="flex: 3">                    <div class="flex flex-column gap-3">                        <span class="w-full app-input-field">                            <label for="directedToService" class="font-bold">¿A quien va dirigido?</label>                            <textarea id="directedToService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.directedTo" pInputTextarea></textarea>                        </span>                    </div>                    <div class="flex flex-column gap-3">                        <span class="w-full app-input-field">                            <label for="factorsServices" class="font-bold">Factores diferenciales</label>                            <p-chips id="factorsServices" styleClass="inputfield field-full" [(ngModel)]="newSite.factors"></p-chips>                        </span>                    </div>                    <div class="flex flex-column gap-3">                        <span class="w-full app-input-field">                            <label for="methodService" class="font-bold">Metodología</label>                            <textarea id="methodService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.methodology" pInputTextarea></textarea>                        </span>                    </div>                    <div class="flex flex-column gap-3">                        <span class="w-full app-input-field">                            <label for="resultsService" class="font-bold">Resultados</label>                            <textarea id="resultsService" style="width: 100%;" rows="8" id="resultsService" [(ngModel)]="newSite.results" pInputTextarea></textarea>                        </span>                    </div>                </div>            </div>        </ng-container>        <ng-template #viewTemplate>            <div class="w-full flex flex-wrap px-3 gap-3">                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">                    <div class="flex flex-column">                        <div class="flex flex-row w-full align-items-center gap-3">                            <ng-container *ngIf="newSite?.thumbnail !== \'\'; else noThumbnail">                                <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>                            </ng-container>                            <ng-template #noThumbnail>                                <i-tabler name="fence" class="startup-thumbnail"></i-tabler>                            </ng-template>                            <h2>{{newSite.name}}</h2>                        </div>                        <span class="pt-3">                            {{newSite.description}}                        </span>                        <p-divider></p-divider>                        <div class="flex flex-column gap-2">                            <span class="text-xs">Contactos</span>                            <div class="flex flex-row align-items-center" *ngFor="let item of newSite.contacts">                                <p-avatar [label]="item[\'name\'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>                                <div class="w-full flex flex-column">                                    <p class="text-base">{{item[\'name\']}}</p>                                    <p class="text-base" *ngIf="item[\'email\'] !==\'\'">{{item[\'email\']}}</p>                                    <p class="text-sm" *ngIf="item[\'contact\'] !==\'\'">{{item[\'contact\']}}</p>                                    <p class="text-sm" *ngIf="item[\'others\'] !==\'\'">{{item[\'others\']}}</p>                                </div>                            </div>                        </div>                    </div>                </div>                <div class="normal-panel panel-startup w-full md:w-4 flex flex-column justify-content-between p-5 gap-3" style="flex: 3">                    <h3>¿A quien va dirigido?</h3>                    <span>{{newSite.directedTo}}</span>                    <p-divider></p-divider>                    <h3>Factores diferenciales</h3>                    <div class="flex flex-wrap gap-2">                        <p-tag [style]="{ \'background\': \'#317bf4\'}" *ngFor="let item of newSite.factors">                            <div class="flex align-items-center gap-2">                                <span class="text-base">{{item}}</span>                            </div>                        </p-tag>                    </div>                    <p-divider></p-divider>                    <h3>Metodología</h3>                    <span>{{newSite.methodology}}</span>                    <p-divider></p-divider>                    <h3>Resultados</h3>                    <span>{{newSite.results}}</span>                </div>            </div>        </ng-template>        <!-- <div class="formgrid grid px-3">                <div class="field col-12 md:col-9 pl-6">            <label for="nameField" class="w-full text-center">                <b>Nombre del servicio</b>            </label>            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.name" class="inputfield w-full">            <div style="height: 1rem;"></div>            <label for="descriptionField" class="w-full text-center">                <b>Descripción</b>            </label>            <textarea id="descriptionField" maxlength="300" inputId="textarea" rows="3" style="width: 100%; resize: none;" [maxlength]="120" [(ngModel)]="newSite.description" pInputTextarea></textarea>        </div>        <div class="field col-12 md:col-12">            <p-divider [align]="\'center\'">                <p class="font-medium">Ubicación</p>            </p-divider>        </div>        <div class="field col-12 md:col-6">            <label for="nameField" class="w-full text-center">                <b>Latitud</b>            </label>            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lat" class="inputfield w-full" (keyup)="changeOnCoords($event)">        </div>        <div class="field col-12 md:col-6">            <label for="nameField" class="w-full text-center">                <b>Longitud</b>            </label>            <input id="nameField" type="text" pInputText [(ngModel)]="newSite.coords.lng" class="inputfield w-full" (keyup)="changeOnCoords($event)">        </div>        <div id="mapAssign" class="w-full">        </div>        <div style="height: 1rem;"></div>    </div> -->    </p-dialog></div></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SiteManagementComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SiteManagementComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

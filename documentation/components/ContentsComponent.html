@@ -1,0 +1,3734 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ecosystem-front documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
+            <a href="../" class="navbar-brand">ecosystem-front documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ContentsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/home/contents/contents.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-contents</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./contents.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./contents.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contentCompleted" >contentCompleted</a>
+                            </li>
+                            <li>
+                                <a href="#contentDisplay" >contentDisplay</a>
+                            </li>
+                            <li>
+                                <a href="#contentSelected" >contentSelected</a>
+                            </li>
+                            <li>
+                                <a href="#countContent" >countContent</a>
+                            </li>
+                            <li>
+                                <a href="#currentBatch" >currentBatch</a>
+                            </li>
+                            <li>
+                                <a href="#dialogRef" >dialogRef</a>
+                            </li>
+                            <li>
+                                <a href="#homeworkDisplay" >homeworkDisplay</a>
+                            </li>
+                            <li>
+                                <a href="#homeworks" >homeworks</a>
+                            </li>
+                            <li>
+                                <a href="#indexContent" >indexContent</a>
+                            </li>
+                            <li>
+                                <a href="#indexHomework" >indexHomework</a>
+                            </li>
+                            <li>
+                                <a href="#loaded" >loaded</a>
+                            </li>
+                            <li>
+                                <a href="#logs" >logs</a>
+                            </li>
+                            <li>
+                                <a href="#marked" >marked</a>
+                            </li>
+                            <li>
+                                <a href="#nextPhase" >nextPhase</a>
+                            </li>
+                            <li>
+                                <a href="#onCloseDialogSub$" >onCloseDialogSub$</a>
+                            </li>
+                            <li>
+                                <a href="#onDestroy$" >onDestroy$</a>
+                            </li>
+                            <li>
+                                <a href="#paramSub$" >paramSub$</a>
+                            </li>
+                            <li>
+                                <a href="#phaseName" >phaseName</a>
+                            </li>
+                            <li>
+                                <a href="#phaseNumb" >phaseNumb</a>
+                            </li>
+                            <li>
+                                <a href="#phasesUser" >phasesUser</a>
+                            </li>
+                            <li>
+                                <a href="#previousPhase" >previousPhase</a>
+                            </li>
+                            <li>
+                                <a href="#profileDoc" >profileDoc</a>
+                            </li>
+                            <li>
+                                <a href="#savingCompleted" >savingCompleted</a>
+                            </li>
+                            <li>
+                                <a href="#sprints" >sprints</a>
+                            </li>
+                            <li>
+                                <a href="#sprintSelected" >sprintSelected</a>
+                            </li>
+                            <li>
+                                <a href="#stage" >stage</a>
+                            </li>
+                            <li>
+                                <a href="#startup" >startup</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                            <li>
+                                <a href="#userLogs$" >userLogs$</a>
+                            </li>
+                            <li>
+                                <a href="#viewHomeworks" >viewHomeworks</a>
+                            </li>
+                            <li>
+                                <a href="#viewNavMenuContent" >viewNavMenuContent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alertState" >alertState</a>
+                            </li>
+                            <li>
+                                <a href="#changeContent" >changeContent</a>
+                            </li>
+                            <li>
+                                <a href="#changeResource" >changeResource</a>
+                            </li>
+                            <li>
+                                <a href="#colorByState" >colorByState</a>
+                            </li>
+                            <li>
+                                <a href="#downloadFile" >downloadFile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#downloadFileReply" >downloadFileReply</a>
+                            </li>
+                            <li>
+                                <a href="#gradient" >gradient</a>
+                            </li>
+                            <li>
+                                <a href="#iconState" >iconState</a>
+                            </li>
+                            <li>
+                                <a href="#lineState" >lineState</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadComponent" >loadComponent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadHomeworks" >loadHomeworks</a>
+                            </li>
+                            <li>
+                                <a href="#markAsCompleted" >markAsCompleted</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#openForm" >openForm</a>
+                            </li>
+                            <li>
+                                <a href="#openHomeworks" >openHomeworks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#preload" >preload</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#selectFile" >selectFile</a>
+                            </li>
+                            <li>
+                                <a href="#setContentCompleted" >setContentCompleted</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setContentDisplay" >setContentDisplay</a>
+                            </li>
+                            <li>
+                                <a href="#textState" >textState</a>
+                            </li>
+                            <li>
+                                <a href="#watchLogPhase" >watchLogPhase</a>
+                            </li>
+                            <li>
+                                <a href="#withOpacity" >withOpacity</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#resourcesStates" >resourcesStates</a>
+                                </li>
+                                <li>
+                                    <a href="#resourcesTypes" >resourcesTypes</a>
+                                </li>
+                                <li>
+                                    <a href="#resourcesTypesNames" >resourcesTypesNames</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, toast: <a href="../injectables/ToastService.html" target="_self">ToastService</a>, route: ActivatedRoute, router: Router, service: <a href="../injectables/ContentsService.html" target="_self">ContentsService</a>, phasesService: <a href="../injectables/PhasesService.html" target="_self">PhasesService</a>, phaseContentService: <a href="../injectables/PhaseContentService.html" target="_self">PhaseContentService</a>, phaseHomeworksService: <a href="../injectables/PhaseHomeworksService.html" target="_self">PhaseHomeworksService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/home/contents/contents.component.ts:99</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toast</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ToastService.html" target="_self" >ToastService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ContentsService.html" target="_self" >ContentsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phasesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhasesService.html" target="_self" >PhasesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseContentService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseContentService.html" target="_self" >PhaseContentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>phaseHomeworksService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PhaseHomeworksService.html" target="_self" >PhaseHomeworksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="alertState"></a>
+                    <span class="name">
+                        <span ><b>alertState</b></span>
+                        <a href="#alertState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>alertState(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="324"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:324</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeContent"></a>
+                    <span class="name">
+                        <span ><b>changeContent</b></span>
+                        <a href="#changeContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeContent(content: <a href="../classes/Content.html" target="_self">Content</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="265"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:265</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeResource"></a>
+                    <span class="name">
+                        <span ><b>changeResource</b></span>
+                        <a href="#changeResource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changeResource(type: "next" | "previous")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="269"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:269</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;next&quot; | &quot;previous&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="colorByState"></a>
+                    <span class="name">
+                        <span ><b>colorByState</b></span>
+                        <a href="#colorByState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>colorByState(content: <a href="../classes/Content.html" target="_self">Content</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="389"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:389</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;#317bf4&quot; | &quot;#dcdcdc&quot; | &quot;#f7af42&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFile"></a>
+                    <span class="name">
+                        <span ><b>downloadFile</b></span>
+                        <a href="#downloadFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>downloadFile(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="298"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:298</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadFileReply"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>downloadFileReply</b></span>
+                        <a href="#downloadFileReply"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>downloadFileReply(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="308"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:308</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gradient"></a>
+                    <span class="name">
+                        <span ><b>gradient</b></span>
+                        <a href="#gradient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>gradient()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="354"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:354</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="iconState"></a>
+                    <span class="name">
+                        <span ><b>iconState</b></span>
+                        <a href="#iconState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>iconState(content: <a href="../classes/Content.html" target="_self">Content</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="367"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:367</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;corner-down-right&quot; | &quot;check&quot; | &quot;exclamation-circle&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lineState"></a>
+                    <span class="name">
+                        <span ><b>lineState</b></span>
+                        <a href="#lineState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>lineState(sprint: <a href="../classes/Content.html" target="_self">Content</a>, content?: <a href="../classes/Content.html" target="_self">Content</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="373"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:373</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sprint</td>
+                                            <td>
+                                                            <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;#317bf4&quot; | &quot;#dcdcdc&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadComponent"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadComponent</b></span>
+                        <a href="#loadComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadComponent(phase?: <a href="../classes/Phase.html" target="_self">Phase</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>phase</td>
+                                            <td>
+                                                            <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadHomeworks"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadHomeworks</b></span>
+                        <a href="#loadHomeworks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadHomeworks()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="252"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:252</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markAsCompleted"></a>
+                    <span class="name">
+                        <span ><b>markAsCompleted</b></span>
+                        <a href="#markAsCompleted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>markAsCompleted()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="339"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:339</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openForm"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>openForm</b></span>
+                        <a href="#openForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openForm(reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="288"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:288</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openHomeworks"></a>
+                    <span class="name">
+                        <span ><b>openHomeworks</b></span>
+                        <a href="#openHomeworks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openHomeworks()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="395"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:395</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="preload"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>preload</b></span>
+                        <a href="#preload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>preload()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectFile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>selectFile</b></span>
+                        <a href="#selectFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectFile(element: HTMLInputElement, reply: <a href="../classes/ResourceReply.html" target="_self">ResourceReply</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="312"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:312</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>element</td>
+                                            <td>
+                                                        <code>HTMLInputElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>reply</td>
+                                            <td>
+                                                            <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setContentCompleted"></a>
+                    <span class="name">
+                        <span ><b>setContentCompleted</b></span>
+                        <a href="#setContentCompleted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setContentCompleted(logs: <a href="../classes/User.html" target="_self">IUserLog[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>logs</td>
+                                            <td>
+                                                            <code><a href="../classes/User.html" target="_self" >IUserLog[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setContentDisplay"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>setContentDisplay</b></span>
+                        <a href="#setContentDisplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setContentDisplay(contentId?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contentId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="textState"></a>
+                    <span class="name">
+                        <span ><b>textState</b></span>
+                        <a href="#textState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>textState(content: <a href="../classes/Content.html" target="_self">Content</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="383"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:383</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>content</td>
+                                            <td>
+                                                            <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>&quot;En curso&quot; | &quot;completado&quot; | &quot;Por completar&quot;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="watchLogPhase"></a>
+                    <span class="name">
+                        <span ><b>watchLogPhase</b></span>
+                        <a href="#watchLogPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>watchLogPhase(currentBatch: <a href="../classes/Phase.html" target="_self">Phase</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="191"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:191</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>currentBatch</td>
+                                            <td>
+                                                            <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="withOpacity"></a>
+                    <span class="name">
+                        <span ><b>withOpacity</b></span>
+                        <a href="#withOpacity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>withOpacity(opacity: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="361"
+                                    class="link-to-prism">src/app/home/contents/contents.component.ts:361</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>opacity</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contentCompleted"></a>
+                    <span class="name">
+                        <span ><b>contentCompleted</b></span>
+                        <a href="#contentCompleted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/home/contents/contents.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contentDisplay"></a>
+                    <span class="name">
+                        <span ><b>contentDisplay</b></span>
+                        <a href="#contentDisplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/home/contents/contents.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contentSelected"></a>
+                    <span class="name">
+                        <span ><b>contentSelected</b></span>
+                        <a href="#contentSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/home/contents/contents.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countContent"></a>
+                    <span class="name">
+                        <span ><b>countContent</b></span>
+                        <a href="#countContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/home/contents/contents.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentBatch"></a>
+                    <span class="name">
+                        <span ><b>currentBatch</b></span>
+                        <a href="#currentBatch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/home/contents/contents.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialogRef"></a>
+                    <span class="name">
+                        <span ><b>dialogRef</b></span>
+                        <a href="#dialogRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/home/contents/contents.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="homeworkDisplay"></a>
+                    <span class="name">
+                        <span ><b>homeworkDisplay</b></span>
+                        <a href="#homeworkDisplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/ResourceReply.html" target="_self" >ResourceReply</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/home/contents/contents.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="homeworks"></a>
+                    <span class="name">
+                        <span ><b>homeworks</b></span>
+                        <a href="#homeworks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ResourceReply[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/home/contents/contents.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="indexContent"></a>
+                    <span class="name">
+                        <span ><b>indexContent</b></span>
+                        <a href="#indexContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/home/contents/contents.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="indexHomework"></a>
+                    <span class="name">
+                        <span ><b>indexHomework</b></span>
+                        <a href="#indexHomework"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/home/contents/contents.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loaded"></a>
+                    <span class="name">
+                        <span ><b>loaded</b></span>
+                        <a href="#loaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/home/contents/contents.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logs"></a>
+                    <span class="name">
+                        <span ><b>logs</b></span>
+                        <a href="#logs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >IUserLog[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/home/contents/contents.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="marked"></a>
+                    <span class="name">
+                        <span ><b>marked</b></span>
+                        <a href="#marked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/home/contents/contents.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nextPhase"></a>
+                    <span class="name">
+                        <span ><b>nextPhase</b></span>
+                        <a href="#nextPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/home/contents/contents.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCloseDialogSub$"></a>
+                    <span class="name">
+                        <span ><b>onCloseDialogSub$</b></span>
+                        <a href="#onCloseDialogSub$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/home/contents/contents.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDestroy$"></a>
+                    <span class="name">
+                        <span ><b>onDestroy$</b></span>
+                        <a href="#onDestroy$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/home/contents/contents.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paramSub$"></a>
+                    <span class="name">
+                        <span ><b>paramSub$</b></span>
+                        <a href="#paramSub$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/home/contents/contents.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phaseName"></a>
+                    <span class="name">
+                        <span ><b>phaseName</b></span>
+                        <a href="#phaseName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/home/contents/contents.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phaseNumb"></a>
+                    <span class="name">
+                        <span ><b>phaseNumb</b></span>
+                        <a href="#phaseNumb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/home/contents/contents.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="phasesUser"></a>
+                    <span class="name">
+                        <span ><b>phasesUser</b></span>
+                        <a href="#phasesUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase[]</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/home/contents/contents.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="previousPhase"></a>
+                    <span class="name">
+                        <span ><b>previousPhase</b></span>
+                        <a href="#previousPhase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Phase.html" target="_self" >Phase</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/home/contents/contents.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileDoc"></a>
+                    <span class="name">
+                        <span ><b>profileDoc</b></span>
+                        <a href="#profileDoc"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/home/contents/contents.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="savingCompleted"></a>
+                    <span class="name">
+                        <span ><b>savingCompleted</b></span>
+                        <a href="#savingCompleted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/home/contents/contents.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sprints"></a>
+                    <span class="name">
+                        <span ><b>sprints</b></span>
+                        <a href="#sprints"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Content.html" target="_self" >Content[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/home/contents/contents.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sprintSelected"></a>
+                    <span class="name">
+                        <span ><b>sprintSelected</b></span>
+                        <a href="#sprintSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Content.html" target="_self" >Content</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/home/contents/contents.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stage"></a>
+                    <span class="name">
+                        <span ><b>stage</b></span>
+                        <a href="#stage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Stage.html" target="_self" >Stage</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/home/contents/contents.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startup"></a>
+                    <span class="name">
+                        <span ><b>startup</b></span>
+                        <a href="#startup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Startup.html" target="_self" >Startup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/home/contents/contents.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/home/contents/contents.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userLogs$"></a>
+                    <span class="name">
+                        <span ><b>userLogs$</b></span>
+                        <a href="#userLogs$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/home/contents/contents.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewHomeworks"></a>
+                    <span class="name">
+                        <span ><b>viewHomeworks</b></span>
+                        <a href="#viewHomeworks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/home/contents/contents.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewNavMenuContent"></a>
+                    <span class="name">
+                        <span ><b>viewNavMenuContent</b></span>
+                        <a href="#viewNavMenuContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/home/contents/contents.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resourcesStates"></a>
+                        <span class="name"><b>resourcesStates</b><a href="#resourcesStates"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>resourcesStates()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/home/contents/contents.component.ts:78</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resourcesTypes"></a>
+                        <span class="name"><b>resourcesTypes</b><a href="#resourcesTypes"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>resourcesTypes()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/home/contents/contents.component.ts:82</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resourcesTypesNames"></a>
+                        <span class="name"><b>resourcesTypesNames</b><a href="#resourcesTypesNames"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>resourcesTypesNames()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/home/contents/contents.component.ts:86</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { AppState } from &#x27;@appStore/app.reducer&#x27;;
+import { User } from &#x27;@auth/models/user&#x27;;
+import { Content } from &#x27;@home/phases/model/content.model&#x27;;
+import { Phase } from &#x27;@home/phases/model/phase.model&#x27;;
+import { PhaseContentService } from &#x27;@home/phases/phase-content/phase-content.service&#x27;;
+import { PhaseHomeworksService } from &#x27;@home/phases/phase-homeworks/phase-homeworks.service&#x27;;
+import { Store } from &#x27;@ngrx/store&#x27;;
+import { Startup } from &#x27;@shared/models/entities/startup&#x27;;
+import { ToastService } from &#x27;@shared/services/toast.service&#x27;;
+import {
+  firstValueFrom,
+  first,
+  Subscription,
+  take,
+  takeUntil,
+  Subject,
+} from &#x27;rxjs&#x27;;
+import * as moment from &#x27;moment&#x27;;
+import { ActivatedRoute, Router } from &#x27;@angular/router&#x27;;
+import {
+  NoBtnReturn,
+  RestoreMenuAction,
+  SetOtherMenuAction,
+} from &#x27;@home/store/home.actions&#x27;;
+import { ContentsService } from &#x27;./contents.service&#x27;;
+import { ResourceReply } from &#x27;@home/phases/phase-homeworks/model/resource-reply.model&#x27;;
+import { ResourceReplyState } from &#x27;@home/phases/phase-homeworks/model/resource-reply-states&#x27;;
+import {
+  ResourcesTypes,
+  resourcesTypesNames,
+} from &#x27;@home/phases/model/resources-types.model&#x27;;
+import { IUserLog } from &#x27;./models/user-logs&#x27;;
+import { hexToRgb } from &#x27;@shared/utils/hexToRgb&#x27;;
+import { Stage } from &#x27;@home/phases/model/stage.model&#x27;;
+import { fadeInOut } from &#x27;src/app/navbar/helper&#x27;;
+import { getPhaseAndNumb } from &#x27;@shared/utils/phases.utils&#x27;;
+import { PhasesService } from &#x27;@home/phases/phases.service&#x27;;
+
+@Component({
+  selector: &#x27;app-contents&#x27;,
+  templateUrl: &#x27;./contents.component.html&#x27;,
+  styleUrls: [&#x27;./contents.component.scss&#x27;],
+  animations: [fadeInOut],
+})
+export class ContentsComponent implements OnInit, OnDestroy {
+  user: User;
+  loaded &#x3D; false;
+  profileDoc;
+  startup: Startup;
+  currentBatch: Phase;
+  phasesUser: Phase[];
+  dialogRef;
+  onCloseDialogSub$: Subscription;
+  onDestroy$: Subject&lt;void&gt; &#x3D; new Subject();
+  logs: IUserLog[] &#x3D; [];
+  paramSub$: Subscription;
+
+  marked &#x3D; true;
+  stage: Stage;
+  countContent &#x3D; 0;
+  phaseName &#x3D; &#x27;&#x27;;
+  phaseNumb &#x3D; &#x27;&#x27;;
+
+  // Content Display -------------------------------------------
+  sprints: Content[] &#x3D; [];
+  contentSelected: Content;
+  sprintSelected: Content;
+  indexContent &#x3D; 0;
+  contentDisplay: Content;
+
+  // Homeworks --------------------------------------------------
+  homeworks: ResourceReply[] &#x3D; [];
+  viewHomeworks &#x3D; false;
+  indexHomework &#x3D; 0;
+
+  homeworkDisplay: ResourceReply;
+  public get resourcesStates(): typeof ResourceReplyState {
+    return ResourceReplyState;
+  }
+
+  public get resourcesTypes(): typeof ResourcesTypes {
+    return ResourcesTypes;
+  }
+
+  public get resourcesTypesNames(): typeof resourcesTypesNames {
+    return resourcesTypesNames;
+  }
+
+  // logs -------------------------------------------------------
+  userLogs$: Subscription;
+  contentCompleted &#x3D; {};
+  savingCompleted &#x3D; false;
+
+  viewNavMenuContent &#x3D; false;
+
+  // Phases
+  nextPhase: Phase;
+  previousPhase: Phase;
+  constructor(
+    private store: Store&lt;AppState&gt;,
+    private toast: ToastService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: ContentsService,
+    private phasesService: PhasesService,
+    private phaseContentService: PhaseContentService,
+    private phaseHomeworksService: PhaseHomeworksService
+  ) {
+    this.store.dispatch(new NoBtnReturn());
+    firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.user)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    ).then((u) &#x3D;&gt; (this.user &#x3D; u));
+  }
+
+  ngOnInit(): void {
+    this.preload();
+  }
+
+  ngOnDestroy(): void {
+    this.onCloseDialogSub$?.unsubscribe();
+    this.userLogs$?.unsubscribe();
+    this.paramSub$?.unsubscribe();
+    // this.store.dispatch(new RestoreMenuAction());
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
+  }
+
+  async preload() {
+    this.profileDoc &#x3D; await firstValueFrom(
+      this.store
+        .select((store) &#x3D;&gt; store.auth.profileDoc)
+        .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+    );
+    this.startup &#x3D; this.profileDoc.startups[0];
+    const userPhases &#x3D; await this.phasesService.getPhasesList(
+      this.profileDoc[&#x27;startups&#x27;][0].phases.map((i) &#x3D;&gt; i._id),
+      true
+    );
+    this.phasesUser &#x3D; userPhases.filter((i) &#x3D;&gt; !i.basePhase);
+    this.paramSub$ &#x3D; this.route.queryParamMap.subscribe((params) &#x3D;&gt; {
+      const batchId &#x3D; params.get(&#x27;batch&#x27;);
+      const batch &#x3D; this.phasesUser.find((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; batchId);
+      this.loadComponent(batch);
+    });
+  }
+
+  async loadComponent(phase?: Phase) {
+    this.loaded &#x3D; false;
+    const currentBatch &#x3D;
+      phase ??
+      (await firstValueFrom(
+        this.store
+          .select((store) &#x3D;&gt; store.home.currentBatch)
+          .pipe(first((i) &#x3D;&gt; i !&#x3D;&#x3D; null))
+      ));
+    if (currentBatch &#x3D;&#x3D;&#x3D; &#x27;without batch&#x27;) {
+      this.toast.info({
+        summary: &#x27;Aun no participas&#x27;,
+        detail: &#x27;Tu startup aun no esta en ninguna etapa&#x27;,
+      });
+      this.loaded &#x3D; false;
+      return;
+    }
+    this.currentBatch &#x3D; currentBatch;
+    this.stage &#x3D; this.currentBatch.stageDoc;
+    [this.phaseName, this.phaseNumb] &#x3D; getPhaseAndNumb(this.currentBatch.name);
+    const indexPhase &#x3D; this.phasesUser.findIndex(
+      (i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; this.currentBatch._id
+    );
+    this.nextPhase &#x3D;
+      indexPhase + 1 &gt; this.phasesUser.length
+        ? undefined
+        : this.phasesUser[indexPhase + 1];
+    this.previousPhase &#x3D;
+      indexPhase - 1 &lt; 0 ? undefined : this.phasesUser[indexPhase - 1];
+
+    this.phaseContentService
+      .getContents(this.currentBatch._id)
+      .then(async (i) &#x3D;&gt; {
+        this.sprints &#x3D; i;
+        this.watchLogPhase(this.currentBatch);
+        this.loadHomeworks();
+        this.setContentDisplay();
+        this.loaded &#x3D; true;
+      });
+  }
+
+  watchLogPhase(currentBatch: Phase) {
+    this.service
+      .watchLogsWithFilter({
+        &#x27;metadata.batch&#x27;: currentBatch._id,
+        &#x27;metadata.startup&#x27;: this.startup._id,
+      })
+      .then((logs$) &#x3D;&gt; {
+        this.userLogs$?.unsubscribe();
+        this.userLogs$ &#x3D; logs$.subscribe((logsList) &#x3D;&gt; {
+          this.logs &#x3D; logsList;
+          this.setContentCompleted(this.logs);
+        });
+      })
+      .catch((err) &#x3D;&gt; {
+        this.toast.alert({
+          summary: &#x27;Error al cargar logs de usuario&#x27;,
+          detail: err,
+          life: 12000,
+        });
+      });
+  }
+
+  async setContentDisplay(contentId?: string) {
+    if (contentId) {
+      let indexContent &#x3D; -1;
+      let indexSprint &#x3D; 0;
+      for (const sprint of this.sprints) {
+        indexContent &#x3D; sprint.childs.findIndex((i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; contentId);
+        if (indexContent !&#x3D;&#x3D; -1) break;
+        ++indexSprint;
+      }
+      if (indexContent !&#x3D;&#x3D; -1) {
+        this.contentSelected &#x3D; this.sprints[indexSprint].childs[indexContent];
+        this.indexContent &#x3D; indexContent;
+        this.sprintSelected &#x3D; this.sprints[indexSprint];
+      }
+    } else {
+      if (!this.contentDisplay) {
+        let sprintClose &#x3D;
+          this.sprints.find((i) &#x3D;&gt;
+            moment(new Date()).isBetween(
+              i.extra_options.start,
+              i.extra_options.end
+            )
+          ) ??
+          this.sprints.find((i) &#x3D;&gt;
+            i.childs.some((o) &#x3D;&gt; this.contentCompleted[o._id])
+          );
+        if (!sprintClose) sprintClose &#x3D; this.sprints[this.sprints.length - 1];
+        let indexSprint &#x3D; this.sprints.findIndex(
+          (i) &#x3D;&gt; i._id &#x3D;&#x3D;&#x3D; sprintClose._id
+        );
+        this.sprintSelected &#x3D; this.sprints[indexSprint];
+        this.indexContent &#x3D; this.sprints[indexSprint].childs.length - 1;
+        this.contentSelected &#x3D;
+          this.sprints[indexSprint].childs[this.indexContent];
+      }
+    }
+    this.contentDisplay &#x3D; this.contentSelected;
+  }
+
+  async loadHomeworks() {
+    this.homeworks &#x3D; await this.phaseHomeworksService.setResourcesReplies(
+      this.startup,
+      this.currentBatch,
+      this.sprints
+    );
+    this.homeworks &#x3D; [...this.homeworks];
+    this.indexHomework &#x3D; 0;
+    this.homeworkDisplay &#x3D; this.homeworks.length
+      ? this.homeworks[this.indexHomework]
+      : undefined;
+  }
+
+  changeContent(content: Content) {
+    this.setContentDisplay(content._id);
+  }
+
+  changeResource(type: &#x27;next&#x27; | &#x27;previous&#x27;) {
+    switch (type) {
+      case &#x27;next&#x27;:
+        if (this.indexHomework + 1 &lt; this.homeworks.length) {
+          this.indexHomework +&#x3D; 1;
+        }
+
+        break;
+      case &#x27;previous&#x27;:
+        if (this.indexHomework - 1 &gt;&#x3D; 0) {
+          this.indexHomework -&#x3D; 1;
+        }
+        break;
+      default:
+        break;
+    }
+    this.homeworkDisplay &#x3D; this.homeworks[this.indexHomework];
+  }
+
+  async openForm(reply: ResourceReply) {
+    const ref &#x3D; await this.phaseHomeworksService.openFormResource(reply);
+    if (ref)
+      ref.pipe(take(1), takeUntil(this.onDestroy$)).subscribe((doc) &#x3D;&gt; {
+        if (doc) {
+          this.loadHomeworks();
+        }
+      });
+  }
+
+  downloadFile(reply: ResourceReply) {
+    this.phaseHomeworksService
+      .downloadFileAndCheck(reply, this.user)
+      .then((updated) &#x3D;&gt; {
+        if (updated) {
+          this.loadHomeworks();
+        }
+      });
+  }
+
+  async downloadFileReply(reply: ResourceReply) {
+    this.phaseHomeworksService.downloadFileReply(reply);
+  }
+
+  async selectFile(element: HTMLInputElement, reply: ResourceReply) {
+    const files &#x3D; element.files;
+    if (files &amp;&amp; files.item(0)) {
+      await this.phaseHomeworksService.uploadTaskReply(
+        files.item(0),
+        reply,
+        this.user
+      );
+      this.loadHomeworks();
+    }
+  }
+
+  alertState(reply: ResourceReply) {
+    return [
+      ResourceReplyState.Pendiente,
+      ResourceReplyState[&#x27;Sin descargar&#x27;],
+      ResourceReplyState[&#x27;No aprobado&#x27;],
+    ].includes(reply.state as ResourceReplyState);
+  }
+
+  setContentCompleted(logs: IUserLog[]) {
+    this.contentCompleted &#x3D; {};
+    const logsOfContent &#x3D; logs.filter((i) &#x3D;&gt; i.metadata?.content);
+    for (const log of logsOfContent)
+      this.contentCompleted[log.metadata.content] &#x3D; log;
+  }
+
+  markAsCompleted() {
+    this.savingCompleted &#x3D; true;
+    this.service
+      .createLog({
+        batch: this.currentBatch._id,
+        startup: this.startup._id,
+        sprint: this.sprintSelected._id,
+        content: this.contentSelected._id,
+      })
+      .catch((err) &#x3D;&gt;
+        this.toast.error({ summary: &#x27;Error!&#x27;, detail: err, life: 12000 })
+      )
+      .finally(() &#x3D;&gt; (this.savingCompleted &#x3D; false));
+  }
+
+  gradient() {
+    const style &#x3D; &#x60;linear-gradient(180deg, ${this.withOpacity(
+      0.2
+    )} 0%, #ffffff 100%)&#x60;;
+    return style;
+  }
+
+  withOpacity(opacity: number) {
+    const colorRgb &#x3D; hexToRgb(this.stage.color);
+    const style &#x3D; &#x60;rgba(${colorRgb.r},${colorRgb.g},${colorRgb.b}, ${opacity})&#x60;;
+    return style;
+  }
+
+  iconState(content: Content) {
+    if (content._id &#x3D;&#x3D;&#x3D; &#x27;64fb4b87e309965c9ef1187d&#x27;) return &#x27;corner-down-right&#x27;;
+    if (this.contentCompleted[content._id]) return &#x27;check&#x27;;
+    return &#x27;exclamation-circle&#x27;;
+  }
+
+  lineState(sprint: Content, content?: Content) {
+    if (sprint &amp;&amp; !content) {
+      let lastContent &#x3D; sprint.childs[sprint.childs.length - 1];
+      if (this.contentCompleted[lastContent._id]) return &#x27;#317bf4&#x27;;
+      else return &#x27;#dcdcdc&#x27;;
+    }
+    if (content &amp;&amp; this.contentCompleted[content._id]) return &#x27;#317bf4&#x27;;
+    return &#x27;#dcdcdc&#x27;;
+  }
+
+  textState(content: Content) {
+    if (content._id &#x3D;&#x3D;&#x3D; &#x27;64fb4b87e309965c9ef1187d&#x27;) return &#x27;En curso&#x27;;
+    if (this.contentCompleted[content._id]) return &#x27;completado&#x27;;
+    return &#x27;Por completar&#x27;;
+  }
+
+  colorByState(content: Content) {
+    if (content._id &#x3D;&#x3D;&#x3D; &#x27;64fb4b87e309965c9ef1187d&#x27;) return &#x27;#f7af42&#x27;;
+    if (this.contentCompleted[content._id]) return &#x27;#317bf4&#x27;;
+    return &#x27;#dcdcdc&#x27;;
+  }
+
+  openHomeworks() {
+    this.viewNavMenuContent &#x3D; false;
+    this.viewHomeworks &#x3D; true;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;h-full overflow-auto pt-3&quot;&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;loaded; else loadingTemplates&quot;&gt;
+        &lt;div class&#x3D;&quot;container-component px-0 md:px-4 py-2 gap-4&quot;&gt;
+            &lt;div class&#x3D;&quot;hidden md:flex normal-panel navigation-panel py-5&quot;&gt;
+                &lt;ng-container [ngTemplateOutlet]&#x3D;&quot;navContent&quot;&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot; display-content scrollwrap scrollwrap_delayed flex flex-column gap-2&quot; *ngIf&#x3D;&quot;contentSelected&quot;&gt;
+                &lt;div class&#x3D;&quot;flex flex-row w-full justify-content-between align-items-center px-0 md:px-6&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-row gap-2 d:gap-6 align-items-center&quot;&gt;
+                        &lt;div class&#x3D;&quot;side-left-btn md:hidden py-1 px-2 cursor-pointer&quot; (click)&#x3D;&quot;viewNavMenuContent &#x3D; true&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;arrow-narrow-right&quot;&gt;
+                            &lt;/i-tabler&gt;
+                        &lt;/div&gt;
+                        &lt;ng-container *ngIf&#x3D;&quot;contentCompleted[contentSelected._id]; else elseTemplate&quot;&gt;
+                            &lt;p class&#x3D;&quot;elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold&quot;&gt;
+                                Completado&lt;/p&gt;
+                        &lt;/ng-container&gt;
+                        &lt;ng-template #elseTemplate&gt;
+                            &lt;p class&#x3D;&quot;elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold&quot;&gt;
+                                En curso&lt;/p&gt;
+                        &lt;/ng-template&gt;
+                        &lt;span class&#x3D;&quot;hidden md:flex align-items-center justify-content-center gap-4 font-bold&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;layout-board-split&quot; style&#x3D;&quot;color:#F7AF42; height:2rem; width:2rem;&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;p class&#x3D;&quot;white-space-nowrap overflow-hidden text-overflow-ellipsis&quot;&gt;
+                                {{contentSelected.name}}
+                            &lt;/p&gt;
+                        &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;completed-btn px-2 md:px-0&quot;&gt;
+                        &lt;ng-container *ngIf&#x3D;&quot;!contentCompleted[contentSelected._id];&quot;&gt;
+                            &lt;p-button styleClass&#x3D;&quot;w-full button-yellow-second button-border-mid align-items-center justify-content-between gap-2&quot; (onClick)&#x3D;&quot;markAsCompleted()&quot; [disabled]&#x3D;&quot;savingCompleted&quot;&gt;
+                                &lt;span class&#x3D;&quot;font-semibold&quot; style&#x3D;&quot;font-size: 0.85rem;&quot;&gt;Completar modulo&lt;/span&gt;
+                                &lt;p-checkbox [(ngModel)]&#x3D;&quot;marked&quot; [binary]&#x3D;&quot;true&quot; inputId&#x3D;&quot;binary&quot;&gt;&lt;/p-checkbox&gt;
+                            &lt;/p-button&gt;
+                        &lt;/ng-container&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;normal-panel mx-2 md:mx-4 mt-2 mb-5&quot;&gt;
+                    &lt;div [innerHtml]&#x3D;&quot;(contentSelected.content | safe:&#x27;html&#x27;)&quot; class&#x3D;&quot;w-full p-3 md:p-4&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-container&gt;
+
+    &lt;ng-template #loadingTemplates&gt;
+        &lt;app-loading&gt;&lt;/app-loading&gt;
+    &lt;/ng-template&gt;
+
+    &lt;p-dialog header&#x3D;&quot;&quot; [(visible)]&#x3D;&quot;viewHomeworks&quot; [breakpoints]&#x3D;&quot;{&#x27;960px&#x27;: &#x27;85vw&#x27;, &#x27;640px&#x27;: &#x27;100vw&#x27;}&quot; [style]&#x3D;&quot;{width: &#x27;60vw&#x27;}&quot; [modal]&#x3D;&quot;true&quot; maskStyleClass&#x3D;&quot;dialog-app&quot; appendTo&#x3D;&quot;body&quot;&gt;
+        &lt;div class&#x3D;&quot;w-full h-full flex flex-row gap-3&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;layout-board-split&quot; class&#x3D;&quot;icon-dialog&quot;&gt;&lt;/i-tabler&gt;
+            &lt;ng-container *ngIf&#x3D;&quot;!homeworkDisplay; else showHomework&quot;&gt;
+                &lt;span class&#x3D;&quot;font-semibold text-3xl	text-center&quot;&gt;No hay tareas en el sprint&lt;/span&gt;
+            &lt;/ng-container&gt;
+            &lt;ng-template #showHomework&gt;
+                &lt;div class&#x3D;&quot;content-resource w-full flex flex-column justify-content-between pb-2 pr-4&quot; style&#x3D;&quot;flex: 1&quot;&gt;
+                    &lt;h2 class&#x3D;&quot;overflow-hidden white-space-nowrap text-overflow-ellipsis text-base&quot; [style.color]&#x3D;&quot;&#x27;black&#x27;&quot;&gt;
+                        {{homeworkDisplay.resource.name}}&lt;/h2&gt;
+                    &lt;div class&#x3D;&quot;w-full flex flex-wrap md:flex-row justify-content-center md:justify-content-between gap-2 md:gap-2 align-items-center&quot;&gt;
+                        &lt;div class&#x3D;&quot;info-dialog flex flex-column text-sm&quot;&gt;
+                            &lt;span&gt;Contenido de {{homeworkDisplay.phase.name}}&lt;/span&gt;
+                            &lt;span&gt;{{stage.name}}&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;flex flex-row date-resource-display align-items-center justify-content-center p-1 gap-2&quot;&gt;
+                            &lt;i-tabler name&#x3D;&quot;calendar-event&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;span&gt;{{ homeworkDisplay.resource.extra_options.expiration ??
+                                sprintSelected.extra_options.end |
+                                date }}&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;span class&#x3D;&quot;type-resource-display&quot;&gt;
+                            {{resourcesTypesNames[homeworkDisplay.resource.type]}}
+                        &lt;/span&gt;
+                        &lt;span class&#x3D;&quot;type-resource-display&quot;&gt;
+                            {{homeworkDisplay.state}}
+                        &lt;/span&gt;
+                        &lt;div class&#x3D;&quot;flex flew-wrap gap-2&quot;&gt;
+                            &lt;ng-container [ngSwitch]&#x3D;&quot;homeworkDisplay.resource.type&quot;&gt;
+                                &lt;ng-container *ngSwitchCase&#x3D;&quot;resourcesTypes.form&quot;&gt;
+                                    &lt;p-button label&#x3D;&quot;Ver formulario&quot; iconPos&#x3D;&quot;right&quot; icon&#x3D;&quot;pi pi-file-export&quot; (onClick)&#x3D;&quot;openForm(homeworkDisplay)&quot;&gt;&lt;/p-button&gt;
+                                &lt;/ng-container&gt;
+                                &lt;ng-container *ngSwitchCase&#x3D;&quot;resourcesTypes.downloadable&quot;&gt;
+                                    &lt;p-button label&#x3D;&quot;Descargar&quot; iconPos&#x3D;&quot;right&quot; icon&#x3D;&quot;pi pi-download&quot; (onClick)&#x3D;&quot;downloadFile(homeworkDisplay)&quot;&gt;&lt;/p-button&gt;
+                                &lt;/ng-container&gt;
+                                &lt;ng-container *ngSwitchCase&#x3D;&quot;resourcesTypes.task&quot;&gt;
+                                    &lt;p-button *ngIf&#x3D;&quot;homeworkDisplay.resource.extra_options.file&quot; pTooltip&#x3D;&quot;Plantilla&quot; (onClick)&#x3D;&quot;downloadFile(homeworkDisplay)&quot; icon&#x3D;&quot;pi pi-file&quot;&gt;&lt;/p-button&gt;
+                                    &lt;ng-container *ngIf&#x3D;&quot;homeworkDisplay.state !&#x3D;&#x3D; resourcesStates.Pendiente&quot;&gt;
+                                        &lt;p-button pTooltip&#x3D;&quot;Ver archivo&quot; icon&#x3D;&quot;pi pi-eye&quot; (onClick)&#x3D;&quot;downloadFileReply(homeworkDisplay)&quot;&gt;&lt;/p-button&gt;
+                                    &lt;/ng-container&gt;
+                                    &lt;p-button [label]&#x3D;&quot;homeworkDisplay.item?.file ? &#x27;Cambiar&#x27; : &#x27;Subir&#x27;&quot; icon&#x3D;&quot;pi pi-upload&quot; (onClick)&#x3D;&quot;fileInput.click()&quot; styleClass&#x3D;&quot;p-button-outlined&quot;&gt;&lt;/p-button&gt;
+
+                                    &lt;input #fileInput type&#x3D;&quot;file&quot; accept&#x3D;&quot;*&quot; class&#x3D;&quot;hidden&quot; (change)&#x3D;&quot;selectFile(fileInput, homeworkDisplay)&quot;&gt;
+                                &lt;/ng-container&gt;
+                            &lt;/ng-container&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/ng-template&gt;
+
+
+
+        &lt;/div&gt;
+        &lt;p-divider&gt;&lt;/p-divider&gt;
+        &lt;div class&#x3D;&quot;info-dialog flex flex-column text-sm px-2 md:px-4 white-space-normal&quot;&gt;
+            &lt;span&gt;&lt;strong class&#x3D;&quot;text-black-alpha-70&quot;&gt;Observación: &lt;/strong&gt;{{homeworkDisplay.observations ??
+                &#x27;&#x27;}}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;w-full flex flex-row justify-content-end align-items-center gap-2 px-6&quot;&gt;
+            &lt;i-tabler name&#x3D;&quot;arrow-big-left&quot; class&#x3D;&quot;navigation-btn-dialog&quot; (click)&#x3D;&quot;changeResource(&#x27;previous&#x27;)&quot;&gt;&lt;/i-tabler&gt;
+            &lt;span class&#x3D;&quot;info-dialog text-sm&quot;&gt;Pag {{indexHomework + 1}} - {{homeworks.length}} &lt;/span&gt;
+            &lt;i-tabler name&#x3D;&quot;arrow-big-right&quot; class&#x3D;&quot;navigation-btn-dialog&quot; (click)&#x3D;&quot;changeResource(&#x27;next&#x27;)&quot;&gt;&lt;/i-tabler&gt;
+        &lt;/div&gt;
+    &lt;/p-dialog&gt;
+
+    &lt;ng-template #navContent&gt;
+        &lt;div class&#x3D;&quot;phase-column w-full flex flex-column align-items-center justify-content-between&quot;&gt;
+            &lt;div class&#x3D;&quot;w-full navigation-controls flex flex-row justify-content-between&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;chevron-left&quot; class&#x3D;&quot;direction-btn&quot; *ngIf&#x3D;&quot;previousPhase&quot; (click)&#x3D;&quot;loadComponent(previousPhase)&quot;&gt;&lt;/i-tabler&gt;
+                &lt;i-tabler name&#x3D;&quot;chevron-right&quot; class&#x3D;&quot;direction-btn&quot; *ngIf&#x3D;&quot;nextPhase&quot; (click)&#x3D;&quot;loadComponent(nextPhase)&quot;&gt;&lt;/i-tabler&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 p-3&quot; [style.background]&#x3D;&quot;gradient()&quot;&gt;
+                &lt;div class&#x3D;&quot;flex flex-column align-items-center gap-3&quot; style&#x3D;&quot;padding: 0.875rem;&quot; [style.color]&#x3D;&quot;stage.color&quot;&gt;
+                    &lt;span class&#x3D;&quot;text-xl font-semibold&quot;&gt;{{phaseName}}&lt;/span&gt;
+                    &lt;h1 style&#x3D;&quot;font-weight: 600;&quot;&gt;{{phaseNumb}}&lt;/h1&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;flex flex-column align-items-center gap-5&quot;&gt;
+                    &lt;span class&#x3D;&quot;title-sprint font-semibold text-2xl &quot; [style.color]&#x3D;&quot;stage.color&quot;&gt;{{sprintSelected.name}}&lt;/span&gt;
+                    &lt;i-tabler class&#x3D;&quot;icon-stage &quot; [name]&#x3D;&quot;stage.icon&quot; [style.background-color]&#x3D;&quot;stage.color&quot;&gt;&lt;/i-tabler&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;navigation-contents&quot;&gt;
+            &lt;div class&#x3D;&quot;w-full flex justify-content-end&quot;&gt;
+                &lt;p-button styleClass&#x3D;&quot;w-auto md:w-16rem button-blue-second button-border-mid align-items-center&quot; (onClick)&#x3D;&quot;openHomeworks()&quot;&gt;
+                    &lt;span class&#x3D;&quot;w-full font-semibold text-center text-xs md:text-base&quot;&gt;Toolkit&lt;/span&gt;
+                &lt;/p-button&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;flex flex-column mt-4&quot;&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let sprint of sprints; let iSprint &#x3D; index&quot;&gt;
+                    &lt;ng-container *ngFor&#x3D;&quot;let content of sprint.childs; let iContent &#x3D; index&quot;&gt;
+                        &lt;div class&#x3D;&quot;row flex flex-row w-full align-items-center justify-content-center&quot;&gt;
+                            &lt;i-tabler class&#x3D;&quot;icon-state done-state&quot; [name]&#x3D;&quot;iconState(content)&quot; [style.background-color]&#x3D;&quot;colorByState(content)&quot;&gt;&lt;/i-tabler&gt;
+                            &lt;hr class&#x3D;&quot;h-line&quot; [style.background-color]&#x3D;&quot;colorByState(content)&quot;&gt;
+                            &lt;div class&#x3D;&quot;card-content flex flex-column justify-content-center&quot; [ngClass]&#x3D;&quot;{selected: content?._id &#x3D;&#x3D;&#x3D; contentSelected?._id}&quot; (click)&#x3D;&quot;changeContent(content)&quot;&gt;
+                                &lt;span class&#x3D;&quot;&quot; style&#x3D;&quot;font-weight: 550;&quot;&gt;{{content.name}}&lt;/span&gt;
+                                &lt;span class&#x3D;&quot;card-state-content text-sm&quot;&gt;{{textState(content)}}&lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class&#x3D;&quot;lines-done&quot; *ngIf&#x3D;&quot;iContent &lt; sprint.childs.length -1&quot; [style.border-color]&#x3D;&quot;lineState(sprint, content)&quot;&gt;&lt;/div&gt;
+                    &lt;/ng-container&gt;
+                    &lt;div class&#x3D;&quot;lines-done&quot; *ngIf&#x3D;&quot;iSprint &lt; sprints.length -1&quot; [style.border-color]&#x3D;&quot;lineState(sprint)&quot;&gt;
+                    &lt;/div&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+
+    &lt;p-sidebar [(visible)]&#x3D;&quot;viewNavMenuContent&quot; position&#x3D;&quot;left&quot; styleClass&#x3D;&quot;border-sidebar-left&quot; appendTo&#x3D;&quot;body&quot; [modal]&#x3D;&quot;false&quot; [showCloseIcon]&#x3D;&quot;false&quot;&gt;
+        &lt;div class&#x3D;&quot;flex flex-row h-full&quot;&gt;
+            &lt;div class&#x3D;&quot;flex navigation-panel flex-grown-1&quot; *ngIf&#x3D;&quot;loaded&quot;&gt;
+                &lt;ng-container [ngTemplateOutlet]&#x3D;&quot;navContent&quot;&gt;
+                &lt;/ng-container&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex align-items-center justify-content-center&quot; style&#x3D;&quot;width: 1.5rem;&quot; (click)&#x3D;&quot;viewNavMenuContent &#x3D; false&quot;&gt;
+                &lt;i-tabler name&#x3D;&quot;arrow-narrow-left&quot;&gt;
+                &lt;/i-tabler&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p-sidebar&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./contents.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &quot;/src/styles.scss&quot;;
+
+.container-component {
+  display: flex;
+  flex-direction: row;
+  // flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  // align-items: stretch;
+  // align-content: stretch;
+}
+
+.navigation-panel {
+  // width: 32rem !important;
+  padding: 0 1.875rem;
+  align-items: stretch;
+  border-radius: 3.125rem !important;
+  @media (max-width: 1280px) {
+    padding: 0 1rem;
+  }
+  @media (max-width: 680px) {
+    padding: 0;
+  }
+  .direction-btn {
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: 0;
+    color: #495057;
+    background-color: var(--app-backgrounds);
+    border-radius: 25%;
+    padding: 0.5625rem;
+    stroke-width: 2.5px;
+  }
+  .phase-column {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .navigation-controls {
+      width: 6.875rem;
+    }
+    .phase-display {
+      border-radius: 2rem;
+      .title-sprint {
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+      }
+
+      .icon-stage {
+        width: 5rem;
+        height: 5rem;
+        border: 1px solid transparent;
+        outline: 0;
+        color: white;
+        border-radius: 25%;
+        stroke-width: 1px;
+        padding: 1rem;
+      }
+    }
+  }
+
+  .navigation-contents {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 0 2rem;
+    @media (max-width: 1280px) {
+      margin: 0 0 0 1rem;
+    }
+    @media (max-width: 680px) {
+      margin: 0 0 0 0.5rem;
+    }
+    .lines-done {
+      margin: -2.5rem 0 -2.5rem 12px;
+      border-left: 2px solid $appColorFive;
+      height: 5.5rem;
+      width: 2rem;
+      z-index: 0;
+      @media (max-width: 1280px) {
+        width: 1.5rem;
+      }
+      @media (max-width: 680px) {
+        width: 1rem;
+      }
+    }
+    .lines-pending {
+      margin: -2.5rem 0 -2.5rem 0.5rem;
+      border-left: 2px solid $appText;
+      height: 5.5rem;
+      width: 2rem;
+      z-index: 0;
+      @media (max-width: 1280px) {
+        width: 1.5rem;
+      }
+      @media (max-width: 680px) {
+        width: 1rem;
+      }
+    }
+    .row {
+      .icon-state {
+        color: white;
+        border-radius: 50%;
+        padding: 0.25rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        z-index: 1;
+      }
+      .h-line {
+        border: none;
+        height: 1px;
+        width: 1rem;
+        @media (max-width: 1280px) {
+          margin: 0;
+        }
+      }
+      .card-content {
+        padding: 1.25rem 1.875rem;
+        width: 16rem;
+        height: 5rem;
+        border-radius: 1rem;
+        background-color: var(--app-backgrounds);
+        cursor: pointer;
+        .card-state-content {
+          color: $appTextThree;
+        }
+        @media (max-width: 1280px) {
+          padding: 1rem 1.5rem;
+          width: 14rem;
+        }
+        @media (max-width: 680px) {
+          padding: 0.25rem 1.275rem;
+          width: 10rem;
+        }
+      }
+    }
+  }
+}
+
+.display-content {
+  width: 100%;
+  .state-content {
+    width: 8.5625rem;
+    height: 2.5rem;
+  }
+
+  .completed-btn {
+    @media (max-width: 576px) {
+      width: auto !important;
+      height: auto !important;
+      font-size: 0.65rem;
+    }
+  }
+  ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+    border-color: $appColorSeven;
+    background-color: $appColorSeven;
+  }
+}
+
+.selected {
+  border: solid $appColorFive 1px;
+  background-color: lighten($appColorFive, 40%);
+  span {
+    color: $appColorFive !important;
+  }
+}
+
+// ? Scrollbar and visibility on hover and focus
+
+.scrollwrap {
+  overflow-y: auto;
+  visibility: hidden;
+  height: calc(100vh - 102px - 2.5rem) !important;
+  // max-height: calc(100vh - 102px - 2.5rem) !important;
+}
+
+.display-content,
+.scrollwrap:hover,
+.scrollwrap:focus {
+  visibility: visible;
+}
+
+.date-resource-display {
+  width: 10.875rem;
+  border-radius: 2.5rem;
+  background-color: $appColorEight;
+  color: $appColorSeven;
+}
+
+.type-resource-display {
+  border-radius: 2.5rem;
+  padding: 0.5rem 1rem;
+  background-color: $appColorSix;
+  color: $appColorFive;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="h-full overflow-auto pt-3">    <ng-container *ngIf="loaded; else loadingTemplates">        <div class="container-component px-0 md:px-4 py-2 gap-4">            <div class="hidden md:flex normal-panel navigation-panel py-5">                <ng-container [ngTemplateOutlet]="navContent">                </ng-container>            </div>            <div class=" display-content scrollwrap scrollwrap_delayed flex flex-column gap-2" *ngIf="contentSelected">                <div class="flex flex-row w-full justify-content-between align-items-center px-0 md:px-6">                    <div class="flex flex-row gap-2 d:gap-6 align-items-center">                        <div class="side-left-btn md:hidden py-1 px-2 cursor-pointer" (click)="viewNavMenuContent = true">                            <i-tabler name="arrow-narrow-right">                            </i-tabler>                        </div>                        <ng-container *ngIf="contentCompleted[contentSelected._id]; else elseTemplate">                            <p class="elipse-panel button-blue-second state-content text-center flex align-items-center justify-content-center font-semibold">                                Completado</p>                        </ng-container>                        <ng-template #elseTemplate>                            <p class="elipse-panel button-yellow-second state-content text-center flex align-items-center justify-content-center font-semibold">                                En curso</p>                        </ng-template>                        <span class="hidden md:flex align-items-center justify-content-center gap-4 font-bold">                            <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>                            <p class="white-space-nowrap overflow-hidden text-overflow-ellipsis">                                {{contentSelected.name}}                            </p>                        </span>                    </div>                    <div class="completed-btn px-2 md:px-0">                        <ng-container *ngIf="!contentCompleted[contentSelected._id];">                            <p-button styleClass="w-full button-yellow-second button-border-mid align-items-center justify-content-between gap-2" (onClick)="markAsCompleted()" [disabled]="savingCompleted">                                <span class="font-semibold" style="font-size: 0.85rem;">Completar modulo</span>                                <p-checkbox [(ngModel)]="marked" [binary]="true" inputId="binary"></p-checkbox>                            </p-button>                        </ng-container>                    </div>                </div>                <div class="normal-panel mx-2 md:mx-4 mt-2 mb-5">                    <div [innerHtml]="(contentSelected.content | safe:\'html\')" class="w-full p-3 md:p-4"></div>                </div>            </div>        </div>    </ng-container>    <ng-template #loadingTemplates>        <app-loading></app-loading>    </ng-template>    <p-dialog header="" [(visible)]="viewHomeworks" [breakpoints]="{\'960px\': \'85vw\', \'640px\': \'100vw\'}" [style]="{width: \'60vw\'}" [modal]="true" maskStyleClass="dialog-app" appendTo="body">        <div class="w-full h-full flex flex-row gap-3">            <i-tabler name="layout-board-split" class="icon-dialog"></i-tabler>            <ng-container *ngIf="!homeworkDisplay; else showHomework">                <span class="font-semibold text-3xl	text-center">No hay tareas en el sprint</span>            </ng-container>            <ng-template #showHomework>                <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4" style="flex: 1">                    <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis text-base" [style.color]="\'black\'">                        {{homeworkDisplay.resource.name}}</h2>                    <div class="w-full flex flex-wrap md:flex-row justify-content-center md:justify-content-between gap-2 md:gap-2 align-items-center">                        <div class="info-dialog flex flex-column text-sm">                            <span>Contenido de {{homeworkDisplay.phase.name}}</span>                            <span>{{stage.name}}</span>                        </div>                        <div class="flex flex-row date-resource-display align-items-center justify-content-center p-1 gap-2">                            <i-tabler name="calendar-event"></i-tabler>                            <span>{{ homeworkDisplay.resource.extra_options.expiration ??                                sprintSelected.extra_options.end |                                date }}</span>                        </div>                        <span class="type-resource-display">                            {{resourcesTypesNames[homeworkDisplay.resource.type]}}                        </span>                        <span class="type-resource-display">                            {{homeworkDisplay.state}}                        </span>                        <div class="flex flew-wrap gap-2">                            <ng-container [ngSwitch]="homeworkDisplay.resource.type">                                <ng-container *ngSwitchCase="resourcesTypes.form">                                    <p-button label="Ver formulario" iconPos="right" icon="pi pi-file-export" (onClick)="openForm(homeworkDisplay)"></p-button>                                </ng-container>                                <ng-container *ngSwitchCase="resourcesTypes.downloadable">                                    <p-button label="Descargar" iconPos="right" icon="pi pi-download" (onClick)="downloadFile(homeworkDisplay)"></p-button>                                </ng-container>                                <ng-container *ngSwitchCase="resourcesTypes.task">                                    <p-button *ngIf="homeworkDisplay.resource.extra_options.file" pTooltip="Plantilla" (onClick)="downloadFile(homeworkDisplay)" icon="pi pi-file"></p-button>                                    <ng-container *ngIf="homeworkDisplay.state !== resourcesStates.Pendiente">                                        <p-button pTooltip="Ver archivo" icon="pi pi-eye" (onClick)="downloadFileReply(homeworkDisplay)"></p-button>                                    </ng-container>                                    <p-button [label]="homeworkDisplay.item?.file ? \'Cambiar\' : \'Subir\'" icon="pi pi-upload" (onClick)="fileInput.click()" styleClass="p-button-outlined"></p-button>                                    <input #fileInput type="file" accept="*" class="hidden" (change)="selectFile(fileInput, homeworkDisplay)">                                </ng-container>                            </ng-container>                        </div>                    </div>                </div>            </ng-template>        </div>        <p-divider></p-divider>        <div class="info-dialog flex flex-column text-sm px-2 md:px-4 white-space-normal">            <span><strong class="text-black-alpha-70">Observación: </strong>{{homeworkDisplay.observations ??                \'\'}}</span>        </div>        <div class="w-full flex flex-row justify-content-end align-items-center gap-2 px-6">            <i-tabler name="arrow-big-left" class="navigation-btn-dialog" (click)="changeResource(\'previous\')"></i-tabler>            <span class="info-dialog text-sm">Pag {{indexHomework + 1}} - {{homeworks.length}} </span>            <i-tabler name="arrow-big-right" class="navigation-btn-dialog" (click)="changeResource(\'next\')"></i-tabler>        </div>    </p-dialog>    <ng-template #navContent>        <div class="phase-column w-full flex flex-column align-items-center justify-content-between">            <div class="w-full navigation-controls flex flex-row justify-content-between">                <i-tabler name="chevron-left" class="direction-btn" *ngIf="previousPhase" (click)="loadComponent(previousPhase)"></i-tabler>                <i-tabler name="chevron-right" class="direction-btn" *ngIf="nextPhase" (click)="loadComponent(nextPhase)"></i-tabler>            </div>            <div class="phase-display h-full w-full flex flex-column justify-content-between align-items-center mt-4 p-3" [style.background]="gradient()">                <div class="flex flex-column align-items-center gap-3" style="padding: 0.875rem;" [style.color]="stage.color">                    <span class="text-xl font-semibold">{{phaseName}}</span>                    <h1 style="font-weight: 600;">{{phaseNumb}}</h1>                </div>                <div class="flex flex-column align-items-center gap-5">                    <span class="title-sprint font-semibold text-2xl " [style.color]="stage.color">{{sprintSelected.name}}</span>                    <i-tabler class="icon-stage " [name]="stage.icon" [style.background-color]="stage.color"></i-tabler>                </div>            </div>        </div>        <div class="navigation-contents">            <div class="w-full flex justify-content-end">                <p-button styleClass="w-auto md:w-16rem button-blue-second button-border-mid align-items-center" (onClick)="openHomeworks()">                    <span class="w-full font-semibold text-center text-xs md:text-base">Toolkit</span>                </p-button>            </div>            <div class="flex flex-column mt-4">                <ng-container *ngFor="let sprint of sprints; let iSprint = index">                    <ng-container *ngFor="let content of sprint.childs; let iContent = index">                        <div class="row flex flex-row w-full align-items-center justify-content-center">                            <i-tabler class="icon-state done-state" [name]="iconState(content)" [style.background-color]="colorByState(content)"></i-tabler>                            <hr class="h-line" [style.background-color]="colorByState(content)">                            <div class="card-content flex flex-column justify-content-center" [ngClass]="{selected: content?._id === contentSelected?._id}" (click)="changeContent(content)">                                <span class="" style="font-weight: 550;">{{content.name}}</span>                                <span class="card-state-content text-sm">{{textState(content)}}</span>                            </div>                        </div>                        <div class="lines-done" *ngIf="iContent < sprint.childs.length -1" [style.border-color]="lineState(sprint, content)"></div>                    </ng-container>                    <div class="lines-done" *ngIf="iSprint < sprints.length -1" [style.border-color]="lineState(sprint)">                    </div>                </ng-container>            </div>        </div>    </ng-template>    <p-sidebar [(visible)]="viewNavMenuContent" position="left" styleClass="border-sidebar-left" appendTo="body" [modal]="false" [showCloseIcon]="false">        <div class="flex flex-row h-full">            <div class="flex navigation-panel flex-grown-1" *ngIf="loaded">                <ng-container [ngTemplateOutlet]="navContent">                </ng-container>            </div>            <div class="flex align-items-center justify-content-center" style="width: 1.5rem;" (click)="viewNavMenuContent = false">                <i-tabler name="arrow-narrow-left">                </i-tabler>            </div>        </div>    </p-sidebar></div></div>'
+    var COMPONENTS = [{'name': 'ActaComponent', 'selector': 'app-acta'},{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AnnouncementEditComponent', 'selector': 'app-announcement-edit'},{'name': 'AnnouncementLoadComponent', 'selector': 'app-announcement-load'},{'name': 'AnnouncementsComponent', 'selector': 'app-announcements'},{'name': 'AnnouncementsCreatorComponent', 'selector': 'app-announcements-creator'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ApplicantsComponent', 'selector': 'app-applicants'},{'name': 'ApplicantSelectDialogComponent', 'selector': 'app-applicant-select-dialog'},{'name': 'ApplicantStateEditComponent', 'selector': 'app-applicant-state-edit'},{'name': 'AssignHoursComponent', 'selector': 'app-assign-hours'},{'name': 'AssignStartupsHoursComponent', 'selector': 'app-assign-startups-hours'},{'name': 'AvatarUploaderComponent', 'selector': 'app-avatar-uploader'},{'name': 'BusinessesComponent', 'selector': 'app-businesses'},{'name': 'BusinessSelectTableComponent', 'selector': 'app-business-select-table'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CommunitiesComponent', 'selector': 'app-communities'},{'name': 'ConfigSelectorComponent', 'selector': 'app-config-selector'},{'name': 'ConfigurationComponent', 'selector': 'app-configuration'},{'name': 'ContentsComponent', 'selector': 'app-contents'},{'name': 'DatefilterComponent', 'selector': 'app-datefilter'},{'name': 'DividerTextComponent', 'selector': 'app-divider-text'},{'name': 'DynamicTableComponent', 'selector': 'app-dynamic-table'},{'name': 'EntrepreneursComponent', 'selector': 'app-entrepreneurs'},{'name': 'EntrepreneurSelectTableComponent', 'selector': 'app-entrepreneur-select-table'},{'name': 'EvaluationTablesComponent', 'selector': 'app-evaluation-tables'},{'name': 'EvaluationUserComponent', 'selector': 'app-evaluation-user'},{'name': 'EventCreatorComponent', 'selector': 'app-event-creator'},{'name': 'ExpertsComponent', 'selector': 'app-experts'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormRendererComponent', 'selector': 'app-form-renderer'},{'name': 'FormsComponent', 'selector': 'app-forms'},{'name': 'FormViewComponent', 'selector': 'app-form-view'},{'name': 'HelpdeskComponent', 'selector': 'app-helpdesk'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'InitComponent', 'selector': 'app-init'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'InvestorsComponent', 'selector': 'app-investors'},{'name': 'InvitationsComponent', 'selector': 'app-invitations'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'ListParticipationComponent', 'selector': 'app-list-participation'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'NotificationsComponent', 'selector': 'app-notifications'},{'name': 'PermissionsComponent', 'selector': 'app-permissions'},{'name': 'PhaseContentComponent', 'selector': 'app-phase-content'},{'name': 'PhaseContentCreatorComponent', 'selector': 'app-phase-content-creator'},{'name': 'PhaseContentResourceCreatorComponent', 'selector': 'app-phase-content-resource-creator'},{'name': 'PhaseContentViewComponent', 'selector': 'app-phase-content-view'},{'name': 'PhaseEvaluationsComponent', 'selector': 'app-phase-evaluations'},{'name': 'PhaseEventsComponent', 'selector': 'app-phase-events'},{'name': 'PhaseExpertsComponent', 'selector': 'app-phase-experts'},{'name': 'PhaseHomeworksComponent', 'selector': 'app-phase-homeworks'},{'name': 'PhaseHomeworkTableComponent', 'selector': 'app-phase-homework-table'},{'name': 'PhaseHoursConfigComponent', 'selector': 'app-phase-hours-config'},{'name': 'PhaseLoadComponent', 'selector': 'app-phase-load'},{'name': 'PhasesComponent', 'selector': 'app-phases'},{'name': 'PhasesConfigComponent', 'selector': 'app-phases-config'},{'name': 'PhasesCreatorComponent', 'selector': 'app-phases-creator'},{'name': 'PhasesEditComponent', 'selector': 'app-phases-edit'},{'name': 'PhaseStartupsComponent', 'selector': 'app-phase-startups'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'QrViewComponent', 'selector': 'app-qr-view'},{'name': 'RateByUserComponent', 'selector': 'app-rate-by-user'},{'name': 'RatingEventComponent', 'selector': 'app-rating-event'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'ResourceCardComponent', 'selector': 'app-resource-card'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RouteComponent', 'selector': 'app-route'},{'name': 'RouteStageDescriptionComponent', 'selector': 'app-route-stage-description'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SideNavRouteIconComponent', 'selector': 'app-side-nav-route-icon'},{'name': 'SignInComponent', 'selector': 'app-sign-in'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'SiteManagementComponent', 'selector': 'app-site-management'},{'name': 'SiteServicesManagementComponent', 'selector': 'app-site-services-management'},{'name': 'StagesComponent', 'selector': 'app-stages'},{'name': 'StartupDialogComponent', 'selector': 'app-startup-dialog'},{'name': 'StartupInvitationComponent', 'selector': 'app-startup-invitation'},{'name': 'StartupProfileComponent', 'selector': 'app-startup-profile'},{'name': 'StartupsComponent', 'selector': 'app-startups'},{'name': 'StartupSelectTableComponent', 'selector': 'app-startup-select-table'},{'name': 'SublevelMenuComponent', 'selector': 'app-sublevel-menu'},{'name': 'SubMenuComponent', 'selector': 'app-sub-menu'},{'name': 'TableConfigComponent', 'selector': 'app-table-config'},{'name': 'TableSelectDialogComponent', 'selector': 'app-table-select-dialog'},{'name': 'TermsDialogComponent', 'selector': 'app-terms-dialog'},{'name': 'TermsOfUseComponent', 'selector': 'app-terms-of-use'},{'name': 'ToolkitComponent', 'selector': 'app-toolkit'},{'name': 'TopNavComponent', 'selector': 'app-top-nav'},{'name': 'UsersAssignComponent', 'selector': 'app-users-assign'},{'name': 'UsersPanelComponent', 'selector': 'app-users-panel'},{'name': 'ValidateParticipationComponent', 'selector': 'app-validate-participation'},{'name': 'ZoomComponent', 'selector': 'app-zoom'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ContentsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContentsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
