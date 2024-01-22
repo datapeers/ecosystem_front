@@ -127,7 +127,7 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
   }
   successChange(property, phase) {
     this.toast.clear();
-    this.cancelEdit(property);
+    if (property) this.cancelEdit(property);
     this.store.dispatch(new SetPhaseAction(phase));
   }
 
@@ -140,5 +140,61 @@ export class PhasesEditComponent implements OnInit, OnDestroy {
 
   closeBatch() {
     this.showClosedBatch = true;
+  }
+
+  async uploadImageSideBar(fileToUpload: File, phase: Phase) {
+    this.toast.info({
+      summary: 'Subiendo imagen...',
+      detail: 'Por favor espere',
+      life: 10000,
+    });
+    this.service
+      .updatePhaseSidebar(phase, fileToUpload)
+      .pipe(
+        tap((event) => {
+          if (event.type === HttpEventType.DownloadProgress) {
+            // Display upload progress if required
+          }
+        })
+      )
+      .subscribe((event) => {
+        if (event.type === HttpEventType.Response) {
+          const realUrl = this.storageService.getPureUrl(event.url);
+          this.service
+            .updatePhase(this.phase._id, { sidebarImage: realUrl })
+            .then((phase) => {
+              this.toast.clear();
+              this.successChange(null, phase);
+            })
+            .catch((err) => {
+              this.toast.clear();
+              this.failChange(err);
+            })
+            .finally(() => {
+              this.phase.sidebarImage = realUrl;
+            });
+        }
+      });
+  }
+
+  async removeImageSideBar(phase: Phase) {
+    this.toast.info({
+      summary: 'Eliminando imagen...',
+      detail: 'Por favor espere',
+      life: 10000,
+    });
+    this.service
+      .updatePhase(this.phase._id, { sidebarImage: null })
+      .then((phase) => {
+        this.toast.clear();
+        this.successChange(null, phase);
+      })
+      .catch((err) => {
+        this.toast.clear();
+        this.failChange(err);
+      })
+      .finally(() => {
+        this.phase.sidebarImage = null;
+      });
   }
 }

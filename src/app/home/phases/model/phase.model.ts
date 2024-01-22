@@ -20,6 +20,7 @@ export interface IPhase {
   updatedAt: Date;
   calcEndDate?: Date;
   stageDoc?: Stage;
+  sidebarImage?: string;
 }
 
 export class Phase implements IPhase {
@@ -42,6 +43,7 @@ export class Phase implements IPhase {
   updatedAt: Date;
   calcEndDate?: Date;
   stageDoc?: Stage;
+  sidebarImage?: string;
   private constructor() {}
 
   static fromJson(data: IPhase): Phase {

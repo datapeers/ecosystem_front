@@ -233,6 +233,18 @@ export class PhasesService {
     );
   }
 
+  updatePhaseSidebar(phase: Phase, file: File) {
+    const renamedFile = new File([file], phase._id, {
+      type: file.type,
+      lastModified: file.lastModified,
+    });
+    return this.storageService.uploadFile(
+      `phases/${phase._id}/sidebar`,
+      renamedFile,
+      true
+    );
+  }
+
   removePhaseThumbnail(phase: Phase) {
     return this.storageService.deleteFile(
       `phases/${phase._id}/thumbnail`,

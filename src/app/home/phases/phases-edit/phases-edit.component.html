@@ -114,6 +114,19 @@
             </div>
           </div>
         </ng-template>
+        <ng-container *ngIf="!phase.basePhase && user.allowed(userPermission.phases_batch_edit)">
+          <div class="flex flex-column w-full inline-flex gap-2 pt-4">
+            <div class="flex flex-column align-items-start justify-content-center gap-1">
+              <span class="font-semibold text-color-other text-2xl">Logo institucional</span>
+              <span class="text-sm">En caso de desear cambiar el logo que figura en la esquina superior derecha para esta cohorte, carga la nueva imagen en esta sección. En caso contrario, puede omitir este paso.</span>
+            </div>
+            <div class="section-surface p-5 w-full">
+              <ng-container>
+                <app-avatar-uploader styleClass=" w-7rem h-7rem" shape="circle" [imageUrl]="phase.sidebarImage" (onUpload)="uploadImageSideBar($event, phase)" (onRemove)="removeImageSideBar(phase)" class="border-circle"></app-avatar-uploader>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
       </div>
 
       <p-divider styleClass="w-full"></p-divider>

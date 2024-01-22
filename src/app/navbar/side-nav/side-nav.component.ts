@@ -26,6 +26,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { fadeInOut } from '../helper';
+import { Phase } from '@home/phases/model/phase.model';
 
 @Component({
   selector: 'app-side-nav',
@@ -59,7 +60,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   subscriptions$: Subscription[] = [];
   sub$: Subscription;
   user: User;
-
+  currentBatch: Phase | any;
   // ? extra menu icons
   faAngleDoubleLeft = faAngleDoubleLeft;
   faAngleDoubleRight = faAngleDoubleRight;
@@ -78,6 +79,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setMainMenu();
+    this.loadCurrentBatch();
   }
 
   ngOnDestroy(): void {
@@ -126,6 +128,14 @@ export class SideNavComponent implements OnInit, OnDestroy {
       const homeMenu = await this.homeService.getDefaultHomeMenu(user);
       this.store.dispatch(new SetMenuAction(homeMenu));
     });
+  }
+
+  async loadCurrentBatch() {
+    this.currentBatch = await firstValueFrom(
+      this.store
+        .select((store) => store.home.currentBatch)
+        .pipe(first((i) => i !== null))
+    );
   }
 
   toggleMenu() {
