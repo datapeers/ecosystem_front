@@ -197,6 +197,14 @@ export class StartupProfileComponent implements OnInit, OnDestroy {
   }
 
   async inviteToStartup() {
+    if (this.invite === '') {
+      this.toast.info({
+        summary: 'Email invalido',
+        detail: 'Escribe un email valido para invitar',
+        life: 3000,
+      });
+      return;
+    }
     this.saving = true;
     this.toast.info({ summary: 'Invitando...', detail: '', life: 12000000 });
     try {

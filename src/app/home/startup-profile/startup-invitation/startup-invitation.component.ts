@@ -97,7 +97,6 @@ export class StartupInvitationComponent {
   }
 
   async accept() {
-    console.log('a');
     this.confirmationService.confirm({
       key: 'confirmDialogStartup',
       acceptLabel: 'Cambiar startup',
