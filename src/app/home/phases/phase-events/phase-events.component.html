@@ -145,7 +145,7 @@
     <app-loading></app-loading>
 </ng-template>
 
-<p-dialog header="" [(visible)]="showTypes" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
+<p-dialog header="" [(visible)]="showTypes" [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" appendTo="body">
     <div class="w-full flex flex-row gap-3">
         <i-tabler name="bulb" class="icon-dialog"></i-tabler>
         <div class="content-resource w-10 flex flex-column justify-content-center pb-2 pr-4">
@@ -164,6 +164,7 @@
                     <th style="width:5cqh">Nombre</th>
                     <th style="width:10%" class="text-center">Permite acta</th>
                     <th style="width:10%" class="text-center">Permite archivos</th>
+                    <th style="width:20%" class="text-center">Agendable</th>
                     <th style="width:20%" class="text-center">Bolsa de horas - Experto</th>
                     <th style="width:10%" class="text-center">
                         <div class="flex align-items-center justify-content-center">
@@ -201,9 +202,29 @@
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
                                     <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" inputId="allowFiles"></p-checkbox>
+
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <p-checkbox [binary]="true" [(ngModel)]="typeEvent.extra_options.allow_files" [disabled]="true"></p-checkbox>
+                                </ng-template>
+                            </p-cellEditor>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center">
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <div class="flex flex-column justify-content-center align-items-center gap-2">
+                                        <p-checkbox [binary]="true" [(ngModel)]="typeEvent.isSchedulable" inputId="isSchedulable"></p-checkbox>
+                                        <input pInputText type="text" [(ngModel)]="typeEvent.scheduleUrl">
+                                    </div>
+
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    <div class="flex flex-column justify-content-center align-items-center gap-2">
+                                        <p-checkbox [binary]="true" [(ngModel)]="typeEvent.isSchedulable" [disabled]="true"></p-checkbox>
+                                        <span>{{typeEvent.scheduleUrl}}</span>
+                                    </div>
                                 </ng-template>
                             </p-cellEditor>
                         </div>
@@ -220,6 +241,7 @@
                             </p-cellEditor>
                         </div>
                     </td>
+
                     <td>
                         <div class="flex align-items-center justify-content-center gap-2">
                             <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onTypeEventEditInit(typeEvent)" class="p-button-rounded p-button-text"></button>

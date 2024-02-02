@@ -20,7 +20,7 @@
 
         <div class="app-input-field col-3" *ngIf="!parent_content">
             <label for="horizontal">Duración (días)</label>
-            <p-inputNumber formControlName="duration" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"></p-inputNumber>
+            <p-inputNumber formControlName="duration" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="1" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" [min]="0"></p-inputNumber>
         </div>
         <div class="field col-12 md:col-12 pt-3">
             <tinymce formControlName="content" [config]="configTiny"></tinymce>

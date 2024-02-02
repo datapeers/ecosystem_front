@@ -7,7 +7,7 @@
             <div class="w-full flex justify-content-end align-items-center">
                 <ng-container *ngTemplateOutlet="loginLogo"></ng-container>
             </div>
-            <span class="w-full font-bold text-lg text-right">!Ve por mas oportunidades!</span>
+            <span class="w-full font-bold text-lg text-right">!Ve por más oportunidades!</span>
             <span class="big-text w-full font-bold text-right">Te damos la bienvenida</span>
             <div class=" w-full flex flex-row align-items-center justify-content-end gap-2">
                 <ng-container *ngTemplateOutlet="madeIn"></ng-container>
@@ -24,7 +24,7 @@
                         <input pInputText id="username" formControlName="login" placeholder="Ingresa tu correo de registro" aria-describedby="username-help" [ngClass]="{'ng-invalid ng-dirty': loginForm.touched && formControls['login'].errors}" class="w-full" autocomplete="on" />
                         <div [hidden]="loginForm.valid || !loginForm.dirty" class="alert alert-danger">
                             <small id="username-help" *ngIf="formControls['login'].errors?.['required']" class="error-message">Ingrese un email</small>
-                            <small id="username-help" *ngIf="formControls['login'].errors?.['email']" class="error-message">Ingrese un email valido</small>
+                            <small id="username-help" *ngIf="formControls['login'].errors?.['email']" class="error-message">Ingrese un email válido</small>
                         </div>
 
                     </div>
@@ -41,15 +41,15 @@
                 </form>
                 <div style="height: 3rem;"></div>
                 <div class="w-full flex flex-column gap-4 mb-2">
-                    <p-button styleClass="button-blue-second w-full align-items-center justify-content-center" (onClick)="openRecoverPsw()">
-                        <span class="mx-2 font-semibold">Olvide mi clave</span>
-                    </p-button>
                     <p-button styleClass="w-full align-items-center justify-content-center" [loading]="loading" loadingIcon="pi pi-spinner" (onClick)="onSubmit()">
                         <span class="mx-2 font-semibold	">Ingresar ahora</span>
                     </p-button>
                     <p-button styleClass="button-grey w-full align-items-center justify-content-center" (onClick)="logInWithGoogle()">
                         <img alt="logoGoogle" src="/assets/googleLogo.svg" style="width: 1.5rem" />
                         <span class="mx-2 font-semibold	">Ingresar con google</span>
+                    </p-button>
+                    <p-button styleClass="button-blue-second w-full align-items-center justify-content-center" (onClick)="openRecoverPsw()">
+                        <span class="mx-2 font-semibold">Olvidé mi contraseña</span>
                     </p-button>
                 </div>
             </div>
@@ -72,7 +72,7 @@
         <img class="w-4rem h-3rem" src="/assets/logos/um.png" />
         <img class="w-5rem h-3rem" src="/assets/logos/ucm.png" />
         <img class="w-8rem h-3rem" src="/assets/logos/startup.png" />
-        <img class="w-18rem h-3rem" src="/assets/logos/min.png" />
+        <img class="w-18rem h-2rem" src="/assets/logos/min.png" />
     </div>
 </body>
 

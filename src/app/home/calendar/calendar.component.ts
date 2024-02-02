@@ -241,7 +241,7 @@ export class CalendarComponent {
         ],
       },
       {
-        title: 'Segundo Titulo',
+        title: 'Segundo Título',
         text: 'El Segundo Texto',
       },
     ]);

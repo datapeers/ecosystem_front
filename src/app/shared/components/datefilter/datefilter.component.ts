@@ -60,7 +60,7 @@ export class DatefilterComponent {
 
   //ngModels (Value holders)
   currentFilterType = 'contains';
-  currentFilterFieldName = 'Titulo';
+  currentFilterFieldName = 'Título';
   currentFilterFieldValue = '';
   rangeDates: Date[] = [new Date(), new Date()];
   minDate: Date;

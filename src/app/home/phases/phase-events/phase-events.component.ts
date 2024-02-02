@@ -51,7 +51,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
   currentFilterType = 'contains';
   currentFilterField = 'item.nombre';
-  currentFilterFieldName = 'Titulo';
+  currentFilterFieldName = 'Título';
   currentFilterFieldValue = '';
   tableData: ListedObject[] = [];
   list: ListedObject[];

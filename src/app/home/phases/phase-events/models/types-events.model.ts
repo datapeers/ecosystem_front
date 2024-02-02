@@ -49,6 +49,8 @@ export class TypeEvent implements ITypeEvent {
       name: this.name,
       extra_options: this.extra_options,
       expertFocus: this.expertFocus,
+      isSchedulable: this.isSchedulable,
+      scheduleUrl: this.scheduleUrl,
     };
   }
 
@@ -60,6 +62,8 @@ export class TypeEvent implements ITypeEvent {
         allow_files: false,
       },
       expertFocus: false,
+      isSchedulable: false,
+      scheduleUrl: '',
     };
   }
 }

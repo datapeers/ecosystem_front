@@ -93,9 +93,9 @@
         <ng-container *ngIf="clonedEdit['description'] !== undefined; else showDescription">
           <div class="w-full flex flex-column align-items-baseline w-full inline-flex gap-2 p-2">
             <div class="w-full flex flex-row justify-content-between gap-2">
-              <span class="text-xl font-semibold">Descripción</span>
+              <span class="text-xl font-semibold">Descripción - {{clonedEdit['description'].length}}/120</span>
             </div>
-            <textarea pInputTextarea [(ngModel)]="clonedEdit['description']" [rows]="5" style="width: 100% !important;"></textarea>
+            <textarea pInputTextarea [(ngModel)]="clonedEdit['description']" [rows]="5" style="width: 100% !important;" [maxlength]="120"></textarea>
           </div>
           <p-button [icon]="'pi pi-save'" class="mx-2" label="Guardar" [pTooltip]="'Guardar cambios'" (onClick)="saveEdit('description')"></p-button>
           <p-button [icon]="'pi pi-times'" class="mx-2" label="Cancelar" [pTooltip]="'Cancelar cambios'" (onClick)="cancelEdit('description')"></p-button>

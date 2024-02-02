@@ -249,7 +249,7 @@
                                     </span>
                                 </div>
                                 <!--<div class="flex flex-none justify-content-center mt-2">
-                                        <ng-container *ngIf="expert['calendlyLink']; else noCalendly">
+                                        <ng-container *ngIf="expert['calendlyLink'] && expert['calendlyLink']!== '' ; else noCalendly">
                                             <p-button label="Agendar" (onClick)="selectExpert(expert)"></p-button>
                                         </ng-container>
                                         <ng-template #noCalendly>

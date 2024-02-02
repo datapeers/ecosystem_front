@@ -21,7 +21,7 @@ import { User } from '@auth/models/user';
 export class PhasesEditComponent implements OnInit, OnDestroy {
   phase: Phase;
   phase$: Subscription;
-  clonedEdit: { [s: string]: Phase } = {};
+  clonedEdit: { [s: string]: any } = {};
   configTiny = configTinyMce;
   user: User;
   thumbnail;

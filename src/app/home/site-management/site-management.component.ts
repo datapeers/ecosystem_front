@@ -63,7 +63,7 @@ export class SiteManagementComponent
   cols = [
     { field: 'name', header: 'Nombre' },
     { field: 'email', header: 'Correo' },
-    { field: 'contact', header: 'Telefono' },
+    { field: 'contact', header: 'Teléfono' },
     { field: 'others', header: 'Otros' },
   ];
   constructor(
