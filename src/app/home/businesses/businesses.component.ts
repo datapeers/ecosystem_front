@@ -20,6 +20,7 @@ import { AppForm } from '@shared/form/models/form';
 import { BusinessesService } from '@shared/services/businesses/businesses.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subject, first, firstValueFrom, take, takeUntil } from 'rxjs';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-businesses',
@@ -41,7 +42,8 @@ export class BusinessesComponent {
     private store: Store<AppState>,
     private readonly formService: FormService,
     private readonly dialogService: DialogService,
-    private readonly service: BusinessesService
+    private readonly service: BusinessesService,
+    private readonly toastService: ToastService
   ) {
     this.optionsTable = {
       save: true,
@@ -125,10 +127,12 @@ export class BusinessesComponent {
   async actionFromTable({
     action,
     element,
+    selected,
     event,
     callbacks,
     pageRequest,
   }: TableActionEvent) {
+    const businessIds = selected.map((selected) => selected._id);
     switch (action) {
       case 'add':
         const subscription = await this.formService.createFormSubscription({
@@ -158,15 +162,17 @@ export class BusinessesComponent {
             if (!data.selected) return;
             const entrepreneursIds = data.selected;
             if (entrepreneursIds.length) {
+              this.toastService.info({
+                summary: 'Aplicando cambios',
+                detail: '',
+                life: 120000,
+              });
               await this.service.linkWithEntrepreneurs(
-                entrepreneursIds,
+                businessIds,
                 entrepreneursIds
               );
-            } else {
-              await this.service.linkWithEntrepreneursByRequest(
-                pageRequest,
-                entrepreneursIds
-              );
+              this.toastService.clear();
+              callbacks.fullRefresh();
             }
           });
         break;
