@@ -103,7 +103,7 @@
         </div>
         <p-divider></p-divider>
         <div class="info-dialog flex flex-column text-sm px-2 md:px-4 white-space-normal">
-            <span><strong class="text-black-alpha-70">Observación: </strong>{{homeworkDisplay.observations ??
+            <span><strong class="text-black-alpha-70">Observación: </strong>{{homeworkDisplay?.observations ??
                 ''}}</span>
         </div>
         <div class="w-full flex flex-row justify-content-end align-items-center gap-2 px-6">
@@ -137,7 +137,7 @@
                 </p-button>
             </div>
 
-            <div class="flex flex-column mt-4">
+            <div class="flex flex-column mt-4 " style="min-height: 50vh;">
                 <ng-container *ngFor="let sprint of sprints; let iSprint = index">
                     <ng-container *ngFor="let content of sprint.childs; let iContent = index">
                         <div class="row flex flex-row w-full align-items-center justify-content-center">
@@ -150,7 +150,7 @@
                         </div>
                         <div class="lines-done" *ngIf="iContent < sprint.childs.length -1" [style.border-color]="lineState(sprint, content)"></div>
                     </ng-container>
-                    <div class="lines-done" *ngIf="iSprint < sprints.length -1" [style.border-color]="lineState(sprint)">
+                    <div class="lines-done" *ngIf="sprints[iSprint].childs.length && sprints.length > 0 && iSprint < sprints.length -1" [style.border-color]="lineState(sprint)">
                     </div>
                 </ng-container>
             </div>

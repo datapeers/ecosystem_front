@@ -43,10 +43,7 @@ export class PhaseContentService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.query(query).pipe(
-        map((request) => request.data.lastContent),
-        map((allContent) => allContent)
-      )
+      this.graphql.query(query).pipe(map((request) => request.data.lastContent))
     );
   }
 
@@ -105,10 +102,23 @@ export class PhaseContentService {
       ? container.childs
           .filter((i) => !i.isDeleted)
           .map((child, index) => {
-            return this.convertContainerToNode(child, levelNode, index == 0, index == container.childs.length - 1, container);
+            return this.convertContainerToNode(
+              child,
+              levelNode,
+              index == 0,
+              index == container.childs.length - 1,
+              container
+            );
           })
       : [];
-    const data = { ...container, levelNode, father, first, last, hasChildren: children.length > 0 };
+    const data = {
+      ...container,
+      levelNode,
+      father,
+      first,
+      last,
+      hasChildren: children.length > 0,
+    };
     return {
       data,
       expanded: true,

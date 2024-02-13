@@ -373,7 +373,8 @@ export class ContentsComponent implements OnInit, OnDestroy {
   lineState(sprint: Content, content?: Content) {
     if (sprint && !content) {
       let lastContent = sprint.childs[sprint.childs.length - 1];
-      if (this.contentCompleted[lastContent._id]) return '#317bf4';
+      if (lastContent && this.contentCompleted[lastContent._id])
+        return '#317bf4';
       else return '#dcdcdc';
     }
     if (content && this.contentCompleted[content._id]) return '#317bf4';

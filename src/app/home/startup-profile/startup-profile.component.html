@@ -10,11 +10,10 @@
         </ng-container>
         <ng-template #componentTemplate>
             <div class="flex w-full flex-column xl:flex-row ">
-                <div class="mt-4 normal-panel panel-startup w-full xl:w-4 flex flex-column justify-content-between" style="height: 85vh;">
+                <div class="mt-4 normal-panel panel-startup w-full xl:w-4 flex flex-column justify-content-between">
                     <div class="flex flex-column">
                         <div>
                             <div class="flex flex-row justify-content-between">
-
                                 <ng-container *ngIf="leaderStartup._id === profileDoc._id; else avatarTemplateSimple">
                                     <app-avatar-uploader id="avatarChange" styleClass="w-10rem h-10rem" shape="circle" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event)" [disableRemove]="true"></app-avatar-uploader>
                                 </ng-container>
@@ -63,7 +62,7 @@
 </div>
 
 <ng-template #sideContent>
-    <div class="flex flex-column gap-4">
+    <div class="flex flex-column gap-4 mb-3">
         <!-- <div class="flex w-auto gap-4 mt-4">
             <div class="flex flex-column gap-4 w-full">
                 <label style="font-weight: 600; margin-left:2rem; font-size:1.5rem">Reporte Ingresos -

@@ -17,7 +17,7 @@ import { cloneDeep } from 'lodash';
 import { Content } from '../model/content.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '@shared/services/toast.service';
-import { TreeNode } from 'primeng/api';
+import { ConfirmationService, TreeNode } from 'primeng/api';
 import { TreeTable } from 'primeng/treetable';
 
 @Component({
@@ -43,7 +43,8 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private toast: ToastService,
     public dialogService: DialogService,
-    private service: PhaseContentService
+    private service: PhaseContentService,
+    private confirmationService: ConfirmationService
   ) {}
 
   filter(table: TreeTable, evt: Event) {
@@ -123,7 +124,6 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   }
 
   invertHide(content: Content) {
-    console.log('no enta?');
     this.toast.info({ summary: 'Guardando...', detail: '' });
     this.service
       .updateContent({ _id: content._id, hide: !content.hide })
@@ -152,15 +152,26 @@ export class PhaseContentComponent implements OnInit, OnDestroy {
   }
 
   deleteContent(content: Content) {
-    this.toast.info({ summary: 'Borrando...', detail: '' });
-    this.service
-      .updateContent({ _id: content._id, isDeleted: true })
-      .then(() => {
-        this.toast.clear();
-      })
-      .catch((err) => {
-        this.failChange(err);
-      });
+    this.confirmationService.confirm({
+      key: 'confirmDialog',
+      acceptLabel: 'Eliminar',
+      rejectLabel: 'Cancelar',
+      header: '¿Está seguro de que quiere continuar?',
+      message:
+        'Al eliminar este contenido, también serán eliminados sus recursos. ¿Está seguro de que desea eliminar este tipo de evento?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        this.toast.info({ summary: 'Borrando...', detail: '' });
+        this.service
+          .updateContent({ _id: content._id, isDeleted: true })
+          .then(() => {
+            this.toast.clear();
+          })
+          .catch((err) => {
+            this.failChange(err);
+          });
+      },
+    });
   }
 
   failChange(err) {

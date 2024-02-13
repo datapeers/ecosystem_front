@@ -8,6 +8,7 @@ export const environment = {
   api: 'http://localhost:3000',
   graphQL: 'http://localhost:3000/graphql',
   graphqlSubscription: 'ws://localhost:3000/subscriptions',
+
   // api: 'https://backend.startupfactory.com.co/api',
   // graphQL: 'https://backend.startupfactory.com.co/api/graphql',
   // graphqlSubscription: 'wss://backend.startupfactory.com.co/sub/subscriptions',

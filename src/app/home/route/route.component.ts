@@ -90,7 +90,9 @@ export class RouteComponent implements OnInit, OnDestroy {
         .select((store) => store.home.currentBatch)
         .pipe(first((i) => i !== null))
     );
-    this.phasesBases = userPhases.filter((i) => i.basePhase);
+    this.phasesBases = userPhases.filter(
+      (i) => i.basePhase && !i.stageDoc.isDeleted
+    );
     this.phasesUser = userPhases.filter((i) => !i.basePhase);
 
     this.listBasesDone = [];
@@ -98,9 +100,10 @@ export class RouteComponent implements OnInit, OnDestroy {
       if (this.listBasesDone.includes(iterator.childrenOf)) continue;
       this.listBasesDone.push(iterator.childrenOf);
     }
+
     this.completed =
       (this.listBasesDone.length / this.phasesBases.length) * 100;
-    this.completedString = this.completed.toString() + '%';
+    this.completedString = this.completed.toFixed(1) + '%';
     this.lastContentSub();
     this.phasesService
       .watchStages()
@@ -216,6 +219,7 @@ export class RouteComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe(async (i) => {
         this.lastContent = i;
+        console.log(this.lastContent);
       });
   }
 

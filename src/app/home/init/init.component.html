@@ -30,7 +30,7 @@
                     <p-chart #chart type="bar" [data]="data" [options]="options" [width]="widthGraphs" height="15rem"></p-chart>
                 </div>
                 <div class="h-2rem"></div>
-                <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent">
+                <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent?.lastContent">
                     <div class="flex align-items-center gap-4 font-bold pl-2 sm:pl-4">
                         <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
                         <div class="flex align-items-center font-bold">
@@ -76,7 +76,7 @@
                     <p-chart #chart type="bar" [data]="data" [options]="options" [width]="widthGraphs" height="15rem"></p-chart>
                 </div>
                 <div class="h-2rem"></div>
-                <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent">
+                <div class="flex final-panel flex-row w-full justify-content-between align-items-center" *ngIf="lastContent?.lastContent">
                     <div class="flex align-items-center gap-4 font-bold pl-2 sm:pl-4">
                         <i-tabler name="layout-board-split" style="color:#F7AF42; height:2rem; width:2rem;"></i-tabler>
                         <div class="flex align-items-center font-bold">

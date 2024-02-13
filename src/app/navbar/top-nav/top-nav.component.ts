@@ -68,8 +68,8 @@ export class TopNavComponent {
   @Input() menuExpanded: boolean = true;
   @Input() screenWith = 0;
 
-  percentCompleted = 75;
-  percentCompletedString = '75%';
+  percentCompleted = 100;
+  percentCompletedString = '100%';
   rolName = '';
   viewUserBoard = false;
   viewNotificationBoard = false;
@@ -192,11 +192,11 @@ export class TopNavComponent {
             this.currentBatch._id,
             this.startup._id
           );
-          this.store.dispatch(new SetLastContentRequest(req));
+          if (req) this.store.dispatch(new SetLastContentRequest(req));
           return;
         }
         this.lastContent = i;
-        if (this.lastContent) {
+        if (this.lastContent?.lastContent && i.numberOfContent > 0) {
           this.percentCompleted = Math.round(
             (i.contentCompleted / i.numberOfContent) * 100
           );
@@ -234,7 +234,9 @@ export class TopNavComponent {
       this.profileDoc['startups'][0].phases.map((i) => i._id),
       true
     );
-    const basesPhase = userPhases.filter((i) => i.basePhase);
+    const basesPhase = userPhases.filter(
+      (i) => i.basePhase && !i.stageDoc.isDeleted
+    );
     this.phasesBases = basesPhase.length;
     this.idsPhasesUser = userPhases
       .filter((i) => !i.basePhase)

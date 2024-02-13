@@ -107,7 +107,7 @@
 <p-overlayPanel #changeDuration [showCloseIcon]="true">
     <ng-template pTemplate="content">
         <div class="flex flex-column gap-2 py-2">
-            <p-inputNumber [(ngModel)]="selectedContent.extra_options.duration" [showButtons]="true" inputId="stacked" suffix=" días"> </p-inputNumber>
+            <p-inputNumber [(ngModel)]="selectedContent.extra_options.duration" [showButtons]="true" [min]="1" inputId="stacked" suffix=" días"> </p-inputNumber>
             <p-button icon="pi pi-save" label="Guardar" (onClick)="changeExtraOptions()"></p-button>
         </div>
     </ng-template>

@@ -85,7 +85,7 @@
                     <i-tabler class="sidenav-link-icon" name="forms"></i-tabler>
                 </p-button>
             </div>
-            <div class="option normal-panel flex flex-column gap-2 p-5 m-2" *ngIf="lastContent">
+            <div class="option normal-panel flex flex-column gap-2 p-5 m-2" *ngIf="lastContent && lastContent.lastContent">
                 <i-tabler class="set-color-appSeven" name="layout-board-split"></i-tabler>
                 <span class="font-bold">{{lastContent.lastContent['name']}}</span>
                 <span class="text-xs content-description">Contenido de {{phaseName}} {{phaseNumb}} -
