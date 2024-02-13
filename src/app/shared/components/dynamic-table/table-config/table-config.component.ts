@@ -69,7 +69,8 @@ export class TableConfigComponent {
       this.options = options;
       const availableJoins =
         this.context?.joins?.filter(
-          (join) => !table.joins.some((tableJoin) => tableJoin.key === join.key)
+          (join) =>
+            !table?.joins.some((tableJoin) => tableJoin.key === join.key)
         ) ?? [];
       this.joins = availableJoins;
       const defaultGroup = {

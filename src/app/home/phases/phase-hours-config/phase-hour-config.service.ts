@@ -150,7 +150,7 @@ export class PhaseHourConfigService {
     }
     if (previousConfig !== -1) {
       if (
-        config.startups[previousConfig].limit !==
+        config.startups[previousConfig]?.limit !==
         entityConfig.hours[activity.id].allocated
       ) {
         changes.push({

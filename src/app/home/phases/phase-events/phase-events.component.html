@@ -233,7 +233,12 @@
                         <div class="flex align-items-center justify-content-center">
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" inputId="expertFocus"></p-checkbox>
+                                    <ng-container *ngIf="typeEvent._id === '646f953cc2305c411d73f700'; else editExpertBag">
+                                        <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" [disabled]="true"></p-checkbox>
+                                    </ng-container>
+                                    <ng-template #editExpertBag>
+                                        <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" inputId="expertFocus"></p-checkbox>
+                                    </ng-template>
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     <p-checkbox [binary]="true" [(ngModel)]="typeEvent.expertFocus" [disabled]="true"></p-checkbox>

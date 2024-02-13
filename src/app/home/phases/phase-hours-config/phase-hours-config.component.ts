@@ -122,7 +122,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     ).subscribe(async (i) => {
       this.loaded = false;
       this.activitiesConfig = cloneDeep(i);
-      console.log(this.activitiesConfig);
 
       // Lists
       this.listStartups = this.activitiesConfig.calcHours.hoursAssignStartups;
