@@ -73,7 +73,6 @@ export class InvitationsComponent implements OnInit {
 
   async loadInvitations() {
     this.invitations = await this.service.getInvitations();
-    console.log(this.invitations);
   }
 
   openInvitationDialog() {

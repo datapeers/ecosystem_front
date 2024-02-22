@@ -109,6 +109,7 @@
   &.p-tabview {
     .p-tabview-panels {
       padding: 0;
+      overflow-y: auto;
     }
     .p-tabview-nav {
       justify-content: center;

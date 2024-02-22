@@ -1,4 +1,4 @@
-<div class="card" *ngIf="!loading else loadingPage">
+<div class="w-full h-max-router overflow-auto" *ngIf="!loading else loadingPage">
     <div class="home-section-container" style="gap:1rem;">
         <div class="px-4">
             <div class="flex justify-content-between gap-2 align-items-center w-full px-3 section-header-container">
@@ -42,10 +42,10 @@
                         </div>
                     </div>
                     <p-divider styleClass="p-0" [style]="{ 'margin': '1px 0' }"></p-divider>
-                    <div class="px-4">
+                    <div class="px-4" style="height: 10%;">
                         <p-dataView #dv [value]="item.docs" [paginator]="false" filterBy="name" layout="grid">
                             <ng-template pTemplate="header">
-                                <div class="flex flex-wrap align-items-center justify-content-between py-2">
+                                <div class="flex flex-wrap align-items-center justify-content-between py-2 ">
                                     <span class="p-input-icon-left">
                                         <span class="font-bold">Todos los batch</span>
                                     </span>
@@ -58,7 +58,7 @@
                                 </div>
                             </ng-template>
                             <ng-template let-stepPhase pTemplate="gridItem">
-                                <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-18rem">
+                                <div class="surface-0 flex flex-column shadow-focus border-round-3xl p-4 justify-content-between m-4 w-18rem h-14rem overflow-auto">
                                     <div class="flex flex-column gap-6">
                                         <div class="flex flex-row gap-1 align-items-center justify-content-between">
                                             <i-tabler class="text-center text-tertiary size-md" name="affiliate"></i-tabler>
