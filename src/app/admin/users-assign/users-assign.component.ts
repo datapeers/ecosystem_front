@@ -28,7 +28,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
     { field: 'rolName', name: 'Rol', tooltip: '' },
     { field: 'phases', name: 'Fases asignadas', tooltip: '' },
     { field: 'batches', name: 'Batch asignados', tooltip: '' },
-    { field: 'startups', name: 'Startup`s asignados', tooltip: '' },
+    { field: 'startups', name: 'StartUps asignados', tooltip: '' },
   ];
   filterFields = this.columns.map((column) => column.field);
   users: User[] = [];
@@ -152,16 +152,17 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   async getPhasesAndBatches() {
     if (this.loadedPhases || this.loadedBatches) return;
     (await this.phaseService.getPhases()).map((doc) => {
-      if (doc.basePhase) {
+      if (doc.basePhase && !doc.deleted) {
         this.phases.push({
           _id: doc._id,
           name: doc.name,
         });
       } else {
-        this.batches.push({
-          _id: doc._id,
-          name: doc.name,
-        });
+        if (!doc.deleted)
+          this.batches.push({
+            _id: doc._id,
+            name: doc.name,
+          });
       }
     });
     this.loadedPhases = true;
@@ -250,7 +251,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
 
   paginatorRightMsg() {
     if (!this.dt) return '';
-    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+    return `Página ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
   }

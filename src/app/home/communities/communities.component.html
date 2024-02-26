@@ -38,7 +38,7 @@
     <div class="w-full flex flex-row gap-3" *ngIf="contactTo">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
-            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">Contactar a {{contactTo['item, nombre']}}</h2>
+            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'" [pTooltip]="contactTo['item, nombre']" style="width: 550px;">Contactar a {{contactTo['item, nombre']}}</h2>
             <span></span>
         </div>
     </div>

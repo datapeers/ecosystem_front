@@ -29,3 +29,10 @@ export function getDeepestData(
   }
   return route.data[fieldName];
 }
+
+export function setUrlSection(url) {
+  // Encuentra la posición de la primera barra diagonal después del protocolo
+  const index = url.indexOf('/', url.indexOf('//') + 2);
+  // Obtiene la subcadena desde esa posición hasta el final
+  return url.substring(index);
+}

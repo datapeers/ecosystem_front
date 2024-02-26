@@ -478,14 +478,11 @@ export class CalendarComponent {
         this.startup._id
       )
     );
-
     this.typesEventsWithHours = this.typesEvents.map((e) => ({
       ...e,
-      target: hours.hours[e._id.toString()].target ?? 0,
-      value: hours.hours[e._id.toString()].value ?? 0,
+      target: hours.hours[e._id.toString()]?.target ?? 0,
+      value: hours.hours[e._id.toString()]?.value ?? 0,
     }));
-
-    this.typesEvents.map;
     this.toast.clear();
     this.dialogSolicitude = true;
   }
@@ -553,7 +550,7 @@ export class CalendarComponent {
 
   paginatorRightMsg() {
     if (!this.dt) return '';
-    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+    return `Página ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
   }

@@ -51,6 +51,7 @@ export class TypeEvent implements ITypeEvent {
       expertFocus: this.expertFocus,
       isSchedulable: this.isSchedulable,
       scheduleUrl: this.scheduleUrl,
+      description: this.description,
     };
   }
 
@@ -64,6 +65,7 @@ export class TypeEvent implements ITypeEvent {
       expertFocus: false,
       isSchedulable: false,
       scheduleUrl: '',
+      description: '',
     };
   }
 }

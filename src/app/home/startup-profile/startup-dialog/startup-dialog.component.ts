@@ -111,7 +111,7 @@ export class StartupDialogComponent implements OnInit, OnDestroy {
 
   paginatorRightMsg() {
     if (!this.dt) return '';
-    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+    return `Página ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
   }

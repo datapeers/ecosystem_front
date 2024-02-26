@@ -187,7 +187,8 @@ export class ToolkitComponent implements OnInit, OnDestroy {
     }
   }
 
-  setItem(item) {
+  setItem(item: ResourceReply) {
+    if (item.type === 'form' || item.type === '') return;
     this.selectedItem = item;
   }
 }

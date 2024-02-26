@@ -78,7 +78,7 @@ export class RolesComponent implements OnInit, OnDestroy {
 
   editPermissions(rol: Rol) {
     const ref = this.dialogService.open(PermissionsComponent, {
-      header: 'Permisos',
+      header: rol ? `Permisos de ${rol.name}` : 'Permisos',
       data: { rol },
     });
     const subscription$ = ref.onClose.subscribe((data) => {
@@ -105,7 +105,7 @@ export class RolesComponent implements OnInit, OnDestroy {
 
   paginatorRightMsg() {
     if (!this.dt) return '';
-    return `Pagina ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
+    return `Página ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
   }
@@ -117,7 +117,7 @@ export class RolesComponent implements OnInit, OnDestroy {
       return;
     }
     const ref = this.dialogService.open(PermissionsComponent, {
-      header: 'Permisos',
+      header: rol ? `Permisos de ${rol.name}` : 'Permisos',
       data: { rol, readOnly: true },
     });
   }

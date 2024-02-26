@@ -222,6 +222,10 @@ export class PhaseHomeworksService {
         : 'Abrir formulario recurso desde toolkit',
       data: {
         allowEdit: true,
+        phase: reply.phase?._id,
+        startup: reply.startup?._id,
+        sprint: reply.sprint?._id,
+        resource: reply.resource?._id,
       },
       doc: reply._id,
     });

@@ -18,6 +18,7 @@ import { EvaluationUserComponent } from '@shared/components/evaluation-user/eval
 import { FormService } from '@shared/form/form.service';
 import { PhaseEvaluationsService } from '@home/phases/phase-evaluations/phase-evaluations.service';
 import { ExpertsService } from '@shared/services/experts/experts.service';
+import { setUrlSection } from '@shared/functions/router.utils';
 
 @Component({
   selector: 'app-notifications',
@@ -89,12 +90,20 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   setNotification() {
-    this.notificationNew = this.notificationsList.filter(
-      (i) => i.state === NotificationStates.pending
-    );
-    this.notificationRead = this.notificationsList.filter(
-      (i) => i.state === NotificationStates.read
-    );
+    this.notificationNew = this.notificationsList
+      .filter((i) => i.state === NotificationStates.pending)
+      .sort((a, b) => {
+        if (a.date > b.date) return -1; // Si 'a' es más reciente que 'b', 'a' debe ir antes
+        if (a.date < b.date) return 1; // Si 'a' es más antiguo que 'b', 'b' debe ir antes
+        return 0; // Si son iguales, no se cambia el orden
+      });
+    this.notificationRead = this.notificationsList
+      .filter((i) => i.state === NotificationStates.read)
+      .sort((a, b) => {
+        if (a.date > b.date) return -1; // Si 'a' es más reciente que 'b', 'a' debe ir antes
+        if (a.date < b.date) return 1; // Si 'a' es más antiguo que 'b', 'b' debe ir antes
+        return 0; // Si son iguales, no se cambia el orden
+      });
   }
 
   action(notification: Notification, type: 'noRead' | 'read') {
@@ -138,24 +147,36 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         this.evaluation(notification);
         break;
       case 'homework':
-        if (notification.url === '') return;
-        this.router.navigate([notification.url.replace(location.origin, '')]);
+        if (notification.url === '') {
+          this.router.navigate(['/home/toolkit']);
+          return;
+        }
+        this.router.navigate([setUrlSection(notification.url)]);
         break;
       case 'approved':
-        if (notification.url === '') return;
-        this.router.navigate([notification.url.replace(location.origin, '')]);
+        if (notification.url === '') {
+          this.router.navigate(['/home/route']);
+          return;
+        }
+        this.router.navigate([setUrlSection(notification.url)]);
         break;
       case 'advise':
         if (notification.url === '') return;
-        this.router.navigate([notification.url.replace(location.origin, '')]);
+        this.router.navigate([setUrlSection(notification.url)]);
         break;
       case 'notes':
-        if (notification.url === '') return;
-        this.router.navigate([notification.url.replace(location.origin, '')]);
+        if (notification.url === '') {
+          this.router.navigate(['/home/helpdesk']);
+          return;
+        }
+        this.router.navigate([setUrlSection(notification.url)]);
         break;
       case 'calendar':
-        if (notification.url === '') return;
-        this.router.navigate([notification.url.replace(location.origin, '')]);
+        if (notification.url === '') {
+          this.router.navigate(['/home/calendar']);
+          return;
+        }
+        this.router.navigate([setUrlSection(notification.url)]);
         break;
       default:
         break;

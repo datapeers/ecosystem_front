@@ -161,11 +161,12 @@
         <p-table class="table-container border-round-2xl table-dialog w-11" [value]="typesEvents" dataKey="_id" editMode="row" [rows]="3" [paginator]="true" [rowsPerPageOptions]="[3, 6, 10]">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width:5cqh">Nombre</th>
+                    <th>Nombre</th>
                     <th style="width:10%" class="text-center">Permite acta</th>
                     <th style="width:10%" class="text-center">Permite archivos</th>
                     <th style="width:20%" class="text-center">Agendable</th>
                     <th style="width:20%" class="text-center">Bolsa de horas - Experto</th>
+                    <th style="width:5%">Descripción</th>
                     <th style="width:10%" class="text-center">
                         <div class="flex align-items-center justify-content-center">
                             <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text mr-2" [pTooltip]="'Agregar tipo'" (click)="showCreatorType = true;"></button>
@@ -246,7 +247,16 @@
                             </p-cellEditor>
                         </div>
                     </td>
-
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <textarea maxlength="300" inputId="textarea" rows="5" style="width: 10rem; resize: none;" [(ngModel)]="typeEvent.description" pInputTextarea></textarea>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <button pButton pRipple type="button" icon="pi pi-file" [pTooltip]="typeEvent.description" class="p-button-rounded p-button-text"></button>
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
                     <td>
                         <div class="flex align-items-center justify-content-center gap-2">
                             <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onTypeEventEditInit(typeEvent)" class="p-button-rounded p-button-text"></button>
@@ -278,6 +288,12 @@
         <span class="app-input-field">
             <label for="name">Nombre</label>
             <input pInputText type="text" [(ngModel)]="newTypeEvent.name" placeholder="Escriba un nombre" required>
+        </span>
+        <span class="w-full app-input-field">
+            <label for="textarea">Descripción - {{newTypeEvent['description']?.length}}/120
+                caracteres
+                permitidos</label>
+            <textarea maxlength="300" inputId="textarea" rows="5" style="width: 100%; resize: none;" [(ngModel)]="newTypeEvent.description" placeholder="Descripción" pInputTextarea></textarea>
         </span>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_acta" label="Permite acta" inputId="allowActa"></p-checkbox>
         <p-checkbox [binary]="true" [(ngModel)]="newTypeEvent.extra_options.allow_files" label="Permite archivos" inputId="allowFiles"></p-checkbox>

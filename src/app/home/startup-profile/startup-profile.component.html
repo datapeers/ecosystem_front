@@ -12,31 +12,31 @@
             <div class="flex w-full flex-column xl:flex-row ">
                 <div class="mt-4 normal-panel panel-startup w-full xl:w-4 flex flex-column justify-content-between">
                     <div class="flex flex-column">
-                        <div>
-                            <div class="flex flex-row justify-content-between">
-                                <ng-container *ngIf="leaderStartup._id === profileDoc._id; else avatarTemplateSimple">
-                                    <app-avatar-uploader id="avatarChange" styleClass="w-10rem h-10rem" shape="circle" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event)" [disableRemove]="true"></app-avatar-uploader>
+
+                        <div class="flex flex-row justify-content-between">
+                            <ng-container *ngIf="leaderStartup._id === profileDoc._id; else avatarTemplateSimple">
+                                <app-avatar-uploader id="avatarChange" styleClass="w-10rem h-10rem" shape="circle" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event)" [disableRemove]="true"></app-avatar-uploader>
+                            </ng-container>
+                            <ng-template #avatarTemplateSimple>
+                                <ng-container *ngIf="startup.thumbnail && startup.thumbnail !== '' else noChangeThubnail">
+                                    <p-avatar styleClass="w-10rem h-10rem" [image]="startup.thumbnail" shape="circle" class="startup-thumbnail">
+                                    </p-avatar>
                                 </ng-container>
-                                <ng-template #avatarTemplateSimple>
-                                    <ng-container *ngIf="startup.thumbnail && startup.thumbnail !== '' else noChangeThubnail">
-                                        <p-avatar styleClass="w-10rem h-10rem" [image]="startup.thumbnail" shape="circle" class="startup-thumbnail">
-                                        </p-avatar>
-                                    </ng-container>
-                                    <ng-template #noChangeThubnail>
-                                        <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
-                                    </ng-template>
+                                <ng-template #noChangeThubnail>
+                                    <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
                                 </ng-template>
-                                <i-tabler id="editInfoStartup" name="edit" class="edit-btn cursor-pointer" pTooltip="Editar datos de startUp" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
-                            </div>
-
-                            <div class="h-3rem"></div>
-                            <div class="flex flex-row align-items-center gap-2">
-                                <i-tabler *ngIf="leaderStartup._id === profileDoc._id" name="" class="text-center" name="bulb" style="color:#18E4E6; cursor:pointer;" (click)="launchTour()"></i-tabler>
-                                <h2>{{startup.item['nombre']}}</h2>
-                            </div>
-
-                            <p class="mt-3">{{startup.item['descripcion']}}</p>
+                            </ng-template>
+                            <i-tabler id="editInfoStartup" name="edit" class="edit-btn cursor-pointer" pTooltip="Editar datos de startUp" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
                         </div>
+
+                        <div class="h-3rem"></div>
+                        <div class="flex flex-row align-items-center gap-2">
+                            <i-tabler *ngIf="leaderStartup._id === profileDoc._id" name="" class="text-center" name="bulb" style="color:#18E4E6; cursor:pointer;" (click)="launchTour()"></i-tabler>
+                            <h2>{{startup.item['nombre']}}</h2>
+                        </div>
+
+                        <p class="mt-3">{{startup.item['descripcion']}}</p>
+
                     </div>
                     <div class="flex flex-column gap-2">
                         <span class="text-xs">Responsable</span>
