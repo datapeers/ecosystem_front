@@ -146,7 +146,7 @@
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
             <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'" style="width: 550px;">Ticket</h2>
-            <span>Los tickets son tu pase directo a solucionar problemas de manera rápida y eficiente. Si encuentras algún inconveniente o necesitas ayuda, simplemente crea un ticket y nuestro equipo estará encantado de ayudarte.</span>
+            <span>{{user.isAdmin ? 'Como administrador, puedes crear nuevos tickets para proporcionar ayuda y guía a los usuarios. Al crear un ticket, puedes formular preguntas específicas, ofrecer instrucciones paso a paso o simplemente iniciar una conversación para brindar asistencia personalizada a cada usuario.' : 'Los tickets son tu pase directo a solucionar problemas de manera rápida y eficiente. Si encuentras algún inconveniente o necesitas ayuda, simplemente crea un ticket y nuestro equipo estará encantado de ayudarte.'}}</span>
         </div>
     </div>
     <p-divider></p-divider>

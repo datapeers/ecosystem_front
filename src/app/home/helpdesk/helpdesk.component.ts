@@ -414,6 +414,7 @@ export class HelpdeskComponent implements OnInit, OnDestroy {
   allowDelete(ticket: Ticket) {
     if (!ticket) return false;
     if (ticket.status === this.ticketsStates.Closed) return false;
+    if (this.user.isAdmin) return true;
     const data = this.getData();
     if (ticket.startupId !== data.id) return false;
     return true;
