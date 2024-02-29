@@ -198,7 +198,7 @@
 
                         <div class="flex flex-row w-full align-items-center gap-3">
                             <ng-container *ngIf="newSite?.thumbnail !== ''; else noThumbnail">
-                                <p-avatar image="newSite.thumbnail" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                                <img [src]="newSite.thumbnail" alt="" class="border-circle" style="width: 8rem; height: 8rem">
                             </ng-container>
                             <ng-template #noThumbnail>
                                 <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
