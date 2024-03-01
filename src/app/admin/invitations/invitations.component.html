@@ -79,7 +79,12 @@
       <div class="formgrid grid">
         <div class="field col-12 md:col-12">
           <label for="email">Email</label>
-          <input pInputText id="email" formControlName="email" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+          <input formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" [ngClass]="{'ng-invalid ng-dirty': formInvitation.get('email').invalid && formInvitation.get('email').touched}">
+          <div *ngIf="(primEmail.invalid && primEmail.touched) || primEmail.dirty">
+            <small *ngIf="primEmail?.errors?.['required']" class="text-danger">Email es necesario</small>
+            <!--question mark(?) is a safe navigation operator-->
+            <small *ngIf="primEmail?.errors?.['email']" class="text-danger">Email invalido</small>
+          </div>
         </div>
         <div class="field col-12 md:col-12">
           <label for="rol">Rol</label>

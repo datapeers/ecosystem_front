@@ -53,6 +53,10 @@ export class InvitationsComponent implements OnInit {
     });
   }
 
+  get primEmail() {
+    return this.formInvitation.get('email');
+  }
+
   ngOnInit(): void {
     this.loadComponent();
   }

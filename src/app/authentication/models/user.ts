@@ -12,6 +12,7 @@ export interface IUser {
   profileImageUrl: string;
   relationsAssign: IRelationsUser;
   permissions: Permission[];
+  passwordSet: any;
 }
 
 export class User implements IUser {
@@ -24,7 +25,7 @@ export class User implements IUser {
   profileImageUrl: string;
   relationsAssign: IRelationsUser;
   permissions: Permission[];
-
+  passwordSet: boolean;
   get nameInitial(): string {
     return (
       this.fullName && this.fullName !== '' ? this.fullName : 'U'
@@ -70,6 +71,7 @@ export class User implements IUser {
 
   constructor(data: IUser) {
     Object.assign(this, data);
+    this.passwordSet = data.passwordSet ? true : false;
   }
 }
 

@@ -40,7 +40,7 @@
                     <!-- <div class="flex flex-row align-items-center justify-content-end p-2">
                             <p-button label="Descargar agenda detallada" icon="pi pi-file" iconPos="right" styleClass="p-button-raised p-button-secondary"></p-button>
                         </div> -->
-                    <p-table #dt class="table-app w-full" [value]="events" dataKey="_id" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [showCurrentPageReport]="true" [rows]="3" [rowsPerPageOptions]="[3,10,20]" [paginator]="true" scrollDirection="both" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+                    <p-table #dt class="table-app w-full" [value]="events" dataKey="_id" paginatorPosition="bottom" [currentPageReportTemplate]="textSummary" [showCurrentPageReport]="true" [rows]="3" [rowsPerPageOptions]="[3,10,20]" [paginator]="true" scrollDirection="both" [scrollable]="true" [globalFilterFields]="globalFilter" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
                         <ng-template pTemplate="caption">
                             <div class="table-header">
                                 <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">

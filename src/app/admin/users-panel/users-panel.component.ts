@@ -24,22 +24,24 @@ import { Table } from 'primeng/table';
 })
 export class UsersPanelComponent implements OnInit {
   columns = [
-    { field: 'fullName', name: 'Nombre', tooltip: '' },
-    { field: 'email', name: 'Correo', tooltip: '' },
-    { field: 'rolName', name: 'Rol', tooltip: '' },
-    { field: 'createdAt', name: 'Creado', tooltip: '' },
-    { field: 'updatedAt', name: 'Modificado', tooltip: '' },
+    { field: 'fullName', name: 'Nombre', tooltip: '', type: 'string' },
+    { field: 'email', name: 'Correo', tooltip: '', type: 'string' },
+    { field: 'rolName', name: 'Rol', tooltip: '', type: 'string' },
+    { field: 'createdAt', name: 'Creado', tooltip: '', type: 'date' },
+    { field: 'updatedAt', name: 'Modificado', tooltip: '', type: 'date' },
     {
       field: 'isActive',
       name: 'Activo',
       tooltip: 'El usuario puede acceder a la aplicación',
+      type: 'boolean',
     },
     {
       field: 'passwordSet',
       name: 'Registrado',
       tooltip: 'El usuario completo el registro con su propia contraseña',
+      type: 'boolean',
     },
-    { field: 'uid', name: 'Uid', tooltip: '' },
+    { field: 'uid', name: 'Uid', tooltip: '', type: 'string' },
   ];
   filterFields = this.columns.map((column) => column.field);
   user: User;
@@ -57,7 +59,7 @@ export class UsersPanelComponent implements OnInit {
     private service: AdminService,
     public dialogService: DialogService
   ) {
-    this.scrollHeight = `${innerHeight - 446}px`;
+    this.scrollHeight = `${innerHeight - 406}px`;
     this.menuUser = [
       {
         label: 'Editar permisos',
@@ -142,5 +144,9 @@ export class UsersPanelComponent implements OnInit {
     return `Página ${Math.ceil(this.dt._first / this.dt._rows) + 1} de ${
       Math.floor(this.dt._totalRecords / this.dt._rows) + 1
     }`;
+  }
+
+  clear(table: Table) {
+    table.clear();
   }
 }

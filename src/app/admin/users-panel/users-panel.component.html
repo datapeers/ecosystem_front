@@ -1,15 +1,17 @@
 <div #tableWrapper class="table-container-app">
-  <p-table class="table-app w-full" #dt [value]="users" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuarios" [filterDelay]="0" [globalFilterFields]="filterFields" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+  <p-table class="table-app w-full" #dt [value]="users" dataKey="_id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} usuarios" [filterDelay]="0" [globalFilterFields]="filterFields" [scrollable]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
     <ng-template pTemplate="caption">
       <div class="flex flex-row justify-content-between align-items-center">
         <div class="text-2xl">
           <span class="pl-2 font-semibold">Usuarios</span>
+
         </div>
         <div class="flex flex-row gap-2">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input pInputText type="text" (input)="dt.filterGlobal($any($event).target.value, 'contains')" placeholder="Buscar" />
           </span>
+          <button pButton label="" pTooltip="Limpiar filtros" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
         </div>
       </div>
     </ng-template>
@@ -19,6 +21,18 @@
           <div class="flex flex-row gap-2 align-items-center">
             <span>{{column.name}}</span>
             <p-sortIcon style="min-width: min-content; display: flex;" [field]="column.field"></p-sortIcon>
+            <ng-container [ngSwitch]="column.type">
+              <ng-container *ngSwitchCase="'date'">
+                <p-columnFilter type="date" [field]="column.field" display="menu"></p-columnFilter>
+              </ng-container>
+              <ng-container *ngSwitchCase="'boolean'">
+                <p-columnFilter type="boolean" [field]="column.field" display="menu"></p-columnFilter>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <p-columnFilter type="text" [field]="column.field" display="menu"></p-columnFilter>
+              </ng-container>
+            </ng-container>
+
           </div>
         </th>
         <th style="width: 3rem"></th>

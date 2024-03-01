@@ -19,7 +19,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
 }
 
 .header {
@@ -99,7 +99,7 @@
 }
 
 .dynamic-table::ng-deep .p-datatable .p-datatable-header {
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   color: $appColorFive;
   background-color: $grayThird;
   border: none;
