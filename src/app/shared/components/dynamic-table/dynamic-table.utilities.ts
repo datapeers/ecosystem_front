@@ -1,4 +1,4 @@
-import { TableColumn, TableColumnType } from "./models/table-config";
+import { TableColumn, TableColumnType } from './models/table-config';
 
 const dotNotate = (obj, target = {}, prefix = '') => {
   Object.keys(obj).map((key) => {
@@ -38,8 +38,8 @@ const setRowList = (
     }
   });
   return newRow;
-}
+};
 
 export const tableUtilities = {
-  setRowList
+  setRowList,
 };

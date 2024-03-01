@@ -174,6 +174,7 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
           this.toast.loading();
           await this.expertsService.unlinkExperts(expertIds, this.phase._id);
           this.toast.clear();
+          this.callbackTable = callbacks;
           callbacks.refresh();
         } catch (error) {
           this.toast.error({
