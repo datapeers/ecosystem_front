@@ -19,8 +19,8 @@
                 </div>
 
                 <div class="flex flex-column gap-2">
-                    <p-button id="acompBtn" *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Acompañamientos" styleClass="w-full button-blue p-button-raised"></p-button>
-                    <p-button id="expertBtn" *ngIf="user?.isUser" (onClick)="showDialogExperts()" label="Experts" styleClass="w-full button-blue p-button-raised"></p-button>
+                    <p-button id="acompBtn" *ngIf="user?.isUser" (onClick)="showDialogSolicitude()" label="Acompañamientos" styleClass="w-full button-blue" [raised]="true"></p-button>
+                    <p-button id="expertBtn" *ngIf="user?.isUser" (onClick)="showDialogExperts()" label="Experts" styleClass="w-full button-blue" [raised]="true"></p-button>
                 </div>
 
             </div>
@@ -74,8 +74,9 @@
                                 <td>{{event?.extendedProps?.expertsName}}</td>
                                 <td>
                                     <ng-container *ngIf="event?.extendedProps?.acta && (user?.allowed(userPermission.actas_view) || user.isUser); else noActa">
-                                        <p-button (onClick)="showActa(event)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
+                                        <p-button (onClick)="showActa(event)" [label]="event?.extendedProps?.acta?.closed ? 'Acta aprobada' : 'Acta sin aprobar'" pTooltip="Ver acta" tooltipPosition="top" iconPos="left" styleClass="" styleClass="px-1 " [raised]="true"></p-button>
                                     </ng-container>
+
                                     <ng-template #noActa>
                                         Acta no disponible
                                     </ng-template>
@@ -83,12 +84,12 @@
                                 <td>
                                     <span class="flex flex-row gap-2">
                                         <ng-container *ngIf="event?.extendedProps?.files?.length && event?.extendedProps?.canViewFiles; else noFiles">
-                                            <p-button class="w-2rem" (onClick)="viewFiles(event)" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
+                                            <p-button class="w-2rem" (onClick)="viewFiles(event)" [raised]="true" pTooltip="Ver archivos" tooltipPosition="top" icon="pi pi-folder-open" styleClass="p-button-text"></p-button>
                                         </ng-container>
                                         <ng-template #noFiles>
 
                                         </ng-template>
-                                        <p-button class="w-2rem" *ngIf="todayAfter(event.end) && user.isUser" (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text"></p-button>
+                                        <p-button class="w-2rem" *ngIf="todayAfter(event.end) && user.isUser" (onClick)="showRating(event)" pTooltip="Calificar" tooltipPosition="top" icon="pi pi-star" styleClass="p-button-text" [raised]="true"></p-button>
                                     </span>
                                 </td>
                             </tr>
@@ -165,13 +166,13 @@
                                         <tr>
                                             <td><strong>Horas recibidas:</strong></td>
                                             <td class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
-                                                {{typeEvent.value}}</td>
+                                                {{typeEvent.value | number: '1.0-0'}}</td>
                                         </tr>
                                         <tr>
                                             <td><strong>Horas restantes:</strong></td>
                                             <td class="px-2 border-round-md text-white bg-primary-color text-center justify-content">
-                                                {{(typeEvent.target - typeEvent.value) > 0 ? (typeEvent.target -
-                                                typeEvent.value) : 0}}</td>
+                                                {{((typeEvent.target - typeEvent.value) > 0 ? (typeEvent.target -
+                                                typeEvent.value) : 0) | number: '1.0-0'}}</td>
                                         </tr>
                                     </table>
                                 </div>

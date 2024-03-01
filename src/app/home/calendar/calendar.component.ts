@@ -369,7 +369,11 @@ export class CalendarComponent {
 
           this.phases = await this.phaseService.getPhases();
           this.events = [];
-          this.originalEvents = eventList;
+          this.originalEvents = eventList.sort((a, b) => {
+            if (a.startAt > b.startAt) return -1; // Si 'a' es más reciente que 'b', 'a' debe ir antes
+            if (a.startAt < b.startAt) return 1; // Si 'a' es más antiguo que 'b', 'b' debe ir antes
+            return 0; // Si son iguales, no se cambia el orden
+          });
           for (const iterator of eventList) {
             this.assignItem(iterator);
           }
@@ -415,6 +419,7 @@ export class CalendarComponent {
         zoom: event.extra_options?.zoom,
       },
     });
+    console.log(this.events);
   }
 
   viewFiles(evt: ICalendarItem) {
