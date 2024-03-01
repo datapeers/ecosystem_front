@@ -105,6 +105,14 @@ const mutation = {
     }
     ${updateResultPayloadFields}
   `,
+  unlinkPhaseToExperts: `
+    mutation LinkPhaseToExperts($experts: [String!]!, $name: String!, $phaseId: String!) {
+      unlinkPhaseToExperts(experts: $experts, name: $name, phaseId: $phaseId) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
   linkStartups: `
     mutation LinkStartupsToExperts($expertId: String!, $phase: String!, $startUps: [StartupItem!]) {
       linkStartupsToExperts(expertId: $expertId, phase: $phase, startUps: $startUps) {

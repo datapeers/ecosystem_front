@@ -43,6 +43,24 @@ export class PhaseExpertsService implements DocumentProvider {
     );
   }
 
+  unlinkExpertToBatch(
+    phaseId: string,
+    phaseName: string,
+    experts: string[]
+  ): Promise<UpdateResultPayload> {
+    const queryRef = this.graphql.refMutation(
+      expertsQueries.mutation.unlinkPhaseToExperts,
+      { name: phaseName, phaseId, experts },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(queryRef)
+        .pipe(map((request) => request.data.linkPhaseToExperts))
+    );
+  }
+
   linkStartups(
     expertId: string,
     phase: string,

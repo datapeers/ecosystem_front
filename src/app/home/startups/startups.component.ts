@@ -155,12 +155,18 @@ export class StartupsComponent {
         icon: 'pi pi-plus',
         featured: true,
       });
-    if (this.user.allowed(Permission.edit_startups))
+    if (this.user.allowed(Permission.edit_startups)) {
       this.optionsTable.actionsTable.push({
         action: 'linkWithEntrepreneurs',
         label: `Vincular a empresarios`,
         icon: 'pi pi-user',
       });
+      this.optionsTable.actionsPerRow.push({
+        action: 'edit',
+        label: `Editar datos`,
+        icon: 'pi pi-pencil',
+      });
+    }
   }
 
   async actionFromTable({
@@ -185,6 +191,27 @@ export class StartupsComponent {
             callbacks.fullRefresh();
           }
         });
+        break;
+      case 'edit':
+        this.toast.loading();
+        const subscriptionEdit = await this.formService.createFormSubscription({
+          form: this.entityForm._id,
+          reason: `Editar datos de startup, esta editando: ${this.user._id}`,
+          data: {},
+          doc: element._id,
+        });
+        this.toast.clear();
+        const refEdit = this.formService.openFormFromSubscription(
+          subscriptionEdit,
+          `Editar ${element['item, nombre']}`
+        );
+        refEdit
+          .pipe(take(1), takeUntil(this.onDestroy$))
+          .subscribe(async (doc) => {
+            if (doc) {
+              callbacks.fullRefresh();
+            }
+          });
         break;
       case 'linkWithEntrepreneurs':
         if (element.length === 0) {

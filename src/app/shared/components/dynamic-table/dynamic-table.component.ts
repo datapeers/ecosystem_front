@@ -548,7 +548,7 @@ export class DynamicTableComponent {
   }
 
   exportData(format: TableExportFormats) {
-    const shouldDownloadFromServer = this.lazy && this.selected.length == 0;
+    const shouldDownloadFromServer = this.lazy;
     if (shouldDownloadFromServer) {
       return this.handleServerDownload(format);
     }

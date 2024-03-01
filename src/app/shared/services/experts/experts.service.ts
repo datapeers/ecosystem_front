@@ -154,6 +154,20 @@ export class ExpertsService implements DocumentProvider {
     );
   }
 
+  async unlinkExperts(experts: string[], batch: string) {
+    const mutationRef = this.graphql.refMutation(
+      expertsQueries.mutation.unlinkPhaseToExperts,
+      { experts, name: 'remover', phaseId: batch },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.unlinkPhaseToExperts))
+    );
+  }
+
   async requestDownload(
     downloadRequest: DownloadRequest
   ): Promise<DownloadResult> {

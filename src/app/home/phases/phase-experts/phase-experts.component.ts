@@ -80,6 +80,11 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
           icon: 'pi pi-plus',
           featured: true,
         },
+        {
+          action: 'unlink_expert',
+          label: `Desvincular expertos`,
+          icon: 'pi pi-sign-out',
+        },
       ],
     };
     firstValueFrom(
@@ -130,10 +135,12 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
   async actionFromTable({
     action,
     element,
+    selected,
     event,
     callbacks,
     rawDataTable,
   }: TableActionEvent) {
+    console.log(action);
     switch (action) {
       case 'link_expert':
         const posibleExperts = (await this.expertsService.getDocuments({})).map(
@@ -151,6 +158,32 @@ export class PhaseExpertsComponent implements OnInit, OnDestroy {
         }
         this.callbackTable = callbacks;
         this.showAddExpert = true;
+        break;
+      case 'unlink_expert':
+        const expertIds = selected?.map((selected) => selected._id);
+        if (expertIds.length === 0) {
+          this.toast.alert({
+            summary: 'Acción invalida',
+            detail:
+              'Debes seleccionar mínimo un expert para realizar la desvinculación',
+            life: 3000,
+          });
+          return;
+        }
+        try {
+          this.toast.loading();
+          await this.expertsService.unlinkExperts(expertIds, this.phase._id);
+          this.toast.clear();
+          callbacks.refresh();
+        } catch (error) {
+          this.toast.error({
+            summary: 'Error al desvincular expert',
+            detail: error,
+            life: 5000,
+          });
+          return;
+        }
+
         break;
       case 'expert_startup_link':
         const listStartups = (

@@ -116,12 +116,18 @@ export class BusinessesComponent {
         icon: 'pi pi-plus',
         featured: true,
       });
-    if (this.user.allowed(Permission.edit_business))
+    if (this.user.allowed(Permission.edit_business)) {
       this.optionsTable.actionsTable.push({
         action: 'linkWithEntrepreneurs',
         label: `Vincular a empresarios`,
         icon: 'pi pi-user',
       });
+      this.optionsTable.actionsPerRow.push({
+        action: 'edit',
+        label: `Editar datos`,
+        icon: 'pi pi-pencil',
+      });
+    }
   }
 
   async actionFromTable({
@@ -132,7 +138,6 @@ export class BusinessesComponent {
     callbacks,
     pageRequest,
   }: TableActionEvent) {
-    const businessIds = selected.map((selected) => selected._id);
     switch (action) {
       case 'add':
         const subscription = await this.formService.createFormSubscription({
@@ -149,7 +154,29 @@ export class BusinessesComponent {
           }
         });
         break;
+      case 'edit':
+        this.toastService.loading();
+        const subscriptionEdit = await this.formService.createFormSubscription({
+          form: this.entityForm._id,
+          reason: `Editar datos de empresa, usuario ${this.user._id}`,
+          data: {},
+          doc: element._id,
+        });
+        this.toastService.clear();
+        const refEdit = this.formService.openFormFromSubscription(
+          subscriptionEdit,
+          `Editar ${element['item, nombreDeLaEmpresa']}`
+        );
+        refEdit
+          .pipe(take(1), takeUntil(this.onDestroy$))
+          .subscribe(async (doc) => {
+            if (doc) {
+              callbacks.fullRefresh();
+            }
+          });
+        break;
       case 'linkWithEntrepreneurs':
+        const businessIds = selected?.map((selected) => selected._id);
         this.dialogService
           .open(EntrepreneurSelectTableComponent, {
             modal: true,
