@@ -42,7 +42,7 @@ export class UserService {
     const queryRef = this.graphql.refQuery(
       userQueries.query.users,
       { search, roles, relationsAssign },
-      'cache-first',
+      'no-cache',
       { auth: true }
     );
     return firstValueFrom(
@@ -58,7 +58,9 @@ export class UserService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.query(queryRef).pipe(map((request) => request.data.userConfig))
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.userConfig))
     );
   }
 
@@ -168,13 +170,12 @@ export class UserService {
       { auth: true }
     );
     return firstValueFrom(this.graphql.query(queryRef));
-
   }
-  
+
   updateUserConfig(id: string, config: UserConfig): Promise<UserConfig> {
     const updatedConfig = {
       uid: config.uid,
-      notifications: config.notifications
+      notifications: config.notifications,
     };
     const mutRef = this.graphql.refMutation(
       userQueries.mutation.updateUserConfig,

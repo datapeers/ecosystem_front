@@ -76,7 +76,11 @@ export class InvitationsComponent implements OnInit {
   }
 
   async loadInvitations() {
-    this.invitations = await this.service.getInvitations();
+    this.invitations = (await this.service.getInvitations()).sort((a, b) => {
+      if (a.createdAt > b.createdAt) return -1; // Si 'a' es más reciente que 'b', 'a' debe ir antes
+      if (a.createdAt < b.createdAt) return 1; // Si 'a' es más antiguo que 'b', 'b' debe ir antes
+      return 0; // Si son iguales, no se cambia el orden
+    });
   }
 
   openInvitationDialog() {

@@ -73,25 +73,33 @@
   </p-table>
 </div>
 
-<p-dialog header="Invitación" [(visible)]="displayInvitationDialog" maskStyleClass="dialog-app" [draggable]="false" appendTo="body">
-  <div class="flex flex-column gap-2 p-4">
-    <form [formGroup]="formInvitation">
-      <div class="formgrid grid">
-        <div class="field col-12 md:col-12">
-          <label for="email">Email</label>
-          <input formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" [ngClass]="{'ng-invalid ng-dirty': formInvitation.get('email').invalid && formInvitation.get('email').touched}">
-          <div *ngIf="(primEmail.invalid && primEmail.touched) || primEmail.dirty">
-            <small *ngIf="primEmail?.errors?.['required']" class="text-danger">Email es necesario</small>
-            <!--question mark(?) is a safe navigation operator-->
-            <small *ngIf="primEmail?.errors?.['email']" class="text-danger">Email invalido</small>
-          </div>
-        </div>
-        <div class="field col-12 md:col-12">
-          <label for="rol">Rol</label>
-          <p-dropdown appendTo="body" class="w-full block" styleClass="w-full" id="rol" formControlName="rol" [options]="roles" optionLabel="name" optionValue="value"></p-dropdown>
+<p-dialog appendTo="body" header="" [(visible)]="displayInvitationDialog" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+  <div class="w-full flex flex-row gap-3 align-items-center">
+    <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
+    <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
+      <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'" style="width: 550px;">Invitar</h2>
+      <span></span>
+    </div>
+  </div>
+  <p-divider></p-divider>
+  <div class="flex flex-column w-full h-full px-3 justify-content-center align-items-center">
+    <form [formGroup]="formInvitation" class="w-full formgrid grid">
+
+      <div class="field app-input-field col-12">
+        <label for="email">Email</label>
+        <input pInputText formControlName="email" type="email" class="appearance-none outline-none w-full" [ngClass]="{'ng-invalid ng-dirty': formInvitation.get('email').invalid && formInvitation.get('email').touched}">
+        <div *ngIf="(primEmail.invalid && primEmail.touched) || primEmail.dirty">
+          <small *ngIf="primEmail?.errors?.['required']" class="text-danger">Email es necesario</small>
+          <!--question mark(?) is a safe navigation operator-->
+          <small *ngIf="primEmail?.errors?.['email']" class="text-danger">Email invalido</small>
         </div>
       </div>
-      <div class="flex flex-row gap-2 justify-content-end">
+      <div class="field app-input-field col-12">
+        <label for="rol">Rol</label>
+        <p-dropdown appendTo="body" class="w-full block" styleClass="w-full" id="rol" formControlName="rol" [options]="roles" optionLabel="name" optionValue="value"></p-dropdown>
+      </div>
+
+      <div class="w-full flex flex-row gap-2 justify-content-end px-2">
         <p-button label="Confirmar" type="submit" [disabled]="formInvitation.invalid" (onClick)="submit$.next()"></p-button>
         <p-button label="Cancelar" styleClass="p-button-outlined" (onClick)="hideInvitationDialog()"></p-button>
       </div>

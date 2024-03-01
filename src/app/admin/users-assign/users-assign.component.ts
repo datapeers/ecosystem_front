@@ -123,6 +123,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   async initComponent() {
     // await this.getPhases();
     // await this.getStartups();
+    await this.getPhasesAndBatches();
     await this.getUsers();
   }
 
@@ -132,7 +133,11 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
       ValidRoles.teamCoach,
     ]);
     this.users = users.map((user) => {
-      return new UserAssign(user);
+      return new UserAssign(
+        user,
+        this.phases.map((i) => i._id),
+        this.batches.map((i) => i._id)
+      );
     });
     this.loading = false;
   }
@@ -151,20 +156,33 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
 
   async getPhasesAndBatches() {
     if (this.loadedPhases || this.loadedBatches) return;
-    (await this.phaseService.getPhases()).map((doc) => {
-      if (doc.basePhase && !doc.deleted) {
-        this.phases.push({
-          _id: doc._id,
-          name: doc.name,
-        });
-      } else {
-        if (!doc.deleted)
-          this.batches.push({
-            _id: doc._id,
-            name: doc.name,
-          });
-      }
-    });
+    const allList = await this.phaseService.getPhases();
+    this.phases = allList
+      .filter((i) => i.basePhase && !i.deleted)
+      .sort((a, b) => {
+        if (a.startAt > b.startAt) return -1; // Si 'a' es más reciente que 'b', 'a' debe ir antes
+        if (a.startAt < b.startAt) return 1; // Si 'a' es más antiguo que 'b', 'b' debe ir antes
+        return 0; // Si son iguales, no se cambia el orden
+      })
+      .map((doc) => {
+        return { ...doc, _id: doc._id, name: doc.name };
+      });
+
+    const batches = allList
+      .filter((i) => !i.basePhase && !i.deleted)
+      .sort((a, b) => {
+        if (a.startAt > b.startAt) return -1; // Si 'a' es más reciente que 'b', 'a' debe ir antes
+        if (a.startAt < b.startAt) return 1; // Si 'a' es más antiguo que 'b', 'b' debe ir antes
+        return 0; // Si son iguales, no se cambia el orden
+      });
+    for (const doc of batches) {
+      const parent = this.phases.find((i) => i._id === doc.childrenOf);
+      if (!parent) continue;
+      this.batches.push({
+        _id: doc._id,
+        name: doc.name,
+      });
+    }
     this.loadedPhases = true;
     this.loadedBatches = true;
     return;
@@ -179,17 +197,11 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
   }
 
   async openPhasesDialog() {
-    this.toast.info({ detail: '', summary: 'Cargando fases...' });
-    await this.getPhasesAndBatches();
-    this.toast.clear();
     this.setSelected(this.rowInteract);
     this.showAddPhases = true;
   }
 
   async openBatchesDialog() {
-    this.toast.info({ detail: '', summary: 'Cargando batch...' });
-    await this.getPhasesAndBatches();
-    this.toast.clear();
     this.setSelected(this.rowInteract);
     this.showAddBatches = true;
   }
@@ -232,7 +244,11 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
           })
           .then((ans) => {
             const indexUser = this.users.findIndex((i) => i._id === ans._id);
-            this.users[indexUser] = new UserAssign(ans);
+            this.users[indexUser] = new UserAssign(
+              ans,
+              this.phases.map((i) => i._id),
+              this.batches.map((i) => i._id)
+            );
             this.users = [...this.users];
             this.toast.clear();
             this.resetDialog();
