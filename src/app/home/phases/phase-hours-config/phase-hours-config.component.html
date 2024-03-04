@@ -17,9 +17,10 @@
             <div class="px-4 pb-4 border-round">
                 <div class="card w-full flex flex-column justify-content-center align-items-center">
                     <p class="font-bold">Horas globales</p>
-                    <p-knob [(ngModel)]="activitiesConfig.limit" [readonly]="true"></p-knob>
+                    <h3 class="global-hours my-1">{{activitiesConfig.limit}}</h3>
+                    <!-- <p-knob [(ngModel)]="activitiesConfig.limit" [readonly]="true"></p-knob> -->
                 </div>
-                <div class="flex flex-wrap gap-3 p-fluid pt-2">
+                <div class="flex flex-wrap gap-3 p-fluid pt-4">
                     <ng-container *ngFor="let item of showActivityConfig">
                         <div class="app-input-field">
                             <label [for]="'config' + item.id" class="font-bold">{{item.activityName}} </label>

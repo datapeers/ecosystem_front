@@ -34,11 +34,11 @@
 
 </div>
 
-<p-dialog appendTo="body" header="" [(visible)]="contactTo" [style]="{ width: '45vw' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
+<p-dialog appendTo="body" header="" [(visible)]="contactTo" [style]="{ width: '55vw' }" [draggable]="false" [resizable]="false" [modal]="true" maskStyleClass="dialog-app" [breakpoints]="{'960px': '85vw', '640px': '100vw'}">
     <div class="w-full flex flex-row gap-3" *ngIf="contactTo">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
-            <h2 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'" [pTooltip]="contactTo['item, nombre']" style="width: 550px;">Contactar a {{contactTo['item, nombre']}}</h2>
+            <h3 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'" [pTooltip]="contactTo['item, nombre']" style="width: 600px;">Contactar a {{contactTo['item, nombre']}}</h3>
             <span></span>
         </div>
     </div>
