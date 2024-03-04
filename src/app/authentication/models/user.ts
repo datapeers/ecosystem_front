@@ -71,7 +71,7 @@ export class User implements IUser {
 
   constructor(data: IUser) {
     Object.assign(this, data);
-    this.passwordSet = data.passwordSet ? true : false;
+    this.passwordSet = data?.passwordSet ? true : false;
   }
 }
 

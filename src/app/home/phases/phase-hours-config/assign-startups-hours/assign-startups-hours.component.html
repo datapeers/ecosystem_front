@@ -1,6 +1,6 @@
 <p-messages [(value)]="flagsActivity" [enableService]="false" [closable]="false"></p-messages>
-<div #tableWrapper class="table-container overflow-hidden">
-    <p-table #dt lass="table-dark w-full" [value]="listStartups" [tableStyle]="{'min-width': '50vw'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
+<div #tableWrapper class="table-container">
+    <p-table #dt class="table-app w-full" [value]="listStartups" [tableStyle]="{'min-width': '50vw'}" dataKey="_id" [filterDelay]="2" [globalFilterFields]="filterFields" [ngStyle]="{ 'height': scrollHeight + 'px'}" [rowHover]="true" scrollDirection="both" [scrollHeight]="scrollHeight" responsiveLayout="scroll">
         <ng-template pTemplate="caption">
             <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
                 <span class="p-input-icon-left">
