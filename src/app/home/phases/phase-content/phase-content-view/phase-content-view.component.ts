@@ -113,7 +113,11 @@ export class PhaseContentViewComponent implements OnInit, OnDestroy {
 
     ref.onClose.subscribe(async (item) => {
       if (item) {
-        await this.loadContent();
+        this.content.resources.push(item);
+        this.displayResources = this.service.convertResourceToNode(
+          this.content.resources,
+          this.content
+        );
         this.toast.clear();
       }
     });

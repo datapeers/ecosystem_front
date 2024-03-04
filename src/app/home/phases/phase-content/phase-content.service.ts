@@ -165,7 +165,7 @@ export class PhaseContentService {
     const mutationRef = this.graphql.refMutation(
       resourceQueries.mutation.createResource,
       { createResourceInput },
-      [this._lastContent],
+      [],
       { auth: true }
     );
     return firstValueFrom(
