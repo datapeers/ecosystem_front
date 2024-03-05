@@ -128,7 +128,13 @@ export class ToolkitComponent implements OnInit, OnDestroy {
       this.profileDoc['startups'][0].phases.map((i) => i._id),
       true
     );
-    this.phasesUser = userPhases.filter((i) => !i.basePhase);
+    this.phasesUser = userPhases
+      .filter((i) => !i.basePhase)
+      .sort((a, b) => {
+        if (a.startAt > b.startAt) return -1;
+        if (a.startAt < b.startAt) return 1;
+        return 0;
+      });
     this.paramSub$ = this.route.queryParamMap.subscribe(async (params) => {
       const batchId = params.get('batch');
       let batch: any = this.phasesUser.find((i) => i._id === batchId);

@@ -46,7 +46,7 @@
         </td>
         <td (click)="onClick(rolRow)">
           <div class="flex flex-row gap-2 align-items-center w-full justify-content-between">
-            <span class="white-space-nowrap">{{rolRow.permissions.length}}</span>
+            <span class="white-space-nowrap">{{rolRow.name === 'Super Admin' ? 63 : rolRow.permissions.length}}</span>
 
           </div>
         </td>

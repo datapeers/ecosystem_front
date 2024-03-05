@@ -31,6 +31,7 @@ import { ToastService } from '@shared/services/toast.service';
 import { LandingComponent } from './public/landing/landing.component';
 import { IconsModule } from './icons/icons.module';
 import { EmailValidatorDirective } from '@shared/pipes/email-validator.directive';
+import { FileSizePipe } from '@shared/pipes/file-size.pipe';
 
 registerLocaleData(localeEs);
 @NgModule({
@@ -41,6 +42,7 @@ registerLocaleData(localeEs);
     ForgotPasswordComponent,
     LandingComponent,
     EmailValidatorDirective,
+    FileSizePipe,
   ],
   imports: [
     BrowserModule,

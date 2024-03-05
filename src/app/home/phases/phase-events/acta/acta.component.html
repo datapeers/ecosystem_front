@@ -75,7 +75,7 @@
                     <td>
                         <div class="flex align-items-center justify-content-center">
                             <fa-icon [icon]="faClock" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="currentExpert=expert; configHoursExpert = true" *ngIf="!actaDoc.closed && !onlyView"></fa-icon>
-                            <fa-icon [icon]="faEye" class="mr-1 cursor-pointer" pTooltip="Fijar Horas" (click)="readOnlyHours = true; currentExpert=expert; configHoursExpert = true" *ngIf="onlyView && !user.isUser"></fa-icon>
+                            <fa-icon [icon]="faEye" class="mr-1 cursor-pointer" pTooltip="Horas fijadas" (click)="readOnlyHours = true; currentExpert=expert; configHoursExpert = true" *ngIf="onlyView && !user.isUser"></fa-icon>
                         </div>
                     </td>
                 </tr>
@@ -88,7 +88,7 @@
         <h3 class="mt-0 mb-1">Evidencias</h3>
     </div>
     <!-- "space_management_add_acta" "add-file" : "Añadir archivo(s)",, -->
-    <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [disabled]="actaDoc.closed || onlyView">
+    <p-fileUpload #fileuploader [auto]="true" [customUpload]="true" chooseLabel="Añadir archivos" [multiple]="true" [maxFileSize]="fileSizeLimit" accept="" name="myfile[]" (uploadHandler)="onUpload($event, fileuploader)" [invalidFileSizeMessageDetail]="invalidFileSizeMessageDetail" [invalidFileSizeMessageSummary]="invalidFileSizeMessageSummary" [disabled]="actaDoc.closed || onlyView">
         <ng-template let-file pTemplate="file">
             <div></div>
         </ng-template>
@@ -104,13 +104,13 @@
 
     <div class="flex flex-row align-items-center justify-content-center gap-2 pt-3">
         <ng-container *ngIf="actaDoc._id; else createButtonActa">
-            <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_edit)"></p-button>
+            <p-button label="Guardar cambios" (onClick)="action('edit')" [disabled]="saving || acta.invalid" *ngIf="!onlyView && !actaDoc.closed && user?.allowed(userPermission.actas_edit)"></p-button>
         </ng-container>
         <ng-template #createButtonActa>
             <p-button label="Crear Acta" (onClick)="action('create')" [disabled]="saving || acta.invalid" *ngIf="!actaDoc.closed && user?.allowed(userPermission.actas_create)"></p-button>
         </ng-template>
 
-        <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!actaDoc.closed && actaDoc._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>
+        <p-button [label]="'Cerrar acta'" [disabled]="saving" *ngIf="!onlyView && !actaDoc.closed && actaDoc._id && user?.allowed(userPermission.actas_close)" (onClick)="closeActa()"></p-button>
         <span *ngIf="actaDoc.closed">Acta cerrada el {{actaDoc.updatedAt | date}}</span>
     </div>
 </div>

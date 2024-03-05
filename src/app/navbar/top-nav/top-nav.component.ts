@@ -234,14 +234,22 @@ export class TopNavComponent {
       this.profileDoc['startups'][0].phases.map((i) => i._id),
       true
     );
-    const basesPhase = userPhases.filter(
+    const phases = userPhases.filter(
       (i) => i.basePhase && !i.stageDoc.isDeleted
     );
-    this.phasesBases = basesPhase.length;
+    this.phasesBases = phases.length;
     this.idsPhasesUser = userPhases
       .filter((i) => !i.basePhase)
       .map((i) => i._id);
-    this.phasesUser = this.idsPhasesUser.length;
+    this.phasesUser = 0;
+    const batches = userPhases.filter((i) => !i.basePhase);
+    const phasesDone = new Set();
+    for (const batch of batches) {
+      if (!phases.find((i) => i._id === batch.childrenOf)) continue;
+      if (phasesDone.has(batch.childrenOf)) continue;
+      phasesDone.add(batch.childrenOf);
+      this.phasesUser++;
+    }
 
     this.currentBatch = await firstValueFrom(
       this.store

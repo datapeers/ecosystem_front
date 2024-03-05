@@ -24,6 +24,7 @@ import { ConfirmationService } from 'primeng/api';
 import { Permission } from '@auth/models/permissions.enum';
 import { FormGroup } from '@angular/forms';
 import { IFileUploadExtended } from '@shared/models/file';
+import { fileSizeMb } from '@shared/functions/file-size';
 
 @Component({
   selector: 'app-acta',
@@ -40,7 +41,11 @@ export class ActaComponent implements OnInit {
 
   // Files
   selectedFiles: IFileUploadExtended[] = [];
-  fileSizeLimit = 1000000;
+  fileSizeLimit = 11000000;
+  invalidFileSizeMessageSummary = '{0}: Tamaño de archivo no válido';
+  invalidFileSizeMessageDetail = `Solo se permiten archivos de un máximo de ${fileSizeMb(
+    this.fileSizeLimit
+  )}.`;
 
   // ? Icons
   faUserTie = faUserTie;
