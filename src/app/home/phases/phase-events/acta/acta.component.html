@@ -12,35 +12,35 @@
     <form [formGroup]="acta" class="flex-grow-1 flex flex-column align-items-start justify-content-start m-2 border-round">
 
         <div class="formgrid grid">
-            <div class="field col-12 app-input-field">
+            <div class="field col-6 app-input-field">
                 <label for="inputtitulo" class="w-full text-center">
                     <b>Nombre de la sesión</b>
                 </label>
                 <input id="inputtitulo" type="text" pInputText formControlName="name" class="inputfield w-full">
             </div>
-            <div class="field col-12 md:col-6 app-input-field">
+            <div class="field col-6 app-input-field">
                 <label for="time" class="w-full text-center">
                     <b>Fecha</b>
                 </label>
                 <p-calendar class="inputfield" [showTime]="true" formControlName="date" [style]="{ width: '100%' }" inputId="time" appendTo="body" [showButtonBar]="true"></p-calendar>
             </div>
-            <div class="field col-12 md:col-6 app-input-field">
+            <div class="field col-12 app-input-field">
                 <label for="ojectiveField" class="w-full text-center">
                     <b>Objetivo</b>
                 </label>
-                <input id="ojectiveField" type="text" pInputText formControlName="objective" class="inputfield w-full">
+                <textarea id="ojectiveField" rows="3" pInputTextarea formControlName="objective" class="inputfield w-full"></textarea>
             </div>
-            <div class="field col-12 md:col-6 app-input-field">
+            <div class="field col-12 app-input-field">
                 <label for="solutionField" class="w-full text-center">
                     <b>Nombre de la solución</b>
                 </label>
-                <input id="solutionField" type="text" pInputText formControlName="solution" class="inputfield w-full">
+                <textarea id="solutionField" rows="3" pInputTextarea formControlName="solution" class="inputfield w-full"></textarea>
             </div>
-            <div class="field col-12 md:col-6 app-input-field">
+            <div class="field col-12 app-input-field">
                 <label for="conclusionField" class="w-full text-center">
                     <b>Conclusiones</b>
                 </label>
-                <input id="conclusionField" type="text" pInputText formControlName="conclusions" class="inputfield w-full">
+                <textarea id="conclusionField" rows="3" pInputTextarea formControlName="conclusions" class="inputfield w-full"></textarea>
             </div>
         </div>
         <div class="flex flex-row align-items-center justify-content-center w-full">

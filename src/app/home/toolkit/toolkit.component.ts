@@ -124,12 +124,14 @@ export class ToolkitComponent implements OnInit, OnDestroy {
         .pipe(first((i) => i !== null))
     );
     this.startup = this.profileDoc.startups[0];
-    const userPhases = await this.phasesService.getPhasesList(
+    const batches = await this.phasesService.getPhasesList(
       this.profileDoc['startups'][0].phases.map((i) => i._id),
       true
     );
-    this.phasesUser = userPhases
+    const phases = batches.filter((i) => i.basePhase && !i.stageDoc.isDeleted);
+    this.phasesUser = batches
       .filter((i) => !i.basePhase)
+      .filter((i) => phases.find((o) => o._id === i.childrenOf))
       .sort((a, b) => {
         if (a.startAt > b.startAt) return -1;
         if (a.startAt < b.startAt) return 1;

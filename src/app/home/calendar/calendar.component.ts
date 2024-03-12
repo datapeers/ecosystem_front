@@ -419,7 +419,6 @@ export class CalendarComponent {
         zoom: event.extra_options?.zoom,
       },
     });
-    console.log(this.events);
   }
 
   viewFiles(evt: ICalendarItem) {

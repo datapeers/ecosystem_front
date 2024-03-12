@@ -308,11 +308,11 @@ export class TopNavComponent {
       );
       const startup = this.profileDoc.startups[0];
       this.startup = await this.startupService.getDocument(startup._id);
-      const currentBatch = await firstValueFrom(
-        this.store
-          .select((store) => store.home.currentBatch)
-          .pipe(first((i) => i !== null))
-      );
+      // const currentBatch = await firstValueFrom(
+      //   this.store
+      //     .select((store) => store.home.currentBatch)
+      //     .pipe(first((i) => i !== null))
+      // );
       const profileInStartup = this.startup.entrepreneurs.find(
         (i) => this.profileDoc._id === i._id
       );
