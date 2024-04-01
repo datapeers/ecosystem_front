@@ -81,6 +81,20 @@ export class PhaseHourConfigService {
     );
   }
 
+  async getReport(batch: string): Promise<any> {
+    const queryRef = this.graphql.refQuery(
+      activitiesConfigQueries.query.activitiesConfigReport,
+      { batch },
+      'cache-first',
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .query(queryRef)
+        .pipe(map((request) => request.data.activitiesConfigReport.url))
+    );
+  }
+
   getHoursForOthers(limit: number, pending: number) {
     let hoursForOthersStartups = Math.round(limit / pending);
     if (hoursForOthersStartups < 1) return 1;

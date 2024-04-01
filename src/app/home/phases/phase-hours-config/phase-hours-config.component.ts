@@ -95,9 +95,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
         .select((store) => store.auth.user)
         .pipe(first((i) => i !== null))
     ).then((u) => (this.user = u));
-    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://ecometabase.vinku.co/public/dashboard/2b8bf28e-a974-4948-80b9-ffff7df43d79'
-    );
   }
 
   ngOnInit() {
@@ -157,6 +154,11 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
       }
       this.loaded = true;
     });
+    if (!this.phase.basePhase) {
+      const url = await this.service.getReport(this.phase._id);
+      console.log(url);
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
   }
 
   setLists() {

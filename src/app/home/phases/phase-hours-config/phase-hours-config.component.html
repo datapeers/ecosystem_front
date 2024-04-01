@@ -40,11 +40,10 @@
             <app-assign-hours class="h-full w-full" [config]="activitiesConfig" [list]="listTeamCoaches" [activitiesConfig]="activitiesTeamCoach" [changes]="changesTeamCoaches" [type]="'teamCoaches'" [columnsHours]="columnsTeamCoachesHours"></app-assign-hours>
         </p-tabPanel>
 
-        <p-tabPanel header="Reporte">
+        <p-tabPanel header="Reporte" *ngIf="phase && !phase?.basePhase && urlSafe">
             <div class="iframe-container">
                 <iframe frameBorder="0" [src]="urlSafe"></iframe>
             </div>
-
         </p-tabPanel>
     </p-tabView>
 

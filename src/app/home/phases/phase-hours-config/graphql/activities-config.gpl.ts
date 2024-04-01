@@ -52,6 +52,13 @@ const query = {
     }
     ${fragments.activitiesPerStartupConfigFields}
   `,
+  activitiesConfigReport: `
+  query ActivitiesConfigReport($batch: String!) {
+      activitiesConfigReport(batch: $batch) {
+        url
+      }
+    }
+  `,
 };
 
 const mutation = {
