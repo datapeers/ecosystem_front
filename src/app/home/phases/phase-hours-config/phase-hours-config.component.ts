@@ -156,7 +156,6 @@ export class PhaseHoursConfigComponent implements OnInit, OnDestroy {
     });
     if (!this.phase.basePhase) {
       const url = await this.service.getReport(this.phase._id);
-      console.log(url);
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
   }

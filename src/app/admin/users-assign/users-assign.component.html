@@ -18,7 +18,7 @@
                 <th *ngFor="let column of columns" [pSortableColumn]="column.field" [pTooltip]="column.tooltip" tooltipPosition="top">
                     <div class="flex flex-row gap-2 align-items-center">
                         <span>{{column.name}}</span>
-                        <p-sortIcon style="min-width: min-content; display: flex;" [field]="column.field"></p-sortIcon>
+                        <p-sortIcon style="display: flex;" [field]="column.field"></p-sortIcon>
                     </div>
                 </th>
                 <th style="width: 3rem"></th>
@@ -37,13 +37,13 @@
                     <span class="white-space-nowrap">{{userRow.rolName}}</span>
                 </td>
                 <td>
-                    <span class="white-space-nowrap">{{userRow.phases}}</span>
+                    <span>{{userRow.phases}}</span>
                 </td>
                 <td>
-                    <span class="white-space-nowrap">{{userRow.batches}}</span>
+                    <span>{{userRow.batches}}</span>
                 </td>
                 <td>
-                    <span class="white-space-nowrap">{{userRow.startups}}</span>
+                    <span>{{userRow.startups}}</span>
                 </td>
                 <ng-container *ngIf="userRow.rolType === validRoles.host; else teamCoachOptions">
                     <td style="width: 3rem" class="frozen-column" (click)="$event.stopPropagation();">

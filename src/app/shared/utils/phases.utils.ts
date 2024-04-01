@@ -1,14 +1,20 @@
 import { Phase } from '@home/phases/model/phase.model';
 
 export function getPhaseAndNumb(cadena: string): [string, string] {
-  const regex = /Fase (\d+)/;
-  const matches = cadena.match(regex);
-  if (matches && matches.length === 2) {
-    const fase = 'Fase';
-    const numero = matches[1];
-    return [fase, numero];
-  } else {
-    return ['Fase', '0']; // No se encontró una coincidencia
+  try {
+    // Modificamos el regex para que sea más flexible
+    const regex = /fase (\d+)|fase (\d+):|\bFase (\d+)/i;
+    const matches = cadena.match(regex);
+    if (matches) {
+      const numero = matches[1] || matches[2] || matches[3] || '0';
+      const fase = numero !== '0' ? 'Fase' : '';
+      return [fase, numero];
+    } else {
+      return ['', '0']; // No se encontró una coincidencia, devolvemos Fase 0
+    }
+  } catch (error) {
+    console.log(error);
+    return ['', ''];
   }
 }
 

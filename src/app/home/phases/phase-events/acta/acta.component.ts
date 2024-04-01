@@ -18,13 +18,13 @@ import {
   faEye,
 } from '@fortawesome/free-solid-svg-icons';
 import { configTinyMce } from '@shared/models/configTinyMce';
-import { cloneDeep } from '@apollo/client/utilities';
 import { User } from '@auth/models/user';
 import { ConfirmationService } from 'primeng/api';
 import { Permission } from '@auth/models/permissions.enum';
 import { FormGroup } from '@angular/forms';
 import { IFileUploadExtended } from '@shared/models/file';
 import { fileSizeMb } from '@shared/functions/file-size';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-acta',
@@ -60,7 +60,6 @@ export class ActaComponent implements OnInit {
   user: User;
   onlyView = false;
   configHoursExpert;
-  readOnlyHours;
   public get userPermission(): typeof Permission {
     return Permission;
   }
@@ -113,10 +112,9 @@ export class ActaComponent implements OnInit {
     }
     for (const iterator of this.event.experts) {
       this.expertsHours[iterator._id] = this.actaDoc?.extra_options.expertHours
-        ? this.actaDoc.extra_options.expertHours[iterator._id]
+        ? cloneDeep(this.actaDoc.extra_options.expertHours[iterator._id])
         : { done: 0, donated: 0 };
     }
-
     if (this.actaDoc.closed || this.onlyView) {
       for (const keyControl of Object.keys(this.acta.value)) {
         this.acta.get(keyControl).disable();

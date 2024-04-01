@@ -1,4 +1,4 @@
-<div class="flex flex-column px-4 py-3 h-full w-full h-full">
+<div class="w-full h-max-router overflow-auto">
     <div class="flex flex-column xl:flex-row gap-4 justify-content-between">
         <div class="flex flex-column px-1 sm:px-4 md:px-8" style="flex: 1">
             <h2>Comunidades</h2>
@@ -25,11 +25,65 @@
         </div>
     </div>
     <p-divider></p-divider>
-    <div class="w-full" id="comunityTable" style="flex: 1" *ngIf="tableContext">
+    <div class="w-full px-4 flex flex-column gap-3" id="comunityTable" style="flex: 1">
 
-        <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)" [allowFullscreen]="false" (onRowClick)="contact($event)">
-        </app-dynamic-table>
+        <!-- <app-dynamic-table [context]="tableContext" [options]="optionsTable" [loading]="loading" [title]="tableTitle" (action)="actionFromTable($event)" [allowFullscreen]="false" (onRowClick)="contact($event)">
+        </app-dynamic-table> -->
+        <div *ngFor="let community of communities_show" class="flex flex-row align-items-center w-full p-2 border-round shadow-2">
+            <ng-container *ngIf="community.thumbnail; else noPic">
+                <img [src]='community.thumbnail' alt="" class="border-round" style="height: 225px; width: 330px; object-fit: contain;">
+            </ng-container>
+            <ng-template #noPic>
+                <img src='/assets/no-image-icon.png' alt="" class="border-round" style="height: 225px; width: 330px; object-fit: contain;">
+            </ng-template>
+            <div class="flex flex-column align-items-center justify-content-start w-full h-full">
+                <span class="w-full text-2xl py-1 font-semibold" style="word-break: break-all;">{{community.item.nombre}}</span>
+                <div class="w-full flex flex-row justify-content-between">
+                    <div class="w-full flex flex-column">
+                        <div class="flex flex-column ">
+                            <span class="text-base my-1" style="max-width:max-content">
+                                {{community.item.descripcion}}
+                            </span>
+                            <span><strong class="text-gray-600 ">{{community.lastPhaseName}} </strong>{{community.lastPhaseNumb}}</span>
+                        </div>
+                        <div class="flex align-items-center w-full my-1">
+                            <span class="text-gray-600 font-semibold">
+                                Sector:
+                            </span>
+                            <span class="text-base ml-2" style="max-width:max-content">
+                                {{community.item.sector}}
+                            </span>
+                        </div>
+                        <div class="flex flex-none flex-column align-items-center justify-content-start w-full">
+                            <div class="flex align-items-center w-full my-1">
+                                <span class="text-gray-600 font-semibold">
+                                    Founder:
+                                </span>
+                                <span class="text-base ml-2" style="max-width:max-content">
+                                    {{community.entrepreneurs[0].item.nombre}}
+                                </span>
+                            </div>
+                            <div class="flex align-items-center w-full my-1">
+                                <i class="pi pi-phone text-gray-600 font-semibold"></i>
+                                <span class="text-base ml-2" style="max-width:max-content">
+                                    {{community.entrepreneurs[0].item.telefono}}
+                                </span>
+                            </div>
 
+                        </div>
+                    </div>
+                    <div class="flex align-items-end justify-content-center p-2">
+                        <div class="flex flex-row justify-content-end align-items-end">
+                            <div class="flex flex-row">
+                                <p-button class="mx-1" type="button" icon="pi pi-inbox" label="" pTooltip="Contactar" tooltipPosition="top" (onClick)="contact(community)">
+                                </p-button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -38,7 +92,7 @@
     <div class="w-full flex flex-row gap-3" *ngIf="contactTo">
         <i-tabler name="heart-handshake" class="icon-dialog"></i-tabler>
         <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
-            <h3 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'" [pTooltip]="contactTo['item, nombre']" style="width: 600px;">Contactar a {{contactTo['item, nombre']}}</h3>
+            <h3 class="overflow-hidden white-space-nowrap text-overflow-ellipsis" [style.color]="'black'" [pTooltip]="contactTo.item.nombre" style="width: 600px;">Contactar a {{contactTo.item.nombre}}</h3>
             <span></span>
         </div>
     </div>

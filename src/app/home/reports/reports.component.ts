@@ -49,7 +49,7 @@ export class ReportsComponent {
       .getReport(report._id)
       .then((ans) => {
         this.toast.clear();
-        this.openPreview(report);
+        this.openPreview(ans);
       })
       .catch((err) =>
         this.toast.error({ detail: err, summary: 'Error al cargar informe' })

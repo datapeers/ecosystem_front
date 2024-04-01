@@ -393,7 +393,7 @@ export class PhaseEventsComponent implements OnInit, OnDestroy {
 
     this.ref.onClose.subscribe((event: Event) => {
       if (event?._id) {
-        console.log('se creo!');
+        // console.log('se creo!');
       }
     });
   }

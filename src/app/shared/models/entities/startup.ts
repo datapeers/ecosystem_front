@@ -5,4 +5,8 @@ export interface Startup extends Document {
   item: any;
   entrepreneurs: { _id: string; item: any; rol: string }[];
   thumbnail?: string;
+  /**
+   * ?Only if its a community request
+   */
+  lastPhase?: any;
 }
