@@ -37,6 +37,7 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
   }
   communities_show: any[];
   communities: any[];
+  currentFilterFieldValue;
   constructor(
     private store: Store<AppState>,
     private readonly toast: ToastService,
@@ -169,5 +170,25 @@ export class CommunitiesComponent implements OnInit, OnDestroy {
     }
     //email     this.toContact = row['entrepreneurs; item, email'][0];
     // await this.service.contact(this.bodyContact,. this.subjectContact, this.to)
+  }
+
+  filterResults() {
+    if (!this.currentFilterFieldValue) {
+      this.communities_show = this.communities;
+      return;
+    }
+
+    this.communities_show = this.communities.filter(
+      (community) =>
+        community?.item?.nombre
+          ?.toLowerCase()
+          .includes(this.currentFilterFieldValue.toLowerCase()) ||
+        community?.item?.sector
+          ?.toLowerCase()
+          .includes(this.currentFilterFieldValue.toLowerCase()) ||
+        community?.item?.telefono
+          ?.toLowerCase()
+          .includes(this.currentFilterFieldValue.toLowerCase())
+    );
   }
 }
