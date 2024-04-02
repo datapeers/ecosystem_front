@@ -190,7 +190,17 @@ export class InitComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     const basesPhase = userPhases.filter((i) => i.basePhase);
     this.phasesBases = basesPhase.length;
-    this.phasesUser = userPhases.filter((i) => !i.basePhase).length;
+    this.phasesUser = 0;
+
+    const batches = userPhases.filter((i) => !i.basePhase);
+    const phasesDone = new Set();
+    for (const batch of batches) {
+      if (!basesPhase.find((i) => i._id === batch.childrenOf)) continue;
+      if (phasesDone.has(batch.childrenOf)) continue;
+      phasesDone.add(batch.childrenOf);
+      this.phasesUser++;
+    }
+
     this.currentBatch = await firstValueFrom(
       this.store
         .select((store) => store.home.currentBatch)
