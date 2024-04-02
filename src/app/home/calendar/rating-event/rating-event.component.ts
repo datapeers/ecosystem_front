@@ -57,10 +57,12 @@ export class RatingEventComponent implements OnInit {
 
   async ratingChange() {
     this.saving = true;
+    this.toast.clear();
     await this.eventService.updateParticipation(this.participation._id, {
       ...this.participation.metadata,
       rating: this.rating,
     });
+    this.toast.info({ detail: '', summary: 'Evento calificado' });
     this.saving = false;
   }
 

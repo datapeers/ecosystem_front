@@ -41,6 +41,7 @@ import { Table } from 'primeng/table';
 import { ShepherdService } from 'angular-shepherd';
 import { PhaseHourConfigService } from '../phases/phase-hours-config/phase-hour-config.service';
 import { calendarOnboarding } from '@shared/onboarding/onboarding.config';
+import { IParticipationEvent } from '@home/phases/phase-events/models/participation.model';
 
 @Component({
   selector: 'app-calendar',
@@ -92,7 +93,7 @@ export class CalendarComponent {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
-    eventClick: ({ el, event, jsEvent, view }) => {
+    eventClick: async ({ el, event, jsEvent, view }) => {
       this.eventShow = {
         id: event.extendedProps['id'],
         title: event.extendedProps['title'],
@@ -100,6 +101,7 @@ export class CalendarComponent {
         end: event.extendedProps['end'],
         extendedProps: event.extendedProps,
       };
+      await this.loadRating();
       this.openEventDialog = true;
     },
     eventDidMount: ({ event, el }) => {
@@ -166,6 +168,10 @@ export class CalendarComponent {
   globalFilter = [];
   eventShow;
   scrollHeight;
+  loadingRating = false;
+  participation: IParticipationEvent;
+  rating = 0;
+  savingRating = false;
   constructor(
     private store: Store<AppState>,
     private toast: ToastService,
@@ -392,6 +398,11 @@ export class CalendarComponent {
         });
         this.typesEvents = [];
       });
+    this.profileDoc = await firstValueFrom(
+      this.store
+        .select((store) => store.auth.profileDoc)
+        .pipe(first((i) => i !== null))
+    );
   }
 
   assignItem(event: Event) {
@@ -516,11 +527,6 @@ export class CalendarComponent {
 
   async showRating(eventCalendar: ICalendarItem) {
     const event = this.originalEvents.find((i) => i._id === eventCalendar.id);
-    this.profileDoc = await firstValueFrom(
-      this.store
-        .select((store) => store.auth.profileDoc)
-        .pipe(first((i) => i !== null))
-    );
     this.startup = this.profileDoc.startups[0];
 
     let res = '50%';
@@ -571,5 +577,35 @@ export class CalendarComponent {
     //   return;
     // }
     window.open(event.extendedProps.zoom.join_url);
+  }
+
+  async loadRating() {
+    this.loadingRating = false;
+    this.participation = await this.eventService.getParticipation(
+      this.eventShow.id,
+      this.profileDoc._id
+    );
+    // if (!this.participation) {
+    //   this.toast.alert({
+    //     summary: 'No participaste en el evento',
+    //     detail: 'No puedes calificar el evento, debido a que no participaste',
+    //     life: 12000,
+    //   });
+    //   this.close();
+    //   return;
+    // }
+    // this.rating = this.participation.metadata?.rating;
+    this.rating = this.participation ? this.participation.metadata?.rating : 0;
+    this.loadingRating = this.participation ? true : false;
+  }
+
+  async ratingChange() {
+    this.savingRating = true;
+    await this.eventService.updateParticipation(this.participation._id, {
+      ...this.participation.metadata,
+      rating: this.rating,
+    });
+    this.toast.info({ detail: '', summary: 'Evento calificado' });
+    this.savingRating = false;
   }
 }
