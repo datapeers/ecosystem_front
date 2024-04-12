@@ -14,11 +14,11 @@
                     <div class="flex flex-column">
 
                         <div class="flex flex-row justify-content-between">
-                            <ng-container *ngIf="leaderStartup._id === profileDoc._id; else avatarTemplateSimple">
+                            <ng-container *ngIf="leaderStartup?._id === profileDoc?._id; else avatarTemplateSimple">
                                 <app-avatar-uploader id="avatarChange" styleClass="w-10rem h-10rem" shape="circle" [imageUrl]="returnUrlThumbnail()" (onUpload)="uploadImage($event)" [disableRemove]="true"></app-avatar-uploader>
                             </ng-container>
                             <ng-template #avatarTemplateSimple>
-                                <ng-container *ngIf="startup.thumbnail && startup.thumbnail !== '' else noChangeThubnail">
+                                <ng-container *ngIf="startup?.thumbnail && startup?.thumbnail !== '' else noChangeThubnail">
                                     <p-avatar styleClass="w-10rem h-10rem" [image]="startup.thumbnail" shape="circle" class="startup-thumbnail">
                                     </p-avatar>
                                 </ng-container>
@@ -26,12 +26,12 @@
                                     <i-tabler name="fence" class="startup-thumbnail"></i-tabler>
                                 </ng-template>
                             </ng-template>
-                            <i-tabler id="editInfoStartup" name="edit" class="edit-btn cursor-pointer" pTooltip="Editar datos de startUp" (click)="editStartup()" *ngIf="leaderStartup._id === profileDoc._id"></i-tabler>
+                            <i-tabler id="editInfoStartup" name="edit" class="edit-btn cursor-pointer" pTooltip="Editar datos de startUp" (click)="editStartup()" *ngIf="leaderStartup?._id === profileDoc?._id"></i-tabler>
                         </div>
 
                         <div class="h-3rem"></div>
                         <div class="flex flex-row align-items-center gap-2">
-                            <i-tabler *ngIf="leaderStartup._id === profileDoc._id" name="" class="text-center" name="bulb" style="color:#18E4E6; cursor:pointer;" (click)="launchTour()"></i-tabler>
+                            <i-tabler *ngIf="leaderStartup?._id === profileDoc?._id" name="" class="text-center" name="bulb" style="color:#18E4E6; cursor:pointer;" (click)="launchTour()"></i-tabler>
                             <h2>{{startup.item['nombre']}}</h2>
                         </div>
 
@@ -41,8 +41,8 @@
                     <div class="flex flex-column gap-2">
                         <span class="text-xs">Responsable</span>
                         <div class="flex flex-row align-items-center">
-                            <p-avatar [label]="leaderStartup.item['nombre'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                            <p>{{leaderStartup.item['nombre']}}</p>
+                            <p-avatar [label]="leaderStartup?.item['nombre'][0]" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                            <p>{{leaderStartup?.item['nombre']}}</p>
                         </div>
 
                     </div>
@@ -82,7 +82,7 @@
                     <span class="header color-custom ml-3">Equipo</span>
                     <div class="flex flex-wrap justify-content-center" style="gap:0.5rem;">
                     </div>
-                    <i-tabler name="user-plus" pTooltip="Invitar" tooltipPosition="left" class="edit-btn cursor-pointer" (click)="inviteDialog()" *ngIf="canInvite && leaderStartup._id === profileDoc._id"></i-tabler>
+                    <i-tabler name="user-plus" pTooltip="Invitar" tooltipPosition="left" class="edit-btn cursor-pointer" (click)="inviteDialog()" *ngIf="canInvite && leaderStartup?._id === profileDoc._id"></i-tabler>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -99,7 +99,7 @@
                     <td class="text-center">{{rolStartupsNames[entrepreneur['rol']]}}</td>
                     <td class="text-center">{{entrepreneur['description']}}</td>
                     <td class="text-center">
-                        <i-tabler *ngIf="leaderStartup._id === profileDoc._id" name="" name="edit" class="edit-btn cursor-pointer" (click)="editDataEntrepreneur(entrepreneur)" id="functionsStartup"></i-tabler>
+                        <i-tabler *ngIf="leaderStartup?._id === profileDoc._id" name="" name="edit" class="edit-btn cursor-pointer" (click)="editDataEntrepreneur(entrepreneur)" id="functionsStartup"></i-tabler>
                     </td>
                 </tr>
             </ng-template>

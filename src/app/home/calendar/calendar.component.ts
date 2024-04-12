@@ -585,16 +585,6 @@ export class CalendarComponent {
       this.eventShow.id,
       this.profileDoc._id
     );
-    // if (!this.participation) {
-    //   this.toast.alert({
-    //     summary: 'No participaste en el evento',
-    //     detail: 'No puedes calificar el evento, debido a que no participaste',
-    //     life: 12000,
-    //   });
-    //   this.close();
-    //   return;
-    // }
-    // this.rating = this.participation.metadata?.rating;
     this.rating = this.participation ? this.participation.metadata?.rating : 0;
     this.loadingRating = this.participation ? true : false;
   }

@@ -1,7 +1,7 @@
 <div class="h-full overflow-auto pt-3">
     <ng-container *ngIf="loaded; else loadingTemplates">
         <div class="container-component px-0 md:px-4 py-2 gap-4">
-            <div class="hidden md:flex normal-panel navigation-panel py-5">
+            <div class="hidden md:flex normal-panel navigation-panel py-5" style="min-height: 700px;">
                 <ng-container [ngTemplateOutlet]="navContent">
                 </ng-container>
             </div>

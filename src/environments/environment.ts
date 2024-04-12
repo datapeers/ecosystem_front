@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   bucketS3: 'ecosystem-bt-content',
-  api: 'http://localhost:3000',
-  graphQL: 'http://localhost:3000/graphql',
-  graphqlSubscription: 'ws://localhost:3000/subscriptions',
-  // api: 'https://vinku.net/back',
-  // graphQL: 'https://vinku.net/back/graphql',
-  // graphqlSubscription: 'wss://vinku.net/backsub/subscriptions',
+  // api: 'http://localhost:3000',
+  // graphQL: 'http://localhost:3000/graphql',
+  // graphqlSubscription: 'ws://localhost:3000/subscriptions',
+  api: 'https://backend.startupfactory.com.co/api',
+  graphQL: 'https://backend.startupfactory.com.co/api/graphql',
+  graphqlSubscription: 'wss://backend.startupfactory.com.co/sub/subscriptions',
   forms: 'https://main.d2h6zim9hprrte.amplifyapp.com/',
   firebase: {
     projectId: 'ecosystem-dev-f4893',
