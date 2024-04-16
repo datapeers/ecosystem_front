@@ -147,6 +147,9 @@ export function newEvent(
         validators: [Validators.required],
       }
     ),
+    url: new FormControl<string>(previous?.extra_options.url ?? '', {
+      validators: [],
+    }),
   });
 }
 

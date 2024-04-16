@@ -128,7 +128,6 @@ export class EventCreatorComponent implements OnInit {
   async loadComponent() {
     this.loaded = false;
     this.setMainVars();
-
     // ? vars mandatory for component
     if (!this.batch) this.close();
     if (this.typeEvents.length === 0) this.close();
@@ -428,13 +427,19 @@ export class EventCreatorComponent implements OnInit {
     await this.uploadFiles();
     this.toast.info({ detail: '', summary: GeneralConstant.saving });
     const updatedItems = this.event.value;
+    const url = updatedItems.url ?? undefined;
     delete updatedItems['type'];
     delete updatedItems['attendanceType'];
     delete updatedItems['batch'];
+    delete updatedItems['url'];
     this.service
       .updateEvent({
         ...updatedItems,
-        extra_options: { ...this.extra_options, editedDates: this.editedDates },
+        extra_options: {
+          ...this.extra_options,
+          editedDates: this.editedDates,
+          url,
+        },
         batch: this.batch._id,
         experts: this.experts,
         teamCoaches: this.teamCoaches,
@@ -467,10 +472,13 @@ export class EventCreatorComponent implements OnInit {
     }
     this.toast.clear();
     this.toast.info({ detail: '', summary: GeneralConstant.saving });
+    const updatedItems = this.event.value;
+    const url = updatedItems.url ?? undefined;
+    delete updatedItems['url'];
     this.service
       .createEvent({
-        ...this.event.value,
-        extra_options: this.extra_options,
+        ...updatedItems,
+        extra_options: { ...this.extra_options, url },
         batch: this.batch._id,
         experts: this.experts,
         teamCoaches: this.teamCoaches,

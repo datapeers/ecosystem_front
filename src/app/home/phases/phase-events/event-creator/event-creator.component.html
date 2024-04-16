@@ -18,10 +18,10 @@
                 <label for="assistantType">{{phaseEventsConstant.typesAssistant}}</label>
                 <p-selectButton inputId="assistantType" [options]="stateOptionsAssistant" formControlName="attendanceType" class="inputfield mt-2"></p-selectButton>
             </div>
-            <div class="field" *ngIf="event.value.attendanceType === attendanceTypes.virtual" style="flex: 1">
+            <div class="field" *ngIf="event.get('attendanceType').value === attendanceTypes.virtual" style="flex: 1">
                 <span class="app-input-field" style="width: 100%">
                     <label for="url">{{generalConstant.url}}</label>
-                    <input pInputText type="text" [(ngModel)]="extra_options['url']" placeholder="Url" [readOnly]="editingEvent" required>
+                    <input pInputText type="text" formControlName="url" placeholder="Url" required>
                 </span>
             </div>
         </div>

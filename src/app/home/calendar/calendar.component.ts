@@ -102,6 +102,7 @@ export class CalendarComponent {
         extendedProps: event.extendedProps,
       };
       await this.loadRating();
+      console.log(this.eventShow);
       this.openEventDialog = true;
     },
     eventDidMount: ({ event, el }) => {
@@ -428,6 +429,7 @@ export class CalendarComponent {
         acta: this.actas.find((i) => i.event === event._id),
         files: event.extra_options?.files,
         zoom: event.extra_options?.zoom,
+        url: event.extra_options?.url,
       },
     });
   }
@@ -583,10 +585,12 @@ export class CalendarComponent {
 
   async loadRating() {
     this.loadingRating = false;
-    this.participation = await this.eventService.getParticipation(
-      this.eventShow.id,
-      this.profileDoc._id
-    );
+    this.participation = this.profileDoc
+      ? await this.eventService.getParticipation(
+          this.eventShow.id,
+          this.profileDoc._id
+        )
+      : null;
     this.rating = this.participation ? this.participation.metadata?.rating : 0;
     this.loadingRating = this.participation ? true : false;
   }

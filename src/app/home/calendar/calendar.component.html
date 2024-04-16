@@ -1,11 +1,11 @@
 <div class="w-full h-max-router overflow-auto">
     <div class="flex flex-column xl:flex-row gap-4">
-        <div class="fex flex-column flex-grown-1 px-2 lg:px-8">
+        <div class="fex flex-column flex-grown-1 px-2 lg:px-4">
             <h2 class="text-center md:text-left">Agenda</h2>
             <div style="height: 1.5rem"></div>
             <div class="flex flex-column md:flex-row w-full justify-content-between mb-3 gap-3 ">
                 <div class="flex flex-row align-items-center w-9 gap-3">
-                    <i-tabler id="bulb-calendar" class="text-center cursor-pointer" (click)="launchTour()" name="bulb" style="color:#18E4E6; height:4rem; width:4rem;"></i-tabler>
+                    <i-tabler id="bulb-calendar" class="text-center cursor-pointer" (click)="launchTour()" name="bulb" style="color:#18E4E6; height:2rem; width:2rem;"></i-tabler>
                     <p *ngIf="user?.isUser" class="th2">En este lugar encuentras tu agenda de actividades en Ecosystem,
                         desde acá puedes
                         solicitar un agendamiento específico con nuestro grupo de acompañamiento en las siguientes áreas
@@ -193,22 +193,30 @@
         </div>
     </p-dialog>
 
-    <p-dialog appendTo="body" [(visible)]="openEventDialog" [dismissableMask]="true" [style]="{width: '50vw'}" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" maskStyleClass="dialog-app" [modal]="true">
+    <p-dialog appendTo="body" [(visible)]="openEventDialog" [dismissableMask]="true" [style]="{width: '60vw'}" [breakpoints]="{'960px': '85vw', '640px': '100vw'}" maskStyleClass="dialog-app" [modal]="true">
         <div class="flex flex-column w-full" *ngIf="eventShow">
             <div class="w-full flex flex-row gap-3">
                 <i-tabler name="calendar-bolt" class="icon-dialog"></i-tabler>
                 <div class="content-resource w-full flex flex-column justify-content-between pb-2 pr-4">
                     <h2 class="overflow-hidden text-xl lg:text-3xl white-space-nowrap text-overflow-ellipsis" [style.color]="'black'">
                         {{eventShow.title}}</h2>
+                    <div class="flex gap-2">
+                        <p class="font-medium">Tipo:</p>
+                        <p class="font-light">{{eventShow.extendedProps.type}}</p>
+                    </div>
                     <ng-container *ngIf="todayAfter(eventShow.end) && user.isUser && loadingRating">
                         <p-rating class="custom-rate" [(ngModel)]="rating" (onRate)="ratingChange()" [cancel]="false" [disabled]="savingRating"></p-rating>
                     </ng-container>
+
                     <p>{{eventShow.start | date: 'yyyy/MM/dd, h:mm a'}} - {{eventShow.end | date: 'h:mm a'}} </p>
                 </div>
             </div>
             <p-divider></p-divider>
-            <div style="height: 1.5rem;"></div>
+            <div style="height: 1rem;"></div>
             <span class="flex flex-column lg:flex-row justify-content-center align-items-center gap-2 p-3">
+                <ng-container *ngIf="eventShow.extendedProps.url">
+                    <a class="flex gap-1" [href]="eventShow.extendedProps.url" target="_blank"> <i class="pi pi-link" style="color: #708090"> </i>Link de conexión</a>.
+                </ng-container>
                 <ng-container *ngIf="eventShow.extendedProps.acta && (user?.allowed(userPermission.actas_view) || user.isUser);">
                     <p-button (onClick)="showActa(eventShow)" pTooltip="Ver acta" tooltipPosition="top" icon="pi pi-file" styleClass="p-button-text" label="Ver acta"></p-button>
                 </ng-container>
