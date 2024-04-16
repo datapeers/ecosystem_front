@@ -59,7 +59,7 @@ export class UsersPanelComponent implements OnInit {
     private service: AdminService,
     public dialogService: DialogService
   ) {
-    this.scrollHeight = `${innerHeight - 406}px`;
+    this.scrollHeight = `${innerHeight - 306}px`;
     this.menuUser = [
       {
         label: 'Editar permisos',
@@ -85,7 +85,7 @@ export class UsersPanelComponent implements OnInit {
     let resizeTimeout;
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      this.scrollHeight = `${innerHeight - 446}px`;
+      this.scrollHeight = `${innerHeight - 306}px`;
     }, 250);
   }
 

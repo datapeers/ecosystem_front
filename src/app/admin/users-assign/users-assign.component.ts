@@ -67,7 +67,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
     public dialogService: DialogService,
     private confirmationService: ConfirmationService
   ) {
-    this.scrollHeight = `${innerHeight - 446}px`;
+    this.scrollHeight = `${innerHeight - 300}px`;
     this.rowMenuItemsHost = [
       {
         label: 'Asignar Fase',
@@ -116,7 +116,7 @@ export class UsersAssignComponent implements OnInit, OnDestroy {
     let resizeTimeout;
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      this.scrollHeight = `${innerHeight - 446}px`;
+      this.scrollHeight = `${innerHeight - 300}px`;
     }, 250);
   }
 

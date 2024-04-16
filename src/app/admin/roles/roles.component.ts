@@ -37,7 +37,7 @@ export class RolesComponent implements OnInit, OnDestroy {
     private readonly adminService: AdminService,
     public dialogService: DialogService
   ) {
-    this.scrollHeight = `${innerHeight - 446}px`;
+    this.scrollHeight = `${innerHeight - 300}px`;
   }
 
   ngOnInit() {
@@ -53,7 +53,7 @@ export class RolesComponent implements OnInit, OnDestroy {
     let resizeTimeout;
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      this.scrollHeight = `${innerHeight - 446}px`;
+      this.scrollHeight = `${innerHeight - 300}px`;
     }, 250);
   }
 
