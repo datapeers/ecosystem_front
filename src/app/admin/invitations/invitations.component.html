@@ -87,11 +87,11 @@
 
       <div class="field app-input-field col-12">
         <label for="email">Email</label>
-        <input pInputText formControlName="email" type="email" class="appearance-none outline-none w-full" [ngClass]="{'ng-invalid ng-dirty': formInvitation.get('email').invalid && formInvitation.get('email').touched}">
+        <input pInputText formControlName="email" type="email" class="appearance-none outline-none w-full" [ngClass]="{'ng-invalid ng-dirty': formInvitation.get('email').invalid && formInvitation.get('email').touched}" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
         <div *ngIf="(primEmail.invalid && primEmail.touched) || primEmail.dirty">
           <small *ngIf="primEmail?.errors?.['required']" class="text-danger">Email es necesario</small>
           <!--question mark(?) is a safe navigation operator-->
-          <small *ngIf="primEmail?.errors?.['email']" class="text-danger">Email invalido</small>
+          <small *ngIf="primEmail?.errors" class="text-danger">Email invalido</small>
         </div>
       </div>
       <div class="field app-input-field col-12">

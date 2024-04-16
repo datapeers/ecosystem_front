@@ -485,6 +485,7 @@ export class CalendarComponent {
         .select((store) => store.home.currentBatch)
         .pipe(first((i) => i !== null))
     );
+    console.log(batch);
     this.startup = this.profileDoc.startups[0];
 
     const hours = await firstValueFrom(
@@ -493,6 +494,7 @@ export class CalendarComponent {
         this.startup._id
       )
     );
+    console.log(hours);
     this.typesEventsWithHours = this.typesEvents.map((e) => ({
       ...e,
       target: hours.hours[e._id.toString()]?.target ?? 0,
