@@ -435,7 +435,14 @@ export class DynamicTableComponent {
           },
         ],
       };
-      this.actionsMenu.push(filterAction);
+      this.actionsMenu.push(filterAction, {
+        label: 'Reiniciar configuración',
+        icon: 'pi pi-sync',
+        visible: !!this.config._id,
+        command: () => {
+          this.deleteTableConfig(this.config._id);
+        },
+      });
     }
 
     if (this.documentProvider.deleteDocuments) {
