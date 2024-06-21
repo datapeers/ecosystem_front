@@ -8,22 +8,16 @@ import { UpdateResultPayload } from '@shared/models/graphql/update-result-payloa
 import { TableJoin } from './models/table-join';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DynamicTableService {
-  constructor(
-    private readonly graphql: GraphqlService,
-  ) {}
+  constructor(private readonly graphql: GraphqlService) {}
 
   cachedQueries = {
-    tables: {
-      
-    },
-    tableConfigs: {
+    tables: {},
+    tableConfigs: {},
+  };
 
-    },
-  }
-  
   // Queries
   getTable(locator: string): Observable<DynamicTable> {
     const queryRef = this.graphql.refQuery(
@@ -33,13 +27,11 @@ export class DynamicTableService {
       { auth: true }
     );
     this.cachedQueries.tables[locator] = queryRef;
-    return this.graphql
-      .watch_query(queryRef).valueChanges
-      .pipe(
-        map((request) => request.data.table),
-        map((table) => DynamicTable.fromJson(table)),
-        catchError(err => of(null))
-      );
+    return this.graphql.watch_query(queryRef).valueChanges.pipe(
+      map((request) => request.data.table),
+      map((table) => DynamicTable.fromJson(table)),
+      catchError((err) => of(null))
+    );
   }
 
   async refetchTable(locator: string) {
@@ -54,9 +46,8 @@ export class DynamicTableService {
       'cache-first',
       { auth: true }
     );
-    return firstValueFrom(this.graphql
-      .query(queryRef)
-      .pipe(
+    return firstValueFrom(
+      this.graphql.query(queryRef).pipe(
         map((request) => request.data.tableConfig),
         map((config) => TableConfig.fromJson(config))
       )
@@ -71,12 +62,10 @@ export class DynamicTableService {
       { auth: true }
     );
     this.cachedQueries.tableConfigs[table] = queryRef;
-    return this.graphql
-      .watch_query(queryRef).valueChanges
-      .pipe(
-        map((request) => request.data.tableConfigs),
-        map((configs) => configs.map(config => TableConfig.fromJson(config)))
-      );
+    return this.graphql.watch_query(queryRef).valueChanges.pipe(
+      map((request) => request.data.tableConfigs),
+      map((configs) => configs.map((config) => TableConfig.fromJson(config)))
+    );
   }
 
   // Mutations
@@ -109,8 +98,12 @@ export class DynamicTableService {
       )
     );
   }
-  
-  async updateTableConfig(tableId: string, id: string, data: Partial<ITableConfig>): Promise<TableConfig> {
+
+  async updateTableConfig(
+    tableId: string,
+    id: string,
+    data: Partial<ITableConfig>
+  ): Promise<TableConfig> {
     data._id = id;
     const mutationRef = this.graphql.refMutation(
       tableQueries.mutation.updateTableConfig,
@@ -126,7 +119,11 @@ export class DynamicTableService {
     );
   }
 
-  async addTableJoin(id: string, join: TableJoin, locator: string): Promise<DynamicTable> {
+  async addTableJoin(
+    id: string,
+    join: TableJoin,
+    locator: string
+  ): Promise<DynamicTable> {
     const mutationRef = this.graphql.refMutation(
       tableQueries.mutation.addTableJoin,
       { addTableJoinInput: { id, join } },
@@ -141,7 +138,11 @@ export class DynamicTableService {
     );
   }
 
-  async removeTableJoin(id: string, key: string, locator: string): Promise<DynamicTable> {
+  async removeTableJoin(
+    id: string,
+    key: string,
+    locator: string
+  ): Promise<DynamicTable> {
     const mutationRef = this.graphql.refMutation(
       tableQueries.mutation.removeTableJoin,
       { removeTableJoinInput: { id, key } },
@@ -156,7 +157,10 @@ export class DynamicTableService {
     );
   }
 
-  async deleteTableConfig(tableId: string, id: string): Promise<UpdateResultPayload> {
+  async deleteTableConfig(
+    tableId: string,
+    id: string
+  ): Promise<UpdateResultPayload> {
     const mutationRef = this.graphql.refMutation(
       tableQueries.mutation.deleteTableConfig,
       { id },
@@ -164,9 +168,23 @@ export class DynamicTableService {
       { auth: true }
     );
     return firstValueFrom(
-      this.graphql.mutation(mutationRef).pipe(
-        map((request) => request.data.deleteTableConfig),
-      )
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.deleteTableConfig))
+    );
+  }
+
+  async deleteTable(id: string): Promise<UpdateResultPayload> {
+    const mutationRef = this.graphql.refMutation(
+      tableQueries.mutation.deleteTable,
+      { id },
+      [],
+      { auth: true }
+    );
+    return firstValueFrom(
+      this.graphql
+        .mutation(mutationRef)
+        .pipe(map((request) => request.data.deleteTable))
     );
   }
 }

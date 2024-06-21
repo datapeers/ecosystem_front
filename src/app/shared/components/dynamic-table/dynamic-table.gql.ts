@@ -1,4 +1,4 @@
-import { updateResultPayloadFields } from "@shared/models/graphql/update-result-payload";
+import { updateResultPayloadFields } from '@shared/models/graphql/update-result-payload';
 
 const fragments = {
   tableFields: `
@@ -105,11 +105,19 @@ const mutation = {
     }
     ${updateResultPayloadFields}
   `,
+  deleteTable: `
+    mutation DeleteTable($id: String!) {
+      deleteTable(id: $id) {
+        ...updateResultPayloadFields
+      }
+    }
+    ${updateResultPayloadFields}
+  `,
 };
 
 const tableQueries = {
   query,
   mutation,
-}
+};
 
 export default tableQueries;

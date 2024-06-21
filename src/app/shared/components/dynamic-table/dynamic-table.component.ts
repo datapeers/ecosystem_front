@@ -438,9 +438,8 @@ export class DynamicTableComponent {
       this.actionsMenu.push(filterAction, {
         label: 'Reiniciar configuración',
         icon: 'pi pi-sync',
-        visible: !!this.config._id,
         command: () => {
-          this.deleteTableConfig(this.config._id);
+          this.deleteTable(this.entity._id);
         },
       });
     }
@@ -670,6 +669,12 @@ export class DynamicTableComponent {
   async deleteTableConfig(configId: string) {
     if (!configId) return;
     await this.service.deleteTableConfig(this.entity._id, configId);
+  }
+
+  async deleteTable(tableId: string) {
+    if (!tableId) return;
+    await this.service.deleteTable(tableId);
+    window.location.reload();
   }
 
   openConfigDialog() {
